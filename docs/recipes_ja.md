@@ -151,12 +151,12 @@
 
 ### tolaserblade-client.toml
 
-クライアント側限定の設定ファイル。クライアント側のみで使用される。
-  <!-- - ゲーム内のmodオプション設定GUIでも変更可能 -->
+クライアント側のみで使用される設定ファイル。
 
 - enableLaserBlade3DModel
   - 真偽値、デフォルトは`true`
-  - レーザーブレイドの描画に、`true`のときは3D（OBJ）モデルを使用し、`false`のときは2D（JSON）モデルを使用する
+  - レーザーブレイドの描画に3Dモデルを使用するか
+  - `true`：3D（OBJ）モデルを使用。`false`：2D（JSON）モデルを使用
 - laserBladeRenderingMode
   - 整数値 0～1、デフォルトは`0`
   - レーザーブレイドの刃の描画モードを選択する
