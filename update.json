@@ -1,9 +1,10 @@
 {
-	"homepage": "https://minecraft.curseforge.com/projects/tolaserblade/files",
+	"homepage": "https://minecraft.curseforge.com/projects/tolaserblade",
 	"promos": {
-		"1.13.2-latest": "1.13.2-2.0.1.0",
-		"1.13.2-recommended": "1.13.2-2.0.1.0",
-		"1.12.2-latest": "1.12.2-1.6.0.0",
-		"1.12.2-recommended": "1.12.2-1.6.0.0"
+		"1.14.2-latest": "1.14.2-2.0.2.1",
+		"1.13.2-latest": "1.13.2-2.0.2.0",
+		"1.13.2-recommended": "1.13.2-2.0.2.0",
+		"1.12.2-latest": "1.12.2-1.6.1.0",
+		"1.12.2-recommended": "1.12.2-1.6.1.0"
 	}
 }
