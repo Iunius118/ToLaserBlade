@@ -1,0 +1,156 @@
+ToLaserBlade
+Changelog
+
+v1.14.4-2.0.4.3
+
+    Port to Forge 1.14.4-28.0.75
+    Fix strange behavior with placing blocks
+
+v1.14.4-2.0.4.2
+
+    Fix NullPointerException on ColorHandler registration
+
+v1.14.4-2.0.4.1
+
+    Compatible with OptiFine
+
+v1.14.4-2.0.4.0
+
+    Port to Forge 1.14.4-28.0.45
+    Sync settings when server-side config file is changed
+
+v1.14.4-2.0.3.2
+
+    Fix NullPointerException on ColorHandler registration
+
+v1.14.4-2.0.3.1
+
+    Port to 1.14.4 on Forge
+    Fix LaserBlade's particle texture
+
+v1.14.3-2.0.3.0
+
+    Port to 1.14.3 on Forge
+
+v1.14.2-2.0.3.0
+
+    Add simplified Chinese (zh_cn) translation (XuyuEre)
+    Add changelog.txt (this file)
+
+v1.14.2-2.0.2.3
+
+    Port to Forge 1.14.2-26.0.55
+
+v1.14.2-2.0.2.2
+
+    Update Forge version to 1.14.2-26.0.41
+    Restore Laser Blade's model and renderer
+
+v1.14.2-2.0.2.1
+
+    Modify Laser B1ade to place redstone torch by sneak-right-clicking
+
+v1.14.2-2.0.1.1
+
+    Initial port to 1.14.2 on Forge
+    Laser Blade's model and renderer are not implemented yet
+
+v1.13.2-2.0.1.0
+
+    Make mining speed of Laser Blade configurable in config/tolaserblade-common.toml
+    Add a new recipe type "tolaserblade:crafting_laser_blade_custom" to customize Laser Blade recipe with data pack
+
+v1.13.2-2.0.0.1
+
+    Fix duplicate Laser Blade Core with Item Frame
+    Fix dropping Laser Blade Core from destroyed Laser Blade by blocking
+    Fix language files
+
+v1.13.2-2.0.0.0
+
+    Bump version to 2.0.0.0 to distinguish version 1.5+ from version 1.4.x or earlier
+    Add new Laser Blade upgrade to increase attack damage to 15
+    Update advancements
+    Add new rendering mode to Laser Blade. This mode will be enabled by setting laserBladeRenderingMode to 1 in config/tolaserblade-client.toml
+    Fix entity ghost of Laser Blade Core from destroyed Laser Blade
+
+v1.13.2-1.5.1.0
+
+    Add advancements
+    When extracting Laser Blade Core from Laser Blade, the durability of the Iron Axe will be consumed
+    Fix to drop Laser Blade Core when Laser Blade broke by attacking entities
+    Fix upgrading Laser Blade Core
+
+v1.13.2-1.5.0.2
+
+    Fix combining Laser Blades not to be repair by Core
+    [If blocking enabled] Laser Blade is damaged when blocking enemy attack
+
+v1.13.2-1.5.0.1
+
+    Fix repair cost of Laser Blade
+
+v1.13.2-1.5.0.0
+
+    Add durability to Laser Blade
+    Add Laser Blade Core item. You can get a Laser Blade Core when your Laser Blade is destroyed by durability
+    You can repair damaged Laser Blade or Laser Blade Core by using Anvil and consuming Iron Ingots and your level
+    Critical hit by Laser Blade causes more damage to Wither
+    Now Laser Blade is not enchantable by using Enchanting Table
+    Add Smite I to Laser Blade Class 1 crafting
+    Add Smite II to Laser Blade Class 2 crafting
+    Remove Laser Blade Class 3 recipe and upgrade
+    Add new upgrade system to Laser Blade
+    [If blocking enabled] You can use Bow or Trident when you have it in your off-hand and Laser Blade in your main-hand
+
+v1.13.2-1.4.1.0
+
+    Add Shield ability to Laser Blade (right click and block).
+    This is disabled by default. If you want to enable this, please edit config/tolaserblade-common.toml
+
+v1.13.2-1.4.0.0
+
+    Initial port to 1.13.2 on Forge
+
+v1.12.2-1.3.1.0
+
+    Add Laser Blade Class 4+
+        Adding mob heads to class 4 laser blade with anvil will increase the attack damage
+
+v1.12.2-1.3.0.0
+
+    Add 2D (JSON) item model to Laser Blade
+    Add config file and config GUI to switch Laser Blade model (3D/2D)
+    Add dynamic_lights.properties to be compatible with OptiFine's Dynamic Lights
+
+v1.12.2-1.2.2
+
+    Add update checker
+    Switch LaserBlade renderer from TESR to TileEntityItemStackRenderer
+
+v1.12.2-1.2.1
+
+    Fix coloring of class 3 upgrade on anvil for keeping original blade colors
+
+v1.12.2-1.2.0
+
+    Add a new recipe of Laser Blade Class 1, required a glass block instead of a stained glass block
+        Crafting with old one, you can change the outer color of the blade to the color of the stained glass block
+    Fix blade color modifier by biome
+        Nether: Switch the blend mode of the core blade (REVERSE_SUBTRACT/ADD)
+        End: Switch the blend mode of the outer blade (REVERSE_SUBTRACT/ADD)
+    Add new ways of changing the blade color
+        Adding a dye with an anvil, you can change the core color of the blade to the color of the dye
+        Adding a stained glass block with an anvil, you can change the outer color of the blade to the color of the stained glass block
+    Add new rendered OBJ group "Hilt_bright"
+        This group will be rendered brightly
+    Amend recipe IDs
+
+v1.12.2-1.1.0
+
+    Add a new blade color for Savanna biome
+    Fix blade color modifier
+
+v1.12.2-1.0.0
+
+    The first version
