@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "tolaserblade:dx_laser_blade"
+    ]
+  },
+  "criteria": {
+    "has_dx_laser_blade": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tolaserblade:dx_laser_blade"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "tolaserblade:dx_laser_blade"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_dx_laser_blade",
+      "has_the_recipe"
+    ]
+  ]
+}
