@@ -10,11 +10,13 @@ import com.github.iunius118.tolaserblade.item.ToLaserBladeItems;
 import com.github.iunius118.tolaserblade.network.NetworkHandler;
 import com.github.iunius118.tolaserblade.network.ServerConfigMessage;
 import net.minecraft.block.Block;
+import net.minecraft.data.DataGenerator;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.generators.ExistingFileHelper;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -26,6 +28,7 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.fml.network.NetworkDirection;
@@ -92,7 +95,28 @@ public class ToLaserBlade {
         public static void onRecipeSerializerRegistry(final RegistryEvent.Register<IRecipeSerializer<?>> event) {
 
         }
+
+        // Generate data
+        @SubscribeEvent
+        public static void gatherData(GatherDataEvent event) {
+            DataGenerator gen = event.getGenerator();
+
+            if (event.includeServer()) {
+                gen.addProvider(new ToLaserBladeRecipeProvider(gen));   // Recipes
+            }
+
+            if (event.includeClient()) {
+                ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
+
+                gen.addProvider(new ToLaserBladeItemModelProvider(gen, existingFileHelper));    // Item models
+                ToLaserBladeLanguageProvider.addProviders(gen); // Languages
+            }
+        }
     }
+
+    /*
+     * Remapping Items
+     */
 
     @SubscribeEvent
     public static void remapItems(RegistryEvent.MissingMappings<Item> mappings) {
