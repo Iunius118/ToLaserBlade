@@ -8,10 +8,15 @@
 # Exclude docs
 !/docs/
 
+# Gradle
+!/gradle/
+!gradle.properties
+!settings.gradle
+!build.gradle
+
 # Others
 !.gitignore
 !*.md
-!build.gradle
 !LICENSE
 !README_*
 !update.json
