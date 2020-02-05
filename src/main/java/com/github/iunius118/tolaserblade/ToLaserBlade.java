@@ -1,7 +1,12 @@
 package com.github.iunius118.tolaserblade;
 
 import com.github.iunius118.tolaserblade.client.ClientEventHandler;
+import com.github.iunius118.tolaserblade.data.ToLaserBladeItemModelProvider;
+import com.github.iunius118.tolaserblade.data.ToLaserBladeLanguageProvider;
+import com.github.iunius118.tolaserblade.data.ToLaserBladeRecipeProvider;
+import com.github.iunius118.tolaserblade.item.DXLaserBladeItem;
 import com.github.iunius118.tolaserblade.item.ItemEventHandler;
+import com.github.iunius118.tolaserblade.item.ToLaserBladeItems;
 import com.github.iunius118.tolaserblade.network.NetworkHandler;
 import com.github.iunius118.tolaserblade.network.ServerConfigMessage;
 import net.minecraft.block.Block;
@@ -25,7 +30,11 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.fml.network.NetworkDirection;
 import net.minecraftforge.registries.ObjectHolder;
+import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @Mod(ToLaserBlade.MOD_ID)
 @EventBusSubscriber
@@ -33,35 +42,13 @@ public class ToLaserBlade {
     public static final String MOD_ID = "tolaserblade";
     public static final String MOD_NAME = "ToLaserBlade";
 
-    public static Logger LOGGER;
-
-    public static final String NAME_ITEM_LASER_BLADE = "laser_blade";
-    public static final ResourceLocation RL_OBJ_ITEM_LASER_BLADE = new ResourceLocation(MOD_ID, "item/laser_blade.obj");
-    public static final ResourceLocation RL_OBJ_ITEM_LASER_BLADE_1 = new ResourceLocation(MOD_ID, "item/laser_blade_1.obj");
-    public static final ResourceLocation RL_TEXTURE_ITEM_LASER_BLADE = new ResourceLocation(MOD_ID, "items/laser_blade");
+    public static final Logger LOGGER = LogManager.getLogger();
+    public static final ToLaserBladeItems ITEMS = new ToLaserBladeItems();
 
     public static boolean hasShownUpdate = false;
 
     // Init network channels
     public static final NetworkHandler NETWORK_HANDLER = new NetworkHandler();
-
-    @ObjectHolder(MOD_ID)
-    public static class ToLaserBladeItems {
-        // Laser B1ade
-        public static final Item LASAR_BLADE = null;
-
-        // Laser Blade
-        public static final Item LASER_BLADE = null;
-        // Laser Blade parts
-        public static final Item LASER_BLADE_CORE = null;
-        public static final Item LB_OSCILLATOR = null;
-        public static final Item LB_BATTERY = null;
-        public static final Item LB_MEDIUM = null;
-        public static final Item LB_LENS = null;
-        public static final Item LB_CASING = null;
-        // Workbench
-        public static final Item LB_WORKBENCH = null;
-    }
 
     @ObjectHolder(MOD_ID)
     public static class ToLaserBladeBlocks {
@@ -87,11 +74,18 @@ public class ToLaserBlade {
         MinecraftForge.EVENT_BUS.register(new ItemEventHandler());
     }
 
+    /*
+    * Registry Events
+    */
+
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class RegistryEvents {
+        // Register items
         @SubscribeEvent
         public static void onItemsRegistry(final RegistryEvent.Register<Item> event) {
-
+            event.getRegistry().registerAll(
+                    new DXLaserBladeItem().setRegistryName("dx_laser_blade")
+            );
         }
 
         @SubscribeEvent
@@ -102,18 +96,21 @@ public class ToLaserBlade {
 
     @SubscribeEvent
     public static void remapItems(RegistryEvent.MissingMappings<Item> mappings) {
-        for (RegistryEvent.MissingMappings.Mapping<Item> mapping : mappings.getAllMappings()) {
-            if (!mapping.key.getNamespace().equals(MOD_ID)) {
-                continue;
-            }
+        final Map<ResourceLocation, Item> remappingItemMap = new HashMap<>();
+        // Replace item ID "tolaserblade:tolaserblade.laser_blade" (-1.11.2) with "tolaserblade:laser_blade" (1.12-)
+        remappingItemMap.put(new ResourceLocation(MOD_ID, "tolaserblade.laser_blade"), ToLaserBladeItems.LASER_BLADE);
+        // Replace item ID "tolaserblade:lasar_blade" (-1.14.4) with "tolaserblade:dx_laser_blade" (1.15-)
+        remappingItemMap.put(new ResourceLocation(MOD_ID, "lasar_blade"), ToLaserBladeItems.DX_LASER_BLADE);
 
-            String name = mapping.key.getPath();
-            if (name.equals("tolaserblade.laser_blade")) {
-                // Replace item ID "tolaserblade:tolaserblade.laser_blade" (-1.11.2) with "tolaserblade:laser_blade" (1.12-)
-                mapping.remap(ToLaserBladeItems.LASER_BLADE);
-            }
-        }
+        // Replace item IDs
+        mappings.getAllMappings().stream()
+                .filter(mapping -> mapping.key.getNamespace().equals(MOD_ID) && remappingItemMap.containsKey(mapping.key))
+                .forEach(mapping -> mapping.remap(remappingItemMap.get(mapping.key)));
     }
+
+    /*
+     * World Events
+     */
 
     @SubscribeEvent
     public void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
