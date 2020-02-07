@@ -1,19 +1,29 @@
 package com.github.iunius118.tolaserblade.client;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
+import com.github.iunius118.tolaserblade.item.LaserBladeItem;
 import net.minecraft.client.Minecraft;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.event.ClickEvent;
+import net.minecraftforge.client.event.ColorHandlerEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.VersionChecker;
 import net.minecraftforge.fml.VersionChecker.CheckResult;
 import net.minecraftforge.fml.VersionChecker.Status;
 
+import static com.github.iunius118.tolaserblade.item.ToLaserBladeItems.*;
+
 
 public class ClientEventHandler {
+    @SubscribeEvent
+    public void onItemColorHandlerEvent(ColorHandlerEvent.Item event) {
+        event.getItemColors().register(new LaserBladeItem.ColorHandler(), LASER_BLADE);
+    }
+
     public static void checkUpdate() {
         // Check update and Notify client
         CheckResult result = VersionChecker.getResult(ModList.get().getModFileById(ToLaserBlade.MOD_ID).getMods().get(0));

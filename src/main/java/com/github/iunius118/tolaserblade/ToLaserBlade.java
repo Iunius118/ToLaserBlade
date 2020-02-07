@@ -6,6 +6,7 @@ import com.github.iunius118.tolaserblade.data.ToLaserBladeLanguageProvider;
 import com.github.iunius118.tolaserblade.data.ToLaserBladeRecipeProvider;
 import com.github.iunius118.tolaserblade.item.DXLaserBladeItem;
 import com.github.iunius118.tolaserblade.item.ItemEventHandler;
+import com.github.iunius118.tolaserblade.item.LaserBladeItem;
 import com.github.iunius118.tolaserblade.item.ToLaserBladeItems;
 import com.github.iunius118.tolaserblade.network.NetworkHandler;
 import com.github.iunius118.tolaserblade.network.ServerConfigMessage;
@@ -87,7 +88,8 @@ public class ToLaserBlade {
         @SubscribeEvent
         public static void onItemsRegistry(final RegistryEvent.Register<Item> event) {
             event.getRegistry().registerAll(
-                    new DXLaserBladeItem().setRegistryName("dx_laser_blade")
+                    new DXLaserBladeItem().setRegistryName("dx_laser_blade"),
+                    new LaserBladeItem().setRegistryName("laser_blade")
             );
         }
 

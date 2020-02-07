@@ -18,6 +18,13 @@ public class ToLaserBladeItemModelProvider extends ItemModelProvider {
         getBuilder(dx_laser_blade)
                 .parent(new UncheckedModelFile("item/handheld"))
                 .texture("layer0", "item/" + dx_laser_blade);
+
+        String laser_blade = ToLaserBladeItems.LASER_BLADE.getRegistryName().getPath();
+        getBuilder(laser_blade)
+                .parent(new UncheckedModelFile("item/handheld"))
+                .texture("layer0", "item/" + laser_blade + "_2d_0")
+                .texture("layer1", "item/" + laser_blade + "_2d_1")
+                .texture("layer2", "item/" + laser_blade + "_2d_2");
     }
 
     @Override

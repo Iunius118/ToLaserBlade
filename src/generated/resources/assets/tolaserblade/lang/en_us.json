@@ -1,5 +1,6 @@
 {
   "item.tolaserblade.dx_laser_blade": "DX Laser B1ade",
+  "item.tolaserblade.laser_blade": "Laser Blade",
   "tolaserblade.configgui.enableBlockingWithLaserBlade": "Enable Blocking with Laser Blade",
   "tolaserblade.configgui.enableLaserBlade3DModel": "Enable Laser Blade 3D Model",
   "tolaserblade.configgui.laserBladeEfficiency": "Laser Blade Mining Speed (0\u2013128)",

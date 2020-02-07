@@ -21,6 +21,7 @@ public class ToLaserBladeLanguageProvider {
         protected void addTranslations() {
             // Items
             add(ToLaserBladeItems.DX_LASER_BLADE, "DX Laser B1ade");
+            add(ToLaserBladeItems.LASER_BLADE, "Laser Blade");
 
             // Configs
             add("tolaserblade.configgui.enableLaserBlade3DModel", "Enable Laser Blade 3D Model");
@@ -42,6 +43,7 @@ public class ToLaserBladeLanguageProvider {
         protected void addTranslations() {
             // Items
             add(ToLaserBladeItems.DX_LASER_BLADE, "DXレーザーブレ一ド");
+            add(ToLaserBladeItems.LASER_BLADE, "レーザーブレイド");
 
             // Configs
             add("tolaserblade.configgui.enableLaserBlade3DModel", "レーザーブレイドを3Dモデルで描画する");
@@ -63,6 +65,7 @@ public class ToLaserBladeLanguageProvider {
         protected void addTranslations() {
             // Items
             add(ToLaserBladeItems.DX_LASER_BLADE, "DX激光剑");
+            add(ToLaserBladeItems.LASER_BLADE, "激光剑");
 
             // Configs
             add("tolaserblade.configgui.enableLaserBlade3DModel", "启用激光剑3D模型");
