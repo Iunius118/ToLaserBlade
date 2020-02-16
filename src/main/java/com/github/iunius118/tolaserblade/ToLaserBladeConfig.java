@@ -26,12 +26,12 @@ public class ToLaserBladeConfig {
 
             isEnabledBlockingWithLaserBlade = builder
                     .comment("Enable blocking with Laser Blade.")
-                    .translation("tolaserblade.configgui.enableBlockingWithLaserBlade")
+                    .translation("tolaserblade.configgui.common.enableBlockingWithLaserBlade")
                     .define("enableBlockingWithLaserBlade", false);
 
             laserBladeEfficiency = builder
                     .comment("An integer value (0-128) that is a factor of mining speed of Laser Blade.")
-                    .translation("tolaserblade.configgui.laserBladeEfficiencyInServer")
+                    .translation("tolaserblade.configgui.common.laserBladeEfficiencyInServer")
                     .defineInRange("laserBladeEfficiencyInServer", 12, 0, 128);
 
             builder.pop();
@@ -47,12 +47,12 @@ public class ToLaserBladeConfig {
 
             isEnabledLaserBlade3DModel = builder
                     .comment("Enable Laser Blade to use 3D model.")
-                    .translation("tolaserblade.configgui.enableLaserBlade3DModel")
+                    .translation("tolaserblade.configgui.client.enableLaserBlade3DModel")
                     .define("enableLaserBlade3DModel", true);
 
             laserBladeRenderingMode = builder
                     .comment("Select rendering mode of Laser Blade (0: Default, 1: Using only alpha blending). This option is available when enableLaserBlade3DModel is true.")
-                    .translation("tolaserblade.configgui.laserBladeRenderingMode")
+                    .translation("tolaserblade.configgui.client.laserBladeRenderingMode")
                     .defineInRange("laserBladeRenderingMode", 0, 0, 1);
 
             builder.pop();

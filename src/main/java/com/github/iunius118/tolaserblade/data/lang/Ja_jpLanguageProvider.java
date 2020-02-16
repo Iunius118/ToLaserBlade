@@ -17,12 +17,12 @@ public class Ja_jpLanguageProvider extends LanguageProvider {
         add(ToLaserBladeItems.LASER_BLADE, "レーザーブレイド");
 
         // Configs
-        add("tolaserblade.configgui.enableLaserBlade3DModel", "レーザーブレイドを3Dモデルで描画する");
-        add("tolaserblade.configgui.laserBladeRenderingMode", "レーザーブレイドの描画モード (0–1)");
-        add("tolaserblade.configgui.enableBlockingWithLaserBlade", "レーザーブレイドによる防御を有効にする");
-        add("tolaserblade.configgui.laserBladeEfficiency", "レーザーブレイドの採掘速度 (0–128)");
+        add("tolaserblade.configgui.common.enableBlockingWithLaserBlade", "レーザーブレイドによる防御を有効にする");
+        add("tolaserblade.configgui.common.laserBladeEfficiency", "レーザーブレイドの採掘速度 (0–128)");
+        add("tolaserblade.configgui.client.enableLaserBlade3DModel", "レーザーブレイドを3Dモデルで描画する");
+        add("tolaserblade.configgui.client.laserBladeRenderingMode", "レーザーブレイドの描画モード (0–1)");
 
         // Update message
-        add("tolaserblade.update.newversion", "%s の新しいバージョンが利用可能です");
+        add("tolaserblade.update.newVersion", "%s の新しいバージョンが利用可能です");
     }
 }

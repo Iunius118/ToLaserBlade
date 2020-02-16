@@ -41,7 +41,7 @@ public class ClientEventHandler {
             ITextComponent newVersionHighlighted = new StringTextComponent(result.target.toString());
             newVersionHighlighted.getStyle().setColor(TextFormatting.YELLOW);
 
-            ITextComponent message = new TranslationTextComponent("tolaserblade.update.newversion", modNameHighlighted).appendText(": ")
+            ITextComponent message = new TranslationTextComponent("tolaserblade.update.newVersion", modNameHighlighted).appendText(": ")
                     .appendSibling(newVersionHighlighted);
             message.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, result.url));
 

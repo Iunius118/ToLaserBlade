@@ -10,6 +10,5 @@ public class ToLaserBladeLanguageProvider {
         gen.addProvider(new En_usLanguageProvider(gen));
         gen.addProvider(new Ja_jpLanguageProvider(gen));
         gen.addProvider(new Zh_cnLanguageProvider(gen));
-        // ... and other language translations
     }
 }

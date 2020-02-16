@@ -1,9 +1,9 @@
 {
   "item.tolaserblade.dx_laser_blade": "DX Laser B1ade",
   "item.tolaserblade.laser_blade": "Laser Blade",
-  "tolaserblade.configgui.enableBlockingWithLaserBlade": "Enable Blocking with Laser Blade",
-  "tolaserblade.configgui.enableLaserBlade3DModel": "Enable Laser Blade 3D Model",
-  "tolaserblade.configgui.laserBladeEfficiency": "Laser Blade Mining Speed (0\u2013128)",
-  "tolaserblade.configgui.laserBladeRenderingMode": "Laser Blade Rendering mode (0\u20131)",
-  "tolaserblade.update.newversion": "A new %s version is available"
+  "tolaserblade.configgui.client.enableLaserBlade3DModel": "Enable Laser Blade 3D Model",
+  "tolaserblade.configgui.client.laserBladeRenderingMode": "Laser Blade Rendering mode (0\u20131)",
+  "tolaserblade.configgui.common.enableBlockingWithLaserBlade": "Enable Blocking with Laser Blade",
+  "tolaserblade.configgui.common.laserBladeEfficiency": "Laser Blade Mining Speed (0\u2013128)",
+  "tolaserblade.update.newVersion": "A new %s version is available"
 }

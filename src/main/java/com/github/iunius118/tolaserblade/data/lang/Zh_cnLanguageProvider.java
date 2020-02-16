@@ -17,12 +17,12 @@ public class Zh_cnLanguageProvider extends LanguageProvider {
         add(ToLaserBladeItems.LASER_BLADE, "激光剑");
 
         // Configs
-        add("tolaserblade.configgui.enableLaserBlade3DModel", "启用激光剑3D模型");
-        add("tolaserblade.configgui.laserBladeRenderingMode", "激光剑渲染模式 (0–1)");
-        add("tolaserblade.configgui.enableBlockingWithLaserBlade", "启用激光剑格挡");
-        add("tolaserblade.configgui.laserBladeEfficiency", "激光剑采掘速度 (0–128)");
+        add("tolaserblade.configgui.common.enableBlockingWithLaserBlade", "启用激光剑格挡");
+        add("tolaserblade.configgui.common.laserBladeEfficiency", "激光剑采掘速度 (0–128)");
+        add("tolaserblade.configgui.client.enableLaserBlade3DModel", "启用激光剑3D模型");
+        add("tolaserblade.configgui.client.laserBladeRenderingMode", "激光剑渲染模式 (0–1)");
 
         // Update message
-        add("tolaserblade.update.newversion", "新版本 %s 已可用");
+        add("tolaserblade.update.newVersion", "新版本 %s 已可用");
     }
 }
