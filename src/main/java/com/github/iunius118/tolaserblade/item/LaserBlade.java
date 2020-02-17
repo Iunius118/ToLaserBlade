@@ -6,6 +6,7 @@ public class LaserBlade {
 
     public static final int DEFAULT_COLOR_CORE = 0xFFFFFFFF;
     public static final int DEFAULT_COLOR_HALO = 0xFFFF0000;
+    public static final int DEFAULT_COLOR_GRIP = 0xFFF9FFFE;
 
     public static final String KEY_ATK = "ATK";
     public static final String KEY_SPD = "SPD";

@@ -158,7 +158,7 @@ public class LaserBladeItem extends SwordItem {
                     return getColorFromNBT(stack, LaserBlade.KEY_COLOR_CORE, LaserBlade.KEY_IS_SUB_COLOR_CORE, LaserBlade.DEFAULT_COLOR_CORE);
 
                 default:
-                    return 0xFFFFFFFF;
+                    return getColorFromNBT(stack, LaserBlade.KEY_COLOR_GRIP, null, LaserBlade.DEFAULT_COLOR_GRIP);
             }
         }
 
@@ -168,7 +168,7 @@ public class LaserBladeItem extends SwordItem {
             if (nbt != null && nbt.contains(keyColor, Constants.NBT.TAG_INT)) {
                 int color = nbt.getInt(keyColor);
 
-                if (nbt.getBoolean(keyIsSubColor)) {
+                if (keyIsSubColor != null && nbt.getBoolean(keyIsSubColor)) {
                     color = ~color | 0xFF000000;
                 }
 
