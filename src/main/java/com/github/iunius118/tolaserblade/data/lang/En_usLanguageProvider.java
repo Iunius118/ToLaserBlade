@@ -12,6 +12,9 @@ public class En_usLanguageProvider extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
+        // Item group (only 'en_us')
+        add("itemGroup.tolaserblade", ToLaserBlade.MOD_NAME);
+
         // Items
         add(ToLaserBladeItems.DX_LASER_BLADE, "DX Laser B1ade");
         add(ToLaserBladeItems.LASER_BLADE, "Laser Blade");

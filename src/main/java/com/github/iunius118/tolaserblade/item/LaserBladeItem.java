@@ -24,7 +24,7 @@ import net.minecraftforge.common.util.Constants;
 
 import javax.annotation.Nullable;
 
-public class LaserBladeItem extends SwordItem {
+public class LaserBladeItem extends SwordItem implements ToLaserBladeItemGroup {
     private final IItemTier tier;
     private final float attackDamage;
     private final float attackSpeed;
@@ -124,11 +124,6 @@ public class LaserBladeItem extends SwordItem {
 
     @Override
     public boolean isDamageable() {
-        return false;
-    }
-
-    @Override
-    public boolean isRepairable(ItemStack stack) {
         return false;
     }
 
