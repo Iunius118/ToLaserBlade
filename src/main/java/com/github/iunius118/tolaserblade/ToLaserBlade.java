@@ -54,11 +54,6 @@ public class ToLaserBlade {
     // Init network channels
     public static final NetworkHandler NETWORK_HANDLER = new NetworkHandler();
 
-    @ObjectHolder(MOD_ID)
-    public static class ToLaserBladeBlocks {
-        public static final Block LB_WORKBENCH = null;
-    }
-
     public ToLaserBlade() {
         // Register lifecycle event listeners
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();

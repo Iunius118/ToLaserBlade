@@ -15,7 +15,7 @@ import net.minecraftforge.fml.VersionChecker;
 import net.minecraftforge.fml.VersionChecker.CheckResult;
 import net.minecraftforge.fml.VersionChecker.Status;
 
-import static com.github.iunius118.tolaserblade.item.ToLaserBladeItems.*;
+import static com.github.iunius118.tolaserblade.item.ToLaserBladeItems.LASER_BLADE;
 
 
 public class ClientEventHandler {
