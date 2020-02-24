@@ -77,7 +77,7 @@ public class DXLaserBladeItem extends SwordItem implements ToLaserBladeItemGroup
         // Place Redstone Torch and Damage this
         if (player.isSteppingCarefully() && Blocks.REDSTONE_TORCH.asItem().onItemUse(context) == ActionResultType.SUCCESS) { // player.isSneaking() -> .isSteppingCarefully()
             itemstack.setCount(1);
-            itemstack.damageItem(costDamage, player, (playerEntity) -> {});
+            itemstack.damageItem(costDamage, player, playerEntity -> {});
             return ActionResultType.SUCCESS;
         }
 
