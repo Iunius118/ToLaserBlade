@@ -4,7 +4,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemGroup;
 
 public class LBCasingItem extends Item implements ToLaserBladeItemGroup {
-    public static Item.Properties properties = (new Item.Properties()).setNoRepair().group(ItemGroup.TOOLS);
+    public static Item.Properties properties = (new Item.Properties()).setNoRepair().group(ItemGroup.MISC);
 
     public LBCasingItem() {
         super(properties);
