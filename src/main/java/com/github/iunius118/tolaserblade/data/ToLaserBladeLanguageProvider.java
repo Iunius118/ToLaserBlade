@@ -8,6 +8,6 @@ public class ToLaserBladeLanguageProvider {
     public static void addProviders(DataGenerator gen) {
         gen.addProvider(new En_usLanguageProvider(gen));
         gen.addProvider(new Ja_jpLanguageProvider(gen));
-        // Add LanguageProviders here or .json file to assets directly
+        // Add LanguageProviders here or .json file to src/main/resources/assets/tolaserblade/lang directly
     }
 }
