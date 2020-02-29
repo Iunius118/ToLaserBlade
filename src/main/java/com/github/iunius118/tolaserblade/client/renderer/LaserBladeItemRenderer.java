@@ -20,12 +20,17 @@ import java.util.List;
 @OnlyIn(Dist.CLIENT)
 public class LaserBladeItemRenderer extends ItemStackTileEntityRenderer {
     public static final ResourceLocation LASER_BLADE_TEXTURE = new ResourceLocation(ToLaserBlade.MOD_ID, "textures/item/laser_blade.png");
+    public static final int LIGHTMAP_BRIGHT = 0xF000F0;
 
     @Override
     public void render(ItemStack itemStack, MatrixStack matrixStack, IRenderTypeBuffer buffer, int lightmapCoord, int overlayColor) {
         matrixStack.push();
 
-        renderFaces(matrixStack, buffer.getBuffer(LaserBladeRenderType.HILT), LaserBladeItemModel.getBladeInnerFaces(), -1, lightmapCoord, overlayColor);
+        renderFaces(matrixStack, buffer.getBuffer(LaserBladeRenderType.HILT), LaserBladeItemModel.getHiltFaces(), -1, lightmapCoord, overlayColor);
+        renderFaces(matrixStack, buffer.getBuffer(LaserBladeRenderType.HILT), LaserBladeItemModel.getHilt2Faces(), -1, lightmapCoord, overlayColor);
+        renderFaces(matrixStack, buffer.getBuffer(LaserBladeRenderType.LASER_ADD), LaserBladeItemModel.getBladeInnerFaces(), -1, LIGHTMAP_BRIGHT, overlayColor);
+        renderFaces(matrixStack, buffer.getBuffer(LaserBladeRenderType.LASER_ADD), LaserBladeItemModel.getBladeOuter1Faces(), 0xFFFF0000, LIGHTMAP_BRIGHT, overlayColor);
+        renderFaces(matrixStack, buffer.getBuffer(LaserBladeRenderType.LASER_ADD), LaserBladeItemModel.getBladeOuter2Faces(), 0xFFFF0000, LIGHTMAP_BRIGHT, overlayColor);
 
         matrixStack.pop();
     }

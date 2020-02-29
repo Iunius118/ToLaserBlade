@@ -19,7 +19,7 @@ public class LaserBladeRenderType extends RenderType {
     public static final RenderType LASER_SUB = getRenderType("laser_sub", getLaserSubRenderState());
 
     private static RenderType getRenderType(String name, RenderType.State renderState) {
-        return RenderType.makeType(name, DefaultVertexFormats.BLOCK, GL11.GL_QUADS, 256, false, true, renderState);
+        return RenderType.makeType(name, DefaultVertexFormats.BLOCK, GL11.GL_QUADS, 256, false, false, renderState);
     }
 
     private static RenderType.State getLaserAddRenderState() {
