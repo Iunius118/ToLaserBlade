@@ -22,3 +22,13 @@ newmtl matBladeOuter2
 Kd 1.00000 1.00000 1.00000
 d 0.25000
 map_Kd laser_blade.png
+
+newmtl matBladeInnerMode1
+Kd 1.00000 1.00000 1.00000
+d 1.00000
+map_Kd laser_blade.png
+
+newmtl matBladeOuterMode1
+Kd 1.00000 1.00000 1.00000
+d 1.00000
+map_Kd laser_blade.png

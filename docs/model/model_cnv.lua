@@ -19,9 +19,8 @@ end
 
 local obj = {v = {}, vt = {}, vn = {}, f = {}}
 local v3f_tbl = {}
-local v3f_tbl_size = 0
 local v2f_tbl = {}
-local v2f_tbl_size = 0
+local vector_count = 0
 local current_group = ""
 
 local p_statement = "(%a*)%s+(.*)"
@@ -36,8 +35,8 @@ function getP3F(data)
         local p3f = string.format("%sF, %sF, %sF", x, y, z)
 
         if not v3f_tbl[p3f] then 
-            v3f_tbl[p3f] = string.format("V3F_%d", v3f_tbl_size)
-            v3f_tbl_size = v3f_tbl_size + 1
+            v3f_tbl[p3f] = string.format("v%d", vector_count)
+            vector_count = vector_count + 1
         end
 
         return p3f
@@ -51,8 +50,8 @@ function getP2F(data)
         local p2f = string.format("%sF, %sF", x, y)
 
         if not v2f_tbl[p2f] then 
-            v2f_tbl[p2f] = string.format("V2F_%d", v2f_tbl_size)
-            v2f_tbl_size = v2f_tbl_size + 1
+            v2f_tbl[p2f] = string.format("v%d", vector_count)
+            vector_count = vector_count + 1
         end
 
         return p2f
@@ -109,12 +108,10 @@ hfile:close()
 
 for key, value in pairs(v3f_tbl) do
     print(string.format("private static final Vector3f %s = new Vector3f(%s);", value, key))
-    -- private static final Vector3f V3F_0 = new Vector3f(0, 0, 0);
 end
 
 for key, value in pairs(v2f_tbl) do
     print(string.format("private static final Vec2f %s = new Vec2f(%s);", value, key))
-    -- private static final Vec2f V2F_0 = new Vec2f(0, 0, 0);
 end
 
 print()
@@ -124,7 +121,7 @@ local color = ""
 local face_template = "    list.add(new FaceData(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s));"
 
 for key, value in pairs(obj.f) do
-    color = "COLOR_" .. color_count
+    color = "c" .. color_count
     color_count = color_count + 1
     
     print("private static final Vector4f " .. color .. " = new Vector4f(1F, 1F, 1F, 1F);\n")

@@ -37,5 +37,9 @@ public interface SimpleItemModel {
                     new VertexData(posXYZ4, colorRGBA4, texUV4, normalXYZ4),
             };
         }
+
+        public FaceData invert() {
+            return new FaceData(this.vertices[3], this.vertices[2], this.vertices[1], this.vertices[0]);
+        }
     }
 }
