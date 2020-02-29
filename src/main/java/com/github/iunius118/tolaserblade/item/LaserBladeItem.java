@@ -1,6 +1,7 @@
 package com.github.iunius118.tolaserblade.item;
 
 import com.github.iunius118.tolaserblade.ToLaserBladeConfig;
+import com.github.iunius118.tolaserblade.client.renderer.LaserBladeItemRenderer;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.entity.LivingEntity;
@@ -29,7 +30,7 @@ public class LaserBladeItem extends SwordItem implements ToLaserBladeItemGroup {
     private final float attackDamage;
     private final float attackSpeed;
 
-    public static Item.Properties properties = (new Item.Properties()).setNoRepair().group(ItemGroup.TOOLS);
+    public static Item.Properties properties = (new Item.Properties()).setNoRepair().group(ItemGroup.TOOLS).setISTER(() -> LaserBladeItemRenderer::new);
     public static final IItemPropertyGetter BLOCKING_GETTER = (stack, world, entity) -> {
         return entity != null && entity.isHandActive() && entity.getActiveItemStack() == stack ? 1.0F : 0.0F;
     };
