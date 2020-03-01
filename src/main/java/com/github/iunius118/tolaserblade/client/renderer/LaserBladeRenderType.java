@@ -17,9 +17,25 @@ public class LaserBladeRenderType extends RenderType {
     public static final RenderType HILT = RenderType.getEntityTranslucent(LaserBladeItemRenderer.LASER_BLADE_TEXTURE);
     public static final RenderType LASER_ADD = getRenderType("laser_add", getLaserAddRenderState());
     public static final RenderType LASER_SUB = getRenderType("laser_sub", getLaserSubRenderState());
+    public static final RenderType LASER_FLAT = getRenderType("laser_flat", getLaserFlatRenderState());
 
     private static RenderType getRenderType(String name, RenderType.State renderState) {
-        return RenderType.makeType(name, DefaultVertexFormats.BLOCK, GL11.GL_QUADS, 256, false, false, renderState);
+        return RenderType.makeType(name, DefaultVertexFormats.ENTITY, GL11.GL_QUADS, 256, false, false, renderState);
+    }
+
+    private static RenderType.State getLaserFlatRenderState() {
+        RenderState.TransparencyState transparencyState = new RenderState.TransparencyState("hilt_transparency", () -> {
+            RenderSystem.enableBlend();
+            RenderSystem.defaultBlendFunc();
+        }, () -> {
+            RenderSystem.disableBlend();
+        });
+
+        return RenderType.State.getBuilder()
+                .lightmap(LIGHTMAP_ENABLED)
+                .texture(new RenderState.TextureState(LaserBladeItemRenderer.LASER_BLADE_TEXTURE, false, false))
+                .transparency(transparencyState)
+                .build(true);
     }
 
     private static RenderType.State getLaserAddRenderState() {
