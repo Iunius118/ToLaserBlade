@@ -24,33 +24,16 @@ public class LaserBladeRenderType extends RenderType {
     }
 
     private static RenderType.State getLaserFlatRenderState() {
-        RenderState.TransparencyState transparencyState = new RenderState.TransparencyState("hilt_transparency", () -> {
-            RenderSystem.enableBlend();
-            RenderSystem.defaultBlendFunc();
-        }, () -> {
-            RenderSystem.disableBlend();
-        });
-
         return RenderType.State.getBuilder()
-                .lightmap(LIGHTMAP_ENABLED)
                 .texture(new RenderState.TextureState(LaserBladeItemRenderer.LASER_BLADE_TEXTURE, false, false))
-                .transparency(transparencyState)
+                .transparency(TRANSLUCENT_TRANSPARENCY)
                 .build(true);
     }
 
     private static RenderType.State getLaserAddRenderState() {
-        RenderState.TransparencyState transparencyState = new RenderState.TransparencyState("add_transparency", () -> {
-            RenderSystem.enableBlend();
-            RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
-        }, () -> {
-            RenderSystem.disableBlend();
-            RenderSystem.defaultBlendFunc();
-        });
-
         return RenderType.State.getBuilder()
-                .lightmap(LIGHTMAP_ENABLED)
                 .texture(new RenderState.TextureState(LaserBladeItemRenderer.LASER_BLADE_TEXTURE, false, false))
-                .transparency(transparencyState)
+                .transparency(LIGHTNING_TRANSPARENCY)
                 .build(true);
     }
 
@@ -66,7 +49,6 @@ public class LaserBladeRenderType extends RenderType {
         });
 
         return RenderType.State.getBuilder()
-                .lightmap(LIGHTMAP_ENABLED)
                 .texture(new RenderState.TextureState(LaserBladeItemRenderer.LASER_BLADE_TEXTURE, false, false))
                 .transparency(transparencyState)
                 .build(true);

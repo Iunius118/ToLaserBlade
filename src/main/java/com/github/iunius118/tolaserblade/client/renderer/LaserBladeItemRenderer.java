@@ -26,11 +26,11 @@ public class LaserBladeItemRenderer extends ItemStackTileEntityRenderer {
     public void render(ItemStack itemStack, MatrixStack matrixStack, IRenderTypeBuffer buffer, int lightmapCoord, int overlayColor) {
         matrixStack.push();
 
-        renderFaces(matrixStack, buffer.getBuffer(LaserBladeRenderType.HILT), LaserBladeItemModel.getHiltFaces(), -1, lightmapCoord, overlayColor);
-        renderFaces(matrixStack, buffer.getBuffer(LaserBladeRenderType.HILT), LaserBladeItemModel.getHilt2Faces(), -1, lightmapCoord, overlayColor);
-        renderFaces(matrixStack, buffer.getBuffer(LaserBladeRenderType.LASER_ADD), LaserBladeItemModel.getBladeInnerFaces(), -1, LIGHTMAP_BRIGHT, overlayColor);
-        renderFaces(matrixStack, buffer.getBuffer(LaserBladeRenderType.LASER_ADD), LaserBladeItemModel.getBladeOuter1Faces(), 0xFFFF0000, LIGHTMAP_BRIGHT, overlayColor);
-        renderFaces(matrixStack, buffer.getBuffer(LaserBladeRenderType.LASER_ADD), LaserBladeItemModel.getBladeOuter2Faces(), 0xFFFF0000, LIGHTMAP_BRIGHT, overlayColor);
+        renderFaces(matrixStack, buffer.getBuffer(LaserBladeRenderType.HILT), LaserBladeItemModel.HILT_FACES, -1, lightmapCoord, overlayColor);
+        renderFaces(matrixStack, buffer.getBuffer(LaserBladeRenderType.HILT), LaserBladeItemModel.HILT_2_FACES, -1, lightmapCoord, overlayColor);
+        renderFaces(matrixStack, buffer.getBuffer(LaserBladeRenderType.LASER_ADD), LaserBladeItemModel.BLADE_INNER_FACES, -1, LIGHTMAP_BRIGHT, overlayColor);
+        renderFaces(matrixStack, buffer.getBuffer(LaserBladeRenderType.LASER_ADD), LaserBladeItemModel.BLADE_OUTER_1_FACES, 0xFFFF0000, LIGHTMAP_BRIGHT, overlayColor);
+        renderFaces(matrixStack, buffer.getBuffer(LaserBladeRenderType.LASER_ADD), LaserBladeItemModel.BLADE_OUTER_2_FACES, 0xFFFF0000, LIGHTMAP_BRIGHT, overlayColor);
 
         matrixStack.pop();
     }
