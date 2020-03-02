@@ -1,22 +1,16 @@
 package com.github.iunius118.tolaserblade.client.model;
 
 import com.github.iunius118.tolaserblade.ToLaserBladeConfig;
-import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.Matrix4f;
-import net.minecraft.client.renderer.Quaternion;
-import net.minecraft.client.renderer.TransformationMatrix;
 import net.minecraft.client.renderer.Vector3f;
-import net.minecraft.client.renderer.model.BakedQuad;
-import net.minecraft.client.renderer.model.IBakedModel;
-import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.model.ItemOverrideList;
+import net.minecraft.client.renderer.model.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.Direction;
+import net.minecraft.util.HandSide;
 import net.minecraft.world.World;
 import net.minecraftforge.client.model.data.EmptyModelData;
 import net.minecraftforge.client.model.data.IModelData;
@@ -32,9 +26,6 @@ public class LaserBladeItemBakedModel implements IBakedModel {
     public IBakedModel bakedJSONModel;
     public boolean isBlocking = false;
 
-    private LaserBladeItemBakedModel() {
-    }
-
     public LaserBladeItemBakedModel(IBakedModel bakedJSONModelIn) {
         // For ModelBakeEvent
         bakedJSONModel = bakedJSONModelIn;
@@ -42,8 +33,7 @@ public class LaserBladeItemBakedModel implements IBakedModel {
 
     public LaserBladeItemBakedModel handleBlocking(boolean isBlockingIn) {
         // For rendering
-        LaserBladeItemBakedModel newModel = new LaserBladeItemBakedModel();
-        newModel.bakedJSONModel = this.bakedJSONModel;
+        LaserBladeItemBakedModel newModel = new LaserBladeItemBakedModel(this.bakedJSONModel);
         newModel.isBlocking = isBlockingIn;
         return newModel;
     }
@@ -114,26 +104,44 @@ public class LaserBladeItemBakedModel implements IBakedModel {
         };
     }
 
+    private static final ItemCameraTransforms ITEM_TRANSFORMS = new ItemCameraTransforms(
+            new ItemTransformVec3f(new Vector3f(-8F, 0F, 0F), new Vector3f(-0.55F, 0.315F, 0.6F), new Vector3f(1.1F, 1.1F, 1.1F)),
+            new ItemTransformVec3f(new Vector3f(-8F, 0F, 0F), new Vector3f(0.55F, 0.315F, 0.6F), new Vector3f(1.1F, 1.1F, 1.1F)),
+            new ItemTransformVec3f(new Vector3f(20F, 0F, 0F), new Vector3f(-0.26F, 0.0025F, 0.355F), new Vector3f(0.68F, 0.85F, 0.68F)),
+            new ItemTransformVec3f(new Vector3f(20F, 0F, 0F), new Vector3f(0.415F, 0.0025F, 0.355F), new Vector3f(0.68F, 0.85F, 0.68F)),
+            new ItemTransformVec3f(new Vector3f(0F, 0F, 0F), new Vector3f(0F, 0F, 0F), new Vector3f(1F, 1F, 1F)),
+            new ItemTransformVec3f(new Vector3f(0F, 0F, -45F), new Vector3f(0.175F, -0.475F, 0F), new Vector3f(0.9F, 0.9F, 0.9F)),
+            new ItemTransformVec3f(new Vector3f(-45F, 0F, 0F), new Vector3f(0.25F, 0.25F, 0.25F), new Vector3f(0.5F, 0.5F, 0.5F)),
+            new ItemTransformVec3f(new Vector3f(0F, 0F, 45F), new Vector3f(0.485F, 0.175F, 0.44F), new Vector3f(0.95F, 0.95F, 0.95F)));
+    private static final ItemCameraTransforms BLOCKING_RIGHTY_ITEM_TRANSFORMS = new ItemCameraTransforms(
+            ITEM_TRANSFORMS.thirdperson_left,
+            ITEM_TRANSFORMS.thirdperson_right,
+            new ItemTransformVec3f(new Vector3f(0F, 0F, 60F), new Vector3f(-0.4F, -0.15F, 0.6F), new Vector3f(0.68F, 0.85F, 0.68F)),
+            new ItemTransformVec3f(new Vector3f(0F, 0F, 60F), new Vector3f(-0.05F, 0.4F, 0.5F), new Vector3f(0.68F, 0.85F, 0.68F)),
+            ITEM_TRANSFORMS.head,
+            ITEM_TRANSFORMS.gui,
+            ITEM_TRANSFORMS.ground,
+            ITEM_TRANSFORMS.fixed);
+    private static final ItemCameraTransforms BLOCKING_LEFTY_ITEM_TRANSFORMS = new ItemCameraTransforms(
+            ITEM_TRANSFORMS.thirdperson_left,
+            ITEM_TRANSFORMS.thirdperson_right,
+            new ItemTransformVec3f(new Vector3f(0F, 0F, 60F), new Vector3f(-0.4F, -0.185F, 0.5F), new Vector3f(0.68F, 0.85F, 0.68F)),
+            new ItemTransformVec3f(new Vector3f(0F, 0F, 60F), new Vector3f(-0.05F, 0.43F, 0.6F), new Vector3f(0.68F, 0.85F, 0.68F)),
+            ITEM_TRANSFORMS.head,
+            ITEM_TRANSFORMS.gui,
+            ITEM_TRANSFORMS.ground,
+            ITEM_TRANSFORMS.fixed);
+
     @Override
     public ItemCameraTransforms getItemCameraTransforms() {
-        Matrix4f matrix = new Matrix4f(new float[]{-3.090862E-8F, 3.090862E-8F, -1.0F, 0.0F, 0.8838835F, 0.8838835F, 0.0F, 0.0F, 0.70710677F, -0.70710677F, -4.371139E-8F, 0.0F, -0.030330122F, -0.030330122F, 0.5F, 1.0F});
-        matrix.transpose();
-        TransformationMatrix trMatrix = new TransformationMatrix(matrix);
-        trMatrix.getTranslation();
-
-        Matrix4f rtMatrix2 = new Matrix4f(new Quaternion(90F, 45F, -90F, true));
-        Matrix4f rtMatrix3 = new Matrix4f(new Quaternion(0.27059805F, 0.65328145F, -0.27059808F, 0.65328145F));
-        Quaternion q = new Quaternion(1.57079632679F, 1.57079632679F, 1.57079632679F, false);
-        Quaternion q2 = new Quaternion(90F, 45F, -90F, true);
-
-        MatrixStack ms = new MatrixStack();
-        ms.translate(0.5, 0.5, 0.5);
-        ms.rotate(new Quaternion(Vector3f.ZN, 45F, true));
-        //ms.scale(1F, 1.25F, 1F);
-        ms.translate(0, -0.6, 0);
-        ms.rotate(new Quaternion(Vector3f.YP, 90F, true));
-        MatrixStack.Entry entry = ms.getLast();
-
-        return bakedJSONModel.getItemCameraTransforms();
+        if (isBlocking) {
+            if (Minecraft.getInstance().gameSettings.mainHand == HandSide.RIGHT) {
+                return BLOCKING_RIGHTY_ITEM_TRANSFORMS;
+            } else {
+                return BLOCKING_LEFTY_ITEM_TRANSFORMS;
+            }
+        } else {
+            return ITEM_TRANSFORMS;
+        }
     }
 }
