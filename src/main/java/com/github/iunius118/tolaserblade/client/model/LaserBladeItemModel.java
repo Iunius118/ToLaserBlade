@@ -1,10 +1,10 @@
 package com.github.iunius118.tolaserblade.client.model;
 
+import com.google.common.collect.ImmutableList;
 import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.Vector4f;
 import net.minecraft.util.math.Vec2f;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class LaserBladeItemModel implements SimpleItemModel {
@@ -125,96 +125,110 @@ public class LaserBladeItemModel implements SimpleItemModel {
     private static final Vec2f v77 = new Vec2f(0.18750F, 0.00000F);
     private static final Vec2f v72 = new Vec2f(0.62500F, 0.37500F);
 
-    private static final Vector4f c0 = new Vector4f(1F, 1F, 1F, 1F);
+    public static final List<FaceData> BLADE_INNER_MODE_1_FACES = getBladeInnerMode1Faces();
 
     public static List<FaceData> getBladeInnerMode1Faces() {
-        List<FaceData> list = new ArrayList<>();
-        list.add(new FaceData(v27, c0, v80, v111, v26, c0, v79, v111, v25, c0, v78, v111, v24, c0, v77, v111));
-        list.add(new FaceData(v26, c0, v84, v112, v29, c0, v83, v112, v28, c0, v82, v112, v25, c0, v81, v112));
-        list.add(new FaceData(v29, c0, v83, v113, v31, c0, v86, v113, v30, c0, v85, v113, v28, c0, v82, v113));
-        list.add(new FaceData(v31, c0, v86, v114, v27, c0, v80, v114, v24, c0, v77, v114, v30, c0, v85, v114));
-        list.add(new FaceData(v24, c0, v89, v110, v25, c0, v78, v110, v28, c0, v88, v110, v30, c0, v87, v110));
-        list.add(new FaceData(v27, c0, v87, v115, v31, c0, v91, v115, v29, c0, v90, v115, v26, c0, v88, v115));
-        return list;
+        Vector4f c = new Vector4f(1F, 1F, 1F, 1F);
+
+        ImmutableList.Builder<FaceData> builder = ImmutableList.builder();
+        builder.add(new FaceData(v27, c, v80, v111, v26, c, v79, v111, v25, c, v78, v111, v24, c, v77, v111));
+        builder.add(new FaceData(v26, c, v84, v112, v29, c, v83, v112, v28, c, v82, v112, v25, c, v81, v112));
+        builder.add(new FaceData(v29, c, v83, v113, v31, c, v86, v113, v30, c, v85, v113, v28, c, v82, v113));
+        builder.add(new FaceData(v31, c, v86, v114, v27, c, v80, v114, v24, c, v77, v114, v30, c, v85, v114));
+        builder.add(new FaceData(v24, c, v89, v110, v25, c, v78, v110, v28, c, v88, v110, v30, c, v87, v110));
+        builder.add(new FaceData(v27, c, v87, v115, v31, c, v91, v115, v29, c, v90, v115, v26, c, v88, v115));
+        return builder.build();
     }
 
-    private static final Vector4f c1 = new Vector4f(1F, 1F, 1F, 0.5F);
+    public static final List<FaceData> BLADE_OUTER_1_FACES = getBladeOuter1Faces();
 
     public static List<FaceData> getBladeOuter1Faces() {
-        List<FaceData> list = new ArrayList<>();
-        list.add(new FaceData(v35, c1, v95, v111, v34, c1, v94, v111, v33, c1, v93, v111, v32, c1, v92, v111));
-        list.add(new FaceData(v34, c1, v98, v112, v37, c1, v97, v112, v36, c1, v96, v112, v33, c1, v89, v112));
-        list.add(new FaceData(v37, c1, v97, v113, v39, c1, v100, v113, v38, c1, v99, v113, v36, c1, v96, v113));
-        list.add(new FaceData(v39, c1, v100, v114, v35, c1, v95, v114, v32, c1, v92, v114, v38, c1, v99, v114));
-        list.add(new FaceData(v32, c1, v102, v110, v33, c1, v93, v110, v36, c1, v101, v110, v38, c1, v69, v110));
-        return list;
+        Vector4f c = new Vector4f(1F, 1F, 1F, 0.5F);
+
+        ImmutableList.Builder<FaceData> builder = ImmutableList.builder();
+        builder.add(new FaceData(v35, c, v95, v111, v34, c, v94, v111, v33, c, v93, v111, v32, c, v92, v111));
+        builder.add(new FaceData(v34, c, v98, v112, v37, c, v97, v112, v36, c, v96, v112, v33, c, v89, v112));
+        builder.add(new FaceData(v37, c, v97, v113, v39, c, v100, v113, v38, c, v99, v113, v36, c, v96, v113));
+        builder.add(new FaceData(v39, c, v100, v114, v35, c, v95, v114, v32, c, v92, v114, v38, c, v99, v114));
+        builder.add(new FaceData(v32, c, v102, v110, v33, c, v93, v110, v36, c, v101, v110, v38, c, v69, v110));
+        return builder.build();
     }
 
-    private static final Vector4f c2 = new Vector4f(1F, 1F, 1F, 1F);
+    public static final List<FaceData> BLADE_OUTER_MODE_1_FACES = getBladeOuterMode1Faces();
 
     public static List<FaceData> getBladeOuterMode1Faces() {
-        List<FaceData> list = new ArrayList<>();
-        list.add(new FaceData(v38, c2, v92, v111, v39, c2, v95, v111, v37, c2, v94, v111, v36, c2, v93, v111));
-        list.add(new FaceData(v32, c2, v89, v112, v35, c2, v98, v112, v39, c2, v97, v112, v38, c2, v96, v112));
-        list.add(new FaceData(v33, c2, v96, v113, v34, c2, v97, v113, v35, c2, v100, v113, v32, c2, v99, v113));
-        list.add(new FaceData(v36, c2, v99, v114, v37, c2, v100, v114, v34, c2, v95, v114, v33, c2, v92, v114));
-        list.add(new FaceData(v32, c2, v101, v115, v38, c2, v93, v115, v36, c2, v102, v115, v33, c2, v69, v115));
-        list.add(new FaceData(v21, c2, v50, v110, v22, c2, v51, v110, v23, c2, v53, v110, v20, c2, v55, v110));
-        return list;
+        Vector4f c = new Vector4f(1F, 1F, 1F, 1F);
+
+        ImmutableList.Builder<FaceData> builder = ImmutableList.builder();
+        builder.add(new FaceData(v38, c, v92, v111, v39, c, v95, v111, v37, c, v94, v111, v36, c, v93, v111));
+        builder.add(new FaceData(v32, c, v89, v112, v35, c, v98, v112, v39, c, v97, v112, v38, c, v96, v112));
+        builder.add(new FaceData(v33, c, v96, v113, v34, c, v97, v113, v35, c, v100, v113, v32, c, v99, v113));
+        builder.add(new FaceData(v36, c, v99, v114, v37, c, v100, v114, v34, c, v95, v114, v33, c, v92, v114));
+        builder.add(new FaceData(v32, c, v101, v115, v38, c, v93, v115, v36, c, v102, v115, v33, c, v69, v115));
+        builder.add(new FaceData(v21, c, v50, v110, v22, c, v51, v110, v23, c, v53, v110, v20, c, v55, v110));
+        return builder.build();
     }
 
-    private static final Vector4f c3 = new Vector4f(0.75F, 0.75F, 0.75F, 1F);
+    public static final List<FaceData> HILT_FACES = getHiltFaces();
 
     public static List<FaceData> getHiltFaces() {
-        List<FaceData> list = new ArrayList<>();
-        list.add(new FaceData(v3, c3, v51, v110, v2, c3, v50, v110, v1, c3, v49, v110, v0, c3, v48, v110));
-        list.add(new FaceData(v5, c3, v53, v110, v3, c3, v51, v110, v0, c3, v48, v110, v4, c3, v52, v110));
-        list.add(new FaceData(v2, c3, v50, v110, v7, c3, v55, v110, v6, c3, v54, v110, v1, c3, v49, v110));
-        list.add(new FaceData(v6, c3, v54, v110, v7, c3, v55, v110, v5, c3, v53, v110, v4, c3, v52, v110));
-        list.add(new FaceData(v9, c3, v59, v111, v8, c3, v58, v111, v1, c3, v57, v111, v6, c3, v56, v111));
-        list.add(new FaceData(v8, c3, v62, v112, v10, c3, v61, v112, v0, c3, v48, v112, v1, c3, v60, v112));
-        list.add(new FaceData(v10, c3, v61, v113, v11, c3, v63, v113, v4, c3, v52, v113, v0, c3, v48, v113));
-        list.add(new FaceData(v11, c3, v65, v114, v9, c3, v59, v114, v6, c3, v56, v114, v4, c3, v64, v114));
-        list.add(new FaceData(v11, c3, v56, v115, v10, c3, v64, v115, v8, c3, v62, v115, v9, c3, v61, v115));
-        list.add(new FaceData(v15, c3, v49, v111, v14, c3, v68, v111, v13, c3, v67, v111, v12, c3, v66, v111));
-        list.add(new FaceData(v14, c3, v72, v112, v17, c3, v71, v112, v16, c3, v70, v112, v13, c3, v69, v112));
-        list.add(new FaceData(v17, c3, v71, v113, v19, c3, v74, v113, v18, c3, v73, v113, v16, c3, v70, v113));
-        list.add(new FaceData(v19, c3, v74, v114, v15, c3, v49, v114, v12, c3, v66, v114, v18, c3, v73, v114));
-        list.add(new FaceData(v19, c3, v66, v115, v17, c3, v73, v115, v14, c3, v76, v115, v15, c3, v75, v115));
-        return list;
+        Vector4f c = new Vector4f(0.75F, 0.75F, 0.75F, 1F);
+
+        ImmutableList.Builder<FaceData> builder = ImmutableList.builder();
+        builder.add(new FaceData(v3, c, v51, v110, v2, c, v50, v110, v1, c, v49, v110, v0, c, v48, v110));
+        builder.add(new FaceData(v5, c, v53, v110, v3, c, v51, v110, v0, c, v48, v110, v4, c, v52, v110));
+        builder.add(new FaceData(v2, c, v50, v110, v7, c, v55, v110, v6, c, v54, v110, v1, c, v49, v110));
+        builder.add(new FaceData(v6, c, v54, v110, v7, c, v55, v110, v5, c, v53, v110, v4, c, v52, v110));
+        builder.add(new FaceData(v9, c, v59, v111, v8, c, v58, v111, v1, c, v57, v111, v6, c, v56, v111));
+        builder.add(new FaceData(v8, c, v62, v112, v10, c, v61, v112, v0, c, v48, v112, v1, c, v60, v112));
+        builder.add(new FaceData(v10, c, v61, v113, v11, c, v63, v113, v4, c, v52, v113, v0, c, v48, v113));
+        builder.add(new FaceData(v11, c, v65, v114, v9, c, v59, v114, v6, c, v56, v114, v4, c, v64, v114));
+        builder.add(new FaceData(v11, c, v56, v115, v10, c, v64, v115, v8, c, v62, v115, v9, c, v61, v115));
+        builder.add(new FaceData(v15, c, v49, v111, v14, c, v68, v111, v13, c, v67, v111, v12, c, v66, v111));
+        builder.add(new FaceData(v14, c, v72, v112, v17, c, v71, v112, v16, c, v70, v112, v13, c, v69, v112));
+        builder.add(new FaceData(v17, c, v71, v113, v19, c, v74, v113, v18, c, v73, v113, v16, c, v70, v113));
+        builder.add(new FaceData(v19, c, v74, v114, v15, c, v49, v114, v12, c, v66, v114, v18, c, v73, v114));
+        builder.add(new FaceData(v19, c, v66, v115, v17, c, v73, v115, v14, c, v76, v115, v15, c, v75, v115));
+        return builder.build();
     }
 
-    private static final Vector4f c4 = new Vector4f(0.75F, 0.75F, 0.75F, 1F);
+    public static final List<FaceData> HILT_2_FACES = getHilt2Faces();
 
     public static List<FaceData> getHilt2Faces() {
-        List<FaceData> list = new ArrayList<>();
-        list.add(new FaceData(v21, c4, v50, v110, v22, c4, v51, v110, v23, c4, v53, v110, v20, c4, v55, v110));
-        return list;
+        Vector4f c = new Vector4f(0.75F, 0.75F, 0.75F, 1F);
+
+        ImmutableList.Builder<FaceData> builder = ImmutableList.builder();
+        builder.add(new FaceData(v21, c, v50, v110, v22, c, v51, v110, v23, c, v53, v110, v20, c, v55, v110));
+        return builder.build();
     }
 
-    private static final Vector4f c5 = new Vector4f(1F, 1F, 1F, 0.9F);
+    public static final List<FaceData> BLADE_INNER_FACES = getBladeInnerFaces();
 
     public static List<FaceData> getBladeInnerFaces() {
-        List<FaceData> list = new ArrayList<>();
-        list.add(new FaceData(v27, c5, v80, v111, v26, c5, v79, v111, v25, c5, v78, v111, v24, c5, v77, v111));
-        list.add(new FaceData(v26, c5, v84, v112, v29, c5, v83, v112, v28, c5, v82, v112, v25, c5, v81, v112));
-        list.add(new FaceData(v29, c5, v83, v113, v31, c5, v86, v113, v30, c5, v85, v113, v28, c5, v82, v113));
-        list.add(new FaceData(v31, c5, v86, v114, v27, c5, v80, v114, v24, c5, v77, v114, v30, c5, v85, v114));
-        list.add(new FaceData(v24, c5, v89, v110, v25, c5, v78, v110, v28, c5, v88, v110, v30, c5, v87, v110));
-        list.add(new FaceData(v27, c5, v87, v115, v31, c5, v91, v115, v29, c5, v90, v115, v26, c5, v88, v115));
-        return list;
+        Vector4f c = new Vector4f(1F, 1F, 1F, 0.9F);
+
+        ImmutableList.Builder<FaceData> builder = ImmutableList.builder();
+        builder.add(new FaceData(v27, c, v80, v111, v26, c, v79, v111, v25, c, v78, v111, v24, c, v77, v111));
+        builder.add(new FaceData(v26, c, v84, v112, v29, c, v83, v112, v28, c, v82, v112, v25, c, v81, v112));
+        builder.add(new FaceData(v29, c, v83, v113, v31, c, v86, v113, v30, c, v85, v113, v28, c, v82, v113));
+        builder.add(new FaceData(v31, c, v86, v114, v27, c, v80, v114, v24, c, v77, v114, v30, c, v85, v114));
+        builder.add(new FaceData(v24, c, v89, v110, v25, c, v78, v110, v28, c, v88, v110, v30, c, v87, v110));
+        builder.add(new FaceData(v27, c, v87, v115, v31, c, v91, v115, v29, c, v90, v115, v26, c, v88, v115));
+        return builder.build();
     }
 
-    private static final Vector4f c6 = new Vector4f(1F, 1F, 1F, 0.25F);
+    public static final List<FaceData> BLADE_OUTER_2_FACES = getBladeOuter2Faces();
 
     public static List<FaceData> getBladeOuter2Faces() {
-        List<FaceData> list = new ArrayList<>();
-        list.add(new FaceData(v43, c6, v104, v111, v42, c6, v103, v111, v41, c6, v93, v111, v40, c6, v92, v111));
-        list.add(new FaceData(v42, c6, v106, v112, v45, c6, v105, v112, v44, c6, v96, v112, v41, c6, v89, v112));
-        list.add(new FaceData(v45, c6, v105, v113, v47, c6, v107, v113, v46, c6, v99, v113, v44, c6, v96, v113));
-        list.add(new FaceData(v47, c6, v107, v114, v43, c6, v104, v114, v40, c6, v92, v114, v46, c6, v99, v114));
-        list.add(new FaceData(v40, c6, v102, v110, v41, c6, v93, v110, v44, c6, v101, v110, v46, c6, v69, v110));
-        list.add(new FaceData(v47, c6, v109, v115, v45, c6, v108, v115, v42, c6, v101, v115, v43, c6, v69, v115));
-        return list;
+        Vector4f c = new Vector4f(1F, 1F, 1F, 0.25F);
+
+        ImmutableList.Builder<FaceData> builder = ImmutableList.builder();
+        builder.add(new FaceData(v43, c, v104, v111, v42, c, v103, v111, v41, c, v93, v111, v40, c, v92, v111));
+        builder.add(new FaceData(v42, c, v106, v112, v45, c, v105, v112, v44, c, v96, v112, v41, c, v89, v112));
+        builder.add(new FaceData(v45, c, v105, v113, v47, c, v107, v113, v46, c, v99, v113, v44, c, v96, v113));
+        builder.add(new FaceData(v47, c, v107, v114, v43, c, v104, v114, v40, c, v92, v114, v46, c, v99, v114));
+        builder.add(new FaceData(v40, c, v102, v110, v41, c, v93, v110, v44, c, v101, v110, v46, c, v69, v110));
+        builder.add(new FaceData(v47, c, v109, v115, v45, c, v108, v115, v42, c, v101, v115, v43, c, v69, v115));
+        return builder.build();
     }
 }

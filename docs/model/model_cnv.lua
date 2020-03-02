@@ -118,23 +118,25 @@ print()
 
 local color_count = 0
 local color = ""
-local face_template = "    list.add(new FaceData(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s));"
+local face_template = "    builder.add(new FaceData(%s, c, %s, %s, %s, c, %s, %s, %s, c, %s, %s, %s, c, %s, %s));"
 
 for key, value in pairs(obj.f) do
     color = "c" .. color_count
     color_count = color_count + 1
-    
-    print("private static final Vector4f " .. color .. " = new Vector4f(1F, 1F, 1F, 1F);\n")
 
-    print("public static List<FaceData> get" .. key .. "Faces() {\n    List<FaceData> list = new ArrayList<>();")
+    print("public static final List<FaceData> " .. key .. "Faces = get" .. key .. "Faces();\n")
+
+    print("public static List<FaceData> get" .. key .. "Faces() {")
+    print("    Vector4f c = new Vector4f(1F, 1F, 1F, 1F);\n ")
+    print("    ImmutableList.Builder<FaceData> builder = ImmutableList.builder();")
 
     for i, face in ipairs(value) do
         print(string.format(face_template,
-            face[1], color, face[2], face[3],
-            face[4], color, face[5], face[6],
-            face[7], color, face[8], face[9],
-            face[10], color, face[11], face[12]))
+            face[1], face[2], face[3],
+            face[4], face[5], face[6],
+            face[7], face[8], face[9],
+            face[10], face[11], face[12]))
     end
 
-    print("    return list;\n}\n")
+    print("    return builder.build();\n}\n")
 end
