@@ -14,25 +14,35 @@ public class LaserBladeRenderType extends RenderType {
         super(name, vertexFormat, drawMode, bufferSize, useDelegate, needsSorting, setupTask, clearTask);
     }
 
-    public static final RenderType HILT = RenderType.getEntityTranslucent(LaserBladeItemRenderer.LASER_BLADE_TEXTURE);
+    public static final RenderType HILT = getRenderType("hilt", getHiltRenderState());
     public static final RenderType LASER_ADD = getRenderType("laser_add", getLaserAddRenderState());
     public static final RenderType LASER_SUB = getRenderType("laser_sub", getLaserSubRenderState());
     public static final RenderType LASER_FLAT = getRenderType("laser_flat", getLaserFlatRenderState());
 
     private static RenderType getRenderType(String name, RenderType.State renderState) {
-        return RenderType.makeType(name, DefaultVertexFormats.ENTITY, GL11.GL_QUADS, 256, false, false, renderState);
+        return RenderType.makeType(name, DefaultVertexFormats.BLOCK, GL11.GL_QUADS, 256, false, false, renderState);
+    }
+
+    private static RenderType.State getHiltRenderState() {
+        return RenderType.State.getBuilder()
+                .diffuseLighting(DIFFUSE_LIGHTING_ENABLED)
+                .shadeModel(SHADE_ENABLED)
+                .lightmap(LIGHTMAP_ENABLED)
+                .texture(BLOCK_SHEET)
+                .transparency(TRANSLUCENT_TRANSPARENCY)
+                .build(true);
     }
 
     private static RenderType.State getLaserFlatRenderState() {
         return RenderType.State.getBuilder()
-                .texture(new RenderState.TextureState(LaserBladeItemRenderer.LASER_BLADE_TEXTURE, false, false))
+                .texture(BLOCK_SHEET)
                 .transparency(TRANSLUCENT_TRANSPARENCY)
                 .build(true);
     }
 
     private static RenderType.State getLaserAddRenderState() {
         return RenderType.State.getBuilder()
-                .texture(new RenderState.TextureState(LaserBladeItemRenderer.LASER_BLADE_TEXTURE, false, false))
+                .texture(BLOCK_SHEET)
                 .transparency(LIGHTNING_TRANSPARENCY)
                 .build(true);
     }
@@ -49,7 +59,7 @@ public class LaserBladeRenderType extends RenderType {
         });
 
         return RenderType.State.getBuilder()
-                .texture(new RenderState.TextureState(LaserBladeItemRenderer.LASER_BLADE_TEXTURE, false, false))
+                .texture(BLOCK_SHEET)
                 .transparency(transparencyState)
                 .build(true);
     }

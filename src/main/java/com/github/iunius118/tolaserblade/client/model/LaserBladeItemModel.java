@@ -1,234 +1,102 @@
 package com.github.iunius118.tolaserblade.client.model;
 
-import com.google.common.collect.ImmutableList;
-import net.minecraft.client.renderer.Vector3f;
-import net.minecraft.client.renderer.Vector4f;
-import net.minecraft.util.math.Vec2f;
+import com.github.iunius118.tolaserblade.ToLaserBlade;
+import com.google.common.collect.Maps;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.model.BakedQuad;
+import net.minecraft.client.renderer.model.BlockModel;
+import net.minecraft.client.renderer.model.IUnbakedModel;
+import net.minecraft.client.renderer.model.ItemOverrideList;
+import net.minecraft.item.Items;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.model.BlockModelConfiguration;
+import net.minecraftforge.client.model.IModelBuilder;
+import net.minecraftforge.client.model.ModelLoader;
+import net.minecraftforge.client.model.SimpleModelTransform;
+import net.minecraftforge.client.model.data.EmptyModelData;
+import net.minecraftforge.client.model.geometry.IModelGeometry;
+import net.minecraftforge.client.model.geometry.IModelGeometryPart;
+import net.minecraftforge.client.model.obj.OBJModel;
 
-import java.util.List;
+import java.util.*;
 
-public class LaserBladeItemModel implements SimpleItemModel {
-    private static final Vector3f v1 = new Vector3f(0.093750F, 0.375000F, 0.093750F);
-    private static final Vector3f v6 = new Vector3f(-0.093750F, 0.375000F, 0.093750F);
-    private static final Vector3f v16 = new Vector3f(0.031250F, 0.312500F, -0.031250F);
-    private static final Vector3f v37 = new Vector3f(0.062550F, 0.343700F, -0.062550F);
-    private static final Vector3f v11 = new Vector3f(-0.093750F, 0.312500F, -0.093750F);
-    private static final Vector3f v3 = new Vector3f(0.062550F, 0.375000F, -0.062550F);
-    private static final Vector3f v30 = new Vector3f(-0.031200F, 1.375000F, -0.031300F);
-    private static final Vector3f v9 = new Vector3f(-0.093750F, 0.312500F, 0.093750F);
-    private static final Vector3f v2 = new Vector3f(0.062550F, 0.375000F, 0.062450F);
-    private static final Vector3f v24 = new Vector3f(-0.031200F, 1.375000F, 0.031200F);
-    private static final Vector3f v10 = new Vector3f(0.093750F, 0.312500F, -0.093750F);
-    private static final Vector3f v21 = new Vector3f(0.062600F, 0.375000F, 0.062400F);
-    private static final Vector3f v39 = new Vector3f(-0.062450F, 0.343700F, -0.062550F);
-    private static final Vector3f v19 = new Vector3f(-0.031250F, 0.000000F, -0.031250F);
-    private static final Vector3f v42 = new Vector3f(0.093800F, 0.375000F, 0.093700F);
-    private static final Vector3f v114 = new Vector3f(-1.00000F, 0.00000F, 0.00000F);
-    private static final Vector3f v43 = new Vector3f(-0.093700F, 0.375000F, 0.093700F);
-    private static final Vector3f v113 = new Vector3f(0.00000F, 0.00000F, -1.00000F);
-    private static final Vector3f v31 = new Vector3f(-0.031200F, 0.375000F, -0.031300F);
-    private static final Vector3f v35 = new Vector3f(-0.062450F, 0.343700F, 0.062450F);
-    private static final Vector3f v0 = new Vector3f(0.093750F, 0.375000F, -0.093750F);
-    private static final Vector3f v32 = new Vector3f(-0.062450F, 1.406300F, 0.062450F);
-    private static final Vector3f v20 = new Vector3f(-0.062400F, 0.375000F, 0.062400F);
-    private static final Vector3f v36 = new Vector3f(0.062550F, 1.406300F, -0.062550F);
-    private static final Vector3f v110 = new Vector3f(0.00000F, 1.00000F, 0.00000F);
-    private static final Vector3f v17 = new Vector3f(0.031250F, 0.000000F, -0.031250F);
-    private static final Vector3f v4 = new Vector3f(-0.093750F, 0.375000F, -0.093750F);
-    private static final Vector3f v46 = new Vector3f(-0.093700F, 1.437500F, -0.093800F);
-    private static final Vector3f v47 = new Vector3f(-0.093700F, 0.375000F, -0.093800F);
-    private static final Vector3f v44 = new Vector3f(0.093800F, 1.437500F, -0.093800F);
-    private static final Vector3f v33 = new Vector3f(0.062550F, 1.406300F, 0.062450F);
-    private static final Vector3f v8 = new Vector3f(0.093750F, 0.312500F, 0.093750F);
-    private static final Vector3f v45 = new Vector3f(0.093800F, 0.375000F, -0.093800F);
-    private static final Vector3f v115 = new Vector3f(0.00000F, -1.00000F, 0.00000F);
-    private static final Vector3f v12 = new Vector3f(-0.031250F, 0.312500F, 0.031250F);
-    private static final Vector3f v40 = new Vector3f(-0.093700F, 1.437500F, 0.093700F);
-    private static final Vector3f v41 = new Vector3f(0.093800F, 1.437500F, 0.093700F);
-    private static final Vector3f v38 = new Vector3f(-0.062450F, 1.406300F, -0.062550F);
-    private static final Vector3f v7 = new Vector3f(-0.062450F, 0.375000F, 0.062450F);
-    private static final Vector3f v111 = new Vector3f(0.00000F, 0.00000F, 1.00000F);
-    private static final Vector3f v34 = new Vector3f(0.062550F, 0.343700F, 0.062450F);
-    private static final Vector3f v112 = new Vector3f(1.00000F, 0.00000F, 0.00000F);
-    private static final Vector3f v15 = new Vector3f(-0.031250F, 0.000000F, 0.031250F);
-    private static final Vector3f v18 = new Vector3f(-0.031250F, 0.312500F, -0.031250F);
-    private static final Vector3f v29 = new Vector3f(0.031300F, 0.375000F, -0.031300F);
-    private static final Vector3f v5 = new Vector3f(-0.062450F, 0.375000F, -0.062550F);
-    private static final Vector3f v23 = new Vector3f(-0.062400F, 0.375000F, -0.062600F);
-    private static final Vector3f v22 = new Vector3f(0.062600F, 0.375000F, -0.062600F);
-    private static final Vector3f v28 = new Vector3f(0.031300F, 1.375000F, -0.031300F);
-    private static final Vector3f v27 = new Vector3f(-0.031200F, 0.375000F, 0.031200F);
-    private static final Vector3f v26 = new Vector3f(0.031300F, 0.375000F, 0.031200F);
-    private static final Vector3f v25 = new Vector3f(0.031300F, 1.375000F, 0.031200F);
-    private static final Vector3f v13 = new Vector3f(0.031250F, 0.312500F, 0.031250F);
-    private static final Vector3f v14 = new Vector3f(0.031250F, 0.000000F, 0.031250F);
-    private static final Vec2f v78 = new Vec2f(0.25000F, 0.00000F);
-    private static final Vec2f v69 = new Vec2f(0.62500F, 0.06250F);
-    private static final Vec2f v50 = new Vec2f(0.84375F, 0.40625F);
-    private static final Vec2f v68 = new Vec2f(0.87500F, 0.37500F);
-    private static final Vec2f v52 = new Vec2f(1.00000F, 0.56250F);
-    private static final Vec2f v73 = new Vec2f(0.75000F, 0.06250F);
-    private static final Vec2f v63 = new Vec2f(1.00000F, 0.62500F);
-    private static final Vec2f v109 = new Vec2f(0.62500F, 0.12500F);
-    private static final Vec2f v76 = new Vec2f(0.75000F, 0.00000F);
-    private static final Vec2f v89 = new Vec2f(0.31250F, 0.00000F);
-    private static final Vec2f v90 = new Vec2f(0.25000F, 0.12500F);
-    private static final Vec2f v92 = new Vec2f(0.50000F, 0.00000F);
-    private static final Vec2f v98 = new Vec2f(0.31250F, 1.00000F);
-    private static final Vec2f v106 = new Vec2f(0.31250F, 0.94444F);
-    private static final Vec2f v86 = new Vec2f(0.12500F, 1.00000F);
-    private static final Vec2f v105 = new Vec2f(0.37500F, 0.94444F);
-    private static final Vec2f v51 = new Vec2f(0.84375F, 0.53125F);
-    private static final Vec2f v104 = new Vec2f(0.50000F, 0.94444F);
-    private static final Vec2f v70 = new Vec2f(0.68750F, 0.06250F);
-    private static final Vec2f v103 = new Vec2f(0.56250F, 0.94444F);
-    private static final Vec2f v81 = new Vec2f(0.00000F, 0.00000F);
-    private static final Vec2f v101 = new Vec2f(0.56250F, 0.06250F);
-    private static final Vec2f v100 = new Vec2f(0.43750F, 1.00000F);
-    private static final Vec2f v59 = new Vec2f(0.81250F, 0.87500F);
-    private static final Vec2f v88 = new Vec2f(0.25000F, 0.06250F);
-    private static final Vec2f v48 = new Vec2f(0.81250F, 0.56250F);
-    private static final Vec2f v93 = new Vec2f(0.56250F, 0.00000F);
-    private static final Vec2f v65 = new Vec2f(0.62500F, 0.87500F);
-    private static final Vec2f v82 = new Vec2f(0.06250F, 0.00000F);
-    private static final Vec2f v97 = new Vec2f(0.37500F, 1.00000F);
-    private static final Vec2f v56 = new Vec2f(0.81250F, 0.81250F);
-    private static final Vec2f v94 = new Vec2f(0.56250F, 1.00000F);
-    private static final Vec2f v95 = new Vec2f(0.50000F, 1.00000F);
-    private static final Vec2f v67 = new Vec2f(0.87500F, 0.06250F);
-    private static final Vec2f v61 = new Vec2f(0.81250F, 0.62500F);
-    private static final Vec2f v96 = new Vec2f(0.37500F, 0.00000F);
-    private static final Vec2f v99 = new Vec2f(0.43750F, 0.00000F);
-    private static final Vec2f v55 = new Vec2f(0.96875F, 0.40625F);
-    private static final Vec2f v107 = new Vec2f(0.43750F, 0.94444F);
-    private static final Vec2f v75 = new Vec2f(0.81250F, 0.00000F);
-    private static final Vec2f v91 = new Vec2f(0.31250F, 0.12500F);
-    private static final Vec2f v66 = new Vec2f(0.81250F, 0.06250F);
-    private static final Vec2f v57 = new Vec2f(1.00000F, 0.81250F);
-    private static final Vec2f v108 = new Vec2f(0.56250F, 0.12500F);
-    private static final Vec2f v87 = new Vec2f(0.31250F, 0.06250F);
-    private static final Vec2f v58 = new Vec2f(1.00000F, 0.87500F);
-    private static final Vec2f v79 = new Vec2f(0.25000F, 1.00000F);
-    private static final Vec2f v85 = new Vec2f(0.12500F, 0.00000F);
-    private static final Vec2f v71 = new Vec2f(0.68750F, 0.37500F);
-    private static final Vec2f v84 = new Vec2f(0.00000F, 1.00000F);
-    private static final Vec2f v102 = new Vec2f(0.62500F, 0.00000F);
-    private static final Vec2f v83 = new Vec2f(0.06250F, 1.00000F);
-    private static final Vec2f v64 = new Vec2f(0.62500F, 0.81250F);
-    private static final Vec2f v80 = new Vec2f(0.18750F, 1.00000F);
-    private static final Vec2f v74 = new Vec2f(0.75000F, 0.37500F);
-    private static final Vec2f v62 = new Vec2f(0.62500F, 0.62500F);
-    private static final Vec2f v54 = new Vec2f(1.00000F, 0.37500F);
-    private static final Vec2f v60 = new Vec2f(0.62500F, 0.56250F);
-    private static final Vec2f v53 = new Vec2f(0.96875F, 0.53125F);
-    private static final Vec2f v49 = new Vec2f(0.81250F, 0.37500F);
-    private static final Vec2f v77 = new Vec2f(0.18750F, 0.00000F);
-    private static final Vec2f v72 = new Vec2f(0.62500F, 0.37500F);
-
-    public static final List<FaceData> BLADE_INNER_MODE_1_FACES = getBladeInnerMode1Faces();
-
-    public static List<FaceData> getBladeInnerMode1Faces() {
-        Vector4f c = new Vector4f(1F, 1F, 1F, 1F);
-
-        ImmutableList.Builder<FaceData> builder = ImmutableList.builder();
-        builder.add(new FaceData(v27, c, v80, v111, v26, c, v79, v111, v25, c, v78, v111, v24, c, v77, v111));
-        builder.add(new FaceData(v26, c, v84, v112, v29, c, v83, v112, v28, c, v82, v112, v25, c, v81, v112));
-        builder.add(new FaceData(v29, c, v83, v113, v31, c, v86, v113, v30, c, v85, v113, v28, c, v82, v113));
-        builder.add(new FaceData(v31, c, v86, v114, v27, c, v80, v114, v24, c, v77, v114, v30, c, v85, v114));
-        builder.add(new FaceData(v24, c, v89, v110, v25, c, v78, v110, v28, c, v88, v110, v30, c, v87, v110));
-        builder.add(new FaceData(v27, c, v87, v115, v31, c, v91, v115, v29, c, v90, v115, v26, c, v88, v115));
-        return builder.build();
+public class LaserBladeItemModel {
+    public static Map<Part, List<BakedQuad>> parts = Maps.newEnumMap(Part.class);
+    static {
+        parts.put(Part.HILT, Collections.emptyList());
+        parts.put(Part.HILT_2, Collections.emptyList());
+        parts.put(Part.HILT_BRIGHT, Collections.emptyList());
+        parts.put(Part.BLADE_INNER, Collections.emptyList());
+        parts.put(Part.BLADE_OUTER_1, Collections.emptyList());
+        parts.put(Part.BLADE_OUTER_2, Collections.emptyList());
+        parts.put(Part.BLADE_OUTER_MODE_1, Collections.emptyList());
+        parts.put(Part.BLADE_INNER_MODE_1, Collections.emptyList());
     }
 
-    public static final List<FaceData> BLADE_OUTER_1_FACES = getBladeOuter1Faces();
+    public static void loadLaserBladeOBJModel(ModelLoader loader) {
+        ResourceLocation modelLocation = new ResourceLocation(ToLaserBlade.MOD_ID, "item/laser_blade_obj");
+        IUnbakedModel model = loader.getModelOrMissing(modelLocation);
 
-    public static List<FaceData> getBladeOuter1Faces() {
-        Vector4f c = new Vector4f(1F, 1F, 1F, 0.5F);
+        if (!(model instanceof BlockModel))  return;
 
-        ImmutableList.Builder<FaceData> builder = ImmutableList.builder();
-        builder.add(new FaceData(v35, c, v95, v111, v34, c, v94, v111, v33, c, v93, v111, v32, c, v92, v111));
-        builder.add(new FaceData(v34, c, v98, v112, v37, c, v97, v112, v36, c, v96, v112, v33, c, v89, v112));
-        builder.add(new FaceData(v37, c, v97, v113, v39, c, v100, v113, v38, c, v99, v113, v36, c, v96, v113));
-        builder.add(new FaceData(v39, c, v100, v114, v35, c, v95, v114, v32, c, v92, v114, v38, c, v99, v114));
-        builder.add(new FaceData(v32, c, v102, v110, v33, c, v93, v110, v36, c, v101, v110, v38, c, v69, v110));
-        return builder.build();
+        BlockModelConfiguration modelConfig = ((BlockModel)model).customData;
+        IModelGeometry<?> modelGeometry = modelConfig.getCustomGeometry();
+        Collection<? extends IModelGeometryPart> geometryParts = Collections.emptyList();
+
+        if (modelGeometry instanceof OBJModel) {
+            Optional<? extends IModelGeometryPart> part = modelGeometry.getPart("laser_blade");
+
+            if (part.isPresent() && part.get() instanceof OBJModel.ModelGroup) {
+                geometryParts = ((OBJModel.ModelGroup) part.get()).getParts();
+            }
+
+        } else if (modelGeometry != null) {
+            geometryParts = modelGeometry.getParts();
+
+        } else {
+            return;
+
+        }
+
+        for (IModelGeometryPart geometryPart : geometryParts) {
+            Part part = Part.find(geometryPart.name());
+
+            if (part != null) {
+                IModelBuilder<?> builder = IModelBuilder.of(modelConfig, ItemOverrideList.EMPTY, Minecraft.getInstance().getItemRenderer().getItemModelMesher().getParticleIcon(Items.IRON_INGOT));
+                geometryPart.addQuads(modelConfig, builder, loader, ModelLoader.defaultTextureGetter(), SimpleModelTransform.IDENTITY, modelLocation);
+                parts.put(part, builder.build().getQuads(null, null, new Random(42L), EmptyModelData.INSTANCE));
+            }
+        }
     }
 
-    public static final List<FaceData> BLADE_OUTER_MODE_1_FACES = getBladeOuterMode1Faces();
+    public enum Part {
+        HILT("laser_blade/hilt"),
+        HILT_2("laser_blade/hilt_2"),
+        HILT_BRIGHT("laser_blade/hilt_bright"),
+        BLADE_INNER("laser_blade/blade_inner"),
+        BLADE_OUTER_1("laser_blade/blade_outer_1"),
+        BLADE_OUTER_2("laser_blade/blade_outer_2"),
+        BLADE_OUTER_MODE_1("laser_blade/blade_outer_mode_1"),
+        BLADE_INNER_MODE_1("laser_blade/blade_inner_mode_1");
 
-    public static List<FaceData> getBladeOuterMode1Faces() {
-        Vector4f c = new Vector4f(1F, 1F, 1F, 1F);
+        private String name;
 
-        ImmutableList.Builder<FaceData> builder = ImmutableList.builder();
-        builder.add(new FaceData(v38, c, v92, v111, v39, c, v95, v111, v37, c, v94, v111, v36, c, v93, v111));
-        builder.add(new FaceData(v32, c, v89, v112, v35, c, v98, v112, v39, c, v97, v112, v38, c, v96, v112));
-        builder.add(new FaceData(v33, c, v96, v113, v34, c, v97, v113, v35, c, v100, v113, v32, c, v99, v113));
-        builder.add(new FaceData(v36, c, v99, v114, v37, c, v100, v114, v34, c, v95, v114, v33, c, v92, v114));
-        builder.add(new FaceData(v32, c, v101, v115, v38, c, v93, v115, v36, c, v102, v115, v33, c, v69, v115));
-        builder.add(new FaceData(v21, c, v50, v110, v22, c, v51, v110, v23, c, v53, v110, v20, c, v55, v110));
-        return builder.build();
-    }
+        Part(String nameIn) {
+            name = nameIn;
+        }
 
-    public static final List<FaceData> HILT_FACES = getHiltFaces();
+        public String getName() {
+            return name;
+        }
 
-    public static List<FaceData> getHiltFaces() {
-        Vector4f c = new Vector4f(0.75F, 0.75F, 0.75F, 1F);
+        public static Part find(String nameIn) {
+            for(Part value : values()) {
+                if(value.getName().equals(nameIn)) {
+                    return value;
+                }
+            }
 
-        ImmutableList.Builder<FaceData> builder = ImmutableList.builder();
-        builder.add(new FaceData(v3, c, v51, v110, v2, c, v50, v110, v1, c, v49, v110, v0, c, v48, v110));
-        builder.add(new FaceData(v5, c, v53, v110, v3, c, v51, v110, v0, c, v48, v110, v4, c, v52, v110));
-        builder.add(new FaceData(v2, c, v50, v110, v7, c, v55, v110, v6, c, v54, v110, v1, c, v49, v110));
-        builder.add(new FaceData(v6, c, v54, v110, v7, c, v55, v110, v5, c, v53, v110, v4, c, v52, v110));
-        builder.add(new FaceData(v9, c, v59, v111, v8, c, v58, v111, v1, c, v57, v111, v6, c, v56, v111));
-        builder.add(new FaceData(v8, c, v62, v112, v10, c, v61, v112, v0, c, v48, v112, v1, c, v60, v112));
-        builder.add(new FaceData(v10, c, v61, v113, v11, c, v63, v113, v4, c, v52, v113, v0, c, v48, v113));
-        builder.add(new FaceData(v11, c, v65, v114, v9, c, v59, v114, v6, c, v56, v114, v4, c, v64, v114));
-        builder.add(new FaceData(v11, c, v56, v115, v10, c, v64, v115, v8, c, v62, v115, v9, c, v61, v115));
-        builder.add(new FaceData(v15, c, v49, v111, v14, c, v68, v111, v13, c, v67, v111, v12, c, v66, v111));
-        builder.add(new FaceData(v14, c, v72, v112, v17, c, v71, v112, v16, c, v70, v112, v13, c, v69, v112));
-        builder.add(new FaceData(v17, c, v71, v113, v19, c, v74, v113, v18, c, v73, v113, v16, c, v70, v113));
-        builder.add(new FaceData(v19, c, v74, v114, v15, c, v49, v114, v12, c, v66, v114, v18, c, v73, v114));
-        builder.add(new FaceData(v19, c, v66, v115, v17, c, v73, v115, v14, c, v76, v115, v15, c, v75, v115));
-        return builder.build();
-    }
-
-    public static final List<FaceData> HILT_2_FACES = getHilt2Faces();
-
-    public static List<FaceData> getHilt2Faces() {
-        Vector4f c = new Vector4f(0.75F, 0.75F, 0.75F, 1F);
-
-        ImmutableList.Builder<FaceData> builder = ImmutableList.builder();
-        builder.add(new FaceData(v21, c, v50, v110, v22, c, v51, v110, v23, c, v53, v110, v20, c, v55, v110));
-        return builder.build();
-    }
-
-    public static final List<FaceData> BLADE_INNER_FACES = getBladeInnerFaces();
-
-    public static List<FaceData> getBladeInnerFaces() {
-        Vector4f c = new Vector4f(1F, 1F, 1F, 0.9F);
-
-        ImmutableList.Builder<FaceData> builder = ImmutableList.builder();
-        builder.add(new FaceData(v27, c, v80, v111, v26, c, v79, v111, v25, c, v78, v111, v24, c, v77, v111));
-        builder.add(new FaceData(v26, c, v84, v112, v29, c, v83, v112, v28, c, v82, v112, v25, c, v81, v112));
-        builder.add(new FaceData(v29, c, v83, v113, v31, c, v86, v113, v30, c, v85, v113, v28, c, v82, v113));
-        builder.add(new FaceData(v31, c, v86, v114, v27, c, v80, v114, v24, c, v77, v114, v30, c, v85, v114));
-        builder.add(new FaceData(v24, c, v89, v110, v25, c, v78, v110, v28, c, v88, v110, v30, c, v87, v110));
-        builder.add(new FaceData(v27, c, v87, v115, v31, c, v91, v115, v29, c, v90, v115, v26, c, v88, v115));
-        return builder.build();
-    }
-
-    public static final List<FaceData> BLADE_OUTER_2_FACES = getBladeOuter2Faces();
-
-    public static List<FaceData> getBladeOuter2Faces() {
-        Vector4f c = new Vector4f(1F, 1F, 1F, 0.25F);
-
-        ImmutableList.Builder<FaceData> builder = ImmutableList.builder();
-        builder.add(new FaceData(v43, c, v104, v111, v42, c, v103, v111, v41, c, v93, v111, v40, c, v92, v111));
-        builder.add(new FaceData(v42, c, v106, v112, v45, c, v105, v112, v44, c, v96, v112, v41, c, v89, v112));
-        builder.add(new FaceData(v45, c, v105, v113, v47, c, v107, v113, v46, c, v99, v113, v44, c, v96, v113));
-        builder.add(new FaceData(v47, c, v107, v114, v43, c, v104, v114, v40, c, v92, v114, v46, c, v99, v114));
-        builder.add(new FaceData(v40, c, v102, v110, v41, c, v93, v110, v44, c, v101, v110, v46, c, v69, v110));
-        builder.add(new FaceData(v47, c, v109, v115, v45, c, v108, v115, v42, c, v101, v115, v43, c, v69, v115));
-        return builder.build();
+            return null;
+        }
     }
 }

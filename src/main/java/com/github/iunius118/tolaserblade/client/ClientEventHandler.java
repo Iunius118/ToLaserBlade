@@ -2,11 +2,14 @@ package com.github.iunius118.tolaserblade.client;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.client.model.LaserBladeItemBakedModel;
+import com.github.iunius118.tolaserblade.client.model.LaserBladeItemModel;
 import com.github.iunius118.tolaserblade.item.LaserBladeItem;
 import com.github.iunius118.tolaserblade.item.ToLaserBladeItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
+import net.minecraft.inventory.container.PlayerContainer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraft.util.text.TextFormatting;
@@ -14,6 +17,7 @@ import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.util.text.event.ClickEvent;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.ModelBakeEvent;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.VersionChecker;
@@ -27,11 +31,20 @@ public class ClientEventHandler {
     }
 
     @SubscribeEvent
+    public void onTextureStitchEvent(TextureStitchEvent.Pre event) {
+        if (event.getMap().getTextureLocation().equals(PlayerContainer.LOCATION_BLOCKS_TEXTURE)) {
+            event.addSprite(new ResourceLocation(ToLaserBlade.MOD_ID, "item/laser_blade"));
+        }
+    }
+
+    @SubscribeEvent
     public void onModelBakeEvent(ModelBakeEvent event) {
         ModelResourceLocation laserBladeItemID = new ModelResourceLocation(ToLaserBladeItems.LASER_BLADE.getRegistryName(), "inventory");
         IBakedModel bakedJsonModel = event.getModelRegistry().get(laserBladeItemID);
         LaserBladeItemBakedModel laserBladeModel = new LaserBladeItemBakedModel(bakedJsonModel);
         event.getModelRegistry().put(laserBladeItemID, laserBladeModel);
+
+        LaserBladeItemModel.loadLaserBladeOBJModel(event.getModelLoader());
     }
 
     public static void checkUpdate() {
