@@ -1,16 +1,15 @@
 package com.github.iunius118.tolaserblade;
 
 import com.github.iunius118.tolaserblade.client.ClientEventHandler;
-import com.github.iunius118.tolaserblade.data.ToLaserBladeItemModelProvider;
-import com.github.iunius118.tolaserblade.data.ToLaserBladeLanguageProvider;
-import com.github.iunius118.tolaserblade.data.ToLaserBladeRecipeProvider;
+import com.github.iunius118.tolaserblade.data.ItemModelGenerator;
+import com.github.iunius118.tolaserblade.data.LanguageGenerator;
+import com.github.iunius118.tolaserblade.data.RecipeGenerator;
 import com.github.iunius118.tolaserblade.item.DXLaserBladeItem;
 import com.github.iunius118.tolaserblade.item.ItemEventHandler;
 import com.github.iunius118.tolaserblade.item.LaserBladeItem;
 import com.github.iunius118.tolaserblade.item.ToLaserBladeItems;
 import com.github.iunius118.tolaserblade.network.NetworkHandler;
 import com.github.iunius118.tolaserblade.network.ServerConfigMessage;
-import net.minecraft.block.Block;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
@@ -33,7 +32,6 @@ import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLLoader;
 import net.minecraftforge.fml.network.NetworkDirection;
-import net.minecraftforge.registries.ObjectHolder;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -99,14 +97,14 @@ public class ToLaserBlade {
             DataGenerator gen = event.getGenerator();
 
             if (event.includeServer()) {
-                gen.addProvider(new ToLaserBladeRecipeProvider(gen));   // Recipes
+                gen.addProvider(new RecipeGenerator(gen));   // Recipes
             }
 
             if (event.includeClient()) {
                 ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
 
-                gen.addProvider(new ToLaserBladeItemModelProvider(gen, existingFileHelper));    // Item models
-                ToLaserBladeLanguageProvider.addProviders(gen); // Languages
+                gen.addProvider(new ItemModelGenerator(gen, existingFileHelper));    // Item models
+                LanguageGenerator.addProviders(gen); // Languages
             }
         }
     }

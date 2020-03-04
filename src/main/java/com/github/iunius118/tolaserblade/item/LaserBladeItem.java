@@ -4,6 +4,7 @@ import com.github.iunius118.tolaserblade.ToLaserBladeConfig;
 import com.github.iunius118.tolaserblade.client.renderer.LaserBladeItemRenderer;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.color.IItemColor;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -136,6 +137,11 @@ public class LaserBladeItem extends SwordItem implements ToLaserBladeItemGroup {
     @Override
     public boolean isEnchantable(ItemStack stack) {
         return true;
+    }
+
+    @Override
+    public boolean canEquip(ItemStack stack, EquipmentSlotType armorType, Entity entity) {
+        return armorType == EquipmentSlotType.HEAD;
     }
 
     @OnlyIn(Dist.CLIENT)

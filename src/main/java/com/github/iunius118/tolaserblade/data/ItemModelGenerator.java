@@ -7,8 +7,8 @@ import net.minecraftforge.client.model.generators.ExistingFileHelper;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
 import net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile;
 
-public class ToLaserBladeItemModelProvider extends ItemModelProvider {
-    public ToLaserBladeItemModelProvider(DataGenerator generator, ExistingFileHelper existingFileHelper) {
+public class ItemModelGenerator extends ItemModelProvider {
+    public ItemModelGenerator(DataGenerator generator, ExistingFileHelper existingFileHelper) {
         super(generator, ToLaserBlade.MOD_ID, existingFileHelper);
     }
 

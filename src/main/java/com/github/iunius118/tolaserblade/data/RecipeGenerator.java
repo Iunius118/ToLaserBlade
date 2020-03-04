@@ -11,8 +11,8 @@ import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 
 import java.util.function.Consumer;
 
-public class ToLaserBladeRecipeProvider extends RecipeProvider implements IConditionBuilder {
-    public ToLaserBladeRecipeProvider(DataGenerator generatorIn) {
+public class RecipeGenerator extends RecipeProvider implements IConditionBuilder {
+    public RecipeGenerator(DataGenerator generatorIn) {
         super(generatorIn);
     }
 
