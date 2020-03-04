@@ -34,11 +34,13 @@ public class LaserBladeItemModel {
     }
 
     public static void loadLaserBladeOBJModel(ModelLoader loader) {
+        // Load model
         ResourceLocation modelLocation = new ResourceLocation(ToLaserBlade.MOD_ID, "item/laser_blade_obj");
         IUnbakedModel model = loader.getModelOrMissing(modelLocation);
 
         if (!(model instanceof BlockModel))  return;
 
+        // Get model geometry object
         BlockModelConfiguration modelConfig = ((BlockModel)model).customData;
         IModelGeometry<?> modelGeometry = modelConfig.getCustomGeometry();
         Collection<? extends IModelGeometryPart> geometryParts = Collections.emptyList();
@@ -58,6 +60,7 @@ public class LaserBladeItemModel {
 
         }
 
+        // Get model parts and their baked quads
         for (IModelGeometryPart geometryPart : geometryParts) {
             Part part = Part.find(geometryPart.name());
 
