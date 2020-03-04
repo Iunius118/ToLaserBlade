@@ -22,19 +22,10 @@ import java.util.*;
 
 public class LaserBladeItemModel {
     public static Map<Part, List<BakedQuad>> parts = Maps.newEnumMap(Part.class);
-    static {
-        parts.put(Part.HILT, Collections.emptyList());
-        parts.put(Part.HILT_2, Collections.emptyList());
-        parts.put(Part.HILT_BRIGHT, Collections.emptyList());
-        parts.put(Part.BLADE_INNER, Collections.emptyList());
-        parts.put(Part.BLADE_OUTER_1, Collections.emptyList());
-        parts.put(Part.BLADE_OUTER_2, Collections.emptyList());
-        parts.put(Part.BLADE_OUTER_MODE_1, Collections.emptyList());
-        parts.put(Part.BLADE_INNER_MODE_1, Collections.emptyList());
-    }
 
     public static void loadLaserBladeOBJModel(ModelLoader loader) {
         // Load model
+        parts.clear();
         ResourceLocation modelLocation = new ResourceLocation(ToLaserBlade.MOD_ID, "item/laser_blade_obj");
         IUnbakedModel model = loader.getModelOrMissing(modelLocation);
 

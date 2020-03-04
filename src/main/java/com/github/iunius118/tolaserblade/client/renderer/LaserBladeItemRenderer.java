@@ -10,6 +10,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import java.util.Collections;
 import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
@@ -20,11 +21,11 @@ public class LaserBladeItemRenderer extends ItemStackTileEntityRenderer {
     public void render(ItemStack itemStack, MatrixStack matrixStack, IRenderTypeBuffer buffer, int lightmapCoord, int overlayColor) {
         matrixStack.push();
 
-        renderFaces(matrixStack, buffer.getBuffer(LaserBladeRenderType.HILT), LaserBladeItemModel.parts.get(LaserBladeItemModel.Part.HILT), -1, lightmapCoord, overlayColor);
-        renderFaces(matrixStack, buffer.getBuffer(LaserBladeRenderType.HILT), LaserBladeItemModel.parts.get(LaserBladeItemModel.Part.HILT_2), -1, lightmapCoord, overlayColor);
-        renderFaces(matrixStack, buffer.getBuffer(LaserBladeRenderType.LASER_ADD), LaserBladeItemModel.parts.get(LaserBladeItemModel.Part.BLADE_INNER), -1, LIGHTMAP_BRIGHT, overlayColor);
-        renderFaces(matrixStack, buffer.getBuffer(LaserBladeRenderType.LASER_ADD), LaserBladeItemModel.parts.get(LaserBladeItemModel.Part.BLADE_OUTER_1), 0xFFFF0000, LIGHTMAP_BRIGHT, overlayColor);
-        renderFaces(matrixStack, buffer.getBuffer(LaserBladeRenderType.LASER_ADD), LaserBladeItemModel.parts.get(LaserBladeItemModel.Part.BLADE_OUTER_2), 0xFFFF0000, LIGHTMAP_BRIGHT, overlayColor);
+        renderFaces(matrixStack, buffer.getBuffer(LaserBladeRenderType.HILT), getBakedQuads(LaserBladeItemModel.Part.HILT), -1, lightmapCoord, overlayColor);
+        renderFaces(matrixStack, buffer.getBuffer(LaserBladeRenderType.HILT), getBakedQuads(LaserBladeItemModel.Part.HILT_2), -1, lightmapCoord, overlayColor);
+        renderFaces(matrixStack, buffer.getBuffer(LaserBladeRenderType.LASER_ADD), getBakedQuads(LaserBladeItemModel.Part.BLADE_INNER), -1, LIGHTMAP_BRIGHT, overlayColor);
+        renderFaces(matrixStack, buffer.getBuffer(LaserBladeRenderType.LASER_ADD), getBakedQuads(LaserBladeItemModel.Part.BLADE_OUTER_1), 0xFFFF0000, LIGHTMAP_BRIGHT, overlayColor);
+        renderFaces(matrixStack, buffer.getBuffer(LaserBladeRenderType.LASER_ADD), getBakedQuads(LaserBladeItemModel.Part.BLADE_OUTER_2), 0xFFFF0000, LIGHTMAP_BRIGHT, overlayColor);
 
         matrixStack.pop();
     }
@@ -39,5 +40,9 @@ public class LaserBladeItemRenderer extends ItemStackTileEntityRenderer {
         for (BakedQuad quad : quads) {
             buffer.addVertexData(matrixEntry, quad, red, green, blue, alpha, lightmapCoord, overlayColor, true);
         }
+    }
+
+    private List<BakedQuad> getBakedQuads(LaserBladeItemModel.Part part) {
+        return LaserBladeItemModel.parts.getOrDefault(part, Collections.emptyList());
     }
 }
