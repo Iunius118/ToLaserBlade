@@ -32,9 +32,7 @@ public class LaserBladeItem extends SwordItem implements ToLaserBladeItemGroup {
     private final float attackSpeed;
 
     public static Item.Properties properties = (new Item.Properties()).setNoRepair().group(ItemGroup.TOOLS).setISTER(() -> LaserBladeItemRenderer::new);
-    public static final IItemPropertyGetter BLOCKING_GETTER = (stack, world, entity) -> {
-        return entity != null && entity.isHandActive() && entity.getActiveItemStack() == stack ? 1.0F : 0.0F;
-    };
+    public static final IItemPropertyGetter BLOCKING_GETTER = (stack, world, entity) -> entity != null && entity.isHandActive() && entity.getActiveItemStack() == stack ? 1.0F : 0.0F;
 
     public LaserBladeItem() {
         super(new ItemTier(), 3, -1.2F, properties);
@@ -164,7 +162,7 @@ public class LaserBladeItem extends SwordItem implements ToLaserBladeItemGroup {
             }
         }
 
-        private int getColorFromNBT(ItemStack stack, String keyColor, String keyIsSubColor, int defaultColor) {
+        public static int getColorFromNBT(ItemStack stack, String keyColor, String keyIsSubColor, int defaultColor) {
             CompoundNBT nbt = stack.getTag();
 
             if (nbt != null && nbt.contains(keyColor, Constants.NBT.TAG_INT)) {

@@ -31,7 +31,7 @@ public class LaserBladeItemModel {
 
         if (!(model instanceof BlockModel))  return;
 
-        // Get model geometry object
+        // Get model geometry objects
         BlockModelConfiguration modelConfig = ((BlockModel)model).customData;
         IModelGeometry<?> modelGeometry = modelConfig.getCustomGeometry();
         Collection<? extends IModelGeometryPart> geometryParts = Collections.emptyList();
