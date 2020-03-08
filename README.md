@@ -1,6 +1,6 @@
 # ToLaserBlade
 
-[<img src="docs/img/tolaserblade_1.png" title="The Laser Blade" width="427">](docs/img/tolaserblade_1.png)
+[<img src="docs/img/tolaserblade_1.png" title="The Laser Blade" width="427" height="240">](docs/img/tolaserblade_1.png)
 
 ToLaserBlade (T. o. Laser Blade) adds a simple sword with a laser blade.
 
@@ -19,6 +19,4 @@ ToLaserBlade (T. o. Laser Blade) adds a simple sword with a laser blade.
 - [Project Page (CurseForge)](https://minecraft.curseforge.com/projects/tolaserblade)
 
 ---
-Copyright (c) 2016-2019 Iunius118
-
-This mod is released under the MIT license but including resources licensed under a Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0) License.
+Copyright (c) 2016-2020 Iunius118
