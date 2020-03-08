@@ -9,10 +9,9 @@ import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.model.BakedQuad;
 import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.common.util.Constants;
+import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.Collections;
 import java.util.List;
@@ -34,28 +33,16 @@ public class LaserBladeItemRenderer extends ItemStackTileEntityRenderer {
         matrixStack.pop();
     }
 
-    public void renderFaces(MatrixStack matrixStack, IVertexBuilder buffer, List<BakedQuad> quads, int color, int lightmapCoord, int overlayColor) {
-        MatrixStack.Entry matrixEntry = matrixStack.getLast();
-        float alpha = (float)(color >> 24 & 255) / 255.0F;
-        float red   = (float)(color >> 16 & 255) / 255.0F;
-        float green = (float)(color >> 8 & 255) / 255.0F;
-        float blue  = (float)(color & 255) / 255.0F;
-
-        for (BakedQuad quad : quads) {
-            buffer.addVertexData(matrixEntry, quad, red, green, blue, alpha, lightmapCoord, overlayColor, true);
-        }
-    }
-
-    private List<BakedQuad> getBakedQuads(LaserBladeItemModel.Part part) {
-        return LaserBladeItemModel.parts.getOrDefault(part, Collections.emptyList());
-    }
-
     private void renderLaserBladeMode0(ItemStack itemStack, MatrixStack matrixStack, IRenderTypeBuffer buffer, int lightmapCoord, int overlayColor) {
-        int gripColor = getLaserBladeColor(itemStack, LaserBlade.KEY_COLOR_GRIP, false, LaserBlade.DEFAULT_COLOR_GRIP);
-        boolean isInnerSubColor = getSubColorFlag(itemStack, LaserBlade.KEY_IS_SUB_COLOR_CORE);
-        int innerColor = getLaserBladeColor(itemStack, LaserBlade.KEY_COLOR_CORE, isInnerSubColor, LaserBlade.DEFAULT_COLOR_CORE);
-        boolean isOuterSubColor = getSubColorFlag(itemStack, LaserBlade.KEY_IS_SUB_COLOR_HALO);
-        int outerColor = getLaserBladeColor(itemStack, LaserBlade.KEY_COLOR_HALO, isOuterSubColor, LaserBlade.DEFAULT_COLOR_HALO);
+        int gripColor = LaserBlade.getGripColor(itemStack);
+
+        Pair<Integer, Boolean> bladeColor = LaserBlade.getBladeInnerColor(itemStack);
+        int innerColor = bladeColor.getLeft();
+        boolean isInnerSubColor = bladeColor.getRight();
+
+        bladeColor = LaserBlade.getBladeOuterColor(itemStack);
+        int outerColor = bladeColor.getLeft();
+        boolean isOuterSubColor = bladeColor.getRight();
 
         IVertexBuilder currentBuffer = buffer.getBuffer(LaserBladeRenderType.HILT);
         renderFaces(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemModel.Part.HILT), gripColor, lightmapCoord, overlayColor);
@@ -73,11 +60,13 @@ public class LaserBladeItemRenderer extends ItemStackTileEntityRenderer {
     }
 
     private void renderLaserBladeMode1(ItemStack itemStack, MatrixStack matrixStack, IRenderTypeBuffer buffer, int lightmapCoord, int overlayColor) {
-        int gripColor = getLaserBladeColor(itemStack, LaserBlade.KEY_COLOR_GRIP, false, LaserBlade.DEFAULT_COLOR_GRIP);
-        boolean isOuterSubColor = getSubColorFlag(itemStack, LaserBlade.KEY_IS_SUB_COLOR_HALO);
-        int outerColor = getLaserBladeColor(itemStack, LaserBlade.KEY_COLOR_HALO, isOuterSubColor, LaserBlade.DEFAULT_COLOR_HALO);
-        boolean isInnerSubColor = getSubColorFlag(itemStack, LaserBlade.KEY_IS_SUB_COLOR_CORE);
-        int innerColor = getLaserBladeColor(itemStack, LaserBlade.KEY_COLOR_CORE, isInnerSubColor, LaserBlade.DEFAULT_COLOR_CORE);
+        int gripColor = LaserBlade.getGripColor(itemStack);
+
+        Pair<Integer, Boolean> bladeColor = LaserBlade.getBladeOuterColor(itemStack);
+        int outerColor = (bladeColor.getRight() ? ~bladeColor.getLeft() : bladeColor.getLeft()) | 0xFF000000;
+
+        bladeColor = LaserBlade.getBladeInnerColor(itemStack);
+        int innerColor = (bladeColor.getRight() ? ~bladeColor.getLeft() : bladeColor.getLeft()) | 0xFF000000;
 
         IVertexBuilder currentBuffer = buffer.getBuffer(LaserBladeRenderType.HILT);
         renderFaces(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemModel.Part.HILT), gripColor, lightmapCoord, overlayColor);
@@ -88,33 +77,19 @@ public class LaserBladeItemRenderer extends ItemStackTileEntityRenderer {
         renderFaces(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemModel.Part.BLADE_INNER_MODE_1), innerColor, LIGHTMAP_BRIGHT, overlayColor);
     }
 
-    private boolean getSubColorFlag(ItemStack itemStack, String keyIsSubColor) {
-        CompoundNBT nbt = itemStack.getTag();
+    public void renderFaces(MatrixStack matrixStack, IVertexBuilder buffer, List<BakedQuad> quads, int color, int lightmapCoord, int overlayColor) {
+        MatrixStack.Entry matrixEntry = matrixStack.getLast();
+        float alpha = (float)(color >> 24 & 255) / 255.0F;
+        float red   = (float)(color >> 16 & 255) / 255.0F;
+        float green = (float)(color >> 8 & 255) / 255.0F;
+        float blue  = (float)(color & 255) / 255.0F;
 
-        if (nbt != null) {
-            return nbt.getBoolean(keyIsSubColor);
+        for (BakedQuad quad : quads) {
+            buffer.addVertexData(matrixEntry, quad, red, green, blue, alpha, lightmapCoord, overlayColor, true);
         }
-
-        return false;
     }
 
-    private int getLaserBladeColor(ItemStack itemStack, String keyColor, boolean subColorFlag, int defaultColor) {
-        CompoundNBT nbt = itemStack.getTag();
-        int color = defaultColor;
-        int mode = ToLaserBladeConfig.CLIENT.laserBladeRenderingMode.get();
-
-        if (nbt != null && nbt.contains(keyColor, Constants.NBT.TAG_INT)) {
-            color = nbt.getInt(keyColor);
-
-            if (mode == 1 && subColorFlag) {
-                color = ~color;
-            }
-        }
-
-        if (mode == 1) {
-            color |= 0xFF000000;
-        }
-
-        return color;
+    private List<BakedQuad> getBakedQuads(LaserBladeItemModel.Part part) {
+        return LaserBladeItemModel.parts.getOrDefault(part, Collections.emptyList());
     }
 }

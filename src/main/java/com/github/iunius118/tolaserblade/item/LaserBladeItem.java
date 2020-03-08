@@ -2,15 +2,17 @@ package com.github.iunius118.tolaserblade.item;
 
 import com.github.iunius118.tolaserblade.ToLaserBladeConfig;
 import com.github.iunius118.tolaserblade.client.renderer.LaserBladeItemRenderer;
+import com.google.common.collect.Multimap;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
+import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.ActionResult;
@@ -22,7 +24,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolType;
-import net.minecraftforge.common.util.Constants;
+import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nullable;
 
@@ -109,7 +111,7 @@ public class LaserBladeItem extends SwordItem implements ToLaserBladeItemGroup {
 
     @Override
     public float getDestroySpeed(ItemStack stack, BlockState state) {
-        return tier.getEfficiency();
+        return tier.getEfficiency() * LaserBlade.getDestroySpeedRate(stack);
     }
 
     @Override
@@ -142,6 +144,21 @@ public class LaserBladeItem extends SwordItem implements ToLaserBladeItemGroup {
         return armorType == EquipmentSlotType.HEAD;
     }
 
+    @Override
+    public Multimap<String, AttributeModifier> getAttributeModifiers(EquipmentSlotType slot, ItemStack stack) {
+        Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot);
+        Pair<Float, Float> damageAndSpeed = LaserBlade.getAttackDamageAndSpeed(stack);
+
+        if (slot == EquipmentSlotType.MAINHAND) {
+            multimap.removeAll(SharedMonsterAttributes.ATTACK_DAMAGE.getName());
+            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", this.attackDamage + damageAndSpeed.getLeft(), AttributeModifier.Operation.ADDITION));
+            multimap.removeAll(SharedMonsterAttributes.ATTACK_SPEED.getName());
+            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", this.attackSpeed + damageAndSpeed.getRight(), AttributeModifier.Operation.ADDITION));
+        }
+
+        return multimap;
+    }
+
     @OnlyIn(Dist.CLIENT)
     public static class ColorHandler implements IItemColor {
         @Override
@@ -150,32 +167,20 @@ public class LaserBladeItem extends SwordItem implements ToLaserBladeItemGroup {
                 return 0xFFFFFFFF;
             }
 
+            Pair<Integer, Boolean> bladeColor;
+
             switch (tintIndex) {
                 case 1:
-                    return getColorFromNBT(stack, LaserBlade.KEY_COLOR_HALO, LaserBlade.KEY_IS_SUB_COLOR_HALO, LaserBlade.DEFAULT_COLOR_HALO);
+                    bladeColor = LaserBlade.getBladeOuterColor(stack);
+                    return (bladeColor.getRight() ? ~bladeColor.getLeft() : bladeColor.getLeft()) | 0xFF000000;
 
                 case 2:
-                    return getColorFromNBT(stack, LaserBlade.KEY_COLOR_CORE, LaserBlade.KEY_IS_SUB_COLOR_CORE, LaserBlade.DEFAULT_COLOR_CORE);
+                    bladeColor = LaserBlade.getBladeInnerColor(stack);
+                    return (bladeColor.getRight() ? ~bladeColor.getLeft() : bladeColor.getLeft()) | 0xFF000000;
 
                 default:
-                    return getColorFromNBT(stack, LaserBlade.KEY_COLOR_GRIP, null, LaserBlade.DEFAULT_COLOR_GRIP);
+                    return LaserBlade.getGripColor(stack) | 0xFF000000;
             }
-        }
-
-        public static int getColorFromNBT(ItemStack stack, String keyColor, String keyIsSubColor, int defaultColor) {
-            CompoundNBT nbt = stack.getTag();
-
-            if (nbt != null && nbt.contains(keyColor, Constants.NBT.TAG_INT)) {
-                int color = nbt.getInt(keyColor);
-
-                if (keyIsSubColor != null && nbt.getBoolean(keyIsSubColor)) {
-                    color = ~color | 0xFF000000;
-                }
-
-                return color;
-            }
-
-            return defaultColor;
         }
     }
 
