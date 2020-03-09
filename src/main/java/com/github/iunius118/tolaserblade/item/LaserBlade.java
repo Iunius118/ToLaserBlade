@@ -16,7 +16,7 @@ public class LaserBlade {
     public static final int DEFAULT_COLOR_GRIP = LBColor.WHITE.getGripColor();
 
     public static final String KEY_ATK = "ATK";
-    public static final String KEY_SPD = "SPD";
+    public static final String KEY_SPD_OLD = "SPD";
 
     public static final String KEY_INNER_COLOR_24 = "CII";
     public static final String KEY_OUTER_COLOR_24 = "COI";
@@ -128,7 +128,7 @@ public class LaserBlade {
     }
 
     public static Pair<Float, Float> getAttackDamageAndSpeed(ItemStack stack) {
-        float attackDamage = 1;
+        float attackDamage = 0;
         float attackSpeed = 0;
         CompoundNBT nbt = stack.getTag();
 
