@@ -28,7 +28,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nullable;
 
-public class LaserBladeItem extends SwordItem implements ToLaserBladeItemGroup {
+public class LaserBladeItem extends SwordItem implements LaserBladeItemBase, ToLaserBladeItemGroup {
     private final IItemTier tier;
     private final float attackDamage;
     private final float attackSpeed;
@@ -111,7 +111,7 @@ public class LaserBladeItem extends SwordItem implements ToLaserBladeItemGroup {
 
     @Override
     public float getDestroySpeed(ItemStack stack, BlockState state) {
-        return tier.getEfficiency() * LaserBlade.getDestroySpeedRate(stack);
+        return tier.getEfficiency() * LaserBladeItemBase.getDestroySpeedRate(stack);
     }
 
     @Override
@@ -147,7 +147,7 @@ public class LaserBladeItem extends SwordItem implements ToLaserBladeItemGroup {
     @Override
     public Multimap<String, AttributeModifier> getAttributeModifiers(EquipmentSlotType slot, ItemStack stack) {
         Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot);
-        Pair<Float, Float> damageAndSpeed = LaserBlade.getAttackDamageAndSpeed(stack);
+        Pair<Float, Float> damageAndSpeed = LaserBladeItemBase.getAttackDamageAndSpeed(stack);
 
         if (slot == EquipmentSlotType.MAINHAND) {
             multimap.removeAll(SharedMonsterAttributes.ATTACK_DAMAGE.getName());
@@ -171,15 +171,15 @@ public class LaserBladeItem extends SwordItem implements ToLaserBladeItemGroup {
 
             switch (tintIndex) {
                 case 1:
-                    bladeColor = LaserBlade.getBladeOuterColor(stack);
+                    bladeColor = LaserBladeItemBase.getBladeOuterColor(stack);
                     return (bladeColor.getRight() ? ~bladeColor.getLeft() : bladeColor.getLeft()) | 0xFF000000;
 
                 case 2:
-                    bladeColor = LaserBlade.getBladeInnerColor(stack);
+                    bladeColor = LaserBladeItemBase.getBladeInnerColor(stack);
                     return (bladeColor.getRight() ? ~bladeColor.getLeft() : bladeColor.getLeft()) | 0xFF000000;
 
                 default:
-                    return LaserBlade.getGripColor(stack) | 0xFF000000;
+                    return LaserBladeItemBase.getGripColor(stack) | 0xFF000000;
             }
         }
     }
@@ -192,7 +192,7 @@ public class LaserBladeItem extends SwordItem implements ToLaserBladeItemGroup {
 
         @Override
         public int getMaxUses() {
-            return LaserBlade.MAX_USES;
+            return LaserBladeItemBase.MAX_USES;
         }
 
         @Override

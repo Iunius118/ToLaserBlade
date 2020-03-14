@@ -2,7 +2,7 @@ package com.github.iunius118.tolaserblade.client.renderer;
 
 import com.github.iunius118.tolaserblade.ToLaserBladeConfig;
 import com.github.iunius118.tolaserblade.client.model.LaserBladeItemModel;
-import com.github.iunius118.tolaserblade.item.LaserBlade;
+import com.github.iunius118.tolaserblade.item.LaserBladeItemBase;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -34,13 +34,13 @@ public class LaserBladeItemRenderer extends ItemStackTileEntityRenderer {
     }
 
     private void renderLaserBladeMode0(ItemStack itemStack, MatrixStack matrixStack, IRenderTypeBuffer buffer, int lightmapCoord, int overlayColor) {
-        int gripColor = LaserBlade.getGripColor(itemStack);
+        int gripColor = LaserBladeItemBase.getGripColor(itemStack);
 
-        Pair<Integer, Boolean> bladeColor = LaserBlade.getBladeInnerColor(itemStack);
+        Pair<Integer, Boolean> bladeColor = LaserBladeItemBase.getBladeInnerColor(itemStack);
         int innerColor = bladeColor.getLeft();
         boolean isInnerSubColor = bladeColor.getRight();
 
-        bladeColor = LaserBlade.getBladeOuterColor(itemStack);
+        bladeColor = LaserBladeItemBase.getBladeOuterColor(itemStack);
         int outerColor = bladeColor.getLeft();
         boolean isOuterSubColor = bladeColor.getRight();
 
@@ -60,12 +60,12 @@ public class LaserBladeItemRenderer extends ItemStackTileEntityRenderer {
     }
 
     private void renderLaserBladeMode1(ItemStack itemStack, MatrixStack matrixStack, IRenderTypeBuffer buffer, int lightmapCoord, int overlayColor) {
-        int gripColor = LaserBlade.getGripColor(itemStack);
+        int gripColor = LaserBladeItemBase.getGripColor(itemStack);
 
-        Pair<Integer, Boolean> bladeColor = LaserBlade.getBladeOuterColor(itemStack);
+        Pair<Integer, Boolean> bladeColor = LaserBladeItemBase.getBladeOuterColor(itemStack);
         int outerColor = (bladeColor.getRight() ? ~bladeColor.getLeft() : bladeColor.getLeft()) | 0xFF000000;
 
-        bladeColor = LaserBlade.getBladeInnerColor(itemStack);
+        bladeColor = LaserBladeItemBase.getBladeInnerColor(itemStack);
         int innerColor = (bladeColor.getRight() ? ~bladeColor.getLeft() : bladeColor.getLeft()) | 0xFF000000;
 
         IVertexBuilder currentBuffer = buffer.getBuffer(LaserBladeRenderType.HILT);
