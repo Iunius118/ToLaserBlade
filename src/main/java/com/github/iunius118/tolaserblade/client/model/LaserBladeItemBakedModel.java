@@ -110,7 +110,7 @@ public class LaserBladeItemBakedModel implements IBakedModel {
             new ItemTransformVec3f(new Vector3f(20F, 0F, 0F), new Vector3f(-0.26F, 0.0025F, 0.355F), new Vector3f(0.68F, 0.85F, 0.68F)),
             new ItemTransformVec3f(new Vector3f(20F, 0F, 0F), new Vector3f(0.415F, 0.0025F, 0.355F), new Vector3f(0.68F, 0.85F, 0.68F)),
             new ItemTransformVec3f(new Vector3f(0F, 0F, 0F), new Vector3f(0.5F, 0.6F, 0.5F), new Vector3f(1F, 1F, 1F)),
-            new ItemTransformVec3f(new Vector3f(0F, 0F, -45F), new Vector3f(0.175F, -0.475F, 0F), new Vector3f(0.9F, 0.9F, 0.9F)),
+            new ItemTransformVec3f(new Vector3f(0F, 0F, -45F), new Vector3f(0.16F, -0.475F, 0F), new Vector3f(0.9F, 0.9F, 0.9F)),
             new ItemTransformVec3f(new Vector3f(-45F, 0F, 0F), new Vector3f(0.25F, 0.25F, 0.25F), new Vector3f(0.5F, 0.5F, 0.5F)),
             new ItemTransformVec3f(new Vector3f(0F, 0F, 45F), new Vector3f(0.485F, 0.175F, 0.44F), new Vector3f(0.95F, 0.95F, 0.95F)));
     private static final ItemCameraTransforms BLOCKING_RIGHTY_ITEM_TRANSFORMS = new ItemCameraTransforms(
