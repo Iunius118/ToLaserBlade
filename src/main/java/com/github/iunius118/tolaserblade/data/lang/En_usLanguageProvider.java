@@ -17,8 +17,11 @@ public class En_usLanguageProvider extends LanguageProvider {
         add("itemGroup.tolaserblade", ToLaserBlade.MOD_NAME);
 
         // Items
-        add(ToLaserBladeItems.DX_LASER_BLADE, "DX Laser B1ade");
-        add(ToLaserBladeItems.LASER_BLADE, "Laser Blade");
+        add(ModItems.DX_LASER_BLADE, "DX Laser B1ade");
+        add(ModItems.LASER_BLADE, "Laser Blade");
+
+        // Enchantments
+        add(ModEnchantments.LIGHT_ELEMENT, "Light Element");
 
         // Configs
         add("tolaserblade.configgui.common.enableBlockingWithLaserBlade", "Enable Blocking with Laser Blade");

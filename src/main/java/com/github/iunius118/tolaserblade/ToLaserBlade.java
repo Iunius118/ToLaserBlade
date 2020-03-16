@@ -4,6 +4,8 @@ import com.github.iunius118.tolaserblade.client.ClientEventHandler;
 import com.github.iunius118.tolaserblade.data.TLBItemModelProvider;
 import com.github.iunius118.tolaserblade.data.TLBLanguageProvider;
 import com.github.iunius118.tolaserblade.data.TLBRecipeProvider;
+import com.github.iunius118.tolaserblade.enchantment.LightElementEnchantment;
+import com.github.iunius118.tolaserblade.enchantment.ModEnchantments;
 import com.github.iunius118.tolaserblade.item.DXLaserBladeItem;
 import com.github.iunius118.tolaserblade.item.ItemEventHandler;
 import com.github.iunius118.tolaserblade.item.LaserBladeItem;
@@ -11,6 +13,7 @@ import com.github.iunius118.tolaserblade.item.ModItems;
 import com.github.iunius118.tolaserblade.network.NetworkHandler;
 import com.github.iunius118.tolaserblade.network.ServerConfigMessage;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
@@ -84,6 +87,14 @@ public class ToLaserBlade {
             event.getRegistry().registerAll(
                     new DXLaserBladeItem().setRegistryName("dx_laser_blade"),
                     new LaserBladeItem().setRegistryName("laser_blade")
+            );
+        }
+
+        // Register Enchantments
+        @SubscribeEvent
+        public static void onEnchantmentRegistry(final RegistryEvent.Register<Enchantment> event) {
+            event.getRegistry().registerAll(
+                    new LightElementEnchantment().setRegistryName(LightElementEnchantment.ID)
             );
         }
 

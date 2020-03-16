@@ -14,8 +14,11 @@ public class Ja_jpLanguageProvider extends LanguageProvider {
     @Override
     protected void addTranslations() {
         // Items
-        add(ToLaserBladeItems.DX_LASER_BLADE, "DXレーザーブレ一ド");
-        add(ToLaserBladeItems.LASER_BLADE, "レーザーブレイド");
+        add(ModItems.DX_LASER_BLADE, "DXレーザーブレ一ド");
+        add(ModItems.LASER_BLADE, "レーザーブレイド");
+
+        // Enchantments
+        add(ModEnchantments.LIGHT_ELEMENT, "光属性");
 
         // Configs
         add("tolaserblade.configgui.common.enableBlockingWithLaserBlade", "レーザーブレイドによる防御を有効にする");

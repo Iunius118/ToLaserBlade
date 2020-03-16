@@ -1,4 +1,5 @@
 {
+  "enchantment.tolaserblade.light_element": "\u5149\u5C5E\u6027",
   "item.tolaserblade.dx_laser_blade": "DX\u30EC\u30FC\u30B6\u30FC\u30D6\u30EC\u4E00\u30C9",
   "item.tolaserblade.laser_blade": "\u30EC\u30FC\u30B6\u30FC\u30D6\u30EC\u30A4\u30C9",
   "tolaserblade.configgui.client.enableLaserBlade3DModel": "\u30EC\u30FC\u30B6\u30FC\u30D6\u30EC\u30A4\u30C9\u30923D\u30E2\u30C7\u30EB\u3067\u63CF\u753B\u3059\u308B",
