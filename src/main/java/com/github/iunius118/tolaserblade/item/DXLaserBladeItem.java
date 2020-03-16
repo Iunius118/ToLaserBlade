@@ -15,7 +15,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class DXLaserBladeItem extends SwordItem implements ToLaserBladeItemGroup {
+public class DXLaserBladeItem extends SwordItem implements ModMainItemGroup {
     private final IItemTier tier;
     private final float attackDamage;
     private final float attackSpeed;

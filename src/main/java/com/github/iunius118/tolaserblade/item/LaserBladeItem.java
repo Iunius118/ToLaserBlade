@@ -28,7 +28,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nullable;
 
-public class LaserBladeItem extends SwordItem implements LaserBladeItemBase, ToLaserBladeItemGroup {
+public class LaserBladeItem extends SwordItem implements LaserBladeItemBase, ModMainItemGroup {
     private final IItemTier tier;
     private final float attackDamage;
     private final float attackSpeed;

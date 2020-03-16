@@ -60,8 +60,8 @@ public class LaserBladeItemBakedModel implements IBakedModel {
     }
 
     @Override
-    public boolean func_230044_c_() {   // isGuiFlatDiffuseLighting or isShadedInGui
-        return true;
+    public boolean func_230044_c_() {
+        return true;    // isGuiFlatDiffuseLighting or isShadedInGui
     }
 
     @Override

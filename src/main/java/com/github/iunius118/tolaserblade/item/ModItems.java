@@ -5,7 +5,7 @@ import net.minecraft.item.Item;
 import net.minecraftforge.registries.ObjectHolder;
 
 @ObjectHolder(ToLaserBlade.MOD_ID)
-public class ToLaserBladeItems {
+public class ModItems {
     // DX Laser B1ade
     public static final Item DX_LASER_BLADE = null;
 

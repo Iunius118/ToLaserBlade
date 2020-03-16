@@ -4,7 +4,7 @@ import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.client.model.LaserBladeItemBakedModel;
 import com.github.iunius118.tolaserblade.client.model.LaserBladeItemModel;
 import com.github.iunius118.tolaserblade.item.LaserBladeItem;
-import com.github.iunius118.tolaserblade.item.ToLaserBladeItems;
+import com.github.iunius118.tolaserblade.item.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
@@ -27,7 +27,7 @@ import net.minecraftforge.fml.VersionChecker.Status;
 public class ClientEventHandler {
     @SubscribeEvent
     public void onItemColorHandlerEvent(ColorHandlerEvent.Item event) {
-        event.getItemColors().register(new LaserBladeItem.ColorHandler(), ToLaserBladeItems.LASER_BLADE);
+        event.getItemColors().register(new LaserBladeItem.ColorHandler(), ModItems.LASER_BLADE);
     }
 
     @SubscribeEvent
@@ -39,7 +39,7 @@ public class ClientEventHandler {
 
     @SubscribeEvent
     public void onModelBakeEvent(ModelBakeEvent event) {
-        ModelResourceLocation laserBladeItemID = new ModelResourceLocation(ToLaserBladeItems.LASER_BLADE.getRegistryName(), "inventory");
+        ModelResourceLocation laserBladeItemID = new ModelResourceLocation(ModItems.LASER_BLADE.getRegistryName(), "inventory");
         IBakedModel bakedJsonModel = event.getModelRegistry().get(laserBladeItemID);
         LaserBladeItemBakedModel laserBladeModel = new LaserBladeItemBakedModel(bakedJsonModel);
         event.getModelRegistry().put(laserBladeItemID, laserBladeModel);

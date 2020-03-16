@@ -11,12 +11,12 @@ import java.util.Collections;
 
 import static com.github.iunius118.tolaserblade.ToLaserBlade.MOD_ID;
 
-interface ToLaserBladeItemGroup extends IForgeItem {
+interface ModMainItemGroup extends IForgeItem {
     ItemGroup ITEM_GROUP = new ItemGroup(MOD_ID) {
         @Override
         @OnlyIn(Dist.CLIENT)
         public ItemStack createIcon() {
-            return new ItemStack(ToLaserBladeItems.LASER_BLADE);
+            return new ItemStack(ModItems.LASER_BLADE);
         }
     };
 

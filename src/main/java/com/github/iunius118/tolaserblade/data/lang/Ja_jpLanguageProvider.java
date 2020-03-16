@@ -1,12 +1,13 @@
 package com.github.iunius118.tolaserblade.data.lang;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
-import com.github.iunius118.tolaserblade.item.ToLaserBladeItems;
+import com.github.iunius118.tolaserblade.enchantment.ModEnchantments;
+import com.github.iunius118.tolaserblade.item.ModItems;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.LanguageProvider;
 
-public class Ja_jpLanguageGenerator extends LanguageProvider {
-    public Ja_jpLanguageGenerator(DataGenerator gen) {
+public class Ja_jpLanguageProvider extends LanguageProvider {
+    public Ja_jpLanguageProvider(DataGenerator gen) {
         super(gen, ToLaserBlade.MOD_ID, "ja_jp");
     }
 

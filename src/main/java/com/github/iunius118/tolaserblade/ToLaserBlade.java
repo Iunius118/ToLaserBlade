@@ -1,13 +1,13 @@
 package com.github.iunius118.tolaserblade;
 
 import com.github.iunius118.tolaserblade.client.ClientEventHandler;
-import com.github.iunius118.tolaserblade.data.ItemModelGenerator;
-import com.github.iunius118.tolaserblade.data.LanguageGenerator;
-import com.github.iunius118.tolaserblade.data.RecipeGenerator;
+import com.github.iunius118.tolaserblade.data.TLBItemModelProvider;
+import com.github.iunius118.tolaserblade.data.TLBLanguageProvider;
+import com.github.iunius118.tolaserblade.data.TLBRecipeProvider;
 import com.github.iunius118.tolaserblade.item.DXLaserBladeItem;
 import com.github.iunius118.tolaserblade.item.ItemEventHandler;
 import com.github.iunius118.tolaserblade.item.LaserBladeItem;
-import com.github.iunius118.tolaserblade.item.ToLaserBladeItems;
+import com.github.iunius118.tolaserblade.item.ModItems;
 import com.github.iunius118.tolaserblade.network.NetworkHandler;
 import com.github.iunius118.tolaserblade.network.ServerConfigMessage;
 import net.minecraft.data.DataGenerator;
@@ -45,7 +45,8 @@ public class ToLaserBlade {
     public static final String MOD_NAME = "ToLaserBlade";
 
     public static final Logger LOGGER = LogManager.getLogger();
-    public static final ToLaserBladeItems ITEMS = new ToLaserBladeItems();
+    public static final ModItems ITEMS = new ModItems();
+    public static final ModEnchantments ENCHANTMENTS = new ModEnchantments();
 
     public static boolean hasShownUpdate = false;
 
@@ -97,14 +98,14 @@ public class ToLaserBlade {
             DataGenerator gen = event.getGenerator();
 
             if (event.includeServer()) {
-                gen.addProvider(new RecipeGenerator(gen));   // Recipes
+                gen.addProvider(new TLBRecipeProvider(gen));   // Recipes
             }
 
             if (event.includeClient()) {
                 ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
 
-                gen.addProvider(new ItemModelGenerator(gen, existingFileHelper));    // Item models
-                LanguageGenerator.addProviders(gen); // Languages
+                gen.addProvider(new TLBItemModelProvider(gen, existingFileHelper));    // Item models
+                TLBLanguageProvider.addProviders(gen); // Languages
             }
         }
     }
@@ -117,9 +118,9 @@ public class ToLaserBlade {
     public static void remapItems(RegistryEvent.MissingMappings<Item> mappings) {
         final Map<ResourceLocation, Item> remappingItemMap = new HashMap<>();
         // Replace item ID "tolaserblade:tolaserblade.laser_blade" (-1.11.2) with "tolaserblade:laser_blade" (1.12-)
-        remappingItemMap.put(new ResourceLocation(MOD_ID, "tolaserblade.laser_blade"), ToLaserBladeItems.LASER_BLADE);
+        remappingItemMap.put(new ResourceLocation(MOD_ID, "tolaserblade.laser_blade"), ModItems.LASER_BLADE);
         // Replace item ID "tolaserblade:lasar_blade" (-1.14.4) with "tolaserblade:dx_laser_blade" (1.15-)
-        remappingItemMap.put(new ResourceLocation(MOD_ID, "lasar_blade"), ToLaserBladeItems.DX_LASER_BLADE);
+        remappingItemMap.put(new ResourceLocation(MOD_ID, "lasar_blade"), ModItems.DX_LASER_BLADE);
 
         // Replace item IDs
         mappings.getAllMappings().stream()

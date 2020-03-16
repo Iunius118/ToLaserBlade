@@ -1,12 +1,13 @@
 package com.github.iunius118.tolaserblade.data.lang;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
-import com.github.iunius118.tolaserblade.item.ToLaserBladeItems;
+import com.github.iunius118.tolaserblade.enchantment.ModEnchantments;
+import com.github.iunius118.tolaserblade.item.ModItems;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.LanguageProvider;
 
-public class En_usLanguageGenerator extends LanguageProvider {
-    public En_usLanguageGenerator(DataGenerator gen) {
+public class En_usLanguageProvider extends LanguageProvider {
+    public En_usLanguageProvider(DataGenerator gen) {
         super(gen, ToLaserBlade.MOD_ID, "en_us");
     }
 

@@ -1,6 +1,6 @@
 package com.github.iunius118.tolaserblade.data;
 
-import com.github.iunius118.tolaserblade.item.ToLaserBladeItems;
+import com.github.iunius118.tolaserblade.item.ModItems;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.IFinishedRecipe;
 import net.minecraft.data.RecipeProvider;
@@ -11,21 +11,21 @@ import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 
 import java.util.function.Consumer;
 
-public class RecipeGenerator extends RecipeProvider implements IConditionBuilder {
-    public RecipeGenerator(DataGenerator generatorIn) {
+public class TLBRecipeProvider extends RecipeProvider implements IConditionBuilder {
+    public TLBRecipeProvider(DataGenerator generatorIn) {
         super(generatorIn);
     }
 
     @Override
     public void registerRecipes(Consumer<IFinishedRecipe> consumer) {
         // dx_laser_blade
-        ShapedRecipeBuilder.shapedRecipe(ToLaserBladeItems.DX_LASER_BLADE)
+        ShapedRecipeBuilder.shapedRecipe(ModItems.DX_LASER_BLADE)
                 .patternLine("r")
                 .patternLine("r")
                 .patternLine("s")
                 .key('r', Items.REDSTONE_TORCH)
                 .key('s', Tags.Items.RODS_WOODEN)
-                .addCriterion("has_dx_laser_blade", hasItem(ToLaserBladeItems.DX_LASER_BLADE))
-                .build(consumer, ToLaserBladeItems.DX_LASER_BLADE.getRegistryName());
+                .addCriterion("has_dx_laser_blade", hasItem(ModItems.DX_LASER_BLADE))
+                .build(consumer, ModItems.DX_LASER_BLADE.getRegistryName());
     }
 }
