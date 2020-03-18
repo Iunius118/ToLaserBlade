@@ -18,7 +18,7 @@ import java.util.List;
 
 @OnlyIn(Dist.CLIENT)
 public class LaserBladeItemRenderer extends ItemStackTileEntityRenderer {
-    public static final int LIGHTMAP_BRIGHT = 0xF000F0;
+    private static final int LIGHTMAP_BRIGHT = 0xF000F0;
 
     @Override
     public void render(ItemStack itemStack, MatrixStack matrixStack, IRenderTypeBuffer buffer, int lightmapCoord, int overlayColor) {
@@ -45,18 +45,18 @@ public class LaserBladeItemRenderer extends ItemStackTileEntityRenderer {
         boolean isOuterSubColor = bladeColor.getRight();
 
         IVertexBuilder currentBuffer = buffer.getBuffer(LaserBladeRenderType.HILT);
-        renderFaces(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemModel.Part.HILT), gripColor, lightmapCoord, overlayColor);
-        renderFaces(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemModel.Part.HILT_2), gripColor, lightmapCoord, overlayColor);
+        renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemModel.Part.HILT), gripColor, lightmapCoord, overlayColor);
+        renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemModel.Part.HILT_2), gripColor, lightmapCoord, overlayColor);
 
         currentBuffer = buffer.getBuffer(LaserBladeRenderType.LASER_FLAT);
-        renderFaces(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemModel.Part.HILT_BRIGHT), -1, LIGHTMAP_BRIGHT, overlayColor);
+        renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemModel.Part.HILT_BRIGHT), -1, LIGHTMAP_BRIGHT, overlayColor);
 
         currentBuffer = isInnerSubColor ? buffer.getBuffer(LaserBladeRenderType.LASER_SUB) : buffer.getBuffer(LaserBladeRenderType.LASER_ADD);
-        renderFaces(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemModel.Part.BLADE_INNER), innerColor, LIGHTMAP_BRIGHT, overlayColor);
+        renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemModel.Part.BLADE_INNER), innerColor, LIGHTMAP_BRIGHT, overlayColor);
 
         currentBuffer = isOuterSubColor ? buffer.getBuffer(LaserBladeRenderType.LASER_SUB) : buffer.getBuffer(LaserBladeRenderType.LASER_ADD);
-        renderFaces(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemModel.Part.BLADE_OUTER_1), outerColor, LIGHTMAP_BRIGHT, overlayColor);
-        renderFaces(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemModel.Part.BLADE_OUTER_2), outerColor, LIGHTMAP_BRIGHT, overlayColor);
+        renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemModel.Part.BLADE_OUTER_1), outerColor, LIGHTMAP_BRIGHT, overlayColor);
+        renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemModel.Part.BLADE_OUTER_2), outerColor, LIGHTMAP_BRIGHT, overlayColor);
     }
 
     private void renderLaserBladeMode1(ItemStack itemStack, MatrixStack matrixStack, IRenderTypeBuffer buffer, int lightmapCoord, int overlayColor) {
@@ -69,15 +69,15 @@ public class LaserBladeItemRenderer extends ItemStackTileEntityRenderer {
         int innerColor = (bladeColor.getRight() ? ~bladeColor.getLeft() : bladeColor.getLeft()) | 0xFF000000;
 
         IVertexBuilder currentBuffer = buffer.getBuffer(LaserBladeRenderType.HILT);
-        renderFaces(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemModel.Part.HILT), gripColor, lightmapCoord, overlayColor);
+        renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemModel.Part.HILT), gripColor, lightmapCoord, overlayColor);
 
         currentBuffer = buffer.getBuffer(LaserBladeRenderType.LASER_FLAT);
-        renderFaces(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemModel.Part.HILT_BRIGHT), -1, LIGHTMAP_BRIGHT, overlayColor);
-        renderFaces(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemModel.Part.BLADE_OUTER_MODE_1), outerColor, LIGHTMAP_BRIGHT, overlayColor);
-        renderFaces(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemModel.Part.BLADE_INNER_MODE_1), innerColor, LIGHTMAP_BRIGHT, overlayColor);
+        renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemModel.Part.HILT_BRIGHT), -1, LIGHTMAP_BRIGHT, overlayColor);
+        renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemModel.Part.BLADE_OUTER_MODE_1), outerColor, LIGHTMAP_BRIGHT, overlayColor);
+        renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemModel.Part.BLADE_INNER_MODE_1), innerColor, LIGHTMAP_BRIGHT, overlayColor);
     }
 
-    public void renderFaces(MatrixStack matrixStack, IVertexBuilder buffer, List<BakedQuad> quads, int color, int lightmapCoord, int overlayColor) {
+    public void renderQuads(MatrixStack matrixStack, IVertexBuilder buffer, List<BakedQuad> quads, int color, int lightmapCoord, int overlayColor) {
         MatrixStack.Entry matrixEntry = matrixStack.getLast();
         float alpha = (float)(color >> 24 & 255) / 255.0F;
         float red   = (float)(color >> 16 & 255) / 255.0F;
