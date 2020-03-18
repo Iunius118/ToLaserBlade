@@ -2,9 +2,13 @@ package com.github.iunius118.tolaserblade.item;
 
 import com.github.iunius118.tolaserblade.ToLaserBladeConfig;
 import com.github.iunius118.tolaserblade.client.renderer.LaserBladeItemRenderer;
+import com.github.iunius118.tolaserblade.enchantment.ModEnchantments;
 import com.google.common.collect.Multimap;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.color.IItemColor;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -16,10 +20,7 @@ import net.minecraft.item.*;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.util.Hand;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -29,6 +30,8 @@ import net.minecraftforge.event.entity.player.CriticalHitEvent;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nullable;
+import java.util.HashMap;
+import java.util.Map;
 
 public class LaserBladeItem extends SwordItem implements LaserBladeItemBase, ModMainItemGroup {
     private final IItemTier tier;
@@ -93,7 +96,7 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase, Mod
 
     public void onCriticalHit(CriticalHitEvent event) {
         Entity target = event.getTarget();
-        float attack = LaserBladeItemBase.getLaserBladeATK(event.getPlayer().getHeldItemMainhand());
+        float attack = getLaserBladeATK(event.getPlayer().getHeldItemMainhand());
 
         if (event.isVanillaCritical()) {
             if (target instanceof WitherEntity || attack > MOD_ATK_CLASS_4) {
@@ -101,7 +104,6 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase, Mod
             }
         }
     }
-
 
     /* Characterizing */
 
@@ -127,7 +129,7 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase, Mod
 
     @Override
     public float getDestroySpeed(ItemStack stack, BlockState state) {
-        return tier.getEfficiency() * LaserBladeItemBase.getDestroySpeedRate(stack);
+        return tier.getEfficiency() * getDestroySpeedRate(stack);
     }
 
     @Override
@@ -168,16 +170,75 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase, Mod
             multimap.removeAll(SharedMonsterAttributes.ATTACK_DAMAGE.getName());
             multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(),
                     new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier",
-                            this.attackDamage + LaserBladeItemBase.getLaserBladeATK(stack), AttributeModifier.Operation.ADDITION));
+                            this.attackDamage + getLaserBladeATK(stack), AttributeModifier.Operation.ADDITION));
 
             multimap.removeAll(SharedMonsterAttributes.ATTACK_SPEED.getName());
             multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(),
                     new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier",
-                            this.attackSpeed + LaserBladeItemBase.getLaserBladeSPD(stack), AttributeModifier.Operation.ADDITION));
+                            this.attackSpeed + getLaserBladeSPD(stack), AttributeModifier.Operation.ADDITION));
         }
 
         return multimap;
     }
+
+    /* Creative Tab */
+
+    private ItemStack laserBladeUpgraded;
+    private ItemStack laserBladeFullMod;
+
+    private ItemStack getLaserBladeUpgraded() {
+        ItemStack laserBlade = new ItemStack(ModItems.LASER_BLADE);
+
+        setLaserBladeATK(laserBlade, MOD_ATK_CLASS_5);
+        setLaserBladeSPD(laserBlade, MOD_SPD_MAX);
+
+        setGripColor(laserBlade, LBColor.GRAY.getGripColor());
+        setBladeInnerColor(laserBlade, LBColor.LIGHT_BLUE.getBladeColor());
+        setBladeOuterColor(laserBlade, LBColor.BLUE.getBladeColor());
+
+        laserBlade.addEnchantment(ModEnchantments.LIGHT_ELEMENT, ModEnchantments.LIGHT_ELEMENT.getMaxLevel());
+        laserBlade.addEnchantment(Enchantments.EFFICIENCY, Enchantments.EFFICIENCY.getMaxLevel());
+        laserBlade.addEnchantment(Enchantments.MENDING, Enchantments.MENDING.getMaxLevel());
+
+        return laserBlade;
+    }
+
+    private ItemStack getLaserBladeFullMod() {
+        ItemStack laserBlade = getLaserBladeUpgraded();
+
+        setBladeInnerColor(laserBlade, LBColor.WHITE.getBladeColor());
+        setBladeInnerSubColorFlag(laserBlade, true);
+        setBladeOuterColor(laserBlade, LBColor.CYAN.getBladeColor());
+        setBladeOuterSubColorFlag(laserBlade, true);
+
+        laserBlade.addEnchantment(Enchantments.FIRE_ASPECT, Enchantments.FIRE_ASPECT.getMaxLevel());
+        laserBlade.addEnchantment(Enchantments.SWEEPING, Enchantments.SWEEPING.getMaxLevel());
+        laserBlade.addEnchantment(Enchantments.LOOTING, Enchantments.LOOTING.getMaxLevel());
+
+        return laserBlade;
+    }
+
+    @Override
+    public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
+        super.fillItemGroup(group, items);
+
+        if (laserBladeUpgraded == null) {
+            laserBladeUpgraded = getLaserBladeUpgraded();
+        }
+
+        if (laserBladeFullMod == null) {
+            laserBladeFullMod = getLaserBladeFullMod();
+        }
+
+        if (group == ModMainItemGroup.ITEM_GROUP) {
+            items.add(laserBladeUpgraded);
+            items.add(laserBladeFullMod);
+        }
+    }
+
+
+
+    /* Inner Classes */
 
     @OnlyIn(Dist.CLIENT)
     public static class ColorHandler implements IItemColor {

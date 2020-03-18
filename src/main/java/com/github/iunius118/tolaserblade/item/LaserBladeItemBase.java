@@ -34,6 +34,7 @@ public interface LaserBladeItemBase {
     float MOD_ATK_CLASS_2 = 0.0F;
     float MOD_ATK_CLASS_3 = 3.0F;
     float MOD_ATK_CLASS_4 = 7.0F;
+    float MOD_ATK_CLASS_5 = 8.0F;
     float MOD_ATK_MAX = 2041.0F;
 
     float MOD_CRITICAL_VS_WITHER = 2.0F;
@@ -91,7 +92,33 @@ public interface LaserBladeItemBase {
         return Pair.of(bladeOuterColor, isBladeOuterSubColor);
     }
 
-    static float getLaserBladeATK(ItemStack stack) {
+
+    default void setGripColor(ItemStack stack, int color) {
+        CompoundNBT nbt = stack.getOrCreateTag();
+        nbt.putInt(KEY_GRIP_COLOR, color);
+    }
+
+    default void setBladeInnerColor(ItemStack stack, int color) {
+        CompoundNBT nbt = stack.getOrCreateTag();
+        nbt.putInt(KEY_INNER_COLOR, color);
+    }
+
+    default void setBladeOuterColor(ItemStack stack, int color) {
+        CompoundNBT nbt = stack.getOrCreateTag();
+        nbt.putInt(KEY_OUTER_COLOR, color);
+    }
+
+    default void setBladeInnerSubColorFlag(ItemStack stack, boolean isSubColor) {
+        CompoundNBT nbt = stack.getOrCreateTag();
+        nbt.putBoolean(KEY_IS_INNER_SUB_COLOR, isSubColor);
+    }
+
+    default void setBladeOuterSubColorFlag(ItemStack stack, boolean isSubColor) {
+        CompoundNBT nbt = stack.getOrCreateTag();
+        nbt.putBoolean(KEY_IS_OUTER_SUB_COLOR, isSubColor);
+    }
+
+    default float getLaserBladeATK(ItemStack stack) {
         float attackDamage = 0;
         CompoundNBT nbt = stack.getTag();
 
@@ -108,7 +135,7 @@ public interface LaserBladeItemBase {
         return attackDamage;
     }
 
-    static float getLaserBladeSPD(ItemStack stack) {
+    default float getLaserBladeSPD(ItemStack stack) {
         float attackSpeed = 0.0F;
         CompoundNBT nbt = stack.getTag();
 
@@ -125,7 +152,7 @@ public interface LaserBladeItemBase {
         return attackSpeed;
     }
 
-    static float getDestroySpeedRate(ItemStack stack) {
+    default float getDestroySpeedRate(ItemStack stack) {
         float rate = 0.0F;
         CompoundNBT nbt = stack.getTag();
 
@@ -142,15 +169,42 @@ public interface LaserBladeItemBase {
         return rate;
     }
 
-    static int getBladeColorFromTintIndex(int index, boolean isInner) {
+    default void setLaserBladeATK(ItemStack stack, float atk) {
+        float attackDamage = atk;
+        CompoundNBT nbt = stack.getOrCreateTag();
+
+        if (attackDamage < MOD_ATK_MIN) {
+            attackDamage = MOD_ATK_MIN;
+        } else if (attackDamage > MOD_ATK_MAX) {
+            attackDamage = MOD_ATK_MAX;
+        }
+
+        nbt.putFloat(KEY_ATK, attackDamage);
+    }
+
+    default void setLaserBladeSPD(ItemStack stack, float spd) {
+        float attackSpeed = spd;
+        CompoundNBT nbt = stack.getOrCreateTag();
+
+        if (attackSpeed < MOD_SPD_MIN) {
+            attackSpeed = MOD_SPD_MIN;
+        } else if (attackSpeed > MOD_SPD_MAX) {
+            attackSpeed = MOD_SPD_MAX;
+        }
+
+
+        nbt.putFloat(KEY_SPD, attackSpeed);
+    }
+
+    default int getBladeColorFromTintIndex(int index, boolean isInner) {
         return getColorFromTintIndex(index, true, isInner);
     }
 
-    static int getGripColorFromTintIndex(int index) {
+    default int getGripColorFromTintIndex(int index) {
         return getColorFromTintIndex(index, false, false);
     }
 
-    static int getColorFromTintIndex(int index, boolean isBlade, boolean isInner) {
+    default int getColorFromTintIndex(int index, boolean isBlade, boolean isInner) {
         if (index >= 0 && index < colors.length) {
            return isBlade ? colors[index].getBladeColor() : colors[index].getGripColor();
         }
@@ -170,7 +224,7 @@ public interface LaserBladeItemBase {
         LIGHT_GRAY(0xFFAAAAAA, 0xFF9D9D97),
         CYAN(0xFF00FFFF, 0xFF169C9C),
         PURPLE(0xFFFF00FF, 0xFF8932B8),
-        BLUE(0xFF0013FF, 0xFF3C44AA),
+        BLUE(0xFF0011FF, 0xFF3C44AA),
         BROWN(0xFFFF6B00, 0xFF835432),
         GREEN(0xFF80FF00, 0xFF5E7C16),
         RED(0xFFFF0000, 0xFFB02E26),
