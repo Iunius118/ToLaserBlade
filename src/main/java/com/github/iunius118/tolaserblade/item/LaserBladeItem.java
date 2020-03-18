@@ -93,10 +93,10 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase, Mod
 
     public void onCriticalHit(CriticalHitEvent event) {
         Entity target = event.getTarget();
-        Pair<Float, Float> damageAndSpeed = LaserBladeItemBase.getAttackDamageAndSpeed(event.getPlayer().getHeldItemMainhand());
+        float attack = LaserBladeItemBase.getLaserBladeATK(event.getPlayer().getHeldItemMainhand());
 
         if (event.isVanillaCritical()) {
-            if (target instanceof WitherEntity || damageAndSpeed.getLeft() > MOD_ATK_CLASS_4) {
+            if (target instanceof WitherEntity || attack > MOD_ATK_CLASS_4) {
                 event.setDamageModifier(MOD_CRITICAL_VS_WITHER);
             }
         }
@@ -163,13 +163,17 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase, Mod
     @Override
     public Multimap<String, AttributeModifier> getAttributeModifiers(EquipmentSlotType slot, ItemStack stack) {
         Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot);
-        Pair<Float, Float> damageAndSpeed = LaserBladeItemBase.getAttackDamageAndSpeed(stack);
 
         if (slot == EquipmentSlotType.MAINHAND) {
             multimap.removeAll(SharedMonsterAttributes.ATTACK_DAMAGE.getName());
-            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(), new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", this.attackDamage + damageAndSpeed.getLeft(), AttributeModifier.Operation.ADDITION));
+            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(),
+                    new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier",
+                            this.attackDamage + LaserBladeItemBase.getLaserBladeATK(stack), AttributeModifier.Operation.ADDITION));
+
             multimap.removeAll(SharedMonsterAttributes.ATTACK_SPEED.getName());
-            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(), new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", this.attackSpeed + damageAndSpeed.getRight(), AttributeModifier.Operation.ADDITION));
+            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(),
+                    new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier",
+                            this.attackSpeed + LaserBladeItemBase.getLaserBladeSPD(stack), AttributeModifier.Operation.ADDITION));
         }
 
         return multimap;
@@ -232,6 +236,7 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase, Mod
 
             if (tag != null) {
                 return Ingredient.fromTag(tag);
+
             } else {
                 return Ingredient.fromItems(Items.IRON_INGOT);
             }

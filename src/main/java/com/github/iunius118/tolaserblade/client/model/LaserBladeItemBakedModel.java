@@ -93,6 +93,7 @@ public class LaserBladeItemBakedModel implements IBakedModel {
                                     && ToLaserBladeConfig.COMMON.isEnabledBlockingWithLaserBladeInServer.get()
                                     && entityIn.isHandActive();
                         return laserBladeModel.handleBlocking(isBlocking);
+
                     } else {
                         // When 3D models are DISABLED
                         return laserBladeModel.bakedJSONModel;
@@ -137,9 +138,11 @@ public class LaserBladeItemBakedModel implements IBakedModel {
         if (isBlocking) {
             if (Minecraft.getInstance().gameSettings.mainHand == HandSide.RIGHT) {
                 return BLOCKING_RIGHTY_ITEM_TRANSFORMS;
+
             } else {
                 return BLOCKING_LEFTY_ITEM_TRANSFORMS;
             }
+
         } else {
             return ITEM_TRANSFORMS;
         }

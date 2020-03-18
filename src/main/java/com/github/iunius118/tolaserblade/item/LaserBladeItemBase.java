@@ -91,9 +91,8 @@ public interface LaserBladeItemBase {
         return Pair.of(bladeOuterColor, isBladeOuterSubColor);
     }
 
-    static Pair<Float, Float> getAttackDamageAndSpeed(ItemStack stack) {
+    static float getLaserBladeATK(ItemStack stack) {
         float attackDamage = 0;
-        float attackSpeed = 0;
         CompoundNBT nbt = stack.getTag();
 
         if (nbt != null) {
@@ -104,9 +103,17 @@ public interface LaserBladeItemBase {
             } else if (attackDamage > MOD_ATK_MAX) {
                 attackDamage = MOD_ATK_MAX;
             }
+        }
 
-            int efficiency = EnchantmentHelper.getEnchantmentLevel(Enchantments.EFFICIENCY, stack);
-            attackSpeed = (float)efficiency * 0.4F;
+        return attackDamage;
+    }
+
+    static float getLaserBladeSPD(ItemStack stack) {
+        float attackSpeed = 0.0F;
+        CompoundNBT nbt = stack.getTag();
+
+        if (nbt != null) {
+            attackSpeed = nbt.getFloat(KEY_SPD);
 
             if (attackSpeed < MOD_SPD_MIN) {
                 attackSpeed = MOD_SPD_MIN;
@@ -115,20 +122,20 @@ public interface LaserBladeItemBase {
             }
         }
 
-        return Pair.of(attackDamage, attackSpeed);
+        return attackSpeed;
     }
 
     static float getDestroySpeedRate(ItemStack stack) {
-        float rate = 0;
+        float rate = 0.0F;
         CompoundNBT nbt = stack.getTag();
 
         if (nbt != null) {
             rate = (float)EnchantmentHelper.getEnchantmentLevel(Enchantments.EFFICIENCY, stack) / 5;
 
-            if (rate < 0) {
-                rate = 0;
-            } else if (rate > 1) {
-                rate = 1;
+            if (rate < 0.0F) {
+                rate = 0.0F;
+            } else if (rate > 1.0F) {
+                rate = 1.0F;
             }
         }
 

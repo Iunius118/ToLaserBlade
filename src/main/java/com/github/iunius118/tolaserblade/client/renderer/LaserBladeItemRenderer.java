@@ -26,6 +26,7 @@ public class LaserBladeItemRenderer extends ItemStackTileEntityRenderer {
 
         if (ToLaserBladeConfig.CLIENT.laserBladeRenderingMode.get() == 1) {
             renderLaserBladeMode1(itemStack, matrixStack, buffer, lightmapCoord, overlayColor);
+
         } else {
             renderLaserBladeMode0(itemStack, matrixStack, buffer, lightmapCoord, overlayColor);
         }
