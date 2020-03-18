@@ -9,6 +9,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
@@ -24,6 +25,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolType;
+import net.minecraftforge.event.entity.player.CriticalHitEvent;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nullable;
@@ -45,7 +47,7 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase, Mod
         addPropertyOverride(new ResourceLocation("blocking"), BLOCKING_GETTER);
     }
 
-    /* Shield functions */
+    /* Shield Functions */
 
     @Override
     public boolean isShield(ItemStack stack, @Nullable LivingEntity entity) {
@@ -86,6 +88,20 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase, Mod
 
         return new ActionResult<>(ActionResultType.PASS, itemstack);
     }
+
+    /* Handling Events */
+
+    public void onCriticalHit(CriticalHitEvent event) {
+        Entity target = event.getTarget();
+        Pair<Float, Float> damageAndSpeed = LaserBladeItemBase.getAttackDamageAndSpeed(event.getPlayer().getHeldItemMainhand());
+
+        if (event.isVanillaCritical()) {
+            if (target instanceof WitherEntity || damageAndSpeed.getLeft() > MOD_ATK_CLASS_4) {
+                event.setDamageModifier(MOD_CRITICAL_VS_WITHER);
+            }
+        }
+    }
+
 
     /* Characterizing */
 
