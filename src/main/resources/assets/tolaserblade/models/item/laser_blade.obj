@@ -278,8 +278,12 @@ g hilt_2
 usemtl mat_hilt
 f 58/3/1 59/4/1 60/6/1 57/8/1
 
+g hilt_no_tint
+# Group hilt_no_tint: normal rendering, without tint, after hilt (and hilt_2)
+usemtl mat_hilt
+
 g hilt_bright
-# Group hilt_bright: light emissive rendering, after hilt (and hilt_2)
+# Group hilt_bright: light emissive rendering, without tint, after hilt_no_tint
 usemtl mat_hilt_bright
 
 g blade_inner

@@ -66,6 +66,7 @@ public class LaserBladeItemModel {
     public enum Part {
         HILT("laser_blade/hilt"),
         HILT_2("laser_blade/hilt_2"),
+        HILT_NO_TINT("laser_blade/hilt_no_tint"),
         HILT_BRIGHT("laser_blade/hilt_bright"),
         BLADE_INNER("laser_blade/blade_inner"),
         BLADE_OUTER_1("laser_blade/blade_outer_1"),

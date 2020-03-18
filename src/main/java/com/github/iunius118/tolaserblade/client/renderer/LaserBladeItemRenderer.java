@@ -48,6 +48,7 @@ public class LaserBladeItemRenderer extends ItemStackTileEntityRenderer {
         IVertexBuilder currentBuffer = buffer.getBuffer(LaserBladeRenderType.HILT);
         renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemModel.Part.HILT), gripColor, lightmapCoord, overlayColor);
         renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemModel.Part.HILT_2), gripColor, lightmapCoord, overlayColor);
+        renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemModel.Part.HILT_NO_TINT), -1, lightmapCoord, overlayColor);
 
         currentBuffer = buffer.getBuffer(LaserBladeRenderType.LASER_FLAT);
         renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemModel.Part.HILT_BRIGHT), -1, LIGHTMAP_BRIGHT, overlayColor);
@@ -71,6 +72,7 @@ public class LaserBladeItemRenderer extends ItemStackTileEntityRenderer {
 
         IVertexBuilder currentBuffer = buffer.getBuffer(LaserBladeRenderType.HILT);
         renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemModel.Part.HILT), gripColor, lightmapCoord, overlayColor);
+        renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemModel.Part.HILT_NO_TINT), -1, lightmapCoord, overlayColor);
 
         currentBuffer = buffer.getBuffer(LaserBladeRenderType.LASER_FLAT);
         renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemModel.Part.HILT_BRIGHT), -1, LIGHTMAP_BRIGHT, overlayColor);
