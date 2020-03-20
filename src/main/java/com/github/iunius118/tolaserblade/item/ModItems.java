@@ -16,8 +16,8 @@ public class ModItems {
     public static final Item LB_DISASSEMBLED = null;
     public static final Item LB_BATTERY = null;
     public static final Item LB_MEDIUM = null;
-    public static final Item LB_LENS = null;
+    public static final Item LB_EMITTER = null;
     public static final Item LB_CASING = null;
-    // Work-tool Set
-    public static final Item LB_WORK_TOOL_SET = null;
+    // Blueprint
+    public static final Item LB_BLUEPRINT = null;
 }
