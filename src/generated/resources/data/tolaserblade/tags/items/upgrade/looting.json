@@ -1,0 +1,7 @@
+{
+  "replace": false,
+  "values": [
+    "minecraft:nautilus_shell",
+    "#forge:storage_blocks/emerald"
+  ]
+}

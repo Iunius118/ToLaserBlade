@@ -4,3 +4,11 @@ d17f9e0dbe6fbfa88109352fc8c8b6adc7090a14 assets\tolaserblade\lang\ja_jp.json
 9dfad29baefeae3ffd22640af6fbb805c2decc5f assets\tolaserblade\models\item\laser_blade.json
 5d02d779350d8a1bc2f874a1169f526a9d7a586c data\tolaserblade\advancements\recipes\tools\dx_laser_blade.json
 d7c596b0131f5a9d92e203aa92d6e337beb6d4bc data\tolaserblade\recipes\dx_laser_blade.json
+c0787879296b48c4d316ff9e1b2012c137cacff1 data\tolaserblade\tags\items\upgrade\damage.json
+5288b8a638bad13d379cbe58520375f5cddfe1ca data\tolaserblade\tags\items\upgrade\efficiency.json
+0aa7d009d7d1f4312579e91d8097ae80752a25f3 data\tolaserblade\tags\items\upgrade\fire_aspect.json
+2bd8a61c21d6e08f0860dd83e5404f356ab00962 data\tolaserblade\tags\items\upgrade\light_element.json
+0b4a60b4fd61f9b027989b833c6d292ff5e1b7f6 data\tolaserblade\tags\items\upgrade\looting.json
+c9c9c6a833a35079dfee7399a77c8260e017df21 data\tolaserblade\tags\items\upgrade\mending.json
+ce72d94a61509ebcd112f44d81fdf6ef69bba027 data\tolaserblade\tags\items\upgrade\speed.json
+adcbf4b6699cd9a257fb1af965a634b75c69cbad data\tolaserblade\tags\items\upgrade\sweeping_edge.json
