@@ -6,8 +6,6 @@ import com.github.iunius118.tolaserblade.enchantment.ModEnchantments;
 import com.google.common.collect.Multimap;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.color.IItemColor;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -30,8 +28,6 @@ import net.minecraftforge.event.entity.player.CriticalHitEvent;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nullable;
-import java.util.HashMap;
-import java.util.Map;
 
 public class LaserBladeItem extends SwordItem implements LaserBladeItemBase, ModMainItemGroup {
     private final IItemTier tier;
@@ -105,7 +101,7 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase, Mod
         }
     }
 
-    /* Characterizing */
+    /* Item Characterizing */
 
     @Override
     public float getAttackDamage() {

@@ -49,6 +49,8 @@ public interface LaserBladeItemBase {
 
     int MAX_USES = 32000;
 
+    /* Laser Blade status getters/setters */
+
     static int getGripColor(ItemStack stack) {
         int gripColor = DEFAULT_COLOR_GRIP;
         CompoundNBT nbt = stack.getTag();
@@ -252,4 +254,8 @@ public interface LaserBladeItemBase {
             return gripColor;
         }
     }
+
+    /* Item Characterizing */
+
+
 }
