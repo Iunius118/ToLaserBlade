@@ -16,6 +16,13 @@ public class Ja_jpLanguageProvider extends LanguageProvider {
         // Items
         add(ModItems.DX_LASER_BLADE, "DXレーザーブレ一ド");
         add(ModItems.LASER_BLADE, "レーザーブレイド");
+        add(ModItems.LB_BROKEN, "壊れたレーザーブレイド");
+        add(ModItems.LB_DISASSEMBLED, "分解したレーザーブレイド");
+        add(ModItems.LB_BLUEPRINT, "レーザーブレイドの設計図");
+        add(ModItems.LB_BATTERY, "LB電池");
+        add(ModItems.LB_MEDIUM, "レーザー媒質");
+        add(ModItems.LB_EMITTER, "レーザーブレイド放射器");
+        add(ModItems.LB_CASING, "レーザーブレイドの外装");
 
         // Enchantments
         add(ModEnchantments.LIGHT_ELEMENT, "光属性");

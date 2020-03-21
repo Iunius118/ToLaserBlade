@@ -19,6 +19,13 @@ public class En_usLanguageProvider extends LanguageProvider {
         // Items
         add(ModItems.DX_LASER_BLADE, "DX Laser B1ade");
         add(ModItems.LASER_BLADE, "Laser Blade");
+        add(ModItems.LB_BROKEN, "Broken Laser Blade");
+        add(ModItems.LB_DISASSEMBLED, "Disassembled Laser Blade");
+        add(ModItems.LB_BLUEPRINT, "Laser Blade Blueprint");
+        add(ModItems.LB_BATTERY, "LB Energy Cell");
+        add(ModItems.LB_MEDIUM, "Laser Medium");
+        add(ModItems.LB_EMITTER, "Laser Blade Emitter");
+        add(ModItems.LB_CASING, "Laser Blade Casing");
 
         // Enchantments
         add(ModEnchantments.LIGHT_ELEMENT, "Light Element");

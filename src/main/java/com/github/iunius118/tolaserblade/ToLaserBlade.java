@@ -7,10 +7,7 @@ import com.github.iunius118.tolaserblade.data.TLBLanguageProvider;
 import com.github.iunius118.tolaserblade.data.TLBRecipeProvider;
 import com.github.iunius118.tolaserblade.enchantment.LightElementEnchantment;
 import com.github.iunius118.tolaserblade.enchantment.ModEnchantments;
-import com.github.iunius118.tolaserblade.item.DXLaserBladeItem;
-import com.github.iunius118.tolaserblade.item.ItemEventHandler;
-import com.github.iunius118.tolaserblade.item.LaserBladeItem;
-import com.github.iunius118.tolaserblade.item.ModItems;
+import com.github.iunius118.tolaserblade.item.*;
 import com.github.iunius118.tolaserblade.network.NetworkHandler;
 import com.github.iunius118.tolaserblade.network.ServerConfigMessage;
 import net.minecraft.data.DataGenerator;
@@ -87,7 +84,14 @@ public class ToLaserBlade {
         public static void onItemsRegistry(final RegistryEvent.Register<Item> event) {
             event.getRegistry().registerAll(
                     new DXLaserBladeItem().setRegistryName("dx_laser_blade"),
-                    new LaserBladeItem().setRegistryName("laser_blade")
+                    new LaserBladeItem().setRegistryName("laser_blade"),
+                    new LBBrokenItem().setRegistryName("lb_broken"),
+                    new LBBlueprintItem().setRegistryName("lb_blueprint"),
+                    new LBDisassembledItem().setRegistryName("lb_disassembled"),
+                    new LBBatteryItem().setRegistryName("lb_battery"),
+                    new LBMediumItem().setRegistryName("lb_medium"),
+                    new LBEmitterItem().setRegistryName("lb_emitter"),
+                    new LBCasingItem().setRegistryName("lb_casing")
             );
         }
 
