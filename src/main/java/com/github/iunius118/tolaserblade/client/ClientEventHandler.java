@@ -28,6 +28,7 @@ public class ClientEventHandler {
     @SubscribeEvent
     public void onItemColorHandlerEvent(ColorHandlerEvent.Item event) {
         event.getItemColors().register(new LaserBladeItem.ColorHandler(), ModItems.LASER_BLADE);
+        event.getItemColors().register(new LaserBladeItem.ColorHandler(), ModItems.LB_BROKEN);
     }
 
     @SubscribeEvent
@@ -40,9 +41,10 @@ public class ClientEventHandler {
     @SubscribeEvent
     public void onModelBakeEvent(ModelBakeEvent event) {
         ModelResourceLocation laserBladeItemID = new ModelResourceLocation(ModItems.LASER_BLADE.getRegistryName(), "inventory");
-        IBakedModel bakedJsonModel = event.getModelRegistry().get(laserBladeItemID);
-        LaserBladeItemBakedModel laserBladeModel = new LaserBladeItemBakedModel(bakedJsonModel);
-        event.getModelRegistry().put(laserBladeItemID, laserBladeModel);
+        ModelResourceLocation lBBrokenItemID = new ModelResourceLocation(ModItems.LB_BROKEN.getRegistryName(), "inventory");
+
+        event.getModelRegistry().put(laserBladeItemID, new LaserBladeItemBakedModel(event.getModelRegistry().get(laserBladeItemID)));
+        event.getModelRegistry().put(lBBrokenItemID, new LaserBladeItemBakedModel(event.getModelRegistry().get(lBBrokenItemID)));
 
         LaserBladeItemModel.loadLaserBladeOBJModel(event.getModelLoader());
     }

@@ -92,7 +92,7 @@ public class LaserBladeItemRenderer extends ItemStackTileEntityRenderer {
         }
     }
 
-    private List<BakedQuad> getBakedQuads(LaserBladeItemModel.Part part) {
+    public List<BakedQuad> getBakedQuads(LaserBladeItemModel.Part part) {
         return LaserBladeItemModel.parts.getOrDefault(part, Collections.emptyList());
     }
 }
