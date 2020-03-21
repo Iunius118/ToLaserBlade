@@ -1,6 +1,7 @@
 package com.github.iunius118.tolaserblade.client.model;
 
 import com.github.iunius118.tolaserblade.ToLaserBladeConfig;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.Vector3f;
@@ -12,6 +13,7 @@ import net.minecraft.item.Items;
 import net.minecraft.util.Direction;
 import net.minecraft.util.HandSide;
 import net.minecraft.world.World;
+import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.model.data.EmptyModelData;
 import net.minecraftforge.client.model.data.IModelData;
 
@@ -24,6 +26,8 @@ import java.util.Random;
 @SuppressWarnings("deprecation") // for getQuads, getParticleTexture and ItemCameraTransforms
 public class LaserBladeItemBakedModel implements IBakedModel {
     public IBakedModel bakedJSONModel;
+    ItemStack itemStack = ItemStack.EMPTY;
+    HandSide primaryHand = HandSide.RIGHT;
     public boolean isBlocking = false;
 
     public LaserBladeItemBakedModel(IBakedModel bakedJSONModelIn) {
@@ -31,9 +35,11 @@ public class LaserBladeItemBakedModel implements IBakedModel {
         bakedJSONModel = bakedJSONModelIn;
     }
 
-    public LaserBladeItemBakedModel handleBlocking(boolean isBlockingIn) {
+    public LaserBladeItemBakedModel handleItemOverride(ItemStack itemStackIn, HandSide primaryHandIn, boolean isBlockingIn) {
         // For rendering
         LaserBladeItemBakedModel newModel = new LaserBladeItemBakedModel(this.bakedJSONModel);
+        newModel.itemStack = itemStackIn;
+        newModel.primaryHand = primaryHandIn;
         newModel.isBlocking = isBlockingIn;
         return newModel;
     }
@@ -89,10 +95,15 @@ public class LaserBladeItemBakedModel implements IBakedModel {
                     LaserBladeItemBakedModel laserBladeModel = (LaserBladeItemBakedModel) model;
 
                     if (ToLaserBladeConfig.CLIENT.isEnabledLaserBlade3DModel.get()) {
-                        boolean isBlocking = entityIn != null
-                                    && ToLaserBladeConfig.COMMON.isEnabledBlockingWithLaserBladeInServer.get()
-                                    && entityIn.isHandActive();
-                        return laserBladeModel.handleBlocking(isBlocking);
+                        boolean isBlocking = false;
+                        HandSide handSide = HandSide.RIGHT;
+
+                        if (entityIn != null) {
+                            isBlocking = ToLaserBladeConfig.COMMON.isEnabledBlockingWithLaserBladeInServer.get() && entityIn.isHandActive();
+                            handSide = entityIn.getPrimaryHand();
+                        }
+
+                        return laserBladeModel.handleItemOverride(stack, handSide, isBlocking);
 
                     } else {
                         // When 3D models are DISABLED
@@ -103,6 +114,12 @@ public class LaserBladeItemBakedModel implements IBakedModel {
                 return model;
             }
         };
+    }
+
+    @Override
+    public IBakedModel handlePerspective(ItemCameraTransforms.TransformType cameraTransformType, MatrixStack mat) {
+        LaserBladeItemBakedModel model = (LaserBladeItemBakedModel)ForgeHooksClient.handlePerspective(this, cameraTransformType, mat);
+        return model;
     }
 
     private static final ItemCameraTransforms ITEM_TRANSFORMS = new ItemCameraTransforms(
