@@ -22,4 +22,9 @@ public class TLBItemTagsProvider extends ItemTagsProvider {
         getBuilder(ModItemTags.LOOTING_UPGRADE).add(Items.NAUTILUS_SHELL).add(Tags.Items.STORAGE_BLOCKS_EMERALD);
         getBuilder(ModItemTags.MENDING_UPGRADE).add(Items.NETHER_STAR, Items.DRAGON_HEAD, Items.TOTEM_OF_UNDYING);
     }
+
+    @Override
+    public String getName() {
+        return "ToLaserBlade Item Tags";
+    }
 }

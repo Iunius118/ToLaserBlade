@@ -39,4 +39,9 @@ public class En_usLanguageProvider extends LanguageProvider {
         // Update message
         add("tolaserblade.update.newVersion", "A new %s version is available");
     }
+
+    @Override
+    public String getName() {
+        return "ToLaserBlade " + super.getName();
+    }
 }

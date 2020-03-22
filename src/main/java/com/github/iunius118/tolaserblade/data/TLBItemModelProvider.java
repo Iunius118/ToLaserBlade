@@ -44,7 +44,7 @@ public class TLBItemModelProvider extends ItemModelProvider {
 
     @Override
     public String getName() {
-        return "ToLaserBlade item models";
+        return "ToLaserBlade Item Models";
     }
 
     private void registerGeneratedItemModel(Item item) {

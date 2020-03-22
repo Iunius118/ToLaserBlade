@@ -28,4 +28,9 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
                 .addCriterion("has_dx_laser_blade", hasItem(ModItems.DX_LASER_BLADE))
                 .build(consumer, ModItems.DX_LASER_BLADE.getRegistryName());
     }
+
+    @Override
+    public String getName() {
+        return "ToLaserBlade Recipes";
+    }
 }
