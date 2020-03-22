@@ -6,7 +6,6 @@ import com.github.iunius118.tolaserblade.client.model.LaserBladeItemModel;
 import com.github.iunius118.tolaserblade.item.LaserBladeItem;
 import com.github.iunius118.tolaserblade.item.ModItems;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.model.IBakedModel;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.util.ResourceLocation;

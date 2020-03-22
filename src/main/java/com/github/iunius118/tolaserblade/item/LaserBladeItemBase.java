@@ -4,6 +4,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.common.util.Constants;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -125,13 +126,7 @@ public interface LaserBladeItemBase {
         CompoundNBT nbt = stack.getTag();
 
         if (nbt != null) {
-            attackDamage = nbt.getFloat(KEY_ATK);
-
-            if (attackDamage < MOD_ATK_MIN) {
-                attackDamage = MOD_ATK_MIN;
-            } else if (attackDamage > MOD_ATK_MAX) {
-                attackDamage = MOD_ATK_MAX;
-            }
+            attackDamage = MathHelper.clamp(nbt.getFloat(KEY_ATK), MOD_ATK_MIN, MOD_ATK_MAX);
         }
 
         return attackDamage;
@@ -142,13 +137,7 @@ public interface LaserBladeItemBase {
         CompoundNBT nbt = stack.getTag();
 
         if (nbt != null) {
-            attackSpeed = nbt.getFloat(KEY_SPD);
-
-            if (attackSpeed < MOD_SPD_MIN) {
-                attackSpeed = MOD_SPD_MIN;
-            } else if (attackSpeed > MOD_SPD_MAX) {
-                attackSpeed = MOD_SPD_MAX;
-            }
+            attackSpeed = MathHelper.clamp(nbt.getFloat(KEY_SPD), MOD_SPD_MIN, MOD_SPD_MAX);
         }
 
         return attackSpeed;
@@ -156,45 +145,20 @@ public interface LaserBladeItemBase {
 
     default float getDestroySpeedRate(ItemStack stack) {
         float rate = 0.0F;
-        CompoundNBT nbt = stack.getTag();
-
-        if (nbt != null) {
-            rate = (float)EnchantmentHelper.getEnchantmentLevel(Enchantments.EFFICIENCY, stack) / 5;
-
-            if (rate < 0.0F) {
-                rate = 0.0F;
-            } else if (rate > 1.0F) {
-                rate = 1.0F;
-            }
-        }
-
+        rate = (float)EnchantmentHelper.getEnchantmentLevel(Enchantments.EFFICIENCY, stack) / 5.0F;
+        rate = MathHelper.clamp(rate, 0.0F, 1.0F);
         return rate;
     }
 
     default void setLaserBladeATK(ItemStack stack, float atk) {
-        float attackDamage = atk;
+        float attackDamage = MathHelper.clamp(atk, MOD_ATK_MIN, MOD_ATK_MAX);
         CompoundNBT nbt = stack.getOrCreateTag();
-
-        if (attackDamage < MOD_ATK_MIN) {
-            attackDamage = MOD_ATK_MIN;
-        } else if (attackDamage > MOD_ATK_MAX) {
-            attackDamage = MOD_ATK_MAX;
-        }
-
         nbt.putFloat(KEY_ATK, attackDamage);
     }
 
     default void setLaserBladeSPD(ItemStack stack, float spd) {
-        float attackSpeed = spd;
+        float attackSpeed = MathHelper.clamp(spd, MOD_SPD_MIN, MOD_SPD_MAX);
         CompoundNBT nbt = stack.getOrCreateTag();
-
-        if (attackSpeed < MOD_SPD_MIN) {
-            attackSpeed = MOD_SPD_MIN;
-        } else if (attackSpeed > MOD_SPD_MAX) {
-            attackSpeed = MOD_SPD_MAX;
-        }
-
-
         nbt.putFloat(KEY_SPD, attackSpeed);
     }
 
