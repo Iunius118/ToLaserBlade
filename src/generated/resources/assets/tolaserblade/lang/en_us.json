@@ -1,4 +1,6 @@
 {
+  "advancements.tolaserblade.main.root.description": "Laser Blade is a tool used to cut through material, so any damage caused by using as a weapon is not covered by the warranty",
+  "advancements.tolaserblade.main.root.title": "ToLaserBlade",
   "enchantment.tolaserblade.light_element": "Light Element",
   "item.tolaserblade.dx_laser_blade": "DX Laser B1ade",
   "item.tolaserblade.laser_blade": "Laser Blade",

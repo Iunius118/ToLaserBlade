@@ -1,5 +1,5 @@
-3ef923447257e2d31982cbe88d23570e906fa210 assets\tolaserblade\lang\en_us.json
-a33da06a015fac171256c9b4d81106ef9ee14730 assets\tolaserblade\lang\ja_jp.json
+a9d6bac335d25b423bbb39390a2cae80bc6a5f88 assets\tolaserblade\lang\en_us.json
+5b3c89256006f064747f94260fc628b75d9818c9 assets\tolaserblade\lang\ja_jp.json
 484a4751b7f0f91ad1b947e4caf97e96c6ff27c4 assets\tolaserblade\models\item\dx_laser_blade.json
 9dfad29baefeae3ffd22640af6fbb805c2decc5f assets\tolaserblade\models\item\laser_blade.json
 62bf5e231ada4a5fa40d8ce665e3b03228e6a3a9 assets\tolaserblade\models\item\lb_battery.json
@@ -9,6 +9,7 @@ ed82e1a3b7cbc9d0a037f08e6cae9af61817ce5a assets\tolaserblade\models\item\lb_casi
 1150f11e4765c57919c2a3f15bb1896ab08cce73 assets\tolaserblade\models\item\lb_disassembled.json
 b35631a6cd2688acddccbb1a4dc5f0bcbc69650a assets\tolaserblade\models\item\lb_emitter.json
 deb48bec4cd0a36305bb008c826378ce545ec635 assets\tolaserblade\models\item\lb_medium.json
+fc83e1602ba2a6b1d0914ca1b1bd8734567fb777 data\tolaserblade\advancements\main\root.json
 5d02d779350d8a1bc2f874a1169f526a9d7a586c data\tolaserblade\advancements\recipes\tools\dx_laser_blade.json
 d7c596b0131f5a9d92e203aa92d6e337beb6d4bc data\tolaserblade\recipes\dx_laser_blade.json
 c0787879296b48c4d316ff9e1b2012c137cacff1 data\tolaserblade\tags\items\upgrade\damage.json

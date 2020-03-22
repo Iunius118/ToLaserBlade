@@ -1,0 +1,57 @@
+{
+  "display": {
+    "icon": {
+      "item": "tolaserblade:laser_blade"
+    },
+    "title": {
+      "translate": "advancements.tolaserblade.main.root.title"
+    },
+    "description": {
+      "translate": "advancements.tolaserblade.main.root.description"
+    },
+    "frame": "task",
+    "show_toast": false,
+    "announce_to_chat": false,
+    "hidden": false,
+    "background": "minecraft:textures/block/polished_andesite.png"
+  },
+  "criteria": {
+    "has_redstone": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:redstone"
+          }
+        ]
+      }
+    },
+    "has_dx_laser_blade": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tolaserblade:dx_laser_blade"
+          }
+        ]
+      }
+    },
+    "has_laser_blade": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tolaserblade:laser_blade"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_redstone",
+      "has_dx_laser_blade",
+      "has_laser_blade"
+    ]
+  ]
+}

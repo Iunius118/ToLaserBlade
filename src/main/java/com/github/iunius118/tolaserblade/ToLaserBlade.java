@@ -1,10 +1,7 @@
 package com.github.iunius118.tolaserblade;
 
 import com.github.iunius118.tolaserblade.client.ClientEventHandler;
-import com.github.iunius118.tolaserblade.data.TLBItemModelProvider;
-import com.github.iunius118.tolaserblade.data.TLBItemTagsProvider;
-import com.github.iunius118.tolaserblade.data.TLBLanguageProvider;
-import com.github.iunius118.tolaserblade.data.TLBRecipeProvider;
+import com.github.iunius118.tolaserblade.data.*;
 import com.github.iunius118.tolaserblade.enchantment.LightElementEnchantment;
 import com.github.iunius118.tolaserblade.enchantment.ModEnchantments;
 import com.github.iunius118.tolaserblade.item.*;
@@ -116,6 +113,7 @@ public class ToLaserBlade {
             if (event.includeServer()) {
                 gen.addProvider(new TLBRecipeProvider(gen));   // Recipes
                 gen.addProvider(new TLBItemTagsProvider(gen));  // Item tags
+                gen.addProvider(new TLBAdvancementProvider(gen));   // Advancements
             }
 
             if (event.includeClient()) {

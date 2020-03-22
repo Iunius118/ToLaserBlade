@@ -27,6 +27,28 @@ public class Ja_jpLanguageProvider extends LanguageProvider {
         // Enchantments
         add(ModEnchantments.LIGHT_ELEMENT, "光属性");
 
+        // Advancements
+        add("advancements.tolaserblade.main.root.title", "ToLaserBlade");
+        add("advancements.tolaserblade.main.root.description", "レーザーブレイドは切削用工具です。武器として使用した際に発生した損害は、すべて補償の対象外となります");
+/*        add("", "");
+        add("", "");
+        add("", "");
+        add("", "");
+        add("", "");
+        add("", "");
+        add("", "");
+        add("", "");
+        add("", "");
+        add("", "");
+        add("", "");
+        add("", "");
+        add("", "");
+        add("", "");
+        add("", "");
+        add("", "");
+        add("", "");
+        add("", "");*/
+
         // Configs
         add("tolaserblade.configgui.common.enableBlockingWithLaserBlade", "レーザーブレイドによる防御を有効にする");
         add("tolaserblade.configgui.common.laserBladeEfficiency", "レーザーブレイドの採掘速度 (0–128)");

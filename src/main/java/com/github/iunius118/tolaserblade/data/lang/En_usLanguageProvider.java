@@ -30,6 +30,28 @@ public class En_usLanguageProvider extends LanguageProvider {
         // Enchantments
         add(ModEnchantments.LIGHT_ELEMENT, "Light Element");
 
+        // Advancements
+        add("advancements.tolaserblade.main.root.title", "ToLaserBlade");
+        add("advancements.tolaserblade.main.root.description", "Laser Blade is a tool used to cut through material, so any damage caused by using as a weapon is not covered by the warranty");
+/*        add("", "");
+        add("", "");
+        add("", "");
+        add("", "");
+        add("", "");
+        add("", "");
+        add("", "");
+        add("", "");
+        add("", "");
+        add("", "");
+        add("", "");
+        add("", "");
+        add("", "");
+        add("", "");
+        add("", "");
+        add("", "");
+        add("", "");
+        add("", "");*/
+
         // Configs
         add("tolaserblade.configgui.common.enableBlockingWithLaserBlade", "Enable Blocking with Laser Blade");
         add("tolaserblade.configgui.common.laserBladeEfficiency", "Laser Blade Mining Speed (0–128)");
