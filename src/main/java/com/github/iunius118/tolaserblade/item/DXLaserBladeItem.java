@@ -1,9 +1,11 @@
 package com.github.iunius118.tolaserblade.item;
 
+import com.github.iunius118.tolaserblade.util.ModSoundEvents;
 import com.google.common.collect.Multimap;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.player.PlayerEntity;
@@ -12,7 +14,10 @@ import net.minecraft.item.*;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.util.SoundEvents;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 public class DXLaserBladeItem extends SwordItem implements ModMainItemGroup {
@@ -27,6 +32,39 @@ public class DXLaserBladeItem extends SwordItem implements ModMainItemGroup {
         attackDamage = 3.0F + tier.getAttackDamage();
         attackSpeed = -1.2F;
     }
+
+    /*  DX Laser B1ade could sound--if you had a battery :P
+    @Override
+    public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+        World world = attacker.getEntityWorld();
+
+        if (!world.isRemote && attacker instanceof PlayerEntity) {
+            playSwingSound(world, attacker);
+        }
+
+        return super.hitEntity(stack, target, attacker);
+    }
+
+    @Override
+    public boolean onEntitySwing(ItemStack stack, LivingEntity entity) {
+        World world = entity.getEntityWorld();
+
+        if (!world.isRemote && entity instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity)entity;
+
+            if (!player.isSwingInProgress) {
+                playSwingSound(world, entity);
+            }
+        }
+
+        return super.onEntitySwing(stack, entity);
+    }
+
+    private void playSwingSound(World world, LivingEntity entity) {
+        Vec3d pos = entity.getPositionVec().add(0, entity.getEyeHeight(), 0).add(entity.getLookVec());
+        world.playSound(null, pos.x, pos.y, pos.z, ModSoundEvents.ITEM_DX_LASER_BLADE_SWING, SoundCategory.PLAYERS, 0.5F, 1.0F);
+    }
+    //*/
 
     @Override
     public ActionResultType onItemUse(ItemUseContext context) {

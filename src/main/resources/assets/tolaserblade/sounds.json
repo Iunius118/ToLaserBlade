@@ -1,0 +1,7 @@
+{
+  "item.dx_laser_blade.swing": {
+    "sounds": [
+      "tolaserblade:item/dx_laser_blade/swing"
+    ]
+  }
+}

@@ -7,6 +7,7 @@ import com.github.iunius118.tolaserblade.enchantment.ModEnchantments;
 import com.github.iunius118.tolaserblade.item.*;
 import com.github.iunius118.tolaserblade.network.NetworkHandler;
 import com.github.iunius118.tolaserblade.network.ServerConfigMessage;
+import com.github.iunius118.tolaserblade.util.ModSoundEvents;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.PlayerEntity;
@@ -14,6 +15,7 @@ import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundEvent;
 import net.minecraftforge.client.model.generators.ExistingFileHelper;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.RegistryEvent;
@@ -45,6 +47,7 @@ public class ToLaserBlade {
     public static final Logger LOGGER = LogManager.getLogger();
     public static final ModItems ITEMS = new ModItems();
     public static final ModEnchantments ENCHANTMENTS = new ModEnchantments();
+    public static final ModSoundEvents SOUND_EVENTS = new ModSoundEvents();
 
     public static boolean hasShownUpdate = false;
 
@@ -97,6 +100,14 @@ public class ToLaserBlade {
         public static void onEnchantmentRegistry(final RegistryEvent.Register<Enchantment> event) {
             event.getRegistry().registerAll(
                     new LightElementEnchantment().setRegistryName(LightElementEnchantment.ID)
+            );
+        }
+
+        // Register Sound Events
+        @SubscribeEvent
+        public static void onSoundEventRegistry(final RegistryEvent.Register<SoundEvent> event) {
+            event.getRegistry().registerAll(
+                    new SoundEvent(new ResourceLocation(MOD_ID, "item.dx_laser_blade.swing")).setRegistryName("item_dx_laser_blade_swing")
             );
         }
 
