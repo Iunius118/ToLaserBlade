@@ -18,6 +18,7 @@ import net.minecraft.data.IDataProvider;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.ResourceLocation;
@@ -42,7 +43,7 @@ public class TLBAdvancementProvider implements IDataProvider {
     protected void registerAdvancements(Consumer<Advancement> consumer) {
         // Main root
         Advancement root = Advancement.Builder.builder()
-                .withDisplay(((LaserBladeItem)ModItems.LASER_BLADE).ITEM_GROUP.createIcon(),
+                .withDisplay(((LaserBladeItem)ModItems.LASER_BLADE).setGripColor(new ItemStack(ModItems.LASER_BLADE), LaserBladeItemBase.LBColor.GRAY.getGripColor()),
                         new TranslationTextComponent("advancements.tolaserblade.main.root.title"),
                         new TranslationTextComponent("advancements.tolaserblade.main.root.description"),
                         new ResourceLocation("textures/block/polished_andesite.png"),
