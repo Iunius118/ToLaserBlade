@@ -96,29 +96,34 @@ public interface LaserBladeItemBase {
     }
 
 
-    default void setGripColor(ItemStack stack, int color) {
+    default ItemStack setGripColor(ItemStack stack, int color) {
         CompoundNBT nbt = stack.getOrCreateTag();
         nbt.putInt(KEY_GRIP_COLOR, color);
+        return stack;
     }
 
-    default void setBladeInnerColor(ItemStack stack, int color) {
+    default ItemStack setBladeInnerColor(ItemStack stack, int color) {
         CompoundNBT nbt = stack.getOrCreateTag();
         nbt.putInt(KEY_INNER_COLOR, color);
+        return stack;
     }
 
-    default void setBladeOuterColor(ItemStack stack, int color) {
+    default ItemStack setBladeOuterColor(ItemStack stack, int color) {
         CompoundNBT nbt = stack.getOrCreateTag();
         nbt.putInt(KEY_OUTER_COLOR, color);
+        return stack;
     }
 
-    default void setBladeInnerSubColorFlag(ItemStack stack, boolean isSubColor) {
+    default ItemStack setBladeInnerSubColorFlag(ItemStack stack, boolean isSubColor) {
         CompoundNBT nbt = stack.getOrCreateTag();
         nbt.putBoolean(KEY_IS_INNER_SUB_COLOR, isSubColor);
+        return stack;
     }
 
-    default void setBladeOuterSubColorFlag(ItemStack stack, boolean isSubColor) {
+    default ItemStack setBladeOuterSubColorFlag(ItemStack stack, boolean isSubColor) {
         CompoundNBT nbt = stack.getOrCreateTag();
         nbt.putBoolean(KEY_IS_OUTER_SUB_COLOR, isSubColor);
+        return stack;
     }
 
     default float getLaserBladeATK(ItemStack stack) {
@@ -150,16 +155,18 @@ public interface LaserBladeItemBase {
         return rate;
     }
 
-    default void setLaserBladeATK(ItemStack stack, float atk) {
+    default ItemStack setLaserBladeATK(ItemStack stack, float atk) {
         float attackDamage = MathHelper.clamp(atk, MOD_ATK_MIN, MOD_ATK_MAX);
         CompoundNBT nbt = stack.getOrCreateTag();
         nbt.putFloat(KEY_ATK, attackDamage);
+        return stack;
     }
 
-    default void setLaserBladeSPD(ItemStack stack, float spd) {
+    default ItemStack setLaserBladeSPD(ItemStack stack, float spd) {
         float attackSpeed = MathHelper.clamp(spd, MOD_SPD_MIN, MOD_SPD_MAX);
         CompoundNBT nbt = stack.getOrCreateTag();
         nbt.putFloat(KEY_SPD, attackSpeed);
+        return stack;
     }
 
     default int getBladeColorFromTintIndex(int index, boolean isInner) {

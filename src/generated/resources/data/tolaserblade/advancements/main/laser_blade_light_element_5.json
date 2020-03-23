@@ -1,0 +1,43 @@
+{
+  "parent": "tolaserblade:main/laser_blade_light_element_2",
+  "display": {
+    "icon": {
+      "item": "minecraft:glowstone"
+    },
+    "title": {
+      "translate": "advancements.tolaserblade.main.laser_blade_light_element_5.title"
+    },
+    "description": {
+      "translate": "advancements.tolaserblade.main.laser_blade_light_element_5.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "has_laser_blade_light_element_5": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tolaserblade:laser_blade",
+            "enchantments": [
+              {
+                "enchantment": "tolaserblade:light_element",
+                "levels": {
+                  "min": 5
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_laser_blade_light_element_5"
+    ]
+  ]
+}

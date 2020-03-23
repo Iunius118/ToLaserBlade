@@ -1,0 +1,96 @@
+{
+  "parent": "tolaserblade:main/laser_blade",
+  "display": {
+    "icon": {
+      "item": "minecraft:diamond"
+    },
+    "title": {
+      "translate": "advancements.tolaserblade.main.laser_blade_attack_10.title"
+    },
+    "description": {
+      "translate": "advancements.tolaserblade.main.laser_blade_attack_10.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "laser_blade_attack_10": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tolaserblade:laser_blade",
+            "nbt": "{ATK:3.0f}"
+          }
+        ]
+      }
+    },
+    "laser_blade_attack_11": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tolaserblade:laser_blade",
+            "nbt": "{ATK:4.0f}"
+          }
+        ]
+      }
+    },
+    "laser_blade_attack_12": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tolaserblade:laser_blade",
+            "nbt": "{ATK:5.0f}"
+          }
+        ]
+      }
+    },
+    "laser_blade_attack_13": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tolaserblade:laser_blade",
+            "nbt": "{ATK:6.0f}"
+          }
+        ]
+      }
+    },
+    "laser_blade_attack_14": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tolaserblade:laser_blade",
+            "nbt": "{ATK:7.0f}"
+          }
+        ]
+      }
+    },
+    "laser_blade_attack_15": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tolaserblade:laser_blade",
+            "nbt": "{ATK:8.0f}"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "laser_blade_attack_10",
+      "laser_blade_attack_11",
+      "laser_blade_attack_12",
+      "laser_blade_attack_13",
+      "laser_blade_attack_14",
+      "laser_blade_attack_15"
+    ]
+  ]
+}

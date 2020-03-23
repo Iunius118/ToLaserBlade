@@ -16,7 +16,7 @@ interface ModMainItemGroup extends IForgeItem {
         @Override
         @OnlyIn(Dist.CLIENT)
         public ItemStack createIcon() {
-            return new ItemStack(ModItems.LASER_BLADE);
+            return ((LaserBladeItemBase)ModItems.LASER_BLADE).setGripColor(new ItemStack(ModItems.LASER_BLADE), LaserBladeItemBase.LBColor.GRAY.getGripColor());
         }
     };
 

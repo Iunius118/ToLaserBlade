@@ -30,24 +30,24 @@ public class Ja_jpLanguageProvider extends LanguageProvider {
         // Advancements
         add("advancements.tolaserblade.main.root.title", "ToLaserBlade");
         add("advancements.tolaserblade.main.root.description", "レーザーブレイドは切削用工具です。武器として使用した際に発生した損害は、すべて補償の対象外となります");
-/*        add("", "");
-        add("", "");
-        add("", "");
-        add("", "");
-        add("", "");
-        add("", "");
-        add("", "");
-        add("", "");
-        add("", "");
-        add("", "");
-        add("", "");
-        add("", "");
-        add("", "");
-        add("", "");
-        add("", "");
-        add("", "");
-        add("", "");
-        add("", "");*/
+        add("advancements.tolaserblade.main.dx_laser_blade.title", "レーザーブレイド？");
+        add("advancements.tolaserblade.main.dx_laser_blade.description", "DXレーザーブレ一ドをクラフトする。\n光る！ 鳴る！ （電池があれば）");
+        add("advancements.tolaserblade.main.laser_blade.title", "レーザーブレイド！");
+        add("advancements.tolaserblade.main.laser_blade.description", "レーザーブレイドをクラフトする");
+        add("advancements.tolaserblade.main.laser_blade_light_element_2.title", "超古代技術");
+        add("advancements.tolaserblade.main.laser_blade_light_element_2.description", "レーザーブレイドに 光属性 Ⅱ のエンチャントを付与する");
+        add("advancements.tolaserblade.main.laser_blade_light_element_5.title", "光のチカラ");
+        add("advancements.tolaserblade.main.laser_blade_light_element_5.description", "レーザーブレイドに 光属性 Ⅴ のエンチャントを付与する");
+        add("advancements.tolaserblade.main.laser_blade_light_element_10.title", "無限のパワー");
+        add("advancements.tolaserblade.main.laser_blade_light_element_10.description", "レーザーブレイドに 光属性 Ⅹ のエンチャントを付与する");
+        add("advancements.tolaserblade.main.laser_blade_attack_10.title", "９以上だ");
+        add("advancements.tolaserblade.main.laser_blade_attack_10.description", "レーザーブレイドの攻撃力を10以上にする");
+        add("advancements.tolaserblade.main.laser_blade_attack_15.title", "限界突破");
+        add("advancements.tolaserblade.main.laser_blade_attack_15.description", "レーザーブレイドの攻撃力を15にする");
+        add("advancements.tolaserblade.main.laser_blade_looting_3.title", "３つくれ");
+        add("advancements.tolaserblade.main.laser_blade_looting_3.description", "レーザーブレイドに ドロップ増加 Ⅲ のエンチャントを付与する");
+        add("advancements.tolaserblade.main.break_laser_blade.title", "返品交換");
+        add("advancements.tolaserblade.main.break_laser_blade.description", "レーザーブレイドを使い切り、そして……");
 
         // Configs
         add("tolaserblade.configgui.common.enableBlockingWithLaserBlade", "レーザーブレイドによる防御を有効にする");

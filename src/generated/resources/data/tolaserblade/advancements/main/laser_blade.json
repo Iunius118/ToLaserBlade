@@ -1,0 +1,35 @@
+{
+  "parent": "tolaserblade:main/dx_laser_blade",
+  "display": {
+    "icon": {
+      "item": "tolaserblade:laser_blade"
+    },
+    "title": {
+      "translate": "advancements.tolaserblade.main.laser_blade.title"
+    },
+    "description": {
+      "translate": "advancements.tolaserblade.main.laser_blade.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "has_laser_blade": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tolaserblade:laser_blade"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_laser_blade"
+    ]
+  ]
+}

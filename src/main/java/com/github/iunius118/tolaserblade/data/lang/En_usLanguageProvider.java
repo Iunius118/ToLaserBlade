@@ -33,24 +33,24 @@ public class En_usLanguageProvider extends LanguageProvider {
         // Advancements
         add("advancements.tolaserblade.main.root.title", "ToLaserBlade");
         add("advancements.tolaserblade.main.root.description", "Laser Blade is a tool used to cut through material, so any damage caused by using as a weapon is not covered by the warranty");
-/*        add("", "");
-        add("", "");
-        add("", "");
-        add("", "");
-        add("", "");
-        add("", "");
-        add("", "");
-        add("", "");
-        add("", "");
-        add("", "");
-        add("", "");
-        add("", "");
-        add("", "");
-        add("", "");
-        add("", "");
-        add("", "");
-        add("", "");
-        add("", "");*/
+        add("advancements.tolaserblade.main.dx_laser_blade.title", "Laser Blade?");
+        add("advancements.tolaserblade.main.dx_laser_blade.description", "Obtain a DX Laser B1ade.\nIt could glow and sound—if you had a battery");
+        add("advancements.tolaserblade.main.laser_blade.title", "Laser Blade!");
+        add("advancements.tolaserblade.main.laser_blade.description", "Obtain a Laser Blade");
+        add("advancements.tolaserblade.main.laser_blade_light_element_2.title", "Ancient Technology");
+        add("advancements.tolaserblade.main.laser_blade_light_element_2.description", "Add Light Element II enchantment to a Laser Blade");
+        add("advancements.tolaserblade.main.laser_blade_light_element_5.title", "Power of Light");
+        add("advancements.tolaserblade.main.laser_blade_light_element_5.description", "Add Light Element V enchantment to a Laser Blade");
+        add("advancements.tolaserblade.main.laser_blade_light_element_10.title", "Unlimited Power");
+        add("advancements.tolaserblade.main.laser_blade_light_element_10.description", "Add Light Element X enchantment to a Laser Blade");
+        add("advancements.tolaserblade.main.laser_blade_attack_10.title", "It's Over 9");
+        add("advancements.tolaserblade.main.laser_blade_attack_10.description", "Increase attack damage of a Laser Blade to 10 or more");
+        add("advancements.tolaserblade.main.laser_blade_attack_15.title", "Beyond the Limit");
+        add("advancements.tolaserblade.main.laser_blade_attack_15.description", "Increase attack damage of a Laser Blade to 15");
+        add("advancements.tolaserblade.main.laser_blade_looting_3.title", "Give Me Three");
+        add("advancements.tolaserblade.main.laser_blade_looting_3.description", "Add Looting III enchantment to a Laser Blade");
+        add("advancements.tolaserblade.main.break_laser_blade.title", "Returns and Exchanges");
+        add("advancements.tolaserblade.main.break_laser_blade.description", "Completely use up a Laser Blade, and then...");
 
         // Configs
         add("tolaserblade.configgui.common.enableBlockingWithLaserBlade", "Enable Blocking with Laser Blade");

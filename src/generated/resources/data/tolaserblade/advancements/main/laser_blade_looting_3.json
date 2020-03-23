@@ -1,0 +1,43 @@
+{
+  "parent": "tolaserblade:main/laser_blade",
+  "display": {
+    "icon": {
+      "item": "minecraft:nautilus_shell"
+    },
+    "title": {
+      "translate": "advancements.tolaserblade.main.laser_blade_looting_3.title"
+    },
+    "description": {
+      "translate": "advancements.tolaserblade.main.laser_blade_looting_3.description"
+    },
+    "frame": "task",
+    "show_toast": true,
+    "announce_to_chat": true,
+    "hidden": false
+  },
+  "criteria": {
+    "has_laser_blade_looting_3": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tolaserblade:laser_blade",
+            "enchantments": [
+              {
+                "enchantment": "minecraft:looting",
+                "levels": {
+                  "min": 3
+                }
+              }
+            ]
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_laser_blade_looting_3"
+    ]
+  ]
+}
