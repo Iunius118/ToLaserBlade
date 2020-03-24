@@ -6,6 +6,8 @@ import com.github.iunius118.tolaserblade.enchantment.ModEnchantments;
 import com.google.common.collect.Multimap;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.color.IItemColor;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -154,6 +156,12 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase, Mod
     }
 
     @Override
+    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
+        // Accept Mending and Curse of Vanish
+        return enchantment.type == EnchantmentType.WEAPON || enchantment == Enchantments.MENDING || enchantment == Enchantments.VANISHING_CURSE;
+    }
+
+    @Override
     public boolean canEquip(ItemStack stack, EquipmentSlotType armorType, Entity entity) {
         return armorType == EquipmentSlotType.HEAD;
     }
@@ -248,15 +256,15 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase, Mod
 
             switch (tintIndex) {
                 case 1:
-                    bladeColor = LaserBladeItemBase.getBladeOuterColor(stack);
+                    bladeColor = ModItems.LASER_BLADE.getBladeOuterColor(stack);
                     return (bladeColor.getRight() ? ~bladeColor.getLeft() : bladeColor.getLeft()) | 0xFF000000;
 
                 case 2:
-                    bladeColor = LaserBladeItemBase.getBladeInnerColor(stack);
+                    bladeColor = ModItems.LASER_BLADE.getBladeInnerColor(stack);
                     return (bladeColor.getRight() ? ~bladeColor.getLeft() : bladeColor.getLeft()) | 0xFF000000;
 
                 default:
-                    return LaserBladeItemBase.getGripColor(stack) | 0xFF000000;
+                    return ModItems.LASER_BLADE.getGripColor(stack) | 0xFF000000;
             }
         }
     }
