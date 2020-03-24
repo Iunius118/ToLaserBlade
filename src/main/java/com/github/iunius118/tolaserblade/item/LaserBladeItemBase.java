@@ -52,7 +52,7 @@ public interface LaserBladeItemBase {
 
     /* Laser Blade status getters/setters */
 
-    static int getGripColor(ItemStack stack) {
+    default int getGripColor(ItemStack stack) {
         int gripColor = DEFAULT_COLOR_GRIP;
         CompoundNBT nbt = stack.getTag();
 
@@ -63,7 +63,7 @@ public interface LaserBladeItemBase {
         return gripColor;
     }
 
-    static Pair<Integer, Boolean> getBladeInnerColor(ItemStack stack) {
+    default Pair<Integer, Boolean> getBladeInnerColor(ItemStack stack) {
         int bladeInnerColor = DEFAULT_COLOR_INNER;
         boolean isBladeInnerSubColor = false;
         CompoundNBT nbt = stack.getTag();
@@ -79,7 +79,7 @@ public interface LaserBladeItemBase {
         return Pair.of(bladeInnerColor, isBladeInnerSubColor);
     }
 
-    static Pair<Integer, Boolean> getBladeOuterColor(ItemStack stack) {
+    default Pair<Integer, Boolean> getBladeOuterColor(ItemStack stack) {
         int bladeOuterColor = DEFAULT_COLOR_OUTER;
         boolean isBladeOuterSubColor = false;
         CompoundNBT nbt = stack.getTag();

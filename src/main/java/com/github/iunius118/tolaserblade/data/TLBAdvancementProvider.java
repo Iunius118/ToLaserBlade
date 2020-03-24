@@ -43,7 +43,7 @@ public class TLBAdvancementProvider implements IDataProvider {
     protected void registerAdvancements(Consumer<Advancement> consumer) {
         // Main root
         Advancement root = Advancement.Builder.builder()
-                .withDisplay(((LaserBladeItem)ModItems.LASER_BLADE).setGripColor(new ItemStack(ModItems.LASER_BLADE), LaserBladeItemBase.LBColor.GRAY.getGripColor()),
+                .withDisplay(ModItems.LASER_BLADE.setGripColor(new ItemStack(ModItems.LASER_BLADE), LaserBladeItemBase.LBColor.GRAY.getGripColor()),
                         new TranslationTextComponent("advancements.tolaserblade.main.root.title"),
                         new TranslationTextComponent("advancements.tolaserblade.main.root.description"),
                         new ResourceLocation("textures/block/polished_andesite.png"),
@@ -55,35 +55,35 @@ public class TLBAdvancementProvider implements IDataProvider {
                 .register(consumer, "tolaserblade:main/root");
 
         // 1. Laser Blade?
-        Advancement dxLaserBlade = registerMainAdvancementWithItem(root, ModItems.DX_LASER_BLADE, FrameType.TASK,
+        Advancement dxLaserBlade = registerItemAdvancement(root, ModItems.DX_LASER_BLADE, FrameType.TASK,
                 ModItems.DX_LASER_BLADE, consumer);
 
         // 1-1. Laser Blade!
-        Advancement laserBlade = registerMainAdvancementWithItem(dxLaserBlade, ModItems.LASER_BLADE, FrameType.TASK,
+        Advancement laserBlade = registerItemAdvancement(dxLaserBlade, ModItems.LASER_BLADE, FrameType.TASK,
                 ModItems.LASER_BLADE, consumer);
 
         // 1-1-1. Ancient Technology
-        Advancement lightElement2 = registerMainAdvancementWithEnchantedItem(laserBlade, Items.GLOWSTONE_DUST, FrameType.TASK,
+        Advancement lightElement2 = registerEnchantmentAdvancement(laserBlade, Items.GLOWSTONE_DUST, FrameType.TASK,
                 ModItems.LASER_BLADE, ModEnchantments.LIGHT_ELEMENT, 2, consumer);
 
         // 1-1-1-1. Power of Light
-        Advancement lightElement5 = registerMainAdvancementWithEnchantedItem(lightElement2, Items.GLOWSTONE, FrameType.TASK,
+        Advancement lightElement5 = registerEnchantmentAdvancement(lightElement2, Items.GLOWSTONE, FrameType.TASK,
                 ModItems.LASER_BLADE, ModEnchantments.LIGHT_ELEMENT, 5, consumer);
 
         // 1-1-1-1-1. Unlimited Power
-        Advancement lightElement10 = registerMainAdvancementWithEnchantedItem(lightElement5, Items.NETHER_STAR, FrameType.GOAL,
+        Advancement lightElement10 = registerEnchantmentAdvancement(lightElement5, Items.NETHER_STAR, FrameType.GOAL,
                 ModItems.LASER_BLADE, ModEnchantments.LIGHT_ELEMENT, 10, consumer);
 
         // 1-1-2. It's Over 9
-        Advancement attack10 = registerMainAdvancementWithAttackUpgradedItem(laserBlade, Items.DIAMOND, FrameType.TASK,
+        Advancement attack10 = registerAttackUpgradeAdvancement(laserBlade, Items.DIAMOND, FrameType.TASK,
                 ModItems.LASER_BLADE, 10, (int)((LaserBladeItem)ModItems.LASER_BLADE).getAttackDamage() + 1, consumer);
 
         // 1-1-2-1. Beyond the Limit
-        Advancement attack15 = registerMainAdvancementWithAttackUpgradedItem(attack10, Items.DRAGON_HEAD, FrameType.GOAL,
+        Advancement attack15 = registerAttackUpgradeAdvancement(attack10, Items.DRAGON_HEAD, FrameType.GOAL,
                 ModItems.LASER_BLADE, 15, (int)((LaserBladeItem)ModItems.LASER_BLADE).getAttackDamage() + 1, consumer);
 
         // 1-1-3. Give Me Three
-        Advancement looting3 = registerMainAdvancementWithEnchantedItem(laserBlade, Items.NAUTILUS_SHELL, FrameType.TASK,
+        Advancement looting3 = registerEnchantmentAdvancement(laserBlade, Items.NAUTILUS_SHELL, FrameType.TASK,
                 ModItems.LASER_BLADE, Enchantments.LOOTING, 3, consumer);
 
         // 1-1-4. Returns and Exchanges
@@ -99,7 +99,7 @@ public class TLBAdvancementProvider implements IDataProvider {
                 .register(consumer, "tolaserblade:main/break_laser_blade");
     }
 
-    private Advancement registerMainAdvancementWithItem(Advancement parent, Item icon, FrameType frameType, Item requirement, Consumer<Advancement> consumer) {
+    private Advancement registerItemAdvancement(Advancement parent, Item icon, FrameType frameType, Item requirement, Consumer<Advancement> consumer) {
         String name = requirement.getRegistryName().getPath();
 
         return Advancement.Builder.builder()
@@ -113,7 +113,7 @@ public class TLBAdvancementProvider implements IDataProvider {
                 .register(consumer, "tolaserblade:main/" + name);
     }
 
-    private Advancement registerMainAdvancementWithEnchantedItem(Advancement parent, Item icon, FrameType frameType, Item requirement, Enchantment enchantment, int level, Consumer<Advancement> consumer) {
+    private Advancement registerEnchantmentAdvancement(Advancement parent, Item icon, FrameType frameType, Item requirement, Enchantment enchantment, int level, Consumer<Advancement> consumer) {
         String name = requirement.getRegistryName().getPath() + "_" + enchantment.getRegistryName().getPath() + "_" + level;
         ItemPredicate itemPredicate = ItemPredicate.Builder.create()
                 .item(requirement)
@@ -131,7 +131,7 @@ public class TLBAdvancementProvider implements IDataProvider {
                 .register(consumer, "tolaserblade:main/" + name);
     }
 
-    private Advancement registerMainAdvancementWithAttackUpgradedItem(Advancement parent, Item icon, FrameType frameType, Item requirement, int attackDamage, int baseDamage, Consumer<Advancement> consumer) {
+    private Advancement registerAttackUpgradeAdvancement(Advancement parent, Item icon, FrameType frameType, Item requirement, int attackDamage, int baseDamage, Consumer<Advancement> consumer) {
         String name = requirement.getRegistryName().getPath() + "_attack_" + attackDamage;
         Advancement.Builder builder = Advancement.Builder.builder()
                 .withParent(parent)
