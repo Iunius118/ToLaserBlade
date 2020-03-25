@@ -57,23 +57,21 @@ public class ModItemTags {
                 Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(stack);
                 enchantments.put(enchantment, ++level);
                 EnchantmentHelper.setEnchantments(enchantments, stack);
-                int rarity = 1;
+                int rate = 1;
 
                 switch(enchantment.getRarity()) {
+                    // Half rate (same as enchanted book)
                     case COMMON:
-                        rarity = 1;
-                        break;
                     case UNCOMMON:
-                        rarity = 2;
                         break;
                     case RARE:
-                        rarity = 4;
+                        rate = 2;
                         break;
                     case VERY_RARE:
-                        rarity = 8;
+                        rate = 4;
                 }
 
-                return Math.max(level * rarity, 1);
+                return Math.max(level * rate, 1);
             }
 
             return 0;
@@ -103,7 +101,7 @@ public class ModItemTags {
             if (attack >= LaserBladeItemBase.MOD_ATK_MIN && attack < LaserBladeItemBase.MOD_ATK_CLASS_5) {
                 float attack2 = MathHelper.clamp(attack + 1.0F, LaserBladeItemBase.MOD_ATK_MIN, LaserBladeItemBase.MOD_ATK_CLASS_5);
                 ModItems.LASER_BLADE.setLaserBladeATK(stack, attack2);
-                return (int)attack2;
+                return Math.max((int)attack2, 1);
             }
 
             return 0;
@@ -117,7 +115,7 @@ public class ModItemTags {
             if (speed >= LaserBladeItemBase.MOD_SPD_MIN && speed < LaserBladeItemBase.MOD_SPD_MAX) {
                 float speed2 = MathHelper.clamp(speed + 0.4F, LaserBladeItemBase.MOD_SPD_MIN, LaserBladeItemBase.MOD_SPD_MAX);
                 ModItems.LASER_BLADE.setLaserBladeSPD(stack, speed2);
-                return (int)(speed2 / 0.4F);
+                return Math.max((int)(speed2 / 0.4F), 1);
             }
 
             return 0;
