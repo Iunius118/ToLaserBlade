@@ -16,6 +16,12 @@ public class LaserBladeUpgrade {
     public static void onAnvilUpdate(AnvilUpdateEvent event, LaserBladeItemBase laserBlade) {
         ItemStack left = event.getLeft();
         ItemStack right = event.getRight();
+
+        if (right.getItem() instanceof LaserBladeItemBase) {
+            // Cannot mix Laser Blades
+            event.setCanceled(true);
+        }
+
         List<Triple<Tag<Item>, Type, ToIntFunction<ItemStack>>> tags = ModItemTags.getTags();
 
         for (Triple<Tag<Item>, Type, ToIntFunction<ItemStack>> tag : tags) {
