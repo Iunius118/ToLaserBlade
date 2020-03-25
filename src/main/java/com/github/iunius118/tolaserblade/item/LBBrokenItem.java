@@ -10,4 +10,9 @@ public class LBBrokenItem extends Item implements LaserBladeItemBase, ModMainIte
     public LBBrokenItem() {
         super(properties);
     }
+
+    @Override
+    public boolean canUpgrade(LaserBladeUpgrade.Type type) {
+        return type == LaserBladeUpgrade.Type.REPAIR;
+    }
 }

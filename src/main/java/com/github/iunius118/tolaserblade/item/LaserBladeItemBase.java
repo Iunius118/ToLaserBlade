@@ -18,7 +18,6 @@ public interface LaserBladeItemBase {
 
     String KEY_ATK = "ATK";
     String KEY_SPD = "SPD";
-    String KEY_LIGHTNESS = "LTN";
 
     String KEY_GRIP_COLOR = "colorG";
     String KEY_INNER_COLOR = "colorC";
@@ -183,6 +182,10 @@ public interface LaserBladeItemBase {
         }
 
         return isBlade ? (isInner ? DEFAULT_COLOR_INNER : DEFAULT_COLOR_OUTER) : DEFAULT_COLOR_GRIP;
+    }
+
+    default boolean canUpgrade(LaserBladeUpgrade.Type type) {
+        return false;
     }
 
     enum LBColor {

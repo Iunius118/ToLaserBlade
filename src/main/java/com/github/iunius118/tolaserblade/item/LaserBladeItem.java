@@ -48,6 +48,11 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase, Mod
         addPropertyOverride(new ResourceLocation("blocking"), BLOCKING_GETTER);
     }
 
+    @Override
+    public boolean canUpgrade(LaserBladeUpgrade.Type type) {
+        return true;
+    }
+
     /* Shield Functions */
 
     @Override
@@ -158,7 +163,10 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase, Mod
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
         // Accept Mending and Curse of Vanish
-        return enchantment.type == EnchantmentType.WEAPON || enchantment == Enchantments.MENDING || enchantment == Enchantments.VANISHING_CURSE;
+        return enchantment.type == EnchantmentType.WEAPON
+                || enchantment == Enchantments.EFFICIENCY
+                || enchantment == Enchantments.MENDING
+                || enchantment == Enchantments.VANISHING_CURSE;
     }
 
     @Override
