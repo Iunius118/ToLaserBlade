@@ -27,6 +27,7 @@ public class LaserBladeUpgrade {
                     // Repair Broken Laser Blade
                     result = new ItemStack(ModItems.LASER_BLADE);
                     result.setTag(left.getOrCreateTag().copy());
+                    result.setDamage(0);
                     cost = 1;
 
                 } else {
