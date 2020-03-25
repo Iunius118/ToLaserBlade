@@ -2,7 +2,7 @@
   "parent": "tolaserblade:main/laser_blade_light_element_5",
   "display": {
     "icon": {
-      "item": "minecraft:nether_star"
+      "item": "minecraft:glowstone"
     },
     "title": {
       "translate": "advancements.tolaserblade.main.laser_blade_light_element_10.title"
@@ -10,7 +10,7 @@
     "description": {
       "translate": "advancements.tolaserblade.main.laser_blade_light_element_10.description"
     },
-    "frame": "goal",
+    "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false

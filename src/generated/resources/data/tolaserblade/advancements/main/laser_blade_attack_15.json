@@ -2,7 +2,7 @@
   "parent": "tolaserblade:main/laser_blade_attack_10",
   "display": {
     "icon": {
-      "item": "minecraft:dragon_head"
+      "item": "minecraft:diamond"
     },
     "title": {
       "translate": "advancements.tolaserblade.main.laser_blade_attack_15.title"
@@ -10,7 +10,7 @@
     "description": {
       "translate": "advancements.tolaserblade.main.laser_blade_attack_15.description"
     },
-    "frame": "goal",
+    "frame": "task",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false

@@ -1,5 +1,5 @@
 {
-  "parent": "tolaserblade:main/laser_blade_light_element_2",
+  "parent": "tolaserblade:main/laser_blade",
   "display": {
     "icon": {
       "item": "minecraft:glowstone"

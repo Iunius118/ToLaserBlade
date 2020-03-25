@@ -1,22 +1,22 @@
 {
-  "parent": "tolaserblade:main/laser_blade",
+  "parent": "tolaserblade:main/laser_blade_light_element_10",
   "display": {
     "icon": {
-      "item": "minecraft:glowstone_dust"
+      "item": "minecraft:nether_star"
     },
     "title": {
-      "translate": "advancements.tolaserblade.main.laser_blade_light_element_2.title"
+      "translate": "advancements.tolaserblade.main.laser_blade_mending_1.title"
     },
     "description": {
-      "translate": "advancements.tolaserblade.main.laser_blade_light_element_2.description"
+      "translate": "advancements.tolaserblade.main.laser_blade_mending_1.description"
     },
-    "frame": "task",
+    "frame": "goal",
     "show_toast": true,
     "announce_to_chat": true,
     "hidden": false
   },
   "criteria": {
-    "has_laser_blade_light_element_2": {
+    "has_laser_blade_mending_1": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -24,9 +24,9 @@
             "item": "tolaserblade:laser_blade",
             "enchantments": [
               {
-                "enchantment": "tolaserblade:light_element",
+                "enchantment": "minecraft:mending",
                 "levels": {
-                  "min": 2
+                  "min": 1
                 }
               }
             ]
@@ -37,7 +37,7 @@
   },
   "requirements": [
     [
-      "has_laser_blade_light_element_2"
+      "has_laser_blade_mending_1"
     ]
   ]
 }

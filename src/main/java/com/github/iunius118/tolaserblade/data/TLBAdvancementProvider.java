@@ -58,28 +58,28 @@ public class TLBAdvancementProvider implements IDataProvider {
         Advancement dxLaserBlade = registerItemAdvancement(root, ModItems.DX_LASER_BLADE, FrameType.TASK,
                 ModItems.DX_LASER_BLADE, consumer);
 
-        // 1-1. Laser Blade!
+        // 1-1. Ancient Technology
         Advancement laserBlade = registerItemAdvancement(dxLaserBlade, ModItems.LASER_BLADE, FrameType.TASK,
                 ModItems.LASER_BLADE, consumer);
 
-        // 1-1-1. Ancient Technology
-        Advancement lightElement2 = registerEnchantmentAdvancement(laserBlade, Items.GLOWSTONE_DUST, FrameType.TASK,
-                ModItems.LASER_BLADE, ModEnchantments.LIGHT_ELEMENT, 2, consumer);
-
-        // 1-1-1-1. Power of Light
-        Advancement lightElement5 = registerEnchantmentAdvancement(lightElement2, Items.GLOWSTONE, FrameType.TASK,
+        // 1-1-1. Power of Light
+        Advancement lightElement5 = registerEnchantmentAdvancement(laserBlade, Items.GLOWSTONE, FrameType.TASK,
                 ModItems.LASER_BLADE, ModEnchantments.LIGHT_ELEMENT, 5, consumer);
 
-        // 1-1-1-1-1. Unlimited Power
-        Advancement lightElement10 = registerEnchantmentAdvancement(lightElement5, Items.NETHER_STAR, FrameType.GOAL,
+        // 1-1-1-1. Unlimited Power
+        Advancement lightElement10 = registerEnchantmentAdvancement(lightElement5, Items.GLOWSTONE, FrameType.TASK,
                 ModItems.LASER_BLADE, ModEnchantments.LIGHT_ELEMENT, 10, consumer);
+
+        // 1-1-1-1-1. Life-time Support
+        Advancement mending = registerEnchantmentAdvancement(lightElement10, Items.NETHER_STAR, FrameType.GOAL,
+                ModItems.LASER_BLADE, Enchantments.MENDING, 1, consumer);
 
         // 1-1-2. It's Over 9
         Advancement attack10 = registerAttackUpgradeAdvancement(laserBlade, Items.DIAMOND, FrameType.TASK,
                 ModItems.LASER_BLADE, 10, (int)((LaserBladeItem)ModItems.LASER_BLADE).getAttackDamage() + 1, consumer);
 
         // 1-1-2-1. Beyond the Limit
-        Advancement attack15 = registerAttackUpgradeAdvancement(attack10, Items.DRAGON_HEAD, FrameType.GOAL,
+        Advancement attack15 = registerAttackUpgradeAdvancement(attack10, Items.DIAMOND, FrameType.TASK,
                 ModItems.LASER_BLADE, 15, (int)((LaserBladeItem)ModItems.LASER_BLADE).getAttackDamage() + 1, consumer);
 
         // 1-1-3. Give Me Three
