@@ -70,10 +70,6 @@ public class TLBAdvancementProvider implements IDataProvider {
         Advancement lightElement10 = registerEnchantmentAdvancement(lightElement5, Items.GLOWSTONE, FrameType.TASK,
                 ModItems.LASER_BLADE, ModEnchantments.LIGHT_ELEMENT, 10, consumer);
 
-        // 1-1-1-1-1. Life-time Support
-        Advancement mending = registerEnchantmentAdvancement(lightElement10, Items.NETHER_STAR, FrameType.GOAL,
-                ModItems.LASER_BLADE, Enchantments.MENDING, 1, consumer);
-
         // 1-1-2. It's Over 9
         Advancement attack10 = registerAttackUpgradeAdvancement(laserBlade, Items.DIAMOND, FrameType.TASK,
                 ModItems.LASER_BLADE, 10, (int)((LaserBladeItem)ModItems.LASER_BLADE).getAttackDamage() + 1, consumer);
@@ -97,6 +93,10 @@ public class TLBAdvancementProvider implements IDataProvider {
                 .withRewards(AdvancementRewards.Builder.experience(1000))
                 .withCriterion("broke_laser_blade", ItemDurabilityTrigger.Instance.forItemDamage(ItemPredicate.Builder.create().item(ModItems.LASER_BLADE).build(), MinMaxBounds.IntBound.exactly(0)))
                 .register(consumer, "tolaserblade:main/break_laser_blade");
+
+        // 1-1-5. Life-time Support
+        Advancement mending = registerEnchantmentAdvancement(laserBlade, Items.NETHER_STAR, FrameType.GOAL,
+                ModItems.LASER_BLADE, Enchantments.MENDING, 1, consumer);
     }
 
     private Advancement registerItemAdvancement(Advancement parent, Item icon, FrameType frameType, Item requirement, Consumer<Advancement> consumer) {
