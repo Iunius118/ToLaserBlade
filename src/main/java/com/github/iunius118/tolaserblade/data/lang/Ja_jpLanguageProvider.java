@@ -2,6 +2,7 @@ package com.github.iunius118.tolaserblade.data.lang;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.enchantment.ModEnchantments;
+import com.github.iunius118.tolaserblade.item.LaserBladeItemBase;
 import com.github.iunius118.tolaserblade.item.ModItems;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.LanguageProvider;
@@ -26,6 +27,10 @@ public class Ja_jpLanguageProvider extends LanguageProvider {
 
         // Enchantments
         add(ModEnchantments.LIGHT_ELEMENT, "光属性");
+
+        // Upgrade tooltip
+        add(LaserBladeItemBase.KEY_TOOLTIP_ATTACK_DAMAGE, "レーザー出力 %s");
+        add(LaserBladeItemBase.KEY_TOOLTIP_ATTACK_SPEED, "充電効率 %s");
 
         // Advancements
         add("advancements.tolaserblade.main.root.title", "ToLaserBlade");

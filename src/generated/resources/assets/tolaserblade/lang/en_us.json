@@ -34,5 +34,7 @@
   "tolaserblade.configgui.client.laserBladeRenderingMode": "Laser Blade Rendering mode (0\u20131)",
   "tolaserblade.configgui.common.enableBlockingWithLaserBlade": "Enable Blocking with Laser Blade",
   "tolaserblade.configgui.common.laserBladeEfficiency": "Laser Blade Mining Speed (0\u2013128)",
-  "tolaserblade.update.newVersion": "A new %s version is available"
+  "tolaserblade.update.newVersion": "A new %s version is available",
+  "upgrade.tolaserblade.attackDamage": "Laser Power %s",
+  "upgrade.tolaserblade.attackSpeed": "Recharge %s"
 }

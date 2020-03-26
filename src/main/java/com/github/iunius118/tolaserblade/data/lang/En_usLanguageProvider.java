@@ -2,6 +2,7 @@ package com.github.iunius118.tolaserblade.data.lang;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.enchantment.ModEnchantments;
+import com.github.iunius118.tolaserblade.item.LaserBladeItemBase;
 import com.github.iunius118.tolaserblade.item.ModItems;
 import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.data.LanguageProvider;
@@ -29,6 +30,10 @@ public class En_usLanguageProvider extends LanguageProvider {
 
         // Enchantments
         add(ModEnchantments.LIGHT_ELEMENT, "Light Element");
+
+        // Upgrade tooltip
+        add(LaserBladeItemBase.KEY_TOOLTIP_ATTACK_DAMAGE, "Laser Power %s");
+        add(LaserBladeItemBase.KEY_TOOLTIP_ATTACK_SPEED, "Recharge %s");
 
         // Advancements
         add("advancements.tolaserblade.main.root.title", "ToLaserBlade");

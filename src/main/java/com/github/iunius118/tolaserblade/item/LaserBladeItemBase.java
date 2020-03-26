@@ -1,12 +1,20 @@
 package com.github.iunius118.tolaserblade.item;
 
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextFormatting;
+import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.world.World;
 import net.minecraftforge.common.util.Constants;
 import org.apache.commons.lang3.tuple.Pair;
+
+import javax.annotation.Nullable;
+import java.util.List;
 
 public interface LaserBladeItemBase {
     // Blade color table
@@ -25,6 +33,9 @@ public interface LaserBladeItemBase {
     String KEY_IS_INNER_SUB_COLOR = "isSubC";
     String KEY_IS_OUTER_SUB_COLOR = "isSubH";
 
+    String KEY_TOOLTIP_ATTACK_DAMAGE = "upgrade.tolaserblade.attackDamage";
+    String KEY_TOOLTIP_ATTACK_SPEED = "upgrade.tolaserblade.attackSpeed";
+
     float MOD_SPD_MIN = 0.0F;
     float MOD_SPD_MAX = 1.2F;
     float MOD_SPD_EFFICIENCY_MAX = 2.0F;
@@ -39,13 +50,8 @@ public interface LaserBladeItemBase {
 
     float MOD_CRITICAL_VS_WITHER = 2.0F;
 
-    int LVL_SMITE_CLASS_1 = 1;
-    int LVL_SMITE_CLASS_2 = 2;
-    int LVL_SMITE_CLASS_3 = 5;
-    int LVL_SMITE_CLASS_4 = 10;
-
-    int COST_LVL_CLASS_2 = 5;
-    int COST_LVL_CLASS_4 = 30;
+    int LVL_LIGHT_ELEMENT_1 = 1;
+    int LVL_LIGHT_ELEMENT_2 = 2;
 
     int MAX_USES = 32000;
 
@@ -186,6 +192,24 @@ public interface LaserBladeItemBase {
 
     default boolean canUpgrade(LaserBladeUpgrade.Type type) {
         return false;
+    }
+
+    default void addLaserBladeInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        float atk = getLaserBladeATK(stack);
+
+        if (atk <= -0.005F || atk >= 0.005) {
+            tooltip.add(getUpgradeTextComponent(KEY_TOOLTIP_ATTACK_DAMAGE, atk));
+        }
+
+        float spd = getLaserBladeSPD(stack);
+
+        if (spd <= -0.005F || spd >= 0.005) {
+            tooltip.add(getUpgradeTextComponent(KEY_TOOLTIP_ATTACK_SPEED, spd));
+        }
+    }
+
+    default ITextComponent getUpgradeTextComponent(String key, float value) {
+        return new TranslationTextComponent(key, (value < 0 ? "" : "+") + ItemStack.DECIMALFORMAT.format((double)value)).applyTextStyle(TextFormatting.DARK_GREEN);
     }
 
     enum LBColor {
