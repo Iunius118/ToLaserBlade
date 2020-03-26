@@ -3,8 +3,7 @@ package com.github.iunius118.tolaserblade.client;
 import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.client.model.LaserBladeItemBakedModel;
 import com.github.iunius118.tolaserblade.client.model.LaserBladeItemModel;
-import com.github.iunius118.tolaserblade.item.LaserBladeItem;
-import com.github.iunius118.tolaserblade.item.ModItems;
+import com.github.iunius118.tolaserblade.item.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.inventory.container.PlayerContainer;
@@ -28,6 +27,9 @@ public class ClientEventHandler {
     public void onItemColorHandlerEvent(ColorHandlerEvent.Item event) {
         event.getItemColors().register(new LaserBladeItem.ColorHandler(), ModItems.LASER_BLADE);
         event.getItemColors().register(new LaserBladeItem.ColorHandler(), ModItems.LB_BROKEN);
+        event.getItemColors().register(new LBEmitterItem.ColorHandler(), ModItems.LB_EMITTER);
+        event.getItemColors().register(new LBMediumItem.ColorHandler(), ModItems.LB_MEDIUM);
+        event.getItemColors().register(new LBCasingItem.ColorHandler(), ModItems.LB_CASING);
     }
 
     @SubscribeEvent

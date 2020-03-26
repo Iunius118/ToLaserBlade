@@ -14,4 +14,12 @@ public class LBCasingItem extends Item implements LaserBladeItemBase, ModMainIte
     public boolean canUpgrade(LaserBladeUpgrade.Type type) {
         return type == LaserBladeUpgrade.Type.CASING;
     }
+
+    @OnlyIn(Dist.CLIENT)
+    public static class ColorHandler implements IItemColor {
+        @Override
+        public int getColor(ItemStack stack, int tintIndex) {
+            return ModItems.LB_CASING.getGripColor(stack) | 0xFF000000;
+        }
+    }
 }

@@ -35,9 +35,9 @@ public class TLBItemModelProvider extends ItemModelProvider {
 
         registerGeneratedItemModel(ModItems.LB_BATTERY);
 
-        registerGeneratedItemModel(ModItems.LB_MEDIUM);
+        registerGenerated2LayerItemModel(ModItems.LB_MEDIUM);
 
-        registerGeneratedItemModel(ModItems.LB_EMITTER);
+        registerGenerated2LayerItemModel(ModItems.LB_EMITTER);
 
         registerHandheldItemModel(ModItems.LB_CASING);
     }
@@ -54,6 +54,17 @@ public class TLBItemModelProvider extends ItemModelProvider {
         getBuilder(itemPath)
                 .parent(new UncheckedModelFile("item/generated"))
                 .texture("layer0", "item/" + itemPath);
+    }
+
+    private void registerGenerated2LayerItemModel(Item item) {
+        if (item == null) return;
+
+        String itemPath = item.getRegistryName().getPath();
+        getBuilder(itemPath)
+                .parent(new UncheckedModelFile("item/generated"))
+                .texture("layer0", "item/" + itemPath + "_0")
+                .texture("layer1", "item/" + itemPath + "_1");
+
     }
 
     private void registerHandheldItemModel(Item item) {

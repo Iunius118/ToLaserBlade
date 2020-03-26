@@ -1,6 +1,7 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "tolaserblade:item/lb_emitter"
+    "layer0": "tolaserblade:item/lb_emitter_0",
+    "layer1": "tolaserblade:item/lb_emitter_1"
   }
 }
