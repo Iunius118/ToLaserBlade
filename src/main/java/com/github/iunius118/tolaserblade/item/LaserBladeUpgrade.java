@@ -68,24 +68,24 @@ public class LaserBladeUpgrade {
             int cost = 0;
 
             if (block instanceof StainedGlassBlock && laserBlade.canUpgrade(Type.MEDIUM)) {
-                // Medium + StainedGlass -> BladeInnerColor
+                // Medium + StainedGlass -> BladeOuterColor
                 int newColor = ModItems.LB_MEDIUM.getBladeColorFromTintIndex(((StainedGlassBlock)block).getColor().getId(), true);
-                int oldColor = ModItems.LB_MEDIUM.getBladeInnerColor(left).getLeft();
-
-                if (newColor != oldColor) {
-                    result = left.copy();
-                    ModItems.LB_MEDIUM.setBladeInnerColor(result, newColor);
-                    cost = 1;
-                }
-
-            } else if (block instanceof StainedGlassPaneBlock && laserBlade.canUpgrade(Type.EMITTER)) {
-                // Emitter + StainedGlassPane -> BladeOuterColor
-                int newColor = ModItems.LB_EMITTER.getBladeColorFromTintIndex(((StainedGlassPaneBlock)block).getColor().getId(), false);
-                int oldColor = ModItems.LB_EMITTER.getBladeOuterColor(left).getLeft();
+                int oldColor = ModItems.LB_MEDIUM.getBladeOuterColor(left).getLeft();
 
                 if (newColor != oldColor) {
                     result = left.copy();
                     ModItems.LB_MEDIUM.setBladeOuterColor(result, newColor);
+                    cost = 1;
+                }
+
+            } else if (block instanceof StainedGlassPaneBlock && laserBlade.canUpgrade(Type.EMITTER)) {
+                // Emitter + StainedGlassPane -> BladeInnerColor
+                int newColor = ModItems.LB_EMITTER.getBladeColorFromTintIndex(((StainedGlassPaneBlock)block).getColor().getId(), false);
+                int oldColor = ModItems.LB_EMITTER.getBladeInnerColor(left).getLeft();
+
+                if (newColor != oldColor) {
+                    result = left.copy();
+                    ModItems.LB_MEDIUM.setBladeInnerColor(result, newColor);
                     cost = 1;
                 }
 

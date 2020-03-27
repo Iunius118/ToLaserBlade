@@ -18,7 +18,7 @@ import java.util.List;
 
 public interface LaserBladeItemBase {
     // Blade color table
-    LBColor[] colors = {LBColor.WHITE, LBColor.ORANGE, LBColor.MAGENTA, LBColor.LIGHT_BLUE, LBColor.YELLOW, LBColor.LIME, LBColor.PINK, LBColor.GRAY, LBColor.LIGHT_GRAY, LBColor.CYAN, LBColor.PURPLE, LBColor.BLUE, LBColor.BROWN, LBColor.GREEN, LBColor.RED, LBColor.BLACK, LBColor.TEMP_DESERT, LBColor.TEMP_SAVANNA, LBColor.TEMP_JUNGLE, LBColor.TEMP_TAIGA, LBColor.TEMP_ICE_PLAIN, LBColor.TEMP_COLD_TAIGA};
+    LBColor[] colors = {LBColor.WHITE, LBColor.ORANGE, LBColor.MAGENTA, LBColor.LIGHT_BLUE, LBColor.YELLOW, LBColor.LIME, LBColor.PINK, LBColor.GRAY, LBColor.LIGHT_GRAY, LBColor.CYAN, LBColor.PURPLE, LBColor.BLUE, LBColor.BROWN, LBColor.GREEN, LBColor.RED, LBColor.BLACK, LBColor.TEMP_DESERT, LBColor.TEMP_SAVANNA, LBColor.TEMP_JUNGLE, LBColor.TEMP_TAIGA, LBColor.TEMP_ICE_PLAIN, LBColor.TEMP_SNOWY_TAIGA};
 
     int DEFAULT_COLOR_INNER = LBColor.WHITE.getBladeColor();
     int DEFAULT_COLOR_OUTER = LBColor.RED.getBladeColor();
@@ -224,7 +224,7 @@ public interface LaserBladeItemBase {
         LIGHT_GRAY(0xFFAAAAAA, 0xFF9D9D97),
         CYAN(0xFF00FFFF, 0xFF169C9C),
         PURPLE(0xFFFF00FF, 0xFF8932B8),
-        BLUE(0xFF0011FF, 0xFF3C44AA),
+        BLUE(0xFF0000FF, 0xFF3C44AA),
         BROWN(0xFFFF6B00, 0xFF835432),
         GREEN(0xFF80FF00, 0xFF5E7C16),
         RED(0xFFFF0000, 0xFFB02E26),
@@ -234,7 +234,7 @@ public interface LaserBladeItemBase {
         TEMP_JUNGLE(0xFFFFC400, 0xFFF9FFFE),
         TEMP_TAIGA(0xFF00FF00, 0xFFF9FFFE),
         TEMP_ICE_PLAIN(0xFF0080FF, 0xFFF9FFFE),
-        TEMP_COLD_TAIGA(0xFF0000FF, 0xFFF9FFFE);
+        TEMP_SNOWY_TAIGA(0xFF0030FF, 0xFFF9FFFE);
 
         private int bladeColor;
         private int gripColor;
