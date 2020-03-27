@@ -2,14 +2,13 @@ package com.github.iunius118.tolaserblade.item;
 
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import org.apache.commons.lang3.tuple.Pair;
 
-public class LBEmitterItem extends Item implements LaserBladeItemBase, ModMainItemGroup {
-    public static Item.Properties properties = (new Item.Properties()).setNoRepair().group(ItemGroup.MISC);
+public class LBEmitterItem extends Item implements LaserBladeItemBase {
+    public static Item.Properties properties = (new Item.Properties()).setNoRepair().group(ModMainItemGroup.ITEM_GROUP);
 
     public LBEmitterItem() {
         super(properties);

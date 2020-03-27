@@ -3,7 +3,6 @@ package com.github.iunius118.tolaserblade.item;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
@@ -14,8 +13,8 @@ import org.apache.commons.lang3.tuple.Pair;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class LBMediumItem extends Item implements LaserBladeItemBase, ModMainItemGroup {
-    public static Item.Properties properties = (new Item.Properties()).setNoRepair().group(ItemGroup.MISC);
+public class LBMediumItem extends Item implements LaserBladeItemBase {
+    public static Item.Properties properties = (new Item.Properties()).setNoRepair().group(ModMainItemGroup.ITEM_GROUP);
 
     public LBMediumItem() {
         super(properties);

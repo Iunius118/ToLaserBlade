@@ -1,10 +1,9 @@
 package com.github.iunius118.tolaserblade.item;
 
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
 
-public class LBBlueprintItem extends Item implements ModMainItemGroup {
-    public static Properties properties = (new Properties()).setNoRepair().group(ItemGroup.MISC);
+public class LBBlueprintItem extends Item {
+    public static Properties properties = (new Properties()).setNoRepair().group(ModMainItemGroup.ITEM_GROUP);
 
     public LBBlueprintItem() {
         super(properties);

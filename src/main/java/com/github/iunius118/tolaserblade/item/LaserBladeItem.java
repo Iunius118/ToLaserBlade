@@ -31,12 +31,12 @@ import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nullable;
 
-public class LaserBladeItem extends SwordItem implements LaserBladeItemBase, ModMainItemGroup {
+public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
     private final IItemTier tier;
     private final float attackDamage;
     private final float attackSpeed;
 
-    public static Item.Properties properties = (new Item.Properties()).setNoRepair().group(ItemGroup.TOOLS).setISTER(() -> LaserBladeItemRenderer::new);
+    public static Item.Properties properties = (new Item.Properties()).setNoRepair().group(ModMainItemGroup.ITEM_GROUP).setISTER(() -> LaserBladeItemRenderer::new);
     public static final IItemPropertyGetter BLOCKING_GETTER = (stack, world, entity) -> entity != null && entity.isHandActive() && entity.getActiveItemStack() == stack ? 1.0F : 0.0F;
 
     public LaserBladeItem() {
@@ -195,8 +195,16 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase, Mod
 
     /* Creative Tab */
 
+    private ItemStack laserBladeNormal;
     private ItemStack laserBladeUpgraded;
     private ItemStack laserBladeFullMod;
+
+    private ItemStack getLaserBladeNormal() {
+        ItemStack laserBlade = new ItemStack(ModItems.LASER_BLADE);
+        laserBlade.addEnchantment(ModEnchantments.LIGHT_ELEMENT, LaserBladeItemBase.LVL_LIGHT_ELEMENT_2);
+        laserBlade.addEnchantment(Enchantments.EFFICIENCY, 1);
+        return laserBlade;
+    }
 
     private ItemStack getLaserBladeUpgraded() {
         ItemStack laserBlade = new ItemStack(ModItems.LASER_BLADE);
@@ -234,15 +242,20 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase, Mod
     public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
         super.fillItemGroup(group, items);
 
-        if (laserBladeUpgraded == null) {
-            laserBladeUpgraded = getLaserBladeUpgraded();
-        }
-
-        if (laserBladeFullMod == null) {
-            laserBladeFullMod = getLaserBladeFullMod();
-        }
-
         if (group == ModMainItemGroup.ITEM_GROUP) {
+            if (laserBladeNormal == null) {
+                laserBladeNormal = getLaserBladeNormal();
+            }
+
+            if (laserBladeUpgraded == null) {
+                laserBladeUpgraded = getLaserBladeUpgraded();
+            }
+
+            if (laserBladeFullMod == null) {
+                laserBladeFullMod = getLaserBladeFullMod();
+            }
+
+            items.add(laserBladeNormal);
             items.add(laserBladeUpgraded);
             items.add(laserBladeFullMod);
         }
