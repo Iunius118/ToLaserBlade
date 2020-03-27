@@ -12,6 +12,8 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.util.Constants;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -110,6 +112,7 @@ public interface LaserBladeItemBase {
         return colorIn;
     }
 
+    @OnlyIn(Dist.CLIENT)
     default int getGamingColor() {
         PlayerEntity player = Minecraft.getInstance().player;
 
@@ -243,6 +246,7 @@ public interface LaserBladeItemBase {
         return false;
     }
 
+    @OnlyIn(Dist.CLIENT)
     default void addLaserBladeInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         float atk = getLaserBladeATK(stack);
 
