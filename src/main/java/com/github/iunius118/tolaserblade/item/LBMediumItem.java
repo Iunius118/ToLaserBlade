@@ -36,11 +36,11 @@ public class LBMediumItem extends Item implements LaserBladeItemBase {
     public static class ColorHandler implements IItemColor {
         @Override
         public int getColor(ItemStack stack, int tintIndex) {
-            Pair<Integer, Boolean> bladeColor;
-
             if (tintIndex == 1) {
-                bladeColor = ModItems.LB_MEDIUM.getBladeInnerColor(stack);
-                return (bladeColor.getRight() ? ~bladeColor.getLeft() : bladeColor.getLeft()) | 0xFF000000;
+                Pair<Integer, Boolean> bladeColor;
+                bladeColor = ModItems.LB_MEDIUM.getBladeOuterColor(stack);
+                int color = ModItems.LB_MEDIUM.checkGamingColor(bladeColor.getLeft());
+                return (bladeColor.getRight() ? ~color : color) | 0xFF000000;
             }
 
             return 0xFFFFFFFF;

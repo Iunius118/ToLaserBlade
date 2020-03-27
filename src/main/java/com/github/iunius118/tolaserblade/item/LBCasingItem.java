@@ -22,7 +22,8 @@ public class LBCasingItem extends Item implements LaserBladeItemBase {
     public static class ColorHandler implements IItemColor {
         @Override
         public int getColor(ItemStack stack, int tintIndex) {
-            return ModItems.LB_CASING.getGripColor(stack) | 0xFF000000;
+            int color = ModItems.LB_CASING.checkGamingColor(ModItems.LB_CASING.getGripColor(stack));
+            return color | 0xFF000000;
         }
     }
 }

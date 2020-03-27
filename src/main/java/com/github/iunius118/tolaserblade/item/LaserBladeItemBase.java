@@ -1,8 +1,10 @@
 package com.github.iunius118.tolaserblade.item;
 
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
+import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.MathHelper;
@@ -38,7 +40,6 @@ public interface LaserBladeItemBase {
 
     float MOD_SPD_MIN = 0.0F;
     float MOD_SPD_MAX = 1.2F;
-    float MOD_SPD_EFFICIENCY_MAX = 2.0F;
 
     float MOD_ATK_MIN = 0.0F;
     float MOD_ATK_CLASS_1 = -1.0F;
@@ -52,6 +53,7 @@ public interface LaserBladeItemBase {
 
     int LVL_LIGHT_ELEMENT_1 = 1;
     int LVL_LIGHT_ELEMENT_2 = 2;
+    int LVL_LIGHT_ELEMENT_5 = 5;
 
     int MAX_USES = 32000;
 
@@ -100,6 +102,53 @@ public interface LaserBladeItemBase {
         return Pair.of(bladeOuterColor, isBladeOuterSubColor);
     }
 
+    default int checkGamingColor(int colorIn) {
+        if (colorIn == LBColor.SPECIAL_GAMING.getBladeColor()) {
+            return getGamingColor();
+        }
+
+        return colorIn;
+    }
+
+    default int getGamingColor() {
+        PlayerEntity player = Minecraft.getInstance().player;
+
+        if (player != null) {
+            // Client side only
+            int tick1 = (int)(player.world.getGameTime() % 30);
+            int tick2 = tick1 % 10;
+            float partialTick = Minecraft.getInstance().getRenderPartialTicks();
+            int colorElement;
+
+            if (tick2 % 10 < 5) {
+                colorElement = (int)(((float)tick2 + partialTick) * (float)0x33) & 0xFF;
+
+                switch (tick1 / 10) {
+                    case 0:
+                        return 0xFFFF0000 | (colorElement << 8);
+                    case 1:
+                        return 0xFF00FF00 | colorElement;
+                    default:
+                        return 0xFF0000FF | (colorElement << 16);
+                }
+            } else {
+                colorElement = (int)(((float)(10 - tick2) - partialTick) * (float)0x33) & 0xFF;
+
+                switch (tick1 / 10) {
+                    case 0:
+                        return 0xFF00FF00 | (colorElement << 16);
+                    case 1:
+                        return 0xFF0000FF | (colorElement << 8);
+                    default:
+                        return 0xFFFF0000 | colorElement;
+                }
+            }
+
+
+        }
+
+        return 0xFF010101;
+    }
 
     default ItemStack setGripColor(ItemStack stack, int color) {
         CompoundNBT nbt = stack.getOrCreateTag();
@@ -234,7 +283,8 @@ public interface LaserBladeItemBase {
         TEMP_JUNGLE(0xFFFFC400, 0xFFF9FFFE),
         TEMP_TAIGA(0xFF00FF00, 0xFFF9FFFE),
         TEMP_ICE_PLAIN(0xFF0080FF, 0xFFF9FFFE),
-        TEMP_SNOWY_TAIGA(0xFF0030FF, 0xFFF9FFFE);
+        TEMP_SNOWY_TAIGA(0xFF0030FF, 0xFFF9FFFE),
+        SPECIAL_GAMING(0xFF010101, 0xFF010101);
 
         private int bladeColor;
         private int gripColor;

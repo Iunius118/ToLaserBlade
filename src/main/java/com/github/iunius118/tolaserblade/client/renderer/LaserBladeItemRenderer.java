@@ -35,14 +35,14 @@ public class LaserBladeItemRenderer extends ItemStackTileEntityRenderer {
     }
 
     private void renderLaserBladeMode0(ItemStack itemStack, MatrixStack matrixStack, IRenderTypeBuffer buffer, int lightmapCoord, int overlayColor) {
-        int gripColor = ModItems.LASER_BLADE.getGripColor(itemStack);
+        int gripColor = ModItems.LASER_BLADE.checkGamingColor(ModItems.LASER_BLADE.getGripColor(itemStack));
 
         Pair<Integer, Boolean> bladeColor = ModItems.LASER_BLADE.getBladeInnerColor(itemStack);
-        int innerColor = bladeColor.getLeft();
+        int innerColor = ModItems.LASER_BLADE.checkGamingColor(bladeColor.getLeft());
         boolean isInnerSubColor = bladeColor.getRight();
 
         bladeColor = ModItems.LASER_BLADE.getBladeOuterColor(itemStack);
-        int outerColor = bladeColor.getLeft();
+        int outerColor = ModItems.LASER_BLADE.checkGamingColor(bladeColor.getLeft());
         boolean isOuterSubColor = bladeColor.getRight();
 
         IVertexBuilder currentBuffer = buffer.getBuffer(LaserBladeRenderType.HILT);
@@ -62,13 +62,15 @@ public class LaserBladeItemRenderer extends ItemStackTileEntityRenderer {
     }
 
     private void renderLaserBladeMode1(ItemStack itemStack, MatrixStack matrixStack, IRenderTypeBuffer buffer, int lightmapCoord, int overlayColor) {
-        int gripColor = ModItems.LASER_BLADE.getGripColor(itemStack);
+        int gripColor = ModItems.LASER_BLADE.checkGamingColor(ModItems.LASER_BLADE.getGripColor(itemStack));
 
         Pair<Integer, Boolean> bladeColor = ModItems.LASER_BLADE.getBladeOuterColor(itemStack);
-        int outerColor = (bladeColor.getRight() ? ~bladeColor.getLeft() : bladeColor.getLeft()) | 0xFF000000;
+        int outerColor = ModItems.LASER_BLADE.checkGamingColor(bladeColor.getLeft());
+        outerColor = (bladeColor.getRight() ? ~outerColor : outerColor) | 0xFF000000;
 
         bladeColor = ModItems.LASER_BLADE.getBladeInnerColor(itemStack);
-        int innerColor = (bladeColor.getRight() ? ~bladeColor.getLeft() : bladeColor.getLeft()) | 0xFF000000;
+        int innerColor = ModItems.LASER_BLADE.checkGamingColor(bladeColor.getLeft());
+        innerColor = (bladeColor.getRight() ? ~innerColor : innerColor) | 0xFF000000;
 
         IVertexBuilder currentBuffer = buffer.getBuffer(LaserBladeRenderType.HILT);
         renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemModel.Part.HILT), gripColor, lightmapCoord, overlayColor);

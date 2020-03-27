@@ -274,18 +274,22 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
             }
 
             Pair<Integer, Boolean> bladeColor;
+            int color;
 
             switch (tintIndex) {
                 case 1:
                     bladeColor = ModItems.LASER_BLADE.getBladeOuterColor(stack);
-                    return (bladeColor.getRight() ? ~bladeColor.getLeft() : bladeColor.getLeft()) | 0xFF000000;
+                    color = ModItems.LASER_BLADE.checkGamingColor(bladeColor.getLeft());
+                    return (bladeColor.getRight() ? ~color : color) | 0xFF000000;
 
                 case 2:
                     bladeColor = ModItems.LASER_BLADE.getBladeInnerColor(stack);
-                    return (bladeColor.getRight() ? ~bladeColor.getLeft() : bladeColor.getLeft()) | 0xFF000000;
+                    color = ModItems.LASER_BLADE.checkGamingColor(bladeColor.getLeft());
+                    return (bladeColor.getRight() ? ~color : color) | 0xFF000000;
 
                 default:
-                    return ModItems.LASER_BLADE.getGripColor(stack) | 0xFF000000;
+                    color = ModItems.LASER_BLADE.checkGamingColor(ModItems.LASER_BLADE.getGripColor(stack));
+                    return color | 0xFF000000;
             }
         }
     }
