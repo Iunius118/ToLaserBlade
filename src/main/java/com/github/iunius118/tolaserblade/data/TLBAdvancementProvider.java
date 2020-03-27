@@ -7,6 +7,8 @@ import com.github.iunius118.tolaserblade.item.ModItems;
 import com.google.common.collect.Sets;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonPrimitive;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.FrameType;
@@ -83,6 +85,8 @@ public class TLBAdvancementProvider implements IDataProvider {
                 ModItems.LASER_BLADE, Enchantments.LOOTING, 3, consumer);
 
         // 1-1-4. Returns and Exchanges
+        JsonObject jsonMaxZero = new JsonObject();
+        jsonMaxZero.add("max", new JsonPrimitive(0));
         Advancement breakLaserBlade = Advancement.Builder.builder()
                 .withParent(laserBlade)
                 .withDisplay(ModItems.LB_CASING,
@@ -91,7 +95,7 @@ public class TLBAdvancementProvider implements IDataProvider {
                         null,
                         FrameType.CHALLENGE, true, true, false)
                 .withRewards(AdvancementRewards.Builder.experience(1000))
-                .withCriterion("broke_laser_blade", ItemDurabilityTrigger.Instance.forItemDamage(ItemPredicate.Builder.create().item(ModItems.LASER_BLADE).build(), MinMaxBounds.IntBound.exactly(0)))
+                .withCriterion("broke_laser_blade", ItemDurabilityTrigger.Instance.forItemDamage(ItemPredicate.Builder.create().item(ModItems.LASER_BLADE).build(), MinMaxBounds.IntBound.fromJson(jsonMaxZero)))
                 .register(consumer, "tolaserblade:main/break_laser_blade");
 
         // 1-1-5. Life-time Support

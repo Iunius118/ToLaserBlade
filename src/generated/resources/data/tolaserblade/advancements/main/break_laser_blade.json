@@ -25,7 +25,9 @@
         "item": {
           "item": "tolaserblade:laser_blade"
         },
-        "durability": 0
+        "durability": {
+          "max": 0
+        }
       }
     }
   },
