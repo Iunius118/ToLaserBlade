@@ -8,6 +8,7 @@ import net.minecraft.block.StainedGlassBlock;
 import net.minecraft.block.StainedGlassPaneBlock;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -82,6 +83,17 @@ public class LaserBladeUpgrade {
                     result = new ItemStack(ModItems.LASER_BLADE);
                     result.setTag(left.getOrCreateTag().copy());
                     result.setDamage(0);
+                    Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(result);
+
+                    if (enchantments.containsKey(Enchantments.SHARPNESS)) {
+                        // SHARPNESS -> ATK (for [-1.14.4] Laser Blade Core)
+                        float atkFromSharpness = Math.max(enchantments.get(Enchantments.SHARPNESS) - 1, 0);
+                        float atk = ModItems.LASER_BLADE.getLaserBladeATK(result);
+                        ModItems.LASER_BLADE.setLaserBladeATK(result, Math.max(atkFromSharpness, atk));
+                        enchantments.remove(Enchantments.SHARPNESS);
+                        EnchantmentHelper.setEnchantments(enchantments, result);
+                    }
+
                     cost = 1;
 
                 } else {
