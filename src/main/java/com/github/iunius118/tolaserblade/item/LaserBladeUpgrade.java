@@ -1,23 +1,64 @@
 package com.github.iunius118.tolaserblade.item;
 
+import com.github.iunius118.tolaserblade.enchantment.ModEnchantments;
 import com.github.iunius118.tolaserblade.tags.ModItemTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.CarpetBlock;
 import net.minecraft.block.StainedGlassBlock;
 import net.minecraft.block.StainedGlassPaneBlock;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.event.AnvilUpdateEvent;
+import net.minecraftforge.event.entity.player.AnvilRepairEvent;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 
 import java.util.List;
+import java.util.Map;
 import java.util.function.ToIntFunction;
 
 public class LaserBladeUpgrade {
+    public static void onAnvilRepair(AnvilRepairEvent event) {
+        ItemStack right = event.getIngredientInput();
+
+        if (right.isEmpty()) {
+            ItemStack output = event.getItemResult();
+            String name = output.getDisplayName().getString();
+
+            // Use GIFT code
+            if ("GIFT".equals(name) || /* "おたから" */ "\u304A\u305F\u304B\u3089".equals(name)) {
+                float atk = ModItems.LASER_BLADE.getLaserBladeATK(output);
+                Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(output);
+                int level = enchantments.getOrDefault(ModEnchantments.LIGHT_ELEMENT, 0);
+                boolean isAtkLessThan3 = atk < LaserBladeItemBase.MOD_ATK_CLASS_3;
+                boolean isLightElementLessThan5 = level < LaserBladeItemBase.LVL_LIGHT_ELEMENT_5;
+
+                if (isAtkLessThan3) {
+                    ModItems.LASER_BLADE.setLaserBladeATK(output, LaserBladeItemBase.MOD_ATK_CLASS_3);
+                }
+
+                if (isLightElementLessThan5) {
+                    enchantments.put(ModEnchantments.LIGHT_ELEMENT, LaserBladeItemBase.LVL_LIGHT_ELEMENT_5);
+                    EnchantmentHelper.setEnchantments(enchantments, output);
+                }
+
+                if (isAtkLessThan3 || isLightElementLessThan5) {
+                    output.clearCustomName();
+                    ModItems.LASER_BLADE.setGripColor(output, LaserBladeItemBase.LBColor.BROWN.getGripColor());
+                    ModItems.LASER_BLADE.setBladeInnerColor(output, LaserBladeItemBase.LBColor.WHITE.getBladeColor());
+                    ModItems.LASER_BLADE.setBladeOuterColor(output, LaserBladeItemBase.LBColor.LIME.getBladeColor());
+                    ModItems.LASER_BLADE.setBladeInnerSubColorFlag(output, false);
+                    ModItems.LASER_BLADE.setBladeOuterSubColorFlag(output, false);
+                }
+            }
+        }
+    }
+
     public static void onAnvilUpdate(AnvilUpdateEvent event, LaserBladeItemBase laserBlade) {
         ItemStack left = event.getLeft();
         ItemStack right = event.getRight();
@@ -127,7 +168,6 @@ public class LaserBladeUpgrade {
 
         return 0;
     }
-
 
     public enum Type {
         BATTERY,
