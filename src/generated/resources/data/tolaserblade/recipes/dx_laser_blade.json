@@ -1,12 +1,12 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "r",
-    "r",
+    "R",
+    "R",
     "s"
   ],
   "key": {
-    "r": {
+    "R": {
       "item": "minecraft:redstone_torch"
     },
     "s": {

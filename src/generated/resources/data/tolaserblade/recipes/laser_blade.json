@@ -1,0 +1,25 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "pattern": [
+    "Gid",
+    "idi",
+    "riG"
+  ],
+  "key": {
+    "G": {
+      "tag": "forge:glass/colorless"
+    },
+    "i": {
+      "tag": "forge:ingots/iron"
+    },
+    "d": {
+      "tag": "forge:gems/diamond"
+    },
+    "r": {
+      "tag": "forge:dusts/redstone"
+    }
+  },
+  "result": {
+    "item": "tolaserblade:laser_blade"
+  }
+}

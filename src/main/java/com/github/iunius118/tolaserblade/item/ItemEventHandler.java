@@ -1,14 +1,13 @@
 package com.github.iunius118.tolaserblade.item;
 
+import com.github.iunius118.tolaserblade.item.crafting.LaserBladeCrafting;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResultType;
 import net.minecraftforge.event.AnvilUpdateEvent;
-import net.minecraftforge.event.entity.player.AnvilRepairEvent;
-import net.minecraftforge.event.entity.player.CriticalHitEvent;
-import net.minecraftforge.event.entity.player.PlayerDestroyItemEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.player.*;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class ItemEventHandler {
@@ -64,6 +63,16 @@ public class ItemEventHandler {
 
         if (stack.getItem() instanceof LaserBladeItem) {
             ((LaserBladeItem) stack.getItem()).onCriticalHit(event);
+        }
+    }
+
+    @SubscribeEvent
+    public void onCrafting(PlayerEvent.ItemCraftedEvent event) {
+        ItemStack stackOut = event.getCrafting();
+        Item item = stackOut.getItem();
+
+        if (item instanceof LaserBladeItemBase) {
+            (new LaserBladeCrafting(event, (LaserBladeItemBase)item)).getResult();
         }
     }
 
