@@ -1,6 +1,7 @@
 package com.github.iunius118.tolaserblade.client.integration.jei;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
+import com.github.iunius118.tolaserblade.item.LaserBladeItemBase;
 import com.github.iunius118.tolaserblade.item.LaserBladeUpgrade;
 import com.github.iunius118.tolaserblade.item.ModItems;
 import com.github.iunius118.tolaserblade.tags.ModItemTags;
@@ -12,8 +13,10 @@ import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.common.Tags;
 import org.apache.commons.lang3.tuple.Triple;
 
 import javax.annotation.Nonnull;
@@ -38,6 +41,26 @@ public class JEIToLaserBladePlugin implements IModPlugin {
         for (Triple<Tag<Item>, LaserBladeUpgrade.Type, ToIntFunction<ItemStack>> tag : ModItemTags.getTags()) {
             list.add(getUpdateAnvilRecipe(factory, tag.getLeft(), tag.getRight()));
         }
+
+        ItemStack inputForTint = new ItemStack(ModItems.LASER_BLADE);
+        ModItems.LASER_BLADE.setBladeOuterColor(inputForTint, 0xFF333333);
+        ModItems.LASER_BLADE.setBladeInnerColor(inputForTint, 0xFF666666);
+        ModItems.LASER_BLADE.setGripColor(inputForTint, 0xFF666666);
+
+        // + StainedGlass -> BladeOuterColor
+        ItemStack output = inputForTint.copy();
+        ModItems.LASER_BLADE.setBladeOuterColor(output, LaserBladeItemBase.LBColor.SPECIAL_GAMING.getBladeColor());
+        list.add(factory.createAnvilRecipe(inputForTint.copy(), getUpgradeRecipes(Tags.Items.STAINED_GLASS), Collections.singletonList(output)));
+
+        // + StainedGlassPane -> BladeInnerColor
+        output = inputForTint.copy();
+        ModItems.LASER_BLADE.setBladeInnerColor(output, LaserBladeItemBase.LBColor.SPECIAL_GAMING.getBladeColor());
+        list.add(factory.createAnvilRecipe(inputForTint.copy(), getUpgradeRecipes(Tags.Items.STAINED_GLASS_PANES), Collections.singletonList(output)));
+
+        // + Carpet -> GripColor
+        output = inputForTint.copy();
+        ModItems.LASER_BLADE.setGripColor(output, LaserBladeItemBase.LBColor.SPECIAL_GAMING.getBladeColor());
+        list.add(factory.createAnvilRecipe(inputForTint.copy(), getUpgradeRecipes(ItemTags.CARPETS), Collections.singletonList(output)));
 
         return list;
     }
