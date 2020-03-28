@@ -58,7 +58,7 @@ public class LaserBladeUpgrade {
                     ModItems.LASER_BLADE.setBladeOuterSubColorFlag(output, false);
                 }
 
-            } else if ("HUGO".equals(name)) {
+            } else if ("FATE".equals(name)) {
                 // Reverse isBladeOuterSubColor
                 boolean flag = ModItems.LASER_BLADE.getBladeOuterColor(output).getRight();
                 ModItems.LASER_BLADE.setBladeOuterSubColorFlag(output, !flag);
