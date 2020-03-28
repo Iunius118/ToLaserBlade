@@ -12,6 +12,7 @@ import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.event.AnvilUpdateEvent;
@@ -56,6 +57,18 @@ public class LaserBladeUpgrade {
                     ModItems.LASER_BLADE.setBladeInnerSubColorFlag(output, false);
                     ModItems.LASER_BLADE.setBladeOuterSubColorFlag(output, false);
                 }
+
+            } else if ("HUGO".equals(name)) {
+                // Reverse isBladeOuterSubColor
+                boolean flag = ModItems.LASER_BLADE.getBladeOuterColor(output).getRight();
+                ModItems.LASER_BLADE.setBladeOuterSubColorFlag(output, !flag);
+                output.clearCustomName();
+
+            } else if ("OGRE".equals(name)) {
+                // Reverse isBladeInnerSubColor
+                boolean flag = ModItems.LASER_BLADE.getBladeInnerColor(output).getRight();
+                ModItems.LASER_BLADE.setBladeInnerSubColorFlag(output, !flag);
+                output.clearCustomName();
             }
         }
     }
