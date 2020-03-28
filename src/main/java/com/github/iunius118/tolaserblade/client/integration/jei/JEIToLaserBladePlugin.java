@@ -39,7 +39,11 @@ public class JEIToLaserBladePlugin implements IModPlugin {
         List<Object> list = new ArrayList<>();
 
         for (Triple<Tag<Item>, LaserBladeUpgrade.Type, ToIntFunction<ItemStack>> tag : ModItemTags.getTags()) {
-            list.add(getUpdateAnvilRecipe(factory, tag.getLeft(), tag.getRight()));
+            Object recipe = getUpdateAnvilRecipe(factory, tag.getLeft(), tag.getRight());
+
+            if (recipe != null) {
+                list.add(recipe);
+            }
         }
 
         ItemStack inputForTint = new ItemStack(ModItems.LASER_BLADE);
@@ -69,6 +73,10 @@ public class JEIToLaserBladePlugin implements IModPlugin {
         ItemStack left;
         List<ItemStack> right = getUpgradeRecipes(itemTag);
         ItemStack output;
+
+        if (right == null || right.isEmpty()) {
+            return null;
+        }
 
         if (itemTag == ModItemTags.EFFICIENCY_REMOVER) {
             left = new ItemStack(ModItems.LASER_BLADE);
