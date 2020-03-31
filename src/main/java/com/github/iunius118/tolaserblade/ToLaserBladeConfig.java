@@ -28,12 +28,14 @@ public class ToLaserBladeConfig {
             builder.comment("ToLaserBlade's common settings.").push("common");
 
             isEnabledBlockingWithLaserBlade = builder
-                    .comment("Enable blocking with Laser Blade.")
+                    .comment("Enable blocking with Laser Blade.\n" +
+                            "Default: false")
                     .translation("tolaserblade.configgui.common.enableBlockingWithLaserBlade")
                     .define("enableBlockingWithLaserBlade", false);
 
             laserBladeEfficiency = builder
-                    .comment("An integer value (0-128) that is a factor of mining speed of Laser Blade.")
+                    .comment("An integer value (0-128) that is a factor of mining speed of Laser Blade.\n" +
+                            "Default: 12")
                     .translation("tolaserblade.configgui.common.laserBladeEfficiencyInServer")
                     .defineInRange("laserBladeEfficiencyInServer", 12, 0, 128);
 
@@ -41,7 +43,8 @@ public class ToLaserBladeConfig {
                     .comment("An integer value (0-39) that is maximum count of attack damage upgrade of Laser Blade.\n" +
                             "Note:\n" +
                             "  Making the advancement [It's Over 9] requires 3 or more.\n" +
-                            "  Similarly, [Beyond the Limit] requires 8 or more.")
+                            "  Similarly, [Beyond the Limit] requires 8 or more.\n" +
+                            "Default: 8")
                     .translation("tolaserblade.configgui.common.maxAttackDamageUpgradeCount")
                     .defineInRange("maxAttackDamageUpgradeCount", 8, 0, 39);
 
@@ -57,13 +60,15 @@ public class ToLaserBladeConfig {
             builder.comment("ToLaserBlade's client side settings.").push("client");
 
             isEnabledLaserBlade3DModel = builder
-                    .comment("Enable Laser Blade to use 3D model.")
+                    .comment("Enable Laser Blade to use 3D model.\n" +
+                            "Default: true")
                     .translation("tolaserblade.configgui.client.enableLaserBlade3DModel")
                     .define("enableLaserBlade3DModel", true);
 
             laserBladeRenderingMode = builder
                     .comment("Select rendering mode of Laser Blade (0-2). This option is available when enableLaserBlade3DModel is true.\n" +
-                    "  Mode 0: default. Mode 1: Not using additive blending. Mode 2: Not using additive blending and using another model.")
+                            "  Mode 0: default. Mode 1: Not using additive blending. Mode 2: Not using additive blending and using another model.\n" +
+                            "Default: 0")
                     .translation("tolaserblade.configgui.client.laserBladeRenderingMode")
                     .defineInRange("laserBladeRenderingMode", 0, 0, 2);
 
