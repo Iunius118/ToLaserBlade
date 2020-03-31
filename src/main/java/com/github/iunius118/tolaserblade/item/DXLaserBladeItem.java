@@ -1,5 +1,6 @@
 package com.github.iunius118.tolaserblade.item;
 
+import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
@@ -28,7 +29,7 @@ public class DXLaserBladeItem extends SwordItem {
         attackSpeed = -1.2F;
     }
 
-    /*  DX Laser B1ade could sound--if you had a battery :P
+    /*  DX Laser B1ade could sound--if you had AAA batteries :P
     @Override
     public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         World world = attacker.getEntityWorld();
@@ -124,13 +125,11 @@ public class DXLaserBladeItem extends SwordItem {
 
     @Override
     public Multimap<String, AttributeModifier> getAttributeModifiers(EquipmentSlotType slot, ItemStack stack) {
-        Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot, stack);
+        Multimap<String, AttributeModifier> multimap = HashMultimap.create();
 
         if (slot == EquipmentSlotType.MAINHAND) {
-            multimap.removeAll(SharedMonsterAttributes.ATTACK_DAMAGE.getName());
             multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(),
                     new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", attackDamage, AttributeModifier.Operation.ADDITION));
-            multimap.removeAll(SharedMonsterAttributes.ATTACK_SPEED.getName());
             multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(),
                     new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", attackSpeed, AttributeModifier.Operation.ADDITION));
         }

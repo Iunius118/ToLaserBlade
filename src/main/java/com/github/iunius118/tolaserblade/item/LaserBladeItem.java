@@ -3,6 +3,7 @@ package com.github.iunius118.tolaserblade.item;
 import com.github.iunius118.tolaserblade.ToLaserBladeConfig;
 import com.github.iunius118.tolaserblade.client.renderer.LaserBladeItemRenderer;
 import com.github.iunius118.tolaserblade.enchantment.ModEnchantments;
+import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.renderer.color.IItemColor;
@@ -176,15 +177,13 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
 
     @Override
     public Multimap<String, AttributeModifier> getAttributeModifiers(EquipmentSlotType slot, ItemStack stack) {
-        Multimap<String, AttributeModifier> multimap = super.getAttributeModifiers(slot);
+        Multimap<String, AttributeModifier> multimap = HashMultimap.create();
 
         if (slot == EquipmentSlotType.MAINHAND) {
-            multimap.removeAll(SharedMonsterAttributes.ATTACK_DAMAGE.getName());
             multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(),
                     new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier",
                             this.attackDamage + getLaserBladeATK(stack), AttributeModifier.Operation.ADDITION));
 
-            multimap.removeAll(SharedMonsterAttributes.ATTACK_SPEED.getName());
             multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(),
                     new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier",
                             this.attackSpeed + getLaserBladeSPD(stack), AttributeModifier.Operation.ADDITION));
