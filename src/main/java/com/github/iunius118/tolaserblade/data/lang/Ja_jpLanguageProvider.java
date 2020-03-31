@@ -59,7 +59,7 @@ public class Ja_jpLanguageProvider extends LanguageProvider {
         add("tolaserblade.configgui.common.laserBladeEfficiency", "レーザーブレイドの採掘速度 (0–128)");
         add("tolaserblade.configgui.common.maxAttackDamageUpgradeCount", "攻撃力の最大強化回数 (0–39)");
         add("tolaserblade.configgui.client.enableLaserBlade3DModel", "レーザーブレイドを3Dモデルで描画する");
-        add("tolaserblade.configgui.client.laserBladeRenderingMode", "レーザーブレイドの描画モード (0–1)");
+        add("tolaserblade.configgui.client.laserBladeRenderingMode", "レーザーブレイドの描画モード (0–2)");
 
         // Update message
         add("tolaserblade.update.newVersion", "%s の新しいバージョンが利用可能です");

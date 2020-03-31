@@ -62,9 +62,10 @@ public class ToLaserBladeConfig {
                     .define("enableLaserBlade3DModel", true);
 
             laserBladeRenderingMode = builder
-                    .comment("Select rendering mode of Laser Blade (0: Default, 1: Using only alpha blending). This option is available when enableLaserBlade3DModel is true.")
+                    .comment("Select rendering mode of Laser Blade (0-2). This option is available when enableLaserBlade3DModel is true.\n" +
+                    "  Mode 0: default. Mode 1: Not using additive blending. Mode 2: Not using additive blending and using another model.")
                     .translation("tolaserblade.configgui.client.laserBladeRenderingMode")
-                    .defineInRange("laserBladeRenderingMode", 0, 0, 1);
+                    .defineInRange("laserBladeRenderingMode", 0, 0, 2);
 
             builder.pop();
         }
