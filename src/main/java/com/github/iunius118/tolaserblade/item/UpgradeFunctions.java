@@ -1,5 +1,6 @@
 package com.github.iunius118.tolaserblade.item;
 
+import com.github.iunius118.tolaserblade.ToLaserBladeConfig;
 import com.google.common.collect.Maps;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -62,9 +63,10 @@ public class UpgradeFunctions {
     public static ToIntFunction<ItemStack> getUpdateDamageFunction() {
         return (stack) -> {
             float attack = ModItems.LASER_BLADE.getLaserBladeATK(stack);
+            float maxUpgradeCount = (float)ToLaserBladeConfig.COMMON.maxAttackDamageUpgradeCountInServer.get();
 
-            if (attack >= LaserBladeItemBase.MOD_ATK_MIN && attack < LaserBladeItemBase.MOD_ATK_CLASS_5) {
-                float attack2 = MathHelper.clamp(attack + 1.0F, LaserBladeItemBase.MOD_ATK_MIN, LaserBladeItemBase.MOD_ATK_CLASS_5);
+            if (attack >= LaserBladeItemBase.MOD_ATK_MIN && attack < maxUpgradeCount) {
+                float attack2 = MathHelper.clamp(attack + 1.0F, LaserBladeItemBase.MOD_ATK_MIN, maxUpgradeCount);
                 ModItems.LASER_BLADE.setLaserBladeATK(stack, attack2);
                 return Math.max((int)attack2, 1);
             }

@@ -21,6 +21,9 @@ public class ToLaserBladeConfig {
         public final IntValue laserBladeEfficiency;
         public Supplier<Integer> laserBladeEfficiencyInServer;
 
+        public final IntValue maxAttackDamageUpgradeCount;
+        public Supplier<Integer> maxAttackDamageUpgradeCountInServer;
+
         Common(ForgeConfigSpec.Builder builder) {
             builder.comment("ToLaserBlade's common settings.").push("common");
 
@@ -33,6 +36,14 @@ public class ToLaserBladeConfig {
                     .comment("An integer value (0-128) that is a factor of mining speed of Laser Blade.")
                     .translation("tolaserblade.configgui.common.laserBladeEfficiencyInServer")
                     .defineInRange("laserBladeEfficiencyInServer", 12, 0, 128);
+
+            maxAttackDamageUpgradeCount = builder
+                    .comment("An integer value (0-39) that is maximum count of attack damage upgrade of Laser Blade.\n" +
+                            "Note:\n" +
+                            "  Making the advancement [It's Over 9] requires 3 or more.\n" +
+                            "  Similarly, [Beyond the Limit] requires 8 or more.")
+                    .translation("tolaserblade.configgui.common.maxAttackDamageUpgradeCount")
+                    .defineInRange("maxAttackDamageUpgradeCount", 8, 0, 39);
 
             builder.pop();
         }
@@ -67,8 +78,10 @@ public class ToLaserBladeConfig {
         commonSpec = specPair.getRight();
         COMMON = specPair.getLeft();
 
+        // Init server-side settings with local common settings
         COMMON.isEnabledBlockingWithLaserBladeInServer = COMMON.isEnabledBlockingWithLaserBlade::get;
         COMMON.laserBladeEfficiencyInServer = COMMON.laserBladeEfficiency::get;
+        COMMON.maxAttackDamageUpgradeCountInServer = COMMON.maxAttackDamageUpgradeCount::get;
     }
 
     static final ForgeConfigSpec clientSpec;
@@ -80,9 +93,17 @@ public class ToLaserBladeConfig {
         CLIENT = specPair.getLeft();
     }
 
+    // Container for server-side config to make a synchronizing packet
     public static class ServerConfig {
         public boolean isEnabledBlockingWithLaserBladeInServer;
         public int laserBladeEfficiencyInServer;
+        public int maxAttackDamageUpgradeCountInServer;
+
+        public ServerConfig() {
+            isEnabledBlockingWithLaserBladeInServer = COMMON.isEnabledBlockingWithLaserBlade.get();
+            laserBladeEfficiencyInServer = COMMON.laserBladeEfficiency.get();
+            maxAttackDamageUpgradeCountInServer = COMMON.maxAttackDamageUpgradeCount.get();
+        }
     }
 
     @SubscribeEvent
@@ -91,9 +112,6 @@ public class ToLaserBladeConfig {
                 && ServerLifecycleHooks.getCurrentServer() != null) {
             // Send server-side settings to clients
             ServerConfig serverConfig = new ServerConfig();
-            serverConfig.isEnabledBlockingWithLaserBladeInServer = COMMON.isEnabledBlockingWithLaserBlade.get();
-            serverConfig.laserBladeEfficiencyInServer = COMMON.laserBladeEfficiency.get();
-
             ToLaserBlade.NETWORK_HANDLER.getConfigChannel().send(PacketDistributor.ALL.noArg(), new ServerConfigMessage(serverConfig));
         }
     }

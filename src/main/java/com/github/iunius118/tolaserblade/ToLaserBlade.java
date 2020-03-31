@@ -164,9 +164,8 @@ public class ToLaserBlade {
 
     @SubscribeEvent
     public void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
+        // Send server-side config to logged-in players
         ToLaserBladeConfig.ServerConfig serverConfig = new ToLaserBladeConfig.ServerConfig();
-        serverConfig.isEnabledBlockingWithLaserBladeInServer = ToLaserBladeConfig.COMMON.isEnabledBlockingWithLaserBlade.get();
-        serverConfig.laserBladeEfficiencyInServer = ToLaserBladeConfig.COMMON.laserBladeEfficiency.get();
 
         NETWORK_HANDLER.getConfigChannel().sendTo(
                 new ServerConfigMessage(serverConfig),
