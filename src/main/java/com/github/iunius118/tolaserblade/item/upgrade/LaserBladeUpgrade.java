@@ -1,6 +1,8 @@
-package com.github.iunius118.tolaserblade.item;
+package com.github.iunius118.tolaserblade.item.upgrade;
 
 import com.github.iunius118.tolaserblade.enchantment.ModEnchantments;
+import com.github.iunius118.tolaserblade.item.LaserBladeItemBase;
+import com.github.iunius118.tolaserblade.item.ModItems;
 import com.github.iunius118.tolaserblade.tags.ModItemTags;
 import net.minecraft.block.Block;
 import net.minecraft.block.CarpetBlock;
@@ -12,7 +14,6 @@ import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.event.AnvilUpdateEvent;
@@ -22,7 +23,7 @@ import org.apache.commons.lang3.tuple.Triple;
 
 import java.util.List;
 import java.util.Map;
-import java.util.function.ToIntFunction;
+import java.util.function.Function;
 
 public class LaserBladeUpgrade {
     public static void onAnvilRepair(AnvilRepairEvent event) {
@@ -84,43 +85,21 @@ public class LaserBladeUpgrade {
         }
 
         // Upgrade or Repair
-        List<Triple<Tag<Item>, Type, ToIntFunction<ItemStack>>> tags = ModItemTags.getTags();
+        List<Triple<Tag<Item>, Type, Function<ItemStack, UpgradeResult>>> tags = ModItemTags.getTags();
 
-        for (Triple<Tag<Item>, Type, ToIntFunction<ItemStack>> tag : tags) {
+        for (Triple<Tag<Item>, Type, Function<ItemStack, UpgradeResult>> tag : tags) {
             if (tag.getLeft().contains(rightItem) && laserBlade.canUpgrade(tag.getMiddle())) {
-                ItemStack result;
-                int cost;
+                // Upgrade Laser Blade or its parts
+                UpgradeResult result = tag.getRight().apply(left.copy());
+                ItemStack output = result.getItemStack();
+                int cost = result.getCost();
 
-                if (left.getItem() == ModItems.LB_BROKEN && tag.getMiddle() == Type.REPAIR) {
-                    // Repair Broken Laser Blade
-                    result = new ItemStack(ModItems.LASER_BLADE);
-                    result.setTag(left.getOrCreateTag().copy());
-                    result.setDamage(0);
-                    Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(result);
-
-                    if (enchantments.containsKey(Enchantments.SHARPNESS)) {
-                        // SHARPNESS -> ATK (for [-1.14.4] Laser Blade Core)
-                        float atkFromSharpness = Math.max(enchantments.get(Enchantments.SHARPNESS) - 1, 0);
-                        float atk = ModItems.LASER_BLADE.getLaserBladeATK(result);
-                        ModItems.LASER_BLADE.setLaserBladeATK(result, Math.max(atkFromSharpness, atk));
-                        enchantments.remove(Enchantments.SHARPNESS);
-                        EnchantmentHelper.setEnchantments(enchantments, result);
-                    }
-
-                    cost = 1;
-
-                } else {
-                    // Upgrade Laser Blade or its parts
-                    result = left.copy();
-                    cost = tag.getRight().applyAsInt(result);
-                }
-
-                cost += changeDisplayName(result, event.getName());
+                cost += changeDisplayName(output, event.getName());
 
                 if (cost > 0) {
                     event.setCost(cost);
                     event.setMaterialCost(1);
-                    event.setOutput(result);
+                    event.setOutput(output);
                 }
 
                 return;

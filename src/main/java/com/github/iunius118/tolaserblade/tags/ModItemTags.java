@@ -2,8 +2,9 @@ package com.github.iunius118.tolaserblade.tags;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.enchantment.ModEnchantments;
-import com.github.iunius118.tolaserblade.item.LaserBladeUpgrade.Type;
-import com.github.iunius118.tolaserblade.item.UpgradeFunctions;
+import com.github.iunius118.tolaserblade.item.upgrade.LaserBladeUpgrade.Type;
+import com.github.iunius118.tolaserblade.item.upgrade.UpgradeFunctions;
+import com.github.iunius118.tolaserblade.item.upgrade.UpgradeResult;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Item;
@@ -15,10 +16,10 @@ import org.apache.commons.lang3.tuple.Triple;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.function.ToIntFunction;
+import java.util.function.Function;
 
 public class ModItemTags {
-    private static List<Triple<Tag<Item>, Type, ToIntFunction<ItemStack>>> tags = new ArrayList<>();
+    private static List<Triple<Tag<Item>, Type, Function<ItemStack, UpgradeResult>>> tags = new ArrayList<>();
 
     public static final Tag<Item> ATTACK_SPEED_UPGRADE = addUpgradeTag(makeWrapperTag("upgrade/speed"), Type.BATTERY, UpgradeFunctions.getUpdateSpeedFunction());
     public static final Tag<Item> EFFICIENCY_UPGRADE = addUpgradeTag(makeWrapperTag("upgrade/efficiency"), Type.BATTERY, UpgradeFunctions.getUpdateEnchantmentFunction(Enchantments.EFFICIENCY));
@@ -40,12 +41,12 @@ public class ModItemTags {
         return tag;
     }
 
-    private static Tag<Item> addUpgradeTag(Tag<Item> tag, Type part, ToIntFunction<ItemStack> function) {
+    private static Tag<Item> addUpgradeTag(Tag<Item> tag, Type part, Function<ItemStack, UpgradeResult> function) {
         tags.add(Triple.of(tag, part, function));
         return tag;
     }
 
-    public static List<Triple<Tag<Item>, Type, ToIntFunction<ItemStack>>> getTags() {
+    public static List<Triple<Tag<Item>, Type, Function<ItemStack, UpgradeResult>>> getTags() {
         return ImmutableList.copyOf(tags);
     }
 }

@@ -2,8 +2,8 @@ package com.github.iunius118.tolaserblade.item.crafting;
 
 import com.github.iunius118.tolaserblade.enchantment.ModEnchantments;
 import com.github.iunius118.tolaserblade.item.LaserBladeItemBase;
-import com.github.iunius118.tolaserblade.item.LaserBladeUpgrade;
 import com.github.iunius118.tolaserblade.item.ModItems;
+import com.github.iunius118.tolaserblade.item.upgrade.LaserBladeUpgrade;
 import com.google.common.collect.Maps;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;

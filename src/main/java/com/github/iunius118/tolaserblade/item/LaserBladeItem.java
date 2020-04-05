@@ -3,6 +3,7 @@ package com.github.iunius118.tolaserblade.item;
 import com.github.iunius118.tolaserblade.ToLaserBladeConfig;
 import com.github.iunius118.tolaserblade.client.renderer.LaserBladeItemRenderer;
 import com.github.iunius118.tolaserblade.enchantment.ModEnchantments;
+import com.github.iunius118.tolaserblade.item.upgrade.LaserBladeUpgrade;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.block.BlockState;

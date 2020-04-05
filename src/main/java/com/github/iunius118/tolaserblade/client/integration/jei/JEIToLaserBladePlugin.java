@@ -2,8 +2,9 @@ package com.github.iunius118.tolaserblade.client.integration.jei;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.item.LaserBladeItemBase;
-import com.github.iunius118.tolaserblade.item.LaserBladeUpgrade;
 import com.github.iunius118.tolaserblade.item.ModItems;
+import com.github.iunius118.tolaserblade.item.upgrade.LaserBladeUpgrade;
+import com.github.iunius118.tolaserblade.item.upgrade.UpgradeResult;
 import com.github.iunius118.tolaserblade.tags.ModItemTags;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
@@ -23,7 +24,7 @@ import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.function.ToIntFunction;
+import java.util.function.Function;
 
 @JeiPlugin
 public class JEIToLaserBladePlugin implements IModPlugin {
@@ -38,7 +39,7 @@ public class JEIToLaserBladePlugin implements IModPlugin {
     private List<Object> getUpgradeRecipes(IVanillaRecipeFactory factory) {
         List<Object> list = new ArrayList<>();
 
-        for (Triple<Tag<Item>, LaserBladeUpgrade.Type, ToIntFunction<ItemStack>> tag : ModItemTags.getTags()) {
+        for (Triple<Tag<Item>, LaserBladeUpgrade.Type, Function<ItemStack, UpgradeResult>> tag : ModItemTags.getTags()) {
             Object recipe = getUpdateAnvilRecipe(factory, tag.getLeft(), tag.getRight());
 
             if (recipe != null) {
@@ -69,10 +70,11 @@ public class JEIToLaserBladePlugin implements IModPlugin {
         return list;
     }
 
-    private Object getUpdateAnvilRecipe(IVanillaRecipeFactory factory, Tag<Item> itemTag, ToIntFunction<ItemStack> upgradeFunc) {
+    private Object getUpdateAnvilRecipe(IVanillaRecipeFactory factory, Tag<Item> itemTag, Function<ItemStack, UpgradeResult> upgradeFunc) {
         ItemStack left;
         List<ItemStack> right = getUpgradeRecipes(itemTag);
         ItemStack output;
+        UpgradeResult result;
 
         if (right == null || right.isEmpty()) {
             return null;
@@ -81,8 +83,7 @@ public class JEIToLaserBladePlugin implements IModPlugin {
         if (itemTag == ModItemTags.EFFICIENCY_REMOVER) {
             left = new ItemStack(ModItems.LASER_BLADE);
             left.addEnchantment(Enchantments.EFFICIENCY, 1);
-            output = left.copy();
-            upgradeFunc.applyAsInt(output);
+            output = upgradeFunc.apply(left.copy()).getItemStack();
 
         } else if (itemTag == ModItemTags.CASING_REPAIR) {
             left = new ItemStack(ModItems.LB_BROKEN);
@@ -90,8 +91,7 @@ public class JEIToLaserBladePlugin implements IModPlugin {
 
         } else {
             left = new ItemStack(ModItems.LASER_BLADE);
-            output = left.copy();
-            upgradeFunc.applyAsInt(output);
+            output = upgradeFunc.apply(left.copy()).getItemStack();
         }
 
         return factory.createAnvilRecipe(left, right, Collections.singletonList(output));

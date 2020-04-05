@@ -1,6 +1,7 @@
 package com.github.iunius118.tolaserblade.item;
 
 import com.github.iunius118.tolaserblade.item.crafting.LaserBladeCrafting;
+import com.github.iunius118.tolaserblade.item.upgrade.LaserBladeUpgrade;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;

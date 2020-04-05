@@ -1,6 +1,7 @@
 package com.github.iunius118.tolaserblade.item;
 
 import com.github.iunius118.tolaserblade.client.renderer.LBBrokenItemRenderer;
+import com.github.iunius118.tolaserblade.item.upgrade.LaserBladeUpgrade;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
