@@ -6,6 +6,7 @@ import com.github.iunius118.tolaserblade.item.ModItems;
 import com.github.iunius118.tolaserblade.item.upgrade.LaserBladeUpgrade;
 import com.github.iunius118.tolaserblade.item.upgrade.UpgradeResult;
 import com.github.iunius118.tolaserblade.tags.ModItemTags;
+import com.google.common.collect.ImmutableList;
 import mezz.jei.api.IModPlugin;
 import mezz.jei.api.JeiPlugin;
 import mezz.jei.api.constants.VanillaRecipeCategoryUid;
@@ -47,51 +48,61 @@ public class JEIToLaserBladePlugin implements IModPlugin {
             }
         }
 
-        ItemStack inputForTint = new ItemStack(ModItems.LASER_BLADE);
-        ModItems.LASER_BLADE.setBladeOuterColor(inputForTint, 0xFF333333);
-        ModItems.LASER_BLADE.setBladeInnerColor(inputForTint, 0xFF666666);
-        ModItems.LASER_BLADE.setGripColor(inputForTint, 0xFF666666);
+        ItemStack tintedLB = new ItemStack(ModItems.LASER_BLADE);
+        ModItems.LASER_BLADE.setBladeOuterColor(tintedLB, 0xFF333333);
+        ModItems.LASER_BLADE.setBladeInnerColor(tintedLB, 0xFF666666);
+        ModItems.LASER_BLADE.setGripColor(tintedLB, 0xFF666666);
 
         // + StainedGlass -> BladeOuterColor
-        ItemStack output = inputForTint.copy();
+        ItemStack output = tintedLB.copy();
         ModItems.LASER_BLADE.setBladeOuterColor(output, LaserBladeItemBase.LBColor.SPECIAL_GAMING.getBladeColor());
-        list.add(factory.createAnvilRecipe(inputForTint.copy(), getUpgradeRecipes(Tags.Items.STAINED_GLASS), Collections.singletonList(output)));
+        list.add(factory.createAnvilRecipe(tintedLB.copy(), getUpgradeRecipes(Tags.Items.STAINED_GLASS), Collections.singletonList(output)));
 
         // + StainedGlassPane -> BladeInnerColor
-        output = inputForTint.copy();
+        output = tintedLB.copy();
         ModItems.LASER_BLADE.setBladeInnerColor(output, LaserBladeItemBase.LBColor.SPECIAL_GAMING.getBladeColor());
-        list.add(factory.createAnvilRecipe(inputForTint.copy(), getUpgradeRecipes(Tags.Items.STAINED_GLASS_PANES), Collections.singletonList(output)));
+        list.add(factory.createAnvilRecipe(tintedLB.copy(), getUpgradeRecipes(Tags.Items.STAINED_GLASS_PANES), Collections.singletonList(output)));
 
         // + Carpet -> GripColor
-        output = inputForTint.copy();
+        output = tintedLB.copy();
         ModItems.LASER_BLADE.setGripColor(output, LaserBladeItemBase.LBColor.SPECIAL_GAMING.getBladeColor());
-        list.add(factory.createAnvilRecipe(inputForTint.copy(), getUpgradeRecipes(ItemTags.CARPETS), Collections.singletonList(output)));
+        list.add(factory.createAnvilRecipe(tintedLB.copy(), getUpgradeRecipes(ItemTags.CARPETS), Collections.singletonList(output)));
 
         return list;
     }
 
     private Object getUpdateAnvilRecipe(IVanillaRecipeFactory factory, Tag<Item> itemTag, Function<ItemStack, UpgradeResult> upgradeFunc) {
-        ItemStack left;
+        List<ItemStack> left;
         List<ItemStack> right = getUpgradeRecipes(itemTag);
-        ItemStack output;
+        ItemStack output = new ItemStack(ModItems.LASER_BLADE);
         UpgradeResult result;
 
-        if (right == null || right.isEmpty()) {
+        if (right.isEmpty()) {
             return null;
         }
 
         if (itemTag == ModItemTags.EFFICIENCY_REMOVER) {
-            left = new ItemStack(ModItems.LASER_BLADE);
-            left.addEnchantment(Enchantments.EFFICIENCY, 1);
-            output = upgradeFunc.apply(left.copy()).getItemStack();
+            ItemStack efficiencyLB;
+            ImmutableList.Builder<ItemStack> builder = ImmutableList.builder();
+            int maxLevel = Enchantments.EFFICIENCY.getMaxLevel();
+
+            for (int level = Enchantments.EFFICIENCY.getMinLevel(); level <= maxLevel; level ++) {
+                efficiencyLB = new ItemStack(ModItems.LASER_BLADE);
+                efficiencyLB.addEnchantment(Enchantments.EFFICIENCY, level);
+                builder.add(efficiencyLB);
+            }
+
+            left = builder.build();
+            output = upgradeFunc.apply(new ItemStack(ModItems.LASER_BLADE)).getItemStack();
 
         } else if (itemTag == ModItemTags.CASING_REPAIR) {
-            left = new ItemStack(ModItems.LB_BROKEN);
-            output = new ItemStack(ModItems.LASER_BLADE);
+            ItemStack damagedLB = new ItemStack(ModItems.LASER_BLADE);
+            damagedLB.setDamage(16000);
+            left = ImmutableList.of(damagedLB, new ItemStack(ModItems.LB_BROKEN));
 
         } else {
-            left = new ItemStack(ModItems.LASER_BLADE);
-            output = upgradeFunc.apply(left.copy()).getItemStack();
+            left = Collections.singletonList(new ItemStack(ModItems.LASER_BLADE));
+            output = upgradeFunc.apply(new ItemStack(ModItems.LASER_BLADE)).getItemStack();
         }
 
         return factory.createAnvilRecipe(left, right, Collections.singletonList(output));
