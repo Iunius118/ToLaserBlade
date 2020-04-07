@@ -13,6 +13,7 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.Items;
 import net.minecraft.tags.Tag;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.event.AnvilUpdateEvent;
@@ -57,18 +58,6 @@ public class LaserBladeUpgrade {
                     ModItems.LASER_BLADE.setBladeInnerSubColorFlag(output, false);
                     ModItems.LASER_BLADE.setBladeOuterSubColorFlag(output, false);
                 }
-
-            } else if ("FATE".equals(name)) {
-                // Reverse isBladeOuterSubColor
-                boolean flag = ModItems.LASER_BLADE.getBladeOuterColor(output).getRight();
-                ModItems.LASER_BLADE.setBladeOuterSubColorFlag(output, !flag);
-                output.clearCustomName();
-
-            } else if ("OGRE".equals(name)) {
-                // Reverse isBladeInnerSubColor
-                boolean flag = ModItems.LASER_BLADE.getBladeInnerColor(output).getRight();
-                ModItems.LASER_BLADE.setBladeInnerSubColorFlag(output, !flag);
-                output.clearCustomName();
             }
         }
     }
@@ -108,7 +97,7 @@ public class LaserBladeUpgrade {
         // Tint
         if (rightItem instanceof BlockItem) {
             Block block = ((BlockItem)rightItem).getBlock();
-            ItemStack result = ItemStack.EMPTY;
+            ItemStack output = ItemStack.EMPTY;
             int cost = 0;
 
             if (block instanceof StainedGlassBlock && laserBlade.canUpgrade(Type.MEDIUM)) {
@@ -117,8 +106,8 @@ public class LaserBladeUpgrade {
                 int oldColor = ModItems.LB_MEDIUM.getBladeOuterColor(left).getLeft();
 
                 if (newColor != oldColor) {
-                    result = left.copy();
-                    ModItems.LB_MEDIUM.setBladeOuterColor(result, newColor);
+                    output = left.copy();
+                    ModItems.LB_MEDIUM.setBladeOuterColor(output, newColor);
                     cost = 1;
                 }
 
@@ -128,8 +117,8 @@ public class LaserBladeUpgrade {
                 int oldColor = ModItems.LB_EMITTER.getBladeInnerColor(left).getLeft();
 
                 if (newColor != oldColor) {
-                    result = left.copy();
-                    ModItems.LB_MEDIUM.setBladeInnerColor(result, newColor);
+                    output = left.copy();
+                    ModItems.LB_MEDIUM.setBladeInnerColor(output, newColor);
                     cost = 1;
                 }
 
@@ -139,18 +128,45 @@ public class LaserBladeUpgrade {
                 int oldColor = ModItems.LB_CASING.getGripColor(left);
 
                 if (newColor != oldColor) {
-                    result = left.copy();
-                    ModItems.LB_CASING.setGripColor(result, newColor);
+                    output = left.copy();
+                    ModItems.LB_CASING.setGripColor(output, newColor);
                     cost = 1;
                 }
             }
 
-            cost += changeDisplayName(result, event.getName());
+            cost += changeDisplayName(output, event.getName());
 
             if (cost > 0) {
                 event.setCost(cost);
                 event.setMaterialCost(1);
-                event.setOutput(result);
+                event.setOutput(output);
+            }
+        } else if (rightItem == Items.PAPER && right.hasDisplayName()) {
+            String code = right.getDisplayName().getFormattedText();
+            ItemStack output = ItemStack.EMPTY;
+            int cost = 0;
+
+            if ("FATE".equals(code) && laserBlade.canUpgrade(Type.MEDIUM)) {
+                // Reverse isBladeOuterSubColor
+                output = left.copy();
+                boolean flag = ModItems.LASER_BLADE.getBladeOuterColor(output).getRight();
+                ModItems.LASER_BLADE.setBladeOuterSubColorFlag(output, !flag);
+                output.clearCustomName();
+
+            } else if ("OGRE".equals(code) && laserBlade.canUpgrade(Type.EMITTER)) {
+                // Reverse isBladeInnerSubColor
+                output = left.copy();
+                boolean flag = ModItems.LASER_BLADE.getBladeInnerColor(output).getRight();
+                ModItems.LASER_BLADE.setBladeInnerSubColorFlag(output, !flag);
+                output.clearCustomName();
+            }
+
+            cost += changeDisplayName(output, event.getName());
+
+            if (cost > 0) {
+                event.setCost(cost);
+                event.setMaterialCost(1);
+                event.setOutput(output);
             }
         }
     }
