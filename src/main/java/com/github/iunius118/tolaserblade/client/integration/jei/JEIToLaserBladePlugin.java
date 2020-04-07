@@ -97,7 +97,7 @@ public class JEIToLaserBladePlugin implements IModPlugin {
 
         } else if (itemTag == ModItemTags.CASING_REPAIR) {
             ItemStack damagedLB = new ItemStack(ModItems.LASER_BLADE);
-            damagedLB.setDamage(16000);
+            damagedLB.setDamage(ModItems.LASER_BLADE.getMaxDamage(damagedLB) - 1);
             left = ImmutableList.of(damagedLB, new ItemStack(ModItems.LB_BROKEN));
 
         } else {
