@@ -7,11 +7,14 @@ v1.15.2-3.0.2.0
     Fix anvil recipes of inverting subtractive brending flags
     Add zh_cn.json that is partially translated with reference to what XuyuEre translated in version 2.x
 
+
 v1.15.2-3.0.1.0
 
     Add maxAttackDamageUpgradeCount to tolaserblade-common.toml
     Add new rendering mode to Laser Blade and change previous mode 1 to mode 2
 
+
 v1.15.2-3.0.0.0
 
     Initial port to 1.15.2 on Forge 31.1.0
+
