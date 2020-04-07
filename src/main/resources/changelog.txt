@@ -1,6 +1,11 @@
 ToLaserBlade
 Changelog
 
+v1.15.2-3.0.2.0
+
+    Fix anvil recipes on JEI plugin
+    Add zh_cn.json that is partially translated with reference to what XuyuEre translated in version 2.x
+
 v1.15.2-3.0.1.0
 
     Add maxAttackDamageUpgradeCount to tolaserblade-common.toml
