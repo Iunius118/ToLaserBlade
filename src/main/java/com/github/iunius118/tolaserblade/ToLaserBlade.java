@@ -122,7 +122,7 @@ public class ToLaserBlade {
             DataGenerator gen = event.getGenerator();
 
             if (event.includeServer()) {
-                gen.addProvider(new TLBRecipeProvider(gen));   // Recipes
+                gen.addProvider(new TLBRecipeProvider(gen));    // Recipes
                 gen.addProvider(new TLBItemTagsProvider(gen));  // Item tags
                 gen.addProvider(new TLBAdvancementProvider(gen));   // Advancements
             }
@@ -130,8 +130,9 @@ public class ToLaserBlade {
             if (event.includeClient()) {
                 ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
 
-                gen.addProvider(new TLBItemModelProvider(gen, existingFileHelper));    // Item models
-                TLBLanguageProvider.addProviders(gen); // Languages
+                gen.addProvider(new TLBItemModelProvider(gen, existingFileHelper)); // Item models
+                TLBLanguageProvider.addProviders(gen);  // Languages
+                gen.addProvider(new TLBSoundProvider(gen)); // Sounds
             }
         }
     }
