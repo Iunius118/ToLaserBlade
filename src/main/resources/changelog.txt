@@ -3,7 +3,8 @@ Changelog
 
 v1.15.2-3.0.2.0
 
-    Fix anvil recipes on JEI plugin
+    Fix anvil recipes on JEI
+    Fix anvil recipes of inverting subtractive brending flags
     Add zh_cn.json that is partially translated with reference to what XuyuEre translated in version 2.x
 
 v1.15.2-3.0.1.0

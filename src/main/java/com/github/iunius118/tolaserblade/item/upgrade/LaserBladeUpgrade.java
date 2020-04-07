@@ -147,18 +147,18 @@ public class LaserBladeUpgrade {
             int cost = 0;
 
             if ("FATE".equals(code) && laserBlade.canUpgrade(Type.MEDIUM)) {
-                // Reverse isBladeOuterSubColor
+                // Invert isBladeOuterSubColor
                 output = left.copy();
                 boolean flag = ModItems.LASER_BLADE.getBladeOuterColor(output).getRight();
                 ModItems.LASER_BLADE.setBladeOuterSubColorFlag(output, !flag);
-                output.clearCustomName();
+                cost = 1;
 
             } else if ("OGRE".equals(code) && laserBlade.canUpgrade(Type.EMITTER)) {
-                // Reverse isBladeInnerSubColor
+                // Invert isBladeInnerSubColor
                 output = left.copy();
                 boolean flag = ModItems.LASER_BLADE.getBladeInnerColor(output).getRight();
                 ModItems.LASER_BLADE.setBladeInnerSubColorFlag(output, !flag);
-                output.clearCustomName();
+                cost = 1;
             }
 
             cost += changeDisplayName(output, event.getName());
