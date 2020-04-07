@@ -21,18 +21,18 @@ import java.util.function.Function;
 public class ModItemTags {
     private static List<Triple<Tag<Item>, Type, Function<ItemStack, UpgradeResult>>> tags = new ArrayList<>();
 
-    public static final Tag<Item> ATTACK_SPEED_UPGRADE = addUpgradeTag(makeWrapperTag("upgrade/speed"), Type.BATTERY, UpgradeFunctions.getUpdateSpeedFunction());
-    public static final Tag<Item> EFFICIENCY_UPGRADE = addUpgradeTag(makeWrapperTag("upgrade/efficiency"), Type.BATTERY, UpgradeFunctions.getUpdateEnchantmentFunction(Enchantments.EFFICIENCY));
+    public static final Tag<Item> ATTACK_SPEED_UPGRADE = addUpgradeTag(makeWrapperTag("upgrade/speed"), Type.BATTERY, UpgradeFunctions.getUpgradeSpeedFunction());
+    public static final Tag<Item> EFFICIENCY_UPGRADE = addUpgradeTag(makeWrapperTag("upgrade/efficiency"), Type.BATTERY, UpgradeFunctions.getUpgradeEnchantmentFunction(Enchantments.EFFICIENCY));
     public static final Tag<Item> EFFICIENCY_REMOVER = addUpgradeTag(makeWrapperTag("upgrade/efficiency_remover"), Type.BATTERY, UpgradeFunctions.getRemoveEfficiencyFunction());
 
-    public static final Tag<Item> ATTACK_DAMAGE_UPGRADE = addUpgradeTag(makeWrapperTag("upgrade/damage"), Type.MEDIUM, UpgradeFunctions.getUpdateDamageFunction());
-    public static final Tag<Item> LIGHT_ELEMENT_UPGRADE = addUpgradeTag(makeWrapperTag("upgrade/light_element"), Type.MEDIUM, UpgradeFunctions.getUpdateEnchantmentFunction(ModEnchantments.LIGHT_ELEMENT));
+    public static final Tag<Item> ATTACK_DAMAGE_UPGRADE = addUpgradeTag(makeWrapperTag("upgrade/damage"), Type.MEDIUM, UpgradeFunctions.getUpgradeDamageFunction());
+    public static final Tag<Item> LIGHT_ELEMENT_UPGRADE = addUpgradeTag(makeWrapperTag("upgrade/light_element"), Type.MEDIUM, UpgradeFunctions.getUpgradeEnchantmentFunction(ModEnchantments.LIGHT_ELEMENT));
 
-    public static final Tag<Item> FIRE_ASPECT_UPGRADE = addUpgradeTag(makeWrapperTag("upgrade/fire_aspect"), Type.EMITTER, UpgradeFunctions.getUpdateEnchantmentFunction(Enchantments.FIRE_ASPECT));
-    public static final Tag<Item> SWEEPING_EDGE_UPGRADE = addUpgradeTag(makeWrapperTag("upgrade/sweeping_edge"), Type.EMITTER, UpgradeFunctions.getUpdateEnchantmentFunction(Enchantments.SWEEPING));
+    public static final Tag<Item> FIRE_ASPECT_UPGRADE = addUpgradeTag(makeWrapperTag("upgrade/fire_aspect"), Type.EMITTER, UpgradeFunctions.getUpgradeEnchantmentFunction(Enchantments.FIRE_ASPECT));
+    public static final Tag<Item> SWEEPING_EDGE_UPGRADE = addUpgradeTag(makeWrapperTag("upgrade/sweeping_edge"), Type.EMITTER, UpgradeFunctions.getUpgradeEnchantmentFunction(Enchantments.SWEEPING));
 
-    public static final Tag<Item> LOOTING_UPGRADE = addUpgradeTag(makeWrapperTag("upgrade/looting"), Type.CASING, UpgradeFunctions.getUpdateEnchantmentFunction(Enchantments.LOOTING));
-    public static final Tag<Item> MENDING_UPGRADE = addUpgradeTag(makeWrapperTag("upgrade/mending"), Type.CASING, UpgradeFunctions.getUpdateEnchantmentFunction(Enchantments.MENDING));
+    public static final Tag<Item> LOOTING_UPGRADE = addUpgradeTag(makeWrapperTag("upgrade/looting"), Type.CASING, UpgradeFunctions.getUpgradeEnchantmentFunction(Enchantments.LOOTING));
+    public static final Tag<Item> MENDING_UPGRADE = addUpgradeTag(makeWrapperTag("upgrade/mending"), Type.CASING, UpgradeFunctions.getUpgradeEnchantmentFunction(Enchantments.MENDING));
 
     public static final Tag<Item> CASING_REPAIR = addUpgradeTag(makeWrapperTag("casing_repair"), Type.REPAIR, UpgradeFunctions.getRepairFunction());
 

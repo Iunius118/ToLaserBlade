@@ -14,7 +14,7 @@ import java.util.Map;
 import java.util.function.Function;
 
 public class UpgradeFunctions {
-    public static Function<ItemStack, UpgradeResult> getUpdateEnchantmentFunction(Enchantment enchantment) {
+    public static Function<ItemStack, UpgradeResult> getUpgradeEnchantmentFunction(Enchantment enchantment) {
         return (stack) -> {
             int level = EnchantmentHelper.getEnchantmentLevel(enchantment, stack);
             int cost = 0;
@@ -64,7 +64,7 @@ public class UpgradeFunctions {
         };
     }
 
-    public static Function<ItemStack, UpgradeResult> getUpdateDamageFunction() {
+    public static Function<ItemStack, UpgradeResult> getUpgradeDamageFunction() {
         return (stack) -> {
             float attack = ModItems.LASER_BLADE.getLaserBladeATK(stack);
             float maxUpgradeCount = (float)ToLaserBladeConfig.COMMON.maxAttackDamageUpgradeCountInServer.get();
@@ -80,7 +80,7 @@ public class UpgradeFunctions {
         };
     }
 
-    public static Function<ItemStack, UpgradeResult> getUpdateSpeedFunction() {
+    public static Function<ItemStack, UpgradeResult> getUpgradeSpeedFunction() {
         return (stack) -> {
             float speed = ModItems.LASER_BLADE.getLaserBladeSPD(stack);
             int cost = 0;

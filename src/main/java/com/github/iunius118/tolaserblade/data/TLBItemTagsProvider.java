@@ -27,6 +27,6 @@ public class TLBItemTagsProvider extends ItemTagsProvider {
 
     @Override
     public String getName() {
-        return "ToLaserBlade Item Tags";
+        return "ToLaserBlade " + super.getName();
     }
 }

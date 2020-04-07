@@ -61,6 +61,6 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
 
     @Override
     public String getName() {
-        return "ToLaserBlade Recipes";
+        return "ToLaserBlade " + super.getName();
     }
 }
