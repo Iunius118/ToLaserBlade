@@ -22,7 +22,7 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
                 .patternLine("s")
                 .key('R', Items.REDSTONE_TORCH)
                 .key('s', Tags.Items.RODS_WOODEN)
-                .addCriterion("has_dx_laser_blade", hasItem(ModItems.DX_LASER_BLADE))
+                .addCriterion("has_redstone", hasItem(Items.REDSTONE))
                 .build(consumer, ModItems.DX_LASER_BLADE.getRegistryName());
 
         // Laser Blade with Light Element I
@@ -34,7 +34,7 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
                 .key('i', Tags.Items.INGOTS_IRON)
                 .key('d', Tags.Items.GEMS_DIAMOND)
                 .key('r', Tags.Items.DUSTS_REDSTONE)
-                .addCriterion("has_laser_blade", hasItem(ModItems.LASER_BLADE))
+                .addCriterion("has_redstone", hasItem(Items.REDSTONE))
                 .build(consumer, ModItems.LASER_BLADE.getRegistryName());
 
         // Laser Blade with Light Element II
@@ -46,7 +46,7 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
                 .key('i', Tags.Items.INGOTS_IRON)
                 .key('d', Tags.Items.GEMS_DIAMOND)
                 .key('r', Tags.Items.DUSTS_REDSTONE)
-                .addCriterion("has_laser_blade", hasItem(ModItems.LASER_BLADE))
+                .addCriterion("has_redstone", hasItem(Items.REDSTONE))
                 .build(consumer, ModItems.LASER_BLADE.getRegistryName() + "_1");
 
         // Laser Blade from parts
@@ -55,7 +55,7 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
                 .addIngredient(ModItems.LB_MEDIUM)
                 .addIngredient(ModItems.LB_EMITTER)
                 .addIngredient(ModItems.LB_CASING)
-                .addCriterion("has_laser_blade", hasItem(ModItems.LASER_BLADE))
+                .addCriterion("has_redstone", hasItem(Items.REDSTONE))
                 .build(consumer, ModItems.LASER_BLADE.getRegistryName() + "_2");
     }
 

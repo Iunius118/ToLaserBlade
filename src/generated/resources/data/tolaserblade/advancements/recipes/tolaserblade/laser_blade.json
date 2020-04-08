@@ -6,12 +6,12 @@
     ]
   },
   "criteria": {
-    "has_laser_blade": {
+    "has_redstone": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "tolaserblade:laser_blade"
+            "item": "minecraft:redstone"
           }
         ]
       }
@@ -25,7 +25,7 @@
   },
   "requirements": [
     [
-      "has_laser_blade",
+      "has_redstone",
       "has_the_recipe"
     ]
   ]
