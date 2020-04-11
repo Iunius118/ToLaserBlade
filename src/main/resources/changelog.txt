@@ -1,6 +1,15 @@
 ToLaserBlade
 Changelog
 
+v1.15.2-3.0.2.2
+
+    Bump version number to 3.0.2.2
+    Fix criteria of recipe advancements
+    Fix .obj model's group names
+    Fix GIFT enchanting
+    Fix IllegalArgumentException at JEI plugin
+
+
 v1.15.2-3.0.2.0
 
     Fix anvil recipes on JEI
