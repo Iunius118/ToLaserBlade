@@ -4,12 +4,14 @@ import com.github.iunius118.tolaserblade.enchantment.ModEnchantments;
 import com.github.iunius118.tolaserblade.item.LaserBladeItemBase;
 import com.github.iunius118.tolaserblade.item.ModItems;
 import com.github.iunius118.tolaserblade.tags.ModItemTags;
+import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.CarpetBlock;
 import net.minecraft.block.StainedGlassBlock;
 import net.minecraft.block.StainedGlassPaneBlock;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -35,22 +37,42 @@ public class LaserBladeUpgrade {
 
             // Use GIFT code
             if ("GIFT".equals(name) || /* "おたから" */ "\u304A\u305F\u304B\u3089".equals(name)) {
+                boolean hasUpgraded = false;
                 float atk = ModItems.LASER_BLADE.getLaserBladeATK(output);
                 Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(output);
-                int level = enchantments.getOrDefault(ModEnchantments.LIGHT_ELEMENT, 0);
-                boolean isAtkLessThan3 = atk < LaserBladeItemBase.MOD_ATK_CLASS_3;
-                boolean isLightElementLessThan5 = level < LaserBladeItemBase.LVL_LIGHT_ELEMENT_5;
+                int lightElementLevel = enchantments.getOrDefault(ModEnchantments.LIGHT_ELEMENT, 0);
+                int smiteLevel = enchantments.getOrDefault(Enchantments.SMITE, 0);
 
-                if (isAtkLessThan3) {
+                boolean isLightElementLessThan5 = lightElementLevel < LaserBladeItemBase.LVL_LIGHT_ELEMENT_5;
+
+                if (ModItems.LASER_BLADE.getLaserBladeATK(output) < LaserBladeItemBase.MOD_ATK_CLASS_3) {
+                    // Get attack damage 10
                     ModItems.LASER_BLADE.setLaserBladeATK(output, LaserBladeItemBase.MOD_ATK_CLASS_3);
+                    hasUpgraded = true;
                 }
 
-                if (isLightElementLessThan5) {
-                    enchantments.put(ModEnchantments.LIGHT_ELEMENT, LaserBladeItemBase.LVL_LIGHT_ELEMENT_5);
-                    EnchantmentHelper.setEnchantments(enchantments, output);
+                if (lightElementLevel < LaserBladeItemBase.LVL_LIGHT_ELEMENT_5) {
+                    // Get Light Element V
+                    lightElementLevel = LaserBladeItemBase.LVL_LIGHT_ELEMENT_5;
+                    hasUpgraded = true;
                 }
 
-                if (isAtkLessThan3 || isLightElementLessThan5) {
+                if (lightElementLevel < ModEnchantments.LIGHT_ELEMENT.getMaxLevel() && lightElementLevel < smiteLevel) {
+                    // Set Light Element from Smite level
+                    lightElementLevel = Math.min(smiteLevel, ModEnchantments.LIGHT_ELEMENT.getMaxLevel());
+                    hasUpgraded = true;
+                }
+
+                // Apply Enchantments to Laser Blade
+                enchantments.put(ModEnchantments.LIGHT_ELEMENT, lightElementLevel);
+                Map<Enchantment, Integer> newEnchantments = Maps.newLinkedHashMap();
+                enchantments.forEach((e, lvl) -> {
+                    if (e.isCompatibleWith(ModEnchantments.LIGHT_ELEMENT) || e.equals(ModEnchantments.LIGHT_ELEMENT))
+                        newEnchantments.put(e, lvl);
+                });
+                EnchantmentHelper.setEnchantments(newEnchantments, output);
+
+                if (hasUpgraded) {
                     output.clearCustomName();
                     ModItems.LASER_BLADE.setGripColor(output, LaserBladeItemBase.LBColor.BROWN.getGripColor());
                     ModItems.LASER_BLADE.setBladeInnerColor(output, LaserBladeItemBase.LBColor.WHITE.getBladeColor());
