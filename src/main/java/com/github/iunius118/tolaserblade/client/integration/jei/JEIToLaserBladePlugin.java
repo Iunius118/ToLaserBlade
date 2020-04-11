@@ -52,21 +52,36 @@ public class JEIToLaserBladePlugin implements IModPlugin {
         ModItems.LASER_BLADE.setBladeOuterColor(tintedLB, 0xFF333333);
         ModItems.LASER_BLADE.setBladeInnerColor(tintedLB, 0xFF666666);
         ModItems.LASER_BLADE.setGripColor(tintedLB, 0xFF666666);
+        List<ItemStack> right;
+        ItemStack output;
 
         // + StainedGlass -> BladeOuterColor
-        ItemStack output = tintedLB.copy();
-        ModItems.LASER_BLADE.setBladeOuterColor(output, LaserBladeItemBase.LBColor.SPECIAL_GAMING.getBladeColor());
-        list.add(factory.createAnvilRecipe(tintedLB.copy(), getUpgradeRecipes(Tags.Items.STAINED_GLASS), Collections.singletonList(output)));
+        right = getUpgradeRecipes(Tags.Items.STAINED_GLASS);
+
+        if (right.size() > 0) {
+            output = tintedLB.copy();
+            ModItems.LASER_BLADE.setBladeOuterColor(output, LaserBladeItemBase.LBColor.SPECIAL_GAMING.getBladeColor());
+            list.add(factory.createAnvilRecipe(tintedLB.copy(), right, Collections.singletonList(output)));
+        }
 
         // + StainedGlassPane -> BladeInnerColor
-        output = tintedLB.copy();
-        ModItems.LASER_BLADE.setBladeInnerColor(output, LaserBladeItemBase.LBColor.SPECIAL_GAMING.getBladeColor());
-        list.add(factory.createAnvilRecipe(tintedLB.copy(), getUpgradeRecipes(Tags.Items.STAINED_GLASS_PANES), Collections.singletonList(output)));
+        right = getUpgradeRecipes(Tags.Items.STAINED_GLASS_PANES);
+
+        if (right.size() > 0) {
+            output = tintedLB.copy();
+            ModItems.LASER_BLADE.setBladeInnerColor(output, LaserBladeItemBase.LBColor.SPECIAL_GAMING.getBladeColor());
+            list.add(factory.createAnvilRecipe(tintedLB.copy(), right, Collections.singletonList(output)));
+        }
+
 
         // + Carpet -> GripColor
-        output = tintedLB.copy();
-        ModItems.LASER_BLADE.setGripColor(output, LaserBladeItemBase.LBColor.SPECIAL_GAMING.getBladeColor());
-        list.add(factory.createAnvilRecipe(tintedLB.copy(), getUpgradeRecipes(ItemTags.CARPETS), Collections.singletonList(output)));
+        right = getUpgradeRecipes(ItemTags.CARPETS);
+
+        if (right.size() > 0) {
+            output = tintedLB.copy();
+            ModItems.LASER_BLADE.setGripColor(output, LaserBladeItemBase.LBColor.SPECIAL_GAMING.getBladeColor());
+            list.add(factory.createAnvilRecipe(tintedLB.copy(), right, Collections.singletonList(output)));
+        }
 
         return list;
     }
