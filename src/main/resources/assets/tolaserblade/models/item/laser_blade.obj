@@ -274,7 +274,7 @@ f 52/27/5 51/2/5 50/19/5 49/26/5
 f 56/19/6 55/26/6 54/29/6 53/28/6
 
 g hilt_2
-# Group hilt_2: normal rendering, mode 0 only, after hilt
+# Group hilt_2: normal rendering, mode 0 and 1 only, after hilt
 usemtl mat_hilt
 f 58/3/1 59/4/1 60/6/1 57/8/1
 
@@ -287,7 +287,7 @@ g hilt_bright
 usemtl mat_hilt_bright
 
 g blade_inner
-# Group blade_inner: additive rendering, mode 0 only, after hilt_bright
+# Group blade_inner: additive rendering, mode 0 and 1 only, after hilt_bright
 usemtl mat_blade_inner
 f 64/33/2 63/32/2 62/31/2 61/30/2
 f 68/37/3 67/36/3 66/35/3 65/34/3
@@ -297,7 +297,7 @@ f 80/42/1 79/31/1 78/41/1 77/40/1
 f 84/40/6 83/44/6 82/43/6 81/41/6
 
 g blade_outer_1
-# Group blade_outer_1: additive rendering, mode 0 only, after blade_inner
+# Group blade_outer_1: additive rendering, mode 0 and 1 only, after blade_inner
 usemtl mat_blade_outer_1
 f 88/48/2 87/47/2 86/46/2 85/45/2
 f 92/51/3 91/50/3 90/49/3 89/42/3
@@ -306,7 +306,7 @@ f 100/53/5 99/48/5 98/45/5 97/52/5
 f 104/55/1 103/46/1 102/54/1 101/22/1
 
 g blade_outer_2
-# Group blade_outer_2: additive rendering, mode 0 only, after blade_outer_1
+# Group blade_outer_2: additive rendering, mode 0 and 1 only, after blade_outer_1
 usemtl mat_blade_outer_2
 f 108/57/2 107/56/2 106/46/2 105/45/2
 f 112/59/3 111/58/3 110/49/3 109/42/3
