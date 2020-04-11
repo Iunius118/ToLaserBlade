@@ -28,12 +28,12 @@ Kd 1.00000 1.00000 1.00000 0.25000
 d 0.25000
 map_Kd tolaserblade:item/laser_blade
 
-newmtl mat_blade_outer_mode_1
+newmtl mat_blade_outer_mode_2
 Kd 1.00000 1.00000 1.00000 1.00000
 d 1.00000
 map_Kd tolaserblade:item/laser_blade
 
-newmtl mat_blade_inner_mode_1
+newmtl mat_blade_inner_mode_2
 Kd 1.00000 1.00000 1.00000 1.00000
 d 1.00000
 map_Kd tolaserblade:item/laser_blade

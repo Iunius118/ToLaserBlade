@@ -71,8 +71,8 @@ public class LaserBladeItemModel {
         BLADE_INNER("laser_blade/blade_inner"),
         BLADE_OUTER_1("laser_blade/blade_outer_1"),
         BLADE_OUTER_2("laser_blade/blade_outer_2"),
-        BLADE_OUTER_MODE_1("laser_blade/blade_outer_mode_1"),
-        BLADE_INNER_MODE_1("laser_blade/blade_inner_mode_1");
+        BLADE_OUTER_MODE_2("laser_blade/blade_outer_mode_2"),
+        BLADE_INNER_MODE_2("laser_blade/blade_inner_mode_2");
 
         private String name;
 

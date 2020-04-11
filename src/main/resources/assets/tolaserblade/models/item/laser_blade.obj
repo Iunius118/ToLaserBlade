@@ -315,9 +315,9 @@ f 120/60/5 119/57/5 118/45/5 117/52/5
 f 124/55/1 123/46/1 122/54/1 121/22/1
 f 128/62/6 127/61/6 126/54/6 125/22/6
 
-g blade_outer_mode_1
-# Group blade_outer_mode_1: light emissive rendering, mode 1 only, after hilt_bright
-usemtl mat_blade_outer_mode_1
+g blade_outer_mode_2
+# Group blade_outer_mode_2: light emissive rendering, mode 2 only, after hilt_bright
+usemtl mat_blade_outer_mode_2
 f 130/45/2 131/48/2 132/47/2 129/46/2
 f 134/42/3 135/51/3 136/50/3 133/49/3
 f 138/49/4 139/50/4 140/53/4 137/52/4
@@ -325,9 +325,9 @@ f 142/52/5 143/53/5 144/48/5 141/45/5
 f 146/54/6 147/46/6 148/55/6 145/22/6
 f 150/3/1 151/4/1 152/6/1 149/8/1
 
-g blade_inner_mode_1
-# Group blade_inner_mode_1: light emissive rendering, mode 1 only, after blade_outer_mode_1
-usemtl mat_blade_inner_mode_1
+g blade_inner_mode_2
+# Group blade_inner_mode_2: light emissive rendering, mode 2 only, after blade_outer_mode_2
+usemtl mat_blade_inner_mode_2
 f 156/33/2 155/32/2 154/31/2 153/30/2
 f 160/37/3 159/36/3 158/35/3 157/34/3
 f 164/36/4 163/39/4 162/38/4 161/35/4

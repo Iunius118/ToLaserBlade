@@ -107,8 +107,8 @@ public class LaserBladeItemRenderer extends ItemStackTileEntityRenderer {
 
         currentBuffer = buffer.getBuffer(LaserBladeRenderType.LASER_FLAT);
         renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemModel.Part.HILT_BRIGHT), -1, LIGHTMAP_BRIGHT, overlayColor);
-        renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemModel.Part.BLADE_OUTER_MODE_1), outerColor, LIGHTMAP_BRIGHT, overlayColor);
-        renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemModel.Part.BLADE_INNER_MODE_1), innerColor, LIGHTMAP_BRIGHT, overlayColor);
+        renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemModel.Part.BLADE_OUTER_MODE_2), outerColor, LIGHTMAP_BRIGHT, overlayColor);
+        renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemModel.Part.BLADE_INNER_MODE_2), innerColor, LIGHTMAP_BRIGHT, overlayColor);
     }
 
     public void renderQuads(MatrixStack matrixStack, IVertexBuilder buffer, List<BakedQuad> quads, int color, int lightmapCoord, int overlayColor) {
