@@ -1,7 +1,6 @@
 package com.github.iunius118.tolaserblade;
 
 import com.github.iunius118.tolaserblade.client.ClientEventHandler;
-import com.github.iunius118.tolaserblade.client.renderer.LaserBladeRenderType;
 import com.github.iunius118.tolaserblade.data.*;
 import com.github.iunius118.tolaserblade.enchantment.LightElementEnchantment;
 import com.github.iunius118.tolaserblade.enchantment.ModEnchantments;
@@ -29,7 +28,6 @@ import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLLoader;
@@ -59,7 +57,6 @@ public class ToLaserBlade {
     public ToLaserBlade() {
         // Register lifecycle event listeners
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        modEventBus.addListener(this::setupClient);
         modEventBus.register(ToLaserBladeConfig.class);
 
         // Register config handlers
@@ -67,25 +64,13 @@ public class ToLaserBlade {
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ToLaserBladeConfig.clientSpec);
 
         if (FMLLoader.getDist().isClient()) {
-            initClient();
+            // Register client-side mod event handler
+            modEventBus.register(new ClientEventHandler());
         }
 
         // Register event handlers
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new ItemEventHandler());
-    }
-
-    private void initClient() {
-        // Register client-side mod event handler
-        FMLJavaModLoadingContext.get().getModEventBus().register(new ClientEventHandler());
-
-        // Register render types
-        LaserBladeRenderType.preInitRenderTypes();
-    }
-
-    private void setupClient(final FMLClientSetupEvent event) {
-        // Post-process of render type registration
-        LaserBladeRenderType.postInitRenderTypes();
     }
 
     /*

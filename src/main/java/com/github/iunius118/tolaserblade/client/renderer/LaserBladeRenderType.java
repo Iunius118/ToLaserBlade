@@ -2,14 +2,15 @@ package com.github.iunius118.tolaserblade.client.renderer;
 
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
-import net.minecraft.client.renderer.Atlases;
-import net.minecraft.client.renderer.RenderState;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.model.ModelBakery;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL14;
+
+import java.lang.reflect.Field;
+import java.util.SortedMap;
 
 public class LaserBladeRenderType extends RenderType {
     public LaserBladeRenderType(String name, VertexFormat vertexFormat, int drawMode, int bufferSize, boolean useDelegate, boolean needsSorting, Runnable setupTask, Runnable clearTask) {
@@ -17,20 +18,33 @@ public class LaserBladeRenderType extends RenderType {
     }
 
     public static final RenderType HILT = Atlases.getTranslucentCullBlockType() ;
+    public static final RenderType LASER_FLAT = getRenderType("laser_flat", getLaserFlatRenderState());
     public static final RenderType LASER_ADD = getRenderType("laser_add", getLaserAddRenderState());
     public static final RenderType LASER_SUB = getRenderType("laser_sub", getLaserSubRenderState());
-    public static final RenderType LASER_FLAT = getRenderType("laser_flat", getLaserFlatRenderState());
 
-    public static void preInitRenderTypes() {
-        ModelBakery.DESTROY_RENDER_TYPES.add(LASER_ADD);
-        ModelBakery.DESTROY_RENDER_TYPES.add(LASER_SUB);
-        ModelBakery.DESTROY_RENDER_TYPES.add(LASER_FLAT);
+    static {
+        registerRenderTypes();
     }
 
-    public static void postInitRenderTypes() {
-        ModelBakery.DESTROY_RENDER_TYPES.remove(LASER_ADD);
-        ModelBakery.DESTROY_RENDER_TYPES.remove(LASER_SUB);
-        ModelBakery.DESTROY_RENDER_TYPES.remove(LASER_FLAT);
+    public static void registerRenderTypes() {
+        SortedMap<RenderType, BufferBuilder> fixedBuffers = null;
+        RenderTypeBuffers renderTypeBuffers = Minecraft.getInstance().getRenderTypeBuffers();
+
+        try {
+            // Get RenderTypeBuffers#fixedBuffers to register mod RenderTypes with reflection
+            final Field fieldFixedBuffers = renderTypeBuffers.getClass().getDeclaredField("fixedBuffers");
+            fieldFixedBuffers.setAccessible(true);
+            fixedBuffers = (SortedMap<RenderType, BufferBuilder>)fieldFixedBuffers.get(renderTypeBuffers);
+        } catch (ReflectiveOperationException e) {
+            e.printStackTrace();
+        }
+
+        if (fixedBuffers != null) {
+            // Register mod RenderTypes
+            fixedBuffers.put(LASER_FLAT, new BufferBuilder(LASER_FLAT.getBufferSize()));
+            fixedBuffers.put(LASER_ADD, new BufferBuilder(LASER_ADD.getBufferSize()));
+            fixedBuffers.put(LASER_SUB, new BufferBuilder(LASER_SUB.getBufferSize()));
+        }
     }
 
     private static RenderType getRenderType(String name, RenderType.State renderState) {
