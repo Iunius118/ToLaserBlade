@@ -5,6 +5,7 @@ import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.renderer.Atlases;
 import net.minecraft.client.renderer.RenderState;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.model.ModelBakery;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
 import org.lwjgl.opengl.GL11;
@@ -19,6 +20,18 @@ public class LaserBladeRenderType extends RenderType {
     public static final RenderType LASER_ADD = getRenderType("laser_add", getLaserAddRenderState());
     public static final RenderType LASER_SUB = getRenderType("laser_sub", getLaserSubRenderState());
     public static final RenderType LASER_FLAT = getRenderType("laser_flat", getLaserFlatRenderState());
+
+    public static void preInitRenderTypes() {
+        ModelBakery.DESTROY_RENDER_TYPES.add(LASER_ADD);
+        ModelBakery.DESTROY_RENDER_TYPES.add(LASER_SUB);
+        ModelBakery.DESTROY_RENDER_TYPES.add(LASER_FLAT);
+    }
+
+    public static void postInitRenderTypes() {
+        ModelBakery.DESTROY_RENDER_TYPES.remove(LASER_ADD);
+        ModelBakery.DESTROY_RENDER_TYPES.remove(LASER_SUB);
+        ModelBakery.DESTROY_RENDER_TYPES.remove(LASER_FLAT);
+    }
 
     private static RenderType getRenderType(String name, RenderType.State renderState) {
         return RenderType.makeType(name, DefaultVertexFormats.ENTITY, GL11.GL_QUADS, 256, false, false, renderState);
