@@ -2,11 +2,13 @@ package com.github.iunius118.tolaserblade.item;
 
 import com.github.iunius118.tolaserblade.ToLaserBladeConfig;
 import com.github.iunius118.tolaserblade.client.renderer.item.LaserBladeItemRenderer;
+import com.github.iunius118.tolaserblade.dispenser.DispenseLaserBladeBehavior;
 import com.github.iunius118.tolaserblade.enchantment.ModEnchantments;
 import com.github.iunius118.tolaserblade.item.upgrade.LaserBladeUpgrade;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.block.BlockState;
+import net.minecraft.block.DispenserBlock;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
@@ -47,7 +49,11 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
         tier = getTier();
         attackDamage = 3.0F + tier.getAttackDamage();
         attackSpeed = -1.2F;
+
+        // Add blocking prop
         addPropertyOverride(new ResourceLocation("blocking"), BLOCKING_GETTER);
+        // Register dispense behavior
+        DispenserBlock.registerDispenseBehavior(this, new DispenseLaserBladeBehavior());
     }
 
     @Override

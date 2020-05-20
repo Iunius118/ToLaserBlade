@@ -58,6 +58,9 @@ public class Ja_jpLanguageProvider extends LanguageProvider {
         add("tolaserblade.configgui.common.enableBlockingWithLaserBlade", "レーザーブレイドによる防御を有効にする");
         add("tolaserblade.configgui.common.laserBladeEfficiency", "レーザーブレイドの採掘速度 (0–128)");
         add("tolaserblade.configgui.common.maxAttackDamageUpgradeCount", "攻撃力の最大強化回数 (0–39)");
+        add("tolaserblade.configgui.common.enableLaserTrap", "レーザートラップを有効にする");
+        add("tolaserblade.configgui.common.canLaserTrapAttackPlayer", "レーザートラップがプレイヤーへ攻撃可能か");
+
         add("tolaserblade.configgui.client.enableLaserBlade3DModel", "レーザーブレイドを3Dモデルで描画する");
         add("tolaserblade.configgui.client.laserBladeRenderingMode", "レーザーブレイドの描画モード (0–2)");
 

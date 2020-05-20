@@ -1,13 +1,18 @@
 package com.github.iunius118.tolaserblade;
 
 import com.github.iunius118.tolaserblade.client.ClientEventHandler;
+import com.github.iunius118.tolaserblade.client.renderer.entity.LaserTrapEntityRenderer;
 import com.github.iunius118.tolaserblade.data.*;
 import com.github.iunius118.tolaserblade.enchantment.LightElementEnchantment;
+import com.github.iunius118.tolaserblade.entity.LaserTrapEntity;
+import com.github.iunius118.tolaserblade.entity.ModEntities;
 import com.github.iunius118.tolaserblade.item.*;
 import com.github.iunius118.tolaserblade.network.NetworkHandler;
 import com.github.iunius118.tolaserblade.network.ServerConfigMessage;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.entity.EntityClassification;
+import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
@@ -23,9 +28,11 @@ import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
+import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.Mod.EventBusSubscriber;
 import net.minecraftforge.fml.config.ModConfig;
+import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLLoader;
@@ -52,20 +59,26 @@ public class ToLaserBlade {
     public ToLaserBlade() {
         // Register lifecycle event listeners
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        modEventBus.addListener(this::initClient);
         modEventBus.register(ToLaserBladeConfig.class);
 
         // Register config handlers
         ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ToLaserBladeConfig.commonSpec);
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ToLaserBladeConfig.clientSpec);
 
-        if (FMLLoader.getDist().isClient()) {
-            // Register client-side mod event handler
-            modEventBus.register(new ClientEventHandler());
-        }
-
         // Register event handlers
         MinecraftForge.EVENT_BUS.register(this);
         MinecraftForge.EVENT_BUS.register(new ItemEventHandler());
+
+        // Register client-side mod event handler
+        if (FMLLoader.getDist().isClient()) {
+            modEventBus.register(new ClientEventHandler());
+        }
+    }
+
+    private void initClient(final FMLClientSetupEvent event) {
+        // Register laser trap entity renderer
+        RenderingRegistry.registerEntityRenderingHandler(ModEntities.LASER_TRAP, LaserTrapEntityRenderer::new);
     }
 
     /*
@@ -95,6 +108,19 @@ public class ToLaserBlade {
         public static void onEnchantmentRegistry(final RegistryEvent.Register<Enchantment> event) {
             event.getRegistry().registerAll(
                     new LightElementEnchantment().setRegistryName(LightElementEnchantment.ID)
+            );
+        }
+
+        @SubscribeEvent
+        public static void registerEntities(RegistryEvent.Register<EntityType<?>> event) {
+            EntityType<LaserTrapEntity> laserTrap = EntityType.Builder
+                    .<LaserTrapEntity>create(LaserTrapEntity::new, EntityClassification.MISC)
+                    .size(1.0F, 1.0F).immuneToFire()
+                    .setTrackingRange(64).setUpdateInterval(4).setShouldReceiveVelocityUpdates(false)
+                    .build(LaserTrapEntity.ID.toString());
+
+            event.getRegistry().registerAll(
+                    laserTrap.setRegistryName(LaserTrapEntity.ID)
             );
         }
 

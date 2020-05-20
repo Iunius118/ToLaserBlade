@@ -24,6 +24,10 @@ public class ToLaserBladeConfig {
         public final IntValue maxAttackDamageUpgradeCount;
         public Supplier<Integer> maxAttackDamageUpgradeCountInServer;
 
+        // These values are not synced with client
+        public final BooleanValue isEnabledLaserTrap;
+        public final BooleanValue canLaserTrapAttackPlayer;
+
         Common(ForgeConfigSpec.Builder builder) {
             builder.comment("ToLaserBlade's common settings.").push("common");
 
@@ -47,6 +51,18 @@ public class ToLaserBladeConfig {
                             "Default: 8")
                     .translation("tolaserblade.configgui.common.maxAttackDamageUpgradeCount")
                     .defineInRange("maxAttackDamageUpgradeCount", 8, 0, 39);
+
+            isEnabledLaserTrap = builder
+                    .comment("Enable to attack with Laser Blade in Dispenser when the dispenser is activated.\n" +
+                            "Default: true")
+                    .translation("tolaserblade.configgui.common.enableLaserTrap")
+                    .define("enableLaserTrap", true);
+
+            canLaserTrapAttackPlayer = builder
+                    .comment("A boolean value represents whether laser trap can attack player or not.\n" +
+                            "Default: false")
+                    .translation("tolaserblade.configgui.common.canLaserTrapAttackPlayer")
+                    .define("canLaserTrapAttackPlayer", false);
 
             builder.pop();
         }
