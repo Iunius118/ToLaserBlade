@@ -17,7 +17,7 @@ public class LaserBladeRenderType extends RenderType {
         super(name, vertexFormat, drawMode, bufferSize, useDelegate, needsSorting, setupTask, clearTask);
     }
 
-    public static final RenderType HILT = Atlases.getTranslucentCullBlockType() ;
+    public static final RenderType HILT = Atlases.getTranslucentCullBlockType();
     public static final RenderType LASER_FLAT = getRenderType("laser_flat", getLaserFlatRenderState());
     public static final RenderType LASER_ADD = getRenderType("laser_add", getLaserAddRenderState());
     public static final RenderType LASER_SUB = getRenderType("laser_sub", getLaserSubRenderState());
@@ -32,7 +32,24 @@ public class LaserBladeRenderType extends RenderType {
 
         try {
             // Get RenderTypeBuffers#fixedBuffers to register mod RenderTypes with reflection
-            final Field fieldFixedBuffers = renderTypeBuffers.getClass().getDeclaredField("fixedBuffers");
+            final Field[] fields = renderTypeBuffers.getClass().getDeclaredFields();
+            String fieldName1 = "fixedBuffers";
+            String fieldName2 = "field_228480_b_";
+            Field fieldFixedBuffers = null;
+
+            for (Field field : fields) {
+                String name = field.getName();
+                if (name.equals(fieldName1) || name.equals(fieldName2)) {
+                    fieldFixedBuffers = field;
+                    // ToLaserBlade.LOGGER.info("Add ToLaserBlade render types to RenderTypeBuffers." + name);
+                    break;
+                }
+            }
+
+            if (fieldFixedBuffers == null) {
+                throw new NoSuchFieldException(fieldName1);
+            }
+
             fieldFixedBuffers.setAccessible(true);
             fixedBuffers = (SortedMap<RenderType, BufferBuilder>)fieldFixedBuffers.get(renderTypeBuffers);
         } catch (ReflectiveOperationException e) {
