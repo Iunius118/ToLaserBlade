@@ -1,6 +1,11 @@
 ToLaserBlade
 Changelog
 
+v1.15.2-3.0.3.1
+
+    Add laser trap to attack by Laser Blade put in dispenser
+
+
 v1.15.2-3.0.2.2
 
     Bump version number to 3.0.2.2
