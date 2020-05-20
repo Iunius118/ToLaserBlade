@@ -1,7 +1,7 @@
-package com.github.iunius118.tolaserblade.client.renderer;
+package com.github.iunius118.tolaserblade.client.renderer.item;
 
 import com.github.iunius118.tolaserblade.client.model.LaserBladeItemModel;
-import com.github.iunius118.tolaserblade.item.LaserBladeItemBase;
+import com.github.iunius118.tolaserblade.client.renderer.LaserBladeRenderType;
 import com.github.iunius118.tolaserblade.item.ModItems;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;

@@ -3,11 +3,9 @@ package com.github.iunius118.tolaserblade;
 import com.github.iunius118.tolaserblade.client.ClientEventHandler;
 import com.github.iunius118.tolaserblade.data.*;
 import com.github.iunius118.tolaserblade.enchantment.LightElementEnchantment;
-import com.github.iunius118.tolaserblade.enchantment.ModEnchantments;
 import com.github.iunius118.tolaserblade.item.*;
 import com.github.iunius118.tolaserblade.network.NetworkHandler;
 import com.github.iunius118.tolaserblade.network.ServerConfigMessage;
-import com.github.iunius118.tolaserblade.util.ModSoundEvents;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.player.PlayerEntity;
@@ -45,9 +43,6 @@ public class ToLaserBlade {
     public static final String MOD_NAME = "ToLaserBlade";
 
     public static final Logger LOGGER = LogManager.getLogger();
-    public static final ModItems ITEMS = new ModItems();
-    public static final ModEnchantments ENCHANTMENTS = new ModEnchantments();
-    public static final ModSoundEvents SOUND_EVENTS = new ModSoundEvents();
 
     public static boolean hasShownUpdate = false;
 

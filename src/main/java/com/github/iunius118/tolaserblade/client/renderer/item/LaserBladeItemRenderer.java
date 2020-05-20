@@ -1,7 +1,8 @@
-package com.github.iunius118.tolaserblade.client.renderer;
+package com.github.iunius118.tolaserblade.client.renderer.item;
 
 import com.github.iunius118.tolaserblade.ToLaserBladeConfig;
 import com.github.iunius118.tolaserblade.client.model.LaserBladeItemModel;
+import com.github.iunius118.tolaserblade.client.renderer.LaserBladeRenderType;
 import com.github.iunius118.tolaserblade.item.ModItems;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
@@ -113,9 +114,9 @@ public class LaserBladeItemRenderer extends ItemStackTileEntityRenderer {
 
     public void renderQuads(MatrixStack matrixStack, IVertexBuilder buffer, List<BakedQuad> quads, int color, int lightmapCoord, int overlayColor) {
         MatrixStack.Entry matrixEntry = matrixStack.getLast();
-        float alpha = (float)(color >> 24 & 255) / 255.0F;
-        float red   = (float)(color >> 16 & 255) / 255.0F;
-        float green = (float)(color >> 8 & 255) / 255.0F;
+        float alpha = (float)(color >>> 24 & 255) / 255.0F;
+        float red   = (float)(color >>> 16 & 255) / 255.0F;
+        float green = (float)(color >>> 8 & 255) / 255.0F;
         float blue  = (float)(color & 255) / 255.0F;
 
         for (BakedQuad quad : quads) {
