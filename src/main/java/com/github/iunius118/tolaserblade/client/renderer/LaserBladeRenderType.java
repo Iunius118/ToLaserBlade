@@ -6,10 +6,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.renderer.vertex.VertexFormat;
+import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL14;
 
 import java.lang.reflect.Field;
+import java.util.Map;
 import java.util.SortedMap;
 
 public class LaserBladeRenderType extends RenderType {
@@ -21,18 +23,17 @@ public class LaserBladeRenderType extends RenderType {
     public static final RenderType LASER_FLAT = getBladeRenderType("laser_flat", getLaserFlatRenderState());
     public static final RenderType LASER_ADD = getBladeRenderType("laser_add", getLaserAddRenderState());
     public static final RenderType LASER_SUB = getBladeRenderType("laser_sub", getLaserSubRenderState());
-    public static final RenderType LASER_TRAP = getTrapRenderType("laser_trap", getLaserTrapRenderState());
 
     static {
         registerRenderTypes();
     }
 
     private static RenderType getBladeRenderType(String name, RenderType.State renderState) {
-        return RenderType.makeType(name, DefaultVertexFormats.ENTITY, GL11.GL_QUADS, 256, false, false, renderState);
+        return RenderType.makeType(name, DefaultVertexFormats.ENTITY, GL11.GL_QUADS, 256, true, false, renderState);
     }
 
-    private static RenderType getTrapRenderType(String name, RenderType.State renderState) {
-        return RenderType.makeType(name, DefaultVertexFormats.POSITION_COLOR_LIGHTMAP, GL11.GL_QUADS, 256, false, false, renderState);
+    public static RenderType getTrapRenderType(ResourceLocation locationIn) {
+        return RenderType.makeType("laser_trap", DefaultVertexFormats.ENTITY, GL11.GL_QUADS, 256, true, false, getLaserTrapRenderState(locationIn));
     }
 
     private static RenderType.State getLaserFlatRenderState() {
@@ -75,16 +76,19 @@ public class LaserBladeRenderType extends RenderType {
                 .build(true);
     }
 
-    private static RenderType.State getLaserTrapRenderState() {
+    private static RenderType.State getLaserTrapRenderState(ResourceLocation locationIn) {
         return RenderType.State.getBuilder()
+                .texture(new RenderState.TextureState(locationIn, false, false))
                 .transparency(NO_TRANSPARENCY)
                 .alpha(DEFAULT_ALPHA)
                 .lightmap(LIGHTMAP_ENABLED)
+                .overlay(OVERLAY_ENABLED)
                 .build(true);
     }
 
+    @SuppressWarnings("unchecked")  // Unchecked cast to Map
     private static void registerRenderTypes() {
-        SortedMap<RenderType, BufferBuilder> fixedBuffers = null;
+        Map<Object, Object> fixedBuffers = null;
         RenderTypeBuffers renderTypeBuffers = Minecraft.getInstance().getRenderTypeBuffers();
 
         try {
@@ -108,7 +112,11 @@ public class LaserBladeRenderType extends RenderType {
             }
 
             fieldFixedBuffers.setAccessible(true);
-            fixedBuffers = (SortedMap<RenderType, BufferBuilder>)fieldFixedBuffers.get(renderTypeBuffers);
+            Object objFixedBuffers = fieldFixedBuffers.get(renderTypeBuffers);
+
+            if (objFixedBuffers instanceof SortedMap) {
+                fixedBuffers = (Map<Object, Object>)objFixedBuffers;
+            }
         } catch (ReflectiveOperationException e) {
             e.printStackTrace();
         }
