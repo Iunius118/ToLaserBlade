@@ -1,6 +1,7 @@
 package com.github.iunius118.tolaserblade.client.renderer.entity;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
+import com.github.iunius118.tolaserblade.client.renderer.Color4Float;
 import com.github.iunius118.tolaserblade.client.renderer.LaserBladeRenderType;
 import com.github.iunius118.tolaserblade.client.renderer.entity.model.LaserTrapModel;
 import com.github.iunius118.tolaserblade.entity.LaserTrapEntity;
@@ -26,7 +27,7 @@ public class LaserTrapEntityRenderer extends EntityRenderer<LaserTrapEntity> {
     public void render(LaserTrapEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
         matrixStackIn.push();
 
-        Color4f c = new Color4f(entityIn.getColor());
+        Color4Float c = new Color4Float(entityIn.getColor());
         LASER_TRAP_MODEL.setRotationAngles(entityIn, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F);
         // Render shape (write depth)
         IVertexBuilder buffer = bufferIn.getBuffer(LaserBladeRenderType.getTrapRenderType(LASER_TRAP_TEXTURE));
@@ -36,20 +37,6 @@ public class LaserTrapEntityRenderer extends EntityRenderer<LaserTrapEntity> {
         //LASER_TRAP_MODEL.render(matrixStackIn, buffer, FULL_LIGHT, OverlayTexture.NO_OVERLAY, c.r, c.g, c.b, c.a);
 
         matrixStackIn.pop();
-    }
-
-    private static class Color4f {
-        public final float b;
-        public final float g;
-        public final float r;
-        public final float a;
-
-        public Color4f(int color) {
-            b = (float)(color & 0xFF) / 0xFF;
-            g = (float)((color >>> 8) & 0xFF) / 0xFF;
-            r = (float)((color >>> 16) & 0xFF) / 0xFF;
-            a = (float)((color >>> 24) & 0xFF) / 0xFF;
-        }
     }
 
     @Override
