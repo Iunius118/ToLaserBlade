@@ -2,7 +2,8 @@ package com.github.iunius118.tolaserblade.client;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.client.model.LaserBladeItemBakedModel;
-import com.github.iunius118.tolaserblade.client.model.LaserBladeItemModel;
+import com.github.iunius118.tolaserblade.client.model.LaserBladeItemModelHolder;
+import com.github.iunius118.tolaserblade.client.model.LaserBladeItemOBJModel;
 import com.github.iunius118.tolaserblade.item.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
@@ -47,7 +48,10 @@ public class ClientEventHandler {
         event.getModelRegistry().put(laserBladeItemID, new LaserBladeItemBakedModel(event.getModelRegistry().get(laserBladeItemID)));
         event.getModelRegistry().put(lBBrokenItemID, new LaserBladeItemBakedModel(event.getModelRegistry().get(lBBrokenItemID)));
 
-        LaserBladeItemModel.loadLaserBladeOBJModel(event.getModelLoader());
+
+        LaserBladeItemOBJModel objModel = new LaserBladeItemOBJModel();
+        objModel.loadLaserBladeOBJModel(event.getModelLoader());
+        LaserBladeItemModelHolder.setModel(objModel);
     }
 
     public static void checkUpdate() {

@@ -26,7 +26,7 @@ import java.util.Random;
 
 @SuppressWarnings("deprecation") // for getQuads, getParticleTexture and ItemCameraTransforms
 public class LaserBladeItemBakedModel implements IBakedModel {
-    public static final ModelProperty<LaserBladeItemModel.Part> MODEL_PART_DATA = new ModelProperty<>();
+    public static final ModelProperty<LaserBladeItemOBJModel.Part> MODEL_PART_DATA = new ModelProperty<>();
     public IBakedModel bakedJSONModel;
     ItemStack itemStack = ItemStack.EMPTY;
     HandSide primaryHand = HandSide.RIGHT;
@@ -49,11 +49,6 @@ public class LaserBladeItemBakedModel implements IBakedModel {
     @Nonnull
     @Override
     public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @Nonnull Random rand, @Nonnull IModelData modelData) {
-        if (modelData.hasProperty(MODEL_PART_DATA)) {
-            LaserBladeItemModel.Part part = modelData.getData(MODEL_PART_DATA);
-            return LaserBladeItemModel.parts.getOrDefault(part, Collections.emptyList());
-        }
-
         return Collections.emptyList();
     }
 

@@ -1,12 +1,19 @@
 package com.github.iunius118.tolaserblade.client.model;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
+import com.github.iunius118.tolaserblade.client.renderer.LaserBladeItemColor;
+import com.github.iunius118.tolaserblade.client.renderer.LaserBladeRenderType;
 import com.google.common.collect.Maps;
+import com.mojang.blaze3d.matrix.MatrixStack;
+import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.model.BakedQuad;
 import net.minecraft.client.renderer.model.BlockModel;
 import net.minecraft.client.renderer.model.IUnbakedModel;
 import net.minecraft.client.renderer.model.ItemOverrideList;
+import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.BlockModelConfiguration;
@@ -20,10 +27,12 @@ import net.minecraftforge.client.model.obj.OBJModel;
 
 import java.util.*;
 
-public class LaserBladeItemModel {
-    public static Map<Part, List<BakedQuad>> parts = Maps.newEnumMap(Part.class);
+public class LaserBladeItemOBJModel extends SimpleItemModel {
+    private static final ResourceLocation TEXTURE = new ResourceLocation(ToLaserBlade.MOD_ID, "textures/item/laser_blade.png");
+    private static final int FULL_LIGHT = 0xF000F0;
+    private static final Map<Part, List<BakedQuad>> parts = Maps.newEnumMap(Part.class);
 
-    public static void loadLaserBladeOBJModel(ModelLoader loader) {
+    public void loadLaserBladeOBJModel(ModelLoader loader) {
         // Load model
         parts.clear();
         ResourceLocation modelLocation = new ResourceLocation(ToLaserBlade.MOD_ID, "item/laser_blade_obj");
@@ -61,6 +70,51 @@ public class LaserBladeItemModel {
                 parts.put(part, builder.build().getQuads(null, null, new Random(42L), EmptyModelData.INSTANCE));
             }
         }
+    }
+
+    @Override
+    public void render(ItemStack itemStack, MatrixStack matrixStack, IRenderTypeBuffer buffer, int lightmapCoord, int overlayColor) {
+        LaserBladeItemColor color = new LaserBladeItemColor(itemStack);
+
+        IVertexBuilder currentBuffer = buffer.getBuffer(LaserBladeRenderType.HILT);
+        renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemOBJModel.Part.HILT), color.gripColor, lightmapCoord, overlayColor);
+        renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemOBJModel.Part.HILT_2), color.gripColor, lightmapCoord, overlayColor);
+        renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemOBJModel.Part.HILT_NO_TINT), -1, lightmapCoord, overlayColor);
+
+        currentBuffer = buffer.getBuffer(LaserBladeRenderType.LASER_FLAT);
+        renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemOBJModel.Part.HILT_BRIGHT), -1, FULL_LIGHT, overlayColor);
+
+        if (color.isBroken) {
+            return;
+        }
+
+        currentBuffer = color.isInnerSubColor ? buffer.getBuffer(LaserBladeRenderType.LASER_SUB) : buffer.getBuffer(LaserBladeRenderType.LASER_ADD);
+        renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemOBJModel.Part.BLADE_INNER), color.innerColor, FULL_LIGHT, overlayColor);
+
+        currentBuffer = color.isOuterSubColor ? buffer.getBuffer(LaserBladeRenderType.LASER_SUB) : buffer.getBuffer(LaserBladeRenderType.LASER_ADD);
+        renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemOBJModel.Part.BLADE_OUTER_1), color.outerColor, FULL_LIGHT, overlayColor);
+        renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemOBJModel.Part.BLADE_OUTER_2), color.outerColor, FULL_LIGHT, overlayColor);
+    }
+
+    public void renderQuads(MatrixStack matrixStack, IVertexBuilder buffer, List<BakedQuad> quads, int color, int lightmapCoord, int overlayColor) {
+        MatrixStack.Entry matrixEntry = matrixStack.getLast();
+        float alpha = (float)(color >>> 24 & 255) / 255.0F;
+        float red   = (float)(color >>> 16 & 255) / 255.0F;
+        float green = (float)(color >>> 8 & 255) / 255.0F;
+        float blue  = (float)(color & 255) / 255.0F;
+
+        for (BakedQuad quad : quads) {
+            buffer.addVertexData(matrixEntry, quad, red, green, blue, alpha, lightmapCoord, OverlayTexture.NO_OVERLAY, true);
+        }
+    }
+
+    public List<BakedQuad> getBakedQuads(LaserBladeItemOBJModel.Part part) {
+        return LaserBladeItemOBJModel.parts.getOrDefault(part, Collections.emptyList());
+    }
+
+    @Override
+    public ResourceLocation getTexture(ItemStack itemStack) {
+        return TEXTURE;
     }
 
     public enum Part {
