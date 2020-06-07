@@ -115,9 +115,9 @@ public class SimpleItemModel {
         }
     }
 
-    private static final ResourceLocation TEXTURE_WHITE = new ResourceLocation("forge", "textures/white.png");
+    public static final ResourceLocation TEXTURE_WHITE = new ResourceLocation("forge", "textures/white.png");
 
-    public ResourceLocation getTexture(ItemStack itemStack) {
+    public ResourceLocation getTexture() {
         return TEXTURE_WHITE;
     };
 }

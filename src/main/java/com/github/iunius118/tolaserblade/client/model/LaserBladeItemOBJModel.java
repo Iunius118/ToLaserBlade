@@ -13,6 +13,7 @@ import net.minecraft.client.renderer.model.BlockModel;
 import net.minecraft.client.renderer.model.IUnbakedModel;
 import net.minecraft.client.renderer.model.ItemOverrideList;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.inventory.container.PlayerContainer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
@@ -28,13 +29,12 @@ import net.minecraftforge.client.model.obj.OBJModel;
 import java.util.*;
 
 public class LaserBladeItemOBJModel extends SimpleItemModel {
-    private static final ResourceLocation TEXTURE = new ResourceLocation(ToLaserBlade.MOD_ID, "textures/item/laser_blade.png");
-    private static final int FULL_LIGHT = 0xF000F0;
-    private static final Map<Part, List<BakedQuad>> parts = Maps.newEnumMap(Part.class);
+    private final Map<Part, List<BakedQuad>> PARTS = Maps.newEnumMap(Part.class);
+    private final ResourceLocation TEXTURE = PlayerContainer.LOCATION_BLOCKS_TEXTURE;
 
     public void loadLaserBladeOBJModel(ModelLoader loader) {
         // Load model
-        parts.clear();
+        PARTS.clear();
         ResourceLocation modelLocation = new ResourceLocation(ToLaserBlade.MOD_ID, "item/laser_blade_obj");
         IUnbakedModel model = loader.getModelOrMissing(modelLocation);
 
@@ -67,7 +67,7 @@ public class LaserBladeItemOBJModel extends SimpleItemModel {
             if (part != null) {
                 IModelBuilder<?> builder = IModelBuilder.of(modelConfig, ItemOverrideList.EMPTY, Minecraft.getInstance().getItemRenderer().getItemModelMesher().getParticleIcon(Items.IRON_INGOT));
                 geometryPart.addQuads(modelConfig, builder, loader, ModelLoader.defaultTextureGetter(), SimpleModelTransform.IDENTITY, modelLocation);
-                parts.put(part, builder.build().getQuads(null, null, new Random(42L), EmptyModelData.INSTANCE));
+                PARTS.put(part, builder.build().getQuads(null, null, new Random(42L), EmptyModelData.INSTANCE));
             }
         }
     }
@@ -75,6 +75,7 @@ public class LaserBladeItemOBJModel extends SimpleItemModel {
     @Override
     public void render(ItemStack itemStack, MatrixStack matrixStack, IRenderTypeBuffer buffer, int lightmapCoord, int overlayColor) {
         LaserBladeItemColor color = new LaserBladeItemColor(itemStack);
+        final int fullLight = 0xF000F0;
 
         IVertexBuilder currentBuffer = buffer.getBuffer(LaserBladeRenderType.HILT);
         renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemOBJModel.Part.HILT), color.gripColor, lightmapCoord, overlayColor);
@@ -82,18 +83,18 @@ public class LaserBladeItemOBJModel extends SimpleItemModel {
         renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemOBJModel.Part.HILT_NO_TINT), -1, lightmapCoord, overlayColor);
 
         currentBuffer = buffer.getBuffer(LaserBladeRenderType.LASER_FLAT);
-        renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemOBJModel.Part.HILT_BRIGHT), -1, FULL_LIGHT, overlayColor);
+        renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemOBJModel.Part.HILT_BRIGHT), -1, fullLight, overlayColor);
 
         if (color.isBroken) {
             return;
         }
 
         currentBuffer = color.isInnerSubColor ? buffer.getBuffer(LaserBladeRenderType.LASER_SUB) : buffer.getBuffer(LaserBladeRenderType.LASER_ADD);
-        renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemOBJModel.Part.BLADE_INNER), color.innerColor, FULL_LIGHT, overlayColor);
+        renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemOBJModel.Part.BLADE_INNER), color.innerColor, fullLight, overlayColor);
 
         currentBuffer = color.isOuterSubColor ? buffer.getBuffer(LaserBladeRenderType.LASER_SUB) : buffer.getBuffer(LaserBladeRenderType.LASER_ADD);
-        renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemOBJModel.Part.BLADE_OUTER_1), color.outerColor, FULL_LIGHT, overlayColor);
-        renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemOBJModel.Part.BLADE_OUTER_2), color.outerColor, FULL_LIGHT, overlayColor);
+        renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemOBJModel.Part.BLADE_OUTER_1), color.outerColor, fullLight, overlayColor);
+        renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemOBJModel.Part.BLADE_OUTER_2), color.outerColor, fullLight, overlayColor);
     }
 
     public void renderQuads(MatrixStack matrixStack, IVertexBuilder buffer, List<BakedQuad> quads, int color, int lightmapCoord, int overlayColor) {
@@ -109,11 +110,11 @@ public class LaserBladeItemOBJModel extends SimpleItemModel {
     }
 
     public List<BakedQuad> getBakedQuads(LaserBladeItemOBJModel.Part part) {
-        return LaserBladeItemOBJModel.parts.getOrDefault(part, Collections.emptyList());
+        return PARTS.getOrDefault(part, Collections.emptyList());
     }
 
     @Override
-    public ResourceLocation getTexture(ItemStack itemStack) {
+    public ResourceLocation getTexture() {
         return TEXTURE;
     }
 

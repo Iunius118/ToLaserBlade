@@ -15,9 +15,9 @@ import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.util.ResourceLocation;
 
 public class LaserTrapEntityRenderer extends EntityRenderer<LaserTrapEntity> {
-    private static final int FULL_LIGHT = 0xF000F0;
-    private static final LaserTrapModel LASER_TRAP_MODEL = new LaserTrapModel();
-    private static final ResourceLocation LASER_TRAP_TEXTURE = new ResourceLocation(ToLaserBlade.MOD_ID, "textures/entity/laser_trap/laser_trap.png");
+    private final LaserTrapModel LASER_TRAP_MODEL = new LaserTrapModel();
+    private final ResourceLocation LASER_TRAP_TEXTURE = new ResourceLocation(ToLaserBlade.MOD_ID, "textures/entity/laser_trap/laser_trap.png");
+    private final RenderType RENDER_TYPE = LaserBladeRenderType.getTrapRenderType(LASER_TRAP_TEXTURE);
 
     public LaserTrapEntityRenderer(EntityRendererManager renderManager) {
         super(renderManager);
@@ -30,10 +30,11 @@ public class LaserTrapEntityRenderer extends EntityRenderer<LaserTrapEntity> {
         Color4Float c = new Color4Float(entityIn.getColor());
         LASER_TRAP_MODEL.setRotationAngles(entityIn, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F);
         // Render shape (write depth)
-        IVertexBuilder buffer = bufferIn.getBuffer(LaserBladeRenderType.getTrapRenderType(LASER_TRAP_TEXTURE));
-        LASER_TRAP_MODEL.render(matrixStackIn, buffer, FULL_LIGHT, OverlayTexture.NO_OVERLAY, c.r, c.g, c.b, c.a);
+        final int fullLight = 0xF000F0;
+        IVertexBuilder buffer = bufferIn.getBuffer(RENDER_TYPE);
+        LASER_TRAP_MODEL.render(matrixStackIn, buffer, fullLight, OverlayTexture.NO_OVERLAY, c.r, c.g, c.b, c.a);
         // Render color
-        buffer = bufferIn.getBuffer(RenderType.getEyes(LASER_TRAP_TEXTURE));
+        //buffer = bufferIn.getBuffer(RenderType.getEyes(LASER_TRAP_TEXTURE));
         //LASER_TRAP_MODEL.render(matrixStackIn, buffer, FULL_LIGHT, OverlayTexture.NO_OVERLAY, c.r, c.g, c.b, c.a);
 
         matrixStackIn.pop();
