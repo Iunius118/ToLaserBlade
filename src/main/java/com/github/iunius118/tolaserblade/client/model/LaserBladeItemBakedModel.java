@@ -16,7 +16,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.model.data.EmptyModelData;
 import net.minecraftforge.client.model.data.IModelData;
-import net.minecraftforge.client.model.data.ModelProperty;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -26,20 +25,19 @@ import java.util.Random;
 
 @SuppressWarnings("deprecation") // for getQuads, getParticleTexture and ItemCameraTransforms
 public class LaserBladeItemBakedModel implements IBakedModel {
-    public static final ModelProperty<LaserBladeItemOBJModel.Part> MODEL_PART_DATA = new ModelProperty<>();
-    public IBakedModel bakedJSONModel;
+    public IBakedModel bakedExternalModel;
     ItemStack itemStack = ItemStack.EMPTY;
     HandSide primaryHand = HandSide.RIGHT;
     public boolean isBlocking = false;
 
-    public LaserBladeItemBakedModel(IBakedModel bakedJSONModelIn) {
+    public LaserBladeItemBakedModel(IBakedModel bakedExternalModelIn) {
         // For ModelBakeEvent
-        bakedJSONModel = bakedJSONModelIn;
+        bakedExternalModel = bakedExternalModelIn;
     }
 
     public LaserBladeItemBakedModel handleItemOverride(ItemStack itemStackIn, HandSide primaryHandIn, boolean isBlockingIn) {
         // For rendering
-        LaserBladeItemBakedModel newModel = new LaserBladeItemBakedModel(this.bakedJSONModel);
+        LaserBladeItemBakedModel newModel = new LaserBladeItemBakedModel(this.bakedExternalModel);
         newModel.itemStack = itemStackIn;
         newModel.primaryHand = primaryHandIn;
         newModel.isBlocking = isBlockingIn;
@@ -96,7 +94,7 @@ public class LaserBladeItemBakedModel implements IBakedModel {
                 if (model instanceof LaserBladeItemBakedModel) {
                     LaserBladeItemBakedModel laserBladeModel = (LaserBladeItemBakedModel) model;
 
-                    if (ToLaserBladeConfig.CLIENT.isEnabledLaserBlade3DModel.get()) {
+                    if (ToLaserBladeConfig.CLIENT.useInternalModel.get() || ToLaserBladeConfig.CLIENT.externalModelType.get() == 1) {
                         boolean isBlocking = false;
                         HandSide handSide = HandSide.RIGHT;
 
@@ -108,8 +106,8 @@ public class LaserBladeItemBakedModel implements IBakedModel {
                         return laserBladeModel.handleItemOverride(stack, handSide, isBlocking);
 
                     } else {
-                        // When 3D models are DISABLED
-                        return laserBladeModel.bakedJSONModel;
+                        // When use generated model
+                        return laserBladeModel.bakedExternalModel;
                     }
                 }
 
