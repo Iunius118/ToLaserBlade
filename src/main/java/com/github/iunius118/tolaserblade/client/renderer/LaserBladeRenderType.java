@@ -1,5 +1,6 @@
 package com.github.iunius118.tolaserblade.client.renderer;
 
+import com.github.iunius118.tolaserblade.ToLaserBladeConfig;
 import com.github.iunius118.tolaserblade.client.model.LaserBladeItemModelHolder;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
@@ -109,6 +110,11 @@ public class LaserBladeRenderType extends RenderType {
 
     @SuppressWarnings("unchecked")  // Unchecked cast to Map
     private static void registerRenderTypes() {
+        if (!ToLaserBladeConfig.CLIENT.useFixedVertexBuffer.get()) {
+            // Canceled
+            return;
+        }
+
         Map<Object, Object> fixedBuffers = null;
         RenderTypeBuffers renderTypeBuffers = Minecraft.getInstance().getRenderTypeBuffers();
 

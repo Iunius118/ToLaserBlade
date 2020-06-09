@@ -69,6 +69,7 @@ public class ToLaserBladeConfig {
     }
 
     public static class Client {
+        public final BooleanValue useFixedVertexBuffer;
         public final BooleanValue useInternalModel;
         public final IntValue internalModelType;
         public final IntValue externalModelType;
@@ -76,8 +77,15 @@ public class ToLaserBladeConfig {
         Client(ForgeConfigSpec.Builder builder) {
             builder.comment("ToLaserBlade's client side settings.").push("client");
 
+            useFixedVertexBuffer = builder
+                    .comment("Add mod's vertex buffers to Minecraft's fixed buffer list.\n" +
+                            "Need to restart client after changing this.\n" +
+                            "Default: true")
+                    .translation("tolaserblade.configgui.client.useFixedVertexBuffer")
+                    .define("useFixedVertexBuffer", true);
+
             useInternalModel = builder
-                    .comment("Enable Laser Blade to use internal model. " +
+                    .comment("Using internal model for rendering Laser Blade. " +
                             "Set to false to use the model that loaded from resource packs.\n" +
                             "Need to reload resource packs after changing this.\n" +
                             "Default: true")
