@@ -79,11 +79,10 @@ public class LaserBladeItemOBJModel extends SimpleItemModel {
 
         IVertexBuilder currentBuffer = buffer.getBuffer(LaserBladeRenderType.HILT);
         renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemOBJModel.Part.HILT), color.gripColor, lightmapCoord, overlayColor);
-        renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemOBJModel.Part.HILT_2), color.gripColor, lightmapCoord, overlayColor);
         renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemOBJModel.Part.HILT_NO_TINT), -1, lightmapCoord, overlayColor);
 
         currentBuffer = buffer.getBuffer(LaserBladeRenderType.LASER_FLAT);
-        renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemOBJModel.Part.HILT_BRIGHT), -1, fullLight, overlayColor);
+        renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemOBJModel.Part.HILT_LIGHT), -1, fullLight, overlayColor);
 
         if (color.isBroken) {
             return;
@@ -120,14 +119,11 @@ public class LaserBladeItemOBJModel extends SimpleItemModel {
 
     public enum Part {
         HILT("laser_blade/hilt"),
-        HILT_2("laser_blade/hilt_2"),
         HILT_NO_TINT("laser_blade/hilt_no_tint"),
-        HILT_BRIGHT("laser_blade/hilt_bright"),
+        HILT_LIGHT("laser_blade/hilt_light"),
         BLADE_INNER("laser_blade/blade_inner"),
         BLADE_OUTER_1("laser_blade/blade_outer_1"),
-        BLADE_OUTER_2("laser_blade/blade_outer_2"),
-        BLADE_OUTER_MODE_2("laser_blade/blade_outer_mode_2"),
-        BLADE_INNER_MODE_2("laser_blade/blade_inner_mode_2");
+        BLADE_OUTER_2("laser_blade/blade_outer_2");
 
         private String name;
 
