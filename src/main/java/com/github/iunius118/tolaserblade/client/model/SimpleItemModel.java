@@ -87,7 +87,7 @@ public class SimpleItemModel {
     }
 
 
-    public void renderFaces(MatrixStack matrixStack, IVertexBuilder buffer, List<FaceData> faces, int color, int lightmapCoord, int overlayColor) {
+    protected void renderFaces(MatrixStack matrixStack, IVertexBuilder buffer, List<FaceData> faces, int color, int lightmapCoord, int overlayColor) {
         MatrixStack.Entry matrixEntry = matrixStack.getLast();
         float alpha = (float)(color >>> 24 & 255) / 255.0F;
         float red   = (float)(color >>> 16 & 255) / 255.0F;

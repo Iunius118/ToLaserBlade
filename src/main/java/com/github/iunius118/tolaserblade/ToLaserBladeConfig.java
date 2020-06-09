@@ -85,19 +85,18 @@ public class ToLaserBladeConfig {
                     .define("useInternalModel", true);
 
             internalModelType = builder
-                    .comment("Select model type of Laser Blade. This is valid when useInternalModel is true. " +
-                            "Type 0: default, type 1: another model.\n" +
+                    .comment("Select type of internal model to use for rendering Laser Blade (0: original model, 1: another model). This is valid when useInternalModel is true.\n" +
                             "Need to reload resource packs after changing this.\n" +
-                            "Default: 0")
+                            "Default: -1")
                     .translation("tolaserblade.configgui.client.internalModelType")
-                    .defineInRange("internalModelType", 0, 0, Integer.MAX_VALUE);
+                    .defineInRange("internalModelType", -1, -1, Integer.MAX_VALUE);
 
             externalModelType = builder
-                    .comment("Select model type of Laser Blade. This is valid when useInternalModel is false. " +
-                            "Type 0: generated model, type 1: OBJ model.\n" +
+                    .comment("Select type of external model to use for rendering Laser Blade (0: generated model, 1: OBJ model). This is valid when useInternalModel is false.\n" +
+                            "Need to reload resource packs after changing this.\n" +
                             "Default: 0")
                     .translation("tolaserblade.configgui.client.externalModelType")
-                    .defineInRange("externalModelType", 0, 0, 1);
+                    .defineInRange("externalModelType", 0, 0, Integer.MAX_VALUE);
 
             builder.pop();
         }

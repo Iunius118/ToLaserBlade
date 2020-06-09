@@ -14,6 +14,7 @@ import net.minecraft.util.Direction;
 import net.minecraft.util.HandSide;
 import net.minecraft.world.World;
 import net.minecraftforge.client.ForgeHooksClient;
+import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.model.data.EmptyModelData;
 import net.minecraftforge.client.model.data.IModelData;
 
@@ -25,19 +26,13 @@ import java.util.Random;
 
 @SuppressWarnings("deprecation") // for getQuads, getParticleTexture and ItemCameraTransforms
 public class LaserBladeItemBakedModel implements IBakedModel {
-    public IBakedModel bakedExternalModel;
     ItemStack itemStack = ItemStack.EMPTY;
     HandSide primaryHand = HandSide.RIGHT;
     public boolean isBlocking = false;
 
-    public LaserBladeItemBakedModel(IBakedModel bakedExternalModelIn) {
-        // For ModelBakeEvent
-        bakedExternalModel = bakedExternalModelIn;
-    }
-
-    public LaserBladeItemBakedModel handleItemOverride(ItemStack itemStackIn, HandSide primaryHandIn, boolean isBlockingIn) {
+    private LaserBladeItemBakedModel handleItemOverride(ItemStack itemStackIn, HandSide primaryHandIn, boolean isBlockingIn) {
         // For rendering
-        LaserBladeItemBakedModel newModel = new LaserBladeItemBakedModel(this.bakedExternalModel);
+        LaserBladeItemBakedModel newModel = new LaserBladeItemBakedModel();
         newModel.itemStack = itemStackIn;
         newModel.primaryHand = primaryHandIn;
         newModel.isBlocking = isBlockingIn;
@@ -94,21 +89,15 @@ public class LaserBladeItemBakedModel implements IBakedModel {
                 if (model instanceof LaserBladeItemBakedModel) {
                     LaserBladeItemBakedModel laserBladeModel = (LaserBladeItemBakedModel) model;
 
-                    if (ToLaserBladeConfig.CLIENT.useInternalModel.get() || ToLaserBladeConfig.CLIENT.externalModelType.get() == 1) {
-                        boolean isBlocking = false;
-                        HandSide handSide = HandSide.RIGHT;
+                    boolean isBlocking = false;
+                    HandSide handSide = HandSide.RIGHT;
 
-                        if (entityIn != null) {
-                            isBlocking = ToLaserBladeConfig.COMMON.isEnabledBlockingWithLaserBladeInServer.get() && entityIn.isHandActive();
-                            handSide = entityIn.getPrimaryHand();
-                        }
-
-                        return laserBladeModel.handleItemOverride(stack, handSide, isBlocking);
-
-                    } else {
-                        // When use generated model
-                        return laserBladeModel.bakedExternalModel;
+                    if (entityIn != null) {
+                        isBlocking = ToLaserBladeConfig.COMMON.isEnabledBlockingWithLaserBladeInServer.get() && entityIn.isHandActive();
+                        handSide = entityIn.getPrimaryHand();
                     }
+
+                    return laserBladeModel.handleItemOverride(stack, handSide, isBlocking);
                 }
 
                 return model;
@@ -163,5 +152,22 @@ public class LaserBladeItemBakedModel implements IBakedModel {
         } else {
             return ITEM_TRANSFORMS;
         }
+    }
+
+    public void loadModel(ModelBakeEvent event) {
+        SimpleItemModel model;
+
+        if (ToLaserBladeConfig.CLIENT.useInternalModel.get()) {
+            // Use internal model
+            model = LaserBladeInternalModelManager.getModel();
+        } else {
+            // Use external model
+            // If ToLaserBladeConfig.CLIENT.externalModelType.get() == 1
+            LaserBladeItemOBJModel objModel = new LaserBladeItemOBJModel();
+            objModel.loadLaserBladeOBJModel(event.getModelLoader());
+            model = objModel;
+        }
+
+        LaserBladeItemModelHolder.setModel(model);
     }
 }
