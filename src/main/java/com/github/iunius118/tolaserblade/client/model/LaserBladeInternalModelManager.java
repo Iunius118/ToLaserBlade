@@ -1,6 +1,9 @@
 package com.github.iunius118.tolaserblade.client.model;
 
 import com.github.iunius118.tolaserblade.ToLaserBladeConfig;
+import com.github.iunius118.tolaserblade.client.model.laserblade.LaserBladeItemModelType0;
+import com.github.iunius118.tolaserblade.client.model.laserblade.LaserBladeItemModelType1;
+import com.github.iunius118.tolaserblade.client.model.laserblade.LaserBladeItemModelType217;
 
 import java.util.Calendar;
 
@@ -16,6 +19,8 @@ public class LaserBladeInternalModelManager {
         switch(modelType) {
             case 1:
                 return new LaserBladeItemModelType1();
+            case 217:
+                return new LaserBladeItemModelType217();
             default:
                 return new LaserBladeItemModelType0();
         }
