@@ -29,13 +29,16 @@
   "item.tolaserblade.lb_disassembled": "Disassembled Laser Blade",
   "item.tolaserblade.lb_emitter": "Laser Blade Emitter",
   "item.tolaserblade.lb_medium": "Laser Medium",
-  "tolaserblade.configgui.client.enableLaserBlade3DModel": "启用激光剑3D模型",
-  "tolaserblade.configgui.client.laserBladeRenderingMode": "激光剑渲染模式(0–2)",
+  "tolaserblade.configgui.client.externalModelType": "External Model Type",
+  "tolaserblade.configgui.client.internalModelType": "Internal Model Type",
+  "tolaserblade.configgui.client.useFixedVertexBuffer": "Use Fixed Vertex Buffer",
+  "tolaserblade.configgui.client.useInternalModel": "Use Internal Model",
+  "tolaserblade.configgui.common.canLaserTrapAttackPlayer": "Can Laser Trap Attack Player",
   "tolaserblade.configgui.common.enableBlockingWithLaserBlade": "启用激光剑格挡",
+  "tolaserblade.configgui.common.enableLaserTrap": "Enable Laser Trap",
   "tolaserblade.configgui.common.laserBladeEfficiency": "激光剑采掘速度(0–128)",
   "tolaserblade.configgui.common.maxAttackDamageUpgradeCount": "Max Count of Attack Damage Upgrade (0-39)",
   "tolaserblade.update.newVersion": "新版本 %s 已可用",
   "upgrade.tolaserblade.attackDamage": "Laser Power %s",
   "upgrade.tolaserblade.attackSpeed": "Recharge %s"
 }
-
