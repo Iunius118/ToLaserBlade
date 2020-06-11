@@ -1,6 +1,7 @@
-package com.github.iunius118.tolaserblade.client.model;
+package com.github.iunius118.tolaserblade.client.model.laserblade;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
+import com.github.iunius118.tolaserblade.client.model.SimpleItemModel;
 import com.github.iunius118.tolaserblade.client.renderer.LaserBladeItemColor;
 import com.github.iunius118.tolaserblade.client.renderer.LaserBladeRenderType;
 import com.google.common.collect.Maps;
