@@ -1,7 +1,7 @@
 package com.github.iunius118.tolaserblade.client.model.laserblade;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
-import com.github.iunius118.tolaserblade.client.model.SimpleItemModel;
+import com.github.iunius118.tolaserblade.client.model.SimpleModel;
 import com.github.iunius118.tolaserblade.client.renderer.LaserBladeItemColor;
 import com.github.iunius118.tolaserblade.client.renderer.LaserBladeRenderType;
 import com.google.common.collect.ImmutableList;
@@ -16,7 +16,7 @@ import net.minecraft.util.math.Vec2f;
 
 import java.util.List;
 
-public class LaserBladeItemModelType217 extends SimpleItemModel {
+public class LaserBladeModelType217 extends SimpleModel {
     private final ResourceLocation TEXTURE = new ResourceLocation(ToLaserBlade.MOD_ID, "textures/item/internal/laser_blade_217.png");
 
     @Override
@@ -25,19 +25,19 @@ public class LaserBladeItemModelType217 extends SimpleItemModel {
         final int fullLight = 0xF000F0;
 
         IVertexBuilder currentBuffer = buffer.getBuffer(LaserBladeRenderType.HILT);
-        renderFaces(matrixStack, currentBuffer, hiltFaces, color.gripColor, lightmapCoord, overlayColor);
+        renderQuads(matrixStack, currentBuffer, hiltQuads, color.gripColor, lightmapCoord, overlayColor);
 
         if (color.isBroken) {
-            renderFaces(matrixStack, currentBuffer, hilt2Faces, color.gripColor, lightmapCoord, overlayColor);
+            renderQuads(matrixStack, currentBuffer, hilt2Quads, color.gripColor, lightmapCoord, overlayColor);
             return;
         }
 
         currentBuffer = buffer.getBuffer(LaserBladeRenderType.LASER_FLAT);
-        renderFaces(matrixStack, currentBuffer, bladeMidFaces, color.simpleOuterColor, fullLight, overlayColor);
-        renderFaces(matrixStack, currentBuffer, bladeInFaces, color.simpleInnerColor, fullLight, overlayColor);
+        renderQuads(matrixStack, currentBuffer, bladeMidQuads, color.simpleOuterColor, fullLight, overlayColor);
+        renderQuads(matrixStack, currentBuffer, bladeInQuads, color.simpleInnerColor, fullLight, overlayColor);
 
         currentBuffer = color.isOuterSubColor ? buffer.getBuffer(LaserBladeRenderType.LASER_SUB) : buffer.getBuffer(LaserBladeRenderType.LASER_ADD);
-        renderFaces(matrixStack, currentBuffer, bladeOutFaces, color.outerColor, fullLight, overlayColor);
+        renderQuads(matrixStack, currentBuffer, bladeOutQuads, color.outerColor, fullLight, overlayColor);
     }
 
     @Override
@@ -127,72 +127,72 @@ public class LaserBladeItemModelType217 extends SimpleItemModel {
     private static final Vec2f v45 = new Vec2f(0.15625F, 0.25000F);
 
 
-    public static final List<FaceData> hiltFaces = getHiltFaces();
+    public static final List<SimpleQuad> hiltQuads = getHiltQuads();
 
-    public static List<FaceData> getHiltFaces() {
+    public static List<SimpleQuad> getHiltQuads() {
         Vector4f c = new Vector4f(0.8F, 0.8F, 0.8F, 1F);
 
-        ImmutableList.Builder<FaceData> builder = ImmutableList.builder();
-        builder.add(new FaceData(v3, c, v31, v74, v2, c, v30, v74, v1, c, v29, v74, v0, c, v28, v74));
-        builder.add(new FaceData(v2, c, v30, v75, v5, c, v33, v75, v4, c, v32, v75, v1, c, v29, v75));
-        builder.add(new FaceData(v5, c, v33, v76, v7, c, v35, v76, v6, c, v34, v76, v4, c, v32, v76));
-        builder.add(new FaceData(v5, c, v34, v77, v2, c, v32, v77, v3, c, v37, v77, v7, c, v36, v77));
-        builder.add(new FaceData(v7, c, v35, v78, v3, c, v39, v78, v0, c, v38, v78, v6, c, v34, v78));
+        ImmutableList.Builder<SimpleQuad> builder = ImmutableList.builder();
+        builder.add(new SimpleQuad(v3, c, v31, v74, v2, c, v30, v74, v1, c, v29, v74, v0, c, v28, v74));
+        builder.add(new SimpleQuad(v2, c, v30, v75, v5, c, v33, v75, v4, c, v32, v75, v1, c, v29, v75));
+        builder.add(new SimpleQuad(v5, c, v33, v76, v7, c, v35, v76, v6, c, v34, v76, v4, c, v32, v76));
+        builder.add(new SimpleQuad(v5, c, v34, v77, v2, c, v32, v77, v3, c, v37, v77, v7, c, v36, v77));
+        builder.add(new SimpleQuad(v7, c, v35, v78, v3, c, v39, v78, v0, c, v38, v78, v6, c, v34, v78));
         return builder.build();
     }
 
-    public static final List<FaceData> hilt2Faces = getHilt2Faces();
+    public static final List<SimpleQuad> hilt2Quads = getHilt2Quads();
 
-    public static List<FaceData> getHilt2Faces() {
+    public static List<SimpleQuad> getHilt2Quads() {
         Vector4f c = new Vector4f(0.8F, 0.8F, 0.8F, 1F);
 
-        ImmutableList.Builder<FaceData> builder = ImmutableList.builder();
-        builder.add(new FaceData(v0, c, v40, v79, v1, c, v29, v79, v4, c, v32, v79, v6, c, v37, v79));
+        ImmutableList.Builder<SimpleQuad> builder = ImmutableList.builder();
+        builder.add(new SimpleQuad(v0, c, v40, v79, v1, c, v29, v79, v4, c, v32, v79, v6, c, v37, v79));
         return builder.build();
     }
 
-    public static final List<FaceData> bladeMidFaces = getBladeMidFaces();
+    public static final List<SimpleQuad> bladeMidQuads = getBladeMidQuads();
 
-    public static List<FaceData> getBladeMidFaces() {
+    public static List<SimpleQuad> getBladeMidQuads() {
         Vector4f c = new Vector4f(1F, 1F, 1F, 1F);
 
-        ImmutableList.Builder<FaceData> builder = ImmutableList.builder();
-        builder.add(new FaceData(v9, c, v44, v78, v4, c, v43, v78, v1, c, v42, v78, v8, c, v41, v78));
-        builder.add(new FaceData(v10, c, v48, v74, v6, c, v47, v74, v4, c, v46, v74, v9, c, v45, v74));
-        builder.add(new FaceData(v11, c, v45, v75, v0, c, v46, v75, v6, c, v50, v75, v10, c, v49, v75));
-        builder.add(new FaceData(v8, c, v49, v76, v1, c, v50, v76, v0, c, v43, v76, v11, c, v44, v76));
-        builder.add(new FaceData(v10, c, v52, v77, v9, c, v44, v77, v8, c, v49, v77, v11, c, v51, v77));
-        builder.add(new FaceData(v0, c, v53, v79, v1, c, v45, v79, v4, c, v49, v79, v6, c, v51, v79));
+        ImmutableList.Builder<SimpleQuad> builder = ImmutableList.builder();
+        builder.add(new SimpleQuad(v9, c, v44, v78, v4, c, v43, v78, v1, c, v42, v78, v8, c, v41, v78));
+        builder.add(new SimpleQuad(v10, c, v48, v74, v6, c, v47, v74, v4, c, v46, v74, v9, c, v45, v74));
+        builder.add(new SimpleQuad(v11, c, v45, v75, v0, c, v46, v75, v6, c, v50, v75, v10, c, v49, v75));
+        builder.add(new SimpleQuad(v8, c, v49, v76, v1, c, v50, v76, v0, c, v43, v76, v11, c, v44, v76));
+        builder.add(new SimpleQuad(v10, c, v52, v77, v9, c, v44, v77, v8, c, v49, v77, v11, c, v51, v77));
+        builder.add(new SimpleQuad(v0, c, v53, v79, v1, c, v45, v79, v4, c, v49, v79, v6, c, v51, v79));
         return builder.build();
     }
 
-    public static final List<FaceData> bladeInFaces = getBladeInFaces();
+    public static final List<SimpleQuad> bladeInQuads = getBladeInQuads();
 
-    public static List<FaceData> getBladeInFaces() {
+    public static List<SimpleQuad> getBladeInQuads() {
         Vector4f c = new Vector4f(1F, 1F, 1F, 1F);
 
-        ImmutableList.Builder<FaceData> builder = ImmutableList.builder();
-        builder.add(new FaceData(v15, c, v55, v78, v14, c, v47, v78, v13, c, v48, v78, v12, c, v54, v78));
-        builder.add(new FaceData(v14, c, v59, v74, v17, c, v58, v74, v16, c, v57, v74, v13, c, v56, v74));
-        builder.add(new FaceData(v17, c, v58, v75, v19, c, v61, v75, v18, c, v60, v75, v16, c, v57, v75));
-        builder.add(new FaceData(v19, c, v61, v76, v15, c, v55, v76, v12, c, v54, v76, v18, c, v60, v76));
-        builder.add(new FaceData(v12, c, v33, v79, v13, c, v30, v79, v16, c, v57, v79, v18, c, v60, v79));
-        builder.add(new FaceData(v15, c, v35, v77, v19, c, v54, v77, v17, c, v60, v77, v14, c, v33, v77));
+        ImmutableList.Builder<SimpleQuad> builder = ImmutableList.builder();
+        builder.add(new SimpleQuad(v15, c, v55, v78, v14, c, v47, v78, v13, c, v48, v78, v12, c, v54, v78));
+        builder.add(new SimpleQuad(v14, c, v59, v74, v17, c, v58, v74, v16, c, v57, v74, v13, c, v56, v74));
+        builder.add(new SimpleQuad(v17, c, v58, v75, v19, c, v61, v75, v18, c, v60, v75, v16, c, v57, v75));
+        builder.add(new SimpleQuad(v19, c, v61, v76, v15, c, v55, v76, v12, c, v54, v76, v18, c, v60, v76));
+        builder.add(new SimpleQuad(v12, c, v33, v79, v13, c, v30, v79, v16, c, v57, v79, v18, c, v60, v79));
+        builder.add(new SimpleQuad(v15, c, v35, v77, v19, c, v54, v77, v17, c, v60, v77, v14, c, v33, v77));
         return builder.build();
     }
 
-    public static final List<FaceData> bladeOutFaces = getBladeOutFaces();
+    public static final List<SimpleQuad> bladeOutQuads = getBladeOutQuads();
 
-    public static List<FaceData> getBladeOutFaces() {
+    public static List<SimpleQuad> getBladeOutQuads() {
         Vector4f c = new Vector4f(1F, 1F, 1F, 0.5F);
 
-        ImmutableList.Builder<FaceData> builder = ImmutableList.builder();
-        builder.add(new FaceData(v23, c, v65, v78, v22, c, v64, v78, v21, c, v63, v78, v20, c, v62, v78));
-        builder.add(new FaceData(v22, c, v68, v74, v25, c, v67, v74, v24, c, v66, v74, v21, c, v41, v74));
-        builder.add(new FaceData(v25, c, v67, v75, v27, c, v70, v75, v26, c, v69, v75, v24, c, v66, v75));
-        builder.add(new FaceData(v27, c, v70, v76, v23, c, v65, v76, v20, c, v62, v76, v26, c, v69, v76));
-        builder.add(new FaceData(v20, c, v72, v79, v21, c, v71, v79, v24, c, v66, v79, v26, c, v69, v79));
-        builder.add(new FaceData(v22, c, v72, v77, v23, c, v73, v77, v27, c, v62, v77, v25, c, v69, v77));
+        ImmutableList.Builder<SimpleQuad> builder = ImmutableList.builder();
+        builder.add(new SimpleQuad(v23, c, v65, v78, v22, c, v64, v78, v21, c, v63, v78, v20, c, v62, v78));
+        builder.add(new SimpleQuad(v22, c, v68, v74, v25, c, v67, v74, v24, c, v66, v74, v21, c, v41, v74));
+        builder.add(new SimpleQuad(v25, c, v67, v75, v27, c, v70, v75, v26, c, v69, v75, v24, c, v66, v75));
+        builder.add(new SimpleQuad(v27, c, v70, v76, v23, c, v65, v76, v20, c, v62, v76, v26, c, v69, v76));
+        builder.add(new SimpleQuad(v20, c, v72, v79, v21, c, v71, v79, v24, c, v66, v79, v26, c, v69, v79));
+        builder.add(new SimpleQuad(v22, c, v72, v77, v23, c, v73, v77, v27, c, v62, v77, v25, c, v69, v77));
         return builder.build();
     }
 }

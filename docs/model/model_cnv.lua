@@ -107,28 +107,30 @@ end
 hfile:close()
 
 for key, value in pairs(v3f_tbl) do
-    print(string.format("private static final Vector3f %s = new Vector3f(%s);", value, key))
+    print(string.format("private static final Vector3f %s = new Vector3f(%s);", value, key))    -- Using net.minecraft.client.renderer.Vector3f
 end
 
 for key, value in pairs(v2f_tbl) do
-    print(string.format("private static final Vec2f %s = new Vec2f(%s);", value, key))
+    print(string.format("private static final Vec2f %s = new Vec2f(%s);", value, key))  -- Using net.minecraft.util.math.Vec2f
 end
 
 print()
 
 local color_count = 0
 local color = ""
-local face_template = "    builder.add(new FaceData(%s, c, %s, %s, %s, c, %s, %s, %s, c, %s, %s, %s, c, %s, %s));"
+local face_template = "    builder.add(new SimpleQuad(%s, c, %s, %s, %s, c, %s, %s, %s, c, %s, %s, %s, c, %s, %s));"
 
 for key, value in pairs(obj.f) do
     color = "c" .. color_count
     color_count = color_count + 1
+    local key1 = string.lower(string.sub(key, 1, 1)) .. string.sub(key, 2)
+    local key2 = string.upper(string.sub(key, 1, 1)) .. string.sub(key, 2)
 
-    print("public static final List<FaceData> " .. key .. "Faces = get" .. key .. "Faces();\n")
+    print("public static final List<SimpleQuad> " .. key1 .. "Quads = get" .. key2 .. "Quads();\n")
 
-    print("public static List<FaceData> get" .. key .. "Faces() {")
+    print("public static List<SimpleQuad> get" .. key2 .. "Quads() {")
     print("    Vector4f c = new Vector4f(1F, 1F, 1F, 1F);\n ")
-    print("    ImmutableList.Builder<FaceData> builder = ImmutableList.builder();")
+    print("    ImmutableList.Builder<SimpleQuad> builder = ImmutableList.builder();")
 
     for i, face in ipairs(value) do
         print(string.format(face_template,

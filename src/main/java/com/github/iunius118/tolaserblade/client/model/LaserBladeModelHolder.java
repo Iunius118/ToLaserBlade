@@ -2,15 +2,15 @@ package com.github.iunius118.tolaserblade.client.model;
 
 import net.minecraft.util.ResourceLocation;
 
-public class LaserBladeItemModelHolder {
-    private static SimpleItemModel model = null;
+public class LaserBladeModelHolder {
+    private static SimpleModel model = null;
     private static ResourceLocation texture = new ResourceLocation("forge", "textures/white.png");;
 
-    public static SimpleItemModel getModel() {
+    public static SimpleModel getModel() {
         return model;
     }
 
-    public static void setModel(SimpleItemModel modelIn) {
+    public static void setModel(SimpleModel modelIn) {
         model = modelIn;
         texture = model.getTexture();
     }

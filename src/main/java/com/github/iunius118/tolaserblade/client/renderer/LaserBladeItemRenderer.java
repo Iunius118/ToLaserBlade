@@ -1,7 +1,7 @@
 package com.github.iunius118.tolaserblade.client.renderer;
 
-import com.github.iunius118.tolaserblade.client.model.LaserBladeItemModelHolder;
-import com.github.iunius118.tolaserblade.client.model.SimpleItemModel;
+import com.github.iunius118.tolaserblade.client.model.LaserBladeModelHolder;
+import com.github.iunius118.tolaserblade.client.model.SimpleModel;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.tileentity.ItemStackTileEntityRenderer;
@@ -13,7 +13,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class LaserBladeItemRenderer extends ItemStackTileEntityRenderer {
     @Override
     public void render(ItemStack itemStack, MatrixStack matrixStack, IRenderTypeBuffer buffer, int lightmapCoord, int overlayColor) {
-        SimpleItemModel model = LaserBladeItemModelHolder.getModel();
+        SimpleModel model = LaserBladeModelHolder.getModel();
 
         if (model != null) {
             matrixStack.push();

@@ -1,7 +1,7 @@
 package com.github.iunius118.tolaserblade.client.model.laserblade;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
-import com.github.iunius118.tolaserblade.client.model.SimpleItemModel;
+import com.github.iunius118.tolaserblade.client.model.SimpleModel;
 import com.github.iunius118.tolaserblade.client.renderer.LaserBladeItemColor;
 import com.github.iunius118.tolaserblade.client.renderer.LaserBladeRenderType;
 import com.google.common.collect.Maps;
@@ -29,7 +29,7 @@ import net.minecraftforge.client.model.obj.OBJModel;
 
 import java.util.*;
 
-public class LaserBladeItemOBJModel extends SimpleItemModel {
+public class LaserBladeOBJModel extends SimpleModel {
     private final Map<Part, List<BakedQuad>> PARTS = Maps.newEnumMap(Part.class);
     private final ResourceLocation TEXTURE = PlayerContainer.LOCATION_BLOCKS_TEXTURE;
 
@@ -79,25 +79,25 @@ public class LaserBladeItemOBJModel extends SimpleItemModel {
         final int fullLight = 0xF000F0;
 
         IVertexBuilder currentBuffer = buffer.getBuffer(LaserBladeRenderType.HILT);
-        renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemOBJModel.Part.HILT), color.gripColor, lightmapCoord, overlayColor);
-        renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemOBJModel.Part.HILT_NO_TINT), -1, lightmapCoord, overlayColor);
+        renderBakedQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeOBJModel.Part.HILT), color.gripColor, lightmapCoord, overlayColor);
+        renderBakedQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeOBJModel.Part.HILT_NO_TINT), -1, lightmapCoord, overlayColor);
 
         currentBuffer = buffer.getBuffer(LaserBladeRenderType.LASER_FLAT);
-        renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemOBJModel.Part.HILT_LIGHT), -1, fullLight, overlayColor);
+        renderBakedQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeOBJModel.Part.HILT_LIGHT), -1, fullLight, overlayColor);
 
         if (color.isBroken) {
             return;
         }
 
         currentBuffer = color.isInnerSubColor ? buffer.getBuffer(LaserBladeRenderType.LASER_SUB) : buffer.getBuffer(LaserBladeRenderType.LASER_ADD);
-        renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemOBJModel.Part.BLADE_INNER), color.innerColor, fullLight, overlayColor);
+        renderBakedQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeOBJModel.Part.BLADE_INNER), color.innerColor, fullLight, overlayColor);
 
         currentBuffer = color.isOuterSubColor ? buffer.getBuffer(LaserBladeRenderType.LASER_SUB) : buffer.getBuffer(LaserBladeRenderType.LASER_ADD);
-        renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemOBJModel.Part.BLADE_OUTER_1), color.outerColor, fullLight, overlayColor);
-        renderQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeItemOBJModel.Part.BLADE_OUTER_2), color.outerColor, fullLight, overlayColor);
+        renderBakedQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeOBJModel.Part.BLADE_OUTER_1), color.outerColor, fullLight, overlayColor);
+        renderBakedQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeOBJModel.Part.BLADE_OUTER_2), color.outerColor, fullLight, overlayColor);
     }
 
-    public void renderQuads(MatrixStack matrixStack, IVertexBuilder buffer, List<BakedQuad> quads, int color, int lightmapCoord, int overlayColor) {
+    public void renderBakedQuads(MatrixStack matrixStack, IVertexBuilder buffer, List<BakedQuad> quads, int color, int lightmapCoord, int overlayColor) {
         MatrixStack.Entry matrixEntry = matrixStack.getLast();
         float alpha = (float)(color >>> 24 & 255) / 255.0F;
         float red   = (float)(color >>> 16 & 255) / 255.0F;
@@ -109,7 +109,7 @@ public class LaserBladeItemOBJModel extends SimpleItemModel {
         }
     }
 
-    public List<BakedQuad> getBakedQuads(LaserBladeItemOBJModel.Part part) {
+    public List<BakedQuad> getBakedQuads(LaserBladeOBJModel.Part part) {
         return PARTS.getOrDefault(part, Collections.emptyList());
     }
 

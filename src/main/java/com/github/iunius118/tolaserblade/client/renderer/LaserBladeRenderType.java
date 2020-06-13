@@ -1,7 +1,7 @@
 package com.github.iunius118.tolaserblade.client.renderer;
 
 import com.github.iunius118.tolaserblade.ToLaserBladeConfig;
-import com.github.iunius118.tolaserblade.client.model.LaserBladeItemModelHolder;
+import com.github.iunius118.tolaserblade.client.model.LaserBladeModelHolder;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;
@@ -162,8 +162,8 @@ public class LaserBladeRenderType extends RenderType {
         public void setupRenderState() {
             RenderSystem.enableTexture();
             TextureManager texturemanager = Minecraft.getInstance().getTextureManager();
-            texturemanager.bindTexture(LaserBladeItemModelHolder.getTexture());
-            texturemanager.getTexture(LaserBladeItemModelHolder.getTexture()).setBlurMipmapDirect(false, false);
+            texturemanager.bindTexture(LaserBladeModelHolder.getTexture());
+            texturemanager.getTexture(LaserBladeModelHolder.getTexture()).setBlurMipmapDirect(false, false);
         }
 
         @Override
@@ -185,12 +185,12 @@ public class LaserBladeRenderType extends RenderType {
 
         @Override
         public int hashCode() {
-            return LaserBladeItemModelHolder.getTexture().hashCode();
+            return LaserBladeModelHolder.getTexture().hashCode();
         }
 
         @Override
         protected Optional<ResourceLocation> texture() {
-            return Optional.of(LaserBladeItemModelHolder.getTexture());
+            return Optional.of(LaserBladeModelHolder.getTexture());
         }
     }
 }
