@@ -2,10 +2,7 @@ package com.github.iunius118.tolaserblade.client.model;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.ToLaserBladeConfig;
-import com.github.iunius118.tolaserblade.client.model.laserblade.LaserBladeModelType0;
-import com.github.iunius118.tolaserblade.client.model.laserblade.LaserBladeModelType1;
-import com.github.iunius118.tolaserblade.client.model.laserblade.LaserBladeModelType217;
-import com.github.iunius118.tolaserblade.client.model.laserblade.LaserBladeModelType305;
+import com.github.iunius118.tolaserblade.client.model.laserblade.*;
 
 import java.util.Calendar;
 import java.util.HashMap;
@@ -36,6 +33,7 @@ public class LaserBladeInternalModelManager {
         models.put(1, LaserBladeModelType1::new);
         models.put(217, LaserBladeModelType217::new);
         models.put(305, LaserBladeModelType305::new);
+        models.put(903, LaserBladeModelType903::new);
     }
 
     public void addInternalModel(int index, Supplier<? extends SimpleModel> model) {
