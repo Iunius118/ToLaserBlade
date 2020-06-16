@@ -1,6 +1,6 @@
 
 --------------------------------------------------------------------------------
---  Model converter
+--  Model converter v2
 --      Converts Laser Blade item model from OBJ model
 --      This requires that the OBJ model has v, vt, vn, g and f statements
 --                        and each f statement has 4 v/vt/vn vertex indices.
@@ -21,6 +21,8 @@ local obj = {v = {}, vt = {}, vn = {}, f = {}}
 local v3f_tbl = {}
 local v2f_tbl = {}
 local vector_count = 0
+local groups = {}
+local group_exists_table = {}
 local current_group = ""
 
 local p_statement = "(%a*)%s+(.*)"
@@ -85,6 +87,11 @@ for line in hfile:lines() do
     elseif key == "g" then
         current_group = data
 
+        if not group_exists_table[current_group] then
+            table.insert(groups, current_group)
+            group_exists_table[current_group] = true
+        end
+
     elseif key == "f" then
         local v1, vt1, vn1, v2, vt2, vn2, v3, vt3, vn3, v4, vt4, vn4 = string.gmatch(data, p_4ds)()
         
@@ -106,39 +113,109 @@ end
 
 hfile:close()
 
-for key, value in pairs(v3f_tbl) do
-    print(string.format("private static final Vector3f %s = new Vector3f(%s);", value, key))    -- Using net.minecraft.client.renderer.Vector3f
+-- Convert group name to CONSTANT_CASE
+local convert_case = function (str)
+    local ret = ""
+    local is_prev_under_bar = true
+    local is_prev_num = false
+
+    for i = 1, #str do
+        local c = string.sub(str, i, i)
+        local is_upper_case = c ~= string.lower(c)
+        local is_num = tonumber(c)
+
+        if is_upper_case then
+            if is_prev_under_bar then
+                ret = ret .. c
+            else
+                ret = ret .. "_" .. c
+            end
+
+            is_prev_under_bar = false
+            is_prev_num = false
+
+        elseif is_num then
+            if is_prev_under_bar or is_prev_num then
+                ret = ret .. c
+            else
+                ret = ret .. "_" .. c
+            end
+
+            is_prev_under_bar = false
+            is_prev_num = true
+
+        elseif c == "_" or c == " " then
+            ret = ret .. "_"
+            is_prev_under_bar = true
+            is_prev_num = false
+
+        else
+            if is_prev_num then
+                ret = ret .. "_" .. c
+            else
+                ret = ret .. c
+            end
+
+            is_prev_under_bar = false
+            is_prev_num = false
+        end
+    end
+
+    return string.upper(ret)
 end
 
-for key, value in pairs(v2f_tbl) do
-    print(string.format("private static final Vec2f %s = new Vec2f(%s);", value, key))  -- Using net.minecraft.util.math.Vec2f
+
+print("// " .. arg[1])
+
+-- Print quad lists
+for index, group in ipairs(groups) do
+    if obj.f[group] then
+        print("public static final List<SimpleQuad> " .. convert_case(group) .. "_QUADS;")
+    end
 end
 
 print()
+print("static {")
+
+-- Print 3D vectors (vertex, normal)
+for key, value in pairs(v3f_tbl) do
+    print(string.format("    Vector3f %s = new Vector3f(%s);", value, key))    -- Using net.minecraft.client.renderer.Vector3f
+end
+
+-- Print 2D vectors (uv)
+for key, value in pairs(v2f_tbl) do
+    print(string.format("    Vec2f %s = new Vec2f(%s);", value, key))  -- Using net.minecraft.util.math.Vec2f
+end
+
+print("    ImmutableList.Builder<SimpleQuad> builder;")
 
 local color_count = 0
 local color = ""
-local face_template = "    builder.add(new SimpleQuad(%s, c, %s, %s, %s, c, %s, %s, %s, c, %s, %s, %s, c, %s, %s));"
+local face_template = "    builder.add(new SimpleQuad(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s));"
 
-for key, value in pairs(obj.f) do
-    color = "c" .. color_count
-    color_count = color_count + 1
-    local key1 = string.lower(string.sub(key, 1, 1)) .. string.sub(key, 2)
-    local key2 = string.upper(string.sub(key, 1, 1)) .. string.sub(key, 2)
+-- Print quads by group
+for index, group in ipairs(groups) do
+    local value = obj.f[group]
 
-    print("public static final List<SimpleQuad> " .. key1 .. "Quads = get" .. key2 .. "Quads();\n")
+    if value then
+        color = "c" .. color_count
+        color_count = color_count + 1
 
-    print("public static List<SimpleQuad> get" .. key2 .. "Quads() {")
-    print("    Vector4f c = new Vector4f(1F, 1F, 1F, 1F);\n ")
-    print("    ImmutableList.Builder<SimpleQuad> builder = ImmutableList.builder();")
+        print()
+        print("    // " .. group)
+        print("    Vector4f " .. color .. " = new Vector4f(1F, 1F, 1F, 1F);")
+        print("    builder = ImmutableList.builder();")
 
-    for i, face in ipairs(value) do
-        print(string.format(face_template,
-            face[1], face[2], face[3],
-            face[4], face[5], face[6],
-            face[7], face[8], face[9],
-            face[10], face[11], face[12]))
+        for i, face in ipairs(value) do
+            print(string.format(face_template,
+                face[1], color, face[2], face[3],
+                face[4], color, face[5], face[6],
+                face[7], color, face[8], face[9],
+                face[10], color, face[11], face[12]))
+        end
+
+        print("    " .. convert_case(group) .. "_QUADS = builder.build();")
     end
-
-    print("    return builder.build();\n}\n")
 end
+
+print("}")
