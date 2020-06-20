@@ -37,6 +37,7 @@ public class LaserBladeInternalModelManager {
         models.put(504, LaserBladeModelType504::new);
         models.put(519, LaserBladeModelType519::new);
         models.put(526, LaserBladeModelType526::new);
+        models.put(726, LaserBladeModelType726::new);
         models.put(903, LaserBladeModelType903::new);
     }
 
