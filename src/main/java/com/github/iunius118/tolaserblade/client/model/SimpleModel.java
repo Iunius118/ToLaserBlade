@@ -77,7 +77,7 @@ public class SimpleModel {
                     new SimpleVertex(posXYZ4, COLOR_WHITE, texUV4, normalXYZ));
         }
 
-        public SimpleQuad invert() {
+        public SimpleQuad mirror() {
             return new SimpleQuad(this.vertices[3], this.vertices[2], this.vertices[1], this.vertices[0]);
         }
     }
@@ -86,13 +86,16 @@ public class SimpleModel {
 
     }
 
-
     protected void renderQuads(MatrixStack matrixStack, IVertexBuilder buffer, List<SimpleQuad> quads, int color, int lightmapCoord, int overlayColor) {
-        MatrixStack.Entry matrixEntry = matrixStack.getLast();
         float alpha = (float)(color >>> 24 & 255) / 255.0F;
         float red   = (float)(color >>> 16 & 255) / 255.0F;
         float green = (float)(color >>> 8 & 255) / 255.0F;
         float blue  = (float)(color & 255) / 255.0F;
+        renderQuads(matrixStack, buffer, quads, lightmapCoord, overlayColor, red, green, blue, alpha);
+    }
+
+    protected void renderQuads(MatrixStack matrixStack, IVertexBuilder buffer, List<SimpleQuad> quads, int lightmapCoord, int overlayColor, float red, float green, float blue, float alpha) {
+        MatrixStack.Entry matrixEntry = matrixStack.getLast();
 
         for (SimpleQuad face : quads) {
             for (int i = 0; i < 4; i++) {
