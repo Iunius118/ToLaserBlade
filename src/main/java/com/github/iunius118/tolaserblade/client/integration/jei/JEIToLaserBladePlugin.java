@@ -90,7 +90,6 @@ public class JEIToLaserBladePlugin implements IModPlugin {
         List<ItemStack> left;
         List<ItemStack> right = getUpgradeRecipes(itemTag);
         ItemStack output = new ItemStack(ModItems.LASER_BLADE);
-        UpgradeResult result;
 
         if (right.isEmpty()) {
             return null;

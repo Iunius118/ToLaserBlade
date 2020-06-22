@@ -207,8 +207,7 @@ public interface LaserBladeItemBase {
     }
 
     default float getDestroySpeedRate(ItemStack stack) {
-        float rate = 0.0F;
-        rate = (float)EnchantmentHelper.getEnchantmentLevel(Enchantments.EFFICIENCY, stack) / 5.0F;
+        float rate = (float)EnchantmentHelper.getEnchantmentLevel(Enchantments.EFFICIENCY, stack) / 5.0F;
         rate = MathHelper.clamp(rate, 0.0F, 1.0F);
         return rate;
     }
@@ -263,7 +262,7 @@ public interface LaserBladeItemBase {
     }
 
     default ITextComponent getUpgradeTextComponent(String key, float value) {
-        return new TranslationTextComponent(key, (value < 0 ? "" : "+") + ItemStack.DECIMALFORMAT.format((double)value)).applyTextStyle(TextFormatting.DARK_GREEN);
+        return new TranslationTextComponent(key, (value < 0 ? "" : "+") + ItemStack.DECIMALFORMAT.format(value)).applyTextStyle(TextFormatting.DARK_GREEN);
     }
 
     enum LBColor {
@@ -291,8 +290,8 @@ public interface LaserBladeItemBase {
         TEMP_SNOWY_TAIGA(0xFF0030FF, 0xFFF9FFFE),
         SPECIAL_GAMING(0xFF010101, 0xFF010101);
 
-        private int bladeColor;
-        private int gripColor;
+        private final int bladeColor;
+        private final int gripColor;
 
         LBColor(int bladeColorIn, int gripColorIn) {
             bladeColor = bladeColorIn;

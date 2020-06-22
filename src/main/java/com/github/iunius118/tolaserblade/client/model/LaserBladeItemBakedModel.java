@@ -108,8 +108,7 @@ public class LaserBladeItemBakedModel implements IBakedModel {
 
     @Override
     public IBakedModel handlePerspective(ItemCameraTransforms.TransformType cameraTransformType, MatrixStack mat) {
-        LaserBladeItemBakedModel model = (LaserBladeItemBakedModel)ForgeHooksClient.handlePerspective(this, cameraTransformType, mat);
-        return model;
+        return ForgeHooksClient.handlePerspective(this, cameraTransformType, mat);
     }
 
     private static final ItemCameraTransforms ITEM_TRANSFORMS = new ItemCameraTransforms(

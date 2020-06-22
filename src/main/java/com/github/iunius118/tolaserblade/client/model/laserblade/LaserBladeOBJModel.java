@@ -126,7 +126,7 @@ public class LaserBladeOBJModel extends SimpleModel {
         BLADE_OUTER_1("laser_blade/blade_outer_1"),
         BLADE_OUTER_2("laser_blade/blade_outer_2");
 
-        private String name;
+        private final String name;
 
         Part(String nameIn) {
             name = nameIn;

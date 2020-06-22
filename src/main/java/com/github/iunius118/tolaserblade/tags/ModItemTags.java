@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.function.Function;
 
 public class ModItemTags {
-    private static List<Triple<Tag<Item>, Type, Function<ItemStack, UpgradeResult>>> tags = new ArrayList<>();
+    private static final List<Triple<Tag<Item>, Type, Function<ItemStack, UpgradeResult>>> TAGS = new ArrayList<>();
 
     public static final Tag<Item> ATTACK_SPEED_UPGRADE = addUpgradeTag(makeWrapperTag("upgrade/speed"), Type.BATTERY, UpgradeFunctions.getUpgradeSpeedFunction());
     public static final Tag<Item> EFFICIENCY_UPGRADE = addUpgradeTag(makeWrapperTag("upgrade/efficiency"), Type.BATTERY, UpgradeFunctions.getUpgradeEnchantmentFunction(Enchantments.EFFICIENCY));
@@ -37,16 +37,15 @@ public class ModItemTags {
     public static final Tag<Item> CASING_REPAIR = addUpgradeTag(makeWrapperTag("casing_repair"), Type.REPAIR, UpgradeFunctions.getRepairFunction());
 
     private static Tag<Item> makeWrapperTag(String id) {
-        Tag<Item> tag = new ItemTags.Wrapper(new ResourceLocation(ToLaserBlade.MOD_ID, id));
-        return tag;
+        return new ItemTags.Wrapper(new ResourceLocation(ToLaserBlade.MOD_ID, id));
     }
 
     private static Tag<Item> addUpgradeTag(Tag<Item> tag, Type part, Function<ItemStack, UpgradeResult> function) {
-        tags.add(Triple.of(tag, part, function));
+        TAGS.add(Triple.of(tag, part, function));
         return tag;
     }
 
     public static List<Triple<Tag<Item>, Type, Function<ItemStack, UpgradeResult>>> getTags() {
-        return ImmutableList.copyOf(tags);
+        return ImmutableList.copyOf(TAGS);
     }
 }

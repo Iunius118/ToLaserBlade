@@ -122,5 +122,5 @@ public class SimpleModel {
 
     public ResourceLocation getTexture() {
         return TEXTURE_WHITE;
-    };
+    }
 }

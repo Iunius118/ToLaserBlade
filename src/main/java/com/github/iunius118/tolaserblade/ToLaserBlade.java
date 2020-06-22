@@ -16,7 +16,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.client.model.generators.ExistingFileHelper;
@@ -130,11 +129,6 @@ public class ToLaserBlade {
             event.getRegistry().registerAll(
                     new SoundEvent(new ResourceLocation(MOD_ID, "item.dx_laser_blade.swing")).setRegistryName("item_dx_laser_blade_swing")
             );
-        }
-
-        @SubscribeEvent
-        public static void onRecipeSerializerRegistry(final RegistryEvent.Register<IRecipeSerializer<?>> event) {
-
         }
 
         // Generate data
