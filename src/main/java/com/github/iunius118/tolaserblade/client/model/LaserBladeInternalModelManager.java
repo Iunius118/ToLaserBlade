@@ -37,11 +37,13 @@ public class LaserBladeInternalModelManager {
         models.put(504, LaserBladeModelType504::new);
         models.put(519, LaserBladeModelType519::new);
         models.put(526, LaserBladeModelType526::new);
+        models.put(606, LaserBladeModelType606::new);
         models.put(726, LaserBladeModelType726::new);
         models.put(825, LaserBladeModelType825::new);
         models.put(903, LaserBladeModelType903::new);
         models.put(1009, LaserBladeModelType1009::new);
         models.put(1108, LaserBladeModelType1108::new);
+        models.put(1216, LaserBladeModelType1216::new);
     }
 
     public void addInternalModel(int index, Supplier<? extends SimpleModel> model) {
