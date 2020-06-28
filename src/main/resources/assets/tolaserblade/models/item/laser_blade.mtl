@@ -6,35 +6,25 @@
 newmtl mat_hilt
 Kd 0.80000 0.80000 0.80000 1.00000
 d 1.00000
-map_Kd tolaserblade:item/laser_blade
+map_Kd tolaserblade:item/laser_blade_obj
 
-newmtl mat_hilt_bright
+newmtl mat_hilt_light
 Kd 1.00000 1.00000 1.00000 1.00000
 d 1.00000
-map_Kd tolaserblade:item/laser_blade
+map_Kd tolaserblade:item/laser_blade_obj
 
 newmtl mat_blade_inner
 Kd 1.00000 1.00000 1.00000 0.90000
 d 0.90000
-map_Kd tolaserblade:item/laser_blade
+map_Kd tolaserblade:item/laser_blade_obj
 
 newmtl mat_blade_outer_1
 Kd 1.00000 1.00000 1.00000 0.50000
 d 0.50000
-map_Kd tolaserblade:item/laser_blade
+map_Kd tolaserblade:item/laser_blade_obj
 
 newmtl mat_blade_outer_2
 Kd 1.00000 1.00000 1.00000 0.25000
 d 0.25000
-map_Kd tolaserblade:item/laser_blade
-
-newmtl mat_blade_outer_mode_2
-Kd 1.00000 1.00000 1.00000 1.00000
-d 1.00000
-map_Kd tolaserblade:item/laser_blade
-
-newmtl mat_blade_inner_mode_2
-Kd 1.00000 1.00000 1.00000 1.00000
-d 1.00000
-map_Kd tolaserblade:item/laser_blade
+map_Kd tolaserblade:item/laser_blade_obj
 

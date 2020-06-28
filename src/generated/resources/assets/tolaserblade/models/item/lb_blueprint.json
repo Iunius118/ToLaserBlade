@@ -1,6 +1,6 @@
 {
   "parent": "item/generated",
   "textures": {
-    "layer0": "tolaserblade:item/lb_blueprint"
+    "layer0": "tolaserblade:item/parts/lb_blueprint"
   }
 }

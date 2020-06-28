@@ -16,7 +16,6 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
-import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.client.model.generators.ExistingFileHelper;
@@ -119,6 +118,8 @@ public class ToLaserBlade {
                     .setTrackingRange(64).setUpdateInterval(4).setShouldReceiveVelocityUpdates(false)
                     .build(LaserTrapEntity.ID.toString());
 
+            ToLaserBlade.LOGGER.info("This warning from the data fixer is not an issue for modded entities");
+
             event.getRegistry().registerAll(
                     laserTrap.setRegistryName(LaserTrapEntity.ID)
             );
@@ -130,11 +131,6 @@ public class ToLaserBlade {
             event.getRegistry().registerAll(
                     new SoundEvent(new ResourceLocation(MOD_ID, "item.dx_laser_blade.swing")).setRegistryName("item_dx_laser_blade_swing")
             );
-        }
-
-        @SubscribeEvent
-        public static void onRecipeSerializerRegistry(final RegistryEvent.Register<IRecipeSerializer<?>> event) {
-
         }
 
         // Generate data

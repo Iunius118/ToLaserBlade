@@ -61,8 +61,10 @@ public class Ja_jpLanguageProvider extends LanguageProvider {
         add("tolaserblade.configgui.common.enableLaserTrap", "レーザートラップを有効にする");
         add("tolaserblade.configgui.common.canLaserTrapAttackPlayer", "レーザートラップがプレイヤーへ攻撃可能か");
 
-        add("tolaserblade.configgui.client.enableLaserBlade3DModel", "レーザーブレイドを3Dモデルで描画する");
-        add("tolaserblade.configgui.client.laserBladeRenderingMode", "レーザーブレイドの描画モード (0–2)");
+        add("tolaserblade.configgui.client.useFixedVertexBuffer", "Fixed Vertex Bufferを使用する");
+        add("tolaserblade.configgui.client.useInternalModel", "内部モデルを使用する");
+        add("tolaserblade.configgui.client.internalModelType", "内部モデルのタイプ");
+        add("tolaserblade.configgui.client.externalModelType", "外部モデルのタイプ");
 
         // Update message
         add("tolaserblade.update.newVersion", "%s の新しいバージョンが利用可能です");

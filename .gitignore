@@ -17,6 +17,7 @@
 
 # Others
 !.gitignore
+!.gitattributes
 !*.md
 !LICENSE
 !README_*

@@ -1,7 +1,7 @@
 package com.github.iunius118.tolaserblade.item;
 
 import com.github.iunius118.tolaserblade.ToLaserBladeConfig;
-import com.github.iunius118.tolaserblade.client.renderer.item.LaserBladeItemRenderer;
+import com.github.iunius118.tolaserblade.client.renderer.LaserBladeItemRenderer;
 import com.github.iunius118.tolaserblade.dispenser.DispenseLaserBladeBehavior;
 import com.github.iunius118.tolaserblade.enchantment.ModEnchantments;
 import com.github.iunius118.tolaserblade.item.upgrade.LaserBladeUpgrade;
@@ -275,27 +275,23 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
     public static class ColorHandler implements IItemColor {
         @Override
         public int getColor(ItemStack stack, int tintIndex) {
-            if (ToLaserBladeConfig.CLIENT.isEnabledLaserBlade3DModel.get()) {
-                return 0xFFFFFFFF;
-            }
-
             Pair<Integer, Boolean> bladeColor;
             int color;
 
             switch (tintIndex) {
+                case 0:
+                    color = ModItems.LASER_BLADE.checkGamingColor(ModItems.LASER_BLADE.getGripColor(stack));
+                    return color | 0xFF000000;
                 case 1:
                     bladeColor = ModItems.LASER_BLADE.getBladeOuterColor(stack);
                     color = ModItems.LASER_BLADE.checkGamingColor(bladeColor.getLeft());
                     return (bladeColor.getRight() ? ~color : color) | 0xFF000000;
-
                 case 2:
                     bladeColor = ModItems.LASER_BLADE.getBladeInnerColor(stack);
                     color = ModItems.LASER_BLADE.checkGamingColor(bladeColor.getLeft());
                     return (bladeColor.getRight() ? ~color : color) | 0xFF000000;
-
                 default:
-                    color = ModItems.LASER_BLADE.checkGamingColor(ModItems.LASER_BLADE.getGripColor(stack));
-                    return color | 0xFF000000;
+                    return 0xFFFFFFFF;
             }
         }
     }

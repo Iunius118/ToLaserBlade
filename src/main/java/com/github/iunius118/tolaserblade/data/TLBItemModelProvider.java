@@ -6,6 +6,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.item.Item;
 import net.minecraftforge.client.model.generators.ExistingFileHelper;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
+import net.minecraftforge.client.model.generators.ModelFile;
 import net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile;
 
 public class TLBItemModelProvider extends ItemModelProvider {
@@ -15,31 +16,37 @@ public class TLBItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        registerHandheldItemModel(ModItems.DX_LASER_BLADE);
+        ModelFile generatedModel = new UncheckedModelFile("item/generated");
+        ModelFile handheldModel = new UncheckedModelFile("item/handheld");
+
+        String dx_laser_blade = ModItems.DX_LASER_BLADE.getRegistryName().getPath();
+        getBuilder(dx_laser_blade)
+                .parent(handheldModel)
+                .texture("layer0", "item/" + dx_laser_blade);
 
         String laser_blade = ModItems.LASER_BLADE.getRegistryName().getPath();
         getBuilder(laser_blade)
-                .parent(new UncheckedModelFile("item/handheld"))
+                .parent(handheldModel)
                 .texture("layer0", "item/" + laser_blade + "_2d_0")
                 .texture("layer1", "item/" + laser_blade + "_2d_1")
                 .texture("layer2", "item/" + laser_blade + "_2d_2");
 
         String lb_broken = ModItems.LB_BROKEN.getRegistryName().getPath();
         getBuilder(lb_broken)
-                .parent(new UncheckedModelFile("item/handheld"))
+                .parent(handheldModel)
                 .texture("layer0", "item/" + laser_blade + "_2d_0");
 
-        registerGeneratedItemModel(ModItems.LB_DISASSEMBLED);
+        registerPartItemModel(ModItems.LB_DISASSEMBLED, generatedModel);
 
-        registerGeneratedItemModel(ModItems.LB_BLUEPRINT);
+        registerPartItemModel(ModItems.LB_BLUEPRINT, generatedModel);
 
-        registerGeneratedItemModel(ModItems.LB_BATTERY);
+        registerPartItemModel(ModItems.LB_BATTERY, generatedModel);
 
-        registerGenerated2LayerItemModel(ModItems.LB_MEDIUM);
+        registerTwoLayerPartItemModel(ModItems.LB_MEDIUM, generatedModel);
 
-        registerGenerated2LayerItemModel(ModItems.LB_EMITTER);
+        registerTwoLayerPartItemModel(ModItems.LB_EMITTER, generatedModel);
 
-        registerHandheldItemModel(ModItems.LB_CASING);
+        registerPartItemModel(ModItems.LB_CASING, handheldModel);
     }
 
     @Override
@@ -47,32 +54,23 @@ public class TLBItemModelProvider extends ItemModelProvider {
         return "ToLaserBlade Item Models";
     }
 
-    private void registerGeneratedItemModel(Item item) {
+    private void registerPartItemModel(Item item, ModelFile parent) {
         if (item == null) return;
 
         String itemPath = item.getRegistryName().getPath();
         getBuilder(itemPath)
-                .parent(new UncheckedModelFile("item/generated"))
-                .texture("layer0", "item/" + itemPath);
+                .parent(parent)
+                .texture("layer0", "item/parts/" + itemPath);
     }
 
-    private void registerGenerated2LayerItemModel(Item item) {
+    private void registerTwoLayerPartItemModel(Item item, ModelFile parent) {
         if (item == null) return;
 
         String itemPath = item.getRegistryName().getPath();
         getBuilder(itemPath)
-                .parent(new UncheckedModelFile("item/generated"))
-                .texture("layer0", "item/" + itemPath + "_0")
-                .texture("layer1", "item/" + itemPath + "_1");
+                .parent(parent)
+                .texture("layer0", "item/parts/" + itemPath + "_0")
+                .texture("layer1", "item/parts/" + itemPath + "_1");
 
-    }
-
-    private void registerHandheldItemModel(Item item) {
-        if (item == null) return;
-
-        String itemPath = item.getRegistryName().getPath();
-        getBuilder(itemPath)
-                .parent(new UncheckedModelFile("item/handheld"))
-                .texture("layer0", "item/" + itemPath);
     }
 }

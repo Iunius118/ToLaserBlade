@@ -1,6 +1,18 @@
 ToLaserBlade
 Changelog
 
+v1.15.2-3.1.1.0
+
+    Port to Forge 31.2.0
+    Add secret internal Laser Blade models
+
+
+v1.15.2-3.1.0.0
+
+    Revamp Laser Blade's model format and rendering
+    Revamp client config
+
+
 v1.15.2-3.0.3.1
 
     Add laser trap to attack by Laser Blade put in dispenser

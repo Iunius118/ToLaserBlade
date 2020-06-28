@@ -1,8 +1,8 @@
 package com.github.iunius118.tolaserblade.client;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
+import com.github.iunius118.tolaserblade.ToLaserBladeConfig;
 import com.github.iunius118.tolaserblade.client.model.LaserBladeItemBakedModel;
-import com.github.iunius118.tolaserblade.client.model.LaserBladeItemModel;
 import com.github.iunius118.tolaserblade.item.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
@@ -35,19 +35,26 @@ public class ClientEventHandler {
     @SubscribeEvent
     public void onTextureStitchEvent(TextureStitchEvent.Pre event) {
         if (event.getMap().getTextureLocation().equals(PlayerContainer.LOCATION_BLOCKS_TEXTURE)) {
-            event.addSprite(new ResourceLocation(ToLaserBlade.MOD_ID, "item/laser_blade"));
+            if (!ToLaserBladeConfig.CLIENT.useInternalModel.get() && ToLaserBladeConfig.CLIENT.externalModelType.get() == 1) {
+                // When using external OBJ model, add OBJ model texture to block atlas
+                event.addSprite(new ResourceLocation(ToLaserBlade.MOD_ID, "item/laser_blade_obj"));
+            }
         }
     }
 
     @SubscribeEvent
     public void onModelBakeEvent(ModelBakeEvent event) {
+        if (!ToLaserBladeConfig.CLIENT.useInternalModel.get() && ToLaserBladeConfig.CLIENT.externalModelType.get() != 1) {
+            return; // Use generated model
+        }
+
         ModelResourceLocation laserBladeItemID = new ModelResourceLocation(ModItems.LASER_BLADE.getRegistryName(), "inventory");
         ModelResourceLocation lBBrokenItemID = new ModelResourceLocation(ModItems.LB_BROKEN.getRegistryName(), "inventory");
+        LaserBladeItemBakedModel bakedModel = new LaserBladeItemBakedModel();
 
-        event.getModelRegistry().put(laserBladeItemID, new LaserBladeItemBakedModel(event.getModelRegistry().get(laserBladeItemID)));
-        event.getModelRegistry().put(lBBrokenItemID, new LaserBladeItemBakedModel(event.getModelRegistry().get(lBBrokenItemID)));
-
-        LaserBladeItemModel.loadLaserBladeOBJModel(event.getModelLoader());
+        bakedModel.loadModel(event);
+        event.getModelRegistry().put(laserBladeItemID, bakedModel);
+        event.getModelRegistry().put(lBBrokenItemID, bakedModel);
     }
 
     public static void checkUpdate() {

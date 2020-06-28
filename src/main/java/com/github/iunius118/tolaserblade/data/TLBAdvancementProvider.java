@@ -1,7 +1,6 @@
 package com.github.iunius118.tolaserblade.data;
 
 import com.github.iunius118.tolaserblade.enchantment.ModEnchantments;
-import com.github.iunius118.tolaserblade.item.LaserBladeItem;
 import com.github.iunius118.tolaserblade.item.LaserBladeItemBase;
 import com.github.iunius118.tolaserblade.item.ModItems;
 import com.google.common.collect.Sets;
@@ -74,11 +73,11 @@ public class TLBAdvancementProvider implements IDataProvider {
 
         // 1-1-2. It's Over 9
         Advancement attack10 = registerAttackUpgradeAdvancement(laserBlade, Items.DIAMOND, FrameType.TASK,
-                ModItems.LASER_BLADE, 10, (int)((LaserBladeItem)ModItems.LASER_BLADE).getAttackDamage() + 1, consumer);
+                ModItems.LASER_BLADE, 10, (int)ModItems.LASER_BLADE.getAttackDamage() + 1, consumer);
 
         // 1-1-2-1. Beyond the Limit
         Advancement attack15 = registerAttackUpgradeAdvancement(attack10, Items.DIAMOND, FrameType.TASK,
-                ModItems.LASER_BLADE, 15, (int)((LaserBladeItem)ModItems.LASER_BLADE).getAttackDamage() + 1, consumer);
+                ModItems.LASER_BLADE, 15, (int)ModItems.LASER_BLADE.getAttackDamage() + 1, consumer);
 
         // 1-1-3. Give Me Three
         Advancement looting3 = registerEnchantmentAdvancement(laserBlade, Items.NAUTILUS_SHELL, FrameType.TASK,

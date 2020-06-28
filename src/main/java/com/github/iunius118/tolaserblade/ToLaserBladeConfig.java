@@ -69,24 +69,42 @@ public class ToLaserBladeConfig {
     }
 
     public static class Client {
-        public final BooleanValue isEnabledLaserBlade3DModel;
-        public final IntValue laserBladeRenderingMode;
+        public final BooleanValue useFixedVertexBuffer;
+        public final BooleanValue useInternalModel;
+        public final IntValue internalModelType;
+        public final IntValue externalModelType;
 
         Client(ForgeConfigSpec.Builder builder) {
             builder.comment("ToLaserBlade's client side settings.").push("client");
 
-            isEnabledLaserBlade3DModel = builder
-                    .comment("Enable Laser Blade to use 3D model.\n" +
+            useFixedVertexBuffer = builder
+                    .comment("Add mod's vertex buffers to Minecraft's fixed buffer list.\n" +
+                            "Need to restart client after changing this.\n" +
                             "Default: true")
-                    .translation("tolaserblade.configgui.client.enableLaserBlade3DModel")
-                    .define("enableLaserBlade3DModel", true);
+                    .translation("tolaserblade.configgui.client.useFixedVertexBuffer")
+                    .define("useFixedVertexBuffer", true);
 
-            laserBladeRenderingMode = builder
-                    .comment("Select rendering mode of Laser Blade (0-2). This option is available when enableLaserBlade3DModel is true.\n" +
-                            "  Mode 0: default. Mode 1: Not using additive blending. Mode 2: Not using additive blending and using another model.\n" +
+            useInternalModel = builder
+                    .comment("Using internal model for rendering Laser Blade. " +
+                            "Set to false to use the model that loaded from resource packs.\n" +
+                            "Need to reload resource packs after changing this.\n" +
+                            "Default: true")
+                    .translation("tolaserblade.configgui.client.useInternalModel")
+                    .define("useInternalModel", true);
+
+            internalModelType = builder
+                    .comment("Select type of internal model to use for rendering Laser Blade (0: original model, 1: another model). This is valid when useInternalModel is true.\n" +
+                            "Need to reload resource packs after changing this.\n" +
+                            "Default: -1")
+                    .translation("tolaserblade.configgui.client.internalModelType")
+                    .defineInRange("internalModelType", -1, -1, Integer.MAX_VALUE);
+
+            externalModelType = builder
+                    .comment("Select type of external model to use for rendering Laser Blade (0: generated model, 1: OBJ model). This is valid when useInternalModel is false.\n" +
+                            "Need to reload resource packs after changing this.\n" +
                             "Default: 0")
-                    .translation("tolaserblade.configgui.client.laserBladeRenderingMode")
-                    .defineInRange("laserBladeRenderingMode", 0, 0, 2);
+                    .translation("tolaserblade.configgui.client.externalModelType")
+                    .defineInRange("externalModelType", 0, 0, Integer.MAX_VALUE);
 
             builder.pop();
         }

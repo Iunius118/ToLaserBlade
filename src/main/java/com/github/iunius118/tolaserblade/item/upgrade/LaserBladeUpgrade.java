@@ -38,7 +38,6 @@ public class LaserBladeUpgrade {
             // Use GIFT code
             if ("GIFT".equals(name) || /* "おたから" */ "\u304A\u305F\u304B\u3089".equals(name)) {
                 boolean hasUpgraded = false;
-                float atk = ModItems.LASER_BLADE.getLaserBladeATK(output);
                 Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(output);
                 int lightElementLevel = enchantments.getOrDefault(ModEnchantments.LIGHT_ELEMENT, 0);
                 int smiteLevel = enchantments.getOrDefault(Enchantments.SMITE, 0);

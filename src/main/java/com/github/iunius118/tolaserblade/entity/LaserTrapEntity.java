@@ -3,7 +3,9 @@ package com.github.iunius118.tolaserblade.entity;
 import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.item.LaserBladeItemBase;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
+import net.minecraft.entity.Pose;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.IPacket;
 import net.minecraft.network.PacketBuffer;
@@ -31,6 +33,11 @@ public class LaserTrapEntity extends Entity implements IEntityAdditionalSpawnDat
         setPosition((double)pos.getX() + 0.5D, pos.getY(), (double)pos.getZ() + 0.5D);
         setRotation(direction.getHorizontalAngle(), (float)(direction.getDirectionVec().getY() * -90));
         color = bladeColor;
+    }
+
+    @Override
+    protected float getEyeHeight(Pose poseIn, EntitySize sizeIn) {
+        return sizeIn.height * 0.5F;
     }
 
     @Override

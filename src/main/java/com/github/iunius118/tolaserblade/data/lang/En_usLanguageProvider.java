@@ -64,8 +64,10 @@ public class En_usLanguageProvider extends LanguageProvider {
         add("tolaserblade.configgui.common.enableLaserTrap", "Enable Laser Trap");
         add("tolaserblade.configgui.common.canLaserTrapAttackPlayer", "Can Laser Trap Attack Player");
 
-        add("tolaserblade.configgui.client.enableLaserBlade3DModel", "Enable Laser Blade 3D Model");
-        add("tolaserblade.configgui.client.laserBladeRenderingMode", "Laser Blade Rendering mode (0–2)");
+        add("tolaserblade.configgui.client.useFixedVertexBuffer", "Use Fixed Vertex Buffer");
+        add("tolaserblade.configgui.client.useInternalModel", "Use Internal Model");
+        add("tolaserblade.configgui.client.internalModelType", "Internal Model Type");
+        add("tolaserblade.configgui.client.externalModelType", "External Model Type");
 
         // Update message
         add("tolaserblade.update.newVersion", "A new %s version is available");
