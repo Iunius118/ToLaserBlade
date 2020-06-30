@@ -48,12 +48,9 @@ public class ItemEventHandler {
                 ItemStack brokenLaserBlade = new ItemStack(ModItems.LB_BROKEN);
                 brokenLaserBlade.setTag(original.getOrCreateTag().copy());
 
-                // Add Broken Laser Blade to Player's inventory
-                if (!player.addItemStackToInventory(brokenLaserBlade)) {
-                    // ...or drop it
-                    ItemEntity itemEntity = new ItemEntity(player.world, player.getPosX(), player.getPosY() + 0.5, player.getPosZ(), brokenLaserBlade);
-                    player.world.addEntity(itemEntity);
-                }
+                // Drop Broken Laser Blade
+                ItemEntity itemEntity = new ItemEntity(player.world, player.getPosX(), player.getPosY() + 0.5, player.getPosZ(), brokenLaserBlade);
+                player.world.addEntity(itemEntity);
             }
         }
     }
