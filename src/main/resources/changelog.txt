@@ -1,6 +1,11 @@
 ToLaserBlade
 Changelog
 
+v1.15.2-3.1.1.1
+
+    Fix losing broken laser blade when the laser blade is broken by attack on entity
+
+
 v1.15.2-3.1.1.0
 
     Port to Forge 31.2.0
