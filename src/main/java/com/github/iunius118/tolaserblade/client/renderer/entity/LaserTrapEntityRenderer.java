@@ -13,6 +13,7 @@ import net.minecraft.client.renderer.entity.EntityRenderer;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 
 public class LaserTrapEntityRenderer extends EntityRenderer<LaserTrapEntity> {
     private final LaserTrapModel LASER_TRAP_MODEL = new LaserTrapModel();
@@ -41,7 +42,7 @@ public class LaserTrapEntityRenderer extends EntityRenderer<LaserTrapEntity> {
     }
 
     @Override
-    protected int getBlockLight(LaserTrapEntity entityIn, float partialTicks) {
+    protected int getBlockLight(LaserTrapEntity entityIn, BlockPos blockPosIn) {
         return 15;
     }
 

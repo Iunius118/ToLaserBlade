@@ -1,16 +1,21 @@
 
 --------------------------------------------------------------------------------
---  Model converter v2
+--  Model converter v3
 --      Converts Laser Blade item model from OBJ model
 --      This requires that the OBJ model has v, vt, vn, g and f statements
 --                        and each f statement has 4 v/vt/vn vertex indices.
 --
 --      Usage:
---              lua model_cnv.lua laser_blade.obj > output.txt
+--              lua model_cnv.lua <obj_file> <version>
+--                  <version>: 0 = 1.15 or earlier, 1 = 1.16 or later
+--
+--      Example:
+--              lua model_cnv.lua laser_blade.obj 1 > output.txt
 --------------------------------------------------------------------------------
 
 
 local hfile = io.open(arg[1], "r")
+local ver = tonumber(arg[2]) or 0
 
 if not hfile then
     print("Failed to open file " .. arg[1])
@@ -179,12 +184,18 @@ print("static {")
 
 -- Print 3D vectors (vertex, normal)
 for key, value in pairs(v3f_tbl) do
-    print(string.format("    Vector3f %s = new Vector3f(%s);", value, key))    -- Using net.minecraft.client.renderer.Vector3f
+    print(string.format("    Vector3f %s = new Vector3f(%s);", value, key)) -- Using net.minecraft.client.renderer.Vector3f (-1.15.2) or net.minecraft.util.math.vector.Vector3f (1.16.1-)
 end
 
 -- Print 2D vectors (uv)
+local vec2_name = "Vec2f"
+
+if ver > 0 then
+    vec2_name = "Vector2f"  -- Using net.minecraft.util.math.Vec2f (-1.15.2) or net.minecraft.util.math.vector.Vector2f (1.16.1-)
+end
+
 for key, value in pairs(v2f_tbl) do
-    print(string.format("    Vec2f %s = new Vec2f(%s);", value, key))  -- Using net.minecraft.util.math.Vec2f
+    print(string.format("    %s %s = new %s(%s);", vec2_name, value, vec2_name, key))
 end
 
 print("    ImmutableList.Builder<SimpleQuad> builder;")
@@ -203,7 +214,7 @@ for index, group in ipairs(groups) do
 
         print()
         print("    // " .. group)
-        print("    Vector4f " .. color .. " = new Vector4f(1F, 1F, 1F, 1F);")
+        print("    Vector4f " .. color .. " = new Vector4f(1F, 1F, 1F, 1F);")   -- Using net.minecraft.client.renderer.Vector4f (-1.15.2) or net.minecraft.util.math.vector.Vector4f (1.16.1-)
         print("    builder = ImmutableList.builder();")
 
         for i, face in ipairs(value) do

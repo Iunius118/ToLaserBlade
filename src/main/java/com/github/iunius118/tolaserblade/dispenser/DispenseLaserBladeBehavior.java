@@ -9,7 +9,7 @@ import net.minecraft.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.dispenser.IDispenseItemBehavior;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
@@ -73,7 +73,7 @@ public class DispenseLaserBladeBehavior implements IDispenseItemBehavior {
         AxisAlignedBB boundingBox = new AxisAlignedBB(pos).grow(0.5D);
         List<Entity> targetEntities = laserTrapPlayer.world.getEntitiesInAABBexcluding(null, boundingBox, LASER_TRAP_TARGETS);
         // Get attack damage
-        float attackDamage = (float)laserTrapPlayer.getAttribute(SharedMonsterAttributes.ATTACK_DAMAGE).getValue();
+        float attackDamage = (float)laserTrapPlayer.getAttribute(Attributes.field_233823_f_).getValue();    // TODO: field_233823_f_ = ATTACK_DAMAGE
 
         for (Entity targetEntity : targetEntities) {
             // Attack entities

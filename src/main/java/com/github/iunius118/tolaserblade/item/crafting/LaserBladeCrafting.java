@@ -14,12 +14,10 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.ITextComponent;
+import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.NetherBiome;
-import net.minecraft.world.biome.TheEndBiome;
 import net.minecraft.world.biome.TheVoidBiome;
-import net.minecraft.world.dimension.DimensionType;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -70,11 +68,11 @@ public class LaserBladeCrafting {
                         setAttackSpeed(ingredient);
                         setName(ingredient);
 
-                    } else if (resultItem.canUpgrade(LaserBladeUpgrade.Type.BATTERY) && Tags.Items.DUSTS_REDSTONE.contains(item)) {
+                    } else if (resultItem.canUpgrade(LaserBladeUpgrade.Type.BATTERY) && Tags.Items.DUSTS_REDSTONE.func_230235_a_(item)) {   // TODO: func_230235_a_ = contains
                         // Add Efficiency I to LB Energy Cell by Redstone
                         addEnchantment(Enchantments.EFFICIENCY, 1);
 
-                    } else if (resultItem.canUpgrade(LaserBladeUpgrade.Type.MEDIUM) && Tags.Items.DUSTS_GLOWSTONE.contains(item)) {
+                    } else if (resultItem.canUpgrade(LaserBladeUpgrade.Type.MEDIUM) && Tags.Items.DUSTS_GLOWSTONE.func_230235_a_(item)) {   // TODO: func_230235_a_ = contains
                         // Add Light Element II to Laser Medium by Glowstone Dust
                         addEnchantment(ModEnchantments.LIGHT_ELEMENT, LaserBladeItemBase.LVL_LIGHT_ELEMENT_2);
                     }
@@ -193,13 +191,13 @@ public class LaserBladeCrafting {
 
     private void modifyColorsByBiome(PlayerEntity player) {
         World world = player.world;
-        Biome biome = world.getBiome(player.getPosition());
+        Biome biome = world.getBiome(player.func_233580_cy_()); // TODO: func_233580_cy_ = getPosition
 
         // Dyeing by Biome type or Biome temperature
-        if (world.getDimension().getType() == DimensionType.THE_NETHER || biome instanceof NetherBiome) {
+        if (world.func_234922_V_() == DimensionType.field_236000_d_ || biome.getCategory() == Biome.Category.NETHER) {   // Nether
             // Nether
             isBladeInnerSubColor = true;
-        } else if (world.getDimension().getType() == DimensionType.THE_END || biome instanceof TheEndBiome) {
+        } else if (world.func_234922_V_() == DimensionType.field_236001_e_ || biome.getCategory() == Biome.Category.THEEND) {   // The End
             // The End
             isBladeOuterSubColor = true;
         } else if (biome instanceof TheVoidBiome) {

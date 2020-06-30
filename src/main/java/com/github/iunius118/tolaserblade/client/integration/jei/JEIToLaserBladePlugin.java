@@ -15,8 +15,8 @@ import mezz.jei.api.registration.IRecipeRegistration;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.Tag;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
 import org.apache.commons.lang3.tuple.Triple;
@@ -40,7 +40,7 @@ public class JEIToLaserBladePlugin implements IModPlugin {
     private List<Object> getUpgradeRecipes(IVanillaRecipeFactory factory) {
         List<Object> list = new ArrayList<>();
 
-        for (Triple<Tag<Item>, LaserBladeUpgrade.Type, Function<ItemStack, UpgradeResult>> tag : ModItemTags.getTags()) {
+        for (Triple<ITag.INamedTag<Item>, LaserBladeUpgrade.Type, Function<ItemStack, UpgradeResult>> tag : ModItemTags.getTags()) {
             Object recipe = getUpdateAnvilRecipe(factory, tag.getLeft(), tag.getRight());
 
             if (recipe != null) {
@@ -86,7 +86,7 @@ public class JEIToLaserBladePlugin implements IModPlugin {
         return list;
     }
 
-    private Object getUpdateAnvilRecipe(IVanillaRecipeFactory factory, Tag<Item> itemTag, Function<ItemStack, UpgradeResult> upgradeFunc) {
+    private Object getUpdateAnvilRecipe(IVanillaRecipeFactory factory, ITag.INamedTag<Item> itemTag, Function<ItemStack, UpgradeResult> upgradeFunc) {
         List<ItemStack> left;
         List<ItemStack> right = getUpgradeRecipes(itemTag);
         ItemStack output = new ItemStack(ModItems.LASER_BLADE);
@@ -122,9 +122,9 @@ public class JEIToLaserBladePlugin implements IModPlugin {
         return factory.createAnvilRecipe(left, right, Collections.singletonList(output));
     }
 
-    private List<ItemStack> getUpgradeRecipes(Tag<Item> itemTag) {
+    private List<ItemStack> getUpgradeRecipes(ITag.INamedTag<Item> itemTag) {
         List<ItemStack> list = new ArrayList<>();
-        itemTag.getAllElements().forEach(item -> list.add(new ItemStack(item)));
+        itemTag.func_230236_b_().forEach(item -> list.add(new ItemStack(item)));    // TODO: func_230236_b_ = getAllElements
         return list;
     }
 

@@ -5,15 +5,15 @@ import com.github.iunius118.tolaserblade.client.model.laserblade.LaserBladeOBJMo
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.block.BlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.Vector3f;
 import net.minecraft.client.renderer.model.*;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.world.ClientWorld;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.util.Direction;
 import net.minecraft.util.HandSide;
-import net.minecraft.world.World;
+import net.minecraft.util.math.vector.Vector3f;
 import net.minecraftforge.client.ForgeHooksClient;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.model.data.EmptyModelData;
@@ -84,9 +84,8 @@ public class LaserBladeItemBakedModel implements IBakedModel {
     @Override
     public ItemOverrideList getOverrides() {
         return new ItemOverrideList() {
-            @Nullable
             @Override
-            public IBakedModel getModelWithOverrides(IBakedModel model, ItemStack stack, @Nullable World worldIn, @Nullable LivingEntity entityIn) {
+            public IBakedModel func_239290_a_(IBakedModel model, ItemStack stack, @Nullable ClientWorld worldIn, @Nullable LivingEntity entityIn) { // TODO: func_239290_a_ = getModelWithOverrides
                 if (model instanceof LaserBladeItemBakedModel) {
                     LaserBladeItemBakedModel laserBladeModel = (LaserBladeItemBakedModel) model;
 

@@ -16,7 +16,7 @@ import net.minecraft.item.BlockItem;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.ITag;
 import net.minecraft.util.text.StringTextComponent;
 import net.minecraftforge.event.AnvilUpdateEvent;
 import net.minecraftforge.event.entity.player.AnvilRepairEvent;
@@ -94,10 +94,10 @@ public class LaserBladeUpgrade {
         }
 
         // Upgrade or Repair
-        List<Triple<Tag<Item>, Type, Function<ItemStack, UpgradeResult>>> tags = ModItemTags.getTags();
+        List<Triple<ITag.INamedTag<Item>, Type, Function<ItemStack, UpgradeResult>>> tags = ModItemTags.getTags();
 
-        for (Triple<Tag<Item>, Type, Function<ItemStack, UpgradeResult>> tag : tags) {
-            if (tag.getLeft().contains(rightItem) && laserBlade.canUpgrade(tag.getMiddle())) {
+        for (Triple<ITag.INamedTag<Item>, Type, Function<ItemStack, UpgradeResult>> tag : tags) {
+            if (tag.getLeft().func_230235_a_(rightItem) && laserBlade.canUpgrade(tag.getMiddle())) {    // TODO: func_230235_a_ = contains
                 // Upgrade Laser Blade or its parts
                 UpgradeResult result = tag.getRight().apply(left.copy());
                 ItemStack output = result.getItemStack();
@@ -163,7 +163,7 @@ public class LaserBladeUpgrade {
                 event.setOutput(output);
             }
         } else if (rightItem == Items.PAPER && right.hasDisplayName()) {
-            String code = right.getDisplayName().getFormattedText();
+            String code = right.getDisplayName().getString();
             ItemStack output = ItemStack.EMPTY;
             int cost = 0;
 

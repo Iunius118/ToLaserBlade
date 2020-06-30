@@ -262,7 +262,7 @@ public interface LaserBladeItemBase {
     }
 
     default ITextComponent getUpgradeTextComponent(String key, float value) {
-        return new TranslationTextComponent(key, (value < 0 ? "" : "+") + ItemStack.DECIMALFORMAT.format(value)).applyTextStyle(TextFormatting.DARK_GREEN);
+        return new TranslationTextComponent(key, (value < 0 ? "" : "+") + ItemStack.DECIMALFORMAT.format(value)).func_240699_a_(TextFormatting.DARK_GREEN); // TODO: func_240699_a_ = applyTextStyle
     }
 
     enum LBColor {

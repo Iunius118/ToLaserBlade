@@ -27,7 +27,7 @@ public class LaserTrapPlayer extends FakePlayer {
         inventory.setInventorySlotContents(0, currentStack);
 
         // Apply attack damage from main hand item
-        getAttributes().applyAttributeModifiers(currentStack.getAttributeModifiers(EquipmentSlotType.MAINHAND));
+        func_233645_dx_().func_233793_b_(currentStack.getAttributeModifiers(EquipmentSlotType.MAINHAND));   // TODO: func_233645_dx_ = getAttributes, func_233793_b_ = applyAttributeModifiers
     }
 
     @Override

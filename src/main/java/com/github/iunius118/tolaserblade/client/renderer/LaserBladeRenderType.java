@@ -15,6 +15,7 @@ import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.coremod.api.ASMAPI;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL14;
 
@@ -121,13 +122,12 @@ public class LaserBladeRenderType extends RenderType {
         try {
             // Get RenderTypeBuffers#fixedBuffers to register mod RenderTypes with reflection
             final Field[] fields = renderTypeBuffers.getClass().getDeclaredFields();
-            String fieldName1 = "fixedBuffers";
-            String fieldName2 = "field_228480_b_";
+            String fieldName = ASMAPI.mapField("field_228480_b_");  // fixedBuffers
             Field fieldFixedBuffers = null;
 
             for (Field field : fields) {
                 String name = field.getName();
-                if (name.equals(fieldName1) || name.equals(fieldName2)) {
+                if (name.equals(fieldName)) {
                     fieldFixedBuffers = field;
                     // ToLaserBlade.LOGGER.info("Add ToLaserBlade render types to RenderTypeBuffers." + name);
                     break;
@@ -135,7 +135,7 @@ public class LaserBladeRenderType extends RenderType {
             }
 
             if (fieldFixedBuffers == null) {
-                throw new NoSuchFieldException(fieldName1);
+                throw new NoSuchFieldException(fieldName);
             }
 
             fieldFixedBuffers.setAccessible(true);

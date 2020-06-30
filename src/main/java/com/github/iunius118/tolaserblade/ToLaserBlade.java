@@ -20,6 +20,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.client.model.generators.ExistingFileHelper;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.data.ForgeBlockTagsProvider;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
@@ -140,7 +141,7 @@ public class ToLaserBlade {
 
             if (event.includeServer()) {
                 gen.addProvider(new TLBRecipeProvider(gen));    // Recipes
-                gen.addProvider(new TLBItemTagsProvider(gen));  // Item tags
+                gen.addProvider(new TLBItemTagsProvider(gen, new ForgeBlockTagsProvider(gen)));  // Item tags
                 gen.addProvider(new TLBAdvancementProvider(gen));   // Advancements
             }
 

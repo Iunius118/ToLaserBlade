@@ -23,7 +23,7 @@ public class ItemEventHandler {
             PlayerEntity player = event.getPlayer();
             ItemStack itemStack1 = itemStack.isEmpty() ? ItemStack.EMPTY : itemStack.copy();
 
-            if (event.getTarget().processInitialInteract(event.getPlayer(), event.getHand())) {
+            if (event.getTarget().processInitialInteract(event.getPlayer(), event.getHand()).isSuccessOrConsume()) {
                 if (player.abilities.isCreativeMode && itemStack == event.getItemStack() && itemStack.getCount() < itemStack1.getCount()) {
                     itemStack.setCount(itemStack1.getCount());
                 }
@@ -48,12 +48,9 @@ public class ItemEventHandler {
                 ItemStack brokenLaserBlade = new ItemStack(ModItems.LB_BROKEN);
                 brokenLaserBlade.setTag(original.getOrCreateTag().copy());
 
-                // Add Broken Laser Blade to Player's inventory
-                if (!player.addItemStackToInventory(brokenLaserBlade)) {
-                    // ...or drop it
-                    ItemEntity itemEntity = new ItemEntity(player.world, player.getPosX(), player.getPosY() + 0.5, player.getPosZ(), brokenLaserBlade);
-                    player.world.addEntity(itemEntity);
-                }
+                // Drop Broken Laser Blade
+                ItemEntity itemEntity = new ItemEntity(player.world, player.getPosX(), player.getPosY() + 0.5, player.getPosZ(), brokenLaserBlade);
+                player.world.addEntity(itemEntity);
             }
         }
     }

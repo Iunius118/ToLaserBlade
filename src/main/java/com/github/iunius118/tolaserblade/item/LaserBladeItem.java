@@ -15,15 +15,16 @@ import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.SharedMonsterAttributes;
+import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.tags.Tag;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -41,7 +42,6 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
     private final float attackSpeed;
 
     public static Item.Properties properties = (new Item.Properties()).setNoRepair().group(ModMainItemGroup.ITEM_GROUP).setISTER(() -> LaserBladeItemRenderer::new);
-    public static final IItemPropertyGetter BLOCKING_GETTER = (stack, world, entity) -> entity != null && entity.isHandActive() && entity.getActiveItemStack() == stack ? 1.0F : 0.0F;
 
     public LaserBladeItem() {
         super(new ItemTier(), 3, -1.2F, properties);
@@ -50,8 +50,6 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
         attackDamage = 3.0F + tier.getAttackDamage();
         attackSpeed = -1.2F;
 
-        // Add blocking prop
-        addPropertyOverride(new ResourceLocation("blocking"), BLOCKING_GETTER);
         // Register dispense behavior
         DispenserBlock.registerDispenseBehavior(this, new DispenseLaserBladeBehavior());
     }
@@ -183,15 +181,15 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
     }
 
     @Override
-    public Multimap<String, AttributeModifier> getAttributeModifiers(EquipmentSlotType slot, ItemStack stack) {
-        Multimap<String, AttributeModifier> multimap = HashMultimap.create();
+    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType slot, ItemStack stack) {
+        Multimap<Attribute, AttributeModifier> multimap = HashMultimap.create();
 
         if (slot == EquipmentSlotType.MAINHAND) {
-            multimap.put(SharedMonsterAttributes.ATTACK_DAMAGE.getName(),
+            multimap.put(Attributes.field_233823_f_,    // TODO: field_233823_f_ = ATTACK_DAMAGE
                     new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier",
                             this.attackDamage + getLaserBladeATK(stack), AttributeModifier.Operation.ADDITION));
 
-            multimap.put(SharedMonsterAttributes.ATTACK_SPEED.getName(),
+            multimap.put(Attributes.field_233825_h_,    // TODO: field_233825_h_ = ATTACK_SPEED
                     new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier",
                             this.attackSpeed + getLaserBladeSPD(stack), AttributeModifier.Operation.ADDITION));
         }
@@ -203,6 +201,7 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
 
     private ItemStack laserBladeNormal;
     private ItemStack laserBladeUpgraded;
+    private ItemStack laserBladeDamaged;
     private ItemStack laserBladeFullMod;
 
     private ItemStack getLaserBladeNormal() {
@@ -257,17 +256,21 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
                 laserBladeUpgraded = getLaserBladeUpgraded();
             }
 
+            if (laserBladeDamaged == null) {
+                laserBladeDamaged = getLaserBladeUpgraded();
+                laserBladeDamaged.setDamage(LaserBladeItemBase.MAX_USES - 1);
+            }
+
             if (laserBladeFullMod == null) {
                 laserBladeFullMod = getLaserBladeFullMod();
             }
 
             items.add(laserBladeNormal);
             items.add(laserBladeUpgraded);
+            items.add(laserBladeDamaged);
             items.add(laserBladeFullMod);
         }
     }
-
-
 
     /* Inner Classes */
 
@@ -324,7 +327,7 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
 
         @Override
         public Ingredient getRepairMaterial() {
-            Tag<Item> tag = ItemTags.getCollection().get(new ResourceLocation("forge", "ingots/iron"));
+            ITag<Item> tag = ItemTags.getCollection().get(new ResourceLocation("forge", "ingots/iron"));
 
             if (tag != null) {
                 return Ingredient.fromTag(tag);
