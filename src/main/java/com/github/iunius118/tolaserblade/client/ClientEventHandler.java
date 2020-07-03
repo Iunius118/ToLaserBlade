@@ -26,10 +26,13 @@ public class ClientEventHandler {
     @SubscribeEvent
     public void onItemColorHandlerEvent(ColorHandlerEvent.Item event) {
         event.getItemColors().register(new LaserBladeItem.ColorHandler(), ModItems.LASER_BLADE);
+        event.getItemColors().register(new LaserBladeItem.ColorHandler(), ModItems.LASER_BLADE_FP);
         event.getItemColors().register(new LaserBladeItem.ColorHandler(), ModItems.LB_BROKEN);
+        event.getItemColors().register(new LaserBladeItem.ColorHandler(), ModItems.LB_BROKEN_FP);
         event.getItemColors().register(new LBEmitterItem.ColorHandler(), ModItems.LB_EMITTER);
         event.getItemColors().register(new LBMediumItem.ColorHandler(), ModItems.LB_MEDIUM);
         event.getItemColors().register(new LBCasingItem.ColorHandler(), ModItems.LB_CASING);
+        event.getItemColors().register(new LBCasingItem.ColorHandler(), ModItems.LB_CASING_FP);
     }
 
     @SubscribeEvent
@@ -49,12 +52,16 @@ public class ClientEventHandler {
         }
 
         ModelResourceLocation laserBladeItemID = new ModelResourceLocation(ModItems.LASER_BLADE.getRegistryName(), "inventory");
+        ModelResourceLocation laserBladeFPItemID = new ModelResourceLocation(ModItems.LASER_BLADE_FP.getRegistryName(), "inventory");
         ModelResourceLocation lBBrokenItemID = new ModelResourceLocation(ModItems.LB_BROKEN.getRegistryName(), "inventory");
+        ModelResourceLocation lBBrokenFPItemID = new ModelResourceLocation(ModItems.LB_BROKEN_FP.getRegistryName(), "inventory");
         LaserBladeItemBakedModel bakedModel = new LaserBladeItemBakedModel();
 
         bakedModel.loadModel(event);
         event.getModelRegistry().put(laserBladeItemID, bakedModel);
+        event.getModelRegistry().put(laserBladeFPItemID, bakedModel);
         event.getModelRegistry().put(lBBrokenItemID, bakedModel);
+        event.getModelRegistry().put(lBBrokenFPItemID, bakedModel);
     }
 
     public static void checkUpdate() {

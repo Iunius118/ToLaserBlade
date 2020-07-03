@@ -17,7 +17,7 @@ public class ItemEventHandler {
         ItemStack itemStack = event.getItemStack();
 
         // Redundant Null Check for Forge
-        if (itemStack != null && itemStack.getItem() == ModItems.LASER_BLADE) {
+        if (itemStack != null && (itemStack.getItem() == ModItems.LASER_BLADE || itemStack.getItem() == ModItems.LASER_BLADE_FP)) {
             // Avoid duplication of Laser Blade when player interact with Item Frame
             event.setCanceled(true);
             PlayerEntity player = event.getPlayer();
@@ -42,10 +42,19 @@ public class ItemEventHandler {
 
         if (!player.getEntityWorld().isRemote) {
             ItemStack original = event.getOriginal();
+            ItemStack brokenLaserBlade = null;
 
-            // Redundant Null Check for Forge
-            if (original != null && original.getItem() == ModItems.LASER_BLADE) {
-                ItemStack brokenLaserBlade = new ItemStack(ModItems.LB_BROKEN);
+            if (original == null) {
+                // Redundant Null Check for Forge
+
+            } else if (original.getItem() == ModItems.LASER_BLADE) {
+                brokenLaserBlade = new ItemStack(ModItems.LB_BROKEN);
+
+            } else if (original.getItem() == ModItems.LASER_BLADE_FP) {
+                brokenLaserBlade = new ItemStack(ModItems.LB_BROKEN_FP);
+            }
+
+            if (brokenLaserBlade != null) {
                 brokenLaserBlade.setTag(original.getOrCreateTag().copy());
 
                 // Drop Broken Laser Blade
@@ -82,7 +91,7 @@ public class ItemEventHandler {
         if (left.getItem() instanceof LaserBladeItemBase) {
             event.setBreakChance(0.075F);
 
-            if (item == ModItems.LASER_BLADE) {
+            if (item.getItem() == ModItems.LASER_BLADE || item.getItem() == ModItems.LASER_BLADE_FP) {
                 LaserBladeUpgrade.onAnvilRepair(event);
             }
         }
