@@ -92,14 +92,18 @@ public class ToLaserBlade {
         public static void onItemsRegistry(final RegistryEvent.Register<Item> event) {
             event.getRegistry().registerAll(
                     new DXLaserBladeItem().setRegistryName("dx_laser_blade"),
-                    new LaserBladeItem().setRegistryName("laser_blade"),
-                    new LBBrokenItem().setRegistryName("lb_broken"),
+                    new LaserBladeItem(false).setRegistryName("laser_blade"),
+                    new LaserBladeItem(true).setRegistryName("laser_blade_fp"), // Fireproof
+                    new LBBrokenItem(false).setRegistryName("lb_broken"),
+                    new LBBrokenItem(true).setRegistryName("lb_broken_fp"), // Fireproof
                     new LBBlueprintItem().setRegistryName("lb_blueprint"),
-                    new LBDisassembledItem().setRegistryName("lb_disassembled"),
+                    new LBDisassembledItem(false).setRegistryName("lb_disassembled"),
+                    new LBDisassembledItem(true).setRegistryName("lb_disassembled_fp"), // Fireproof
                     new LBBatteryItem().setRegistryName("lb_battery"),
                     new LBMediumItem().setRegistryName("lb_medium"),
                     new LBEmitterItem().setRegistryName("lb_emitter"),
-                    new LBCasingItem().setRegistryName("lb_casing")
+                    new LBCasingItem(false).setRegistryName("lb_casing"),
+                    new LBCasingItem(true).setRegistryName("lb_casing_fp")  // Fireproof
             );
         }
 

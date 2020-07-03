@@ -10,6 +10,7 @@ import com.google.common.collect.Multimap;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.client.renderer.color.IItemColor;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.enchantment.Enchantments;
@@ -27,6 +28,7 @@ import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
@@ -35,6 +37,7 @@ import net.minecraftforge.event.entity.player.CriticalHitEvent;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nullable;
+import java.util.List;
 
 public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
     private final IItemTier tier;
@@ -43,8 +46,8 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
 
     public static Item.Properties properties = (new Item.Properties()).setNoRepair().group(ModMainItemGroup.ITEM_GROUP).setISTER(() -> LaserBladeItemRenderer::new);
 
-    public LaserBladeItem() {
-        super(new ItemTier(), 3, -1.2F, properties);
+    public LaserBladeItem(boolean isFireproof) {
+        super(new ItemTier(isFireproof), 3, -1.2F, LaserBladeItemBase.setFireproof(properties, isFireproof));
 
         tier = getTier();
         attackDamage = 3.0F + tier.getAttackDamage();
@@ -197,6 +200,13 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
         return multimap;
     }
 
+    @Override
+    @OnlyIn(Dist.CLIENT)
+    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        super.addInformation(stack, worldIn, tooltip, flagIn);
+        addLaserBladeInformation(stack, worldIn, tooltip, flagIn, LaserBladeUpgrade.Type.OTHER);
+    }
+
     /* Creative Tab */
 
     private ItemStack laserBladeNormal;
@@ -247,7 +257,8 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
     public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
         super.fillItemGroup(group, items);
 
-        if (group == ModMainItemGroup.ITEM_GROUP) {
+        if (group == ModMainItemGroup.ITEM_GROUP && func_234687_u_()) {
+            // Laser Blade item group and not fireproof
             if (laserBladeNormal == null) {
                 laserBladeNormal = getLaserBladeNormal();
             }
@@ -300,9 +311,20 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
     }
 
     public static class ItemTier implements IItemTier {
+        private final static int HARVEST_LEVEL = 3;
+        private final static float NETHERITIC_DAMAGE = 4.0F;
+        private final static float NORMAL_DAMAGE = 3.0F;
+        private final static int ENCHANTABILITY = 15;
+
+        private final boolean isNetheritic;
+
+        public ItemTier(boolean isFireproof){
+            isNetheritic = isFireproof;
+        }
+
         @Override
         public int getHarvestLevel() {
-            return 3;
+            return HARVEST_LEVEL;
         }
 
         @Override
@@ -317,12 +339,12 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
 
         @Override
         public float getAttackDamage() {
-            return 3.0F;
+            return isNetheritic ? NETHERITIC_DAMAGE : NORMAL_DAMAGE;
         }
 
         @Override
         public int getEnchantability() {
-            return 15;
+            return ENCHANTABILITY;
         }
 
         @Override

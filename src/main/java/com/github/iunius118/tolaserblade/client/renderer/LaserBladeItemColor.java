@@ -27,7 +27,7 @@ public class LaserBladeItemColor {
             return;
         }
 
-        isBroken = (itemStack.getItem() == ModItems.LB_BROKEN);
+        isBroken = (itemStack.getItem() == ModItems.LB_BROKEN || itemStack.getItem() == ModItems.LB_BROKEN_FP);
 
         gripColor = ModItems.LASER_BLADE.checkGamingColor(ModItems.LASER_BLADE.getGripColor(itemStack));
 

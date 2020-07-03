@@ -6,6 +6,7 @@ import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.math.MathHelper;
@@ -38,6 +39,7 @@ public interface LaserBladeItemBase {
     String KEY_IS_INNER_SUB_COLOR = "isSubC";
     String KEY_IS_OUTER_SUB_COLOR = "isSubH";
 
+    String KEY_TOOLTIP_FIREPROOF = "upgrade.tolaserblade.fireproof";
     String KEY_TOOLTIP_ATTACK_DAMAGE = "upgrade.tolaserblade.attackDamage";
     String KEY_TOOLTIP_ATTACK_SPEED = "upgrade.tolaserblade.attackSpeed";
 
@@ -59,6 +61,12 @@ public interface LaserBladeItemBase {
     int LVL_LIGHT_ELEMENT_5 = 5;
 
     int MAX_USES = 32000;
+
+    /* Laser Blade properties */
+
+    static Item.Properties setFireproof(Item.Properties properties, boolean isFireproof) {
+        return isFireproof ? properties.func_234689_a_() : properties;
+    }
 
     /* Laser Blade status getters/setters */
 
@@ -247,17 +255,27 @@ public interface LaserBladeItemBase {
     }
 
     @OnlyIn(Dist.CLIENT)
-    default void addLaserBladeInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-        float atk = getLaserBladeATK(stack);
+    default void addLaserBladeInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn, LaserBladeUpgrade.Type type) {
+        boolean isFireproof = stack.getItem().func_234687_u_();
 
-        if (atk <= -0.005F || atk >= 0.005) {
-            tooltip.add(getUpgradeTextComponent(KEY_TOOLTIP_ATTACK_DAMAGE, atk));
+        if (isFireproof) {
+            tooltip.add(new TranslationTextComponent(KEY_TOOLTIP_FIREPROOF).func_240699_a_(TextFormatting.GOLD));   // TODO: func_240699_a_ = applyTextStyle
         }
 
-        float spd = getLaserBladeSPD(stack);
+        if (type == LaserBladeUpgrade.Type.REPAIR || type == LaserBladeUpgrade.Type.MEDIUM) {
+            float atk = getLaserBladeATK(stack);
 
-        if (spd <= -0.005F || spd >= 0.005) {
-            tooltip.add(getUpgradeTextComponent(KEY_TOOLTIP_ATTACK_SPEED, spd));
+            if (atk <= -0.005F || atk >= 0.005) {
+                tooltip.add(getUpgradeTextComponent(KEY_TOOLTIP_ATTACK_DAMAGE, atk));
+            }
+        }
+
+        if (type == LaserBladeUpgrade.Type.REPAIR || type == LaserBladeUpgrade.Type.BATTERY) {
+            float spd = getLaserBladeSPD(stack);
+
+            if (spd <= -0.005F || spd >= 0.005) {
+                tooltip.add(getUpgradeTextComponent(KEY_TOOLTIP_ATTACK_SPEED, spd));
+            }
         }
     }
 
