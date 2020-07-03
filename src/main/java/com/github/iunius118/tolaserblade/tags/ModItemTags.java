@@ -32,6 +32,7 @@ public class ModItemTags {
 
     public static final ITag.INamedTag<Item> LOOTING_UPGRADE = addUpgradeTag(makeWrapperTag("upgrade/looting"), Type.CASING, UpgradeFunctions.getUpgradeEnchantmentFunction(Enchantments.LOOTING));
     public static final ITag.INamedTag<Item> MENDING_UPGRADE = addUpgradeTag(makeWrapperTag("upgrade/mending"), Type.CASING, UpgradeFunctions.getUpgradeEnchantmentFunction(Enchantments.MENDING));
+    public static final ITag.INamedTag<Item> FIREPROOF_UPGRADE = addUpgradeTag(makeWrapperTag("upgrade/fireproof"), Type.CASING, UpgradeFunctions.getUpgradeFireproofFunction());
 
     public static final ITag.INamedTag<Item> CASING_REPAIR = addUpgradeTag(makeWrapperTag("casing_repair"), Type.REPAIR, UpgradeFunctions.getRepairFunction());
 

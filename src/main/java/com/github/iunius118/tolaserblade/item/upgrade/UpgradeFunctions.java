@@ -95,33 +95,67 @@ public class UpgradeFunctions {
         };
     }
 
+    public static Function<ItemStack, UpgradeResult> getUpgradeFireproofFunction() {
+        return (stack) -> {
+            ItemStack itemFireproof = null;
+            ItemStack output = stack;
+            int cost = 0;
+
+            if (stack.getItem() == ModItems.LASER_BLADE) {
+                // Make Laser Blade fireproof with Netherite
+                itemFireproof = new ItemStack(ModItems.LASER_BLADE_FP);
+
+            } else if (stack.getItem() == ModItems.LB_CASING) {
+                // Make Laser Blade Casing fireproof with Netherite
+                itemFireproof = new ItemStack(ModItems.LB_CASING_FP);
+            }
+
+            if (itemFireproof != null) {
+                itemFireproof.setTag(stack.getOrCreateTag().copy());
+                itemFireproof.setDamage(0);
+                output = itemFireproof;
+                cost = 1;
+            }
+
+            return UpgradeResult.of(output, cost);
+        };
+    }
+
     public static Function<ItemStack, UpgradeResult> getRepairFunction() {
         return (stack) -> {
+            ItemStack itemRepaired = null;
             ItemStack output = stack;
             int cost = 0;
 
             if (stack.getItem() == ModItems.LB_BROKEN) {
                 // Repair Broken Laser Blade
-                ItemStack laserBlade = new ItemStack(ModItems.LASER_BLADE);
-                laserBlade.setTag(stack.getOrCreateTag().copy());
-                laserBlade.setDamage(0);
-                Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(laserBlade);
+                itemRepaired = new ItemStack(ModItems.LASER_BLADE);
 
-                if (enchantments.containsKey(Enchantments.SHARPNESS)) {
-                    // SHARPNESS -> ATK (for [-1.14.4] Laser Blade Core)
-                    float atkFromSharpness = Math.max(enchantments.get(Enchantments.SHARPNESS) - 1, 0);
-                    float atk = ModItems.LASER_BLADE.getLaserBladeATK(laserBlade);
-                    ModItems.LASER_BLADE.setLaserBladeATK(laserBlade, Math.max(atkFromSharpness, atk));
-                    enchantments.remove(Enchantments.SHARPNESS);
-                    EnchantmentHelper.setEnchantments(enchantments, laserBlade);
-                }
-
-                output = laserBlade;
-                cost = 1;
+            } else if (stack.getItem() == ModItems.LB_BROKEN_FP) {
+                // Repair Broken Netherite Laser Blade
+                itemRepaired = new ItemStack(ModItems.LASER_BLADE_FP);
 
             } else if (stack.getDamage() > 0) {
                 // Repair damaged Laser Blade (excluding broken one)
                 output.setDamage(0);
+                cost = 1;
+            }
+
+            if (itemRepaired != null) {
+                itemRepaired.setTag(stack.getOrCreateTag().copy());
+                itemRepaired.setDamage(0);
+                Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(itemRepaired);
+
+                if (enchantments.containsKey(Enchantments.SHARPNESS)) {
+                    // SHARPNESS -> ATK (for [-1.14.4] Laser Blade Core)
+                    float atkFromSharpness = Math.max(enchantments.get(Enchantments.SHARPNESS) - 1, 0);
+                    float atk = ModItems.LASER_BLADE.getLaserBladeATK(itemRepaired);
+                    ModItems.LASER_BLADE.setLaserBladeATK(itemRepaired, Math.max(atkFromSharpness, atk));
+                    enchantments.remove(Enchantments.SHARPNESS);
+                    EnchantmentHelper.setEnchantments(enchantments, itemRepaired);
+                }
+
+                output = itemRepaired;
                 cost = 1;
             }
 
