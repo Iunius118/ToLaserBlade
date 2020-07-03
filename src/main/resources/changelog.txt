@@ -4,7 +4,7 @@ Changelog
 v1.16.1-3.1.3.0
 
     Add fireproof Laser Blade items which are resistant to Fire and Lava
-    Add fireproof upgrade to combine Laser Blade and Netherite Ingot on Anvil or Smithing Table
+    Add fireproof upgrade which makes Laser Blade fireproof by consuming Netherite Ingot on Smithing Table or Anvil
 
 
 v1.16.1-3.1.2.0
