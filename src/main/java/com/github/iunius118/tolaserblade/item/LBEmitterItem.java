@@ -10,6 +10,7 @@ import org.apache.commons.lang3.tuple.Pair;
 
 public class LBEmitterItem extends Item implements LaserBladeItemBase {
     public static Item.Properties properties = (new Item.Properties()).setNoRepair().group(ModMainItemGroup.ITEM_GROUP);
+    public final LaserBladeUpgrade.Type upgradeType = LaserBladeUpgrade.Type.EMITTER;
 
     public LBEmitterItem() {
         super(properties);
@@ -17,7 +18,7 @@ public class LBEmitterItem extends Item implements LaserBladeItemBase {
 
     @Override
     public boolean canUpgrade(LaserBladeUpgrade.Type type) {
-        return type == LaserBladeUpgrade.Type.EMITTER;
+        return type == upgradeType;
     }
 
     @OnlyIn(Dist.CLIENT)

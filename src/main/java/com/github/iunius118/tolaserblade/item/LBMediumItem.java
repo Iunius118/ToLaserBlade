@@ -16,6 +16,7 @@ import java.util.List;
 
 public class LBMediumItem extends Item implements LaserBladeItemBase {
     public static Item.Properties properties = (new Item.Properties()).setNoRepair().group(ModMainItemGroup.ITEM_GROUP);
+    public final LaserBladeUpgrade.Type upgradeType = LaserBladeUpgrade.Type.MEDIUM;
 
     public LBMediumItem() {
         super(properties);
@@ -23,14 +24,14 @@ public class LBMediumItem extends Item implements LaserBladeItemBase {
 
     @Override
     public boolean canUpgrade(LaserBladeUpgrade.Type type) {
-        return type == LaserBladeUpgrade.Type.MEDIUM;
+        return type == upgradeType;
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        ModItems.LB_MEDIUM.addLaserBladeInformation(stack, worldIn, tooltip, flagIn);
+        ModItems.LB_MEDIUM.addLaserBladeInformation(stack, worldIn, tooltip, flagIn, upgradeType);
     }
 
     @OnlyIn(Dist.CLIENT)

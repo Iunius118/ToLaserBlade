@@ -14,6 +14,7 @@ import java.util.List;
 
 public class LBBatteryItem extends Item implements LaserBladeItemBase {
     public static Item.Properties properties = (new Item.Properties()).setNoRepair().group(ModMainItemGroup.ITEM_GROUP);
+    public final LaserBladeUpgrade.Type upgradeType = LaserBladeUpgrade.Type.BATTERY;
 
     public LBBatteryItem() {
         super(properties);
@@ -21,13 +22,13 @@ public class LBBatteryItem extends Item implements LaserBladeItemBase {
 
     @Override
     public boolean canUpgrade(LaserBladeUpgrade.Type type) {
-        return type == LaserBladeUpgrade.Type.BATTERY;
+        return type == upgradeType;
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        ModItems.LB_BATTERY.addLaserBladeInformation(stack, worldIn, tooltip, flagIn);
+        addLaserBladeInformation(stack, worldIn, tooltip, flagIn, upgradeType);
     }
 }

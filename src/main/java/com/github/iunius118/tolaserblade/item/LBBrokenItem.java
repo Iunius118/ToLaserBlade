@@ -15,20 +15,21 @@ import java.util.List;
 
 public class LBBrokenItem extends Item implements LaserBladeItemBase {
     public static Item.Properties properties = (new Item.Properties()).setNoRepair().group(ModMainItemGroup.ITEM_GROUP).setISTER(() -> LBBrokenItemRenderer::new);
+    public final LaserBladeUpgrade.Type upgradeType = LaserBladeUpgrade.Type.REPAIR;
 
-    public LBBrokenItem() {
-        super(properties);
+    public LBBrokenItem(boolean isFireproof) {
+        super(LaserBladeItemBase.setFireproof(properties, isFireproof));
     }
 
     @Override
     public boolean canUpgrade(LaserBladeUpgrade.Type type) {
-        return type == LaserBladeUpgrade.Type.REPAIR;
+        return type == upgradeType;
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        ModItems.LB_BROKEN.addLaserBladeInformation(stack, worldIn, tooltip, flagIn);
+        addLaserBladeInformation(stack, worldIn, tooltip, flagIn, upgradeType);
     }
 }
