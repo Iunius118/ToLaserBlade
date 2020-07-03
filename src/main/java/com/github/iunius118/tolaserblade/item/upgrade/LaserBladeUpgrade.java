@@ -31,54 +31,52 @@ public class LaserBladeUpgrade {
     public static void onAnvilRepair(AnvilRepairEvent event) {
         ItemStack right = event.getIngredientInput();
 
-        if (right.isEmpty()) {
-            ItemStack output = event.getItemResult();
-            String name = output.getDisplayName().getString();
+        ItemStack output = event.getItemResult();
+        String name = output.getDisplayName().getString();
 
-            // Use GIFT code
-            if ("GIFT".equals(name) || /* "おたから" */ "\u304A\u305F\u304B\u3089".equals(name)) {
-                boolean hasUpgraded = false;
-                Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(output);
-                int lightElementLevel = enchantments.getOrDefault(ModEnchantments.LIGHT_ELEMENT, 0);
-                int smiteLevel = enchantments.getOrDefault(Enchantments.SMITE, 0);
+        // Use GIFT code
+        if ("GIFT".equals(name) || /* "おたから" */ "\u304A\u305F\u304B\u3089".equals(name)) {
+            boolean hasUpgraded = false;
+            Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(output);
+            int lightElementLevel = enchantments.getOrDefault(ModEnchantments.LIGHT_ELEMENT, 0);
+            int smiteLevel = enchantments.getOrDefault(Enchantments.SMITE, 0);
 
-                boolean isLightElementLessThan5 = lightElementLevel < LaserBladeItemBase.LVL_LIGHT_ELEMENT_5;
+            boolean isLightElementLessThan5 = lightElementLevel < LaserBladeItemBase.LVL_LIGHT_ELEMENT_5;
 
-                if (ModItems.LASER_BLADE.getLaserBladeATK(output) < LaserBladeItemBase.MOD_ATK_CLASS_3) {
-                    // Get attack damage 10
-                    ModItems.LASER_BLADE.setLaserBladeATK(output, LaserBladeItemBase.MOD_ATK_CLASS_3);
-                    hasUpgraded = true;
-                }
+            if (ModItems.LASER_BLADE.getLaserBladeATK(output) < LaserBladeItemBase.MOD_ATK_CLASS_3) {
+                // Get attack damage 10
+                ModItems.LASER_BLADE.setLaserBladeATK(output, LaserBladeItemBase.MOD_ATK_CLASS_3);
+                hasUpgraded = true;
+            }
 
-                if (lightElementLevel < LaserBladeItemBase.LVL_LIGHT_ELEMENT_5) {
-                    // Get Light Element V
-                    lightElementLevel = LaserBladeItemBase.LVL_LIGHT_ELEMENT_5;
-                    hasUpgraded = true;
-                }
+            if (lightElementLevel < LaserBladeItemBase.LVL_LIGHT_ELEMENT_5) {
+                // Get Light Element V
+                lightElementLevel = LaserBladeItemBase.LVL_LIGHT_ELEMENT_5;
+                hasUpgraded = true;
+            }
 
-                if (lightElementLevel < ModEnchantments.LIGHT_ELEMENT.getMaxLevel() && lightElementLevel < smiteLevel) {
-                    // Set Light Element from Smite level
-                    lightElementLevel = Math.min(smiteLevel, ModEnchantments.LIGHT_ELEMENT.getMaxLevel());
-                    hasUpgraded = true;
-                }
+            if (lightElementLevel < ModEnchantments.LIGHT_ELEMENT.getMaxLevel() && lightElementLevel < smiteLevel) {
+                // Set Light Element from Smite level
+                lightElementLevel = Math.min(smiteLevel, ModEnchantments.LIGHT_ELEMENT.getMaxLevel());
+                hasUpgraded = true;
+            }
 
-                // Apply Enchantments to Laser Blade
-                enchantments.put(ModEnchantments.LIGHT_ELEMENT, lightElementLevel);
-                Map<Enchantment, Integer> newEnchantments = Maps.newLinkedHashMap();
-                enchantments.forEach((e, lvl) -> {
-                    if (e.isCompatibleWith(ModEnchantments.LIGHT_ELEMENT) || e.equals(ModEnchantments.LIGHT_ELEMENT))
-                        newEnchantments.put(e, lvl);
-                });
-                EnchantmentHelper.setEnchantments(newEnchantments, output);
+            // Apply Enchantments to Laser Blade
+            enchantments.put(ModEnchantments.LIGHT_ELEMENT, lightElementLevel);
+            Map<Enchantment, Integer> newEnchantments = Maps.newLinkedHashMap();
+            enchantments.forEach((e, lvl) -> {
+                if (e.isCompatibleWith(ModEnchantments.LIGHT_ELEMENT) || e.equals(ModEnchantments.LIGHT_ELEMENT))
+                    newEnchantments.put(e, lvl);
+            });
+            EnchantmentHelper.setEnchantments(newEnchantments, output);
 
-                if (hasUpgraded) {
-                    output.clearCustomName();
-                    ModItems.LASER_BLADE.setGripColor(output, LaserBladeItemBase.LBColor.BROWN.getGripColor());
-                    ModItems.LASER_BLADE.setBladeInnerColor(output, LaserBladeItemBase.LBColor.WHITE.getBladeColor());
-                    ModItems.LASER_BLADE.setBladeOuterColor(output, LaserBladeItemBase.LBColor.LIME.getBladeColor());
-                    ModItems.LASER_BLADE.setBladeInnerSubColorFlag(output, false);
-                    ModItems.LASER_BLADE.setBladeOuterSubColorFlag(output, false);
-                }
+            if (hasUpgraded) {
+                output.clearCustomName();
+                ModItems.LASER_BLADE.setGripColor(output, LaserBladeItemBase.LBColor.BROWN.getGripColor());
+                ModItems.LASER_BLADE.setBladeInnerColor(output, LaserBladeItemBase.LBColor.WHITE.getBladeColor());
+                ModItems.LASER_BLADE.setBladeOuterColor(output, LaserBladeItemBase.LBColor.LIME.getBladeColor());
+                ModItems.LASER_BLADE.setBladeInnerSubColorFlag(output, false);
+                ModItems.LASER_BLADE.setBladeOuterSubColorFlag(output, false);
             }
         }
     }

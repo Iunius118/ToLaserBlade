@@ -85,10 +85,10 @@ public class ItemEventHandler {
 
     @SubscribeEvent
     public void onAnvilRepair(AnvilRepairEvent event) {
-        ItemStack left = event.getItemInput();
-        Item item = left.getItem();
+        ItemStack result = event.getItemResult();
+        Item item = result.getItem();
 
-        if (left.getItem() instanceof LaserBladeItemBase) {
+        if (item instanceof LaserBladeItemBase) {
             event.setBreakChance(0.075F);
 
             if (item.getItem() == ModItems.LASER_BLADE || item.getItem() == ModItems.LASER_BLADE_FP) {
