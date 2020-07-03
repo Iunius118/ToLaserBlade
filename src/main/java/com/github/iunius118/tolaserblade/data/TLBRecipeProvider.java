@@ -3,6 +3,7 @@ package com.github.iunius118.tolaserblade.data;
 import com.github.iunius118.tolaserblade.item.ModItems;
 import net.minecraft.data.*;
 import net.minecraft.item.Items;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 
@@ -57,6 +58,21 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
                 .addIngredient(ModItems.LB_CASING)
                 .addCriterion("has_redstone", hasItem(Items.REDSTONE))
                 .build(consumer, ModItems.LASER_BLADE.getRegistryName() + "_2");
+
+        // Netherite Laser Blade from parts
+        ShapelessRecipeBuilder.shapelessRecipe(ModItems.LASER_BLADE_FP)
+                .addIngredient(ModItems.LB_BATTERY)
+                .addIngredient(ModItems.LB_MEDIUM)
+                .addIngredient(ModItems.LB_EMITTER)
+                .addIngredient(ModItems.LB_CASING_FP)
+                .addCriterion("has_netherite_ingot", hasItem(Items.field_234759_km_))   // TODO: field_234759_km_ = NETHERITE_INGOT
+                .build(consumer, ModItems.LASER_BLADE_FP.getRegistryName());
+
+        // Netherite Laser Blade by using Smithing Table
+        // TODO: func_240502_a_ = smithingRecipe, func_240503_a_ = addCriterion, func_240504_a_ = build
+        SmithingRecipeBuilder.func_240502_a_(Ingredient.fromItems(ModItems.LASER_BLADE), Ingredient.fromItems(Items.field_234759_km_), ModItems.LASER_BLADE_FP)
+                .func_240503_a_("has_netherite_ingot", hasItem(Items.field_234759_km_)) // TODO: field_234759_km_ = NETHERITE_INGOT
+                .func_240504_a_(consumer, ModItems.LASER_BLADE_FP.getRegistryName().toString() + "_smithing");
     }
 
     @Override

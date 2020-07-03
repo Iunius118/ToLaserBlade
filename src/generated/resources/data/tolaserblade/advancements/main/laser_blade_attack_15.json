@@ -26,11 +26,35 @@
           }
         ]
       }
+    },
+    "laser_blade_fp_attack_15": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tolaserblade:laser_blade_fp",
+            "nbt": "{ATK:7.0f}"
+          }
+        ]
+      }
+    },
+    "laser_blade_fp_attack_16": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tolaserblade:laser_blade_fp",
+            "nbt": "{ATK:8.0f}"
+          }
+        ]
+      }
     }
   },
   "requirements": [
     [
-      "laser_blade_attack_15"
+      "laser_blade_attack_15",
+      "laser_blade_fp_attack_15",
+      "laser_blade_fp_attack_16"
     ]
   ]
 }

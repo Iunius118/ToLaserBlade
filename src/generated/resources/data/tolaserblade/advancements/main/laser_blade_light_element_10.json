@@ -16,7 +16,7 @@
     "hidden": false
   },
   "criteria": {
-    "has_laser_blade_light_element_10": {
+    "has_laser_blade": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
@@ -33,11 +33,30 @@
           }
         ]
       }
+    },
+    "has_laser_blade_fp": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tolaserblade:laser_blade_fp",
+            "enchantments": [
+              {
+                "enchantment": "tolaserblade:light_element",
+                "levels": {
+                  "min": 10
+                }
+              }
+            ]
+          }
+        ]
+      }
     }
   },
   "requirements": [
     [
-      "has_laser_blade_light_element_10"
+      "has_laser_blade",
+      "has_laser_blade_fp"
     ]
   ]
 }

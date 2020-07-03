@@ -46,13 +46,24 @@
           }
         ]
       }
+    },
+    "has_laser_blade_fp": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tolaserblade:laser_blade_fp"
+          }
+        ]
+      }
     }
   },
   "requirements": [
     [
       "has_redstone",
       "has_dx_laser_blade",
-      "has_laser_blade"
+      "has_laser_blade",
+      "has_laser_blade_fp"
     ]
   ]
 }

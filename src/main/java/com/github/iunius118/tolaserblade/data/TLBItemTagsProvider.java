@@ -36,6 +36,7 @@ public class TLBItemTagsProvider extends ForgeItemTagsProvider {
         func_240522_a_(ModItemTags.SWEEPING_EDGE_UPGRADE).func_240534_a_(Items.ENDER_EYE);
         func_240522_a_(ModItemTags.LOOTING_UPGRADE).func_240534_a_(Items.NAUTILUS_SHELL).addTags(Tags.Items.STORAGE_BLOCKS_EMERALD);
         func_240522_a_(ModItemTags.MENDING_UPGRADE).func_240534_a_(Items.NETHER_STAR, Items.DRAGON_HEAD, Items.TOTEM_OF_UNDYING);
+        func_240522_a_(ModItemTags.FIREPROOF_UPGRADE).func_240534_a_(Items.field_234759_km_);   // TODO: field_234759_km_ = NETHERITE_INGOT
         func_240522_a_(ModItemTags.CASING_REPAIR).addTags(Tags.Items.INGOTS_IRON);
     }
 

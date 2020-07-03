@@ -17,13 +17,17 @@ public class Ja_jpLanguageProvider extends LanguageProvider {
         // Items
         add(ModItems.DX_LASER_BLADE, "DXレーザーブレ一ド");
         add(ModItems.LASER_BLADE, "レーザーブレイド");
+        add(ModItems.LASER_BLADE_FP, "レーザーブレイド");
         add(ModItems.LB_BROKEN, "壊れたレーザーブレイド");
+        add(ModItems.LB_BROKEN_FP, "壊れたレーザーブレイド");
         add(ModItems.LB_DISASSEMBLED, "分解したレーザーブレイド");
+        add(ModItems.LB_DISASSEMBLED_FP, "分解したレーザーブレイド");
         add(ModItems.LB_BLUEPRINT, "レーザーブレイドの設計図");
         add(ModItems.LB_BATTERY, "LB電池");
         add(ModItems.LB_MEDIUM, "レーザー媒質");
         add(ModItems.LB_EMITTER, "レーザーブレイド放射器");
         add(ModItems.LB_CASING, "レーザーブレイドの外装");
+        add(ModItems.LB_CASING_FP, "レーザーブレイドの外装");
 
         // Enchantments
         add(ModEnchantments.LIGHT_ELEMENT, "光属性");
@@ -31,6 +35,7 @@ public class Ja_jpLanguageProvider extends LanguageProvider {
         // Upgrade tooltip
         add(LaserBladeItemBase.KEY_TOOLTIP_ATTACK_DAMAGE, "レーザー出力 %s");
         add(LaserBladeItemBase.KEY_TOOLTIP_ATTACK_SPEED, "充電効率 %s");
+        add(LaserBladeItemBase.KEY_TOOLTIP_FIREPROOF, "耐熱強化 8000");
 
         // Advancements
         add("advancements.tolaserblade.main.root.title", "ToLaserBlade");
@@ -53,6 +58,8 @@ public class Ja_jpLanguageProvider extends LanguageProvider {
         add("advancements.tolaserblade.main.laser_blade_looting_3.description", "レーザーブレイドに ドロップ増加 Ⅲ のエンチャントを付与する");
         add("advancements.tolaserblade.main.break_laser_blade.title", "返品交換");
         add("advancements.tolaserblade.main.break_laser_blade.description", "レーザーブレイドを使い切り、そして…");
+        add("advancements.tolaserblade.main.laser_blade_fp.title", "核の中へ");
+        add("advancements.tolaserblade.main.laser_blade_fp.description", "レーザーブレイドをネザライトインゴットで強化する");
 
         // Configs
         add("tolaserblade.configgui.common.enableBlockingWithLaserBlade", "レーザーブレイドによる防御を有効にする");

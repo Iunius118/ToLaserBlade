@@ -30,13 +30,16 @@ public class TLBItemModelProvider extends ItemModelProvider {
                 .texture("layer0", "item/" + laser_blade + "_2d_0")
                 .texture("layer1", "item/" + laser_blade + "_2d_1")
                 .texture("layer2", "item/" + laser_blade + "_2d_2");
+        registerChildModel(ModItems.LASER_BLADE_FP, ModItems.LASER_BLADE);
 
         String lb_broken = ModItems.LB_BROKEN.getRegistryName().getPath();
         getBuilder(lb_broken)
                 .parent(handheldModel)
                 .texture("layer0", "item/" + laser_blade + "_2d_0");
+        registerChildModel(ModItems.LB_BROKEN_FP, ModItems.LB_BROKEN);
 
         registerPartItemModel(ModItems.LB_DISASSEMBLED, generatedModel);
+        registerChildModel(ModItems.LB_DISASSEMBLED_FP, ModItems.LB_DISASSEMBLED);
 
         registerPartItemModel(ModItems.LB_BLUEPRINT, generatedModel);
 
@@ -47,6 +50,7 @@ public class TLBItemModelProvider extends ItemModelProvider {
         registerTwoLayerPartItemModel(ModItems.LB_EMITTER, generatedModel);
 
         registerPartItemModel(ModItems.LB_CASING, handheldModel);
+        registerChildModel(ModItems.LB_CASING_FP, ModItems.LB_CASING);
     }
 
     @Override
@@ -72,5 +76,14 @@ public class TLBItemModelProvider extends ItemModelProvider {
                 .texture("layer0", "item/parts/" + itemPath + "_0")
                 .texture("layer1", "item/parts/" + itemPath + "_1");
 
+    }
+
+    private void registerChildModel(Item item, Item itemParent) {
+        if (item == null || itemParent == null) return;
+
+        String itemPath = item.getRegistryName().getPath();
+        ModelFile parentModel = new UncheckedModelFile(ToLaserBlade.MOD_ID + ":item/" + itemParent.getRegistryName().getPath());
+        getBuilder(itemPath)
+                .parent(parentModel);
     }
 }

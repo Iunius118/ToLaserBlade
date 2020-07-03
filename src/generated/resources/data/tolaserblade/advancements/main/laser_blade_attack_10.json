@@ -81,6 +81,83 @@
           }
         ]
       }
+    },
+    "laser_blade_fp_attack_10": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tolaserblade:laser_blade_fp",
+            "nbt": "{ATK:2.0f}"
+          }
+        ]
+      }
+    },
+    "laser_blade_fp_attack_11": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tolaserblade:laser_blade_fp",
+            "nbt": "{ATK:3.0f}"
+          }
+        ]
+      }
+    },
+    "laser_blade_fp_attack_12": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tolaserblade:laser_blade_fp",
+            "nbt": "{ATK:4.0f}"
+          }
+        ]
+      }
+    },
+    "laser_blade_fp_attack_13": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tolaserblade:laser_blade_fp",
+            "nbt": "{ATK:5.0f}"
+          }
+        ]
+      }
+    },
+    "laser_blade_fp_attack_14": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tolaserblade:laser_blade_fp",
+            "nbt": "{ATK:6.0f}"
+          }
+        ]
+      }
+    },
+    "laser_blade_fp_attack_15": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tolaserblade:laser_blade_fp",
+            "nbt": "{ATK:7.0f}"
+          }
+        ]
+      }
+    },
+    "laser_blade_fp_attack_16": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tolaserblade:laser_blade_fp",
+            "nbt": "{ATK:8.0f}"
+          }
+        ]
+      }
     }
   },
   "requirements": [
@@ -90,7 +167,14 @@
       "laser_blade_attack_12",
       "laser_blade_attack_13",
       "laser_blade_attack_14",
-      "laser_blade_attack_15"
+      "laser_blade_attack_15",
+      "laser_blade_fp_attack_10",
+      "laser_blade_fp_attack_11",
+      "laser_blade_fp_attack_12",
+      "laser_blade_fp_attack_13",
+      "laser_blade_fp_attack_14",
+      "laser_blade_fp_attack_15",
+      "laser_blade_fp_attack_16"
     ]
   ]
 }

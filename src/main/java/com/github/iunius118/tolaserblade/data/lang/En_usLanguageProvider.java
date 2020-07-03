@@ -20,13 +20,17 @@ public class En_usLanguageProvider extends LanguageProvider {
         // Items
         add(ModItems.DX_LASER_BLADE, "DX Laser B1ade");
         add(ModItems.LASER_BLADE, "Laser Blade");
+        add(ModItems.LASER_BLADE_FP, "Laser Blade");
         add(ModItems.LB_BROKEN, "Broken Laser Blade");
+        add(ModItems.LB_BROKEN_FP, "Broken Laser Blade");
         add(ModItems.LB_DISASSEMBLED, "Disassembled Laser Blade");
+        add(ModItems.LB_DISASSEMBLED_FP, "Disassembled Laser Blade");
         add(ModItems.LB_BLUEPRINT, "Laser Blade Blueprint");
         add(ModItems.LB_BATTERY, "LB Energy Cell");
         add(ModItems.LB_MEDIUM, "Laser Medium");
         add(ModItems.LB_EMITTER, "Laser Blade Emitter");
         add(ModItems.LB_CASING, "Laser Blade Casing");
+        add(ModItems.LB_CASING_FP, "Laser Blade Casing");
 
         // Enchantments
         add(ModEnchantments.LIGHT_ELEMENT, "Light Element");
@@ -34,6 +38,7 @@ public class En_usLanguageProvider extends LanguageProvider {
         // Upgrade tooltip
         add(LaserBladeItemBase.KEY_TOOLTIP_ATTACK_DAMAGE, "Laser Power %s");
         add(LaserBladeItemBase.KEY_TOOLTIP_ATTACK_SPEED, "Recharge %s");
+        add(LaserBladeItemBase.KEY_TOOLTIP_FIREPROOF, "HEAT RESISTANT 8000");
 
         // Advancements
         add("advancements.tolaserblade.main.root.title", "ToLaserBlade");
@@ -56,6 +61,8 @@ public class En_usLanguageProvider extends LanguageProvider {
         add("advancements.tolaserblade.main.laser_blade_looting_3.description", "Add Looting III enchantment to a Laser Blade");
         add("advancements.tolaserblade.main.break_laser_blade.title", "Returns and Exchanges");
         add("advancements.tolaserblade.main.break_laser_blade.description", "Completely use up a Laser Blade, and then...");
+        add("advancements.tolaserblade.main.laser_blade_fp.title", "Into The Core");
+        add("advancements.tolaserblade.main.laser_blade_fp.description", "Upgrade a Laser Blade with a Netherite Ingot");
 
         // Configs
         add("tolaserblade.configgui.common.enableBlockingWithLaserBlade", "Enable Blocking with Laser Blade");

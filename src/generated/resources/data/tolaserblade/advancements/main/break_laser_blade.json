@@ -29,11 +29,23 @@
           "max": 0
         }
       }
+    },
+    "broke_laser_blade_fp": {
+      "trigger": "minecraft:item_durability_changed",
+      "conditions": {
+        "item": {
+          "item": "tolaserblade:laser_blade_fp"
+        },
+        "durability": {
+          "max": 0
+        }
+      }
     }
   },
   "requirements": [
     [
-      "broke_laser_blade"
+      "broke_laser_blade",
+      "broke_laser_blade_fp"
     ]
   ]
 }
