@@ -1,6 +1,12 @@
 ToLaserBlade
 Changelog
 
+v1.16.1-3.1.3.0
+
+    Add fireproof Laser Blade items which are resistant to Fire and Lava
+    Add fireproof upgrade that can combine Laser Blade and Netherite Ingot on Anvil or Smithing Table
+
+
 v1.16.1-3.1.2.0
 
     Initial port to 1.16.1 on Forge 32.0.34
