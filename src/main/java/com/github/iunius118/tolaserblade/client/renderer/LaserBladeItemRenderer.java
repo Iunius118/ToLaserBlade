@@ -19,7 +19,7 @@ public class LaserBladeItemRenderer extends ItemStackTileEntityRenderer {
 
         if (model != null) {
             matrixStack.push();
-            model.render(itemStack, matrixStack, buffer, lightmapCoord, overlayColor);
+            model.render(itemStack, transformType, matrixStack, buffer, lightmapCoord, overlayColor);
             matrixStack.pop();
         }
     }
