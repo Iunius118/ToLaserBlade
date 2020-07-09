@@ -213,7 +213,7 @@ public class LaserBladeModelType1009 extends SimpleModel {
         BLADE_OFF_QUADS = builder.build();
 
         // BladeIn
-        Vector4f c2 = new Vector4f(1F, 1F, 1F, 0.25F);
+        Vector4f c2 = new Vector4f(1F, 1F, 1F, 0.5F);
         builder = ImmutableList.builder();
         builder.add(new SimpleQuad(v16, c2, v88, v120, v17, c2, v87, v120, v25, c2, v86, v120, v24, c2, v85, v120));
         builder.add(new SimpleQuad(v17, c2, v91, v121, v20, c2, v81, v121, v26, c2, v90, v121, v25, c2, v89, v121));
@@ -224,7 +224,7 @@ public class LaserBladeModelType1009 extends SimpleModel {
         BLADE_IN_QUADS = builder.build();
 
         // BladeMid
-        Vector4f c3 = new Vector4f(1F, 1F, 1F, 0.25F);
+        Vector4f c3 = new Vector4f(1F, 1F, 1F, 0.5F);
         builder = ImmutableList.builder();
         builder.add(new SimpleQuad(v31, c3, v97, v120, v30, c3, v96, v120, v29, c3, v95, v120, v28, c3, v94, v120));
         builder.add(new SimpleQuad(v30, c3, v100, v121, v33, c3, v99, v121, v32, c3, v98, v121, v29, c3, v86, v121));

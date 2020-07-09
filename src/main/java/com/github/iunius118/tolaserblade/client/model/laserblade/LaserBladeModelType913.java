@@ -7,7 +7,6 @@ import com.github.iunius118.tolaserblade.client.renderer.LaserBladeRenderType;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.item.ItemStack;
@@ -42,7 +41,6 @@ public class LaserBladeModelType913 extends SimpleModel {
         }
 
         // Rotate blades
-        Minecraft mc = Minecraft.getInstance();
         float angle = Util.milliTime() % 250L * 1.44F;   // 240 rpm
         matrixStack.rotate(new Quaternion(Vector3f.YP, angle, true));
 

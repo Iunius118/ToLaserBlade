@@ -11,6 +11,8 @@ import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.Util;
+import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.math.vector.Vector4f;
@@ -26,6 +28,10 @@ public class LaserBladeModelType1108 extends SimpleModel {
 
     @Override
     public void render(ItemStack itemStack, ItemCameraTransforms.TransformType transformType, MatrixStack matrixStack, IRenderTypeBuffer buffer, int lightmapCoord, int overlayColor) {
+        if (transformType == ItemCameraTransforms.TransformType.FIXED || transformType == ItemCameraTransforms.TransformType.GUI) {
+            matrixStack.translate(0.0D, 0.03125D, 0.0D);
+        }
+
         LaserBladeItemColor color = new LaserBladeItemColor(itemStack);
         final int fullLight = 0xF000F0;
         IVertexBuilder currentBuffer;
@@ -35,6 +41,10 @@ public class LaserBladeModelType1108 extends SimpleModel {
             renderQuads(matrixStack, currentBuffer, BLADE_OFF_QUADS, color.gripColor, lightmapCoord, overlayColor);
             return;
         }
+
+        // Rotate blade
+        float angle = Util.milliTime() % 250L * 1.44F;   // 240 rpm
+        matrixStack.rotate(new Quaternion(Vector3f.YP, angle, true));
 
         currentBuffer = color.isInnerSubColor ? buffer.getBuffer(LaserBladeRenderType.LASER_SUB) : buffer.getBuffer(LaserBladeRenderType.LASER_ADD);
         renderQuads(matrixStack, currentBuffer, BLADE_IN_QUADS, color.innerColor, fullLight, overlayColor);
