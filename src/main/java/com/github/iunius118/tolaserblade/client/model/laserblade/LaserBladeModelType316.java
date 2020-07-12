@@ -7,11 +7,9 @@ import com.github.iunius118.tolaserblade.client.renderer.LaserBladeRenderType;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.HandSide;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Quaternion;
 import net.minecraft.util.math.vector.Vector2f;
@@ -32,21 +30,11 @@ public class LaserBladeModelType316 extends SimpleModel {
 
     @Override
     public void render(ItemStack itemStack, ItemCameraTransforms.TransformType transformType, MatrixStack matrixStack, IRenderTypeBuffer buffer, int lightmapCoord, int overlayColor) {
-        if (Minecraft.getInstance().gameSettings.mainHand == HandSide.RIGHT) {
-            if (transformType == ItemCameraTransforms.TransformType.FIRST_PERSON_RIGHT_HAND
-                    || transformType == ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND) {
-                renderSword(itemStack, transformType, matrixStack, buffer, lightmapCoord, overlayColor);
-                return;
-            }
+        if (itemStack.getItem().func_234687_u_()) { // TODO: func_234687_u_ = isResistantToFire?
+            renderSword(itemStack, transformType, matrixStack, buffer, lightmapCoord, overlayColor);
         } else {
-            if (transformType == ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND
-                    || transformType == ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND) {
-                renderSword(itemStack, transformType, matrixStack, buffer, lightmapCoord, overlayColor);
-                return;
-            }
+            renderShield(itemStack, transformType, matrixStack, buffer, lightmapCoord, overlayColor);
         }
-
-        renderShield(itemStack, transformType, matrixStack, buffer, lightmapCoord, overlayColor);
     }
 
     private void renderSword(ItemStack itemStack, ItemCameraTransforms.TransformType transformType, MatrixStack matrixStack, IRenderTypeBuffer buffer, int lightmapCoord, int overlayColor) {
