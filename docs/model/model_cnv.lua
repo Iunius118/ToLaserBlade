@@ -1,6 +1,6 @@
 
 --------------------------------------------------------------------------------
---  Model converter v3
+--  Model converter v4
 --      Converts Laser Blade item model from OBJ model
 --      This requires that the OBJ model has v, vt, vn, g and f statements
 --                        and each f statement has 4 v/vt/vn vertex indices.
@@ -182,6 +182,23 @@ end
 print()
 print("static {")
 
+-- Print colors by group
+local color_count = 0
+local color = ""
+
+for index, group in ipairs(groups) do
+    if obj.f[group] then
+        color = "c" .. color_count
+        color_count = color_count + 1
+
+        print("    Vector4f " .. color .. " = new Vector4f(1F, 1F, 1F, 1F);" .. " // " .. group .. " color")   -- Using net.minecraft.client.renderer.Vector4f (-1.15.2) or net.minecraft.util.math.vector.Vector4f (1.16.1-)
+    end
+end
+
+if color_count > 0 then
+    print()
+end
+
 -- Print 3D vectors (vertex, normal)
 for key, value in pairs(v3f_tbl) do
     print(string.format("    Vector3f %s = new Vector3f(%s);", value, key)) -- Using net.minecraft.client.renderer.Vector3f (-1.15.2) or net.minecraft.util.math.vector.Vector3f (1.16.1-)
@@ -200,9 +217,9 @@ end
 
 print("    ImmutableList.Builder<SimpleQuad> builder;")
 
-local color_count = 0
-local color = ""
 local face_template = "    builder.add(new SimpleQuad(%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s));"
+color_count = 0
+color = ""
 
 -- Print quads by group
 for index, group in ipairs(groups) do
@@ -214,7 +231,6 @@ for index, group in ipairs(groups) do
 
         print()
         print("    // " .. group)
-        print("    Vector4f " .. color .. " = new Vector4f(1F, 1F, 1F, 1F);")   -- Using net.minecraft.client.renderer.Vector4f (-1.15.2) or net.minecraft.util.math.vector.Vector4f (1.16.1-)
         print("    builder = ImmutableList.builder();")
 
         for i, face in ipairs(value) do
