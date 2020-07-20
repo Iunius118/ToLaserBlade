@@ -111,7 +111,7 @@ public class TLBAdvancementProvider implements IDataProvider {
         Advancement mending = registerEnchantmentAdvancement(laserBlade, Items.NETHER_STAR, FrameType.GOAL,
                 new Item[]{ModItems.LASER_BLADE, ModItems.LASER_BLADE_FP}, Enchantments.MENDING, 1, consumer);
 
-        // 1-1-6. Ancient Technology
+        // 1-1-6. Into The Core
         Advancement laserBladeFP = registerItemAdvancement(laserBlade, Items.field_234759_km_, FrameType.TASK,    // TODO: field_234759_km_ = NETHERITE_INGOT
                 new Item[]{ModItems.LASER_BLADE_FP}, consumer);
     }
