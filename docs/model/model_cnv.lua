@@ -1,6 +1,6 @@
 
 --------------------------------------------------------------------------------
---  Model converter v4
+--  Model converter v5
 --      Converts Laser Blade item model from OBJ model
 --      This requires that the OBJ model has v, vt, vn, g and f statements
 --                        and each f statement has 4 v/vt/vn vertex indices.
@@ -13,6 +13,11 @@
 --              lua model_cnv.lua laser_blade.obj 1 > output.txt
 --------------------------------------------------------------------------------
 
+if not arg[1] then
+    print("Model converter v5")
+    print("  Usage: lua model_cnv.lua <obj_file> <version>")
+    return
+end 
 
 local hfile = io.open(arg[1], "r")
 local ver = tonumber(arg[2]) or 0
@@ -26,14 +31,24 @@ local obj = {v = {}, vt = {}, vn = {}, f = {}}
 local v3f_tbl = {}
 local v2f_tbl = {}
 local vector_count = 0
+local colors = {}
 local groups = {}
 local group_exists_table = {}
 local current_group = ""
 
-local p_statement = "(%a*)%s+(.*)"
+local p_statement = "([#_%a]*)%s+(.*)"
+local p_4v = "(.*)%s+(.*)%s+(.*)%s+(.*)"
 local p_3v = "(.*)%s+(.*)%s+(.*)"
 local p_2v = "(.*)%s+(.*)"
 local p_4ds = "(%d+)/(%d+)/(%d+)%s+(%d+)/(%d+)/(%d+)%s+(%d+)/(%d+)/(%d+)%s+(%d+)/(%d+)/(%d+)"
+
+function getP4F(data)
+    local x, y, z, w = string.gmatch(data, p_4v)()
+
+    if w then
+        return string.format("%sF, %sF, %sF, %sF", x, y, z, w)
+    end
+end
 
 function getP3F(data)
     local x, y, z = string.gmatch(data, p_3v)()
@@ -113,13 +128,18 @@ for line in hfile:lines() do
             })
         end
 
+    elseif key == "#_color" then -- Original statment "#_color red_value green_value blue_value alpha_value" for the current group
+        local color = getP4F(data)
+        if color then
+            colors[current_group] = color
+        end
     end
 end
 
 hfile:close()
 
 -- Convert group name to CONSTANT_CASE
-local convert_case = function (str)
+function convert_case(str)
     local ret = ""
     local is_prev_under_bar = true
     local is_prev_num = false
@@ -171,6 +191,7 @@ end
 
 
 print("// " .. arg[1])
+print()
 
 -- Print quad lists
 for index, group in ipairs(groups) do
@@ -191,7 +212,13 @@ for index, group in ipairs(groups) do
         color = "c" .. color_count
         color_count = color_count + 1
 
-        print("    Vector4f " .. color .. " = new Vector4f(1F, 1F, 1F, 1F);" .. " // " .. group .. " color")   -- Using net.minecraft.client.renderer.Vector4f (-1.15.2) or net.minecraft.util.math.vector.Vector4f (1.16.1-)
+        local rgba = "1F, 1F, 1F, 1F"
+
+        if colors[group] then
+            rgba = colors[group]
+        end
+
+        print("    Vector4f " .. color .. " = new Vector4f(" .. rgba .. ");" .. " // " .. group .. " color")   -- Using net.minecraft.client.renderer.Vector4f (-1.15.2) or net.minecraft.util.math.vector.Vector4f (1.16.1-)
     end
 end
 
