@@ -4,6 +4,7 @@ import com.github.iunius118.tolaserblade.ToLaserBladeConfig;
 import com.github.iunius118.tolaserblade.entity.LaserTrapEntity;
 import com.github.iunius118.tolaserblade.item.ModItems;
 import com.github.iunius118.tolaserblade.util.LaserTrapPlayer;
+import net.minecraft.block.AbstractFurnaceBlock;
 import net.minecraft.block.DispenserBlock;
 import net.minecraft.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.dispenser.IBlockSource;
@@ -12,6 +13,8 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.AbstractFurnaceTileEntity;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.DamageSource;
 import net.minecraft.util.Direction;
 import net.minecraft.util.EntityPredicates;
@@ -41,31 +44,63 @@ public class DispenseLaserBladeBehavior implements IDispenseItemBehavior {
         World world = source.getWorld();
 
         if (world instanceof ServerWorld) {
+            ServerWorld serverWorld = (ServerWorld)world;
             BlockPos pos = source.getBlockPos();
             Direction dir = source.getBlockState().get(DispenserBlock.FACING);
-
-            // Create fake player to attack entities
-            LaserTrapPlayer laserTrapPlayer = LaserTrapPlayer.get((ServerWorld)world);
-            laserTrapPlayer.setPosition(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D);
-            laserTrapPlayer.initInventory(stack.copy());
             BlockPos targetPos = pos.offset(dir);
+            TileEntity tile = world.getTileEntity(targetPos);
 
-            // Attack entities
-            attackEntitiesInPos(laserTrapPlayer, targetPos);
-
-            // Kill fake player
-            laserTrapPlayer.remove();
-
-            // Spawn laser entity for laser effect
-            Pair<Integer, Boolean> bladeColor = ModItems.LASER_BLADE.getBladeOuterColor(stack);
-            int outerColor = ModItems.LASER_BLADE.checkGamingColor(bladeColor.getLeft());
-            outerColor = (bladeColor.getRight() ? ~outerColor : outerColor) | 0xFF000000;
-
-            LaserTrapEntity laserTrapEntity = new LaserTrapEntity(world, targetPos, dir, outerColor);
-            world.addEntity(laserTrapEntity);
+            if (tile instanceof AbstractFurnaceTileEntity) {
+                heatFurnace((AbstractFurnaceTileEntity)tile, stack);
+            } else {
+                attackEntities(serverWorld, pos, dir, stack);
+            }
         }
 
         return stack;
+    }
+
+    private void heatFurnace(AbstractFurnaceTileEntity furnaceTile, ItemStack stack) {
+        if (stack.getItem() == ModItems.LASER_BLADE_FP) {
+            // Only fireproof Laser Blade
+            boolean isNotBurning = furnaceTile.burnTime < 1;
+
+            if (isNotBurning || furnaceTile.burnTime < 201) {
+                // Set burnTime to 200 (10 seconds)
+                furnaceTile.burnTime = 201;
+                furnaceTile.recipesUsed = 200;
+                furnaceTile.markDirty();
+
+                if (isNotBurning) {
+                    // Lit furnace block
+                    World world = furnaceTile.getWorld();
+                    BlockPos pos = furnaceTile.getPos();
+                    world.setBlockState(pos, world.getBlockState(pos).with(AbstractFurnaceBlock.LIT, Boolean.TRUE), 3);
+                }
+            }
+        }
+    }
+
+    private void attackEntities(ServerWorld world, BlockPos pos, Direction dir, ItemStack stack) {
+        // Create fake player to attack entities
+        LaserTrapPlayer laserTrapPlayer = LaserTrapPlayer.get(world);
+        laserTrapPlayer.setPosition(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D);
+        laserTrapPlayer.initInventory(stack.copy());
+        BlockPos targetPos = pos.offset(dir);
+
+        // Attack entities
+        attackEntitiesInPos(laserTrapPlayer, targetPos);
+
+        // Remove fake player
+        laserTrapPlayer.remove();
+
+        // Spawn laser entity for laser effect
+        Pair<Integer, Boolean> bladeColor = ModItems.LASER_BLADE.getBladeOuterColor(stack);
+        int outerColor = ModItems.LASER_BLADE.checkGamingColor(bladeColor.getLeft());
+        outerColor = (bladeColor.getRight() ? ~outerColor : outerColor) | 0xFF000000;
+
+        LaserTrapEntity laserTrapEntity = new LaserTrapEntity(world, targetPos, dir, outerColor);
+        world.addEntity(laserTrapEntity);
     }
 
     private void attackEntitiesInPos(LaserTrapPlayer laserTrapPlayer, BlockPos pos) {
