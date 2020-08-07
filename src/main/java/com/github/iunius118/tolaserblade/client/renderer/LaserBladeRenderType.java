@@ -15,15 +15,11 @@ import net.minecraft.client.renderer.vertex.VertexFormat;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.coremod.api.ASMAPI;
 import org.lwjgl.opengl.GL11;
 import org.lwjgl.opengl.GL14;
 
 import javax.annotation.Nullable;
-import java.lang.reflect.Field;
-import java.util.Map;
 import java.util.Optional;
-import java.util.SortedMap;
 
 public class LaserBladeRenderType extends RenderType {
     public LaserBladeRenderType(String name, VertexFormat vertexFormat, int drawMode, int bufferSize, boolean useDelegate, boolean needsSorting, Runnable setupTask, Runnable clearTask) {
@@ -80,7 +76,7 @@ public class LaserBladeRenderType extends RenderType {
     }
 
     private static RenderType.State getLaserSubRenderState() {
-        RenderState.TransparencyState transparencyState = new RenderState.TransparencyState("sub_transparency", () -> {
+        TransparencyState transparencyState = new TransparencyState("sub_transparency", () -> {
             RenderSystem.enableBlend();
             RenderSystem.blendEquation(GL14.GL_FUNC_REVERSE_SUBTRACT);
             RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
@@ -109,51 +105,17 @@ public class LaserBladeRenderType extends RenderType {
                 .build(true);
     }
 
-    @SuppressWarnings("unchecked")  // Unchecked cast to Map
     private static void registerRenderTypes() {
         if (!ToLaserBladeConfig.CLIENT.useFixedVertexBuffer.get()) {
             // Canceled
             return;
         }
 
-        Map<Object, Object> fixedBuffers = null;
         RenderTypeBuffers renderTypeBuffers = Minecraft.getInstance().getRenderTypeBuffers();
-
-        try {
-            // Get RenderTypeBuffers#fixedBuffers to register mod RenderTypes with reflection
-            final Field[] fields = renderTypeBuffers.getClass().getDeclaredFields();
-            String fieldName = ASMAPI.mapField("field_228480_b_");  // fixedBuffers
-            Field fieldFixedBuffers = null;
-
-            for (Field field : fields) {
-                String name = field.getName();
-                if (name.equals(fieldName)) {
-                    fieldFixedBuffers = field;
-                    // ToLaserBlade.LOGGER.info("Add ToLaserBlade render types to RenderTypeBuffers." + name);
-                    break;
-                }
-            }
-
-            if (fieldFixedBuffers == null) {
-                throw new NoSuchFieldException(fieldName);
-            }
-
-            fieldFixedBuffers.setAccessible(true);
-            Object objFixedBuffers = fieldFixedBuffers.get(renderTypeBuffers);
-
-            if (objFixedBuffers instanceof SortedMap) {
-                fixedBuffers = (Map<Object, Object>)objFixedBuffers;
-            }
-        } catch (ReflectiveOperationException e) {
-            e.printStackTrace();
-        }
-
-        if (fixedBuffers != null) {
-            // Register mod RenderTypes
-            fixedBuffers.put(LASER_FLAT, new BufferBuilder(LASER_FLAT.getBufferSize()));
-            fixedBuffers.put(LASER_ADD, new BufferBuilder(LASER_ADD.getBufferSize()));
-            fixedBuffers.put(LASER_SUB, new BufferBuilder(LASER_SUB.getBufferSize()));
-        }
+        // Register mod RenderTypes
+        renderTypeBuffers.fixedBuffers.put(LASER_FLAT, new BufferBuilder(LASER_FLAT.getBufferSize()));
+        renderTypeBuffers.fixedBuffers.put(LASER_ADD, new BufferBuilder(LASER_ADD.getBufferSize()));
+        renderTypeBuffers.fixedBuffers.put(LASER_SUB, new BufferBuilder(LASER_SUB.getBufferSize()));
     }
 
     @OnlyIn(Dist.CLIENT)
