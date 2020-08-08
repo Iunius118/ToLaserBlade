@@ -15,6 +15,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.world.World;
 
 public class DXLaserBladeItem extends SwordItem {
@@ -95,10 +96,7 @@ public class DXLaserBladeItem extends SwordItem {
             }
 
             // Destroy the Redstone Torch block
-            if (!world.isRemote) {
-                world.destroyBlock(pos, false);
-            }
-
+            blockstate.removedByPlayer(world, pos, player, false, world.getFluidState(pos));
             return ActionResultType.SUCCESS;
         }
 
@@ -110,7 +108,11 @@ public class DXLaserBladeItem extends SwordItem {
         }
 
         // Place Redstone Torch and Damage this
-        if (player.isSteppingCarefully() && Blocks.REDSTONE_TORCH.asItem().onItemUse(context) == ActionResultType.SUCCESS) { // player.isSneaking() -> .isSteppingCarefully()
+        ItemStack redstoneTorch = new ItemStack(Blocks.REDSTONE_TORCH);
+        ItemUseContext contextRS = new BlockItemUseContext(player, context.getHand(), redstoneTorch,
+                new BlockRayTraceResult(context.getHitVec(), facing, pos, context.isInside()));
+
+        if (player.isSteppingCarefully() && redstoneTorch.onItemUse(contextRS) == ActionResultType.SUCCESS) { // player.isSneaking() -> .isSteppingCarefully()
             itemstack.setCount(1);
             itemstack.damageItem(costDamage, player, playerEntity -> {});
             return ActionResultType.SUCCESS;
