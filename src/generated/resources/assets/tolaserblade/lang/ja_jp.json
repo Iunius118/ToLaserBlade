@@ -40,6 +40,7 @@
   "tolaserblade.configgui.client.useFixedVertexBuffer": "Fixed Vertex Buffer\u3092\u4F7F\u7528\u3059\u308B",
   "tolaserblade.configgui.client.useInternalModel": "\u5185\u90E8\u30E2\u30C7\u30EB\u3092\u4F7F\u7528\u3059\u308B",
   "tolaserblade.configgui.common.canLaserTrapAttackPlayer": "\u30EC\u30FC\u30B6\u30FC\u30C8\u30E9\u30C3\u30D7\u304C\u30D7\u30EC\u30A4\u30E4\u30FC\u3078\u653B\u6483\u53EF\u80FD\u304B",
+  "tolaserblade.configgui.common.canLaserTrapHeatUpFurnace": "\u30EC\u30FC\u30B6\u30FC\u30C8\u30E9\u30C3\u30D7\u304C\u304B\u307E\u3069\u3092\u52A0\u71B1\u53EF\u80FD\u304B",
   "tolaserblade.configgui.common.enableBlockingWithLaserBlade": "\u30EC\u30FC\u30B6\u30FC\u30D6\u30EC\u30A4\u30C9\u306B\u3088\u308B\u9632\u5FA1\u3092\u6709\u52B9\u306B\u3059\u308B",
   "tolaserblade.configgui.common.enableLaserTrap": "\u30EC\u30FC\u30B6\u30FC\u30C8\u30E9\u30C3\u30D7\u3092\u6709\u52B9\u306B\u3059\u308B",
   "tolaserblade.configgui.common.laserBladeEfficiency": "\u30EC\u30FC\u30B6\u30FC\u30D6\u30EC\u30A4\u30C9\u306E\u63A1\u6398\u901F\u5EA6 (0\u2013128)",

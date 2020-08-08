@@ -27,6 +27,7 @@ public class ToLaserBladeConfig {
         // These values are not synced with client
         public final BooleanValue isEnabledLaserTrap;
         public final BooleanValue canLaserTrapAttackPlayer;
+        public final BooleanValue canLaserTrapHeatUpFurnace;
 
         Common(ForgeConfigSpec.Builder builder) {
             builder.comment("ToLaserBlade's common settings.").push("common");
@@ -63,6 +64,13 @@ public class ToLaserBladeConfig {
                             "Default: false")
                     .translation("tolaserblade.configgui.common.canLaserTrapAttackPlayer")
                     .define("canLaserTrapAttackPlayer", false);
+
+            canLaserTrapHeatUpFurnace = builder
+                    .comment("A boolean value represents whether laser trap with fireproof Laser Blade can heat up furnace or not.\n" +
+                            "Default: true")
+                    .translation("tolaserblade.configgui.common.canLaserTrapHeatUpFurnace")
+                    .define("canLaserTrapHeatUpFurnace", true);
+
 
             builder.pop();
         }

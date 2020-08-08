@@ -67,6 +67,7 @@ public class Ja_jpLanguageProvider extends LanguageProvider {
         add("tolaserblade.configgui.common.maxAttackDamageUpgradeCount", "攻撃力の最大強化回数 (0–39)");
         add("tolaserblade.configgui.common.enableLaserTrap", "レーザートラップを有効にする");
         add("tolaserblade.configgui.common.canLaserTrapAttackPlayer", "レーザートラップがプレイヤーへ攻撃可能か");
+        add("tolaserblade.configgui.common.canLaserTrapHeatUpFurnace", "レーザートラップがかまどを加熱可能か");
 
         add("tolaserblade.configgui.client.useFixedVertexBuffer", "Fixed Vertex Bufferを使用する");
         add("tolaserblade.configgui.client.useInternalModel", "内部モデルを使用する");

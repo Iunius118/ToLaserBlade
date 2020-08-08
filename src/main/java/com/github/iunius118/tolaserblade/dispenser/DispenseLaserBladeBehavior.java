@@ -50,7 +50,7 @@ public class DispenseLaserBladeBehavior implements IDispenseItemBehavior {
             BlockPos targetPos = pos.offset(dir);
             TileEntity tile = world.getTileEntity(targetPos);
 
-            if (tile instanceof AbstractFurnaceTileEntity) {
+            if (ToLaserBladeConfig.COMMON.canLaserTrapHeatUpFurnace.get() && tile instanceof AbstractFurnaceTileEntity) {
                 heatFurnace((AbstractFurnaceTileEntity)tile, stack);
             } else {
                 attackEntities(serverWorld, pos, dir, stack);
