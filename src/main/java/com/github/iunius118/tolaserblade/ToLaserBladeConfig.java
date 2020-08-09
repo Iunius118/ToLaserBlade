@@ -60,17 +60,16 @@ public class ToLaserBladeConfig {
                     .define("enableLaserTrap", true);
 
             canLaserTrapAttackPlayer = builder
-                    .comment("A boolean value represents whether laser trap can attack player or not.\n" +
+                    .comment("A boolean value represents whether laser trap can attack player or not. This setting is valid when enableLaserTrap is true.\n" +
                             "Default: false")
                     .translation("tolaserblade.configgui.common.canLaserTrapAttackPlayer")
                     .define("canLaserTrapAttackPlayer", false);
 
             canLaserTrapHeatUpFurnace = builder
-                    .comment("A boolean value represents whether laser trap with fireproof Laser Blade can heat up furnace or not.\n" +
+                    .comment("A boolean value represents whether laser trap with fireproof Laser Blade can heat up furnace or not. This setting is valid when enableLaserTrap is true.\n" +
                             "Default: true")
                     .translation("tolaserblade.configgui.common.canLaserTrapHeatUpFurnace")
                     .define("canLaserTrapHeatUpFurnace", true);
-
 
             builder.pop();
         }
@@ -101,14 +100,14 @@ public class ToLaserBladeConfig {
                     .define("useInternalModel", true);
 
             internalModelType = builder
-                    .comment("Select type of internal model to use for rendering Laser Blade (0: original model, 1: another model). This is valid when useInternalModel is true.\n" +
+                    .comment("Select type of internal model to use for rendering Laser Blade (0: original model, 1: another model). This setting is valid when useInternalModel is true.\n" +
                             "Need to reload resource packs after changing this.\n" +
                             "Default: -1")
                     .translation("tolaserblade.configgui.client.internalModelType")
                     .defineInRange("internalModelType", -1, -1, Integer.MAX_VALUE);
 
             externalModelType = builder
-                    .comment("Select type of external model to use for rendering Laser Blade (0: generated model, 1: OBJ model). This is valid when useInternalModel is false.\n" +
+                    .comment("Select type of external model to use for rendering Laser Blade (0: generated model, 1: OBJ model). This setting is valid when useInternalModel is false.\n" +
                             "Need to reload resource packs after changing this.\n" +
                             "Default: 0")
                     .translation("tolaserblade.configgui.client.externalModelType")
