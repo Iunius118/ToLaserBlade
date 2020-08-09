@@ -311,6 +311,7 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
     }
 
     public static class ItemTier implements IItemTier {
+        private final static int NETHERITIC_HARVEST_LEVEL = 4;
         private final static int HARVEST_LEVEL = 3;
         private final static float NETHERITIC_DAMAGE = 4.0F;
         private final static float NORMAL_DAMAGE = 3.0F;
@@ -324,7 +325,7 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
 
         @Override
         public int getHarvestLevel() {
-            return HARVEST_LEVEL;
+            return isNetheritic ? NETHERITIC_HARVEST_LEVEL : HARVEST_LEVEL;
         }
 
         @Override
