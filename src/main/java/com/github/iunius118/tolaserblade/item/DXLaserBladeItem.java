@@ -112,7 +112,7 @@ public class DXLaserBladeItem extends SwordItem {
         ItemUseContext contextRS = new BlockItemUseContext(player, context.getHand(), redstoneTorch,
                 new BlockRayTraceResult(context.getHitVec(), facing, pos, context.isInside()));
 
-        if (player.isSteppingCarefully() && redstoneTorch.onItemUse(contextRS) == ActionResultType.SUCCESS) { // player.isSneaking() -> .isSteppingCarefully()
+        if (player.isSteppingCarefully() && redstoneTorch.onItemUse(contextRS).isSuccessOrConsume()) { // player.isSneaking() -> .isSteppingCarefully()
             itemstack.setCount(1);
             itemstack.damageItem(costDamage, player, playerEntity -> {});
             return ActionResultType.SUCCESS;
