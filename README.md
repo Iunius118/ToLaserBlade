@@ -12,11 +12,11 @@ ToLaserBlade (T. o. Laser Blade) adds a simple sword with a laser blade.
 - Mod解説 (Mod descriptions in Japanese)
 
   - [1.12.2](docs/recipes_1.12.2_ja.md)
-  - [1.13.2](docs/recipes_ja.md)
+  - [1.13.2](docs/recipes_1.13.2_ja.md)
 
 ## Description and Download
 
 - [Project Page (CurseForge)](https://minecraft.curseforge.com/projects/tolaserblade)
 
 ---
-Copyright (c) 2016-2020 Iunius118
+&copy; 2016-2020 Iunius118

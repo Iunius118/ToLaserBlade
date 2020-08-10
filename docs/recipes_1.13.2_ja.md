@@ -8,7 +8,9 @@
 
 ## ダウンロード
 
-- [ダウンロードサイト（Curse Forge）](https://minecraft.curseforge.com/projects/tolaserblade)
+- [ダウンロードサイト（Curse Forge）](https://www.curseforge.com/minecraft/mc-mods/tolaserblade/files/all?filter-game-version=2020709689%3A7132)
+
+当modのjarファイルの著作権はmodの著作者に帰属します。ただし、内容を変更しない状態での再配布やモッドパックへの収録は可能です。Modの利用や配布にあたっては、Mojang Studiosの定めるMinecraftのエンドユーザーライセンス条項（EULA）及びガイドラインに従ってください。
 
 ## アイテム解説
 
@@ -164,8 +166,4 @@
   - この項目は`enableLaserBlade3DModel`が`true`のときのみ使用される
 
 ---
-Copyright 2016-2019 Iunius118
-
-This mod is released under the MIT license but including resources licensed under a Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0) License.
-
-このmodはMITライセンスで配布されていますが、リソースにクリエイティブコモンズ 表示 - 非営利 4.0（CC BY-NC 4.0）ライセンスで配布されているファイルを含みます。
+&copy; 2016-2020 Iunius118
