@@ -69,14 +69,12 @@
 
 #### レーザーブレイドの染色
 
-- 金床で「色付きガラス」と合成すると「刃の外側部分」の色を変更することができる  
-<img src="img/ver3/recipe_laserblade_dyeing_outer.png" title="Dyeing Laser Blade outer">
-
-- 金床で「色付きガラス板」と合成すると「刃の内側部分」の色を変更することができる  
-<img src="img/ver3/recipe_laserblade_dyeing_inner.png" title="Dyeing Laser Blade inner">
-
+- 金床で「色付きガラス」と合成すると「刃の外側部分」の色を変更することができる
+  <img src="img/ver3/recipe_laserblade_dyeing_outer.png" title="Dyeing Laser Blade outer">
+- 金床で「色付きガラス板」と合成すると「刃の内側部分」の色を変更することができる
+  <img src="img/ver3/recipe_laserblade_dyeing_inner.png" title="Dyeing Laser Blade inner">
 - 金床で「カーペット」と合成すると「柄の部分」の色を変更することができる  
-<img src="img/ver3/recipe_laserblade_dyeing_grip.png" title="Dyeing Laser Blade grip">
+  <img src="img/ver3/recipe_laserblade_dyeing_grip.png" title="Dyeing Laser Blade grip">
 
 #### レーザーブレイドのアップグレード
 
