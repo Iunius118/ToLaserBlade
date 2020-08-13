@@ -38,6 +38,7 @@
   "itemGroup.tolaserblade": "ToLaserBlade",
   "tolaserblade.configgui.client.externalModelType": "External Model Type",
   "tolaserblade.configgui.client.internalModelType": "Internal Model Type",
+  "tolaserblade.configgui.client.showUpdateMessage": "Show Update Message",
   "tolaserblade.configgui.client.useFixedVertexBuffer": "Use Fixed Vertex Buffer",
   "tolaserblade.configgui.client.useInternalModel": "Use Internal Model",
   "tolaserblade.configgui.common.canLaserTrapAttackPlayer": "Can Laser Trap Attack Player",

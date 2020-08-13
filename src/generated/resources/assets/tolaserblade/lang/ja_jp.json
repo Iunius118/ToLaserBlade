@@ -37,6 +37,7 @@
   "item.tolaserblade.lb_medium": "\u30EC\u30FC\u30B6\u30FC\u5A92\u8CEA",
   "tolaserblade.configgui.client.externalModelType": "\u5916\u90E8\u30E2\u30C7\u30EB\u306E\u30BF\u30A4\u30D7",
   "tolaserblade.configgui.client.internalModelType": "\u5185\u90E8\u30E2\u30C7\u30EB\u306E\u30BF\u30A4\u30D7",
+  "tolaserblade.configgui.client.showUpdateMessage": "\u30A2\u30C3\u30D7\u30C7\u30FC\u30C8\u306E\u901A\u77E5\u3092\u8868\u793A\u3059\u308B",
   "tolaserblade.configgui.client.useFixedVertexBuffer": "Fixed Vertex Buffer\u3092\u4F7F\u7528\u3059\u308B",
   "tolaserblade.configgui.client.useInternalModel": "\u5185\u90E8\u30E2\u30C7\u30EB\u3092\u4F7F\u7528\u3059\u308B",
   "tolaserblade.configgui.common.canLaserTrapAttackPlayer": "\u30EC\u30FC\u30B6\u30FC\u30C8\u30E9\u30C3\u30D7\u304C\u30D7\u30EC\u30A4\u30E4\u30FC\u3078\u653B\u6483\u53EF\u80FD\u304B",

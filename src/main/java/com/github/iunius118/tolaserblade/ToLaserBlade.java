@@ -199,7 +199,7 @@ public class ToLaserBlade {
     @SubscribeEvent
     public void onEntityJoiningInWorld(final EntityJoinWorldEvent event) {
         if (event.getWorld().isRemote && event.getEntity() instanceof PlayerEntity) {
-            if (!hasShownUpdate) {
+            if (ToLaserBladeConfig.CLIENT.showUpdateMessage.get() && !hasShownUpdate) {
                 ClientEventHandler.checkUpdate();
                 hasShownUpdate = true;
             }

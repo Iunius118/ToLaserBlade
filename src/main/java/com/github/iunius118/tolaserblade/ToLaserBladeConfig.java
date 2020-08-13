@@ -76,6 +76,7 @@ public class ToLaserBladeConfig {
     }
 
     public static class Client {
+        public final BooleanValue showUpdateMessage;
         public final BooleanValue useFixedVertexBuffer;
         public final BooleanValue useInternalModel;
         public final IntValue internalModelType;
@@ -83,6 +84,12 @@ public class ToLaserBladeConfig {
 
         Client(ForgeConfigSpec.Builder builder) {
             builder.comment("ToLaserBlade's client side settings.").push("client");
+
+            showUpdateMessage = builder
+                    .comment("Enable to show update message.\n" +
+                            "Default: true")
+                    .translation("tolaserblade.configgui.client.showUpdateMessage")
+                    .define("showUpdateMessage", true);
 
             useFixedVertexBuffer = builder
                     .comment("Add mod's vertex buffers to Minecraft's fixed buffer list.\n" +
