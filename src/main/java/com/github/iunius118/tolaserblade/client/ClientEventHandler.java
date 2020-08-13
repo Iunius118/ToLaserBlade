@@ -75,15 +75,13 @@ public class ClientEventHandler {
         }
 
         if (status == Status.OUTDATED || status == Status.BETA_OUTDATED) {
-            ITextComponent modNameHighlighted = new StringTextComponent(ToLaserBlade.MOD_NAME);
-            modNameHighlighted.getStyle().applyFormatting(TextFormatting.YELLOW);
+            ITextComponent modNameHighlighted = new StringTextComponent(ToLaserBlade.MOD_NAME).mergeStyle(TextFormatting.YELLOW);
 
-            ITextComponent newVersionHighlighted = new StringTextComponent(result.target.toString());
-            newVersionHighlighted.getStyle().applyFormatting(TextFormatting.YELLOW);
+            ITextComponent newVersionHighlighted = new StringTextComponent(result.target.toString()).mergeStyle(TextFormatting.YELLOW);
 
             ITextComponent message = new TranslationTextComponent("tolaserblade.update.newVersion", modNameHighlighted).appendString(": ")
-                    .append(newVersionHighlighted);
-            message.getStyle().setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, result.url));
+                    .append(newVersionHighlighted)
+                    .modifyStyle(style -> style.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, result.url)));
 
             Minecraft.getInstance().ingameGUI.getChatGUI().printChatMessage(message);
         }
