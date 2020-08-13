@@ -131,9 +131,9 @@ public class DXLaserBladeItem extends SwordItem {
         Multimap<Attribute, AttributeModifier> multimap = HashMultimap.create();
 
         if (slot == EquipmentSlotType.MAINHAND) {
-            multimap.put(Attributes.field_233823_f_,    // TODO: field_233823_f_ = ATTACK_DAMAGE
+            multimap.put(Attributes.ATTACK_DAMAGE,
                     new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", attackDamage, AttributeModifier.Operation.ADDITION));
-            multimap.put(Attributes.field_233825_h_,    // TODO: field_233825_h_ = ATTACK_SPEED
+            multimap.put(Attributes.ATTACK_SPEED,
                     new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", attackSpeed, AttributeModifier.Operation.ADDITION));
         }
 

@@ -126,9 +126,9 @@ public class JEIToLaserBladePlugin implements IModPlugin {
         List<ItemStack> list = new ArrayList<>();
 
         try {
-            itemTag.func_230236_b_().forEach(item -> list.add(new ItemStack(item)));    // TODO: func_230236_b_ = getAllElements
+            itemTag.getAllElements().forEach(item -> list.add(new ItemStack(item)));
         } catch (IllegalStateException e) {
-            ToLaserBlade.LOGGER.error("java.lang.IllegalStateException: {}\n\tat com.github.iunius118.tolaserblade.client.integration.jei.JEIToLaserBladePlugin.getUpgradeRecipes", e.getMessage());
+            ToLaserBlade.LOGGER.warn("Catch java.lang.IllegalStateException: {}\n\tat com.github.iunius118.tolaserblade.client.integration.jei.JEIToLaserBladePlugin.getUpgradeRecipes", e.getMessage());
         }
 
         return list;

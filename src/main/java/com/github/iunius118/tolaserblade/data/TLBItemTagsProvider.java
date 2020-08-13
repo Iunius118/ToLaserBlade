@@ -24,20 +24,17 @@ public class TLBItemTagsProvider extends ForgeItemTagsProvider {
     public void registerTags() {
         super.registerTags();
         filter = new HashSet<>(this.tagToBuilder.keySet());
-
-        //  TODO: func_240521_a_ = getBuilder
-        //  TODO: func_240534_a_ = add(Item...)
-        func_240522_a_(ModItemTags.ATTACK_SPEED_UPGRADE).addTags(Tags.Items.INGOTS_GOLD);
-        func_240522_a_(ModItemTags.EFFICIENCY_UPGRADE).addTags(Tags.Items.STORAGE_BLOCKS_REDSTONE);
-        func_240522_a_(ModItemTags.EFFICIENCY_REMOVER).addTags(Tags.Items.DUSTS_REDSTONE);
-        func_240522_a_(ModItemTags.ATTACK_DAMAGE_UPGRADE).addTags(Tags.Items.GEMS_DIAMOND);
-        func_240522_a_(ModItemTags.LIGHT_ELEMENT_UPGRADE).func_240534_a_(Items.GLOWSTONE);
-        func_240522_a_(ModItemTags.FIRE_ASPECT_UPGRADE).addTags(Tags.Items.RODS_BLAZE);
-        func_240522_a_(ModItemTags.SWEEPING_EDGE_UPGRADE).func_240534_a_(Items.ENDER_EYE);
-        func_240522_a_(ModItemTags.LOOTING_UPGRADE).func_240534_a_(Items.NAUTILUS_SHELL).addTags(Tags.Items.STORAGE_BLOCKS_EMERALD);
-        func_240522_a_(ModItemTags.MENDING_UPGRADE).func_240534_a_(Items.NETHER_STAR, Items.DRAGON_HEAD, Items.TOTEM_OF_UNDYING);
-        func_240522_a_(ModItemTags.FIREPROOF_UPGRADE).func_240534_a_(Items.field_234759_km_);   // TODO: field_234759_km_ = NETHERITE_INGOT
-        func_240522_a_(ModItemTags.CASING_REPAIR).addTags(Tags.Items.INGOTS_IRON);
+        getOrCreateBuilder(ModItemTags.ATTACK_SPEED_UPGRADE).addTags(Tags.Items.INGOTS_GOLD);
+        getOrCreateBuilder(ModItemTags.EFFICIENCY_UPGRADE).addTags(Tags.Items.STORAGE_BLOCKS_REDSTONE);
+        getOrCreateBuilder(ModItemTags.EFFICIENCY_REMOVER).addTags(Tags.Items.DUSTS_REDSTONE);
+        getOrCreateBuilder(ModItemTags.ATTACK_DAMAGE_UPGRADE).addTags(Tags.Items.GEMS_DIAMOND);
+        getOrCreateBuilder(ModItemTags.LIGHT_ELEMENT_UPGRADE).add(Items.GLOWSTONE);
+        getOrCreateBuilder(ModItemTags.FIRE_ASPECT_UPGRADE).addTags(Tags.Items.RODS_BLAZE);
+        getOrCreateBuilder(ModItemTags.SWEEPING_EDGE_UPGRADE).add(Items.ENDER_EYE);
+        getOrCreateBuilder(ModItemTags.LOOTING_UPGRADE).add(Items.NAUTILUS_SHELL).addTags(Tags.Items.STORAGE_BLOCKS_EMERALD);
+        getOrCreateBuilder(ModItemTags.MENDING_UPGRADE).add(Items.NETHER_STAR, Items.DRAGON_HEAD, Items.TOTEM_OF_UNDYING);
+        getOrCreateBuilder(ModItemTags.FIREPROOF_UPGRADE).add(Items.NETHERITE_INGOT);
+        getOrCreateBuilder(ModItemTags.CASING_REPAIR).addTags(Tags.Items.INGOTS_IRON);
     }
 
     @Override

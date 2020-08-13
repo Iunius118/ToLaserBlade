@@ -108,7 +108,7 @@ public class DispenseLaserBladeBehavior implements IDispenseItemBehavior {
         AxisAlignedBB boundingBox = new AxisAlignedBB(pos).grow(0.5D);
         List<Entity> targetEntities = laserTrapPlayer.world.getEntitiesInAABBexcluding(null, boundingBox, LASER_TRAP_TARGETS);
         // Get attack damage
-        float attackDamage = (float)laserTrapPlayer.getAttribute(Attributes.field_233823_f_).getValue();    // TODO: field_233823_f_ = ATTACK_DAMAGE
+        float attackDamage = (float)laserTrapPlayer.getAttribute(Attributes.ATTACK_DAMAGE).getValue();
 
         for (Entity targetEntity : targetEntities) {
             // Attack entities

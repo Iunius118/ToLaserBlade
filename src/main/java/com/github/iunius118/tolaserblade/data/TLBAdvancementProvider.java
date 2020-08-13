@@ -98,13 +98,13 @@ public class TLBAdvancementProvider implements IDataProvider {
                 .withRewards(AdvancementRewards.Builder.experience(1000))
                 .withRequirementsStrategy(IRequirementsStrategy.OR)
                 .withCriterion("broke_laser_blade",
-                        ItemDurabilityTrigger.Instance.func_234816_a_(
-                                EntityPredicate.AndPredicate.func_234585_a_(EntityPredicate.ANY),
-                                ItemPredicate.Builder.create().item(ModItems.LASER_BLADE).build(), MinMaxBounds.IntBound.fromJson(jsonMaxZero)))    // TODO: func_234816_a_ = forItemDamage
+                        ItemDurabilityTrigger.Instance.create(
+                                EntityPredicate.AndPredicate.createAndFromEntityCondition(EntityPredicate.ANY),
+                                ItemPredicate.Builder.create().item(ModItems.LASER_BLADE).build(), MinMaxBounds.IntBound.fromJson(jsonMaxZero)))
                 .withCriterion("broke_laser_blade_fp",
-                        ItemDurabilityTrigger.Instance.func_234816_a_(
-                                EntityPredicate.AndPredicate.func_234585_a_(EntityPredicate.ANY),
-                                ItemPredicate.Builder.create().item(ModItems.LASER_BLADE_FP).build(), MinMaxBounds.IntBound.fromJson(jsonMaxZero)))    // TODO: func_234816_a_ = forItemDamage
+                        ItemDurabilityTrigger.Instance.create(
+                                EntityPredicate.AndPredicate.createAndFromEntityCondition(EntityPredicate.ANY),
+                                ItemPredicate.Builder.create().item(ModItems.LASER_BLADE_FP).build(), MinMaxBounds.IntBound.fromJson(jsonMaxZero)))
                 .register(consumer, "tolaserblade:main/break_laser_blade");
 
         // 1-1-5. Life-time Support
@@ -112,7 +112,7 @@ public class TLBAdvancementProvider implements IDataProvider {
                 new Item[]{ModItems.LASER_BLADE, ModItems.LASER_BLADE_FP}, Enchantments.MENDING, 1, consumer);
 
         // 1-1-6. Into The Core
-        Advancement laserBladeFP = registerItemAdvancement(laserBlade, Items.field_234759_km_, FrameType.TASK,    // TODO: field_234759_km_ = NETHERITE_INGOT
+        Advancement laserBladeFP = registerItemAdvancement(laserBlade, Items.NETHERITE_INGOT, FrameType.TASK,
                 new Item[]{ModItems.LASER_BLADE_FP}, consumer);
     }
 

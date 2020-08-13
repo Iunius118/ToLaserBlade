@@ -188,11 +188,11 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
         Multimap<Attribute, AttributeModifier> multimap = HashMultimap.create();
 
         if (slot == EquipmentSlotType.MAINHAND) {
-            multimap.put(Attributes.field_233823_f_,    // TODO: field_233823_f_ = ATTACK_DAMAGE
+            multimap.put(Attributes.ATTACK_DAMAGE,
                     new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier",
                             this.attackDamage + getLaserBladeATK(stack), AttributeModifier.Operation.ADDITION));
 
-            multimap.put(Attributes.field_233825_h_,    // TODO: field_233825_h_ = ATTACK_SPEED
+            multimap.put(Attributes.ATTACK_SPEED,
                     new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier",
                             this.attackSpeed + getLaserBladeSPD(stack), AttributeModifier.Operation.ADDITION));
         }
@@ -257,7 +257,7 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
     public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
         super.fillItemGroup(group, items);
 
-        if (group == ModMainItemGroup.ITEM_GROUP && func_234687_u_()) {
+        if (group == ModMainItemGroup.ITEM_GROUP && isBurnable()) { // TODO: isBurnable = isNotBurnable?
             // Laser Blade item group and not fireproof
             if (laserBladeNormal == null) {
                 laserBladeNormal = getLaserBladeNormal();

@@ -68,11 +68,11 @@ public class LaserBladeCrafting {
                         setAttackSpeed(ingredient);
                         setName(ingredient);
 
-                    } else if (resultItem.canUpgrade(LaserBladeUpgrade.Type.BATTERY) && Tags.Items.DUSTS_REDSTONE.func_230235_a_(item)) {   // TODO: func_230235_a_ = contains
+                    } else if (resultItem.canUpgrade(LaserBladeUpgrade.Type.BATTERY) && Tags.Items.DUSTS_REDSTONE.contains(item)) {
                         // Add Efficiency I to LB Energy Cell by Redstone
                         addEnchantment(Enchantments.EFFICIENCY, 1);
 
-                    } else if (resultItem.canUpgrade(LaserBladeUpgrade.Type.MEDIUM) && Tags.Items.DUSTS_GLOWSTONE.func_230235_a_(item)) {   // TODO: func_230235_a_ = contains
+                    } else if (resultItem.canUpgrade(LaserBladeUpgrade.Type.MEDIUM) && Tags.Items.DUSTS_GLOWSTONE.contains(item)) {
                         // Add Light Element II to Laser Medium by Glowstone Dust
                         addEnchantment(ModEnchantments.LIGHT_ELEMENT, LaserBladeItemBase.LVL_LIGHT_ELEMENT_2);
                     }
@@ -191,13 +191,13 @@ public class LaserBladeCrafting {
 
     private void modifyColorsByBiome(PlayerEntity player) {
         World world = player.world;
-        Biome biome = world.getBiome(player.func_233580_cy_()); // TODO: func_233580_cy_ = getPosition
+        Biome biome = world.getBiome(player.getPosition());
 
         // Dyeing by Biome type or Biome temperature
-        if (world.func_234922_V_() == DimensionType.field_236000_d_ || biome.getCategory() == Biome.Category.NETHER) {   // Nether
+        if (world.func_234922_V_() == DimensionType.THE_NETHER || biome.getCategory() == Biome.Category.NETHER) {   // The Nether
             // Nether
             isBladeInnerSubColor = true;
-        } else if (world.func_234922_V_() == DimensionType.field_236001_e_ || biome.getCategory() == Biome.Category.THEEND) {   // The End
+        } else if (world.func_234922_V_() == DimensionType.THE_END || biome.getCategory() == Biome.Category.THEEND) {   // The End
             // The End
             isBladeOuterSubColor = true;
         } else if (biome instanceof TheVoidBiome) {

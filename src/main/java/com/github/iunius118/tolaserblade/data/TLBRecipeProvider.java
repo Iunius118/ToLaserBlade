@@ -65,13 +65,13 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
                 .addIngredient(ModItems.LB_MEDIUM)
                 .addIngredient(ModItems.LB_EMITTER)
                 .addIngredient(ModItems.LB_CASING_FP)
-                .addCriterion("has_netherite_ingot", hasItem(Items.field_234759_km_))   // TODO: field_234759_km_ = NETHERITE_INGOT
+                .addCriterion("has_netherite_ingot", hasItem(Items.NETHERITE_INGOT))
                 .build(consumer, ModItems.LASER_BLADE_FP.getRegistryName());
 
         // Netherite Laser Blade by using Smithing Table
         // TODO: func_240502_a_ = smithingRecipe, func_240503_a_ = addCriterion, func_240504_a_ = build
-        SmithingRecipeBuilder.func_240502_a_(Ingredient.fromItems(ModItems.LASER_BLADE), Ingredient.fromItems(Items.field_234759_km_), ModItems.LASER_BLADE_FP)
-                .func_240503_a_("has_netherite_ingot", hasItem(Items.field_234759_km_)) // TODO: field_234759_km_ = NETHERITE_INGOT
+        SmithingRecipeBuilder.func_240502_a_(Ingredient.fromItems(ModItems.LASER_BLADE), Ingredient.fromItems(Items.NETHERITE_INGOT), ModItems.LASER_BLADE_FP)
+                .func_240503_a_("has_netherite_ingot", hasItem(Items.NETHERITE_INGOT))
                 .func_240504_a_(consumer, ModItems.LASER_BLADE_FP.getRegistryName().toString() + "_smithing");
     }
 

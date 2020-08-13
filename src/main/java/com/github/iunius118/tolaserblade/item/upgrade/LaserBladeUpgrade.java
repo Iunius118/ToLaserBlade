@@ -95,7 +95,7 @@ public class LaserBladeUpgrade {
         List<Triple<ITag.INamedTag<Item>, Type, Function<ItemStack, UpgradeResult>>> tags = ModItemTags.getTags();
 
         for (Triple<ITag.INamedTag<Item>, Type, Function<ItemStack, UpgradeResult>> tag : tags) {
-            if (tag.getLeft().func_230235_a_(rightItem) && laserBlade.canUpgrade(tag.getMiddle())) {    // TODO: func_230235_a_ = contains
+            if (tag.getLeft().contains(rightItem) && laserBlade.canUpgrade(tag.getMiddle())) {
                 // Upgrade Laser Blade or its parts
                 UpgradeResult result = tag.getRight().apply(left.copy());
                 ItemStack output = result.getItemStack();

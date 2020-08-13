@@ -65,7 +65,7 @@ public interface LaserBladeItemBase {
     /* Laser Blade properties */
 
     static Item.Properties setFireproof(Item.Properties properties, boolean isFireproof) {
-        return isFireproof ? properties.func_234689_a_() : properties;
+        return isFireproof ? properties.isBurnable() : properties;  // TODO: isBurnable = isNotBurnable?
     }
 
     /* Laser Blade status getters/setters */
@@ -256,10 +256,10 @@ public interface LaserBladeItemBase {
 
     @OnlyIn(Dist.CLIENT)
     default void addLaserBladeInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn, LaserBladeUpgrade.Type type) {
-        boolean isFireproof = stack.getItem().func_234687_u_();
+        boolean isFireproof = stack.getItem().isBurnable(); // TODO: isBurnable = isNotBurnable?
 
         if (isFireproof) {
-            tooltip.add(new TranslationTextComponent(KEY_TOOLTIP_FIREPROOF).func_240699_a_(TextFormatting.GOLD));   // TODO: func_240699_a_ = applyTextStyle
+            tooltip.add(new TranslationTextComponent(KEY_TOOLTIP_FIREPROOF).mergeStyle(TextFormatting.GOLD));
         }
 
         if (type == LaserBladeUpgrade.Type.REPAIR || type == LaserBladeUpgrade.Type.MEDIUM) {
@@ -280,7 +280,7 @@ public interface LaserBladeItemBase {
     }
 
     default ITextComponent getUpgradeTextComponent(String key, float value) {
-        return new TranslationTextComponent(key, (value < 0 ? "" : "+") + ItemStack.DECIMALFORMAT.format(value)).func_240699_a_(TextFormatting.DARK_GREEN); // TODO: func_240699_a_ = applyTextStyle
+        return new TranslationTextComponent(key, (value < 0 ? "" : "+") + ItemStack.DECIMALFORMAT.format(value)).mergeStyle(TextFormatting.DARK_GREEN);
     }
 
     enum LBColor {
