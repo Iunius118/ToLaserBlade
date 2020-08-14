@@ -42,7 +42,7 @@ public class LaserBladeModelType1009 extends SimpleModel {
         renderQuads(matrixStack, currentBuffer, HILT_QUADS, color.gripColor, fullLight, overlayColor);
         renderQuads(matrixStack, currentBuffer, BLADE_OFF_QUADS, offColor, fullLight, overlayColor);
 
-        currentBuffer = color.isInnerSubColor ? buffer.getBuffer(LaserBladeRenderType.LASER_SUB) : buffer.getBuffer(LaserBladeRenderType.LASER_ADD);
+        currentBuffer = color.isInnerSubColor ? buffer.getBuffer(LaserBladeRenderType.LASER_SUB_INNER) : buffer.getBuffer(LaserBladeRenderType.LASER_ADD);
         renderQuads(matrixStack, currentBuffer, BLADE_IN_QUADS, color.innerColor, fullLight, overlayColor);
         renderQuads(matrixStack, currentBuffer, BLADE_MID_QUADS, color.innerColor, fullLight, overlayColor);
 

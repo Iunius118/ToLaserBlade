@@ -44,7 +44,7 @@ public class LaserBladeModelType913 extends SimpleModel {
         float angle = Util.milliTime() % 250L * 1.44F;   // 240 rpm
         matrixStack.rotate(new Quaternion(Vector3f.YP, angle, true));
 
-        currentBuffer = color.isInnerSubColor ? buffer.getBuffer(LaserBladeRenderType.LASER_SUB) : buffer.getBuffer(LaserBladeRenderType.LASER_ADD);
+        currentBuffer = color.isInnerSubColor ? buffer.getBuffer(LaserBladeRenderType.LASER_SUB_INNER) : buffer.getBuffer(LaserBladeRenderType.LASER_ADD);
         renderQuads(matrixStack, currentBuffer, BLADE_IN_QUADS, color.innerColor, fullLight, overlayColor);
 
         currentBuffer = color.isOuterSubColor ? buffer.getBuffer(LaserBladeRenderType.LASER_SUB) : buffer.getBuffer(LaserBladeRenderType.LASER_ADD);

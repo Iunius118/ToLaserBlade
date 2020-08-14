@@ -86,7 +86,7 @@ public class LaserBladeOBJModel extends SimpleModel {
             return;
         }
 
-        currentBuffer = color.isInnerSubColor ? buffer.getBuffer(LaserBladeRenderType.LASER_SUB) : buffer.getBuffer(LaserBladeRenderType.LASER_ADD);
+        currentBuffer = color.isInnerSubColor ? buffer.getBuffer(LaserBladeRenderType.LASER_SUB_INNER) : buffer.getBuffer(LaserBladeRenderType.LASER_ADD);
         renderBakedQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeOBJModel.Part.BLADE_INNER), color.innerColor, fullLight, overlayColor);
 
         currentBuffer = color.isOuterSubColor ? buffer.getBuffer(LaserBladeRenderType.LASER_SUB) : buffer.getBuffer(LaserBladeRenderType.LASER_ADD);

@@ -30,6 +30,7 @@ public class LaserBladeRenderType extends RenderType {
     public static final RenderType HILT = getBladeRenderType("hilt", getLaserHiltRenderState());
     public static final RenderType LASER_FLAT = getBladeRenderType("laser_flat", getLaserFlatRenderState());
     public static final RenderType LASER_ADD = getBladeRenderType("laser_add", getLaserAddRenderState());
+    public static final RenderType LASER_SUB_INNER = getBladeRenderType("laser_sub_in", getLaserSubRenderState());
     public static final RenderType LASER_SUB = getBladeRenderType("laser_sub", getLaserSubRenderState());
 
     static {
@@ -114,6 +115,7 @@ public class LaserBladeRenderType extends RenderType {
         RenderTypeBuffers renderTypeBuffers = Minecraft.getInstance().getRenderTypeBuffers();
         // Register mod RenderTypes
         renderTypeBuffers.fixedBuffers.put(LASER_FLAT, new BufferBuilder(LASER_FLAT.getBufferSize()));
+        renderTypeBuffers.fixedBuffers.put(LASER_SUB_INNER, new BufferBuilder(LASER_SUB_INNER.getBufferSize()));
         renderTypeBuffers.fixedBuffers.put(LASER_ADD, new BufferBuilder(LASER_ADD.getBufferSize()));
         renderTypeBuffers.fixedBuffers.put(LASER_SUB, new BufferBuilder(LASER_SUB.getBufferSize()));
     }
