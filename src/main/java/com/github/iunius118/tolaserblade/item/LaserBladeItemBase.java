@@ -54,7 +54,7 @@ public interface LaserBladeItemBase {
     float MOD_ATK_CLASS_5 = 8.0F;
     float MOD_ATK_MAX = 2041.0F;
 
-    float MOD_CRITICAL_VS_WITHER = 2.0F;
+    float MOD_CRITICAL_BONUS_VS_WITHER = 0.5F;
 
     int LVL_LIGHT_ELEMENT_1 = 1;
     int LVL_LIGHT_ELEMENT_2 = 2;

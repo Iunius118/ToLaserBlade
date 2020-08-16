@@ -34,6 +34,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.entity.player.CriticalHitEvent;
+import net.minecraftforge.eventbus.api.Event;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nullable;
@@ -110,10 +111,9 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
         Entity target = event.getTarget();
         float attack = getLaserBladeATK(event.getPlayer().getHeldItemMainhand());
 
-        if (event.isVanillaCritical()) {
-            if (target instanceof WitherEntity || attack > MOD_ATK_CLASS_4) {
-                event.setDamageModifier(MOD_CRITICAL_VS_WITHER);
-            }
+        if (target instanceof WitherEntity || attack > MOD_ATK_CLASS_4) {
+            event.setResult(Event.Result.ALLOW);
+            event.setDamageModifier(event.getDamageModifier() + MOD_CRITICAL_BONUS_VS_WITHER);
         }
     }
 

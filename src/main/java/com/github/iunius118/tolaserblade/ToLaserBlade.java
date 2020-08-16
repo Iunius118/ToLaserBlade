@@ -210,9 +210,9 @@ public class ToLaserBlade {
     public void onLivingDamage(LivingDamageEvent event) {
         /*
         // For debug
-        String str = event.getSource().getDamageType() + " caused " + event.getAmount() + " point damage to " + event.getEntityLiving().getName().getFormattedText() + "!";
+        String str = event.getSource().getDamageType() + " caused " + event.getAmount() + " point damage to " + event.getEntityLiving().getName().getString() + "!";
         if (FMLLoader.getDist().isClient()) {
-            Minecraft.getInstance().ingameGUI.addChatMessage(ChatType.SYSTEM, new StringTextComponent(str));
+            Minecraft.getInstance().ingameGUI.getChatGUI().printChatMessage(new StringTextComponent(str));
         } else {
             LOGGER.info(str);
         }
