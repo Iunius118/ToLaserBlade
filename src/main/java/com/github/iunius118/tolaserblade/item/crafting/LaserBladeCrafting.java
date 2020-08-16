@@ -14,10 +14,8 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.TheVoidBiome;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.util.Constants;
 import net.minecraftforge.event.entity.player.PlayerEvent;
@@ -194,18 +192,16 @@ public class LaserBladeCrafting {
         Biome biome = world.getBiome(player.getPosition());
 
         // Dyeing by Biome type or Biome temperature
-        if (world.func_234922_V_() == DimensionType.THE_NETHER || biome.getCategory() == Biome.Category.NETHER) {   // The Nether
-            // Nether
+        if (biome.getCategory() == Biome.Category.NETHER) {
+            // The Nether
             isBladeInnerSubColor = true;
-        } else if (world.func_234922_V_() == DimensionType.THE_END || biome.getCategory() == Biome.Category.THEEND) {   // The End
+        } else if (biome.getCategory() == Biome.Category.THEEND) {
             // The End
             isBladeOuterSubColor = true;
-        } else if (biome instanceof TheVoidBiome) {
-            // The Void
 
         } else {
             // Biomes on Overworld or the other dimensions
-            float temp = biome.getDefaultTemperature();
+            float temp = biome.func_242445_k(); // TODO: func_242445_k = getDefaultTemperature
 
             if (temp > 1.5F) {
                 // t > 1.5
