@@ -1,6 +1,14 @@
 ToLaserBlade
 Changelog
 
+v1.16.2-3.2.1.0
+
+    Add new smithing table recipes to disassemble Laser Blade
+        Smithing Table: Laser Blade + Paper/Blueprint → Disassembled Laser Blade
+        Right-click Disassembled Laser Blade → Energy Cell, Medium, Emitter, Casing, and Blueprint
+        Crafting: Energy Cell, Medium, Emitter, and Casing → Laser Blade
+
+
 v1.16.2-3.2.0.0
 
     Initial port to 1.16.2
