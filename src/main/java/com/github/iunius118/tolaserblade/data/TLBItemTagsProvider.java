@@ -1,5 +1,6 @@
 package com.github.iunius118.tolaserblade.data;
 
+import com.github.iunius118.tolaserblade.item.ModItems;
 import com.github.iunius118.tolaserblade.tags.ModItemTags;
 import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
@@ -35,6 +36,7 @@ public class TLBItemTagsProvider extends ForgeItemTagsProvider {
         getOrCreateBuilder(ModItemTags.MENDING_UPGRADE).add(Items.NETHER_STAR, Items.DRAGON_HEAD, Items.TOTEM_OF_UNDYING);
         getOrCreateBuilder(ModItemTags.FIREPROOF_UPGRADE).add(Items.NETHERITE_INGOT);
         getOrCreateBuilder(ModItemTags.CASING_REPAIR).addTags(Tags.Items.INGOTS_IRON);
+        getOrCreateBuilder(ModItemTags.LB_DISASSEMBLER).add(Items.PAPER, ModItems.LB_BLUEPRINT);
     }
 
     @Override

@@ -1,7 +1,9 @@
 package com.github.iunius118.tolaserblade.data;
 
 import com.github.iunius118.tolaserblade.item.ModItems;
+import com.github.iunius118.tolaserblade.tags.ModItemTags;
 import net.minecraft.data.*;
+import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraftforge.common.Tags;
@@ -69,14 +71,27 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
                 .build(consumer, ModItems.LASER_BLADE_FP.getRegistryName());
 
         // Netherite Laser Blade by using Smithing Table
-        // TODO: func_240502_a_ = smithingRecipe, func_240503_a_ = addCriterion, func_240504_a_ = build
-        SmithingRecipeBuilder.func_240502_a_(Ingredient.fromItems(ModItems.LASER_BLADE), Ingredient.fromItems(Items.NETHERITE_INGOT), ModItems.LASER_BLADE_FP)
-                .func_240503_a_("has_netherite_ingot", hasItem(Items.NETHERITE_INGOT))
-                .func_240504_a_(consumer, ModItems.LASER_BLADE_FP.getRegistryName().toString() + "_smithing");
+        addSmithingRecipe(Ingredient.fromItems(ModItems.LASER_BLADE), Ingredient.fromItems(Items.NETHERITE_INGOT), ModItems.LASER_BLADE_FP, Items.NETHERITE_INGOT, consumer);
+
+        // Netherite Laser Blade Casing by using Smithing Table
+        addSmithingRecipe(Ingredient.fromItems(ModItems.LB_CASING), Ingredient.fromItems(Items.NETHERITE_INGOT), ModItems.LB_CASING_FP, Items.NETHERITE_INGOT, consumer);
+
+        // Disassembled Laser Blade by using Smithing Table
+        addSmithingRecipe(Ingredient.fromItems(ModItems.LASER_BLADE), Ingredient.fromTag(ModItemTags.LB_DISASSEMBLER), ModItems.LB_DISASSEMBLED, ModItems.LASER_BLADE, consumer);
+
+        // Disassembled Laser Blade FP by using Smithing Table
+        addSmithingRecipe(Ingredient.fromItems(ModItems.LASER_BLADE_FP), Ingredient.fromTag(ModItemTags.LB_DISASSEMBLER), ModItems.LB_DISASSEMBLED_FP, ModItems.LASER_BLADE_FP, consumer);
     }
 
     @Override
     public String getName() {
         return "ToLaserBlade " + super.getName();
+    }
+
+    private void addSmithingRecipe(Ingredient base, Ingredient addition, Item result, Item criterionItem, Consumer<IFinishedRecipe> consumer) {
+        // TODO: func_240502_a_ = smithingRecipe, func_240503_a_ = addCriterion, func_240504_a_ = build
+        SmithingRecipeBuilder.func_240502_a_(base, addition, result)
+                .func_240503_a_("has_" + criterionItem.getRegistryName().getPath(), hasItem(criterionItem))
+                .func_240504_a_(consumer, result.getRegistryName().toString() + "_smithing");
     }
 }

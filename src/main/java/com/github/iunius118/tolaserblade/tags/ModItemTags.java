@@ -18,6 +18,7 @@ import java.util.List;
 import java.util.function.Function;
 
 public class ModItemTags {
+    // Tags for Anvil
     private static final List<Triple<ITag.INamedTag<Item>, Type, Function<ItemStack, UpgradeResult>>> TAGS = new ArrayList<>();
 
     public static final ITag.INamedTag<Item> ATTACK_SPEED_UPGRADE = addUpgradeTag(makeWrapperTag("upgrade/speed"), Type.BATTERY, UpgradeFunctions.getUpgradeSpeedFunction());
@@ -35,6 +36,9 @@ public class ModItemTags {
     public static final ITag.INamedTag<Item> FIREPROOF_UPGRADE = addUpgradeTag(makeWrapperTag("upgrade/fireproof"), Type.CASING, UpgradeFunctions.getUpgradeFireproofFunction());
 
     public static final ITag.INamedTag<Item> CASING_REPAIR = addUpgradeTag(makeWrapperTag("casing_repair"), Type.REPAIR, UpgradeFunctions.getRepairFunction());
+
+    // Tags only for crafting or smithing table
+    public static final ITag.INamedTag<Item> LB_DISASSEMBLER = makeWrapperTag("lb_disassembler");
 
     private static ITag.INamedTag<Item> makeWrapperTag(String id) {
         return ItemTags.makeWrapperTag(ToLaserBlade.MOD_ID + ":" + id);

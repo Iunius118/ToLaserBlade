@@ -65,7 +65,7 @@ public interface LaserBladeItemBase {
     /* Laser Blade properties */
 
     static Item.Properties setFireproof(Item.Properties properties, boolean isFireproof) {
-        return isFireproof ? properties.isBurnable() : properties;  // TODO: isBurnable = isNotBurnable?
+        return isFireproof ? properties.isBurnable() : properties;  // TODO: isBurnable = isFireproof?
     }
 
     /* Laser Blade status getters/setters */
