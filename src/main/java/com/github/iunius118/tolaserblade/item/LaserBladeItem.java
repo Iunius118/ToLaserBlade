@@ -155,8 +155,8 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
     }
 
     @Override
-    public boolean isDamageable() {
-        return false;
+    public boolean isDamageable(ItemStack stack) {
+        return true;
     }
 
     @Override
