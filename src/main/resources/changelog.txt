@@ -1,6 +1,12 @@
 ToLaserBlade
 Changelog
 
+v1.16.2-3.2.1.1
+
+    Compatible with Forge 33.0.20
+    Fix Laser Blade to be damageable
+
+
 v1.16.2-3.2.1.0
 
     Add new smithing table recipes to disassemble Laser Blade
