@@ -35,7 +35,13 @@ public class LightElementEnchantment extends DamageEnchantment {
 
     @Override
     public boolean canApply(ItemStack stack) {
-        return stack.getItem() instanceof LaserBladeItemBase;
+        return canApplyAtEnchantingTable(stack);
+    }
+
+    @Override
+    public boolean canApplyAtEnchantingTable(ItemStack stack) {
+        // Only Laser Blade items
+        return super.canApplyAtEnchantingTable(stack) && stack.getItem() instanceof LaserBladeItemBase;
     }
 
     @Override
