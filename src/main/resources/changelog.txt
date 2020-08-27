@@ -1,6 +1,12 @@
 ToLaserBlade
 Changelog
 
+v1.16.2-3.2.2.1
+
+    Fix attack of Laser Blade that is always critical hit
+    Fix Light Element that is applied to non-Laser-Blade swords
+
+
 v1.16.2-3.2.2.0
 
     Add Russian translation (kazmurenko)
