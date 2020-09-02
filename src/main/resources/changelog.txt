@@ -3,7 +3,7 @@ Changelog
 
 v1.16.2-3.2.2.1
 
-    Fix attack of Laser Blade that is always critical hit
+    Fix attack of Laser Blade (damage +8) that is always critical hit
     Fix Light Element that is applied to non-Laser-Blade swords
 
 
