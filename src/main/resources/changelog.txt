@@ -1,6 +1,14 @@
 ToLaserBlade
 Changelog
 
+v1.16.2-3.2.3.0
+
+    Add a tag "ct" to Laser Blade's NBT tags
+        If this tag is 1 while crafting the Laser Blade, the default enchanting and coloring are not applied to the Laser Blade
+        This is intended to be used in CraftTweaker's script
+        See also: https://github.com/Iunius118/ToLaserBlade/blob/1.16/docs/scripts/TLB_sample.zs
+
+
 v1.16.2-3.2.2.1
 
     Fix attack of Laser Blade (damage +8) that is always critical hit
