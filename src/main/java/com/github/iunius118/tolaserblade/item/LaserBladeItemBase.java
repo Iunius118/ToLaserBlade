@@ -39,6 +39,8 @@ public interface LaserBladeItemBase {
     String KEY_IS_INNER_SUB_COLOR = "isSubC";
     String KEY_IS_OUTER_SUB_COLOR = "isSubH";
 
+    String KEY_IS_CRAFT_TWEAKER_RECIPE = "ct";
+
     String KEY_TOOLTIP_FIREPROOF = "upgrade.tolaserblade.fireproof";
     String KEY_TOOLTIP_ATTACK_DAMAGE = "upgrade.tolaserblade.attackDamage";
     String KEY_TOOLTIP_ATTACK_SPEED = "upgrade.tolaserblade.attackSpeed";

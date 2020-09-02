@@ -25,6 +25,7 @@ import java.util.Map;
 public class LaserBladeCrafting {
     private final ItemStack result;
     private final LaserBladeItemBase resultItem;
+    private boolean isCraftTweakerRecipe = false;
     private int bladeGripColor = LaserBladeItemBase.DEFAULT_COLOR_GRIP;
     private int bladeInnerColor = LaserBladeItemBase.DEFAULT_COLOR_INNER;
     private int bladeOuterColor = LaserBladeItemBase.DEFAULT_COLOR_OUTER;
@@ -38,6 +39,19 @@ public class LaserBladeCrafting {
     public LaserBladeCrafting(PlayerEvent.ItemCraftedEvent event, LaserBladeItemBase resultItemIn) {
         result = event.getCrafting();
         resultItem = resultItemIn;
+
+        if (result.hasTag()) {
+            // Deal with CraftTweaker's recipe
+            CompoundNBT tag = result.getTag();
+            isCraftTweakerRecipe = tag.getBoolean(LaserBladeItemBase.KEY_IS_CRAFT_TWEAKER_RECIPE);
+            tag.remove(LaserBladeItemBase.KEY_IS_CRAFT_TWEAKER_RECIPE);
+
+            if (isCraftTweakerRecipe) {
+                // Skip enchanting and coloring for CraftTweaker's recipe
+                return;
+            }
+        }
+
         IInventory inventory = event.getInventory();
 
         if (resultItem.canUpgrade(LaserBladeUpgrade.Type.MEDIUM)) {
@@ -80,6 +94,11 @@ public class LaserBladeCrafting {
     }
 
     public ItemStack getResult() {
+        if (isCraftTweakerRecipe) {
+            // Skip enchanting and coloring for CraftTweaker's recipe
+            return result;
+        }
+
         CompoundNBT nbt = result.getOrCreateTag();
 
         if (resultItem.canUpgrade(LaserBladeUpgrade.Type.BATTERY)) {
