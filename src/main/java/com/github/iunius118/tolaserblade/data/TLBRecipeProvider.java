@@ -1,7 +1,6 @@
 package com.github.iunius118.tolaserblade.data;
 
 import com.github.iunius118.tolaserblade.item.ModItems;
-import com.github.iunius118.tolaserblade.tags.ModItemTags;
 import net.minecraft.data.*;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
@@ -29,7 +28,7 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
                 .build(consumer, ModItems.DX_LASER_BLADE.getRegistryName());
 
         // Laser Blade with Light Element I
-        ShapedRecipeBuilder.shapedRecipe(ModItems.LASER_BLADE)
+        ShapedRecipeBuilder.shapedRecipe(ModItems.LB_BRAND_NEW_1)
                 .patternLine("Gid")
                 .patternLine("idi")
                 .patternLine("riG")
@@ -38,10 +37,10 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
                 .key('d', Tags.Items.GEMS_DIAMOND)
                 .key('r', Tags.Items.DUSTS_REDSTONE)
                 .addCriterion("has_redstone", hasItem(Items.REDSTONE))
-                .build(consumer, ModItems.LASER_BLADE.getRegistryName());
+                .build(consumer, ModItems.LB_BRAND_NEW_1.getRegistryName());
 
         // Laser Blade with Light Element II
-        ShapedRecipeBuilder.shapedRecipe(ModItems.LASER_BLADE)
+        ShapedRecipeBuilder.shapedRecipe(ModItems.LB_BRAND_NEW_2)
                 .patternLine("gid")
                 .patternLine("idi")
                 .patternLine("rig")
@@ -50,37 +49,13 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
                 .key('d', Tags.Items.GEMS_DIAMOND)
                 .key('r', Tags.Items.DUSTS_REDSTONE)
                 .addCriterion("has_redstone", hasItem(Items.REDSTONE))
-                .build(consumer, ModItems.LASER_BLADE.getRegistryName() + "_1");
-
-        // Laser Blade from parts
-        ShapelessRecipeBuilder.shapelessRecipe(ModItems.LASER_BLADE)
-                .addIngredient(ModItems.LB_BATTERY)
-                .addIngredient(ModItems.LB_MEDIUM)
-                .addIngredient(ModItems.LB_EMITTER)
-                .addIngredient(ModItems.LB_CASING)
-                .addCriterion("has_redstone", hasItem(Items.REDSTONE))
-                .build(consumer, ModItems.LASER_BLADE.getRegistryName() + "_2");
-
-        // Netherite Laser Blade from parts
-        ShapelessRecipeBuilder.shapelessRecipe(ModItems.LASER_BLADE_FP)
-                .addIngredient(ModItems.LB_BATTERY)
-                .addIngredient(ModItems.LB_MEDIUM)
-                .addIngredient(ModItems.LB_EMITTER)
-                .addIngredient(ModItems.LB_CASING_FP)
-                .addCriterion("has_netherite_ingot", hasItem(Items.NETHERITE_INGOT))
-                .build(consumer, ModItems.LASER_BLADE_FP.getRegistryName());
+                .build(consumer, ModItems.LB_BRAND_NEW_2.getRegistryName());
 
         // Netherite Laser Blade by using Smithing Table
         addSmithingRecipe(Ingredient.fromItems(ModItems.LASER_BLADE), Ingredient.fromItems(Items.NETHERITE_INGOT), ModItems.LASER_BLADE_FP, Items.NETHERITE_INGOT, consumer);
 
         // Netherite Laser Blade Casing by using Smithing Table
         addSmithingRecipe(Ingredient.fromItems(ModItems.LB_CASING), Ingredient.fromItems(Items.NETHERITE_INGOT), ModItems.LB_CASING_FP, Items.NETHERITE_INGOT, consumer);
-
-        // Disassembled Laser Blade by using Smithing Table
-        addSmithingRecipe(Ingredient.fromItems(ModItems.LASER_BLADE), Ingredient.fromTag(ModItemTags.LB_DISASSEMBLER), ModItems.LB_DISASSEMBLED, ModItems.LASER_BLADE, consumer);
-
-        // Disassembled Laser Blade FP by using Smithing Table
-        addSmithingRecipe(Ingredient.fromItems(ModItems.LASER_BLADE_FP), Ingredient.fromTag(ModItemTags.LB_DISASSEMBLER), ModItems.LB_DISASSEMBLED_FP, ModItems.LASER_BLADE_FP, consumer);
     }
 
     @Override
