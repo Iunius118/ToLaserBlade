@@ -21,6 +21,9 @@ public class En_usLanguageProvider extends LanguageProvider {
         add(ModItems.DX_LASER_BLADE, "DX Laser B1ade");
         add(ModItems.LASER_BLADE, "Laser Blade");
         add(ModItems.LASER_BLADE_FP, "Laser Blade");
+        add(ModItems.LB_BRAND_NEW, "Brand-new Laser Blade");
+        add(ModItems.LB_BRAND_NEW_1, "Brand-new Laser Blade I");
+        add(ModItems.LB_BRAND_NEW_2, "Brand-new Laser Blade II");
         add(ModItems.LB_BROKEN, "Broken Laser Blade");
         add(ModItems.LB_BROKEN_FP, "Broken Laser Blade");
         add(ModItems.LB_DISASSEMBLED, "Disassembled Laser Blade");
@@ -34,6 +37,11 @@ public class En_usLanguageProvider extends LanguageProvider {
 
         // Enchantments
         add(ModEnchantments.LIGHT_ELEMENT, "Light Element");
+
+        // Item tooltip
+        add("tooltip.tolaserblade.brandNew1", "Hold in your hand and");
+        add("tooltip.tolaserblade.brandNew2", "right-click to obtain");
+        add("tooltip.tolaserblade.brandNew3", "Laser Blade");
 
         // Upgrade tooltip
         add(LaserBladeItemBase.KEY_TOOLTIP_ATTACK_DAMAGE, "Laser Power %s");

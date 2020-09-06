@@ -1,6 +1,9 @@
 package com.github.iunius118.tolaserblade.client.renderer;
 
+import com.github.iunius118.tolaserblade.item.LBBrandNewItem;
+import com.github.iunius118.tolaserblade.item.LBBrokenItem;
 import com.github.iunius118.tolaserblade.item.ModItems;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import org.apache.commons.lang3.tuple.Pair;
 
@@ -27,7 +30,8 @@ public class LaserBladeItemColor {
             return;
         }
 
-        isBroken = (itemStack.getItem() == ModItems.LB_BROKEN || itemStack.getItem() == ModItems.LB_BROKEN_FP);
+        Item item = itemStack.getItem();
+        isBroken = (item instanceof LBBrokenItem|| item instanceof LBBrandNewItem);
 
         gripColor = ModItems.LASER_BLADE.checkGamingColor(ModItems.LASER_BLADE.getGripColor(itemStack));
 

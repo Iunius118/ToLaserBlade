@@ -94,6 +94,9 @@ public class ToLaserBlade {
                     new DXLaserBladeItem().setRegistryName("dx_laser_blade"),
                     new LaserBladeItem(false).setRegistryName("laser_blade"),
                     new LaserBladeItem(true).setRegistryName("laser_blade_fp"), // Fireproof
+                    new LBBrandNewItem(LBBrandNewItem.Type.NONE).setRegistryName("lb_brand_new"),
+                    new LBBrandNewItem(LBBrandNewItem.Type.LIGHT_ELEMENT_1).setRegistryName("lb_brand_new_1"),
+                    new LBBrandNewItem(LBBrandNewItem.Type.LIGHT_ELEMENT_2).setRegistryName("lb_brand_new_2"),
                     new LBBrokenItem(false).setRegistryName("lb_broken"),
                     new LBBrokenItem(true).setRegistryName("lb_broken_fp"), // Fireproof
                     new LBBlueprintItem().setRegistryName("lb_blueprint"),

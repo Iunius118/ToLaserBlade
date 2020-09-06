@@ -27,6 +27,9 @@ public class ClientEventHandler {
     public void onItemColorHandlerEvent(ColorHandlerEvent.Item event) {
         event.getItemColors().register(new LaserBladeItem.ColorHandler(), ModItems.LASER_BLADE);
         event.getItemColors().register(new LaserBladeItem.ColorHandler(), ModItems.LASER_BLADE_FP);
+        event.getItemColors().register(new LaserBladeItem.ColorHandler(), ModItems.LB_BRAND_NEW);
+        event.getItemColors().register(new LaserBladeItem.ColorHandler(), ModItems.LB_BRAND_NEW_1);
+        event.getItemColors().register(new LaserBladeItem.ColorHandler(), ModItems.LB_BRAND_NEW_2);
         event.getItemColors().register(new LaserBladeItem.ColorHandler(), ModItems.LB_BROKEN);
         event.getItemColors().register(new LaserBladeItem.ColorHandler(), ModItems.LB_BROKEN_FP);
         event.getItemColors().register(new LBEmitterItem.ColorHandler(), ModItems.LB_EMITTER);
@@ -53,6 +56,9 @@ public class ClientEventHandler {
 
         ModelResourceLocation laserBladeItemID = new ModelResourceLocation(ModItems.LASER_BLADE.getRegistryName(), "inventory");
         ModelResourceLocation laserBladeFPItemID = new ModelResourceLocation(ModItems.LASER_BLADE_FP.getRegistryName(), "inventory");
+        ModelResourceLocation lBBrandNewItemID = new ModelResourceLocation(ModItems.LB_BRAND_NEW.getRegistryName(), "inventory");
+        ModelResourceLocation lBBrandNew1ItemID = new ModelResourceLocation(ModItems.LB_BRAND_NEW_1.getRegistryName(), "inventory");
+        ModelResourceLocation lBBrandNew2ItemID = new ModelResourceLocation(ModItems.LB_BRAND_NEW_2.getRegistryName(), "inventory");
         ModelResourceLocation lBBrokenItemID = new ModelResourceLocation(ModItems.LB_BROKEN.getRegistryName(), "inventory");
         ModelResourceLocation lBBrokenFPItemID = new ModelResourceLocation(ModItems.LB_BROKEN_FP.getRegistryName(), "inventory");
         LaserBladeItemBakedModel bakedModel = new LaserBladeItemBakedModel();
@@ -60,6 +66,9 @@ public class ClientEventHandler {
         bakedModel.loadModel(event);
         event.getModelRegistry().put(laserBladeItemID, bakedModel);
         event.getModelRegistry().put(laserBladeFPItemID, bakedModel);
+        event.getModelRegistry().put(lBBrandNewItemID, bakedModel);
+        event.getModelRegistry().put(lBBrandNew1ItemID, bakedModel);
+        event.getModelRegistry().put(lBBrandNew2ItemID, bakedModel);
         event.getModelRegistry().put(lBBrokenItemID, bakedModel);
         event.getModelRegistry().put(lBBrokenFPItemID, bakedModel);
     }

@@ -18,6 +18,9 @@ public class Ja_jpLanguageProvider extends LanguageProvider {
         add(ModItems.DX_LASER_BLADE, "DXレーザーブレ一ド");
         add(ModItems.LASER_BLADE, "レーザーブレイド");
         add(ModItems.LASER_BLADE_FP, "レーザーブレイド");
+        add(ModItems.LB_BRAND_NEW, "新品のレーザーブレイド");
+        add(ModItems.LB_BRAND_NEW_1, "新品のレーザーブレイドⅠ");
+        add(ModItems.LB_BRAND_NEW_2, "新品のレーザーブレイドⅡ");
         add(ModItems.LB_BROKEN, "壊れたレーザーブレイド");
         add(ModItems.LB_BROKEN_FP, "壊れたレーザーブレイド");
         add(ModItems.LB_DISASSEMBLED, "分解したレーザーブレイド");
@@ -31,6 +34,11 @@ public class Ja_jpLanguageProvider extends LanguageProvider {
 
         // Enchantments
         add(ModEnchantments.LIGHT_ELEMENT, "光属性");
+
+        // item tooltip
+        add("tooltip.tolaserblade.brandNew1", "手に持って右クリックで");
+        add("tooltip.tolaserblade.brandNew2", "レーザーブレイドを入手");
+        add("tooltip.tolaserblade.brandNew3", "");
 
         // Upgrade tooltip
         add(LaserBladeItemBase.KEY_TOOLTIP_ATTACK_DAMAGE, "レーザー出力 %s");
