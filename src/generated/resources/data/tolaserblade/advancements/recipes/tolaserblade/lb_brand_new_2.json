@@ -2,16 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "tolaserblade:lb_disassembled_smithing"
+      "tolaserblade:lb_brand_new_2"
     ]
   },
   "criteria": {
-    "has_laser_blade": {
+    "has_redstone": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "tolaserblade:laser_blade"
+            "item": "minecraft:redstone"
           }
         ]
       }
@@ -19,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "tolaserblade:lb_disassembled_smithing"
+        "recipe": "tolaserblade:lb_brand_new_2"
       }
     }
   },
   "requirements": [
     [
-      "has_laser_blade",
+      "has_redstone",
       "has_the_recipe"
     ]
   ]

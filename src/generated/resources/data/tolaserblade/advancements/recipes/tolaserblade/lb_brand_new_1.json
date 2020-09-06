@@ -2,7 +2,7 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "tolaserblade:laser_blade_1"
+      "tolaserblade:lb_brand_new_1"
     ]
   },
   "criteria": {
@@ -19,7 +19,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "tolaserblade:laser_blade_1"
+        "recipe": "tolaserblade:lb_brand_new_1"
       }
     }
   },

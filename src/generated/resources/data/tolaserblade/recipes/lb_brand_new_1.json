@@ -1,13 +1,13 @@
 {
   "type": "minecraft:crafting_shaped",
   "pattern": [
-    "gid",
+    "Gid",
     "idi",
-    "rig"
+    "riG"
   ],
   "key": {
-    "g": {
-      "tag": "forge:dusts/glowstone"
+    "G": {
+      "tag": "forge:glass/colorless"
     },
     "i": {
       "tag": "forge:ingots/iron"
@@ -20,6 +20,6 @@
     }
   },
   "result": {
-    "item": "tolaserblade:laser_blade"
+    "item": "tolaserblade:lb_brand_new_1"
   }
 }
