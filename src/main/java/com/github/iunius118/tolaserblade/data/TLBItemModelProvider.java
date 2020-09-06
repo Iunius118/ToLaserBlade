@@ -30,16 +30,21 @@ public class TLBItemModelProvider extends ItemModelProvider {
                 .texture("layer0", "item/" + laser_blade + "_2d_0")
                 .texture("layer1", "item/" + laser_blade + "_2d_1")
                 .texture("layer2", "item/" + laser_blade + "_2d_2");
-        registerChildModel(ModItems.LASER_BLADE_FP, ModItems.LASER_BLADE);
+        registerChildModel(ModItems.LASER_BLADE_FP, laser_blade);
 
-        String lb_broken = ModItems.LB_BROKEN.getRegistryName().getPath();
-        getBuilder(lb_broken)
+        String gripModel = "laser_blade_grip";
+        getBuilder(gripModel)
                 .parent(handheldModel)
                 .texture("layer0", "item/" + laser_blade + "_2d_0");
-        registerChildModel(ModItems.LB_BROKEN_FP, ModItems.LB_BROKEN);
+
+        registerChildModel(ModItems.LB_BRAND_NEW, gripModel);
+        registerChildModel(ModItems.LB_BRAND_NEW_1, gripModel);
+        registerChildModel(ModItems.LB_BRAND_NEW_2, gripModel);
+        registerChildModel(ModItems.LB_BROKEN, gripModel);
+        registerChildModel(ModItems.LB_BROKEN_FP, gripModel);
 
         registerPartItemModel(ModItems.LB_DISASSEMBLED, generatedModel);
-        registerChildModel(ModItems.LB_DISASSEMBLED_FP, ModItems.LB_DISASSEMBLED);
+        registerChildModel(ModItems.LB_DISASSEMBLED_FP, ModItems.LB_DISASSEMBLED.getRegistryName().getPath());
 
         registerPartItemModel(ModItems.LB_BLUEPRINT, generatedModel);
 
@@ -50,7 +55,7 @@ public class TLBItemModelProvider extends ItemModelProvider {
         registerTwoLayerPartItemModel(ModItems.LB_EMITTER, generatedModel);
 
         registerPartItemModel(ModItems.LB_CASING, handheldModel);
-        registerChildModel(ModItems.LB_CASING_FP, ModItems.LB_CASING);
+        registerChildModel(ModItems.LB_CASING_FP, ModItems.LB_CASING.getRegistryName().getPath());
     }
 
     @Override
@@ -78,11 +83,11 @@ public class TLBItemModelProvider extends ItemModelProvider {
 
     }
 
-    private void registerChildModel(Item item, Item itemParent) {
-        if (item == null || itemParent == null) return;
+    private void registerChildModel(Item item, String parent) {
+        if (item == null || parent == null) return;
 
         String itemPath = item.getRegistryName().getPath();
-        ModelFile parentModel = new UncheckedModelFile(ToLaserBlade.MOD_ID + ":item/" + itemParent.getRegistryName().getPath());
+        ModelFile parentModel = new UncheckedModelFile(ToLaserBlade.MOD_ID + ":item/" + parent);
         getBuilder(itemPath)
                 .parent(parentModel);
     }
