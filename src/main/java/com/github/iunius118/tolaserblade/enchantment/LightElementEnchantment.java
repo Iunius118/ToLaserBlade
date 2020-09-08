@@ -27,10 +27,10 @@ public class LightElementEnchantment extends DamageEnchantment {
     @Override
     public float calcDamageByCreature(int level, CreatureAttribute creatureType) {
         if (creatureType == CreatureAttribute.UNDEAD || creatureType == CreatureAttribute.ILLAGER) {
-            return (float)level * 2.5F;
+            return (float)level * 2.4F;
         }
 
-        return 0.0F;
+        return (float)level * 0.4F;
     }
 
     @Override
