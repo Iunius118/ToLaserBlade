@@ -6,8 +6,8 @@ import com.github.iunius118.tolaserblade.laserblade.LaserBlade;
 import com.github.iunius118.tolaserblade.laserblade.LaserBladeVisual;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
@@ -40,18 +40,18 @@ public class LBBrandNewItem extends Item {
         ItemStack itemStack = playerIn.getHeldItem(handIn);
 
         if (!worldIn.isRemote()) {
-            obtainLaserBlade(worldIn, playerIn, itemStack);
-            itemStack.shrink(1);
+            getLaserBlade(worldIn, playerIn, handIn, itemStack);
             return ActionResult.resultSuccess(itemStack);
         }
 
         return ActionResult.resultSuccess(itemStack);
     }
 
-    private void obtainLaserBlade(World worldIn, PlayerEntity playerIn, ItemStack itemStack) {
+    private void getLaserBlade(World worldIn, PlayerEntity playerIn, Hand handIn, ItemStack itemStack) {
         ItemStack laserBladeStack = type.getLaserBlade(itemStack);
 
         if (type != Type.NONE) {
+            // If Brand-new Laser Blade is type of Light Element I or II, its blade will be colored by biome player in
             LaserBlade laserBlade = LaserBlade.of(laserBladeStack);
             LaserBladeVisual visual = laserBlade.getVisual();
             BlockPos pos = playerIn.getPosition();
@@ -60,12 +60,18 @@ public class LBBrandNewItem extends Item {
             laserBlade.write(laserBladeStack);
         }
 
-        dropItem(laserBladeStack, playerIn);
-    }
+        EquipmentSlotType slotType = (handIn == Hand.MAIN_HAND ? EquipmentSlotType.MAINHAND : EquipmentSlotType.OFFHAND);
 
-    private void dropItem(ItemStack itemStack, PlayerEntity playerIn) {
-        ItemEntity itemEntity = new ItemEntity(playerIn.world, playerIn.getPosX(), playerIn.getPosY() + 0.5, playerIn.getPosZ(), itemStack);
-        playerIn.world.addEntity(itemEntity);
+        // Set Laser Blade to player inventory
+        if (playerIn.abilities.isCreativeMode || itemStack.getCount() > 1) {
+            // Remain Brand-new ItemStack and return
+            playerIn.addItemStackToInventory(laserBladeStack);
+            itemStack.shrink(1);
+            return;
+        }
+
+        // ...or Change Brand-new Laser Blade to Laser Blade
+        playerIn.setItemStackToSlot(slotType, laserBladeStack);
     }
 
     @Override
