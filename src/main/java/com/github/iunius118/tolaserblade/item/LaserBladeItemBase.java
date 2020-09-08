@@ -1,6 +1,6 @@
 package com.github.iunius118.tolaserblade.item;
 
-import com.github.iunius118.tolaserblade.item.upgrade.LaserBladeUpgrade;
+import com.github.iunius118.tolaserblade.laserblade.upgrade.Upgrade;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -252,19 +252,19 @@ public interface LaserBladeItemBase {
         return isBlade ? (isInner ? DEFAULT_COLOR_INNER : DEFAULT_COLOR_OUTER) : DEFAULT_COLOR_GRIP;
     }
 
-    default boolean canUpgrade(LaserBladeUpgrade.Type type) {
+    default boolean canUpgrade(Upgrade.Type type) {
         return false;
     }
 
     @OnlyIn(Dist.CLIENT)
-    default void addLaserBladeInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn, LaserBladeUpgrade.Type type) {
+    default void addLaserBladeInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn, Upgrade.Type type) {
         boolean isFireproof = stack.getItem().isBurnable(); // TODO: isBurnable = isNotBurnable?
 
         if (isFireproof) {
             tooltip.add(new TranslationTextComponent(KEY_TOOLTIP_FIREPROOF).mergeStyle(TextFormatting.GOLD));
         }
 
-        if (type == LaserBladeUpgrade.Type.REPAIR || type == LaserBladeUpgrade.Type.MEDIUM) {
+        if (type == Upgrade.Type.REPAIR || type == Upgrade.Type.MEDIUM) {
             float atk = getLaserBladeATK(stack);
 
             if (atk <= -0.005F || atk >= 0.005) {
@@ -272,7 +272,7 @@ public interface LaserBladeItemBase {
             }
         }
 
-        if (type == LaserBladeUpgrade.Type.REPAIR || type == LaserBladeUpgrade.Type.BATTERY) {
+        if (type == Upgrade.Type.REPAIR || type == Upgrade.Type.BATTERY) {
             float spd = getLaserBladeSPD(stack);
 
             if (spd <= -0.005F || spd >= 0.005) {

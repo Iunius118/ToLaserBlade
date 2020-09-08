@@ -1,6 +1,6 @@
 package com.github.iunius118.tolaserblade.item;
 
-import com.github.iunius118.tolaserblade.item.upgrade.LaserBladeUpgrade;
+import com.github.iunius118.tolaserblade.laserblade.upgrade.Upgrade;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -10,14 +10,14 @@ import org.apache.commons.lang3.tuple.Pair;
 
 public class LBEmitterItem extends Item implements LaserBladeItemBase {
     public static Item.Properties properties = (new Item.Properties()).setNoRepair().group(ModMainItemGroup.ITEM_GROUP);
-    public final LaserBladeUpgrade.Type upgradeType = LaserBladeUpgrade.Type.EMITTER;
+    public final Upgrade.Type upgradeType = Upgrade.Type.EMITTER;
 
     public LBEmitterItem() {
         super(properties);
     }
 
     @Override
-    public boolean canUpgrade(LaserBladeUpgrade.Type type) {
+    public boolean canUpgrade(Upgrade.Type type) {
         return type == upgradeType;
     }
 

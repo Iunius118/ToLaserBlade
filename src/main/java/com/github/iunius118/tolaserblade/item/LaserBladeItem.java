@@ -4,7 +4,7 @@ import com.github.iunius118.tolaserblade.ToLaserBladeConfig;
 import com.github.iunius118.tolaserblade.client.renderer.LaserBladeItemRenderer;
 import com.github.iunius118.tolaserblade.dispenser.DispenseLaserBladeBehavior;
 import com.github.iunius118.tolaserblade.enchantment.ModEnchantments;
-import com.github.iunius118.tolaserblade.item.upgrade.LaserBladeUpgrade;
+import com.github.iunius118.tolaserblade.laserblade.upgrade.Upgrade;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.block.BlockState;
@@ -58,7 +58,7 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
     }
 
     @Override
-    public boolean canUpgrade(LaserBladeUpgrade.Type type) {
+    public boolean canUpgrade(Upgrade.Type type) {
         return true;
     }
 
@@ -159,7 +159,7 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
 
     @Override
     public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
-        return false;
+        return true;
     }
 
     @Override
@@ -202,7 +202,7 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
     @OnlyIn(Dist.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        addLaserBladeInformation(stack, worldIn, tooltip, flagIn, LaserBladeUpgrade.Type.OTHER);
+        addLaserBladeInformation(stack, worldIn, tooltip, flagIn, Upgrade.Type.OTHER);
     }
 
     /* Creative Tab */

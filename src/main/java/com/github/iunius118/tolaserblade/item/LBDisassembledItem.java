@@ -1,6 +1,6 @@
 package com.github.iunius118.tolaserblade.item;
 
-import com.github.iunius118.tolaserblade.item.upgrade.LaserBladeUpgrade;
+import com.github.iunius118.tolaserblade.laserblade.upgrade.Upgrade;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.DamageEnchantment;
 import net.minecraft.enchantment.Enchantment;
@@ -24,14 +24,14 @@ import java.util.Map;
 
 public class LBDisassembledItem extends Item implements LaserBladeItemBase {
     public static Properties properties = (new Properties()).setNoRepair().group(ModMainItemGroup.ITEM_GROUP);
-    public final LaserBladeUpgrade.Type upgradeType = LaserBladeUpgrade.Type.REPAIR;
+    public final Upgrade.Type upgradeType = Upgrade.Type.REPAIR;
 
     public LBDisassembledItem(boolean isFireproof) {
         super(LaserBladeItemBase.setFireproof(properties, isFireproof));
     }
 
     @Override
-    public boolean canUpgrade(LaserBladeUpgrade.Type type) {
+    public boolean canUpgrade(Upgrade.Type type) {
         return false;
     }
 

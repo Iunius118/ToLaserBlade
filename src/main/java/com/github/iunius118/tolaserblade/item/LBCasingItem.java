@@ -1,6 +1,6 @@
 package com.github.iunius118.tolaserblade.item;
 
-import com.github.iunius118.tolaserblade.item.upgrade.LaserBladeUpgrade;
+import com.github.iunius118.tolaserblade.laserblade.upgrade.Upgrade;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
@@ -15,14 +15,14 @@ import java.util.List;
 
 public class LBCasingItem extends Item implements LaserBladeItemBase {
     public static Item.Properties properties = (new Item.Properties()).setNoRepair().group(ModMainItemGroup.ITEM_GROUP);
-    public final LaserBladeUpgrade.Type upgradeType = LaserBladeUpgrade.Type.CASING;
+    public final Upgrade.Type upgradeType = Upgrade.Type.CASING;
 
     public LBCasingItem(boolean isFireproof) {
         super(LaserBladeItemBase.setFireproof(properties, isFireproof));
     }
 
     @Override
-    public boolean canUpgrade(LaserBladeUpgrade.Type type) {
+    public boolean canUpgrade(Upgrade.Type type) {
         return type == upgradeType;
     }
 

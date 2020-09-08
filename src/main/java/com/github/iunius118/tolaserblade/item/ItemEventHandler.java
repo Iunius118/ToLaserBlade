@@ -1,14 +1,12 @@
 package com.github.iunius118.tolaserblade.item;
 
-import com.github.iunius118.tolaserblade.item.crafting.LaserBladeCrafting;
-import com.github.iunius118.tolaserblade.item.upgrade.LaserBladeUpgrade;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResultType;
-import net.minecraftforge.event.AnvilUpdateEvent;
-import net.minecraftforge.event.entity.player.*;
+import net.minecraftforge.event.entity.player.CriticalHitEvent;
+import net.minecraftforge.event.entity.player.PlayerDestroyItemEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class ItemEventHandler {
@@ -70,40 +68,6 @@ public class ItemEventHandler {
 
         if (stack.getItem() instanceof LaserBladeItem) {
             ((LaserBladeItem) stack.getItem()).onCriticalHit(event);
-        }
-    }
-
-    @SubscribeEvent
-    public void onCrafting(PlayerEvent.ItemCraftedEvent event) {
-        ItemStack stackOut = event.getCrafting();
-        Item item = stackOut.getItem();
-
-        if (item instanceof LaserBladeItemBase) {
-            (new LaserBladeCrafting(event, (LaserBladeItemBase)item)).getResult();
-        }
-    }
-
-    @SubscribeEvent
-    public void onAnvilRepair(AnvilRepairEvent event) {
-        ItemStack result = event.getItemResult();
-        Item item = result.getItem();
-
-        if (item instanceof LaserBladeItemBase) {
-            event.setBreakChance(0.075F);
-
-            if (item.getItem() == ModItems.LASER_BLADE || item.getItem() == ModItems.LASER_BLADE_FP) {
-                LaserBladeUpgrade.onAnvilRepair(event);
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public void onAnvilUpdate(AnvilUpdateEvent event) {
-        ItemStack left = event.getLeft();
-
-        // Redundant Null Check for Forge
-        if (left != null && left.getItem() instanceof LaserBladeItemBase) {
-            LaserBladeUpgrade.onAnvilUpdate(event, (LaserBladeItemBase)left.getItem());
         }
     }
 }
