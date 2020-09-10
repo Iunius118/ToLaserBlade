@@ -2,25 +2,62 @@ package com.github.iunius118.tolaserblade.laserblade.upgrade;
 
 import com.github.iunius118.tolaserblade.enchantment.ModEnchantments;
 import com.github.iunius118.tolaserblade.tags.ModItemTags;
+import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.Enchantments;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.tags.ITag;
+import net.minecraft.util.ResourceLocation;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class UpgradeManager {
-    private static final Map<Ingredient, Upgrade> upgrades = new HashMap<>();
+    private static final Map<ResourceLocation, Upgrade> upgrades = new HashMap<>();
     static {
-        upgrades.put(Ingredient.fromTag(ModItemTags.EFFICIENCY_UPGRADE), EnchantmentUpgrade.of(Enchantments.EFFICIENCY));
-        upgrades.put(Ingredient.fromTag(ModItemTags.LIGHT_ELEMENT_UPGRADE), EnchantmentUpgrade.of(ModEnchantments.LIGHT_ELEMENT));
-        upgrades.put(Ingredient.fromTag(ModItemTags.FIRE_ASPECT_UPGRADE), EnchantmentUpgrade.of(Enchantments.FIRE_ASPECT));
-        upgrades.put(Ingredient.fromTag(ModItemTags.SWEEPING_EDGE_UPGRADE), EnchantmentUpgrade.of(Enchantments.SWEEPING));
-        upgrades.put(Ingredient.fromTag(ModItemTags.LOOTING_UPGRADE), EnchantmentUpgrade.of(Enchantments.LOOTING));
-        upgrades.put(Ingredient.fromTag(ModItemTags.MENDING_UPGRADE), EnchantmentUpgrade.of(Enchantments.MENDING));
+        registerEnchantment(ModItemTags.EFFICIENCY_UPGRADE, Enchantments.EFFICIENCY);
+        registerEnchantment(ModItemTags.LIGHT_ELEMENT_UPGRADE, ModEnchantments.LIGHT_ELEMENT);
+        registerEnchantment(ModItemTags.FIRE_ASPECT_UPGRADE, Enchantments.FIRE_ASPECT);
+        registerEnchantment(ModItemTags.SWEEPING_EDGE_UPGRADE, Enchantments.SWEEPING);
+        registerEnchantment(ModItemTags.LOOTING_UPGRADE, Enchantments.LOOTING);
+        registerEnchantment(ModItemTags.MENDING_UPGRADE, Enchantments.MENDING);
 
-        upgrades.put(Ingredient.fromTag(ModItemTags.EFFICIENCY_REMOVER), new RemoveEfficiencyUpgrade());
+        register(ModItemTags.EFFICIENCY_REMOVER, RemoveEfficiencyUpgrade.class);
 
-        upgrades.put(Ingredient.fromTag(ModItemTags.ATTACK_DAMAGE_UPGRADE), new DamageUpgrade());
-        upgrades.put(Ingredient.fromTag(ModItemTags.ATTACK_SPEED_UPGRADE), new SpeedUpgrade());
+        register(ModItemTags.ATTACK_DAMAGE_UPGRADE, DamageUpgrade.class);
+        register(ModItemTags.ATTACK_SPEED_UPGRADE, SpeedUpgrade.class);
+    }
+
+    private static void register(ITag.INamedTag<Item> tag, Class<? extends Upgrade> upgradeClass) {
+        ResourceLocation key = tag.getName();
+        Ingredient ingredient = Ingredient.fromTag(tag);
+        Upgrade upgrade = Upgrade.of(upgradeClass, ingredient);
+
+        if (upgrade != null) {
+            upgrades.put(key, upgrade);
+        }
+    }
+
+    private static void registerEnchantment(ITag.INamedTag<Item> tag, Enchantment enchantment) {
+        ResourceLocation key = tag.getName();
+        Ingredient ingredient = Ingredient.fromTag(tag);
+        Upgrade upgrade = EnchantmentUpgrade.of(ingredient, enchantment);
+        upgrades.put(key, upgrade);
+    }
+
+    public static Upgrade get(ResourceLocation key) {
+        return upgrades.get(key);
+    }
+
+    public static List<Upgrade> get(ItemStack item) {
+        List<Upgrade> list = new ArrayList<>();
+        upgrades.forEach((key, upgrade)->{
+            Ingredient ingredient = upgrade.getIngredient();
+            if (ingredient.test(item)) list.add(upgrade);
+        });
+        return list;
     }
 }

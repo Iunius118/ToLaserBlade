@@ -4,11 +4,16 @@ import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 
 import java.util.Map;
 import java.util.function.Function;
 
-public class RemoveEfficiencyUpgrade implements Upgrade {
+public class RemoveEfficiencyUpgrade extends Upgrade {
+    public RemoveEfficiencyUpgrade(Ingredient ingredientIn) {
+        super(ingredientIn);
+    }
+
     @Override
     public Function<UpgradeResult, UpgradeResult> getFunction() {
         return upgradeResult -> {

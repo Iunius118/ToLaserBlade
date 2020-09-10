@@ -4,10 +4,15 @@ import com.github.iunius118.tolaserblade.ToLaserBladeConfig;
 import com.github.iunius118.tolaserblade.laserblade.LaserBlade;
 import com.github.iunius118.tolaserblade.laserblade.LaserBladePerformance;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 
 import java.util.function.Function;
 
-public class DamageUpgrade implements Upgrade {
+public class DamageUpgrade extends Upgrade {
+    public DamageUpgrade(Ingredient ingredientIn) {
+        super(ingredientIn);
+    }
+
     @Override
     public Function<UpgradeResult, UpgradeResult> getFunction() {
         return upgradeResult -> {

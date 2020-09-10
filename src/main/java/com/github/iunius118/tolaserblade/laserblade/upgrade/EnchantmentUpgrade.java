@@ -4,19 +4,21 @@ import com.google.common.collect.Maps;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 
 import java.util.Map;
 import java.util.function.Function;
 
-public class EnchantmentUpgrade implements Upgrade {
+public class EnchantmentUpgrade extends Upgrade {
     private final Function<UpgradeResult, UpgradeResult> function;
 
-    public EnchantmentUpgrade(Enchantment enchantmentIn) {
+    public EnchantmentUpgrade(Ingredient ingredientIn, Enchantment enchantmentIn) {
+        super(ingredientIn);
         function = createFunction(enchantmentIn);
     }
 
-    public static EnchantmentUpgrade of(Enchantment enchantmentIn) {
-        return new EnchantmentUpgrade(enchantmentIn);
+    public static EnchantmentUpgrade of(Ingredient ingredientIn, Enchantment enchantmentIn) {
+        return new EnchantmentUpgrade(ingredientIn, enchantmentIn);
     }
 
     @Override

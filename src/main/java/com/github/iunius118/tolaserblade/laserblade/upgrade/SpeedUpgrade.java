@@ -3,10 +3,15 @@ package com.github.iunius118.tolaserblade.laserblade.upgrade;
 import com.github.iunius118.tolaserblade.laserblade.LaserBlade;
 import com.github.iunius118.tolaserblade.laserblade.LaserBladePerformance;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 
 import java.util.function.Function;
 
-public class SpeedUpgrade implements Upgrade {
+public class SpeedUpgrade extends Upgrade {
+    public SpeedUpgrade(Ingredient ingredientIn) {
+        super(ingredientIn);
+    }
+
     @Override
     public Function<UpgradeResult, UpgradeResult> getFunction() {
         return upgradeResult -> {
