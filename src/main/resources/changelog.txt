@@ -1,6 +1,13 @@
 ToLaserBlade
 Changelog
 
+v1.16.3-3.2.3.1
+
+    Initial port to 1.16.3
+    Compatible with Forge 34.0.1
+    Remove JEI plugin temporarily
+
+
 v1.16.2-3.2.3.0
 
     Add a tag "ct" to Laser Blade's NBT tags
