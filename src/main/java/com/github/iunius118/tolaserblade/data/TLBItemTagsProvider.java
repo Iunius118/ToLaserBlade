@@ -7,6 +7,7 @@ import net.minecraft.data.DataGenerator;
 import net.minecraft.item.Items;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
+import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.ForgeItemTagsProvider;
 
 import java.nio.file.Path;
@@ -16,8 +17,8 @@ import java.util.Set;
 public class TLBItemTagsProvider extends ForgeItemTagsProvider {
     private Set<ResourceLocation> filter = null;
 
-    public TLBItemTagsProvider(DataGenerator generator, BlockTagsProvider blockTagProvider) {
-        super(generator, blockTagProvider);
+    public TLBItemTagsProvider(DataGenerator gen, BlockTagsProvider blockTagProvider, ExistingFileHelper existingFileHelper) {
+        super(gen, blockTagProvider, existingFileHelper);
     }
 
     @SuppressWarnings("unchecked")
