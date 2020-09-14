@@ -1,0 +1,12 @@
+{
+  "type": "tolaserblade:upgrade",
+  "base": {
+    "item": "tolaserblade:laser_blade_fp"
+  },
+  "addition": {
+    "tag": "tolaserblade:upgrade/speed"
+  },
+  "result": {
+    "type": "tolaserblade:upgrade/speed"
+  }
+}

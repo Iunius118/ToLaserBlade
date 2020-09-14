@@ -2,16 +2,16 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "tolaserblade:lb_casing_fp_smithing"
+      "tolaserblade:upgrade/sweeping_edge_upgrade"
     ]
   },
   "criteria": {
-    "has_netherite_ingot": {
+    "has_laser_blade": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "item": "minecraft:netherite_ingot"
+            "item": "tolaserblade:laser_blade"
           }
         ]
       }
@@ -19,13 +19,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "tolaserblade:lb_casing_fp_smithing"
+        "recipe": "tolaserblade:upgrade/sweeping_edge_upgrade"
       }
     }
   },
   "requirements": [
     [
-      "has_netherite_ingot",
+      "has_laser_blade",
       "has_the_recipe"
     ]
   ]
