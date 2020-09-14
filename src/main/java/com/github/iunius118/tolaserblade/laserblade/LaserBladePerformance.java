@@ -33,7 +33,7 @@ public class LaserBladePerformance {
         private static final String KEY_ATK = "ATK";
         private static final String KEY_SPD = "SPD";
         private static final float MOD_ATK_MIN = 0.0F;
-        private static final float MOD_ATK_MAX = 2041.0F;
+        private static final float MOD_ATK_MAX = 2040.0F;
         private static final float MOD_SPD_MIN = 0.0F;
         private static final float MOD_SPD_MAX = 1.2F;
 
@@ -48,6 +48,10 @@ public class LaserBladePerformance {
 
         public void changeSpeedSafely(float speed) {
             this.speed = MathHelper.clamp(speed, MOD_SPD_MIN, MOD_SPD_MAX);
+        }
+
+        public boolean canUpgradeSpeed() {
+            return this.speed < MOD_SPD_MAX;
         }
 
         public void write(CompoundNBT compound) {

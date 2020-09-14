@@ -7,14 +7,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 
 import java.util.Map;
-import java.util.function.Function;
 
 public class EnchantmentUpgrade extends Upgrade {
-    private final Function<UpgradeResult, UpgradeResult> function;
+    private final Enchantment enchantment;
 
     public EnchantmentUpgrade(Ingredient ingredientIn, Enchantment enchantmentIn) {
         super(ingredientIn);
-        function = createFunction(enchantmentIn);
+        enchantment = enchantmentIn;
     }
 
     public static EnchantmentUpgrade of(Ingredient ingredientIn, Enchantment enchantmentIn) {
@@ -22,30 +21,33 @@ public class EnchantmentUpgrade extends Upgrade {
     }
 
     @Override
-    public Function<UpgradeResult, UpgradeResult> getFunction() {
-        return function;
+    public boolean test(ItemStack base, ItemStack addition) {
+        int level = EnchantmentHelper.getEnchantmentLevel(enchantment, base);
+        return level < enchantment.getMaxLevel();
     }
 
-    private Function<UpgradeResult, UpgradeResult> createFunction(final Enchantment enchantment) {
-        return upgradeResult -> {
-            final ItemStack itemStack = upgradeResult.getItemStack();
-            int cost = upgradeResult.getCost();
-            int level = EnchantmentHelper.getEnchantmentLevel(enchantment, itemStack);
+    @Override
+    public UpgradeResult apply(ItemStack base, int baseCost) {
+        int cost = baseCost;
+        int level = EnchantmentHelper.getEnchantmentLevel(enchantment, base);
 
-            if (level < enchantment.getMaxLevel()) {
-                Map<Enchantment, Integer> oldEnchantments = EnchantmentHelper.getEnchantments(itemStack);
-                Map<Enchantment, Integer> newEnchantments = Maps.newLinkedHashMap();
-                // Remove not compatible enchantments
-                oldEnchantments.forEach((e, lvl) -> {if (e.isCompatibleWith(enchantment) || e.equals(enchantment)) newEnchantments.put(e, lvl);});
-                newEnchantments.put(enchantment, ++level);
-                EnchantmentHelper.setEnchantments(newEnchantments, itemStack);
-                Enchantment.Rarity rarity = enchantment.getRarity();
-                int rate = (!(rarity == Enchantment.Rarity.RARE || rarity == Enchantment.Rarity.VERY_RARE)) ? 1
-                        : (rarity == Enchantment.Rarity.RARE) ? 2 : 4;  // Half rate (same as enchanted book)
-                cost += Math.max(level * rate, 1);
-            }
+        if (level < enchantment.getMaxLevel()) {
+            Map<Enchantment, Integer> oldEnchantments = EnchantmentHelper.getEnchantments(base);
+            Map<Enchantment, Integer> newEnchantments = Maps.newLinkedHashMap();
+            // Remove not compatible enchantments
+            oldEnchantments.forEach((e, lvl) -> {if (e.isCompatibleWith(enchantment) || e.equals(enchantment)) newEnchantments.put(e, lvl);});
+            newEnchantments.put(enchantment, ++level);
+            EnchantmentHelper.setEnchantments(newEnchantments, base);
+            cost += getCost(level);
+        }
 
-            return UpgradeResult.of(itemStack, cost);
-        };
+        return UpgradeResult.of(base, cost);
+    }
+
+    private int getCost(int newLevel) {
+        Enchantment.Rarity rarity = enchantment.getRarity();
+        int rate = (!(rarity == Enchantment.Rarity.RARE || rarity == Enchantment.Rarity.VERY_RARE)) ? 1
+                : (rarity == Enchantment.Rarity.RARE) ? 2 : 4;  // Half rate (same as enchanted book)
+        return Math.max(rate * newLevel, 1);
     }
 }

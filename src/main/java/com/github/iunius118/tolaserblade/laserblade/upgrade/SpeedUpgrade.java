@@ -5,30 +5,34 @@ import com.github.iunius118.tolaserblade.laserblade.LaserBladePerformance;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 
-import java.util.function.Function;
-
 public class SpeedUpgrade extends Upgrade {
     public SpeedUpgrade(Ingredient ingredientIn) {
         super(ingredientIn);
     }
 
     @Override
-    public Function<UpgradeResult, UpgradeResult> getFunction() {
-        return upgradeResult -> {
-            final ItemStack itemStack = upgradeResult.getItemStack();
-            int cost = upgradeResult.getCost();
-            final LaserBlade laserBlade = LaserBlade.of(itemStack);
-            final LaserBladePerformance.AttackPerformance attack = laserBlade.getAttackPerformance();
+    public boolean test(ItemStack base, ItemStack addition) {
+        final LaserBlade laserBlade = LaserBlade.of(base);
+        final LaserBladePerformance.AttackPerformance attack = laserBlade.getAttackPerformance();
+        return attack.canUpgradeSpeed();
+    }
 
-            float oldSpeed = attack.speed;
-            attack.changeSpeedSafely(oldSpeed + 0.4F);
+    @Override
+    public UpgradeResult apply(ItemStack base, int baseCost) {
+        int cost = baseCost;
+        final LaserBlade laserBlade = LaserBlade.of(base);
+        final LaserBladePerformance.AttackPerformance attack = laserBlade.getAttackPerformance();
 
-            if (oldSpeed < attack.speed) {
-                cost += Math.max((int)(attack.speed / 0.4F), 1);
-                laserBlade.write(itemStack);
-            }
+        if (attack.canUpgradeSpeed()) {
+            attack.changeSpeedSafely(attack.speed + 0.4F);
+            laserBlade.write(base);
+            cost += getCost(attack.speed);
+        }
 
-            return UpgradeResult.of(itemStack, cost);
-        };
+        return UpgradeResult.of(base, cost);
+    }
+
+    private int getCost(float newSpeed) {
+        return Math.max((int)(newSpeed / 0.4F), 1);
     }
 }

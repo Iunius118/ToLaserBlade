@@ -6,29 +6,36 @@ import com.github.iunius118.tolaserblade.laserblade.LaserBladePerformance;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 
-import java.util.function.Function;
-
 public class DamageUpgrade extends Upgrade {
     public DamageUpgrade(Ingredient ingredientIn) {
         super(ingredientIn);
     }
 
     @Override
-    public Function<UpgradeResult, UpgradeResult> getFunction() {
-        return upgradeResult -> {
-            final ItemStack itemStack = upgradeResult.getItemStack();
-            int cost = upgradeResult.getCost();
-            final LaserBlade laserBlade = LaserBlade.of(itemStack);
-            final LaserBladePerformance.AttackPerformance attack = laserBlade.getAttackPerformance();
-            float maxUpgradeCount = (float)ToLaserBladeConfig.COMMON.maxAttackDamageUpgradeCountInServer.get();
+    public boolean test(ItemStack base, ItemStack addition) {
+        final LaserBlade laserBlade = LaserBlade.of(base);
+        final LaserBladePerformance.AttackPerformance attack = laserBlade.getAttackPerformance();
+        float maxUpgradeCount = (float)ToLaserBladeConfig.COMMON.maxAttackDamageUpgradeCountInServer.get();
+        return attack.damage < maxUpgradeCount;
+    }
 
-            if (attack.damage < maxUpgradeCount) {
-                attack.changeDamageSafely(Math.min(attack.damage + 1.0F, maxUpgradeCount));
-                cost += Math.max((int)attack.damage, 1);
-                laserBlade.write(itemStack);
-            }
+    @Override
+    public UpgradeResult apply(ItemStack base, int baseCost) {
+        int cost = baseCost;
+        final LaserBlade laserBlade = LaserBlade.of(base);
+        final LaserBladePerformance.AttackPerformance attack = laserBlade.getAttackPerformance();
+        float maxUpgradeCount = (float)ToLaserBladeConfig.COMMON.maxAttackDamageUpgradeCountInServer.get();
 
-            return UpgradeResult.of(itemStack, cost);
-        };
+        if (attack.damage < maxUpgradeCount) {
+            attack.changeDamageSafely(Math.min(attack.damage + 1.0F, maxUpgradeCount));
+            laserBlade.write(base);
+            cost += getCost(attack.damage);
+        }
+
+        return UpgradeResult.of(base, cost);
+    }
+
+    private int getCost(float newDamage) {
+        return Math.max((int)newDamage, 1);
     }
 }

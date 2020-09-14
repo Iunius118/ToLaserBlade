@@ -1,11 +1,23 @@
 package com.github.iunius118.tolaserblade.laserblade.upgrade;
 
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 
 import java.lang.reflect.Constructor;
-import java.util.function.Function;
 
 public abstract class Upgrade {
+    public static final Upgrade NONE = new Upgrade(Ingredient.EMPTY) {
+        @Override
+        public boolean test(ItemStack base, ItemStack addition) {
+            return false;
+        }
+
+        @Override
+        public UpgradeResult apply(ItemStack base, int baseCost) {
+            return UpgradeResult.of(base, baseCost);
+        }
+    };
+
     private final Ingredient ingredient;
 
     public Upgrade(Ingredient ingredientIn) {
@@ -29,7 +41,9 @@ public abstract class Upgrade {
         return ingredient;
     }
 
-    public abstract Function<UpgradeResult, UpgradeResult> getFunction();
+    public abstract boolean test(ItemStack base, ItemStack addition);
+
+    public abstract UpgradeResult apply(ItemStack base, int baseCost);
 
     public enum Type {
         BATTERY,

@@ -7,7 +7,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 
 import java.util.Map;
-import java.util.function.Function;
 
 public class RemoveEfficiencyUpgrade extends Upgrade {
     public RemoveEfficiencyUpgrade(Ingredient ingredientIn) {
@@ -15,20 +14,23 @@ public class RemoveEfficiencyUpgrade extends Upgrade {
     }
 
     @Override
-    public Function<UpgradeResult, UpgradeResult> getFunction() {
-        return upgradeResult -> {
-            final ItemStack itemStack = upgradeResult.getItemStack();
-            int cost = upgradeResult.getCost();
-            int level = EnchantmentHelper.getEnchantmentLevel(Enchantments.EFFICIENCY, itemStack);
+    public boolean test(ItemStack base, ItemStack addition) {
+        int level = EnchantmentHelper.getEnchantmentLevel(Enchantments.EFFICIENCY, base);
+        return level > 0;
+    }
 
-            if (level > 0) {
-                Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(itemStack);
-                enchantments.remove(Enchantments.EFFICIENCY);
-                EnchantmentHelper.setEnchantments(enchantments, itemStack);
-                cost += 1;
-            }
+    @Override
+    public UpgradeResult apply(ItemStack base, int baseCost) {
+        int cost = baseCost;
+        int level = EnchantmentHelper.getEnchantmentLevel(Enchantments.EFFICIENCY, base);
 
-            return UpgradeResult.of(itemStack, cost);
-        };
+        if (level > 0) {
+            Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(base);
+            enchantments.remove(Enchantments.EFFICIENCY);
+            EnchantmentHelper.setEnchantments(enchantments, base);
+            cost += 1;
+        }
+
+        return UpgradeResult.of(base, cost);
     }
 }
