@@ -1,5 +1,6 @@
 package com.github.iunius118.tolaserblade.laserblade.upgrade;
 
+import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.enchantment.ModEnchantments;
 import com.github.iunius118.tolaserblade.tags.ModItemTags;
 import net.minecraft.enchantment.Enchantment;
@@ -48,15 +49,26 @@ public class UpgradeManager {
         upgrades.put(key, upgrade);
     }
 
-    public static Upgrade get(ResourceLocation key) {
-        return upgrades.get(key);
+    public static Map<ResourceLocation, Upgrade> getUpgrades() {
+        return upgrades;
     }
 
-    public static List<Upgrade> get(ItemStack item) {
+    public static Upgrade get(ResourceLocation key) {
+        Upgrade upgrade = upgrades.get(key);
+
+        if (upgrade == null) {
+            ToLaserBlade.LOGGER.warn("Upgrade {} was not found in UpgradeManager", key.toString());
+            upgrade = Upgrade.NONE;
+        }
+
+        return upgrade;
+    }
+
+    public static List<Upgrade> get(ItemStack additionalItem) {
         List<Upgrade> list = new ArrayList<>();
         upgrades.forEach((key, upgrade)->{
             Ingredient ingredient = upgrade.getIngredient();
-            if (ingredient.test(item)) list.add(upgrade);
+            if (ingredient.test(additionalItem)) list.add(upgrade);
         });
         return list;
     }

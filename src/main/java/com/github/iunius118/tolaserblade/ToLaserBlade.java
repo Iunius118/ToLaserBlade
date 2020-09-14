@@ -7,6 +7,7 @@ import com.github.iunius118.tolaserblade.enchantment.LightElementEnchantment;
 import com.github.iunius118.tolaserblade.entity.LaserTrapEntity;
 import com.github.iunius118.tolaserblade.entity.ModEntities;
 import com.github.iunius118.tolaserblade.item.*;
+import com.github.iunius118.tolaserblade.item.crafting.UpgradeRecipe;
 import com.github.iunius118.tolaserblade.network.NetworkHandler;
 import com.github.iunius118.tolaserblade.network.ServerConfigMessage;
 import net.minecraft.data.DataGenerator;
@@ -16,6 +17,7 @@ import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -87,6 +89,13 @@ public class ToLaserBlade {
 
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class RegistryEvents {
+        @SubscribeEvent
+        public static void onRecipeSerializerRegistry(RegistryEvent.Register<IRecipeSerializer<?>> event) {
+            event.getRegistry().registerAll(
+                    new UpgradeRecipe.Serializer().setRegistryName("tolaserblade:upgrade")
+            );
+        }
+
         // Register items
         @SubscribeEvent
         public static void onItemsRegistry(final RegistryEvent.Register<Item> event) {
@@ -118,8 +127,9 @@ public class ToLaserBlade {
             );
         }
 
+        // Register Entity Types
         @SubscribeEvent
-        public static void registerEntities(RegistryEvent.Register<EntityType<?>> event) {
+        public static void onEntityRegistry(RegistryEvent.Register<EntityType<?>> event) {
             EntityType<LaserTrapEntity> laserTrap = EntityType.Builder
                     .<LaserTrapEntity>create(LaserTrapEntity::new, EntityClassification.MISC)
                     .size(1.0F, 1.0F).immuneToFire()
