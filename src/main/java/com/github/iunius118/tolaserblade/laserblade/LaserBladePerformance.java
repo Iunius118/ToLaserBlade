@@ -30,12 +30,15 @@ public class LaserBladePerformance {
         public float damage;
         public float speed;
 
-        private static final String KEY_ATK = "ATK";
-        private static final String KEY_SPD = "SPD";
-        private static final float MOD_ATK_MIN = 0.0F;
-        private static final float MOD_ATK_MAX = 2040.0F;
-        private static final float MOD_SPD_MIN = 0.0F;
-        private static final float MOD_SPD_MAX = 1.2F;
+        public static final float MOD_ATK_MIN = 0.0F;
+        public static final float MOD_ATK_GIFT = 3.0F;
+        public static final float MOD_ATK_CRITICAL_BONUS = 8.0F;
+        public static final float MOD_ATK_MAX = 2040.0F;
+        public static final float MOD_SPD_MIN = 0.0F;
+        public static final float MOD_SPD_MAX = 1.2F;
+
+        public static final String KEY_ATK = "ATK";
+        public static final String KEY_SPD = "SPD";
 
         public AttackPerformance(CompoundNBT compound) {
             damage = MathHelper.clamp(compound.getFloat(KEY_ATK), MOD_ATK_MIN, MOD_ATK_MAX);

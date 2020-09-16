@@ -108,9 +108,12 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
 
     public void onCriticalHit(CriticalHitEvent event) {
         Entity target = event.getTarget();
-        float attack = getLaserBladeATK(event.getPlayer().getHeldItemMainhand());
+        PlayerEntity player = event.getPlayer();
+        ItemStack stack = player.getHeldItemMainhand();
+        LaserBladePerformance performance = LaserBlade.performanceOf(stack);
+        LaserBladePerformance.AttackPerformance attack = performance.getAttackPerformance();
 
-        if (target instanceof WitherEntity || attack > MOD_ATK_CLASS_4) {
+        if (target instanceof WitherEntity || attack.damage >= LaserBladePerformance.AttackPerformance.MOD_ATK_CRITICAL_BONUS) {
             event.setDamageModifier(event.getDamageModifier() + MOD_CRITICAL_BONUS_VS_WITHER);
         }
     }
@@ -186,13 +189,15 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
         Multimap<Attribute, AttributeModifier> multimap = HashMultimap.create();
 
         if (slot == EquipmentSlotType.MAINHAND) {
+            LaserBladePerformance performance = LaserBlade.performanceOf(stack);
+            LaserBladePerformance.AttackPerformance attack = performance.getAttackPerformance();
+
             multimap.put(Attributes.ATTACK_DAMAGE,
                     new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier",
-                            this.attackDamage + getLaserBladeATK(stack), AttributeModifier.Operation.ADDITION));
-
+                            this.attackDamage + attack.damage, AttributeModifier.Operation.ADDITION));
             multimap.put(Attributes.ATTACK_SPEED,
                     new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier",
-                            this.attackSpeed + getLaserBladeSPD(stack), AttributeModifier.Operation.ADDITION));
+                            this.attackSpeed + attack.speed, AttributeModifier.Operation.ADDITION));
         }
 
         return multimap;
@@ -287,21 +292,15 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
     public static class ColorHandler implements IItemColor {
         @Override
         public int getColor(ItemStack stack, int tintIndex) {
-            Pair<Integer, Boolean> bladeColor;
-            int color;
+            LaserBladeItemColor color = LaserBladeItemColor.of(stack);
 
             switch (tintIndex) {
                 case 0:
-                    color = ModItems.LASER_BLADE.checkGamingColor(ModItems.LASER_BLADE.getGripColor(stack));
-                    return color | 0xFF000000;
+                    return color.gripColor | 0xFF000000;
                 case 1:
-                    bladeColor = ModItems.LASER_BLADE.getBladeOuterColor(stack);
-                    color = ModItems.LASER_BLADE.checkGamingColor(bladeColor.getLeft());
-                    return (bladeColor.getRight() ? ~color : color) | 0xFF000000;
+                    return color.simpleOuterColor | 0xFF000000;
                 case 2:
-                    bladeColor = ModItems.LASER_BLADE.getBladeInnerColor(stack);
-                    color = ModItems.LASER_BLADE.checkGamingColor(bladeColor.getLeft());
-                    return (bladeColor.getRight() ? ~color : color) | 0xFF000000;
+                    return color.simpleInnerColor | 0xFF000000;
                 default:
                     return 0xFFFFFFFF;
             }

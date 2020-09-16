@@ -3,6 +3,8 @@ package com.github.iunius118.tolaserblade.dispenser;
 import com.github.iunius118.tolaserblade.ToLaserBladeConfig;
 import com.github.iunius118.tolaserblade.entity.LaserTrapEntity;
 import com.github.iunius118.tolaserblade.item.ModItems;
+import com.github.iunius118.tolaserblade.laserblade.LaserBlade;
+import com.github.iunius118.tolaserblade.laserblade.LaserBladeVisual;
 import com.github.iunius118.tolaserblade.util.LaserTrapPlayer;
 import net.minecraft.block.AbstractFurnaceBlock;
 import net.minecraft.block.DispenserBlock;
@@ -22,7 +24,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -95,9 +96,10 @@ public class DispenseLaserBladeBehavior implements IDispenseItemBehavior {
         laserTrapPlayer.remove();
 
         // Spawn laser entity for laser effect
-        Pair<Integer, Boolean> bladeColor = ModItems.LASER_BLADE.getBladeOuterColor(stack);
-        int outerColor = ModItems.LASER_BLADE.checkGamingColor(bladeColor.getLeft());
-        outerColor = (bladeColor.getRight() ? ~outerColor : outerColor) | 0xFF000000;
+        LaserBladeVisual visual = LaserBlade.visualOf(stack);
+        LaserBladeVisual.PartColor outerPartColor = visual.getOuterColor();
+        int outerColor = outerPartColor.color;
+        outerColor = (outerPartColor.isSubtractColor ? ~outerColor : outerColor) | 0xFF000000;
 
         LaserTrapEntity laserTrapEntity = new LaserTrapEntity(world, targetPos, dir, outerColor);
         world.addEntity(laserTrapEntity);

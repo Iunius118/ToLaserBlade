@@ -169,6 +169,9 @@ public class TLBAdvancementProvider implements IDataProvider {
                         null,
                         frameType, true, true, false)
                 .withRequirementsStrategy(IRequirementsStrategy.OR);
+        int maxAtk = (int)LaserBladePerformance.AttackPerformance.MOD_ATK_CRITICAL_BONUS;
+        String tagAtk = LaserBladePerformance.AttackPerformance.KEY_ATK;
+
         for (Item item : requirements) {
             String itemName = item.getRegistryName().getPath();
             int baseDamage = 1;
@@ -177,9 +180,9 @@ public class TLBAdvancementProvider implements IDataProvider {
                 baseDamage += ((SwordItem)item).getAttackDamage();
             }
 
-            for (int i = attackDamage - baseDamage; i >= 0 && i <= LaserBladeItemBase.MOD_ATK_CLASS_5; i++) {
+            for (int i = attackDamage - baseDamage; i >= 0 && i <= maxAtk; i++) {
                 CompoundNBT nbt = new CompoundNBT();
-                nbt.putFloat(LaserBladeItemBase.KEY_ATK, (float) i);
+                nbt.putFloat(tagAtk, (float) i);
                 ItemPredicate itemPredicate = ItemPredicate.Builder.create()
                         .item(item)
                         .nbt(nbt)

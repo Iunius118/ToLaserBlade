@@ -1,5 +1,6 @@
 package com.github.iunius118.tolaserblade.item;
 
+import com.github.iunius118.tolaserblade.client.renderer.LaserBladeItemColor;
 import com.github.iunius118.tolaserblade.laserblade.upgrade.Upgrade;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.util.ITooltipFlag;
@@ -38,8 +39,8 @@ public class LBCasingItem extends Item implements LaserBladeItemBase {
         @Override
         public int getColor(ItemStack stack, int tintIndex) {
             if (tintIndex == 0) {
-                int color = ModItems.LB_CASING.checkGamingColor(ModItems.LB_CASING.getGripColor(stack));
-                return color | 0xFF000000;
+                LaserBladeItemColor color = LaserBladeItemColor.of(stack);
+                return color.gripColor | 0xFF000000;
             }
 
             return 0xFFFFFFFF;

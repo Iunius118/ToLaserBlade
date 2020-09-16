@@ -3,6 +3,7 @@ package com.github.iunius118.tolaserblade.laserblade.upgrade;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 
+import javax.annotation.Nullable;
 import java.lang.reflect.Constructor;
 
 public abstract class Upgrade {
@@ -24,7 +25,9 @@ public abstract class Upgrade {
         ingredient = ingredientIn;
     }
 
+    @Nullable
     public static Upgrade of(Class<? extends Upgrade> upgrade, Ingredient ingredientIn) {
+        // Get upgrade instance from upgrade Class
         Upgrade instance = null;
 
         try {

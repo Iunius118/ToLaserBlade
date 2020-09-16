@@ -19,6 +19,18 @@ public class LaserBlade {
         return new LaserBlade(stack);
     }
 
+    public static LaserBladePerformance performanceOf(ItemStack stack) {
+        Item item = stack.getItem();
+        CompoundNBT compound = stack.getOrCreateTag();
+        return new LaserBladePerformance(compound, item.isBurnable());
+    }
+
+    public static LaserBladeVisual visualOf(ItemStack stack) {
+        Item item = stack.getItem();
+        CompoundNBT compound = stack.getOrCreateTag();
+        return new LaserBladeVisual(compound);
+    }
+
     public LaserBladePerformance.AttackPerformance getAttackPerformance() {
         return performance.getAttackPerformance();
     }

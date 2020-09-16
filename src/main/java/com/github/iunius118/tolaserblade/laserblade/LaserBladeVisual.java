@@ -109,7 +109,7 @@ public class LaserBladeVisual {
         }
     }
 
-    private static class PartColor {
+    public static class PartColor {
         public int color = -1;
         public boolean isSubtractColor = false;
 
