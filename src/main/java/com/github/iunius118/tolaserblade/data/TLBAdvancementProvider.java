@@ -1,8 +1,9 @@
 package com.github.iunius118.tolaserblade.data;
 
 import com.github.iunius118.tolaserblade.enchantment.ModEnchantments;
-import com.github.iunius118.tolaserblade.item.LaserBladeItemBase;
 import com.github.iunius118.tolaserblade.item.ModItems;
+import com.github.iunius118.tolaserblade.laserblade.LaserBladePerformance;
+import com.github.iunius118.tolaserblade.laserblade.LaserBladeStack;
 import com.google.common.collect.Sets;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -19,7 +20,6 @@ import net.minecraft.data.IDataProvider;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.SwordItem;
 import net.minecraft.nbt.CompoundNBT;
@@ -45,7 +45,7 @@ public class TLBAdvancementProvider implements IDataProvider {
     protected void registerAdvancements(Consumer<Advancement> consumer) {
         // Main root
         Advancement root = Advancement.Builder.builder()
-                .withDisplay(ModItems.LASER_BLADE.setGripColor(new ItemStack(ModItems.LASER_BLADE), LaserBladeItemBase.LBColor.GRAY.getGripColor()),
+                .withDisplay(LaserBladeStack.ICON.getCopy(),
                         new TranslationTextComponent("advancements.tolaserblade.main.root.title"),
                         new TranslationTextComponent("advancements.tolaserblade.main.root.description"),
                         new ResourceLocation("textures/block/polished_andesite.png"),
