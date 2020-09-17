@@ -7,4 +7,5 @@ import net.minecraftforge.registries.ObjectHolder;
 @ObjectHolder(ToLaserBlade.MOD_ID)
 public class ModRecipeSerializers {
     public static final IRecipeSerializer<?> UPGRADE = null;
+    public static final IRecipeSerializer<?> COLOR = null;
 }

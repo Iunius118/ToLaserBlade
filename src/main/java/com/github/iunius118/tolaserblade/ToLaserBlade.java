@@ -7,6 +7,7 @@ import com.github.iunius118.tolaserblade.enchantment.LightElementEnchantment;
 import com.github.iunius118.tolaserblade.entity.LaserTrapEntity;
 import com.github.iunius118.tolaserblade.entity.ModEntities;
 import com.github.iunius118.tolaserblade.item.*;
+import com.github.iunius118.tolaserblade.item.crafting.ColorRecipe;
 import com.github.iunius118.tolaserblade.item.crafting.UpgradeRecipe;
 import com.github.iunius118.tolaserblade.network.NetworkHandler;
 import com.github.iunius118.tolaserblade.network.ServerConfigMessage;
@@ -92,7 +93,8 @@ public class ToLaserBlade {
         @SubscribeEvent
         public static void onRecipeSerializerRegistry(RegistryEvent.Register<IRecipeSerializer<?>> event) {
             event.getRegistry().registerAll(
-                    new UpgradeRecipe.Serializer().setRegistryName("tolaserblade:upgrade")
+                    new UpgradeRecipe.Serializer().setRegistryName("tolaserblade:upgrade"),
+                    new ColorRecipe.Serializer().setRegistryName("tolaserblade:color")
             );
         }
 

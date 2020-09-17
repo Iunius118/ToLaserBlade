@@ -85,7 +85,7 @@ public class UpgradeRecipe extends SmithingRecipe {
 
     @Override
     public IRecipeSerializer<?> getSerializer() {
-        return null;
+        return ModRecipeSerializers.UPGRADE;
     }
 
     @Override
