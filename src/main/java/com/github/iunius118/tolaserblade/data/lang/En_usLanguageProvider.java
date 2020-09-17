@@ -21,6 +21,10 @@ public class En_usLanguageProvider extends LanguageProvider {
         add(ModItems.DX_LASER_BLADE, "DX Laser B1ade");
         add(ModItems.LASER_BLADE, "Laser Blade");
         add(ModItems.LASER_BLADE_FP, "Laser Blade");
+        add(ModItems.LB_BRAND_NEW, "Brand-new Laser Blade");
+        add(ModItems.LB_BRAND_NEW_1, "Brand-new Laser Blade I");
+        add(ModItems.LB_BRAND_NEW_2, "Brand-new Laser Blade II");
+        add(ModItems.LB_BRAND_NEW_FP, "Brand-new Laser Blade");
         add(ModItems.LB_BROKEN, "Broken Laser Blade");
         add(ModItems.LB_BROKEN_FP, "Broken Laser Blade");
         add(ModItems.LB_DISASSEMBLED, "Disassembled Laser Blade");
@@ -35,6 +39,11 @@ public class En_usLanguageProvider extends LanguageProvider {
         // Enchantments
         add(ModEnchantments.LIGHT_ELEMENT, "Light Element");
 
+        // Item tooltip
+        add("tooltip.tolaserblade.brandNew1", "Hold in your hand and");
+        add("tooltip.tolaserblade.brandNew2", "right-click to obtain");
+        add("tooltip.tolaserblade.brandNew3", "Laser Blade");
+
         // Upgrade tooltip
         add(LaserBladeItemBase.KEY_TOOLTIP_ATTACK_DAMAGE, "Laser Power %s");
         add(LaserBladeItemBase.KEY_TOOLTIP_ATTACK_SPEED, "Recharge %s");
@@ -44,7 +53,7 @@ public class En_usLanguageProvider extends LanguageProvider {
         add("advancements.tolaserblade.main.root.title", "ToLaserBlade");
         add("advancements.tolaserblade.main.root.description", "Laser Blade is a tool used to cut through material, so any damage caused by using as a weapon is not covered by the warranty");
         add("advancements.tolaserblade.main.dx_laser_blade.title", "Laser Blade?");
-        add("advancements.tolaserblade.main.dx_laser_blade.description", "Obtain a DX Laser B1ade.\nIt could glow and sound—if you had some AAA batteries");
+        add("advancements.tolaserblade.main.dx_laser_blade.description", "Obtain a DX Laser B1ade. It could glow and sound—if you had some AAA batteries");
         add("advancements.tolaserblade.main.laser_blade.title", "Ancient Technology");
         add("advancements.tolaserblade.main.laser_blade.description", "Obtain a Laser Blade");
         add("advancements.tolaserblade.main.laser_blade_light_element_5.title", "Power of Light");
@@ -65,12 +74,12 @@ public class En_usLanguageProvider extends LanguageProvider {
         add("advancements.tolaserblade.main.laser_blade_fp.description", "Upgrade a Laser Blade with a Netherite Ingot");
 
         // Configs
-        add("tolaserblade.configgui.common.enableBlockingWithLaserBlade", "Enable Blocking with Laser Blade");
-        add("tolaserblade.configgui.common.laserBladeEfficiency", "Laser Blade Mining Speed (0–128)");
-        add("tolaserblade.configgui.common.maxAttackDamageUpgradeCount", "Max Count of Attack Damage Upgrade (0–39)");
-        add("tolaserblade.configgui.common.enableLaserTrap", "Enable Laser Trap");
-        add("tolaserblade.configgui.common.canLaserTrapAttackPlayer", "Can Laser Trap Attack Player");
-        add("tolaserblade.configgui.common.canLaserTrapHeatUpFurnace", "Can Laser Trap Heat Up Furnace");
+        add("tolaserblade.configgui.server.enableBlockingWithLaserBlade", "Enable Blocking with Laser Blade");
+        add("tolaserblade.configgui.server.laserBladeEfficiency", "Laser Blade Mining Speed (0–128)");
+        add("tolaserblade.configgui.server.maxAttackDamageUpgradeCount", "Max Count of Attack Damage Upgrade (0–39)");
+        add("tolaserblade.configgui.server.enableLaserTrap", "Enable Laser Trap");
+        add("tolaserblade.configgui.server.canLaserTrapAttackPlayer", "Can Laser Trap Attack Player");
+        add("tolaserblade.configgui.server.canLaserTrapHeatUpFurnace", "Can Laser Trap Heat Up Furnace");
 
         add("tolaserblade.configgui.client.showUpdateMessage", "Show Update Message");
         add("tolaserblade.configgui.client.useFixedVertexBuffer", "Use Fixed Vertex Buffer");

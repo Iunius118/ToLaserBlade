@@ -1,6 +1,7 @@
 package com.github.iunius118.tolaserblade.item;
 
-import com.github.iunius118.tolaserblade.item.upgrade.LaserBladeUpgrade;
+import com.github.iunius118.tolaserblade.client.renderer.LaserBladeItemColor;
+import com.github.iunius118.tolaserblade.laserblade.upgrade.Upgrade;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
@@ -15,14 +16,14 @@ import java.util.List;
 
 public class LBCasingItem extends Item implements LaserBladeItemBase {
     public static Item.Properties properties = (new Item.Properties()).setNoRepair().group(ModMainItemGroup.ITEM_GROUP);
-    public final LaserBladeUpgrade.Type upgradeType = LaserBladeUpgrade.Type.CASING;
+    public final Upgrade.Type upgradeType = Upgrade.Type.CASING;
 
     public LBCasingItem(boolean isFireproof) {
         super(LaserBladeItemBase.setFireproof(properties, isFireproof));
     }
 
     @Override
-    public boolean canUpgrade(LaserBladeUpgrade.Type type) {
+    public boolean canUpgrade(Upgrade.Type type) {
         return type == upgradeType;
     }
 
@@ -38,8 +39,8 @@ public class LBCasingItem extends Item implements LaserBladeItemBase {
         @Override
         public int getColor(ItemStack stack, int tintIndex) {
             if (tintIndex == 0) {
-                int color = ModItems.LB_CASING.checkGamingColor(ModItems.LB_CASING.getGripColor(stack));
-                return color | 0xFF000000;
+                LaserBladeItemColor color = LaserBladeItemColor.of(stack);
+                return color.gripColor | 0xFF000000;
             }
 
             return 0xFFFFFFFF;

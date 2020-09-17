@@ -18,6 +18,10 @@ public class Ja_jpLanguageProvider extends LanguageProvider {
         add(ModItems.DX_LASER_BLADE, "DXレーザーブレ一ド");
         add(ModItems.LASER_BLADE, "レーザーブレイド");
         add(ModItems.LASER_BLADE_FP, "レーザーブレイド");
+        add(ModItems.LB_BRAND_NEW, "新品のレーザーブレイド");
+        add(ModItems.LB_BRAND_NEW_1, "新品のレーザーブレイドⅠ");
+        add(ModItems.LB_BRAND_NEW_2, "新品のレーザーブレイドⅡ");
+        add(ModItems.LB_BRAND_NEW_FP, "新品のレーザーブレイド");
         add(ModItems.LB_BROKEN, "壊れたレーザーブレイド");
         add(ModItems.LB_BROKEN_FP, "壊れたレーザーブレイド");
         add(ModItems.LB_DISASSEMBLED, "分解したレーザーブレイド");
@@ -32,6 +36,11 @@ public class Ja_jpLanguageProvider extends LanguageProvider {
         // Enchantments
         add(ModEnchantments.LIGHT_ELEMENT, "光属性");
 
+        // item tooltip
+        add("tooltip.tolaserblade.brandNew1", "手に持って右クリックで");
+        add("tooltip.tolaserblade.brandNew2", "レーザーブレイドを入手");
+        add("tooltip.tolaserblade.brandNew3", "");
+
         // Upgrade tooltip
         add(LaserBladeItemBase.KEY_TOOLTIP_ATTACK_DAMAGE, "レーザー出力 %s");
         add(LaserBladeItemBase.KEY_TOOLTIP_ATTACK_SPEED, "充電効率 %s");
@@ -41,7 +50,7 @@ public class Ja_jpLanguageProvider extends LanguageProvider {
         add("advancements.tolaserblade.main.root.title", "ToLaserBlade");
         add("advancements.tolaserblade.main.root.description", "レーザーブレイドは切削用工具です。武器として使用した際に発生した損害は、すべて補償の対象外となります");
         add("advancements.tolaserblade.main.dx_laser_blade.title", "レーザーブレイド？");
-        add("advancements.tolaserblade.main.dx_laser_blade.description", "DXレーザーブレ一ドを入手する。\n光る！ 鳴る！ (単4電池があれば…)");
+        add("advancements.tolaserblade.main.dx_laser_blade.description", "DXレーザーブレ一ドを入手する。光る！ 鳴る！ (単4電池があれば…)");
         add("advancements.tolaserblade.main.laser_blade.title", "超古代技術");
         add("advancements.tolaserblade.main.laser_blade.description", "レーザーブレイドを入手する");
         add("advancements.tolaserblade.main.laser_blade_light_element_5.title", "光のチカラ");
@@ -62,12 +71,12 @@ public class Ja_jpLanguageProvider extends LanguageProvider {
         add("advancements.tolaserblade.main.laser_blade_fp.description", "レーザーブレイドをネザライトインゴットで強化する");
 
         // Configs
-        add("tolaserblade.configgui.common.enableBlockingWithLaserBlade", "レーザーブレイドによる防御を有効にする");
-        add("tolaserblade.configgui.common.laserBladeEfficiency", "レーザーブレイドの採掘速度 (0–128)");
-        add("tolaserblade.configgui.common.maxAttackDamageUpgradeCount", "攻撃力の最大強化回数 (0–39)");
-        add("tolaserblade.configgui.common.enableLaserTrap", "レーザートラップを有効にする");
-        add("tolaserblade.configgui.common.canLaserTrapAttackPlayer", "レーザートラップがプレイヤーへ攻撃可能か");
-        add("tolaserblade.configgui.common.canLaserTrapHeatUpFurnace", "レーザートラップがかまどを加熱可能か");
+        add("tolaserblade.configgui.server.enableBlockingWithLaserBlade", "レーザーブレイドによる防御を有効にする");
+        add("tolaserblade.configgui.server.laserBladeEfficiency", "レーザーブレイドの採掘速度 (0–128)");
+        add("tolaserblade.configgui.server.maxAttackDamageUpgradeCount", "攻撃力の最大強化回数 (0–39)");
+        add("tolaserblade.configgui.server.enableLaserTrap", "レーザートラップを有効にする");
+        add("tolaserblade.configgui.server.canLaserTrapAttackPlayer", "レーザートラップがプレイヤーへ攻撃可能か");
+        add("tolaserblade.configgui.server.canLaserTrapHeatUpFurnace", "レーザートラップがかまどを加熱可能か");
 
         add("tolaserblade.configgui.client.showUpdateMessage", "アップデートの通知を表示する");
         add("tolaserblade.configgui.client.useFixedVertexBuffer", "Fixed Vertex Bufferを使用する");

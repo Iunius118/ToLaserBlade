@@ -1,10 +1,13 @@
 package com.github.iunius118.tolaserblade.item;
 
 import com.github.iunius118.tolaserblade.ToLaserBladeConfig;
+import com.github.iunius118.tolaserblade.client.renderer.LaserBladeItemColor;
 import com.github.iunius118.tolaserblade.client.renderer.LaserBladeItemRenderer;
 import com.github.iunius118.tolaserblade.dispenser.DispenseLaserBladeBehavior;
-import com.github.iunius118.tolaserblade.enchantment.ModEnchantments;
-import com.github.iunius118.tolaserblade.item.upgrade.LaserBladeUpgrade;
+import com.github.iunius118.tolaserblade.laserblade.LaserBlade;
+import com.github.iunius118.tolaserblade.laserblade.LaserBladePerformance;
+import com.github.iunius118.tolaserblade.laserblade.LaserBladeStack;
+import com.github.iunius118.tolaserblade.laserblade.upgrade.Upgrade;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.block.BlockState;
@@ -12,6 +15,7 @@ import net.minecraft.block.DispenserBlock;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
@@ -28,13 +32,13 @@ import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.entity.player.CriticalHitEvent;
-import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -58,7 +62,7 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
     }
 
     @Override
-    public boolean canUpgrade(LaserBladeUpgrade.Type type) {
+    public boolean canUpgrade(Upgrade.Type type) {
         return true;
     }
 
@@ -66,12 +70,12 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
 
     @Override
     public boolean isShield(ItemStack stack, @Nullable LivingEntity entity) {
-        return ToLaserBladeConfig.COMMON.isEnabledBlockingWithLaserBladeInServer.get();
+        return ToLaserBladeConfig.SERVER.isEnabledBlockingWithLaserBlade.get();
     }
 
     @Override
     public UseAction getUseAction(ItemStack stack) {
-        if (ToLaserBladeConfig.COMMON.isEnabledBlockingWithLaserBladeInServer.get()) {
+        if (ToLaserBladeConfig.SERVER.isEnabledBlockingWithLaserBlade.get()) {
             return UseAction.BLOCK;
         } else {
             return UseAction.NONE;
@@ -81,7 +85,7 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
 
     @Override
     public int getUseDuration(ItemStack stack) {
-        if (ToLaserBladeConfig.COMMON.isEnabledBlockingWithLaserBladeInServer.get()) {
+        if (ToLaserBladeConfig.SERVER.isEnabledBlockingWithLaserBlade.get()) {
             return 72000;
         } else {
             return 0;
@@ -92,7 +96,7 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         ItemStack itemstack = playerIn.getHeldItem(handIn);
 
-        if (ToLaserBladeConfig.COMMON.isEnabledBlockingWithLaserBladeInServer.get()) {
+        if (ToLaserBladeConfig.SERVER.isEnabledBlockingWithLaserBlade.get()) {
             UseAction offhandItemAction = playerIn.getHeldItemOffhand().getUseAction();
 
             if (offhandItemAction != UseAction.BOW && offhandItemAction != UseAction.SPEAR) {
@@ -108,9 +112,12 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
 
     public void onCriticalHit(CriticalHitEvent event) {
         Entity target = event.getTarget();
-        float attack = getLaserBladeATK(event.getPlayer().getHeldItemMainhand());
+        PlayerEntity player = event.getPlayer();
+        ItemStack stack = player.getHeldItemMainhand();
+        LaserBladePerformance performance = LaserBlade.performanceOf(stack);
+        LaserBladePerformance.AttackPerformance attack = performance.getAttackPerformance();
 
-        if (target instanceof WitherEntity || attack > MOD_ATK_CLASS_4) {
+        if (target instanceof WitherEntity || attack.damage >= LaserBladePerformance.AttackPerformance.MOD_ATK_CRITICAL_BONUS) {
             event.setDamageModifier(event.getDamageModifier() + MOD_CRITICAL_BONUS_VS_WITHER);
         }
     }
@@ -139,7 +146,8 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
 
     @Override
     public float getDestroySpeed(ItemStack stack, BlockState state) {
-        return tier.getEfficiency() * getDestroySpeedRate(stack);
+        float rate = (float)EnchantmentHelper.getEnchantmentLevel(Enchantments.EFFICIENCY, stack) / 5.0F;
+        return tier.getEfficiency() * MathHelper.clamp(rate, 0.0F, 1.0F);
     }
 
     @Override
@@ -186,13 +194,15 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
         Multimap<Attribute, AttributeModifier> multimap = HashMultimap.create();
 
         if (slot == EquipmentSlotType.MAINHAND) {
+            LaserBladePerformance performance = LaserBlade.performanceOf(stack);
+            LaserBladePerformance.AttackPerformance attack = performance.getAttackPerformance();
+
             multimap.put(Attributes.ATTACK_DAMAGE,
                     new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier",
-                            this.attackDamage + getLaserBladeATK(stack), AttributeModifier.Operation.ADDITION));
-
+                            this.attackDamage + attack.damage, AttributeModifier.Operation.ADDITION));
             multimap.put(Attributes.ATTACK_SPEED,
                     new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier",
-                            this.attackSpeed + getLaserBladeSPD(stack), AttributeModifier.Operation.ADDITION));
+                            this.attackSpeed + attack.speed, AttributeModifier.Operation.ADDITION));
         }
 
         return multimap;
@@ -202,82 +212,27 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
     @OnlyIn(Dist.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        addLaserBladeInformation(stack, worldIn, tooltip, flagIn, LaserBladeUpgrade.Type.OTHER);
+        addLaserBladeInformation(stack, worldIn, tooltip, flagIn, Upgrade.Type.OTHER);
     }
 
     /* Creative Tab */
 
-    private ItemStack laserBladeNormal;
-    private ItemStack laserBladeUpgraded;
-    private ItemStack laserBladeDamaged;
-    private ItemStack laserBladeFullMod;
-
-    private ItemStack getLaserBladeNormal() {
-        ItemStack laserBlade = new ItemStack(ModItems.LASER_BLADE);
-        laserBlade.addEnchantment(ModEnchantments.LIGHT_ELEMENT, LaserBladeItemBase.LVL_LIGHT_ELEMENT_2);
-        laserBlade.addEnchantment(Enchantments.EFFICIENCY, 1);
-        return laserBlade;
-    }
-
-    private ItemStack getLaserBladeUpgraded() {
-        ItemStack laserBlade = new ItemStack(ModItems.LASER_BLADE);
-
-        setLaserBladeATK(laserBlade, MOD_ATK_CLASS_5);
-        setLaserBladeSPD(laserBlade, MOD_SPD_MAX);
-
-        setGripColor(laserBlade, LBColor.GRAY.getGripColor());
-        setBladeInnerColor(laserBlade, LBColor.LIGHT_BLUE.getBladeColor());
-        setBladeOuterColor(laserBlade, LBColor.BLUE.getBladeColor());
-
-        laserBlade.addEnchantment(ModEnchantments.LIGHT_ELEMENT, ModEnchantments.LIGHT_ELEMENT.getMaxLevel());
-        laserBlade.addEnchantment(Enchantments.EFFICIENCY, Enchantments.EFFICIENCY.getMaxLevel());
-        laserBlade.addEnchantment(Enchantments.MENDING, Enchantments.MENDING.getMaxLevel());
-
-        return laserBlade;
-    }
-
-    private ItemStack getLaserBladeFullMod() {
-        ItemStack laserBlade = getLaserBladeUpgraded();
-
-        setBladeInnerColor(laserBlade, LBColor.WHITE.getBladeColor());
-        setBladeInnerSubColorFlag(laserBlade, true);
-        setBladeOuterColor(laserBlade, LBColor.CYAN.getBladeColor());
-        setBladeOuterSubColorFlag(laserBlade, true);
-
-        laserBlade.addEnchantment(Enchantments.FIRE_ASPECT, Enchantments.FIRE_ASPECT.getMaxLevel());
-        laserBlade.addEnchantment(Enchantments.SWEEPING, Enchantments.SWEEPING.getMaxLevel());
-        laserBlade.addEnchantment(Enchantments.LOOTING, Enchantments.LOOTING.getMaxLevel());
-
-        return laserBlade;
-    }
-
     @Override
     public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
         super.fillItemGroup(group, items);
+        if (group != ModMainItemGroup.ITEM_GROUP) return;
 
-        if (group == ModMainItemGroup.ITEM_GROUP && isBurnable()) { // TODO: isBurnable = isNotBurnable?
-            // Laser Blade item group and not fireproof
-            if (laserBladeNormal == null) {
-                laserBladeNormal = getLaserBladeNormal();
-            }
-
-            if (laserBladeUpgraded == null) {
-                laserBladeUpgraded = getLaserBladeUpgraded();
-            }
-
-            if (laserBladeDamaged == null) {
-                laserBladeDamaged = getLaserBladeUpgraded();
-                laserBladeDamaged.setDamage(LaserBladeItemBase.MAX_USES - 1);
-            }
-
-            if (laserBladeFullMod == null) {
-                laserBladeFullMod = getLaserBladeFullMod();
-            }
-
-            items.add(laserBladeNormal);
-            items.add(laserBladeUpgraded);
-            items.add(laserBladeDamaged);
-            items.add(laserBladeFullMod);
+        if (isBurnable()) { // TODO: isBurnable = isNotBurnable?
+            items.add(LaserBladeStack.UPGRADED_FP.getCopy());
+            items.add(LaserBladeStack.DAMAGED_FP.getCopy());
+            items.add(LaserBladeStack.FULL_MOD_FP.getCopy());
+        } else {
+            items.add(LaserBladeStack.LIGHT_ELEMENT_1.getCopy());
+            items.add(LaserBladeStack.LIGHT_ELEMENT_2.getCopy());
+            items.add(LaserBladeStack.GIFT.getCopy());
+            items.add(LaserBladeStack.UPGRADED.getCopy());
+            items.add(LaserBladeStack.DAMAGED.getCopy());
+            items.add(LaserBladeStack.FULL_MOD.getCopy());
         }
     }
 
@@ -287,21 +242,15 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
     public static class ColorHandler implements IItemColor {
         @Override
         public int getColor(ItemStack stack, int tintIndex) {
-            Pair<Integer, Boolean> bladeColor;
-            int color;
+            LaserBladeItemColor color = LaserBladeItemColor.of(stack);
 
             switch (tintIndex) {
                 case 0:
-                    color = ModItems.LASER_BLADE.checkGamingColor(ModItems.LASER_BLADE.getGripColor(stack));
-                    return color | 0xFF000000;
+                    return color.gripColor | 0xFF000000;
                 case 1:
-                    bladeColor = ModItems.LASER_BLADE.getBladeOuterColor(stack);
-                    color = ModItems.LASER_BLADE.checkGamingColor(bladeColor.getLeft());
-                    return (bladeColor.getRight() ? ~color : color) | 0xFF000000;
+                    return color.simpleOuterColor | 0xFF000000;
                 case 2:
-                    bladeColor = ModItems.LASER_BLADE.getBladeInnerColor(stack);
-                    color = ModItems.LASER_BLADE.checkGamingColor(bladeColor.getLeft());
-                    return (bladeColor.getRight() ? ~color : color) | 0xFF000000;
+                    return color.simpleInnerColor | 0xFF000000;
                 default:
                     return 0xFFFFFFFF;
             }
@@ -333,7 +282,7 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
 
         @Override
         public float getEfficiency() {
-            return ToLaserBladeConfig.COMMON.laserBladeEfficiencyInServer.get();
+            return ToLaserBladeConfig.SERVER.laserBladeEfficiency.get();
         }
 
         @Override

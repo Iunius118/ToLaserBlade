@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "tolaserblade:color/laser_blade_fp_outer_blade_magenta"
+    ]
+  },
+  "criteria": {
+    "has_laser_blade_fp": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tolaserblade:laser_blade"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "tolaserblade:color/laser_blade_fp_outer_blade_magenta"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_laser_blade_fp",
+      "has_the_recipe"
+    ]
+  ]
+}

@@ -7,15 +7,15 @@ import com.github.iunius118.tolaserblade.enchantment.LightElementEnchantment;
 import com.github.iunius118.tolaserblade.entity.LaserTrapEntity;
 import com.github.iunius118.tolaserblade.entity.ModEntities;
 import com.github.iunius118.tolaserblade.item.*;
-import com.github.iunius118.tolaserblade.network.NetworkHandler;
-import com.github.iunius118.tolaserblade.network.ServerConfigMessage;
+import com.github.iunius118.tolaserblade.item.crafting.ColorRecipe;
+import com.github.iunius118.tolaserblade.item.crafting.UpgradeRecipe;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EntityClassification;
 import net.minecraft.entity.EntityType;
 import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.entity.player.ServerPlayerEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -24,7 +24,6 @@ import net.minecraftforge.common.data.ForgeBlockTagsProvider;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
-import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -36,7 +35,6 @@ import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLLoader;
-import net.minecraftforge.fml.network.NetworkDirection;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -53,9 +51,6 @@ public class ToLaserBlade {
 
     public static boolean hasShownUpdate = false;
 
-    // Init network channels
-    public static final NetworkHandler NETWORK_HANDLER = new NetworkHandler();
-
     public ToLaserBlade() {
         // Register lifecycle event listeners
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
@@ -63,7 +58,7 @@ public class ToLaserBlade {
         modEventBus.register(ToLaserBladeConfig.class);
 
         // Register config handlers
-        ModLoadingContext.get().registerConfig(ModConfig.Type.COMMON, ToLaserBladeConfig.commonSpec);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ToLaserBladeConfig.serverSpec);
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ToLaserBladeConfig.clientSpec);
 
         // Register event handlers
@@ -87,6 +82,14 @@ public class ToLaserBlade {
 
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class RegistryEvents {
+        @SubscribeEvent
+        public static void onRecipeSerializerRegistry(RegistryEvent.Register<IRecipeSerializer<?>> event) {
+            event.getRegistry().registerAll(
+                    new UpgradeRecipe.Serializer().setRegistryName("tolaserblade:upgrade"),
+                    new ColorRecipe.Serializer().setRegistryName("tolaserblade:color")
+            );
+        }
+
         // Register items
         @SubscribeEvent
         public static void onItemsRegistry(final RegistryEvent.Register<Item> event) {
@@ -94,6 +97,10 @@ public class ToLaserBlade {
                     new DXLaserBladeItem().setRegistryName("dx_laser_blade"),
                     new LaserBladeItem(false).setRegistryName("laser_blade"),
                     new LaserBladeItem(true).setRegistryName("laser_blade_fp"), // Fireproof
+                    new LBBrandNewItem(LBBrandNewItem.Type.NONE, false).setRegistryName("lb_brand_new"),
+                    new LBBrandNewItem(LBBrandNewItem.Type.LIGHT_ELEMENT_1, false).setRegistryName("lb_brand_new_1"),
+                    new LBBrandNewItem(LBBrandNewItem.Type.LIGHT_ELEMENT_2, false).setRegistryName("lb_brand_new_2"),
+                    new LBBrandNewItem(LBBrandNewItem.Type.FP, true).setRegistryName("lb_brand_new_fp"),
                     new LBBrokenItem(false).setRegistryName("lb_broken"),
                     new LBBrokenItem(true).setRegistryName("lb_broken_fp"), // Fireproof
                     new LBBlueprintItem().setRegistryName("lb_blueprint"),
@@ -115,8 +122,9 @@ public class ToLaserBlade {
             );
         }
 
+        // Register Entity Types
         @SubscribeEvent
-        public static void registerEntities(RegistryEvent.Register<EntityType<?>> event) {
+        public static void onEntityRegistry(RegistryEvent.Register<EntityType<?>> event) {
             EntityType<LaserTrapEntity> laserTrap = EntityType.Builder
                     .<LaserTrapEntity>create(LaserTrapEntity::new, EntityClassification.MISC)
                     .size(1.0F, 1.0F).immuneToFire()
@@ -186,17 +194,6 @@ public class ToLaserBlade {
     /*
      * World Events
      */
-
-    @SubscribeEvent
-    public void onPlayerLoggedIn(PlayerEvent.PlayerLoggedInEvent event) {
-        // Send server-side config to logged-in players
-        ToLaserBladeConfig.ServerConfig serverConfig = new ToLaserBladeConfig.ServerConfig();
-
-        NETWORK_HANDLER.getConfigChannel().sendTo(
-                new ServerConfigMessage(serverConfig),
-                ((ServerPlayerEntity) event.getPlayer()).connection.getNetworkManager(),
-                NetworkDirection.PLAY_TO_CLIENT);
-    }
 
     @SubscribeEvent
     public void onEntityJoiningInWorld(final EntityJoinWorldEvent event) {

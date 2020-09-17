@@ -1,7 +1,7 @@
 package com.github.iunius118.tolaserblade.item;
 
 import com.github.iunius118.tolaserblade.client.renderer.LBBrokenItemRenderer;
-import com.github.iunius118.tolaserblade.item.upgrade.LaserBladeUpgrade;
+import com.github.iunius118.tolaserblade.laserblade.upgrade.Upgrade;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -15,14 +15,14 @@ import java.util.List;
 
 public class LBBrokenItem extends Item implements LaserBladeItemBase {
     public static Item.Properties properties = (new Item.Properties()).setNoRepair().group(ModMainItemGroup.ITEM_GROUP).setISTER(() -> LBBrokenItemRenderer::new);
-    public final LaserBladeUpgrade.Type upgradeType = LaserBladeUpgrade.Type.REPAIR;
+    public final Upgrade.Type upgradeType = Upgrade.Type.REPAIR;
 
     public LBBrokenItem(boolean isFireproof) {
         super(LaserBladeItemBase.setFireproof(properties, isFireproof));
     }
 
     @Override
-    public boolean canUpgrade(LaserBladeUpgrade.Type type) {
+    public boolean canUpgrade(Upgrade.Type type) {
         return type == upgradeType;
     }
 

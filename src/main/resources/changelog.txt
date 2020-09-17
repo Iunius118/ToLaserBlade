@@ -1,6 +1,15 @@
 ToLaserBlade
 Changelog
 
+v1.16.3-4.0.0.0
+
+    Replace common config with server config. It will be saved at (world_directory)/serverconfig/tolaserblade-server.toml
+    Add new item Brand-new Laser Blade. You can get Laser Blade by holding Brand-new Laser Blade in your hand and right-clicking (using)
+    Upgrading, Coloring and repairing Laser Blade now uses Smithing Table
+    Adjust the damage of Light Element enchantment
+    Remove all recipes for Laser Blade parts
+
+
 v1.16.3-3.2.3.1
 
     Initial port to 1.16.3

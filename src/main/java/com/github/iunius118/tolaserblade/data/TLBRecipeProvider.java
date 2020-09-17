@@ -1,14 +1,21 @@
 package com.github.iunius118.tolaserblade.data;
 
 import com.github.iunius118.tolaserblade.item.ModItems;
+import com.github.iunius118.tolaserblade.laserblade.ColorPart;
+import com.github.iunius118.tolaserblade.laserblade.upgrade.Upgrade;
+import com.github.iunius118.tolaserblade.laserblade.upgrade.UpgradeManager;
 import com.github.iunius118.tolaserblade.tags.ModItemTags;
+import net.minecraft.block.Blocks;
 import net.minecraft.data.*;
+import net.minecraft.item.DyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.item.Items;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 
+import java.util.Map;
 import java.util.function.Consumer;
 
 public class TLBRecipeProvider extends RecipeProvider implements IConditionBuilder {
@@ -29,7 +36,7 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
                 .build(consumer, ModItems.DX_LASER_BLADE.getRegistryName());
 
         // Laser Blade with Light Element I
-        ShapedRecipeBuilder.shapedRecipe(ModItems.LASER_BLADE)
+        ShapedRecipeBuilder.shapedRecipe(ModItems.LB_BRAND_NEW_1)
                 .patternLine("Gid")
                 .patternLine("idi")
                 .patternLine("riG")
@@ -38,10 +45,10 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
                 .key('d', Tags.Items.GEMS_DIAMOND)
                 .key('r', Tags.Items.DUSTS_REDSTONE)
                 .addCriterion("has_redstone", hasItem(Items.REDSTONE))
-                .build(consumer, ModItems.LASER_BLADE.getRegistryName());
+                .build(consumer, ModItems.LB_BRAND_NEW_1.getRegistryName());
 
         // Laser Blade with Light Element II
-        ShapedRecipeBuilder.shapedRecipe(ModItems.LASER_BLADE)
+        ShapedRecipeBuilder.shapedRecipe(ModItems.LB_BRAND_NEW_2)
                 .patternLine("gid")
                 .patternLine("idi")
                 .patternLine("rig")
@@ -50,37 +57,22 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
                 .key('d', Tags.Items.GEMS_DIAMOND)
                 .key('r', Tags.Items.DUSTS_REDSTONE)
                 .addCriterion("has_redstone", hasItem(Items.REDSTONE))
-                .build(consumer, ModItems.LASER_BLADE.getRegistryName() + "_1");
-
-        // Laser Blade from parts
-        ShapelessRecipeBuilder.shapelessRecipe(ModItems.LASER_BLADE)
-                .addIngredient(ModItems.LB_BATTERY)
-                .addIngredient(ModItems.LB_MEDIUM)
-                .addIngredient(ModItems.LB_EMITTER)
-                .addIngredient(ModItems.LB_CASING)
-                .addCriterion("has_redstone", hasItem(Items.REDSTONE))
-                .build(consumer, ModItems.LASER_BLADE.getRegistryName() + "_2");
-
-        // Netherite Laser Blade from parts
-        ShapelessRecipeBuilder.shapelessRecipe(ModItems.LASER_BLADE_FP)
-                .addIngredient(ModItems.LB_BATTERY)
-                .addIngredient(ModItems.LB_MEDIUM)
-                .addIngredient(ModItems.LB_EMITTER)
-                .addIngredient(ModItems.LB_CASING_FP)
-                .addCriterion("has_netherite_ingot", hasItem(Items.NETHERITE_INGOT))
-                .build(consumer, ModItems.LASER_BLADE_FP.getRegistryName());
+                .build(consumer, ModItems.LB_BRAND_NEW_2.getRegistryName());
 
         // Netherite Laser Blade by using Smithing Table
-        addSmithingRecipe(Ingredient.fromItems(ModItems.LASER_BLADE), Ingredient.fromItems(Items.NETHERITE_INGOT), ModItems.LASER_BLADE_FP, Items.NETHERITE_INGOT, consumer);
+        addSmithingRecipe(Ingredient.fromItems(ModItems.LASER_BLADE), Ingredient.fromItems(Items.NETHERITE_INGOT), ModItems.LB_BRAND_NEW_FP, Items.NETHERITE_INGOT, consumer);
 
-        // Netherite Laser Blade Casing by using Smithing Table
-        addSmithingRecipe(Ingredient.fromItems(ModItems.LB_CASING), Ingredient.fromItems(Items.NETHERITE_INGOT), ModItems.LB_CASING_FP, Items.NETHERITE_INGOT, consumer);
+        // Repair recipes
+        addSmithingRepairRecipe(ModItems.LASER_BLADE, Ingredient.fromTag(ModItemTags.CASING_REPAIR), ModItems.LB_BRAND_NEW, ModItems.LASER_BLADE, consumer);
+        addSmithingRepairRecipe(ModItems.LB_BROKEN, Ingredient.fromTag(ModItemTags.CASING_REPAIR), ModItems.LB_BRAND_NEW, ModItems.LB_BROKEN, consumer);
+        addSmithingRepairRecipe(ModItems.LASER_BLADE_FP, Ingredient.fromTag(ModItemTags.CASING_REPAIR), ModItems.LB_BRAND_NEW_FP, ModItems.LASER_BLADE_FP, consumer);
+        addSmithingRepairRecipe(ModItems.LB_BROKEN_FP, Ingredient.fromTag(ModItemTags.CASING_REPAIR), ModItems.LB_BRAND_NEW_FP, ModItems.LB_BROKEN_FP, consumer);
 
-        // Disassembled Laser Blade by using Smithing Table
-        addSmithingRecipe(Ingredient.fromItems(ModItems.LASER_BLADE), Ingredient.fromTag(ModItemTags.LB_DISASSEMBLER), ModItems.LB_DISASSEMBLED, ModItems.LASER_BLADE, consumer);
+        // Upgrade Recipes
+        addUpgradeRecipes(consumer);
 
-        // Disassembled Laser Blade FP by using Smithing Table
-        addSmithingRecipe(Ingredient.fromItems(ModItems.LASER_BLADE_FP), Ingredient.fromTag(ModItemTags.LB_DISASSEMBLER), ModItems.LB_DISASSEMBLED_FP, ModItems.LASER_BLADE_FP, consumer);
+        // Color Recipes
+        addColorRecipes(consumer);
     }
 
     @Override
@@ -93,5 +85,99 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
         SmithingRecipeBuilder.func_240502_a_(base, addition, result)
                 .func_240503_a_("has_" + criterionItem.getRegistryName().getPath(), hasItem(criterionItem))
                 .func_240504_a_(consumer, result.getRegistryName().toString() + "_smithing");
+    }
+
+    private void addSmithingRepairRecipe(Item base, Ingredient addition, Item result, Item criterionItem, Consumer<IFinishedRecipe> consumer) {
+        // TODO: func_240502_a_ = smithingRecipe, func_240503_a_ = addCriterion, func_240504_a_ = build
+        SmithingRecipeBuilder.func_240502_a_(Ingredient.fromItems(base), addition, result)
+                .func_240503_a_("has_" + criterionItem.getRegistryName().getPath(), hasItem(criterionItem))
+                .func_240504_a_(consumer, base.getRegistryName().toString() + "_repair_smithing");
+    }
+
+    private void addUpgradeRecipes(Consumer<IFinishedRecipe> consumer) {
+        Map<ResourceLocation, Upgrade> upgrades = UpgradeManager.getUpgrades();
+        upgrades.forEach((id, upgrade) -> {
+            UpgradeRecipeBuilder.upgradeRecipe(Ingredient.fromItems(ModItems.LASER_BLADE), upgrade.getIngredient(), id)
+                    .addCriterion("has_laser_blade", hasItem(ModItems.LASER_BLADE))
+                    .build(consumer, id.toString() + "_upgrade");
+            UpgradeRecipeBuilder.upgradeRecipe(Ingredient.fromItems(ModItems.LASER_BLADE_FP), upgrade.getIngredient(), id)
+                    .addCriterion("has_laser_blade_fp", hasItem(ModItems.LASER_BLADE_FP))
+                    .build(consumer, id.toString() +  "_fp_upgrade");
+        });
+    }
+
+    private void addColorRecipes(Consumer<IFinishedRecipe> consumer) {
+        addInnerColorRecipes(consumer);
+        addOuterColorRecipes(consumer);
+        addGripColorRecipes(consumer);
+    }
+
+    private void addInnerColorRecipes(Consumer<IFinishedRecipe> consumer) {
+        ColorPart part = ColorPart.INNER_BLADE;
+        addColorRecipe(consumer, Ingredient.fromTag(Tags.Items.GLASS_PANES_WHITE), part, DyeColor.WHITE);
+        addColorRecipe(consumer, Ingredient.fromTag(Tags.Items.GLASS_PANES_ORANGE), part, DyeColor.ORANGE);
+        addColorRecipe(consumer, Ingredient.fromTag(Tags.Items.GLASS_PANES_MAGENTA), part, DyeColor.MAGENTA);
+        addColorRecipe(consumer, Ingredient.fromTag(Tags.Items.GLASS_PANES_LIGHT_BLUE), part, DyeColor.LIGHT_BLUE);
+        addColorRecipe(consumer, Ingredient.fromTag(Tags.Items.GLASS_PANES_YELLOW), part, DyeColor.YELLOW);
+        addColorRecipe(consumer, Ingredient.fromTag(Tags.Items.GLASS_PANES_LIME), part, DyeColor.LIME);
+        addColorRecipe(consumer, Ingredient.fromTag(Tags.Items.GLASS_PANES_PINK), part, DyeColor.PINK);
+        addColorRecipe(consumer, Ingredient.fromTag(Tags.Items.GLASS_PANES_GRAY), part, DyeColor.GRAY);
+        addColorRecipe(consumer, Ingredient.fromTag(Tags.Items.GLASS_PANES_LIGHT_GRAY), part, DyeColor.LIGHT_GRAY);
+        addColorRecipe(consumer, Ingredient.fromTag(Tags.Items.GLASS_PANES_CYAN), part, DyeColor.CYAN);
+        addColorRecipe(consumer, Ingredient.fromTag(Tags.Items.GLASS_PANES_PURPLE), part, DyeColor.PURPLE);
+        addColorRecipe(consumer, Ingredient.fromTag(Tags.Items.GLASS_PANES_BLUE), part, DyeColor.BLUE);
+        addColorRecipe(consumer, Ingredient.fromTag(Tags.Items.GLASS_PANES_BROWN), part, DyeColor.BROWN);
+        addColorRecipe(consumer, Ingredient.fromTag(Tags.Items.GLASS_PANES_GREEN), part, DyeColor.GREEN);
+        addColorRecipe(consumer, Ingredient.fromTag(Tags.Items.GLASS_PANES_RED), part, DyeColor.RED);
+        addColorRecipe(consumer, Ingredient.fromTag(Tags.Items.GLASS_PANES_BLACK), part, DyeColor.BLACK);
+    }
+
+    private void addOuterColorRecipes(Consumer<IFinishedRecipe> consumer) {
+        ColorPart part = ColorPart.OUTER_BLADE;
+        addColorRecipe(consumer, Ingredient.fromTag(Tags.Items.GLASS_WHITE), part, DyeColor.WHITE);
+        addColorRecipe(consumer, Ingredient.fromTag(Tags.Items.GLASS_ORANGE), part, DyeColor.ORANGE);
+        addColorRecipe(consumer, Ingredient.fromTag(Tags.Items.GLASS_MAGENTA), part, DyeColor.MAGENTA);
+        addColorRecipe(consumer, Ingredient.fromTag(Tags.Items.GLASS_LIGHT_BLUE), part, DyeColor.LIGHT_BLUE);
+        addColorRecipe(consumer, Ingredient.fromTag(Tags.Items.GLASS_YELLOW), part, DyeColor.YELLOW);
+        addColorRecipe(consumer, Ingredient.fromTag(Tags.Items.GLASS_LIME), part, DyeColor.LIME);
+        addColorRecipe(consumer, Ingredient.fromTag(Tags.Items.GLASS_PINK), part, DyeColor.PINK);
+        addColorRecipe(consumer, Ingredient.fromTag(Tags.Items.GLASS_GRAY), part, DyeColor.GRAY);
+        addColorRecipe(consumer, Ingredient.fromTag(Tags.Items.GLASS_LIGHT_GRAY), part, DyeColor.LIGHT_GRAY);
+        addColorRecipe(consumer, Ingredient.fromTag(Tags.Items.GLASS_CYAN), part, DyeColor.CYAN);
+        addColorRecipe(consumer, Ingredient.fromTag(Tags.Items.GLASS_PURPLE), part, DyeColor.PURPLE);
+        addColorRecipe(consumer, Ingredient.fromTag(Tags.Items.GLASS_BLUE), part, DyeColor.BLUE);
+        addColorRecipe(consumer, Ingredient.fromTag(Tags.Items.GLASS_BROWN), part, DyeColor.BROWN);
+        addColorRecipe(consumer, Ingredient.fromTag(Tags.Items.GLASS_GREEN), part, DyeColor.GREEN);
+        addColorRecipe(consumer, Ingredient.fromTag(Tags.Items.GLASS_RED), part, DyeColor.RED);
+        addColorRecipe(consumer, Ingredient.fromTag(Tags.Items.GLASS_BLACK), part, DyeColor.BLACK);
+    }
+
+    private void addGripColorRecipes(Consumer<IFinishedRecipe> consumer) {
+        ColorPart part = ColorPart.GRIP;
+        addColorRecipe(consumer, Ingredient.fromItems(Blocks.WHITE_CARPET), part, DyeColor.WHITE);
+        addColorRecipe(consumer, Ingredient.fromItems(Blocks.ORANGE_CARPET), part, DyeColor.ORANGE);
+        addColorRecipe(consumer, Ingredient.fromItems(Blocks.MAGENTA_CARPET), part, DyeColor.MAGENTA);
+        addColorRecipe(consumer, Ingredient.fromItems(Blocks.LIGHT_BLUE_CARPET), part, DyeColor.LIGHT_BLUE);
+        addColorRecipe(consumer, Ingredient.fromItems(Blocks.YELLOW_CARPET), part, DyeColor.YELLOW);
+        addColorRecipe(consumer, Ingredient.fromItems(Blocks.LIME_CARPET), part, DyeColor.LIME);
+        addColorRecipe(consumer, Ingredient.fromItems(Blocks.PINK_CARPET), part, DyeColor.PINK);
+        addColorRecipe(consumer, Ingredient.fromItems(Blocks.GRAY_CARPET), part, DyeColor.GRAY);
+        addColorRecipe(consumer, Ingredient.fromItems(Blocks.LIGHT_GRAY_CARPET), part, DyeColor.LIGHT_GRAY);
+        addColorRecipe(consumer, Ingredient.fromItems(Blocks.CYAN_CARPET), part, DyeColor.CYAN);
+        addColorRecipe(consumer, Ingredient.fromItems(Blocks.PURPLE_CARPET), part, DyeColor.PURPLE);
+        addColorRecipe(consumer, Ingredient.fromItems(Blocks.BLUE_CARPET), part, DyeColor.BLUE);
+        addColorRecipe(consumer, Ingredient.fromItems(Blocks.BROWN_CARPET), part, DyeColor.BROWN);
+        addColorRecipe(consumer, Ingredient.fromItems(Blocks.GREEN_CARPET), part, DyeColor.GREEN);
+        addColorRecipe(consumer, Ingredient.fromItems(Blocks.RED_CARPET), part, DyeColor.RED);
+        addColorRecipe(consumer, Ingredient.fromItems(Blocks.BLACK_CARPET), part, DyeColor.BLACK);
+    }
+
+    private void addColorRecipe(Consumer<IFinishedRecipe> consumer, Ingredient addition, ColorPart part, DyeColor dyeColor) {
+        ColorRecipeBuilder.colorRecipe(Ingredient.fromItems(ModItems.LASER_BLADE), addition, part, dyeColor)
+                .addCriterion("has_laser_blade", hasItem(ModItems.LASER_BLADE))
+                .build(consumer, "tolaserblade:color/laser_blade_" + part.getPartName() + "_" + dyeColor.getTranslationKey());
+        ColorRecipeBuilder.colorRecipe(Ingredient.fromItems(ModItems.LASER_BLADE_FP), addition, part, dyeColor)
+                .addCriterion("has_laser_blade_fp", hasItem(ModItems.LASER_BLADE))
+                .build(consumer, "tolaserblade:color/laser_blade_fp_" + part.getPartName() + "_" + dyeColor.getTranslationKey());
     }
 }

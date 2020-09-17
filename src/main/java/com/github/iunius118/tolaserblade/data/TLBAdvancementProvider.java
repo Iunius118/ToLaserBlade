@@ -1,8 +1,9 @@
 package com.github.iunius118.tolaserblade.data;
 
 import com.github.iunius118.tolaserblade.enchantment.ModEnchantments;
-import com.github.iunius118.tolaserblade.item.LaserBladeItemBase;
 import com.github.iunius118.tolaserblade.item.ModItems;
+import com.github.iunius118.tolaserblade.laserblade.LaserBladePerformance;
+import com.github.iunius118.tolaserblade.laserblade.LaserBladeStack;
 import com.google.common.collect.Sets;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
@@ -19,7 +20,6 @@ import net.minecraft.data.IDataProvider;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
 import net.minecraft.item.Items;
 import net.minecraft.item.SwordItem;
 import net.minecraft.nbt.CompoundNBT;
@@ -45,7 +45,7 @@ public class TLBAdvancementProvider implements IDataProvider {
     protected void registerAdvancements(Consumer<Advancement> consumer) {
         // Main root
         Advancement root = Advancement.Builder.builder()
-                .withDisplay(ModItems.LASER_BLADE.setGripColor(new ItemStack(ModItems.LASER_BLADE), LaserBladeItemBase.LBColor.GRAY.getGripColor()),
+                .withDisplay(LaserBladeStack.ICON.getCopy(),
                         new TranslationTextComponent("advancements.tolaserblade.main.root.title"),
                         new TranslationTextComponent("advancements.tolaserblade.main.root.description"),
                         new ResourceLocation("textures/block/polished_andesite.png"),
@@ -169,6 +169,9 @@ public class TLBAdvancementProvider implements IDataProvider {
                         null,
                         frameType, true, true, false)
                 .withRequirementsStrategy(IRequirementsStrategy.OR);
+        int maxAtk = (int)LaserBladePerformance.AttackPerformance.MOD_ATK_CRITICAL_BONUS;
+        String tagAtk = LaserBladePerformance.AttackPerformance.KEY_ATK;
+
         for (Item item : requirements) {
             String itemName = item.getRegistryName().getPath();
             int baseDamage = 1;
@@ -177,9 +180,9 @@ public class TLBAdvancementProvider implements IDataProvider {
                 baseDamage += ((SwordItem)item).getAttackDamage();
             }
 
-            for (int i = attackDamage - baseDamage; i >= 0 && i <= LaserBladeItemBase.MOD_ATK_CLASS_5; i++) {
+            for (int i = attackDamage - baseDamage; i >= 0 && i <= maxAtk; i++) {
                 CompoundNBT nbt = new CompoundNBT();
-                nbt.putFloat(LaserBladeItemBase.KEY_ATK, (float) i);
+                nbt.putFloat(tagAtk, (float) i);
                 ItemPredicate itemPredicate = ItemPredicate.Builder.create()
                         .item(item)
                         .nbt(nbt)

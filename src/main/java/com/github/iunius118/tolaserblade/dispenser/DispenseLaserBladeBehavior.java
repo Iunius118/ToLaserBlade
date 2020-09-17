@@ -3,6 +3,8 @@ package com.github.iunius118.tolaserblade.dispenser;
 import com.github.iunius118.tolaserblade.ToLaserBladeConfig;
 import com.github.iunius118.tolaserblade.entity.LaserTrapEntity;
 import com.github.iunius118.tolaserblade.item.ModItems;
+import com.github.iunius118.tolaserblade.laserblade.LaserBlade;
+import com.github.iunius118.tolaserblade.laserblade.LaserBladeVisual;
 import com.github.iunius118.tolaserblade.util.LaserTrapPlayer;
 import net.minecraft.block.AbstractFurnaceBlock;
 import net.minecraft.block.DispenserBlock;
@@ -22,7 +24,6 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.server.ServerWorld;
-import org.apache.commons.lang3.tuple.Pair;
 
 import java.util.List;
 import java.util.function.Predicate;
@@ -33,11 +34,11 @@ public class DispenseLaserBladeBehavior implements IDispenseItemBehavior {
             EntityPredicates.NOT_SPECTATING
                     .and(EntityPredicates.IS_ALIVE)
                     .and(Entity::canBeCollidedWith)
-                    .and(entity -> ToLaserBladeConfig.COMMON.canLaserTrapAttackPlayer.get() || !(entity instanceof PlayerEntity));
+                    .and(entity -> ToLaserBladeConfig.SERVER.canLaserTrapAttackPlayer.get() || !(entity instanceof PlayerEntity));
 
     @Override
     public ItemStack dispense(IBlockSource source, ItemStack stack) {
-        if (!ToLaserBladeConfig.COMMON.isEnabledLaserTrap.get()) {
+        if (!ToLaserBladeConfig.SERVER.isEnabledLaserTrap.get()) {
             return DEFAULT_ITEM_BEHAVIOR.dispense(source, stack);
         }
 
@@ -50,7 +51,7 @@ public class DispenseLaserBladeBehavior implements IDispenseItemBehavior {
             BlockPos targetPos = pos.offset(dir);
             TileEntity tile = world.getTileEntity(targetPos);
 
-            if (ToLaserBladeConfig.COMMON.canLaserTrapHeatUpFurnace.get() && tile instanceof AbstractFurnaceTileEntity) {
+            if (ToLaserBladeConfig.SERVER.canLaserTrapHeatUpFurnace.get() && tile instanceof AbstractFurnaceTileEntity) {
                 heatFurnace((AbstractFurnaceTileEntity)tile, stack);
             } else {
                 attackEntities(serverWorld, pos, dir, stack);
@@ -95,9 +96,10 @@ public class DispenseLaserBladeBehavior implements IDispenseItemBehavior {
         laserTrapPlayer.remove();
 
         // Spawn laser entity for laser effect
-        Pair<Integer, Boolean> bladeColor = ModItems.LASER_BLADE.getBladeOuterColor(stack);
-        int outerColor = ModItems.LASER_BLADE.checkGamingColor(bladeColor.getLeft());
-        outerColor = (bladeColor.getRight() ? ~outerColor : outerColor) | 0xFF000000;
+        LaserBladeVisual visual = LaserBlade.visualOf(stack);
+        LaserBladeVisual.PartColor outerPartColor = visual.getOuterColor();
+        int outerColor = outerPartColor.color;
+        outerColor = (outerPartColor.isSubtractColor ? ~outerColor : outerColor) | 0xFF000000;
 
         LaserTrapEntity laserTrapEntity = new LaserTrapEntity(world, targetPos, dir, outerColor);
         world.addEntity(laserTrapEntity);

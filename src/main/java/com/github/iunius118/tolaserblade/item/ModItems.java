@@ -8,6 +8,11 @@ public class ModItems {
     // DX Laser B1ade
     public static final DXLaserBladeItem DX_LASER_BLADE = null;
 
+    // Brand-new Laser Blade
+    public static final LBBrandNewItem LB_BRAND_NEW = null;
+    public static final LBBrandNewItem LB_BRAND_NEW_1 = null;
+    public static final LBBrandNewItem LB_BRAND_NEW_2 = null;
+    public static final LBBrandNewItem LB_BRAND_NEW_FP = null;
     // Laser Blade
     public static final LaserBladeItem LASER_BLADE = null;
     public static final LaserBladeItem LASER_BLADE_FP = null;

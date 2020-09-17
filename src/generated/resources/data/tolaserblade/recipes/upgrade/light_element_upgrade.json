@@ -1,0 +1,12 @@
+{
+  "type": "tolaserblade:upgrade",
+  "base": {
+    "item": "tolaserblade:laser_blade"
+  },
+  "addition": {
+    "tag": "tolaserblade:upgrade/light_element"
+  },
+  "result": {
+    "type": "tolaserblade:upgrade/light_element"
+  }
+}

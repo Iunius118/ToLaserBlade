@@ -93,7 +93,7 @@ public class LaserBladeItemBakedModel implements IBakedModel {
                     HandSide handSide = HandSide.RIGHT;
 
                     if (entityIn != null) {
-                        isBlocking = ToLaserBladeConfig.COMMON.isEnabledBlockingWithLaserBladeInServer.get() && entityIn.isHandActive();
+                        isBlocking = ToLaserBladeConfig.SERVER.isEnabledBlockingWithLaserBlade.get() && entityIn.isHandActive();
                         handSide = entityIn.getPrimaryHand();
                     }
 

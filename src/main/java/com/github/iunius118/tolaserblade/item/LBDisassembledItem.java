@@ -1,6 +1,10 @@
 package com.github.iunius118.tolaserblade.item;
 
-import com.github.iunius118.tolaserblade.item.upgrade.LaserBladeUpgrade;
+import com.github.iunius118.tolaserblade.laserblade.LaserBlade;
+import com.github.iunius118.tolaserblade.laserblade.LaserBladePerformance;
+import com.github.iunius118.tolaserblade.laserblade.LaserBladeStack;
+import com.github.iunius118.tolaserblade.laserblade.LaserBladeVisual;
+import com.github.iunius118.tolaserblade.laserblade.upgrade.Upgrade;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.DamageEnchantment;
 import net.minecraft.enchantment.Enchantment;
@@ -9,14 +13,15 @@ import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.item.ItemEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -24,14 +29,14 @@ import java.util.Map;
 
 public class LBDisassembledItem extends Item implements LaserBladeItemBase {
     public static Properties properties = (new Properties()).setNoRepair().group(ModMainItemGroup.ITEM_GROUP);
-    public final LaserBladeUpgrade.Type upgradeType = LaserBladeUpgrade.Type.REPAIR;
+    public final Upgrade.Type upgradeType = Upgrade.Type.REPAIR;
 
     public LBDisassembledItem(boolean isFireproof) {
         super(LaserBladeItemBase.setFireproof(properties, isFireproof));
     }
 
     @Override
-    public boolean canUpgrade(LaserBladeUpgrade.Type type) {
+    public boolean canUpgrade(Upgrade.Type type) {
         return false;
     }
 
@@ -49,70 +54,106 @@ public class LBDisassembledItem extends Item implements LaserBladeItemBase {
     }
 
     private void disassembleLaserBlade(World worldIn, PlayerEntity playerIn, ItemStack itemStack) {
-        ItemStack battery = new ItemStack(ModItems.LB_BATTERY);
-        ItemStack medium = new ItemStack(ModItems.LB_MEDIUM);
-        ItemStack emitter = new ItemStack(ModItems.LB_EMITTER);
-        ItemStack casing = new ItemStack(itemStack.getItem().isBurnable() ? ModItems.LB_CASING_FP : ModItems.LB_CASING);    // TODO: isBurnable = isFireproof?
+        ItemStack batteryStack = new ItemStack(ModItems.LB_BATTERY);
+        ItemStack mediumStack = new ItemStack(ModItems.LB_MEDIUM);
+        ItemStack emitterStack = new ItemStack(ModItems.LB_EMITTER);
+        ItemStack casingStack = new ItemStack(itemStack.getItem().isBurnable() ? ModItems.LB_CASING_FP : ModItems.LB_CASING);    // TODO: isBurnable = isFireproof?
+
+        LaserBlade laserBlade = LaserBlade.of(itemStack);
+        LaserBlade battery = LaserBlade.of(batteryStack);
+        LaserBlade medium = LaserBlade.of(mediumStack);
+        LaserBlade emitter = LaserBlade.of(emitterStack);
+        LaserBlade casing = LaserBlade.of(casingStack);
+
         Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(itemStack);
 
         // Process attacks
-        setLaserBladeSPD(battery, getLaserBladeSPD(itemStack));
-        setLaserBladeATK(medium, getLaserBladeATK(itemStack));
+        LaserBladePerformance.AttackPerformance laserBladeAttack = laserBlade.getAttackPerformance();
+        LaserBladePerformance.AttackPerformance batteryAttack = battery.getAttackPerformance();
+        LaserBladePerformance.AttackPerformance mediumAttack = medium.getAttackPerformance();
+
+        batteryAttack.changeSpeedSafely(laserBladeAttack.speed);
+        mediumAttack.changeDamageSafely(laserBladeAttack.damage);
 
         // Process enchantments
         enchantments.forEach((enchantment, lvl) -> {
             if (enchantment == Enchantments.EFFICIENCY) {
-                battery.addEnchantment(enchantment, lvl);
+                batteryStack.addEnchantment(enchantment, lvl);
 
             } else if (enchantment instanceof DamageEnchantment) {
-                medium.addEnchantment(enchantment, lvl);
+                mediumStack.addEnchantment(enchantment, lvl);
 
             } else if (enchantment == Enchantments.FIRE_ASPECT ||
                     enchantment == Enchantments.SWEEPING ||
                     enchantment == Enchantments.KNOCKBACK ) {
-                emitter.addEnchantment(enchantment, lvl);
+                emitterStack.addEnchantment(enchantment, lvl);
 
             } else if (enchantment == Enchantments.VANISHING_CURSE) {
-                battery.addEnchantment(enchantment, lvl);
-                medium.addEnchantment(enchantment, lvl);
-                emitter.addEnchantment(enchantment, lvl);
-                casing.addEnchantment(enchantment, lvl);
+                batteryStack.addEnchantment(enchantment, lvl);
+                mediumStack.addEnchantment(enchantment, lvl);
+                emitterStack.addEnchantment(enchantment, lvl);
+                casingStack.addEnchantment(enchantment, lvl);
 
             } else {
-                casing.addEnchantment(enchantment, lvl);
+                casingStack.addEnchantment(enchantment, lvl);
             }
         });
 
         // Process colors
-        Pair<Integer, Boolean> outerColor = getBladeOuterColor(itemStack);
-        setBladeOuterColor(medium, outerColor.getLeft());
-        setBladeOuterSubColorFlag(medium, outerColor.getRight());
+        LaserBladeVisual laserBladeVisual = laserBlade.getVisual();
+        LaserBladeVisual mediumVisual = medium.getVisual();
+        LaserBladeVisual emitterVisual = emitter.getVisual();
+        LaserBladeVisual casingVisual = casing.getVisual();
 
-        Pair<Integer, Boolean> innerColor = getBladeInnerColor(itemStack);
-        setBladeInnerColor(emitter, innerColor.getLeft());
-        setBladeInnerSubColorFlag(emitter, innerColor.getRight());
+        LaserBladeVisual.PartColor laserBladeOuterColor = laserBladeVisual.getOuterColor();
+        LaserBladeVisual.PartColor laserBladeInnerColor = laserBladeVisual.getInnerColor();
+        LaserBladeVisual.PartColor laserBladeGripColor = laserBladeVisual.getGripColor();
 
-        setGripColor(casing, getGripColor(itemStack));
+        LaserBladeVisual.PartColor mediumOuterColor = mediumVisual.getOuterColor();
+        LaserBladeVisual.PartColor emitterInnerColor = emitterVisual.getInnerColor();
+        LaserBladeVisual.PartColor casingGripColor = casingVisual.getGripColor();
+
+        mediumOuterColor.color = laserBladeOuterColor.color;
+        mediumOuterColor.isSubtractColor = laserBladeOuterColor.isSubtractColor;
+
+        emitterInnerColor.color = laserBladeInnerColor.color;
+        emitterInnerColor.isSubtractColor = laserBladeInnerColor.isSubtractColor;
+
+        casingGripColor.color = laserBladeGripColor.color;
 
         // Process display name
         if (itemStack.hasDisplayName()) {
-            casing.setDisplayName(itemStack.getDisplayName());
+            casingStack.setDisplayName(itemStack.getDisplayName());
         }
+
+        // Write to stack
+        battery.write(batteryStack);
+        medium.write(mediumStack);
+        emitter.write(emitterStack);
+        casing.write(casingStack);
 
         // Drop items
-        dropItem(battery, playerIn);
-        dropItem(medium, playerIn);
-        dropItem(emitter, playerIn);
-        dropItem(casing, playerIn);
-
-        if (!playerIn.abilities.isCreativeMode) {
-            dropItem(new ItemStack(ModItems.LB_BLUEPRINT), playerIn);
-        }
+        dropItem(batteryStack, playerIn);
+        dropItem(mediumStack, playerIn);
+        dropItem(emitterStack, playerIn);
+        dropItem(casingStack, playerIn);
     }
 
     private void dropItem(ItemStack itemStack, PlayerEntity playerIn) {
         ItemEntity itemEntity = new ItemEntity(playerIn.world, playerIn.getPosX(), playerIn.getPosY() + 0.5, playerIn.getPosZ(), itemStack);
         playerIn.world.addEntity(itemEntity);
+    }
+
+    @Override
+    public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
+        super.fillItemGroup(group, items);
+        if (group != ModMainItemGroup.ITEM_GROUP) return;
+
+        if (isBurnable()) { // TODO: isBurnable = isNotBurnable?
+            items.add(LaserBladeStack.DISASSEMBLED_FULL_MOD_FP.getCopy());
+        } else {
+            items.add(LaserBladeStack.DISASSEMBLED_FULL_MOD.getCopy());
+        }
     }
 
     @Override

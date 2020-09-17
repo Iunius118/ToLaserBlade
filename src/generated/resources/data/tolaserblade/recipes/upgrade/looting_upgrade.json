@@ -1,0 +1,12 @@
+{
+  "type": "tolaserblade:upgrade",
+  "base": {
+    "item": "tolaserblade:laser_blade"
+  },
+  "addition": {
+    "tag": "tolaserblade:upgrade/looting"
+  },
+  "result": {
+    "type": "tolaserblade:upgrade/looting"
+  }
+}
