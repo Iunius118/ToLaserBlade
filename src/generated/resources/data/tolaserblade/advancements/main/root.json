@@ -2,7 +2,7 @@
   "display": {
     "icon": {
       "item": "tolaserblade:laser_blade",
-      "nbt": "{colorG:-12103854,Damage:0}"
+      "nbt": "{isSubC:0b,isSubH:0b,colorG:-6447721,colorH:-65536,Damage:0,colorC:-1}"
     },
     "title": {
       "translate": "advancements.tolaserblade.main.root.title"

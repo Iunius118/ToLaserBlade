@@ -1,0 +1,13 @@
+{
+  "type": "tolaserblade:color",
+  "base": {
+    "item": "tolaserblade:laser_blade"
+  },
+  "addition": {
+    "item": "minecraft:brown_carpet"
+  },
+  "result": {
+    "part": "grip",
+    "color": "brown"
+  }
+}

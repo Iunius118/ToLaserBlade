@@ -1,0 +1,13 @@
+{
+  "type": "tolaserblade:color",
+  "base": {
+    "item": "tolaserblade:laser_blade"
+  },
+  "addition": {
+    "tag": "forge:glass/light_blue"
+  },
+  "result": {
+    "part": "outer_blade",
+    "color": "light_blue"
+  }
+}
