@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:smithing",
+  "base": {
+    "item": "tolaserblade:lb_broken_fp"
+  },
+  "addition": {
+    "tag": "tolaserblade:casing_repair"
+  },
+  "result": {
+    "item": "tolaserblade:lb_brand_new_fp"
+  }
+}

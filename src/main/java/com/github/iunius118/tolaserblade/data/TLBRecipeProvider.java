@@ -4,6 +4,7 @@ import com.github.iunius118.tolaserblade.item.ModItems;
 import com.github.iunius118.tolaserblade.laserblade.ColorPart;
 import com.github.iunius118.tolaserblade.laserblade.upgrade.Upgrade;
 import com.github.iunius118.tolaserblade.laserblade.upgrade.UpgradeManager;
+import com.github.iunius118.tolaserblade.tags.ModItemTags;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.*;
 import net.minecraft.item.DyeColor;
@@ -59,7 +60,13 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
                 .build(consumer, ModItems.LB_BRAND_NEW_2.getRegistryName());
 
         // Netherite Laser Blade by using Smithing Table
-        addSmithingRecipe(Ingredient.fromItems(ModItems.LASER_BLADE), Ingredient.fromItems(Items.NETHERITE_INGOT), ModItems.LASER_BLADE_FP, Items.NETHERITE_INGOT, consumer);
+        addSmithingRecipe(Ingredient.fromItems(ModItems.LASER_BLADE), Ingredient.fromItems(Items.NETHERITE_INGOT), ModItems.LB_BRAND_NEW_FP, Items.NETHERITE_INGOT, consumer);
+
+        // Repair recipes
+        addSmithingRepairRecipe(ModItems.LASER_BLADE, Ingredient.fromTag(ModItemTags.CASING_REPAIR), ModItems.LB_BRAND_NEW, ModItems.LASER_BLADE, consumer);
+        addSmithingRepairRecipe(ModItems.LB_BROKEN, Ingredient.fromTag(ModItemTags.CASING_REPAIR), ModItems.LB_BRAND_NEW, ModItems.LB_BROKEN, consumer);
+        addSmithingRepairRecipe(ModItems.LASER_BLADE_FP, Ingredient.fromTag(ModItemTags.CASING_REPAIR), ModItems.LB_BRAND_NEW_FP, ModItems.LASER_BLADE_FP, consumer);
+        addSmithingRepairRecipe(ModItems.LB_BROKEN_FP, Ingredient.fromTag(ModItemTags.CASING_REPAIR), ModItems.LB_BRAND_NEW_FP, ModItems.LB_BROKEN_FP, consumer);
 
         // Upgrade Recipes
         addUpgradeRecipes(consumer);
@@ -78,6 +85,13 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
         SmithingRecipeBuilder.func_240502_a_(base, addition, result)
                 .func_240503_a_("has_" + criterionItem.getRegistryName().getPath(), hasItem(criterionItem))
                 .func_240504_a_(consumer, result.getRegistryName().toString() + "_smithing");
+    }
+
+    private void addSmithingRepairRecipe(Item base, Ingredient addition, Item result, Item criterionItem, Consumer<IFinishedRecipe> consumer) {
+        // TODO: func_240502_a_ = smithingRecipe, func_240503_a_ = addCriterion, func_240504_a_ = build
+        SmithingRecipeBuilder.func_240502_a_(Ingredient.fromItems(base), addition, result)
+                .func_240503_a_("has_" + criterionItem.getRegistryName().getPath(), hasItem(criterionItem))
+                .func_240504_a_(consumer, base.getRegistryName().toString() + "_repair_smithing");
     }
 
     private void addUpgradeRecipes(Consumer<IFinishedRecipe> consumer) {
