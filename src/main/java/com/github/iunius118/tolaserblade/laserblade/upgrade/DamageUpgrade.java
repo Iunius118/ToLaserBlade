@@ -15,7 +15,7 @@ public class DamageUpgrade extends Upgrade {
     public boolean test(ItemStack base, ItemStack addition) {
         final LaserBlade laserBlade = LaserBlade.of(base);
         final LaserBladePerformance.AttackPerformance attack = laserBlade.getAttackPerformance();
-        float maxUpgradeCount = (float)ToLaserBladeConfig.COMMON.maxAttackDamageUpgradeCountInServer.get();
+        float maxUpgradeCount = (float)ToLaserBladeConfig.SERVER.maxAttackDamageUpgradeCount.get();
         return attack.damage < maxUpgradeCount;
     }
 
@@ -24,7 +24,7 @@ public class DamageUpgrade extends Upgrade {
         int cost = baseCost;
         final LaserBlade laserBlade = LaserBlade.of(base);
         final LaserBladePerformance.AttackPerformance attack = laserBlade.getAttackPerformance();
-        float maxUpgradeCount = (float)ToLaserBladeConfig.COMMON.maxAttackDamageUpgradeCountInServer.get();
+        float maxUpgradeCount = (float)ToLaserBladeConfig.SERVER.maxAttackDamageUpgradeCount.get();
 
         if (attack.damage < maxUpgradeCount) {
             attack.changeDamageSafely(Math.min(attack.damage + 1.0F, maxUpgradeCount));

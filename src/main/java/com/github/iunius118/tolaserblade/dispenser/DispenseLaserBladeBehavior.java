@@ -34,11 +34,11 @@ public class DispenseLaserBladeBehavior implements IDispenseItemBehavior {
             EntityPredicates.NOT_SPECTATING
                     .and(EntityPredicates.IS_ALIVE)
                     .and(Entity::canBeCollidedWith)
-                    .and(entity -> ToLaserBladeConfig.COMMON.canLaserTrapAttackPlayer.get() || !(entity instanceof PlayerEntity));
+                    .and(entity -> ToLaserBladeConfig.SERVER.canLaserTrapAttackPlayer.get() || !(entity instanceof PlayerEntity));
 
     @Override
     public ItemStack dispense(IBlockSource source, ItemStack stack) {
-        if (!ToLaserBladeConfig.COMMON.isEnabledLaserTrap.get()) {
+        if (!ToLaserBladeConfig.SERVER.isEnabledLaserTrap.get()) {
             return DEFAULT_ITEM_BEHAVIOR.dispense(source, stack);
         }
 
@@ -51,7 +51,7 @@ public class DispenseLaserBladeBehavior implements IDispenseItemBehavior {
             BlockPos targetPos = pos.offset(dir);
             TileEntity tile = world.getTileEntity(targetPos);
 
-            if (ToLaserBladeConfig.COMMON.canLaserTrapHeatUpFurnace.get() && tile instanceof AbstractFurnaceTileEntity) {
+            if (ToLaserBladeConfig.SERVER.canLaserTrapHeatUpFurnace.get() && tile instanceof AbstractFurnaceTileEntity) {
                 heatFurnace((AbstractFurnaceTileEntity)tile, stack);
             } else {
                 attackEntities(serverWorld, pos, dir, stack);

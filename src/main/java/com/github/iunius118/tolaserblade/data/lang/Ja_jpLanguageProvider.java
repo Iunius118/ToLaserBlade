@@ -70,12 +70,12 @@ public class Ja_jpLanguageProvider extends LanguageProvider {
         add("advancements.tolaserblade.main.laser_blade_fp.description", "レーザーブレイドをネザライトインゴットで強化する");
 
         // Configs
-        add("tolaserblade.configgui.common.enableBlockingWithLaserBlade", "レーザーブレイドによる防御を有効にする");
-        add("tolaserblade.configgui.common.laserBladeEfficiency", "レーザーブレイドの採掘速度 (0–128)");
-        add("tolaserblade.configgui.common.maxAttackDamageUpgradeCount", "攻撃力の最大強化回数 (0–39)");
-        add("tolaserblade.configgui.common.enableLaserTrap", "レーザートラップを有効にする");
-        add("tolaserblade.configgui.common.canLaserTrapAttackPlayer", "レーザートラップがプレイヤーへ攻撃可能か");
-        add("tolaserblade.configgui.common.canLaserTrapHeatUpFurnace", "レーザートラップがかまどを加熱可能か");
+        add("tolaserblade.configgui.server.enableBlockingWithLaserBlade", "レーザーブレイドによる防御を有効にする");
+        add("tolaserblade.configgui.server.laserBladeEfficiency", "レーザーブレイドの採掘速度 (0–128)");
+        add("tolaserblade.configgui.server.maxAttackDamageUpgradeCount", "攻撃力の最大強化回数 (0–39)");
+        add("tolaserblade.configgui.server.enableLaserTrap", "レーザートラップを有効にする");
+        add("tolaserblade.configgui.server.canLaserTrapAttackPlayer", "レーザートラップがプレイヤーへ攻撃可能か");
+        add("tolaserblade.configgui.server.canLaserTrapHeatUpFurnace", "レーザートラップがかまどを加熱可能か");
 
         add("tolaserblade.configgui.client.showUpdateMessage", "アップデートの通知を表示する");
         add("tolaserblade.configgui.client.useFixedVertexBuffer", "Fixed Vertex Bufferを使用する");

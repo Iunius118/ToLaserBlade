@@ -1,48 +1,34 @@
 package com.github.iunius118.tolaserblade;
 
-import com.github.iunius118.tolaserblade.network.ServerConfigMessage;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
 import net.minecraftforge.common.ForgeConfigSpec.IntValue;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.network.PacketDistributor;
-import net.minecraftforge.fml.server.ServerLifecycleHooks;
 import org.apache.commons.lang3.tuple.Pair;
-
-import java.util.function.Supplier;
 
 
 public class ToLaserBladeConfig {
-    public static class Common {
+    public static class Server {
         public final BooleanValue isEnabledBlockingWithLaserBlade;
-        public Supplier<Boolean> isEnabledBlockingWithLaserBladeInServer;
-
         public final IntValue laserBladeEfficiency;
-        public Supplier<Integer> laserBladeEfficiencyInServer;
-
         public final IntValue maxAttackDamageUpgradeCount;
-        public Supplier<Integer> maxAttackDamageUpgradeCountInServer;
-
-        // These values are not synced with client
         public final BooleanValue isEnabledLaserTrap;
         public final BooleanValue canLaserTrapAttackPlayer;
         public final BooleanValue canLaserTrapHeatUpFurnace;
 
-        Common(ForgeConfigSpec.Builder builder) {
-            builder.comment("ToLaserBlade's common settings.").push("common");
+        Server(ForgeConfigSpec.Builder builder) {
+            builder.comment("ToLaserBlade's game server side settings.").push("server");
 
             isEnabledBlockingWithLaserBlade = builder
                     .comment("Enable blocking with Laser Blade.\n" +
                             "Default: false")
-                    .translation("tolaserblade.configgui.common.enableBlockingWithLaserBlade")
+                    .translation("tolaserblade.configgui.server.enableBlockingWithLaserBlade")
                     .define("enableBlockingWithLaserBlade", false);
 
             laserBladeEfficiency = builder
                     .comment("An integer value (0-128) that is a factor of mining speed of Laser Blade.\n" +
                             "Default: 12")
-                    .translation("tolaserblade.configgui.common.laserBladeEfficiencyInServer")
-                    .defineInRange("laserBladeEfficiencyInServer", 12, 0, 128);
+                    .translation("tolaserblade.configgui.server.laserBladeEfficiency")
+                    .defineInRange("laserBladeEfficiency", 12, 0, 128);
 
             maxAttackDamageUpgradeCount = builder
                     .comment("An integer value (0-39) that is maximum count of attack damage upgrade of Laser Blade.\n" +
@@ -50,25 +36,25 @@ public class ToLaserBladeConfig {
                             "  Making the advancement [It's Over 9] requires 3 or more.\n" +
                             "  Similarly, [Beyond the Limit] requires 8 or more.\n" +
                             "Default: 8")
-                    .translation("tolaserblade.configgui.common.maxAttackDamageUpgradeCount")
+                    .translation("tolaserblade.configgui.server.maxAttackDamageUpgradeCount")
                     .defineInRange("maxAttackDamageUpgradeCount", 8, 0, 39);
 
             isEnabledLaserTrap = builder
                     .comment("Enable to attack with Laser Blade in Dispenser when the dispenser is activated.\n" +
                             "Default: true")
-                    .translation("tolaserblade.configgui.common.enableLaserTrap")
+                    .translation("tolaserblade.configgui.server.enableLaserTrap")
                     .define("enableLaserTrap", true);
 
             canLaserTrapAttackPlayer = builder
                     .comment("A boolean value represents whether laser trap can attack player or not. This setting is valid when enableLaserTrap is true.\n" +
                             "Default: false")
-                    .translation("tolaserblade.configgui.common.canLaserTrapAttackPlayer")
+                    .translation("tolaserblade.configgui.server.canLaserTrapAttackPlayer")
                     .define("canLaserTrapAttackPlayer", false);
 
             canLaserTrapHeatUpFurnace = builder
                     .comment("A boolean value represents whether laser trap with fireproof Laser Blade can heat up furnace or not. This setting is valid when enableLaserTrap is true.\n" +
                             "Default: true")
-                    .translation("tolaserblade.configgui.common.canLaserTrapHeatUpFurnace")
+                    .translation("tolaserblade.configgui.server.canLaserTrapHeatUpFurnace")
                     .define("canLaserTrapHeatUpFurnace", true);
 
             builder.pop();
@@ -124,18 +110,13 @@ public class ToLaserBladeConfig {
         }
     }
 
-    static final ForgeConfigSpec commonSpec;
-    public static final Common COMMON;
+    static final ForgeConfigSpec serverSpec;
+    public static final Server SERVER;
 
     static {
-        final Pair<Common, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Common::new);
-        commonSpec = specPair.getRight();
-        COMMON = specPair.getLeft();
-
-        // Init server-side settings with local common settings
-        COMMON.isEnabledBlockingWithLaserBladeInServer = COMMON.isEnabledBlockingWithLaserBlade::get;
-        COMMON.laserBladeEfficiencyInServer = COMMON.laserBladeEfficiency::get;
-        COMMON.maxAttackDamageUpgradeCountInServer = COMMON.maxAttackDamageUpgradeCount::get;
+        final Pair<Server, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Server::new);
+        serverSpec = specPair.getRight();
+        SERVER = specPair.getLeft();
     }
 
     static final ForgeConfigSpec clientSpec;
@@ -145,28 +126,5 @@ public class ToLaserBladeConfig {
         final Pair<Client, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Client::new);
         clientSpec = specPair.getRight();
         CLIENT = specPair.getLeft();
-    }
-
-    // Container for server-side config to make a synchronizing packet
-    public static class ServerConfig {
-        public boolean isEnabledBlockingWithLaserBladeInServer;
-        public int laserBladeEfficiencyInServer;
-        public int maxAttackDamageUpgradeCountInServer;
-
-        public ServerConfig() {
-            isEnabledBlockingWithLaserBladeInServer = COMMON.isEnabledBlockingWithLaserBlade.get();
-            laserBladeEfficiencyInServer = COMMON.laserBladeEfficiency.get();
-            maxAttackDamageUpgradeCountInServer = COMMON.maxAttackDamageUpgradeCount.get();
-        }
-    }
-
-    @SubscribeEvent
-    public static void onFileChange(final ModConfig.Reloading configEvent) {
-        if (configEvent.getConfig().getType() == ModConfig.Type.COMMON
-                && ServerLifecycleHooks.getCurrentServer() != null) {
-            // Send server-side settings to clients
-            ServerConfig serverConfig = new ServerConfig();
-            ToLaserBlade.NETWORK_HANDLER.getConfigChannel().send(PacketDistributor.ALL.noArg(), new ServerConfigMessage(serverConfig));
-        }
     }
 }

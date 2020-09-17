@@ -70,12 +70,12 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
 
     @Override
     public boolean isShield(ItemStack stack, @Nullable LivingEntity entity) {
-        return ToLaserBladeConfig.COMMON.isEnabledBlockingWithLaserBladeInServer.get();
+        return ToLaserBladeConfig.SERVER.isEnabledBlockingWithLaserBlade.get();
     }
 
     @Override
     public UseAction getUseAction(ItemStack stack) {
-        if (ToLaserBladeConfig.COMMON.isEnabledBlockingWithLaserBladeInServer.get()) {
+        if (ToLaserBladeConfig.SERVER.isEnabledBlockingWithLaserBlade.get()) {
             return UseAction.BLOCK;
         } else {
             return UseAction.NONE;
@@ -85,7 +85,7 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
 
     @Override
     public int getUseDuration(ItemStack stack) {
-        if (ToLaserBladeConfig.COMMON.isEnabledBlockingWithLaserBladeInServer.get()) {
+        if (ToLaserBladeConfig.SERVER.isEnabledBlockingWithLaserBlade.get()) {
             return 72000;
         } else {
             return 0;
@@ -96,7 +96,7 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
     public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
         ItemStack itemstack = playerIn.getHeldItem(handIn);
 
-        if (ToLaserBladeConfig.COMMON.isEnabledBlockingWithLaserBladeInServer.get()) {
+        if (ToLaserBladeConfig.SERVER.isEnabledBlockingWithLaserBlade.get()) {
             UseAction offhandItemAction = playerIn.getHeldItemOffhand().getUseAction();
 
             if (offhandItemAction != UseAction.BOW && offhandItemAction != UseAction.SPEAR) {
@@ -282,7 +282,7 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
 
         @Override
         public float getEfficiency() {
-            return ToLaserBladeConfig.COMMON.laserBladeEfficiencyInServer.get();
+            return ToLaserBladeConfig.SERVER.laserBladeEfficiency.get();
         }
 
         @Override
