@@ -22,9 +22,6 @@ public class ModItemTags {
 
     public static final ITag.INamedTag<Item> CASING_REPAIR = makeWrapperTag("casing_repair");
 
-    // Tags only for crafting or smithing table
-    public static final ITag.INamedTag<Item> LB_DISASSEMBLER = makeWrapperTag("lb_disassembler");
-
     private static ITag.INamedTag<Item> makeWrapperTag(String id) {
         return ItemTags.makeWrapperTag(ToLaserBlade.MOD_ID + ":" + id);
     }

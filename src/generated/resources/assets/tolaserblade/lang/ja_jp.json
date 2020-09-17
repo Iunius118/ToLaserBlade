@@ -1,7 +1,7 @@
 {
   "advancements.tolaserblade.main.break_laser_blade.description": "\u30EC\u30FC\u30B6\u30FC\u30D6\u30EC\u30A4\u30C9\u3092\u4F7F\u3044\u5207\u308A\u3001\u305D\u3057\u3066\u2026",
   "advancements.tolaserblade.main.break_laser_blade.title": "\u8FD4\u54C1\u4EA4\u63DB",
-  "advancements.tolaserblade.main.dx_laser_blade.description": "DX\u30EC\u30FC\u30B6\u30FC\u30D6\u30EC\u4E00\u30C9\u3092\u5165\u624B\u3059\u308B\u3002\n\u5149\u308B\uFF01 \u9CF4\u308B\uFF01 (\u53584\u96FB\u6C60\u304C\u3042\u308C\u3070\u2026)",
+  "advancements.tolaserblade.main.dx_laser_blade.description": "DX\u30EC\u30FC\u30B6\u30FC\u30D6\u30EC\u4E00\u30C9\u3092\u5165\u624B\u3059\u308B\u3002\u5149\u308B\uFF01 \u9CF4\u308B\uFF01 (\u53584\u96FB\u6C60\u304C\u3042\u308C\u3070\u2026)",
   "advancements.tolaserblade.main.dx_laser_blade.title": "\u30EC\u30FC\u30B6\u30FC\u30D6\u30EC\u30A4\u30C9\uFF1F",
   "advancements.tolaserblade.main.laser_blade.description": "\u30EC\u30FC\u30B6\u30FC\u30D6\u30EC\u30A4\u30C9\u3092\u5165\u624B\u3059\u308B",
   "advancements.tolaserblade.main.laser_blade.title": "\u8D85\u53E4\u4EE3\u6280\u8853",
@@ -30,6 +30,7 @@
   "item.tolaserblade.lb_brand_new": "\u65B0\u54C1\u306E\u30EC\u30FC\u30B6\u30FC\u30D6\u30EC\u30A4\u30C9",
   "item.tolaserblade.lb_brand_new_1": "\u65B0\u54C1\u306E\u30EC\u30FC\u30B6\u30FC\u30D6\u30EC\u30A4\u30C9\u2160",
   "item.tolaserblade.lb_brand_new_2": "\u65B0\u54C1\u306E\u30EC\u30FC\u30B6\u30FC\u30D6\u30EC\u30A4\u30C9\u2161",
+  "item.tolaserblade.lb_brand_new_fp": "\u65B0\u54C1\u306E\u30EC\u30FC\u30B6\u30FC\u30D6\u30EC\u30A4\u30C9",
   "item.tolaserblade.lb_broken": "\u58CA\u308C\u305F\u30EC\u30FC\u30B6\u30FC\u30D6\u30EC\u30A4\u30C9",
   "item.tolaserblade.lb_broken_fp": "\u58CA\u308C\u305F\u30EC\u30FC\u30B6\u30FC\u30D6\u30EC\u30A4\u30C9",
   "item.tolaserblade.lb_casing": "\u30EC\u30FC\u30B6\u30FC\u30D6\u30EC\u30A4\u30C9\u306E\u5916\u88C5",

@@ -30,6 +30,7 @@ public class ClientEventHandler {
         event.getItemColors().register(new LaserBladeItem.ColorHandler(), ModItems.LB_BRAND_NEW);
         event.getItemColors().register(new LaserBladeItem.ColorHandler(), ModItems.LB_BRAND_NEW_1);
         event.getItemColors().register(new LaserBladeItem.ColorHandler(), ModItems.LB_BRAND_NEW_2);
+        event.getItemColors().register(new LaserBladeItem.ColorHandler(), ModItems.LB_BRAND_NEW_FP);
         event.getItemColors().register(new LaserBladeItem.ColorHandler(), ModItems.LB_BROKEN);
         event.getItemColors().register(new LaserBladeItem.ColorHandler(), ModItems.LB_BROKEN_FP);
         event.getItemColors().register(new LBEmitterItem.ColorHandler(), ModItems.LB_EMITTER);
@@ -59,6 +60,7 @@ public class ClientEventHandler {
         ModelResourceLocation lBBrandNewItemID = new ModelResourceLocation(ModItems.LB_BRAND_NEW.getRegistryName(), "inventory");
         ModelResourceLocation lBBrandNew1ItemID = new ModelResourceLocation(ModItems.LB_BRAND_NEW_1.getRegistryName(), "inventory");
         ModelResourceLocation lBBrandNew2ItemID = new ModelResourceLocation(ModItems.LB_BRAND_NEW_2.getRegistryName(), "inventory");
+        ModelResourceLocation lBBrandNewFPItemID = new ModelResourceLocation(ModItems.LB_BRAND_NEW_FP.getRegistryName(), "inventory");
         ModelResourceLocation lBBrokenItemID = new ModelResourceLocation(ModItems.LB_BROKEN.getRegistryName(), "inventory");
         ModelResourceLocation lBBrokenFPItemID = new ModelResourceLocation(ModItems.LB_BROKEN_FP.getRegistryName(), "inventory");
         LaserBladeItemBakedModel bakedModel = new LaserBladeItemBakedModel();
@@ -69,6 +71,7 @@ public class ClientEventHandler {
         event.getModelRegistry().put(lBBrandNewItemID, bakedModel);
         event.getModelRegistry().put(lBBrandNew1ItemID, bakedModel);
         event.getModelRegistry().put(lBBrandNew2ItemID, bakedModel);
+        event.getModelRegistry().put(lBBrandNewFPItemID, bakedModel);
         event.getModelRegistry().put(lBBrokenItemID, bakedModel);
         event.getModelRegistry().put(lBBrokenFPItemID, bakedModel);
     }

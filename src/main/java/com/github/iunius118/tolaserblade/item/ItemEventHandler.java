@@ -54,6 +54,7 @@ public class ItemEventHandler {
 
             if (brokenLaserBlade != null) {
                 brokenLaserBlade.setTag(original.getOrCreateTag().copy());
+                brokenLaserBlade.setDamage(0);
 
                 // Drop Broken Laser Blade
                 ItemEntity itemEntity = new ItemEntity(player.world, player.getPosX(), player.getPosY() + 0.5, player.getPosZ(), brokenLaserBlade);

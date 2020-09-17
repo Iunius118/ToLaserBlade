@@ -4,6 +4,7 @@ import com.github.iunius118.tolaserblade.client.renderer.LBBrandNewItemRenderer;
 import com.github.iunius118.tolaserblade.laserblade.LaserBlade;
 import com.github.iunius118.tolaserblade.laserblade.LaserBladeStack;
 import com.github.iunius118.tolaserblade.laserblade.LaserBladeVisual;
+import com.github.iunius118.tolaserblade.laserblade.upgrade.Upgrade;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
@@ -24,13 +25,13 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class LBBrandNewItem extends Item {
+public class LBBrandNewItem extends Item implements LaserBladeItemBase {
     public static Properties properties = (new Item.Properties()).setNoRepair().group(ModMainItemGroup.ITEM_GROUP).setISTER(() -> LBBrandNewItemRenderer::new);
 
     private final Type type;
 
-    public LBBrandNewItem(Type typeIn) {
-        super(properties);
+    public LBBrandNewItem(Type typeIn, boolean isFireproof) {
+        super(LaserBladeItemBase.setFireproof(properties, isFireproof));
         type = typeIn;
     }
 
@@ -49,11 +50,12 @@ public class LBBrandNewItem extends Item {
     private void getLaserBlade(World worldIn, PlayerEntity playerIn, Hand handIn, ItemStack itemStack) {
         ItemStack laserBladeStack;
 
-        if (type == Type.NONE) {
+        if (type == Type.NONE || type == Type.FP) {
             // Copy NBT tag to Laser Blade. This is for customized recipe
             laserBladeStack = type.getCopy();
             CompoundNBT tag = itemStack.getOrCreateTag();
             laserBladeStack.setTag(tag);
+            laserBladeStack.setDamage(0);
         } else {
             laserBladeStack = getPresetLaserBlade(worldIn, playerIn, itemStack);
         }
@@ -95,21 +97,19 @@ public class LBBrandNewItem extends Item {
     @OnlyIn(Dist.CLIENT)
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
-        boolean isFireproof = stack.getItem().isBurnable(); // TODO: isBurnable = isFireproof?
-
-        if (isFireproof) {
-            tooltip.add(new TranslationTextComponent(LaserBladeItemBase.KEY_TOOLTIP_ATTACK_DAMAGE).mergeStyle(TextFormatting.GOLD));
-        }
 
         tooltip.add(new TranslationTextComponent("tooltip.tolaserblade.brandNew1").mergeStyle(TextFormatting.YELLOW));
         tooltip.add(new TranslationTextComponent("tooltip.tolaserblade.brandNew2").mergeStyle(TextFormatting.YELLOW));
         tooltip.add(new TranslationTextComponent("tooltip.tolaserblade.brandNew3").mergeStyle(TextFormatting.YELLOW));
+
+        addLaserBladeInformation(stack, worldIn, tooltip, flagIn, Upgrade.Type.REPAIR);
     }
 
     public enum Type {
         NONE(LaserBladeStack.ORIGINAL),
         LIGHT_ELEMENT_1(LaserBladeStack.LIGHT_ELEMENT_1),
-        LIGHT_ELEMENT_2(LaserBladeStack.LIGHT_ELEMENT_2);
+        LIGHT_ELEMENT_2(LaserBladeStack.LIGHT_ELEMENT_2),
+        FP(LaserBladeStack.FP);
 
         private final LaserBladeStack original;
 

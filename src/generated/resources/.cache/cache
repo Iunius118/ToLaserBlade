@@ -1,5 +1,5 @@
-9ce666d89c5113b48b3081833d989867b2b94975 assets/tolaserblade/lang/en_us.json
-c2fc9435b88837d1045560e495c3b5f4b3f80e5a assets/tolaserblade/lang/ja_jp.json
+0f273424361110d906dba63d3e5f0e3b5ba53a24 assets/tolaserblade/lang/en_us.json
+623c721bc82981f91738ed7992dbc43e6c910694 assets/tolaserblade/lang/ja_jp.json
 e0eaa914a8a91cf20cb62b32fd9fd51254b6a2bd assets/tolaserblade/models/item/dx_laser_blade.json
 85f3df20474562e0a427e1b88e50f6356b39b285 assets/tolaserblade/models/item/laser_blade.json
 ad2e5aef0ff405b6e60bacced08024c2c380c8e0 assets/tolaserblade/models/item/laser_blade_fp.json
@@ -9,6 +9,7 @@ b35066503a592ccb40f849c7281c5d026e994f21 assets/tolaserblade/models/item/lb_batt
 965c72045d13c9cc2d3cb63bbb93161ef2cc9eca assets/tolaserblade/models/item/lb_brand_new.json
 965c72045d13c9cc2d3cb63bbb93161ef2cc9eca assets/tolaserblade/models/item/lb_brand_new_1.json
 965c72045d13c9cc2d3cb63bbb93161ef2cc9eca assets/tolaserblade/models/item/lb_brand_new_2.json
+965c72045d13c9cc2d3cb63bbb93161ef2cc9eca assets/tolaserblade/models/item/lb_brand_new_fp.json
 965c72045d13c9cc2d3cb63bbb93161ef2cc9eca assets/tolaserblade/models/item/lb_broken.json
 965c72045d13c9cc2d3cb63bbb93161ef2cc9eca assets/tolaserblade/models/item/lb_broken_fp.json
 0caa31ab970879d6a434dd3b0d2081423e4e6fbc assets/tolaserblade/models/item/lb_casing.json
@@ -266,7 +267,6 @@ caa0c429562b28d34e62e2858fa8849b9b2b169f data/tolaserblade/recipes/upgrade/speed
 92aa0e045e2e188bfdbfe82c8a0bee62e9aea068 data/tolaserblade/recipes/upgrade/sweeping_edge_fp_upgrade.json
 9e52114a7b7574317b82f09e119e2d4b1ba0d97a data/tolaserblade/recipes/upgrade/sweeping_edge_upgrade.json
 180fd33e868993db8e2c3116b2b979229cc3bc85 data/tolaserblade/tags/items/casing_repair.json
-2d4eea414eff577921e969a0996506cd420d716e data/tolaserblade/tags/items/lb_disassembler.json
 c0787879296b48c4d316ff9e1b2012c137cacff1 data/tolaserblade/tags/items/upgrade/damage.json
 5288b8a638bad13d379cbe58520375f5cddfe1ca data/tolaserblade/tags/items/upgrade/efficiency.json
 23f195da7be3dd7f3a97e2df2998cc82c4c6f7f6 data/tolaserblade/tags/items/upgrade/efficiency_remover.json

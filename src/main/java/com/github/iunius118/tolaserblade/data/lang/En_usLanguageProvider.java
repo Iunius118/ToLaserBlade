@@ -24,6 +24,7 @@ public class En_usLanguageProvider extends LanguageProvider {
         add(ModItems.LB_BRAND_NEW, "Brand-new Laser Blade");
         add(ModItems.LB_BRAND_NEW_1, "Brand-new Laser Blade I");
         add(ModItems.LB_BRAND_NEW_2, "Brand-new Laser Blade II");
+        add(ModItems.LB_BRAND_NEW_FP, "Brand-new Laser Blade");
         add(ModItems.LB_BROKEN, "Broken Laser Blade");
         add(ModItems.LB_BROKEN_FP, "Broken Laser Blade");
         add(ModItems.LB_DISASSEMBLED, "Disassembled Laser Blade");
@@ -52,7 +53,7 @@ public class En_usLanguageProvider extends LanguageProvider {
         add("advancements.tolaserblade.main.root.title", "ToLaserBlade");
         add("advancements.tolaserblade.main.root.description", "Laser Blade is a tool used to cut through material, so any damage caused by using as a weapon is not covered by the warranty");
         add("advancements.tolaserblade.main.dx_laser_blade.title", "Laser Blade?");
-        add("advancements.tolaserblade.main.dx_laser_blade.description", "Obtain a DX Laser B1ade.\nIt could glow and sound—if you had some AAA batteries");
+        add("advancements.tolaserblade.main.dx_laser_blade.description", "Obtain a DX Laser B1ade. It could glow and sound—if you had some AAA batteries");
         add("advancements.tolaserblade.main.laser_blade.title", "Ancient Technology");
         add("advancements.tolaserblade.main.laser_blade.description", "Obtain a Laser Blade");
         add("advancements.tolaserblade.main.laser_blade_light_element_5.title", "Power of Light");

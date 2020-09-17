@@ -21,6 +21,7 @@ public class Ja_jpLanguageProvider extends LanguageProvider {
         add(ModItems.LB_BRAND_NEW, "新品のレーザーブレイド");
         add(ModItems.LB_BRAND_NEW_1, "新品のレーザーブレイドⅠ");
         add(ModItems.LB_BRAND_NEW_2, "新品のレーザーブレイドⅡ");
+        add(ModItems.LB_BRAND_NEW_FP, "新品のレーザーブレイド");
         add(ModItems.LB_BROKEN, "壊れたレーザーブレイド");
         add(ModItems.LB_BROKEN_FP, "壊れたレーザーブレイド");
         add(ModItems.LB_DISASSEMBLED, "分解したレーザーブレイド");
@@ -49,7 +50,7 @@ public class Ja_jpLanguageProvider extends LanguageProvider {
         add("advancements.tolaserblade.main.root.title", "ToLaserBlade");
         add("advancements.tolaserblade.main.root.description", "レーザーブレイドは切削用工具です。武器として使用した際に発生した損害は、すべて補償の対象外となります");
         add("advancements.tolaserblade.main.dx_laser_blade.title", "レーザーブレイド？");
-        add("advancements.tolaserblade.main.dx_laser_blade.description", "DXレーザーブレ一ドを入手する。\n光る！ 鳴る！ (単4電池があれば…)");
+        add("advancements.tolaserblade.main.dx_laser_blade.description", "DXレーザーブレ一ドを入手する。光る！ 鳴る！ (単4電池があれば…)");
         add("advancements.tolaserblade.main.laser_blade.title", "超古代技術");
         add("advancements.tolaserblade.main.laser_blade.description", "レーザーブレイドを入手する");
         add("advancements.tolaserblade.main.laser_blade_light_element_5.title", "光のチカラ");

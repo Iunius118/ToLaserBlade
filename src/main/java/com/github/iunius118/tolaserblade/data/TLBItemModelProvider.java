@@ -40,6 +40,7 @@ public class TLBItemModelProvider extends ItemModelProvider {
         registerChildModel(ModItems.LB_BRAND_NEW, gripModel);
         registerChildModel(ModItems.LB_BRAND_NEW_1, gripModel);
         registerChildModel(ModItems.LB_BRAND_NEW_2, gripModel);
+        registerChildModel(ModItems.LB_BRAND_NEW_FP, gripModel);
         registerChildModel(ModItems.LB_BROKEN, gripModel);
         registerChildModel(ModItems.LB_BROKEN_FP, gripModel);
 

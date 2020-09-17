@@ -1,7 +1,7 @@
 {
   "advancements.tolaserblade.main.break_laser_blade.description": "Completely use up a Laser Blade, and then...",
   "advancements.tolaserblade.main.break_laser_blade.title": "Returns and Exchanges",
-  "advancements.tolaserblade.main.dx_laser_blade.description": "Obtain a DX Laser B1ade.\nIt could glow and sound\u2014if you had some AAA batteries",
+  "advancements.tolaserblade.main.dx_laser_blade.description": "Obtain a DX Laser B1ade. It could glow and sound\u2014if you had some AAA batteries",
   "advancements.tolaserblade.main.dx_laser_blade.title": "Laser Blade?",
   "advancements.tolaserblade.main.laser_blade.description": "Obtain a Laser Blade",
   "advancements.tolaserblade.main.laser_blade.title": "Ancient Technology",
@@ -30,6 +30,7 @@
   "item.tolaserblade.lb_brand_new": "Brand-new Laser Blade",
   "item.tolaserblade.lb_brand_new_1": "Brand-new Laser Blade I",
   "item.tolaserblade.lb_brand_new_2": "Brand-new Laser Blade II",
+  "item.tolaserblade.lb_brand_new_fp": "Brand-new Laser Blade",
   "item.tolaserblade.lb_broken": "Broken Laser Blade",
   "item.tolaserblade.lb_broken_fp": "Broken Laser Blade",
   "item.tolaserblade.lb_casing": "Laser Blade Casing",
