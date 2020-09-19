@@ -39,7 +39,7 @@ public class Ja_jpLanguageProvider extends LanguageProvider {
         // item tooltip
         add("tooltip.tolaserblade.brandNew1", "手に持って右クリックで");
         add("tooltip.tolaserblade.brandNew2", "レーザーブレイドを入手");
-        add("tooltip.tolaserblade.brandNew3", "");
+        add("tooltip.tolaserblade.brandNew3", "できます");
 
         // Upgrade tooltip
         add(LaserBladeItemBase.KEY_TOOLTIP_ATTACK_DAMAGE, "レーザー出力 %s");
