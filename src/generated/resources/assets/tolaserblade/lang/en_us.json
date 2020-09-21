@@ -55,6 +55,7 @@
   "tooltip.tolaserblade.brandNew1": "Hold in your hand and",
   "tooltip.tolaserblade.brandNew2": "right-click to obtain",
   "tooltip.tolaserblade.brandNew3": "Laser Blade",
+  "tooltip.tolaserblade.remove": "Remove %s",
   "upgrade.tolaserblade.attackDamage": "Laser Power %s",
   "upgrade.tolaserblade.attackSpeed": "Recharge %s",
   "upgrade.tolaserblade.fireproof": "HEAT RESISTANT 8000"

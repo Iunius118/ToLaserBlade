@@ -26,14 +26,25 @@ public class ColorRecipe extends SmithingRecipe {
     private final ColorPart part;
     private final Color color;
     private final ResourceLocation recipeId;
+    private ItemStack sample;
 
     public ColorRecipe(ResourceLocation recipeId, Ingredient base, Ingredient addition, ColorPart part, Color color) {
-        super(recipeId, base, addition, ItemStack.EMPTY);
+        super(recipeId, base, addition, getResultItemStack(base));
         this.recipeId = recipeId;
         this.base = base;
         this.addition = addition;
         this.part = part;
         this.color = color;
+    }
+
+    private static ItemStack getResultItemStack(Ingredient base) {
+        ItemStack[] matchingStacks = base.getMatchingStacks();
+
+        if (matchingStacks.length > 0 && matchingStacks[0] != null) {
+            return matchingStacks[0].copy();
+        }
+
+        return ItemStack.EMPTY;
     }
 
     @Override
@@ -62,7 +73,11 @@ public class ColorRecipe extends SmithingRecipe {
     public ItemStack getCraftingResult(IInventory inv) {
         ItemStack baseStack = inv.getStackInSlot(0);
         ItemStack itemstack = baseStack.copy();
-        LaserBladeVisual visual = LaserBlade.visualOf(itemstack);
+        return getColoringResult(itemstack);
+    }
+
+    private ItemStack getColoringResult(ItemStack input) {
+        LaserBladeVisual visual = LaserBlade.visualOf(input);
 
         switch (part) {
             case INNER_BLADE:
@@ -78,8 +93,8 @@ public class ColorRecipe extends SmithingRecipe {
                 gripColor.color = color.getGripColor();
         }
 
-        visual.write(itemstack.getOrCreateTag());
-        return itemstack;
+        visual.write(input.getOrCreateTag());
+        return input;
     }
 
     @Override
@@ -89,7 +104,17 @@ public class ColorRecipe extends SmithingRecipe {
 
     @Override
     public ItemStack getRecipeOutput() {
-        return ItemStack.EMPTY;
+        if (sample != null) return sample;
+
+        ItemStack output = super.getRecipeOutput();
+
+        if (output.isEmpty()) {
+            sample = ItemStack.EMPTY;
+            return sample;
+        }
+
+        sample = getColoringResult(output.copy());
+        return sample;
     }
 
     @Override

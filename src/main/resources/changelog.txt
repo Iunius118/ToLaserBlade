@@ -1,6 +1,11 @@
 ToLaserBlade
 Changelog
 
+v1.16.3-4.
+
+    Fix Japanese translation
+
+
 v1.16.3-4.0.0.0
 
     Replace common config with server config. It will be saved at (world_directory)/serverconfig/tolaserblade-server.toml

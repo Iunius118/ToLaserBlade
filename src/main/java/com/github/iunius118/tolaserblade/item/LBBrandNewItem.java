@@ -27,6 +27,10 @@ import java.util.List;
 
 public class LBBrandNewItem extends Item implements LaserBladeItemBase {
     public static Properties properties = (new Item.Properties()).setNoRepair().group(ModMainItemGroup.ITEM_GROUP).setISTER(() -> LBBrandNewItemRenderer::new);
+    public static final String KEY_TOOLTIP_BLAND_NEW_HOW_TO_USE_LINE_1 = "tooltip.tolaserblade.brandNew1";
+    public static final String KEY_TOOLTIP_BLAND_NEW_HOW_TO_USE_LINE_2 = "tooltip.tolaserblade.brandNew2";
+    public static final String KEY_TOOLTIP_BLAND_NEW_HOW_TO_USE_LINE_3 = "tooltip.tolaserblade.brandNew3";
+
 
     private final Type type;
 

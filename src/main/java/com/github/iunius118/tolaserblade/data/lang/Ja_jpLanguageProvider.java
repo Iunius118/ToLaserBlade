@@ -2,6 +2,7 @@ package com.github.iunius118.tolaserblade.data.lang;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.enchantment.ModEnchantments;
+import com.github.iunius118.tolaserblade.item.LBBrandNewItem;
 import com.github.iunius118.tolaserblade.item.LaserBladeItemBase;
 import com.github.iunius118.tolaserblade.item.ModItems;
 import net.minecraft.data.DataGenerator;
@@ -37,9 +38,10 @@ public class Ja_jpLanguageProvider extends LanguageProvider {
         add(ModEnchantments.LIGHT_ELEMENT, "光属性");
 
         // item tooltip
-        add("tooltip.tolaserblade.brandNew1", "手に持って右クリックで");
-        add("tooltip.tolaserblade.brandNew2", "レーザーブレイドを入手");
-        add("tooltip.tolaserblade.brandNew3", "できます");
+        add(LBBrandNewItem.KEY_TOOLTIP_BLAND_NEW_HOW_TO_USE_LINE_1, "手に持って右クリックで");
+        add(LBBrandNewItem.KEY_TOOLTIP_BLAND_NEW_HOW_TO_USE_LINE_2, "レーザーブレイドを入手");
+        add(LBBrandNewItem.KEY_TOOLTIP_BLAND_NEW_HOW_TO_USE_LINE_3, "できます");
+        add(LaserBladeItemBase.KEY_TOOLTIP_REMOVE, "%sを除去");
 
         // Upgrade tooltip
         add(LaserBladeItemBase.KEY_TOOLTIP_ATTACK_DAMAGE, "レーザー出力 %s");

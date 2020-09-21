@@ -54,6 +54,7 @@
   "tooltip.tolaserblade.brandNew1": "\u624B\u306B\u6301\u3063\u3066\u53F3\u30AF\u30EA\u30C3\u30AF\u3067",
   "tooltip.tolaserblade.brandNew2": "\u30EC\u30FC\u30B6\u30FC\u30D6\u30EC\u30A4\u30C9\u3092\u5165\u624B",
   "tooltip.tolaserblade.brandNew3": "\u3067\u304D\u307E\u3059",
+  "tooltip.tolaserblade.remove": "%s\u3092\u9664\u53BB",
   "upgrade.tolaserblade.attackDamage": "\u30EC\u30FC\u30B6\u30FC\u51FA\u529B %s",
   "upgrade.tolaserblade.attackSpeed": "\u5145\u96FB\u52B9\u7387 %s",
   "upgrade.tolaserblade.fireproof": "\u8010\u71B1\u5F37\u5316 8000"

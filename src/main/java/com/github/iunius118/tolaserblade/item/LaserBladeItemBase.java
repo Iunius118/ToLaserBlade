@@ -20,6 +20,7 @@ public interface LaserBladeItemBase {
     String KEY_TOOLTIP_FIREPROOF = "upgrade.tolaserblade.fireproof";
     String KEY_TOOLTIP_ATTACK_DAMAGE = "upgrade.tolaserblade.attackDamage";
     String KEY_TOOLTIP_ATTACK_SPEED = "upgrade.tolaserblade.attackSpeed";
+    String KEY_TOOLTIP_REMOVE = "tooltip.tolaserblade.remove";
 
     float MOD_CRITICAL_BONUS_VS_WITHER = 0.5F;
 

@@ -1,8 +1,10 @@
 package com.github.iunius118.tolaserblade.item.crafting;
 
+import com.github.iunius118.tolaserblade.item.LaserBladeItemBase;
 import com.github.iunius118.tolaserblade.laserblade.upgrade.Upgrade;
 import com.github.iunius118.tolaserblade.laserblade.upgrade.UpgradeManager;
 import com.github.iunius118.tolaserblade.laserblade.upgrade.UpgradeResult;
+import com.github.iunius118.tolaserblade.tags.ModItemTags;
 import com.google.gson.JsonObject;
 import net.minecraft.block.Blocks;
 import net.minecraft.inventory.IInventory;
@@ -11,9 +13,13 @@ import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.SmithingRecipe;
+import net.minecraft.nbt.CompoundNBT;
 import net.minecraft.network.PacketBuffer;
 import net.minecraft.util.JSONUtils;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.StringTextComponent;
+import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
@@ -24,13 +30,24 @@ public class UpgradeRecipe extends SmithingRecipe {
     private final ResourceLocation upgradeId;
     private final ResourceLocation recipeId;
     private Upgrade upgrade;
+    private ItemStack sample;
 
     public UpgradeRecipe(ResourceLocation recipeId, Ingredient base, Ingredient addition, ResourceLocation upgradeId) {
-        super(recipeId, base, addition, ItemStack.EMPTY);
+        super(recipeId, base, addition, getResultItemStack(base));
         this.recipeId = recipeId;
         this.base = base;
         this.addition = addition;
         this.upgradeId = upgradeId;
+    }
+
+    private static ItemStack getResultItemStack(Ingredient base) {
+        ItemStack[] matchingStacks = base.getMatchingStacks();
+
+        if (matchingStacks.length > 0 && matchingStacks[0] != null) {
+            return matchingStacks[0].copy();
+        }
+
+        return ItemStack.EMPTY;
     }
 
     @Override
@@ -49,8 +66,12 @@ public class UpgradeRecipe extends SmithingRecipe {
     public ItemStack getCraftingResult(IInventory inv) {
         ItemStack baseStack = inv.getStackInSlot(0);
         ItemStack itemstack = baseStack.copy();
+        return getUpgradingResult(itemstack);
+    }
+
+    private ItemStack getUpgradingResult(ItemStack input) {
         Upgrade upgrade = getUpgrade();
-        UpgradeResult result = upgrade.apply(itemstack, 0);
+        UpgradeResult result = upgrade.apply(input, 0);
         return result.getItemStack();
     }
 
@@ -70,7 +91,29 @@ public class UpgradeRecipe extends SmithingRecipe {
 
     @Override
     public ItemStack getRecipeOutput() {
-        return ItemStack.EMPTY;
+        if (sample != null) return sample;
+
+        ItemStack output = super.getRecipeOutput();
+        sample = output.copy();
+
+        if (sample.isEmpty()) {
+            return sample;
+        }
+
+        ResourceLocation efficiencyRemover = ModItemTags.EFFICIENCY_REMOVER.getName();
+
+        if (upgradeId.equals(efficiencyRemover)) {
+            // Set hint of removing Efficiency to item-stack's display name
+            TranslationTextComponent textComponent = new TranslationTextComponent(LaserBladeItemBase.KEY_TOOLTIP_REMOVE, new TranslationTextComponent("enchantment.minecraft.efficiency"));
+            StringTextComponent info = new StringTextComponent(textComponent.getString());
+            CompoundNBT nbt = sample.getOrCreateChildTag("display");
+            nbt.putString("Name", ITextComponent.Serializer.toJson(info));
+        } else {
+            // Apply upgrade to sample item
+            sample = getUpgradingResult(output);
+        }
+
+        return sample;
     }
 
     @Override
