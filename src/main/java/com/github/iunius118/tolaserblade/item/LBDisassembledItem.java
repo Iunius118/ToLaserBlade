@@ -57,7 +57,7 @@ public class LBDisassembledItem extends Item implements LaserBladeItemBase {
         ItemStack batteryStack = new ItemStack(ModItems.LB_BATTERY);
         ItemStack mediumStack = new ItemStack(ModItems.LB_MEDIUM);
         ItemStack emitterStack = new ItemStack(ModItems.LB_EMITTER);
-        ItemStack casingStack = new ItemStack(itemStack.getItem().isBurnable() ? ModItems.LB_CASING_FP : ModItems.LB_CASING);    // TODO: isBurnable = isFireproof?
+        ItemStack casingStack = new ItemStack(itemStack.getItem().isImmuneToFire() ? ModItems.LB_CASING_FP : ModItems.LB_CASING);
 
         LaserBlade laserBlade = LaserBlade.of(itemStack);
         LaserBlade battery = LaserBlade.of(batteryStack);
@@ -149,7 +149,7 @@ public class LBDisassembledItem extends Item implements LaserBladeItemBase {
         super.fillItemGroup(group, items);
         if (group != ModMainItemGroup.ITEM_GROUP) return;
 
-        if (isBurnable()) { // TODO: isBurnable = isNotBurnable?
+        if (isImmuneToFire()) {
             items.add(LaserBladeStack.DISASSEMBLED_FULL_MOD_FP.getCopy());
         } else {
             items.add(LaserBladeStack.DISASSEMBLED_FULL_MOD.getCopy());

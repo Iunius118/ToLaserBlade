@@ -222,7 +222,7 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
         super.fillItemGroup(group, items);
         if (group != ModMainItemGroup.ITEM_GROUP) return;
 
-        if (isBurnable()) { // TODO: isBurnable = isNotBurnable?
+        if (isImmuneToFire()) {
             items.add(LaserBladeStack.UPGRADED_FP.getCopy());
             items.add(LaserBladeStack.DAMAGED_FP.getCopy());
             items.add(LaserBladeStack.FULL_MOD_FP.getCopy());

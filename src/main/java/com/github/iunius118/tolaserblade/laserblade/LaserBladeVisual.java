@@ -36,7 +36,7 @@ public class LaserBladeVisual {
 
         } else {
             // Biomes on Over-world or the other dimensions
-            float temp = biome.func_242445_k(); // TODO: func_242445_k = getDefaultTemperature
+            float temp = biome.getTemperature();
 
             if (temp > 1.5F) {
                 // t > 1.5

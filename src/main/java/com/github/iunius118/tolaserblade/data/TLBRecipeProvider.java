@@ -81,17 +81,15 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
     }
 
     private void addSmithingRecipe(Ingredient base, Ingredient addition, Item result, Item criterionItem, Consumer<IFinishedRecipe> consumer) {
-        // TODO: func_240502_a_ = smithingRecipe, func_240503_a_ = addCriterion, func_240504_a_ = build
-        SmithingRecipeBuilder.func_240502_a_(base, addition, result)
-                .func_240503_a_("has_" + criterionItem.getRegistryName().getPath(), hasItem(criterionItem))
-                .func_240504_a_(consumer, result.getRegistryName().toString() + "_smithing");
+        SmithingRecipeBuilder.smithingRecipe(base, addition, result)
+                .addCriterion("has_" + criterionItem.getRegistryName().getPath(), hasItem(criterionItem))
+                .build(consumer, result.getRegistryName().toString() + "_smithing");
     }
 
     private void addSmithingRepairRecipe(Item base, Ingredient addition, Item result, Item criterionItem, Consumer<IFinishedRecipe> consumer) {
-        // TODO: func_240502_a_ = smithingRecipe, func_240503_a_ = addCriterion, func_240504_a_ = build
-        SmithingRecipeBuilder.func_240502_a_(Ingredient.fromItems(base), addition, result)
-                .func_240503_a_("has_" + criterionItem.getRegistryName().getPath(), hasItem(criterionItem))
-                .func_240504_a_(consumer, base.getRegistryName().toString() + "_repair_smithing");
+        SmithingRecipeBuilder.smithingRecipe(Ingredient.fromItems(base), addition, result)
+                .addCriterion("has_" + criterionItem.getRegistryName().getPath(), hasItem(criterionItem))
+                .build(consumer, base.getRegistryName().toString() + "_repair_smithing");
     }
 
     private void addUpgradeRecipes(Consumer<IFinishedRecipe> consumer) {

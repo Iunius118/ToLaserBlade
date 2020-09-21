@@ -30,7 +30,7 @@ public class LaserBladeModelType316 extends SimpleModel {
 
     @Override
     public void render(ItemStack itemStack, ItemCameraTransforms.TransformType transformType, MatrixStack matrixStack, IRenderTypeBuffer buffer, int lightmapCoord, int overlayColor) {
-        if (itemStack.getItem().isBurnable()) { // TODO: isBurnable = isNotBurnable?
+        if (itemStack.getItem().isImmuneToFire()) {
             renderSword(itemStack, transformType, matrixStack, buffer, lightmapCoord, overlayColor);
         } else {
             renderShield(itemStack, transformType, matrixStack, buffer, lightmapCoord, overlayColor);

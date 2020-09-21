@@ -62,7 +62,7 @@ public class LaserBladeItemBakedModel implements IBakedModel {
     }
 
     @Override
-    public boolean func_230044_c_() {
+    public boolean isSideLit() {
         return false;   // isGuiFlatDiffuseLighting or isShadedInGui
     }
 
@@ -85,7 +85,7 @@ public class LaserBladeItemBakedModel implements IBakedModel {
     public ItemOverrideList getOverrides() {
         return new ItemOverrideList() {
             @Override
-            public IBakedModel func_239290_a_(IBakedModel model, ItemStack stack, @Nullable ClientWorld worldIn, @Nullable LivingEntity entityIn) { // TODO: func_239290_a_ = getModelWithOverrides
+            public IBakedModel getOverrideModel(IBakedModel model, ItemStack stack, @Nullable ClientWorld worldIn, @Nullable LivingEntity entityIn) {
                 if (model instanceof LaserBladeItemBakedModel) {
                     LaserBladeItemBakedModel laserBladeModel = (LaserBladeItemBakedModel) model;
 

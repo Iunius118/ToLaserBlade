@@ -29,7 +29,7 @@ public interface LaserBladeItemBase {
     /* Laser Blade properties */
 
     static Item.Properties setFireproof(Item.Properties properties, boolean isFireproof) {
-        return isFireproof ? properties.isBurnable() : properties;  // TODO: isBurnable = isFireproof?
+        return isFireproof ? properties.isImmuneToFire() : properties;
     }
 
     default boolean canUpgrade(Upgrade.Type type) {
@@ -38,7 +38,7 @@ public interface LaserBladeItemBase {
 
     @OnlyIn(Dist.CLIENT)
     default void addLaserBladeInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn, Upgrade.Type type) {
-        boolean isFireproof = stack.getItem().isBurnable(); // TODO: isBurnable = isFireproof?
+        boolean isFireproof = stack.getItem().isImmuneToFire();
 
         if (isFireproof) {
             tooltip.add(new TranslationTextComponent(KEY_TOOLTIP_FIREPROOF).mergeStyle(TextFormatting.GOLD));
