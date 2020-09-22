@@ -1,6 +1,7 @@
 package com.github.iunius118.tolaserblade.dispenser;
 
 import com.github.iunius118.tolaserblade.ToLaserBladeConfig;
+import com.github.iunius118.tolaserblade.enchantment.ModEnchantments;
 import com.github.iunius118.tolaserblade.entity.LaserTrapEntity;
 import com.github.iunius118.tolaserblade.item.ModItems;
 import com.github.iunius118.tolaserblade.laserblade.LaserBlade;
@@ -11,6 +12,7 @@ import net.minecraft.block.DispenserBlock;
 import net.minecraft.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.dispenser.IDispenseItemBehavior;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.ai.attributes.Attributes;
 import net.minecraft.entity.player.PlayerEntity;
@@ -110,10 +112,12 @@ public class DispenseLaserBladeBehavior implements IDispenseItemBehavior {
         AxisAlignedBB boundingBox = new AxisAlignedBB(pos).grow(0.5D);
         List<Entity> targetEntities = laserTrapPlayer.world.getEntitiesInAABBexcluding(null, boundingBox, LASER_TRAP_TARGETS);
         // Get attack damage
-        float attackDamage = (float)laserTrapPlayer.getAttribute(Attributes.ATTACK_DAMAGE).getValue();
+        ItemStack stack = laserTrapPlayer.getHeldItemMainhand();
+        int level = EnchantmentHelper.getEnchantmentLevel(ModEnchantments.LIGHT_ELEMENT, stack);
+        float attackDamage = (float)laserTrapPlayer.getAttribute(Attributes.ATTACK_DAMAGE).getValue() + level * 0.5F;
 
+        // Attack entities
         for (Entity targetEntity : targetEntities) {
-            // Attack entities
             targetEntity.attackEntityFrom(DamageSource.causePlayerDamage(laserTrapPlayer), attackDamage);
         }
     }
