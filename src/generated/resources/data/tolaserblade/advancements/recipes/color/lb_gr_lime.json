@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "tolaserblade:color/lb_gr_lime"
+    ]
+  },
+  "criteria": {
+    "has_laser_blade": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tolaserblade:laser_blade"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "tolaserblade:color/lb_gr_lime"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_laser_blade",
+      "has_the_recipe"
+    ]
+  ]
+}

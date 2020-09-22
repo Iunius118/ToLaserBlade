@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "tolaserblade:repair_lbbf_smithing"
+    ]
+  },
+  "criteria": {
+    "has_lb_broken_fp": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "tolaserblade:lb_broken_fp"
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "tolaserblade:repair_lbbf_smithing"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_lb_broken_fp",
+      "has_the_recipe"
+    ]
+  ]
+}

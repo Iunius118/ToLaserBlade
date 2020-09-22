@@ -1,5 +1,6 @@
 package com.github.iunius118.tolaserblade.data;
 
+import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.item.ModItems;
 import com.github.iunius118.tolaserblade.laserblade.ColorPart;
 import com.github.iunius118.tolaserblade.laserblade.upgrade.Upgrade;
@@ -63,10 +64,10 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
         addSmithingRecipe(Ingredient.fromItems(ModItems.LASER_BLADE), Ingredient.fromItems(Items.NETHERITE_INGOT), ModItems.LB_BRAND_NEW_FP, Items.NETHERITE_INGOT, consumer);
 
         // Repair recipes
-        addSmithingRepairRecipe(ModItems.LASER_BLADE, Ingredient.fromTag(ModItemTags.CASING_REPAIR), ModItems.LB_BRAND_NEW, ModItems.LASER_BLADE, consumer);
-        addSmithingRepairRecipe(ModItems.LB_BROKEN, Ingredient.fromTag(ModItemTags.CASING_REPAIR), ModItems.LB_BRAND_NEW, ModItems.LB_BROKEN, consumer);
-        addSmithingRepairRecipe(ModItems.LASER_BLADE_FP, Ingredient.fromTag(ModItemTags.CASING_REPAIR), ModItems.LB_BRAND_NEW_FP, ModItems.LASER_BLADE_FP, consumer);
-        addSmithingRepairRecipe(ModItems.LB_BROKEN_FP, Ingredient.fromTag(ModItemTags.CASING_REPAIR), ModItems.LB_BRAND_NEW_FP, ModItems.LB_BROKEN_FP, consumer);
+        addSmithingRepairRecipe("lb", ModItems.LASER_BLADE, Ingredient.fromTag(ModItemTags.CASING_REPAIR), ModItems.LB_BRAND_NEW, ModItems.LASER_BLADE, consumer);
+        addSmithingRepairRecipe("lbb", ModItems.LB_BROKEN, Ingredient.fromTag(ModItemTags.CASING_REPAIR), ModItems.LB_BRAND_NEW, ModItems.LB_BROKEN, consumer);
+        addSmithingRepairRecipe("lbf", ModItems.LASER_BLADE_FP, Ingredient.fromTag(ModItemTags.CASING_REPAIR), ModItems.LB_BRAND_NEW_FP, ModItems.LASER_BLADE_FP, consumer);
+        addSmithingRepairRecipe("lbbf", ModItems.LB_BROKEN_FP, Ingredient.fromTag(ModItemTags.CASING_REPAIR), ModItems.LB_BRAND_NEW_FP, ModItems.LB_BROKEN_FP, consumer);
 
         // Upgrade Recipes
         addUpgradeRecipes(consumer);
@@ -86,10 +87,10 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
                 .build(consumer, result.getRegistryName().toString() + "_smithing");
     }
 
-    private void addSmithingRepairRecipe(Item base, Ingredient addition, Item result, Item criterionItem, Consumer<IFinishedRecipe> consumer) {
+    private void addSmithingRepairRecipe(String shortName, Item base, Ingredient addition, Item result, Item criterionItem, Consumer<IFinishedRecipe> consumer) {
         SmithingRecipeBuilder.smithingRecipe(Ingredient.fromItems(base), addition, result)
                 .addCriterion("has_" + criterionItem.getRegistryName().getPath(), hasItem(criterionItem))
-                .build(consumer, base.getRegistryName().toString() + "_repair_smithing");
+                .build(consumer, ToLaserBlade.MOD_ID + ":repair_" + shortName + "_smithing");
     }
 
     private void addUpgradeRecipes(Consumer<IFinishedRecipe> consumer) {
@@ -97,10 +98,10 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
         upgrades.forEach((id, upgrade) -> {
             UpgradeRecipeBuilder.upgradeRecipe(Ingredient.fromItems(ModItems.LASER_BLADE), upgrade.getIngredient(), id)
                     .addCriterion("has_laser_blade", hasItem(ModItems.LASER_BLADE))
-                    .build(consumer, id.toString() + "_upgrade");
+                    .build(consumer, ToLaserBlade.MOD_ID + ":upgrade/lb_" + upgrade.getShortName());
             UpgradeRecipeBuilder.upgradeRecipe(Ingredient.fromItems(ModItems.LASER_BLADE_FP), upgrade.getIngredient(), id)
                     .addCriterion("has_laser_blade_fp", hasItem(ModItems.LASER_BLADE_FP))
-                    .build(consumer, id.toString() +  "_fp_upgrade");
+                    .build(consumer, ToLaserBlade.MOD_ID + ":upgrade/lbf_" + upgrade.getShortName());
         });
     }
 
@@ -173,9 +174,9 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
     private void addColorRecipe(Consumer<IFinishedRecipe> consumer, Ingredient addition, ColorPart part, DyeColor dyeColor) {
         ColorRecipeBuilder.colorRecipe(Ingredient.fromItems(ModItems.LASER_BLADE), addition, part, dyeColor)
                 .addCriterion("has_laser_blade", hasItem(ModItems.LASER_BLADE))
-                .build(consumer, "tolaserblade:color/laser_blade_" + part.getPartName() + "_" + dyeColor.getTranslationKey());
+                .build(consumer, "tolaserblade:color/lb_" + part.getShortName() + "_" + dyeColor.getTranslationKey());
         ColorRecipeBuilder.colorRecipe(Ingredient.fromItems(ModItems.LASER_BLADE_FP), addition, part, dyeColor)
                 .addCriterion("has_laser_blade_fp", hasItem(ModItems.LASER_BLADE))
-                .build(consumer, "tolaserblade:color/laser_blade_fp_" + part.getPartName() + "_" + dyeColor.getTranslationKey());
+                .build(consumer, ToLaserBlade.MOD_ID + ":color/lbf_" + part.getShortName() + "_" + dyeColor.getTranslationKey());
     }
 }

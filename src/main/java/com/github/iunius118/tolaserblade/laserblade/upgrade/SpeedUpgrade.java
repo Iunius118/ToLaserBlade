@@ -6,8 +6,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 
 public class SpeedUpgrade extends Upgrade {
-    public SpeedUpgrade(Ingredient ingredientIn) {
-        super(ingredientIn);
+    public SpeedUpgrade(Ingredient ingredientIn, String shortNameIn) {
+        super(ingredientIn, shortNameIn);
     }
 
     @Override

@@ -11,13 +11,13 @@ import java.util.Map;
 public class EnchantmentUpgrade extends Upgrade {
     private final Enchantment enchantment;
 
-    public EnchantmentUpgrade(Ingredient ingredientIn, Enchantment enchantmentIn) {
-        super(ingredientIn);
+    public EnchantmentUpgrade(Ingredient ingredientIn, Enchantment enchantmentIn, String shortNameIn) {
+        super(ingredientIn, shortNameIn);
         enchantment = enchantmentIn;
     }
 
-    public static EnchantmentUpgrade of(Ingredient ingredientIn, Enchantment enchantmentIn) {
-        return new EnchantmentUpgrade(ingredientIn, enchantmentIn);
+    public static EnchantmentUpgrade of(Ingredient ingredientIn, Enchantment enchantmentIn, String shortNameIn) {
+        return new EnchantmentUpgrade(ingredientIn, enchantmentIn, shortNameIn);
     }
 
     @Override

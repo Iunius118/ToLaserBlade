@@ -7,7 +7,7 @@ import javax.annotation.Nullable;
 import java.lang.reflect.Constructor;
 
 public abstract class Upgrade {
-    public static final Upgrade NONE = new Upgrade(Ingredient.EMPTY) {
+    public static final Upgrade NONE = new Upgrade(Ingredient.EMPTY, "00") {
         @Override
         public boolean test(ItemStack base, ItemStack addition) {
             return false;
@@ -20,19 +20,21 @@ public abstract class Upgrade {
     };
 
     private final Ingredient ingredient;
+    private final String shortName;
 
-    public Upgrade(Ingredient ingredientIn) {
+    public Upgrade(Ingredient ingredientIn, String shortNameIn) {
         ingredient = ingredientIn;
+        shortName = shortNameIn;
     }
 
     @Nullable
-    public static Upgrade of(Class<? extends Upgrade> upgrade, Ingredient ingredientIn) {
+    public static Upgrade of(Class<? extends Upgrade> upgrade, Ingredient ingredientIn, String shortNameIn) {
         // Get upgrade instance from upgrade Class
         Upgrade instance = null;
 
         try {
-            Constructor<? extends Upgrade> constructor = upgrade.getConstructor(Ingredient.class);
-            instance = constructor.newInstance(ingredientIn);
+            Constructor<? extends Upgrade> constructor = upgrade.getConstructor(Ingredient.class, String.class);
+            instance = constructor.newInstance(ingredientIn, shortNameIn);
         } catch (ReflectiveOperationException e) {
             e.printStackTrace();
         }
@@ -42,6 +44,10 @@ public abstract class Upgrade {
 
     public Ingredient getIngredient() {
         return ingredient;
+    }
+
+    public String getShortName() {
+        return shortName;
     }
 
     public abstract boolean test(ItemStack base, ItemStack addition);

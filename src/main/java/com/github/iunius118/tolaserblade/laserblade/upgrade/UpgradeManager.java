@@ -19,33 +19,33 @@ import java.util.Map;
 public class UpgradeManager {
     private static final Map<ResourceLocation, Upgrade> upgrades = new HashMap<>();
     static {
-        registerEnchantment(ModItemTags.EFFICIENCY_UPGRADE, Enchantments.EFFICIENCY);
-        registerEnchantment(ModItemTags.LIGHT_ELEMENT_UPGRADE, ModEnchantments.LIGHT_ELEMENT);
-        registerEnchantment(ModItemTags.FIRE_ASPECT_UPGRADE, Enchantments.FIRE_ASPECT);
-        registerEnchantment(ModItemTags.SWEEPING_EDGE_UPGRADE, Enchantments.SWEEPING);
-        registerEnchantment(ModItemTags.LOOTING_UPGRADE, Enchantments.LOOTING);
-        registerEnchantment(ModItemTags.MENDING_UPGRADE, Enchantments.MENDING);
+        registerEnchantment(ModItemTags.EFFICIENCY_UPGRADE, Enchantments.EFFICIENCY, "efc");
+        registerEnchantment(ModItemTags.LIGHT_ELEMENT_UPGRADE, ModEnchantments.LIGHT_ELEMENT, "lte");
+        registerEnchantment(ModItemTags.FIRE_ASPECT_UPGRADE, Enchantments.FIRE_ASPECT, "fra");
+        registerEnchantment(ModItemTags.SWEEPING_EDGE_UPGRADE, Enchantments.SWEEPING, "swp");
+        registerEnchantment(ModItemTags.LOOTING_UPGRADE, Enchantments.LOOTING, "ltn");
+        registerEnchantment(ModItemTags.MENDING_UPGRADE, Enchantments.MENDING, "mnd");
 
-        register(ModItemTags.EFFICIENCY_REMOVER, RemoveEfficiencyUpgrade.class);
+        register(ModItemTags.EFFICIENCY_REMOVER, RemoveEfficiencyUpgrade.class, "efr");
 
-        register(ModItemTags.ATTACK_DAMAGE_UPGRADE, DamageUpgrade.class);
-        register(ModItemTags.ATTACK_SPEED_UPGRADE, SpeedUpgrade.class);
+        register(ModItemTags.ATTACK_DAMAGE_UPGRADE, DamageUpgrade.class, "adm");
+        register(ModItemTags.ATTACK_SPEED_UPGRADE, SpeedUpgrade.class, "asp");
     }
 
-    private static void register(ITag.INamedTag<Item> tag, Class<? extends Upgrade> upgradeClass) {
+    private static void register(ITag.INamedTag<Item> tag, Class<? extends Upgrade> upgradeClass, String shortName) {
         ResourceLocation key = tag.getName();
         Ingredient ingredient = Ingredient.fromTag(tag);
-        Upgrade upgrade = Upgrade.of(upgradeClass, ingredient);
+        Upgrade upgrade = Upgrade.of(upgradeClass, ingredient, shortName);
 
         if (upgrade != null) {
             upgrades.put(key, upgrade);
         }
     }
 
-    private static void registerEnchantment(ITag.INamedTag<Item> tag, Enchantment enchantment) {
+    private static void registerEnchantment(ITag.INamedTag<Item> tag, Enchantment enchantment, String shortName) {
         ResourceLocation key = tag.getName();
         Ingredient ingredient = Ingredient.fromTag(tag);
-        Upgrade upgrade = EnchantmentUpgrade.of(ingredient, enchantment);
+        Upgrade upgrade = EnchantmentUpgrade.of(ingredient, enchantment, shortName);
         upgrades.put(key, upgrade);
     }
 

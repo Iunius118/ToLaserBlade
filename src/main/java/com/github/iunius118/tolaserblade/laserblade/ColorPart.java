@@ -3,17 +3,19 @@ package com.github.iunius118.tolaserblade.laserblade;
 import javax.annotation.Nullable;
 
 public enum ColorPart {
-    INNER_BLADE(0, "inner_blade"),
-    OUTER_BLADE(1, "outer_blade"),
-    GRIP(2, "grip");
+    INNER_BLADE(0, "inner_blade", "ib"),
+    OUTER_BLADE(1, "outer_blade", "ob"),
+    GRIP(2, "grip", "gr");
 
     private final int index;
 
     private final String name;
+    private final String shortName;
 
-    ColorPart(int index, String name) {
+    ColorPart(int index, String name, String shortName) {
         this.index = index;
         this.name = name;
+        this.shortName = shortName;
     }
 
     public int getIndex() {
@@ -22,6 +24,10 @@ public enum ColorPart {
 
     public String getPartName() {
         return name;
+    }
+
+    public String getShortName() {
+        return shortName;
     }
 
     @Nullable

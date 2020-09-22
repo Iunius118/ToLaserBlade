@@ -7,8 +7,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 
 public class DamageUpgrade extends Upgrade {
-    public DamageUpgrade(Ingredient ingredientIn) {
-        super(ingredientIn);
+    public DamageUpgrade(Ingredient ingredientIn, String shortNameIn) {
+        super(ingredientIn, shortNameIn);
     }
 
     @Override
