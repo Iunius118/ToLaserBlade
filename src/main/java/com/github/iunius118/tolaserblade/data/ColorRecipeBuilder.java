@@ -9,7 +9,6 @@ import net.minecraft.advancements.ICriterionInstance;
 import net.minecraft.advancements.IRequirementsStrategy;
 import net.minecraft.advancements.criterion.RecipeUnlockedTrigger;
 import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.item.DyeColor;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
@@ -22,19 +21,19 @@ public class ColorRecipeBuilder {
     private final Ingredient base;
     private final Ingredient addition;
     private final String part;
-    private final String color;
+    private final int color;
     private final Advancement.Builder advancementBuilder = Advancement.Builder.builder();
 
-    public ColorRecipeBuilder(IRecipeSerializer<?> serializer, Ingredient base, Ingredient addition, ColorPart colorPart, DyeColor dyeColor) {
+    public ColorRecipeBuilder(IRecipeSerializer<?> serializer, Ingredient base, Ingredient addition, ColorPart colorPart, int color) {
         this.serializer = serializer;
         this.base = base;
         this.addition = addition;
         this.part = colorPart.getPartName();
-        this.color = dyeColor.getTranslationKey();
+        this.color = color;
     }
 
-    public static ColorRecipeBuilder colorRecipe(Ingredient base, Ingredient addition, ColorPart colorPart, DyeColor dyeColor) {
-        return new ColorRecipeBuilder(ModRecipeSerializers.COLOR, base, addition, colorPart, dyeColor);
+    public static ColorRecipeBuilder colorRecipe(Ingredient base, Ingredient addition, ColorPart colorPart, int color) {
+        return new ColorRecipeBuilder(ModRecipeSerializers.COLOR, base, addition, colorPart, color);
     }
 
     public ColorRecipeBuilder addCriterion(String name, ICriterionInstance criterion) {
@@ -65,11 +64,11 @@ public class ColorRecipeBuilder {
         private final Ingredient base;
         private final Ingredient addition;
         private final String part;
-        private final String color;
+        private final int color;
         private final Advancement.Builder advancementBuilder;
         private final ResourceLocation advancementId;
 
-        public Result(ResourceLocation id, IRecipeSerializer<?> serializer, Ingredient base, Ingredient addition, String part, String color, Advancement.Builder advancementBuilder, ResourceLocation advancementId) {
+        public Result(ResourceLocation id, IRecipeSerializer<?> serializer, Ingredient base, Ingredient addition, String part, int color, Advancement.Builder advancementBuilder, ResourceLocation advancementId) {
             this.id = id;
             this.serializer = serializer;
             this.base = base;

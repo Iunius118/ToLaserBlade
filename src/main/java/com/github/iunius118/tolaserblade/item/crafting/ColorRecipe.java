@@ -1,13 +1,12 @@
 package com.github.iunius118.tolaserblade.item.crafting;
 
-import com.github.iunius118.tolaserblade.laserblade.Color;
 import com.github.iunius118.tolaserblade.laserblade.ColorPart;
 import com.github.iunius118.tolaserblade.laserblade.LaserBlade;
 import com.github.iunius118.tolaserblade.laserblade.LaserBladeVisual;
+import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.block.Blocks;
 import net.minecraft.inventory.IInventory;
-import net.minecraft.item.DyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraft.item.crafting.IRecipeType;
@@ -24,11 +23,11 @@ public class ColorRecipe extends SmithingRecipe {
     private final Ingredient base;
     private final Ingredient addition;
     private final ColorPart part;
-    private final Color color;
+    private final int color;
     private final ResourceLocation recipeId;
     private ItemStack sample;
 
-    public ColorRecipe(ResourceLocation recipeId, Ingredient base, Ingredient addition, ColorPart part, Color color) {
+    public ColorRecipe(ResourceLocation recipeId, Ingredient base, Ingredient addition, ColorPart part, int color) {
         super(recipeId, base, addition, getResultItemStack(base));
         this.recipeId = recipeId;
         this.base = base;
@@ -56,13 +55,13 @@ public class ColorRecipe extends SmithingRecipe {
             switch (part) {
                 case INNER_BLADE:
                     LaserBladeVisual.PartColor innerColor = visual.getInnerColor();
-                    return innerColor.color != color.getBladeColor();
+                    return innerColor.color != color;
                 case OUTER_BLADE:
                     LaserBladeVisual.PartColor outerColor = visual.getOuterColor();
-                    return outerColor.color != color.getBladeColor();
+                    return outerColor.color != color;
                 default:
                     LaserBladeVisual.PartColor gripColor = visual.getGripColor();
-                    return gripColor.color != color.getGripColor();
+                    return gripColor.color != color;
             }
         }
 
@@ -82,15 +81,15 @@ public class ColorRecipe extends SmithingRecipe {
         switch (part) {
             case INNER_BLADE:
                 LaserBladeVisual.PartColor innerColor = visual.getInnerColor();
-                innerColor.color = color.getBladeColor();
+                innerColor.color = color;
                 break;
             case OUTER_BLADE:
                 LaserBladeVisual.PartColor outerColor = visual.getOuterColor();
-                outerColor.color = color.getBladeColor();
+                outerColor.color = color;
                 break;
             default:
                 LaserBladeVisual.PartColor gripColor = visual.getGripColor();
-                gripColor.color = color.getGripColor();
+                gripColor.color = color;
         }
 
         visual.write(input.getOrCreateTag());
@@ -143,11 +142,11 @@ public class ColorRecipe extends SmithingRecipe {
             Ingredient base = Ingredient.deserialize(JSONUtils.getJsonObject(json, "base"));
             Ingredient addition = Ingredient.deserialize(JSONUtils.getJsonObject(json, "addition"));
             JsonObject result = JSONUtils.getJsonObject(json, "result");
-            String part = result.get("part").getAsString();
-            ColorPart colorPart = ColorPart.byPartName(part);
-            String color = result.get("color").getAsString();
-            DyeColor dyeColor = DyeColor.byTranslationKey(color, DyeColor.WHITE);
-            return new ColorRecipe(recipeId, base, addition, colorPart, Color.get(dyeColor.getId()));
+            JsonElement part = result.get("part");
+            ColorPart colorPart = ColorPart.byPartName(part.getAsString());
+            JsonElement color = result.get("color");
+            int colorValue = color.getAsInt();
+            return new ColorRecipe(recipeId, base, addition, colorPart, colorValue);
         }
 
         @Nullable
@@ -156,16 +155,18 @@ public class ColorRecipe extends SmithingRecipe {
             Ingredient base = Ingredient.read(buffer);
             Ingredient addition = Ingredient.read(buffer);
             ColorPart colorPart = ColorPart.byIndex(buffer.readInt());
-            Color color = Color.get(buffer.readInt());
+            int color = buffer.readInt();
             return new ColorRecipe(recipeId, base, addition, colorPart, color);
         }
 
         @Override
         public void write(PacketBuffer buffer, ColorRecipe recipe) {
+            ColorPart part = recipe.part;
+
             recipe.base.write(buffer);
             recipe.addition.write(buffer);
-            buffer.writeInt(recipe.part.getIndex());
-            buffer.writeInt(recipe.color.ordinal());
+            buffer.writeInt(part.getIndex());
+            buffer.writeInt(recipe.color);
         }
     }
 }
