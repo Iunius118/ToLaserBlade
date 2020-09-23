@@ -142,6 +142,7 @@ c6b8f0c8ebcecd77cbec5995b137ad13eae4aec3 data/tolaserblade/advancements/recipes/
 a20680da4ab1e3a140953026877146399e0518c2 data/tolaserblade/advancements/recipes/upgrade/lb_lte.json
 579bb64070aabbcc5d8d04dece9555f98aba7462 data/tolaserblade/advancements/recipes/upgrade/lb_ltn.json
 3a30ac1f212bbc77f7c97cc6f962eb477ee4353c data/tolaserblade/advancements/recipes/upgrade/lb_mnd.json
+b60a7c44f29c36edd6c897705d5d61dd0a3d3ab1 data/tolaserblade/advancements/recipes/upgrade/lb_slt.json
 ee1bf69a4139c16772298241b04ff04daf600065 data/tolaserblade/advancements/recipes/upgrade/lb_swp.json
 c46ded6134891eb076bb5df4c394299f5fa87e3c data/tolaserblade/advancements/recipes/upgrade/lbf_adm.json
 ca46a4e90e24678813a6127f8d7dd0f995e9b9f4 data/tolaserblade/advancements/recipes/upgrade/lbf_asp.json
@@ -151,6 +152,7 @@ d2e56f06e344619ec4ff88a869c8fca9e41ea8b9 data/tolaserblade/advancements/recipes/
 73671e69dcb9125bc9a0f50a608c4abf1c8b8fea data/tolaserblade/advancements/recipes/upgrade/lbf_lte.json
 bba5b49bb4597782ccc93f3d146673bf7721f2c5 data/tolaserblade/advancements/recipes/upgrade/lbf_ltn.json
 958357057715c782d22f1f532d2c01c188451696 data/tolaserblade/advancements/recipes/upgrade/lbf_mnd.json
+4a50226f7690392d8e5cc5902aca3534b21f45d9 data/tolaserblade/advancements/recipes/upgrade/lbf_slt.json
 48b253ab184454a95b37f5f0f3bf8396aaccd1ca data/tolaserblade/advancements/recipes/upgrade/lbf_swp.json
 0813f331fed8a65de5351996f30ba4b99f8b9635 data/tolaserblade/recipes/color/lb_gr_black.json
 6025abd1e8eba954f8fc870447f15eef60dfa4ab data/tolaserblade/recipes/color/lb_gr_blue.json
@@ -264,6 +266,7 @@ edd889e93ca08b3a18035dbcd19d01c445621a9c data/tolaserblade/recipes/color/lbf_ob_
 61fe372ae21722b39bf491bc0f0769e4ee607776 data/tolaserblade/recipes/upgrade/lb_lte.json
 e46eea444083d1126a6b81984fd88d684d58f20c data/tolaserblade/recipes/upgrade/lb_ltn.json
 6660cddfeb4c803dc328e4d2c5869e71c2fe598d data/tolaserblade/recipes/upgrade/lb_mnd.json
+31eeb824638d4aaaa64491d08ea28ea09e5493f7 data/tolaserblade/recipes/upgrade/lb_slt.json
 9e52114a7b7574317b82f09e119e2d4b1ba0d97a data/tolaserblade/recipes/upgrade/lb_swp.json
 fbaf78925332502a337a00fed14bd868f586f456 data/tolaserblade/recipes/upgrade/lbf_adm.json
 caa0c429562b28d34e62e2858fa8849b9b2b169f data/tolaserblade/recipes/upgrade/lbf_asp.json
@@ -273,6 +276,7 @@ fa5c8639a8b6bf76f0c56e3cef8a55273b6d31bb data/tolaserblade/recipes/upgrade/lbf_e
 a284a20e8a21f60a37a6526642086bc0c2a732db data/tolaserblade/recipes/upgrade/lbf_lte.json
 3281eace4d3bb523985b67178a9e6130c360de20 data/tolaserblade/recipes/upgrade/lbf_ltn.json
 7027dd76f6c320ec3658e5e4d1cf29cffa0b4bdc data/tolaserblade/recipes/upgrade/lbf_mnd.json
+5a1f43fd566acc2c2cda93b35bfcf0899d74233c data/tolaserblade/recipes/upgrade/lbf_slt.json
 92aa0e045e2e188bfdbfe82c8a0bee62e9aea068 data/tolaserblade/recipes/upgrade/lbf_swp.json
 180fd33e868993db8e2c3116b2b979229cc3bc85 data/tolaserblade/tags/items/casing_repair.json
 c0787879296b48c4d316ff9e1b2012c137cacff1 data/tolaserblade/tags/items/upgrade/damage.json
@@ -282,5 +286,6 @@ c0787879296b48c4d316ff9e1b2012c137cacff1 data/tolaserblade/tags/items/upgrade/da
 2bd8a61c21d6e08f0860dd83e5404f356ab00962 data/tolaserblade/tags/items/upgrade/light_element.json
 0b4a60b4fd61f9b027989b833c6d292ff5e1b7f6 data/tolaserblade/tags/items/upgrade/looting.json
 c9c9c6a833a35079dfee7399a77c8260e017df21 data/tolaserblade/tags/items/upgrade/mending.json
+8c45f47985aa8581acd6d11ded786d2dbcf890f1 data/tolaserblade/tags/items/upgrade/silk_touch.json
 ce72d94a61509ebcd112f44d81fdf6ef69bba027 data/tolaserblade/tags/items/upgrade/speed.json
 adcbf4b6699cd9a257fb1af965a634b75c69cbad data/tolaserblade/tags/items/upgrade/sweeping_edge.json

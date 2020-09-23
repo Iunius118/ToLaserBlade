@@ -80,12 +80,13 @@ public class LBDisassembledItem extends Item implements LaserBladeItemBase {
             if (enchantment == Enchantments.EFFICIENCY) {
                 batteryStack.addEnchantment(enchantment, lvl);
 
-            } else if (enchantment instanceof DamageEnchantment) {
+            } else if (enchantment instanceof DamageEnchantment ||
+                    enchantment == Enchantments.KNOCKBACK ) {
                 mediumStack.addEnchantment(enchantment, lvl);
 
             } else if (enchantment == Enchantments.FIRE_ASPECT ||
                     enchantment == Enchantments.SWEEPING ||
-                    enchantment == Enchantments.KNOCKBACK ) {
+                    enchantment == Enchantments.SILK_TOUCH) {
                 emitterStack.addEnchantment(enchantment, lvl);
 
             } else if (enchantment == Enchantments.VANISHING_CURSE) {

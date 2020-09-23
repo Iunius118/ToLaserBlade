@@ -111,6 +111,7 @@ public enum LaserBladeStack {
         stack.addEnchantment(Enchantments.MENDING, Enchantments.MENDING.getMaxLevel());
         stack.addEnchantment(Enchantments.FIRE_ASPECT, Enchantments.FIRE_ASPECT.getMaxLevel());
         stack.addEnchantment(Enchantments.SWEEPING, Enchantments.SWEEPING.getMaxLevel());
+        stack.addEnchantment(Enchantments.SILK_TOUCH, Enchantments.SILK_TOUCH.getMaxLevel());
         stack.addEnchantment(Enchantments.LOOTING, Enchantments.LOOTING.getMaxLevel());
 
         LaserBladeVisual visual = laserBlade.getVisual();

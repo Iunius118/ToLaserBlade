@@ -19,34 +19,33 @@ import java.util.Map;
 public class UpgradeManager {
     private static final Map<ResourceLocation, Upgrade> upgrades = new HashMap<>();
     static {
-        registerEnchantment(ModItemTags.EFFICIENCY_UPGRADE, Enchantments.EFFICIENCY, "efc");
-        registerEnchantment(ModItemTags.LIGHT_ELEMENT_UPGRADE, ModEnchantments.LIGHT_ELEMENT, "lte");
-        registerEnchantment(ModItemTags.FIRE_ASPECT_UPGRADE, Enchantments.FIRE_ASPECT, "fra");
-        registerEnchantment(ModItemTags.SWEEPING_EDGE_UPGRADE, Enchantments.SWEEPING, "swp");
-        registerEnchantment(ModItemTags.LOOTING_UPGRADE, Enchantments.LOOTING, "ltn");
-        registerEnchantment(ModItemTags.MENDING_UPGRADE, Enchantments.MENDING, "mnd");
+        registerEnchantment(UpgradeID.EFFICIENCY_UPGRADE, ModItemTags.EFFICIENCY_UPGRADE, Enchantments.EFFICIENCY);
+        registerEnchantment(UpgradeID.LIGHT_ELEMENT_UPGRADE, ModItemTags.LIGHT_ELEMENT_UPGRADE, ModEnchantments.LIGHT_ELEMENT);
+        registerEnchantment(UpgradeID.FIRE_ASPECT_UPGRADE, ModItemTags.FIRE_ASPECT_UPGRADE, Enchantments.FIRE_ASPECT);
+        registerEnchantment(UpgradeID.SWEEPING_EDGE_UPGRADE, ModItemTags.SWEEPING_EDGE_UPGRADE, Enchantments.SWEEPING);
+        registerEnchantment(UpgradeID.SILK_TOUCH_UPGRADE, ModItemTags.SILK_TOUCH_UPGRADE, Enchantments.SILK_TOUCH);
+        registerEnchantment(UpgradeID.LOOTING_UPGRADE, ModItemTags.LOOTING_UPGRADE, Enchantments.LOOTING);
+        registerEnchantment(UpgradeID.MENDING_UPGRADE, ModItemTags.MENDING_UPGRADE, Enchantments.MENDING);
 
-        register(ModItemTags.EFFICIENCY_REMOVER, RemoveEfficiencyUpgrade.class, "efr");
+        register(UpgradeID.EFFICIENCY_REMOVER, ModItemTags.EFFICIENCY_REMOVER, RemoveEfficiencyUpgrade.class);
 
-        register(ModItemTags.ATTACK_DAMAGE_UPGRADE, DamageUpgrade.class, "adm");
-        register(ModItemTags.ATTACK_SPEED_UPGRADE, SpeedUpgrade.class, "asp");
+        register(UpgradeID.ATTACK_DAMAGE_UPGRADE, ModItemTags.ATTACK_DAMAGE_UPGRADE, DamageUpgrade.class);
+        register(UpgradeID.ATTACK_SPEED_UPGRADE, ModItemTags.ATTACK_SPEED_UPGRADE, SpeedUpgrade.class);
     }
 
-    private static void register(ITag.INamedTag<Item> tag, Class<? extends Upgrade> upgradeClass, String shortName) {
-        ResourceLocation key = tag.getName();
+    private static void register(UpgradeID id, ITag.INamedTag<Item> tag, Class<? extends Upgrade> upgradeClass) {
         Ingredient ingredient = Ingredient.fromTag(tag);
-        Upgrade upgrade = Upgrade.of(upgradeClass, ingredient, shortName);
+        Upgrade upgrade = Upgrade.of(upgradeClass, ingredient, id.getShortName());
 
         if (upgrade != null) {
-            upgrades.put(key, upgrade);
+            upgrades.put(id.getID(), upgrade);
         }
     }
 
-    private static void registerEnchantment(ITag.INamedTag<Item> tag, Enchantment enchantment, String shortName) {
-        ResourceLocation key = tag.getName();
+    private static void registerEnchantment(UpgradeID id, ITag.INamedTag<Item> tag, Enchantment enchantment) {
         Ingredient ingredient = Ingredient.fromTag(tag);
-        Upgrade upgrade = EnchantmentUpgrade.of(ingredient, enchantment, shortName);
-        upgrades.put(key, upgrade);
+        Upgrade upgrade = EnchantmentUpgrade.of(ingredient, enchantment, id.getShortName());
+        upgrades.put(id.getID(), upgrade);
     }
 
     public static Map<ResourceLocation, Upgrade> getUpgrades() {
@@ -62,6 +61,10 @@ public class UpgradeManager {
         }
 
         return upgrade;
+    }
+
+    public static Upgrade get(UpgradeID id) {
+        return get(id.getID());
     }
 
     public static List<Upgrade> get(ItemStack additionalItem) {

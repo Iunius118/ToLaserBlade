@@ -8,8 +8,8 @@ public enum UpgradeID {
     LIGHT_ELEMENT_UPGRADE("upgrade/light_element", "lte"),
     FIRE_ASPECT_UPGRADE("upgrade/fire_aspect", "fra"),
     SWEEPING_EDGE_UPGRADE("upgrade/sweeping_edge", "swp"),
-    LOOTING_UPGRADE("upgrade/looting", "ltn"),
     SILK_TOUCH_UPGRADE("upgrade/silk_touch", "slt"),
+    LOOTING_UPGRADE("upgrade/looting", "ltn"),
     MENDING_UPGRADE("upgrade/mending", "mnd"),
 
     EFFICIENCY_REMOVER("upgrade/efficiency_remover", "efr"),
