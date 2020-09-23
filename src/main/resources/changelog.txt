@@ -1,6 +1,14 @@
 ToLaserBlade
 Changelog
 
+v1.16.3-4.1.0.0
+
+    Rename upgrade and coloring recipe files
+    Change coloring recipes to use 32-bit integer value for color
+    Add Silk Touch upgrade for Laser Blade. It needs Prismarine Crystals
+    Fix laser trap damage
+
+
 v1.16.3-4.0.0.1
 
     Fix Laser Blade's upgrading and coloring recipes for showing up in JEI
