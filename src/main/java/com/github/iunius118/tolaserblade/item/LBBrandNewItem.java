@@ -44,22 +44,23 @@ public class LBBrandNewItem extends Item implements LaserBladeItemBase {
         ItemStack itemStack = playerIn.getHeldItem(handIn);
 
         if (!worldIn.isRemote()) {
-            getLaserBlade(worldIn, playerIn, handIn, itemStack);
+            setLaserBladeToPlayer(worldIn, playerIn, handIn, itemStack);
             return ActionResult.resultSuccess(itemStack);
         }
 
         return ActionResult.resultSuccess(itemStack);
     }
 
-    private void getLaserBlade(World worldIn, PlayerEntity playerIn, Hand handIn, ItemStack itemStack) {
+    private void setLaserBladeToPlayer(World worldIn, PlayerEntity playerIn, Hand handIn, ItemStack itemStack) {
         ItemStack laserBladeStack;
 
         if (type == Type.NONE || type == Type.FP) {
             // Copy NBT tag to Laser Blade. This is for customized recipe
-            laserBladeStack = type.getCopy();
             CompoundNBT tag = itemStack.getOrCreateTag();
-            laserBladeStack.setTag(tag);
-            laserBladeStack.setDamage(0);
+            CompoundNBT newNbt = tag.copy();    // Copy nbt to make it independent of the Brand-new Laser Blade
+            laserBladeStack = type.getCopy();
+            laserBladeStack.setTag(newNbt);
+            laserBladeStack.setDamage(0);   // Repair Laser Blade
         } else {
             laserBladeStack = getPresetLaserBlade(worldIn, playerIn, itemStack);
         }
