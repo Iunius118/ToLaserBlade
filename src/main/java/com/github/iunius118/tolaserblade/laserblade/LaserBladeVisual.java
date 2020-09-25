@@ -1,7 +1,14 @@
 package com.github.iunius118.tolaserblade.laserblade;
 
 import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.util.RegistryKey;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.registry.DynamicRegistries;
+import net.minecraft.util.registry.MutableRegistry;
+import net.minecraft.util.registry.Registry;
+import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
+import net.minecraft.world.biome.Biomes;
 import net.minecraftforge.common.util.Constants;
 
 public class LaserBladeVisual {
@@ -25,41 +32,70 @@ public class LaserBladeVisual {
         return gripColor.gripColor;
     }
 
-    public void setColorsByBiome(Biome biome) {
+    public void setColorsByBiome(World world, Biome biome) {
         // Color by Biome type or Biome temperature
         if (biome.getCategory() == Biome.Category.NETHER) {
             // The Nether
-            getInnerColor().isSubtractColor = true;
+            setColorsByNetherBiome(world, biome);
+
         } else if (biome.getCategory() == Biome.Category.THEEND) {
             // The End
+            getOuterColor().color = Color.WHITE.getBladeColor();
+            getOuterColor().isSubtractColor = true;
+            getInnerColor().isSubtractColor = true;
+
+        } else {
+            // Biomes on Over-world etc.
+            float temp = biome.getTemperature();
+            setColorsByTemperature(temp);
+        }
+    }
+
+    public void setColorsByNetherBiome(World world, Biome biome) {
+        getOuterColor().color = Color.WHITE.getBladeColor();
+
+        if (compareBiome(world, biome, Biomes.SOUL_SAND_VALLEY) ||
+                compareBiome(world, biome, Biomes.WARPED_FOREST)) {
             getOuterColor().isSubtractColor = true;
 
         } else {
-            // Biomes on Over-world or the other dimensions
-            float temp = biome.getTemperature();
+            getInnerColor().isSubtractColor = true;
+        }
+    }
 
-            if (temp > 1.5F) {
-                // t > 1.5
-                getOuterColor().color = Color.TEMP_DESERT.getBladeColor();
-            } else if (temp > 1.0F) {
-                // 1.5 >= t > 1.0
-                getOuterColor().color = Color.TEMP_SAVANNA.getBladeColor();
-            } else if (temp > 0.8F) {
-                // 1.0 >= t > 0.8
-                getOuterColor().color = Color.TEMP_JUNGLE.getBladeColor();
-            } else if (temp >= 0.5F) {
-                // 0.8 >= t >= 0.5
-                getOuterColor().color = Color.RED.getBladeColor();
-            } else if (temp >= 0.2F) {
-                // 0.5 > t >= 0.2
-                getOuterColor().color = Color.TEMP_TAIGA.getBladeColor();
-            } else if (temp >= -0.25F) {
-                // 0.2 > t >= -0.25
-                getOuterColor().color = Color.TEMP_ICE_PLAIN.getBladeColor();
-            } else {
-                // -0.25 > t
-                getOuterColor().color = Color.TEMP_SNOWY_TAIGA.getBladeColor();
-            }
+    private boolean compareBiome(World world, Biome biome, RegistryKey<Biome> biomeKey) {
+        if (world == null || biome == null || biomeKey == null) return false;
+
+        DynamicRegistries registries = world.func_241828_r();   // TODO: func_241828_r = getDynamicRegistries ?
+        MutableRegistry<Biome> biomes = registries.getRegistry(Registry.BIOME_KEY);
+        ResourceLocation biome1 = biomes.getKey(biome);
+        ResourceLocation biome2 = biomeKey.getRegistryName();
+
+        return biome2.equals(biome1);
+    }
+
+    public void setColorsByTemperature(float temp) {
+        if (temp > 1.5F) {
+            // t > 1.5
+            getOuterColor().color = Color.TEMP_DESERT.getBladeColor();
+        } else if (temp > 1.0F) {
+            // 1.5 >= t > 1.0
+            getOuterColor().color = Color.TEMP_SAVANNA.getBladeColor();
+        } else if (temp > 0.8F) {
+            // 1.0 >= t > 0.8
+            getOuterColor().color = Color.TEMP_JUNGLE.getBladeColor();
+        } else if (temp >= 0.5F) {
+            // 0.8 >= t >= 0.5
+            getOuterColor().color = Color.RED.getBladeColor();
+        } else if (temp >= 0.2F) {
+            // 0.5 > t >= 0.2
+            getOuterColor().color = Color.TEMP_TAIGA.getBladeColor();
+        } else if (temp >= -0.25F) {
+            // 0.2 > t >= -0.25
+            getOuterColor().color = Color.TEMP_ICE_PLAIN.getBladeColor();
+        } else {
+            // -0.25 > t
+            getOuterColor().color = Color.TEMP_SNOWY_TAIGA.getBladeColor();
         }
     }
 

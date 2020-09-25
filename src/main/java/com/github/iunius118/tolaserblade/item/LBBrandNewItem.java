@@ -93,7 +93,7 @@ public class LBBrandNewItem extends Item implements LaserBladeItemBase {
         LaserBladeVisual visual = laserBlade.getVisual();
         BlockPos pos = playerIn.getPosition();
         Biome biome = worldIn.getBiome(pos);
-        visual.setColorsByBiome(biome);
+        visual.setColorsByBiome(worldIn, biome);
         laserBlade.write(laserBladeStack);
         return laserBladeStack;
     }
