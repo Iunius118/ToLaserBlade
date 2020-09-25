@@ -5,9 +5,10 @@ import net.minecraft.item.crafting.Ingredient;
 
 import javax.annotation.Nullable;
 import java.lang.reflect.Constructor;
+import java.util.function.Supplier;
 
 public abstract class Upgrade {
-    public static final Upgrade NONE = new Upgrade(Ingredient.EMPTY, "00") {
+    public static final Upgrade NONE = new Upgrade(() -> Ingredient.EMPTY, "00") {
         @Override
         public boolean test(ItemStack base, ItemStack addition) {
             return false;
@@ -19,22 +20,23 @@ public abstract class Upgrade {
         }
     };
 
-    private final Ingredient ingredient;
+    private final Supplier<Ingredient> ingredientSupplier;
+    private Ingredient ingredient;
     private final String shortName;
 
-    public Upgrade(Ingredient ingredientIn, String shortNameIn) {
-        ingredient = ingredientIn;
+    public Upgrade(Supplier<Ingredient> ingredientSupplierIn, String shortNameIn) {
+        ingredientSupplier = ingredientSupplierIn;
         shortName = shortNameIn;
     }
 
     @Nullable
-    public static Upgrade of(Class<? extends Upgrade> upgrade, Ingredient ingredientIn, String shortNameIn) {
+    public static Upgrade of(Class<? extends Upgrade> upgrade, Supplier<Ingredient> ingredientSupplierIn, String shortNameIn) {
         // Get upgrade instance from upgrade Class
         Upgrade instance = null;
 
         try {
-            Constructor<? extends Upgrade> constructor = upgrade.getConstructor(Ingredient.class, String.class);
-            instance = constructor.newInstance(ingredientIn, shortNameIn);
+            Constructor<? extends Upgrade> constructor = upgrade.getConstructor(Supplier.class, String.class);
+            instance = constructor.newInstance(ingredientSupplierIn, shortNameIn);
         } catch (ReflectiveOperationException e) {
             e.printStackTrace();
         }
@@ -43,6 +45,10 @@ public abstract class Upgrade {
     }
 
     public Ingredient getIngredient() {
+        if (ingredient == null) {
+            ingredient = ingredientSupplier.get();
+        }
+
         return ingredient;
     }
 

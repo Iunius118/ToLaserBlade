@@ -7,10 +7,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 
 import java.util.Map;
+import java.util.function.Supplier;
 
 public class RemoveEfficiencyUpgrade extends Upgrade {
-    public RemoveEfficiencyUpgrade(Ingredient ingredientIn, String shortNameIn) {
-        super(ingredientIn, shortNameIn);
+    public RemoveEfficiencyUpgrade(Supplier<Ingredient> ingredientSupplierIn, String shortNameIn) {
+        super(ingredientSupplierIn, shortNameIn);
     }
 
     @Override

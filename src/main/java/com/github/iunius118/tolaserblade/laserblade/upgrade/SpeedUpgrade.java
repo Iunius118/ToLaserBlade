@@ -5,9 +5,11 @@ import com.github.iunius118.tolaserblade.laserblade.LaserBladePerformance;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 
+import java.util.function.Supplier;
+
 public class SpeedUpgrade extends Upgrade {
-    public SpeedUpgrade(Ingredient ingredientIn, String shortNameIn) {
-        super(ingredientIn, shortNameIn);
+    public SpeedUpgrade(Supplier<Ingredient> ingredientSupplierIn, String shortNameIn) {
+        super(ingredientSupplierIn, shortNameIn);
     }
 
     @Override

@@ -6,9 +6,11 @@ import com.github.iunius118.tolaserblade.laserblade.LaserBladePerformance;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 
+import java.util.function.Supplier;
+
 public class DamageUpgrade extends Upgrade {
-    public DamageUpgrade(Ingredient ingredientIn, String shortNameIn) {
-        super(ingredientIn, shortNameIn);
+    public DamageUpgrade(Supplier<Ingredient> ingredientSupplierIn, String shortNameIn) {
+        super(ingredientSupplierIn, shortNameIn);
     }
 
     @Override

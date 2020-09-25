@@ -34,8 +34,7 @@ public class UpgradeManager {
     }
 
     private static void register(UpgradeID id, ITag.INamedTag<Item> tag, Class<? extends Upgrade> upgradeClass) {
-        Ingredient ingredient = Ingredient.fromTag(tag);
-        Upgrade upgrade = Upgrade.of(upgradeClass, ingredient, id.getShortName());
+        Upgrade upgrade = Upgrade.of(upgradeClass, () -> Ingredient.fromTag(tag), id.getShortName());
 
         if (upgrade != null) {
             upgrades.put(id.getID(), upgrade);
@@ -43,8 +42,7 @@ public class UpgradeManager {
     }
 
     private static void registerEnchantment(UpgradeID id, ITag.INamedTag<Item> tag, Enchantment enchantment) {
-        Ingredient ingredient = Ingredient.fromTag(tag);
-        Upgrade upgrade = EnchantmentUpgrade.of(ingredient, enchantment, id.getShortName());
+        Upgrade upgrade = EnchantmentUpgrade.of(() -> Ingredient.fromTag(tag), enchantment, id.getShortName());
         upgrades.put(id.getID(), upgrade);
     }
 

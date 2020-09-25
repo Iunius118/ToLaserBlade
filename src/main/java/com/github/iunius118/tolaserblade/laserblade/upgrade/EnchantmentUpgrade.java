@@ -7,17 +7,18 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 
 import java.util.Map;
+import java.util.function.Supplier;
 
 public class EnchantmentUpgrade extends Upgrade {
     private final Enchantment enchantment;
 
-    public EnchantmentUpgrade(Ingredient ingredientIn, Enchantment enchantmentIn, String shortNameIn) {
-        super(ingredientIn, shortNameIn);
+    public EnchantmentUpgrade(Supplier<Ingredient> ingredientSupplierIn, Enchantment enchantmentIn, String shortNameIn) {
+        super(ingredientSupplierIn, shortNameIn);
         enchantment = enchantmentIn;
     }
 
-    public static EnchantmentUpgrade of(Ingredient ingredientIn, Enchantment enchantmentIn, String shortNameIn) {
-        return new EnchantmentUpgrade(ingredientIn, enchantmentIn, shortNameIn);
+    public static EnchantmentUpgrade of(Supplier<Ingredient> ingredientSupplierIn, Enchantment enchantmentIn, String shortNameIn) {
+        return new EnchantmentUpgrade(ingredientSupplierIn, enchantmentIn, shortNameIn);
     }
 
     @Override
