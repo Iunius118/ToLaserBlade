@@ -1,6 +1,14 @@
 ToLaserBlade
 Changelog
 
+v1.16.3-4.1.1.0
+
+    Change brand new Laser Blade's coloring in Nether and End biomes
+    Fix client crash when connecting to multiplayer server
+    Fix Brand-new Laser Blade's right-clicking behavior
+    Compatible with Forge 34.1.0
+
+
 v1.16.3-4.1.0.0
 
     Rename upgrade and coloring recipe files
