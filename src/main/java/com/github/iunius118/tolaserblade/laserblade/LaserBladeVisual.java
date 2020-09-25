@@ -69,7 +69,7 @@ public class LaserBladeVisual {
         DynamicRegistries registries = world.func_241828_r();   // TODO: func_241828_r = getDynamicRegistries ?
         MutableRegistry<Biome> biomes = registries.getRegistry(Registry.BIOME_KEY);
         ResourceLocation biome1 = biomes.getKey(biome);
-        ResourceLocation biome2 = biomeKey.getRegistryName();
+        ResourceLocation biome2 = biomeKey.getLocation();
 
         return biome2.equals(biome1);
     }
