@@ -5,7 +5,7 @@ ToLaserBladeはMinecraftに光の刃を持つ剣「レーザーブレイド」�
 ## 動作環境
 
 - Minecraft 1.16.3
-- Minecraft Forge 1.16.1-34.1.0+
+- Minecraft Forge 1.16.3-34.1.0+
 
 ### 推奨mod
 
