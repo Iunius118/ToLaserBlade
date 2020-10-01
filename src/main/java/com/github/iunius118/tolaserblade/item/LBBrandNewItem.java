@@ -70,8 +70,10 @@ public class LBBrandNewItem extends Item implements LaserBladeItemBase {
         // Set Laser Blade to player inventory
         if (playerIn.abilities.isCreativeMode || itemStack.getCount() > 1) {
             // Remain Brand-new ItemStack and return
+            // If the inventory is full, it will fail
             if (!playerIn.addItemStackToInventory(laserBladeStack)) return;
-            itemStack.shrink(1);    // Successfully added new Laser Blade to the inventory, and consume 1 Brand-new Laser Blade
+            // Successfully added new Laser Blade to the inventory, and consume 1 Brand-new Laser Blade
+            itemStack.shrink(1);
             return;
         }
 

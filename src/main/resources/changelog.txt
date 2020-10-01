@@ -1,6 +1,11 @@
 ToLaserBlade
 Changelog
 
+v1.16.3-4.1.1.1
+
+     Fix Brand-new Laser Blade not to be used when player's inventory is full
+
+
 v1.16.3-4.1.1.0
 
     Change brand new Laser Blade's coloring in Nether and End biomes

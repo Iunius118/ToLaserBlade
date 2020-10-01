@@ -19,6 +19,7 @@ import java.util.Map;
 public class UpgradeManager {
     private static final Map<ResourceLocation, Upgrade> upgrades = new HashMap<>();
     static {
+        // Add upgrade ID to UpgradeID, add item tag to ModItemTags and TLBItemTagsProvider, and add upgrade here
         registerEnchantment(UpgradeID.EFFICIENCY_UPGRADE, ModItemTags.EFFICIENCY_UPGRADE, Enchantments.EFFICIENCY);
         registerEnchantment(UpgradeID.LIGHT_ELEMENT_UPGRADE, ModItemTags.LIGHT_ELEMENT_UPGRADE, ModEnchantments.LIGHT_ELEMENT);
         registerEnchantment(UpgradeID.FIRE_ASPECT_UPGRADE, ModItemTags.FIRE_ASPECT_UPGRADE, Enchantments.FIRE_ASPECT);
