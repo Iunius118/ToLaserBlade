@@ -3,6 +3,7 @@ package com.github.iunius118.tolaserblade.laserblade.upgrade;
 import com.google.common.collect.Maps;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 
@@ -36,13 +37,18 @@ public class EnchantmentUpgrade extends Upgrade {
             Map<Enchantment, Integer> oldEnchantments = EnchantmentHelper.getEnchantments(base);
             Map<Enchantment, Integer> newEnchantments = Maps.newLinkedHashMap();
             // Remove not compatible enchantments
-            oldEnchantments.forEach((e, lvl) -> {if (e.isCompatibleWith(enchantment) || e.equals(enchantment)) newEnchantments.put(e, lvl);});
+            oldEnchantments.forEach((e, lvl) -> {if (isCompatibleWith(e, enchantment)) newEnchantments.put(e, lvl);});
             newEnchantments.put(enchantment, ++level);
             EnchantmentHelper.setEnchantments(newEnchantments, base);
             cost += getCost(level);
         }
 
         return UpgradeResult.of(base, cost);
+    }
+
+    private boolean isCompatibleWith(Enchantment e1, Enchantment e2) {
+        return e1.isCompatibleWith(e2) || e1.equals(e2) ||
+                (e1 == Enchantments.SILK_TOUCH && e2 == Enchantments.LOOTING) || (e1 == Enchantments.LOOTING && e2 == Enchantments.SILK_TOUCH); // Allow Laser Blade to have Silk Touch and Looting together
     }
 
     private int getCost(int newLevel) {
