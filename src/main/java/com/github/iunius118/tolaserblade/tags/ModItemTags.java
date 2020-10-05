@@ -25,11 +25,11 @@ public class ModItemTags {
     public static final ITag.INamedTag<Item> CASING_REPAIR = makeWrapperTag("casing_repair");
 
     private static ITag.INamedTag<Item> makeWrapperTag(String id) {
-        return ItemTags.makeWrapperTag(ToLaserBlade.MOD_ID + ":" + id);
+        return ItemTags.createOptional(new ResourceLocation(ToLaserBlade.MOD_ID, id));
     }
 
     private static ITag.INamedTag<Item> makeWrapperTag(UpgradeID upgradeID) {
         ResourceLocation id = upgradeID.getID();
-        return ItemTags.makeWrapperTag(id.toString());
+        return ItemTags.createOptional(id);
     }
 }
