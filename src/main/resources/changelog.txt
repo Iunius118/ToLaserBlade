@@ -1,9 +1,15 @@
 ToLaserBlade
 Changelog
 
+v1.16.3-4.1.1.2
+
+    Fix upgrade so that Laser Blade can have Looting and Silk Touch together
+    Fix item tag registration so that client on which ToLaserBlade is installed can connect to vanilla server
+
+
 v1.16.3-4.1.1.1
 
-     Fix Brand-new Laser Blade not to be used when player's inventory is full
+    Fix Brand-new Laser Blade not to be used when player's inventory is full
 
 
 v1.16.3-4.1.1.0
