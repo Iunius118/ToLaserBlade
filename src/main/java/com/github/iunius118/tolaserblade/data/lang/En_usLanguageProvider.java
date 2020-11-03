@@ -65,9 +65,9 @@ public class En_usLanguageProvider extends LanguageProvider {
         add("advancements.tolaserblade.main.laser_blade_mending_1.title", "Life-time Support");
         add("advancements.tolaserblade.main.laser_blade_mending_1.description", "Add Mending enchantment to a Laser Blade");
         add("advancements.tolaserblade.main.laser_blade_attack_10.title", "It's Over 9");
-        add("advancements.tolaserblade.main.laser_blade_attack_10.description", "Increase attack damage of a Laser Blade to 10 or more");
+        add("advancements.tolaserblade.main.laser_blade_attack_10.description", "Upgrade attack damage of a Laser Blade three times");
         add("advancements.tolaserblade.main.laser_blade_attack_15.title", "Beyond the Limit");
-        add("advancements.tolaserblade.main.laser_blade_attack_15.description", "Increase attack damage of a Laser Blade to 15");
+        add("advancements.tolaserblade.main.laser_blade_attack_15.description", "Upgrade attack damage of a Laser Blade eight times");
         add("advancements.tolaserblade.main.laser_blade_looting_3.title", "Give Me Three");
         add("advancements.tolaserblade.main.laser_blade_looting_3.description", "Add Looting III enchantment to a Laser Blade");
         add("advancements.tolaserblade.main.break_laser_blade.title", "Returns and Exchanges");

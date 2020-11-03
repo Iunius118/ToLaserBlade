@@ -62,9 +62,9 @@ public class Ja_jpLanguageProvider extends LanguageProvider {
         add("advancements.tolaserblade.main.laser_blade_mending_1.title", "無期限サポート");
         add("advancements.tolaserblade.main.laser_blade_mending_1.description", "レーザーブレイドに 修繕 のエンチャントを付与する");
         add("advancements.tolaserblade.main.laser_blade_attack_10.title", "９以上だ");
-        add("advancements.tolaserblade.main.laser_blade_attack_10.description", "レーザーブレイドの攻撃力を 10 以上にする");
+        add("advancements.tolaserblade.main.laser_blade_attack_10.description", "レーザーブレイドの攻撃力を 3回 アップグレードする");
         add("advancements.tolaserblade.main.laser_blade_attack_15.title", "限界突破");
-        add("advancements.tolaserblade.main.laser_blade_attack_15.description", "レーザーブレイドの攻撃力を 15 にする");
+        add("advancements.tolaserblade.main.laser_blade_attack_15.description", "レーザーブレイドの攻撃力を 8回 アップグレードする");
         add("advancements.tolaserblade.main.laser_blade_looting_3.title", "３つくれ");
         add("advancements.tolaserblade.main.laser_blade_looting_3.description", "レーザーブレイドに ドロップ増加 Ⅲ のエンチャントを付与する");
         add("advancements.tolaserblade.main.break_laser_blade.title", "返品交換");
