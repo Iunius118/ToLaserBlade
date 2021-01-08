@@ -1,9 +1,17 @@
 ToLaserBlade
 Changelog
 
+v1.16.4-4.1.2.0
+
+    Add fireproof Laser Blade to OptiFine's Dynamic Lights
+    Add temporary support for Dynamic Lights
+    Add secret internal Laser Blade model
+    Compatible with Forge 1.16.4-35.1.4
+
+
 v1.16.3-4.1.1.3
 
-    Fix mods.toml to compatible with 1.16.4
+    Fix mods.toml to port to 1.16.4
     Fix description of advancement
 
 
