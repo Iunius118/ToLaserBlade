@@ -1,6 +1,11 @@
 ToLaserBlade
 Changelog
 
+v1.16.4-4.1.2.1
+
+    Remove support for Dynamic Lights
+
+
 v1.16.4-4.1.2.0
 
     Add fireproof Laser Blade to OptiFine's Dynamic Lights
