@@ -1,12 +1,12 @@
 
 modLoader="javafml"
-loaderVersion="[34,)"
+loaderVersion="[35,)"
 license="All rights reserved"
 issueTrackerURL="https://github.com/Iunius118/ToLaserBlade/issues"
 
 [[mods]]
 modId="tolaserblade"
-version="${version}"
+version="${file.jarVersion}"
 displayName="ToLaserBlade"
 updateJSONURL="https://raw.githubusercontent.com/Iunius118/ToLaserBlade/master/update.json"
 displayURL="https://github.com/Iunius118/ToLaserBlade"
@@ -18,12 +18,12 @@ description="Adds a Laser Blade."
 [[dependencies.tolaserblade]]
     modId="forge"
     mandatory=true
-    versionRange="[34,)"
+    versionRange="[35,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.tolaserblade]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.16.2,1.16.4]"
+    versionRange="[1.16.4,1.17)"
     ordering="NONE"
     side="BOTH"
