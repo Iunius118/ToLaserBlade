@@ -1,11 +1,13 @@
-# ToLaserBlade v1.16.3-4.1.1.0
+# ToLaserBlade v1.16.4-4.1.2.1
 
 ToLaserBladeはMinecraftに光の刃を持つ剣「レーザーブレイド」を追加するmodです。
 
 ## 動作環境
 
-- Minecraft 1.16.3
-- Minecraft Forge 1.16.3-34.1.0+
+- Minecraft 1.16.4
+  - Minecraft Forge 1.16.4-35.1.4+
+- Minecraft 1.16.5
+  - Minecraft Forge 1.16.5-36.0.0+
 
 ### 推奨mod
 
