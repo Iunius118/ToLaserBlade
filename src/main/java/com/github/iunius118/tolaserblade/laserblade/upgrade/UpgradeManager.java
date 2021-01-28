@@ -55,7 +55,7 @@ public class UpgradeManager {
         Upgrade upgrade = upgrades.get(key);
 
         if (upgrade == null) {
-            ToLaserBlade.LOGGER.warn("Upgrade {} was not found in UpgradeManager", key.toString());
+            ToLaserBlade.LOGGER.warn("[ToLaserBlade] Upgrade {} was not found in UpgradeManager", key.toString());
             upgrade = Upgrade.NONE;
         }
 

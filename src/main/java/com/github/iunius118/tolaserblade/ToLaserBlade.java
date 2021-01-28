@@ -131,7 +131,7 @@ public class ToLaserBlade {
                     .setTrackingRange(64).setUpdateInterval(4).setShouldReceiveVelocityUpdates(false)
                     .build(LaserTrapEntity.ID.toString());
 
-            ToLaserBlade.LOGGER.info("This warning from the data fixer is not an issue for modded entities");
+            ToLaserBlade.LOGGER.info("[ToLaserBlade] This warning of data fixer is not an issue for modded entities");
 
             event.getRegistry().registerAll(
                     laserTrap.setRegistryName(LaserTrapEntity.ID)

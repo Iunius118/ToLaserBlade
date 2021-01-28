@@ -53,12 +53,12 @@ public class LaserBladeInternalModelManager {
 
     public void addInternalModel(int index, Supplier<? extends SimpleModel> model) {
         if (model == null) {
-            ToLaserBlade.LOGGER.warn("Attempted to add null as internal Laser Blade model #{}.", index);
+            ToLaserBlade.LOGGER.warn("[ToLaserBlade] Attempted to add null as internal Laser Blade model #{}.", index);
             return;
         }
 
         if (models.containsKey(index)) {
-            ToLaserBlade.LOGGER.info("Internal Laser Blade model #{} already exists. It will be overwritten.", index);
+            ToLaserBlade.LOGGER.info("[ToLaserBlade] Internal Laser Blade model #{} already exists. It will be overwritten.", index);
         }
 
         models.put(index, model);
