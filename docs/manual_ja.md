@@ -285,15 +285,15 @@ Item ID: `tolaserblade:lb_casing_fp`
 - **enableBlockingWithLaserBlade**
   - レーザーブレイドによる攻撃のガード（ブロッキング）を有効にします（`true`→有効、`false`→無効）
 - **laserBladeEfficiencyInServer**
-  - レーザーブレイドの採掘速度を指定します（`0`にすると採掘不可）
+  - レーザーブレイドの採掘速度を指定します（`0`→採掘不可）
 - **maxAttackDamageUpgradeCount**
   - レーザーブレイドの攻撃力の最大アップグレード回数を指定します（デフォルトよりも低い値にすると一部の進捗が達成不能となるので注意）
 - **enableLaserTrap**
   - レーザートラップを有効にします（`true`→有効、`false`→無効）
 - **canLaserTrapAttackPlayer**
-  - レーザートラップがプレイヤーを攻撃可能にします（`true`→可能、`false`→不可）
+  - レーザートラップがプレイヤーを攻撃可能かを指定します（`true`→可能、`false`→不可）
 - **canLaserTrapHeatUpFurnace**
-  - レーザーブレイド（耐火）を使ったレーザートラップがかまどを加熱可能にします（`true`→可能、`false`→不可）
+  - レーザーブレイド（耐火）を使ったレーザートラップがかまどを加熱可能かを指定します（`true`→可能、`false`→不可）
 
 ### tolaserblade-client.toml
 
@@ -307,9 +307,9 @@ Item ID: `tolaserblade:lb_casing_fp`
 - **useInternalModel**
   - レーザーブレイドの描画に内部モデルを使用します（`true`→内部モデルを使用、`false`→外部モデルを使用）
 - **internalModelType**
-  - レーザーブレイドを内部モデルで描画するときに使用するモデルタイプを指定します（`-1`なら通常はデフォルトモデルを日付によっては隠しモデルを使用）
+  - レーザーブレイドを内部モデルで描画するときに使用するモデルタイプを指定します（`-1`→通常はデフォルトモデルを使用し日付によっては隠しモデルを使用）
 - **externalModelType**
   - レーザーブレイドを外部モデルで描画するときに使用するモデルタイプを指定します（`0`→バニラ同様テクスチャ画像から生成された簡易モデル、`1`→OBJモデルを使用［非推奨］）
 
 ---
-&copy; 2016-2020 Iunius118
+&copy; 2016-2021 Iunius118
