@@ -12,8 +12,9 @@ import java.util.function.Supplier;
 
 public class LaserBladeInternalModelManager {
     private static LaserBladeInternalModelManager instance;
-    private final Map<Integer, Supplier<? extends SimpleModel>> models;
-    private static final Supplier<? extends SimpleModel> defaultModel = LaserBladeModelType0::new;
+    private final Map<Integer, Supplier<? extends ILaserBladeModel>> models;
+    private final Map<Integer, ILaserBladeModel> modelCache;
+    private static final ILaserBladeModel defaultModel = new LaserBladeModelType0();
 
     public static LaserBladeInternalModelManager renewInstance() {
         instance = new LaserBladeInternalModelManager();
@@ -26,11 +27,12 @@ public class LaserBladeInternalModelManager {
 
     private LaserBladeInternalModelManager() {
         models = new HashMap<>();
+        modelCache = new HashMap<>();
         addInternalModels();
     }
 
     private void addInternalModels() {
-        models.put(0, defaultModel);
+        models.put(0, () -> defaultModel);
         models.put(1, LaserBladeModelType1::new);
         models.put(101, LaserBladeModelType101::new);
         models.put(217, LaserBladeModelType217::new);
@@ -67,12 +69,31 @@ public class LaserBladeInternalModelManager {
 
     public ILaserBladeModel getModel() {
         int modelType = ToLaserBladeConfig.CLIENT.internalModelType.get();
+        return getModel(modelType);
+    }
 
+    public ILaserBladeModel getModel(int modelType) {
         if (modelType < 0) {
             final Calendar calendar = Calendar.getInstance();
             modelType = (calendar.get(Calendar.MONTH) + 1) * 100 + calendar.get(Calendar.DATE);
         }
 
-        return models.getOrDefault(modelType, defaultModel).get();
+        ILaserBladeModel model = modelCache.get(modelType);
+
+        if(model != null) {
+            // Return cached model
+            return model;
+        }
+
+        Supplier<? extends ILaserBladeModel> supplier = models.get(modelType);
+
+        if (supplier == null) {
+            // Return default model for non-existent model type
+            return defaultModel;
+        }
+
+        model = supplier.get();
+        modelCache.put(modelType, model);
+        return model;
     }
 }
