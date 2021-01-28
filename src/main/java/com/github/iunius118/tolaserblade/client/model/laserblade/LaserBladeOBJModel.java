@@ -1,7 +1,7 @@
 package com.github.iunius118.tolaserblade.client.model.laserblade;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
-import com.github.iunius118.tolaserblade.client.model.SimpleModel;
+import com.github.iunius118.tolaserblade.api.client.model.ILaserBladeModel;
 import com.github.iunius118.tolaserblade.client.renderer.LaserBladeItemColor;
 import com.github.iunius118.tolaserblade.client.renderer.LaserBladeRenderType;
 import com.google.common.collect.Maps;
@@ -26,7 +26,7 @@ import net.minecraftforge.client.model.obj.OBJModel;
 
 import java.util.*;
 
-public class LaserBladeOBJModel extends SimpleModel {
+public class LaserBladeOBJModel implements ILaserBladeModel {
     private final Map<Part, List<BakedQuad>> PARTS = Maps.newEnumMap(Part.class);
     private final ResourceLocation TEXTURE = PlayerContainer.LOCATION_BLOCKS_TEXTURE;
 

@@ -2,6 +2,7 @@ package com.github.iunius118.tolaserblade.client.model;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.ToLaserBladeConfig;
+import com.github.iunius118.tolaserblade.api.client.model.ILaserBladeModel;
 import com.github.iunius118.tolaserblade.client.model.laserblade.*;
 
 import java.util.Calendar;
@@ -51,7 +52,7 @@ public class LaserBladeInternalModelManager {
         models.put(1216, LaserBladeModelType1216::new);
     }
 
-    public void addInternalModel(int index, Supplier<? extends SimpleModel> model) {
+    public void addInternalModel(int index, Supplier<? extends ILaserBladeModel> model) {
         if (model == null) {
             ToLaserBlade.LOGGER.warn("[ToLaserBlade] Attempted to add null as internal Laser Blade model #{}.", index);
             return;
@@ -64,7 +65,7 @@ public class LaserBladeInternalModelManager {
         models.put(index, model);
     }
 
-    public SimpleModel getModel() {
+    public ILaserBladeModel getModel() {
         int modelType = ToLaserBladeConfig.CLIENT.internalModelType.get();
 
         if (modelType < 0) {

@@ -1,5 +1,6 @@
 package com.github.iunius118.tolaserblade.client.model;
 
+import com.github.iunius118.tolaserblade.api.client.model.ILaserBladeModel;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
@@ -12,7 +13,7 @@ import net.minecraft.util.math.vector.Vector4f;
 
 import java.util.List;
 
-public class SimpleModel {
+public class SimpleModel implements ILaserBladeModel {
     public static class SimpleVertex {
         public final Vector3f pos;
         public final Vector4f color;
@@ -83,7 +84,8 @@ public class SimpleModel {
         }
     }
 
-    public void render(ItemStack itemStack, ItemCameraTransforms.TransformType transformType,  MatrixStack matrixStack, IRenderTypeBuffer buffer, int lightmapCoord, int overlayColor) {
+    @Override
+    public void render(ItemStack itemStack, ItemCameraTransforms.TransformType transformType, MatrixStack matrixStack, IRenderTypeBuffer buffer, int lightmapCoord, int overlayColor) {
 
     }
 
@@ -121,6 +123,7 @@ public class SimpleModel {
 
     public static final ResourceLocation TEXTURE_WHITE = new ResourceLocation("forge", "textures/white.png");
 
+    @Override
     public ResourceLocation getTexture() {
         return TEXTURE_WHITE;
     }
