@@ -40,6 +40,7 @@
   "item.tolaserblade.lb_emitter": "Laser Blade Emitter",
   "item.tolaserblade.lb_medium": "Laser Medium",
   "itemGroup.tolaserblade": "ToLaserBlade",
+  "tolaserblade.configgui.client.enableMultipleModels": "Enable Multiple Models",
   "tolaserblade.configgui.client.externalModelType": "External Model Type",
   "tolaserblade.configgui.client.internalModelType": "Internal Model Type",
   "tolaserblade.configgui.client.showUpdateMessage": "Show Update Message",

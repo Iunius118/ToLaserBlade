@@ -86,6 +86,7 @@ public class En_usLanguageProvider extends LanguageProvider {
         add("tolaserblade.configgui.client.showUpdateMessage", "Show Update Message");
         add("tolaserblade.configgui.client.useFixedVertexBuffer", "Use Fixed Vertex Buffer");
         add("tolaserblade.configgui.client.useInternalModel", "Use Internal Model");
+        add("tolaserblade.configgui.client.enableMultipleModels", "Enable Multiple Models");
         add("tolaserblade.configgui.client.internalModelType", "Internal Model Type");
         add("tolaserblade.configgui.client.externalModelType", "External Model Type");
 
