@@ -1,19 +1,14 @@
 package com.github.iunius118.tolaserblade.client.model;
 
-import com.github.iunius118.tolaserblade.api.client.model.ILaserBladeModel;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.vector.Vector2f;
 import net.minecraft.util.math.vector.Vector3f;
 import net.minecraft.util.math.vector.Vector4f;
 
 import java.util.List;
 
-public class SimpleModel implements ILaserBladeModel {
+public class SimpleModel {
     public static class SimpleVertex {
         public final Vector3f pos;
         public final Vector4f color;
@@ -84,11 +79,6 @@ public class SimpleModel implements ILaserBladeModel {
         }
     }
 
-    @Override
-    public void render(ItemStack itemStack, ItemCameraTransforms.TransformType transformType, MatrixStack matrixStack, IRenderTypeBuffer buffer, int lightmapCoord, int overlayColor) {
-
-    }
-
     protected void renderQuads(MatrixStack matrixStack, IVertexBuilder buffer, List<SimpleQuad> quads, int color, int lightmapCoord, int overlayColor) {
         float alpha = (float)(color >>> 24 & 255) / 255.0F;
         float red   = (float)(color >>> 16 & 255) / 255.0F;
@@ -119,12 +109,5 @@ public class SimpleModel implements ILaserBladeModel {
                         normal.getX(), normal.getY(), normal.getZ());
             }
         }
-    }
-
-    public static final ResourceLocation TEXTURE_WHITE = new ResourceLocation("forge", "textures/white.png");
-
-    @Override
-    public ResourceLocation getTexture() {
-        return TEXTURE_WHITE;
     }
 }
