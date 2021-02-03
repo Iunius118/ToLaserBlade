@@ -55,6 +55,11 @@ public class LaserBladeInternalModelManager {
     }
 
     public void addInternalModel(int index, Supplier<? extends ILaserBladeModel> model) {
+        if (index < 0) {
+            ToLaserBlade.LOGGER.warn("[ToLaserBlade] Attempted to add a model to invalid number {}.", index);
+            return;
+        }
+
         if (model == null) {
             ToLaserBlade.LOGGER.warn("[ToLaserBlade] Attempted to add null as internal Laser Blade model #{}.", index);
             return;
