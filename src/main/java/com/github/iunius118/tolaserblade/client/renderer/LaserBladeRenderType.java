@@ -27,17 +27,17 @@ public class LaserBladeRenderType extends RenderType {
     }
     private static final LaserBladeTextureState LASER_BLADE_TEXTURE_STATE = new LaserBladeTextureState();
 
-    public static final RenderType HILT = getBladeRenderType("hilt", getLaserHiltRenderState());
-    public static final RenderType LASER_FLAT = getBladeRenderType("laser_flat", getLaserFlatRenderState());
-    public static final RenderType LASER_ADD = getBladeRenderType("laser_add", getLaserAddRenderState());
-    public static final RenderType LASER_SUB_INNER = getBladeRenderType("laser_sub_in", getLaserSubRenderState());
-    public static final RenderType LASER_SUB = getBladeRenderType("laser_sub", getLaserSubRenderState());
+    public static final RenderType HILT = getBladeRenderType("hilt", getHiltRenderState(LaserBladeRenderType.LASER_BLADE_TEXTURE_STATE));
+    public static final RenderType LASER_FLAT = getBladeRenderType("laser_flat", getFlatRenderState(LaserBladeRenderType.LASER_BLADE_TEXTURE_STATE));
+    public static final RenderType LASER_ADD = getBladeRenderType("laser_add", getAddRenderState(LaserBladeRenderType.LASER_BLADE_TEXTURE_STATE));
+    public static final RenderType LASER_SUB_INNER = getBladeRenderType("laser_sub_in", getSubRenderState(LaserBladeRenderType.LASER_BLADE_TEXTURE_STATE));
+    public static final RenderType LASER_SUB = getBladeRenderType("laser_sub", getSubRenderState(LaserBladeRenderType.LASER_BLADE_TEXTURE_STATE));
 
     static {
         registerRenderTypes();
     }
 
-    private static RenderType getBladeRenderType(String name, RenderType.State renderState) {
+    public static RenderType getBladeRenderType(String name, RenderType.State renderState) {
         return RenderType.makeType(name, DefaultVertexFormats.ENTITY, GL11.GL_QUADS, 256, true, false, renderState);
     }
 
@@ -45,9 +45,9 @@ public class LaserBladeRenderType extends RenderType {
         return RenderType.makeType("laser_trap", DefaultVertexFormats.ENTITY, GL11.GL_QUADS, 256, true, false, getLaserTrapRenderState(locationIn));
     }
 
-    private static RenderType.State getLaserHiltRenderState() {
+    public static RenderType.State getHiltRenderState(TextureState textureState) {
         return RenderType.State.getBuilder()
-                .texture(LaserBladeRenderType.LASER_BLADE_TEXTURE_STATE)
+                .texture(textureState)
                 .transparency(TRANSLUCENT_TRANSPARENCY)
                 .diffuseLighting(DIFFUSE_LIGHTING_ENABLED)
                 .alpha(DEFAULT_ALPHA)
@@ -56,9 +56,9 @@ public class LaserBladeRenderType extends RenderType {
                 .build(true);
     }
 
-    private static RenderType.State getLaserFlatRenderState() {
+    public static RenderType.State getFlatRenderState(TextureState textureState) {
         return RenderType.State.getBuilder()
-                .texture(LaserBladeRenderType.LASER_BLADE_TEXTURE_STATE)
+                .texture(textureState)
                 .transparency(TRANSLUCENT_TRANSPARENCY)
                 .alpha(DEFAULT_ALPHA)
                 .lightmap(LIGHTMAP_ENABLED)
@@ -66,9 +66,9 @@ public class LaserBladeRenderType extends RenderType {
                 .build(true);
     }
 
-    private static RenderType.State getLaserAddRenderState() {
+    public static RenderType.State getAddRenderState(TextureState textureState) {
         return RenderType.State.getBuilder()
-                .texture(LaserBladeRenderType.LASER_BLADE_TEXTURE_STATE)
+                .texture(textureState)
                 .transparency(LIGHTNING_TRANSPARENCY)
                 .alpha(DEFAULT_ALPHA)
                 .lightmap(LIGHTMAP_ENABLED)
@@ -76,7 +76,7 @@ public class LaserBladeRenderType extends RenderType {
                 .build(true);
     }
 
-    private static RenderType.State getLaserSubRenderState() {
+    public static RenderType.State getSubRenderState(TextureState textureState) {
         TransparencyState transparencyState = new TransparencyState("sub_transparency", () -> {
             RenderSystem.enableBlend();
             RenderSystem.blendEquation(GL14.GL_FUNC_REVERSE_SUBTRACT);
@@ -88,7 +88,7 @@ public class LaserBladeRenderType extends RenderType {
         });
 
         return RenderType.State.getBuilder()
-                .texture(LaserBladeRenderType.LASER_BLADE_TEXTURE_STATE)
+                .texture(textureState)
                 .transparency(transparencyState)
                 .alpha(DEFAULT_ALPHA)
                 .lightmap(LIGHTMAP_ENABLED)
