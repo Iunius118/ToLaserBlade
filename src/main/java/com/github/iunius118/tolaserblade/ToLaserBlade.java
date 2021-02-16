@@ -82,6 +82,7 @@ public class ToLaserBlade {
 
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class RegistryEvents {
+        // Register recipe Serializers
         @SubscribeEvent
         public static void onRecipeSerializerRegistry(RegistryEvent.Register<IRecipeSerializer<?>> event) {
             event.getRegistry().registerAll(
@@ -142,11 +143,13 @@ public class ToLaserBlade {
         @SubscribeEvent
         public static void onSoundEventRegistry(final RegistryEvent.Register<SoundEvent> event) {
             event.getRegistry().registerAll(
-                    new SoundEvent(new ResourceLocation(MOD_ID, "item.dx_laser_blade.swing")).setRegistryName("item_dx_laser_blade_swing")
+                    new SoundEvent(new ResourceLocation(MOD_ID, "item.dx_laser_blade.swing")).setRegistryName("item_dx_laser_blade_swing"),
+                    new SoundEvent(new ResourceLocation(MOD_ID, "item.laser_blade.swing")).setRegistryName("item_laser_blade_swing"),
+                    new SoundEvent(new ResourceLocation(MOD_ID, "item.laser_blade_fp.swing")).setRegistryName("item_laser_blade_fp_swing")
             );
         }
 
-        // Generate data
+        // Generate Data
         @SubscribeEvent
         public static void gatherData(GatherDataEvent event) {
             DataGenerator gen = event.getGenerator();
@@ -160,8 +163,6 @@ public class ToLaserBlade {
             }
 
             if (event.includeClient()) {
-
-
                 gen.addProvider(new TLBItemModelProvider(gen, existingFileHelper)); // Item models
                 TLBLanguageProvider.addProviders(gen);  // Languages
                 gen.addProvider(new TLBSoundProvider(gen)); // Sounds

@@ -3,5 +3,15 @@
     "sounds": [
       "tolaserblade:item/dx_laser_blade/swing"
     ]
+  },
+  "item.laser_blade.swing": {
+    "sounds": [
+      "tolaserblade:item/laser_blade/swing"
+    ]
+  },
+  "item.laser_blade_fp.swing": {
+    "sounds": [
+      "tolaserblade:item/laser_blade_fp/swing"
+    ]
   }
 }
