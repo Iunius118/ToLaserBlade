@@ -8,6 +8,7 @@ import com.github.iunius118.tolaserblade.laserblade.LaserBlade;
 import com.github.iunius118.tolaserblade.laserblade.LaserBladePerformance;
 import com.github.iunius118.tolaserblade.laserblade.LaserBladeStack;
 import com.github.iunius118.tolaserblade.laserblade.upgrade.Upgrade;
+import com.github.iunius118.tolaserblade.util.ModSoundEvents;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.block.BlockState;
@@ -33,6 +34,7 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -108,6 +110,29 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
         return new ActionResult<>(ActionResultType.PASS, itemstack);
     }
 
+    /* Sounds */
+
+    @Override
+    public boolean onEntitySwing(ItemStack stack, LivingEntity entity) {
+        World world = entity.getEntityWorld();
+
+        if (!world.isRemote && entity instanceof PlayerEntity) {
+            PlayerEntity player = (PlayerEntity)entity;
+
+            if (!player.isSwingInProgress) {
+                playSwingSound(world, entity);
+            }
+        }
+
+        return super.onEntitySwing(stack, entity);
+    }
+
+    private void playSwingSound(World world, LivingEntity entity) {
+        SoundEvent soundEvent = isImmuneToFire() ? ModSoundEvents.ITEM_LASER_BLADE_FP_SWING : ModSoundEvents.ITEM_LASER_BLADE_SWING;
+        Vector3d pos = entity.getPositionVec().add(0, entity.getEyeHeight(), 0).add(entity.getLookVec());
+        world.playSound(null, pos.x, pos.y, pos.z, soundEvent, SoundCategory.PLAYERS, 0.5F, 1.0F);
+    }
+
     /* Handling Events */
 
     public void onCriticalHit(CriticalHitEvent event) {
@@ -140,6 +165,12 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
 
     @Override
     public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+        World world = attacker.getEntityWorld();
+
+        if (!world.isRemote) {
+            playSwingSound(world, attacker);
+        }
+
         stack.damageItem(1, attacker, (playerEntity) -> playerEntity.sendBreakAnimation(EquipmentSlotType.MAINHAND));
         return true;
     }
