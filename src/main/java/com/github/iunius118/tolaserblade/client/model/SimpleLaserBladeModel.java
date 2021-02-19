@@ -36,6 +36,7 @@ public class SimpleLaserBladeModel extends SimpleModel implements ILaserBladeMod
             return LaserBladeRenderType.HILT;
         }
 
+        // Not use fixed vertex buffer
         if (typeHilt == null) {
             RenderType.State renderState = LaserBladeRenderType.getHiltRenderState(textureState);
             typeHilt = LaserBladeRenderType.getBladeRenderType("hilt", renderState);
@@ -49,6 +50,7 @@ public class SimpleLaserBladeModel extends SimpleModel implements ILaserBladeMod
             return LaserBladeRenderType.LASER_FLAT;
         }
 
+        // Not use fixed vertex buffer
         if (typeFlat == null) {
             RenderType.State renderState = LaserBladeRenderType.getFlatRenderState(textureState);
             typeFlat = LaserBladeRenderType.getBladeRenderType("laser_flat", renderState);
@@ -62,6 +64,7 @@ public class SimpleLaserBladeModel extends SimpleModel implements ILaserBladeMod
             return LaserBladeRenderType.LASER_ADD;
         }
 
+        // Not use fixed vertex buffer
         if (typeAdd == null) {
             RenderType.State renderState = LaserBladeRenderType.getAddRenderState(textureState);
             typeAdd = LaserBladeRenderType.getBladeRenderType("laser_add", renderState);
@@ -75,6 +78,7 @@ public class SimpleLaserBladeModel extends SimpleModel implements ILaserBladeMod
             return LaserBladeRenderType.LASER_SUB_INNER;
         }
 
+        // Not use fixed vertex buffer
         if (typeSubInner == null) {
             RenderType.State renderState = LaserBladeRenderType.getSubRenderState(textureState);
             typeSubInner = LaserBladeRenderType.getBladeRenderType("laser_sub_in", renderState);
@@ -88,6 +92,7 @@ public class SimpleLaserBladeModel extends SimpleModel implements ILaserBladeMod
             return LaserBladeRenderType.LASER_SUB;
         }
 
+        // Not use fixed vertex buffer
         if (typeSub == null) {
             RenderType.State renderState = LaserBladeRenderType.getSubRenderState(textureState);
             typeSub = LaserBladeRenderType.getBladeRenderType("laser_sub", renderState);
