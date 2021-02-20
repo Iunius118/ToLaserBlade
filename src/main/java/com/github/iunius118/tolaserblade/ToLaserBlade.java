@@ -8,6 +8,7 @@ import com.github.iunius118.tolaserblade.entity.LaserTrapEntity;
 import com.github.iunius118.tolaserblade.entity.ModEntities;
 import com.github.iunius118.tolaserblade.item.*;
 import com.github.iunius118.tolaserblade.item.crafting.ColorRecipe;
+import com.github.iunius118.tolaserblade.item.crafting.ModelChangeRecipe;
 import com.github.iunius118.tolaserblade.item.crafting.UpgradeRecipe;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.enchantment.Enchantment;
@@ -87,7 +88,8 @@ public class ToLaserBlade {
         public static void onRecipeSerializerRegistry(RegistryEvent.Register<IRecipeSerializer<?>> event) {
             event.getRegistry().registerAll(
                     new UpgradeRecipe.Serializer().setRegistryName("tolaserblade:upgrade"),
-                    new ColorRecipe.Serializer().setRegistryName("tolaserblade:color")
+                    new ColorRecipe.Serializer().setRegistryName("tolaserblade:color"),
+                    new ModelChangeRecipe.Serializer().setRegistryName("tolaserblade:model_change")
             );
         }
 

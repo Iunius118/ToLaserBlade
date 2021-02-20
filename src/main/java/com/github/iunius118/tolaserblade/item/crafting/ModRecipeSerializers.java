@@ -8,4 +8,5 @@ import net.minecraftforge.registries.ObjectHolder;
 public class ModRecipeSerializers {
     public static final IRecipeSerializer<?> UPGRADE = null;
     public static final IRecipeSerializer<?> COLOR = null;
+    public static final IRecipeSerializer<?> MODEL_CHANGE = null;
 }
