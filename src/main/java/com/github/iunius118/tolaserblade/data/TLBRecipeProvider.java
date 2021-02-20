@@ -179,7 +179,7 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
                 .addCriterion("has_laser_blade", hasItem(ModItems.LASER_BLADE))
                 .build(consumer, "tolaserblade:color/lb_" + part.getShortName() + "_" + color.getColorName());
         ColorRecipeBuilder.colorRecipe(Ingredient.fromItems(ModItems.LASER_BLADE_FP), addition, part, colorValue)
-                .addCriterion("has_laser_blade_fp", hasItem(ModItems.LASER_BLADE))
+                .addCriterion("has_laser_blade_fp", hasItem(ModItems.LASER_BLADE_FP))
                 .build(consumer, ToLaserBlade.MOD_ID + ":color/lbf_" + part.getShortName() + "_" + color.getColorName());
     }
 }
