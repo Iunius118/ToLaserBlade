@@ -81,9 +81,9 @@ public class ToLaserBladeConfig {
             useFixedVertexBuffer = builder
                     .comment("Add mod's vertex buffers to Minecraft's fixed buffer list.\n" +
                             "Need to restart client after changing this.\n" +
-                            "Default: true")
+                            "Default: false")
                     .translation("tolaserblade.configgui.client.useFixedVertexBuffer")
-                    .define("useFixedVertexBuffer", true);
+                    .define("useFixedVertexBuffer", false);
 
             useInternalModel = builder
                     .comment("Using internal model for rendering Laser Blade. " +
