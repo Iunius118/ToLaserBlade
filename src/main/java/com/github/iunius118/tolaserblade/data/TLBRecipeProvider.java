@@ -74,6 +74,9 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
 
         // Color Recipes
         addColorRecipes(consumer);
+
+        // Model Change Recipes
+        addModelChangeRecipes(consumer, Ingredient.fromItems(Blocks.DIRT.asItem()), 526, "_sample");
     }
 
     @Override
@@ -181,5 +184,16 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
         ColorRecipeBuilder.colorRecipe(Ingredient.fromItems(ModItems.LASER_BLADE_FP), addition, part, colorValue)
                 .addCriterion("has_laser_blade_fp", hasItem(ModItems.LASER_BLADE_FP))
                 .build(consumer, ToLaserBlade.MOD_ID + ":color/lbf_" + part.getShortName() + "_" + color.getColorName());
+    }
+
+    private void addModelChangeRecipes(Consumer<IFinishedRecipe> consumer, Ingredient addition, int modelType, String suffixIn) {
+        String suffix = (suffixIn == null) ? "" : suffixIn;
+
+        ModelChangeRecipeBuilder.modelChangeRecipe(Ingredient.fromItems(ModItems.LASER_BLADE), addition, modelType)
+                .addCriterion("has_laser_blade", hasItem(ModItems.LASER_BLADE))
+                .build(consumer, "tolaserblade:model/lb_" + modelType + suffix);
+        ModelChangeRecipeBuilder.modelChangeRecipe(Ingredient.fromItems(ModItems.LASER_BLADE_FP), addition, modelType)
+                .addCriterion("has_laser_blade_fp", hasItem(ModItems.LASER_BLADE_FP))
+                .build(consumer, "tolaserblade:model/lbf_" + modelType + suffix);
     }
 }
