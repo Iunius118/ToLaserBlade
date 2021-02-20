@@ -65,7 +65,7 @@ public class ToLaserBladeConfig {
         public final BooleanValue showUpdateMessage;
         public final BooleanValue useFixedVertexBuffer;
         public final BooleanValue useInternalModel;
-        public final BooleanValue isEnabledMultipleModels;
+        public final BooleanValue renderMultipleModels;
         public final IntValue internalModelType;
         public final IntValue externalModelType;
 
@@ -93,12 +93,12 @@ public class ToLaserBladeConfig {
                     .translation("tolaserblade.configgui.client.useInternalModel")
                     .define("useInternalModel", true);
 
-            isEnabledMultipleModels = builder
+            renderMultipleModels = builder
                     .comment("Enable to render Laser Blades using multiple models. This setting is valid when useInternalModel is true. If this is true, useFixedVertexBuffer will be disabled.\n" +
                             "Need to reload resource packs after changing this.\n" +
-                            "Default: false")
-                    .translation("tolaserblade.configgui.client.enableMultipleModels")
-                    .define("enableMultipleModels", false);
+                            "Default: true")
+                    .translation("tolaserblade.configgui.client.renderMultipleModels")
+                    .define("renderMultipleModels", true);
 
             internalModelType = builder
                     .comment("Select type of internal model to use for rendering Laser Blade (0: original model, 1: another model). This setting is valid when useInternalModel is true.\n" +
