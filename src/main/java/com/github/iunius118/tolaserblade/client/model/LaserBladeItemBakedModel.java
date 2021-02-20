@@ -156,10 +156,11 @@ public class LaserBladeItemBakedModel implements IBakedModel {
 
     public void loadModel(ModelBakeEvent event) {
         ILaserBladeModel model;
+        LaserBladeInternalModelManager internalModelManager = LaserBladeInternalModelManager.getInstance();
 
-        if (ToLaserBladeConfig.CLIENT.useInternalModel.get()) {
+        if (internalModelManager.canUseInternalModel()) {
             // Use internal model
-            model = LaserBladeInternalModelManager.getInstance().getModel();
+            model = internalModelManager.getModel();
         } else {
             // Use external model
             // If ToLaserBladeConfig.CLIENT.externalModelType.get() == 1

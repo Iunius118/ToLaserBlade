@@ -52,9 +52,9 @@ public class ClientEventHandler {
 
     @SubscribeEvent
     public void onModelBakeEvent(ModelBakeEvent event) {
-        LaserBladeInternalModelManager.renewInstance(); // Reset model manager
+        LaserBladeInternalModelManager internalModelManager = LaserBladeInternalModelManager.renewInstance();   // Reset internal model manager
 
-        if (!ToLaserBladeConfig.CLIENT.useInternalModel.get() && ToLaserBladeConfig.CLIENT.externalModelType.get() != 1) {
+        if (!internalModelManager.canUseInternalModel() && ToLaserBladeConfig.CLIENT.externalModelType.get() != 1) {
             return; // Use generated model
         }
 

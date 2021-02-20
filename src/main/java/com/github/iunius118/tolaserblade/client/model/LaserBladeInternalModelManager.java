@@ -12,9 +12,11 @@ import java.util.function.Supplier;
 
 public class LaserBladeInternalModelManager {
     private static LaserBladeInternalModelManager instance;
+    private static final ILaserBladeModel defaultModel = new LaserBladeModelType0();
     private final Map<Integer, Supplier<? extends ILaserBladeModel>> models;
     private final Map<Integer, ILaserBladeModel> modelCache;
-    private static final ILaserBladeModel defaultModel = new LaserBladeModelType0();
+    private final boolean canUseInternalModel;
+    private final boolean canRenderMultipleModels;
 
     public static LaserBladeInternalModelManager renewInstance() {
         instance = new LaserBladeInternalModelManager();
@@ -28,6 +30,8 @@ public class LaserBladeInternalModelManager {
     private LaserBladeInternalModelManager() {
         models = new HashMap<>();
         modelCache = new HashMap<>();
+        canUseInternalModel = ToLaserBladeConfig.CLIENT.useInternalModel.get();
+        canRenderMultipleModels = canUseInternalModel & ToLaserBladeConfig.CLIENT.renderMultipleModels.get();
         addInternalModels();
     }
 
@@ -101,5 +105,13 @@ public class LaserBladeInternalModelManager {
         model = supplier.get();
         modelCache.put(modelType, model);
         return model;
+    }
+
+    public boolean canUseInternalModel() {
+        return canUseInternalModel;
+    }
+
+    public boolean canRenderMultipleModels() {
+        return canRenderMultipleModels;
     }
 }

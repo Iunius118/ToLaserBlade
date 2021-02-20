@@ -1,6 +1,5 @@
 package com.github.iunius118.tolaserblade.client.model;
 
-import com.github.iunius118.tolaserblade.ToLaserBladeConfig;
 import com.github.iunius118.tolaserblade.api.client.model.ILaserBladeModel;
 import com.github.iunius118.tolaserblade.client.renderer.LaserBladeRenderType;
 import com.mojang.blaze3d.matrix.MatrixStack;
@@ -21,8 +20,10 @@ public class SimpleLaserBladeModel extends SimpleModel implements ILaserBladeMod
     private final RenderState.TextureState textureState;
 
     public SimpleLaserBladeModel() {
-        canUseFixedVertexBuffer = ToLaserBladeConfig.CLIENT.useFixedVertexBuffer.get()
-                && (ToLaserBladeConfig.CLIENT.useInternalModel.get() && !ToLaserBladeConfig.CLIENT.isEnabledMultipleModels.get());
+        LaserBladeInternalModelManager internalModelManager = LaserBladeInternalModelManager.getInstance();
+        // Can use fixed vertex buffer when using external model, or using internal model but not multiple models.
+        canUseFixedVertexBuffer = LaserBladeRenderType.canUseFixedVertexBuffer()
+                && !internalModelManager.canRenderMultipleModels();
         textureState = new RenderState.TextureState(getTexture(), false, false);
     }
 

@@ -25,6 +25,7 @@ public class LaserBladeRenderType extends RenderType {
     public LaserBladeRenderType(String name, VertexFormat vertexFormat, int drawMode, int bufferSize, boolean useDelegate, boolean needsSorting, Runnable setupTask, Runnable clearTask) {
         super(name, vertexFormat, drawMode, bufferSize, useDelegate, needsSorting, setupTask, clearTask);
     }
+
     private static final LaserBladeTextureState LASER_BLADE_TEXTURE_STATE = new LaserBladeTextureState();
 
     public static final RenderType HILT = getBladeRenderType("hilt", getHiltRenderState(LaserBladeRenderType.LASER_BLADE_TEXTURE_STATE));
@@ -33,8 +34,11 @@ public class LaserBladeRenderType extends RenderType {
     public static final RenderType LASER_SUB_INNER = getBladeRenderType("laser_sub_in", getSubRenderState(LaserBladeRenderType.LASER_BLADE_TEXTURE_STATE));
     public static final RenderType LASER_SUB = getBladeRenderType("laser_sub", getSubRenderState(LaserBladeRenderType.LASER_BLADE_TEXTURE_STATE));
 
+    private static final Boolean canUseFixedVertexBuffer;
+
     static {
-        registerRenderTypes();
+        canUseFixedVertexBuffer = ToLaserBladeConfig.CLIENT.useFixedVertexBuffer.get();
+        if (canUseFixedVertexBuffer) registerRenderTypes();
     }
 
     public static RenderType getBladeRenderType(String name, RenderType.State renderState) {
@@ -106,12 +110,11 @@ public class LaserBladeRenderType extends RenderType {
                 .build(true);
     }
 
-    private static void registerRenderTypes() {
-        if (!ToLaserBladeConfig.CLIENT.useFixedVertexBuffer.get()) {
-            // Canceled
-            return;
-        }
+    public static boolean canUseFixedVertexBuffer() {
+        return canUseFixedVertexBuffer;
+    }
 
+    private static void registerRenderTypes() {
         RenderTypeBuffers renderTypeBuffers = Minecraft.getInstance().getRenderTypeBuffers();
         // Register mod RenderTypes
         renderTypeBuffers.fixedBuffers.put(LASER_FLAT, new BufferBuilder(LASER_FLAT.getBufferSize()));
