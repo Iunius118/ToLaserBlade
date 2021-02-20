@@ -258,6 +258,7 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
             items.add(LaserBladeStack.DAMAGED_FP.getCopy());
             items.add(LaserBladeStack.FULL_MOD_FP.getCopy());
         } else {
+            items.add(LaserBladeStack.MODEL_TYPE_526.getCopy());
             items.add(LaserBladeStack.LIGHT_ELEMENT_1.getCopy());
             items.add(LaserBladeStack.LIGHT_ELEMENT_2.getCopy());
             items.add(LaserBladeStack.GIFT.getCopy());
