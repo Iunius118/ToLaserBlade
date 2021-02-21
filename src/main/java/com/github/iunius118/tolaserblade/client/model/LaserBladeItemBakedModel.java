@@ -1,6 +1,7 @@
 package com.github.iunius118.tolaserblade.client.model;
 
 import com.github.iunius118.tolaserblade.ToLaserBladeConfig;
+import com.github.iunius118.tolaserblade.api.client.model.ILaserBladeModel;
 import com.github.iunius118.tolaserblade.client.model.laserblade.LaserBladeOBJModel;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.block.BlockState;
@@ -154,11 +155,12 @@ public class LaserBladeItemBakedModel implements IBakedModel {
     }
 
     public void loadModel(ModelBakeEvent event) {
-        SimpleModel model;
+        ILaserBladeModel model;
+        LaserBladeInternalModelManager internalModelManager = LaserBladeInternalModelManager.getInstance();
 
-        if (ToLaserBladeConfig.CLIENT.useInternalModel.get()) {
+        if (internalModelManager.canUseInternalModel()) {
             // Use internal model
-            model = LaserBladeInternalModelManager.getInstance().getModel();
+            model = internalModelManager.getModel();
         } else {
             // Use external model
             // If ToLaserBladeConfig.CLIENT.externalModelType.get() == 1

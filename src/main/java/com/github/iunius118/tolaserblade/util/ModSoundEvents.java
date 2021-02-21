@@ -7,4 +7,6 @@ import net.minecraftforge.registries.ObjectHolder;
 @ObjectHolder(ToLaserBlade.MOD_ID)
 public class ModSoundEvents {
     public static final SoundEvent ITEM_DX_LASER_BLADE_SWING = null;
+    public static final SoundEvent ITEM_LASER_BLADE_SWING = null;
+    public static final SoundEvent ITEM_LASER_BLADE_FP_SWING = null;
 }

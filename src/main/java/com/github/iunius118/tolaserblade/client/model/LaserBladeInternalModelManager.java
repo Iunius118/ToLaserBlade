@@ -2,6 +2,7 @@ package com.github.iunius118.tolaserblade.client.model;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.ToLaserBladeConfig;
+import com.github.iunius118.tolaserblade.api.client.model.ILaserBladeModel;
 import com.github.iunius118.tolaserblade.client.model.laserblade.*;
 
 import java.util.Calendar;
@@ -11,8 +12,11 @@ import java.util.function.Supplier;
 
 public class LaserBladeInternalModelManager {
     private static LaserBladeInternalModelManager instance;
-    private final Map<Integer, Supplier<? extends SimpleModel>> models;
-    private static final Supplier<? extends SimpleModel> defaultModel = LaserBladeModelType0::new;
+    private static final ILaserBladeModel defaultModel = new LaserBladeModelType0();
+    private final Map<Integer, Supplier<? extends ILaserBladeModel>> models;
+    private final Map<Integer, ILaserBladeModel> modelCache;
+    private final boolean canUseInternalModel;
+    private final boolean canRenderMultipleModels;
 
     public static LaserBladeInternalModelManager renewInstance() {
         instance = new LaserBladeInternalModelManager();
@@ -25,14 +29,18 @@ public class LaserBladeInternalModelManager {
 
     private LaserBladeInternalModelManager() {
         models = new HashMap<>();
+        modelCache = new HashMap<>();
+        canUseInternalModel = ToLaserBladeConfig.CLIENT.useInternalModel.get();
+        canRenderMultipleModels = canUseInternalModel & ToLaserBladeConfig.CLIENT.renderMultipleModels.get();
         addInternalModels();
     }
 
     private void addInternalModels() {
-        models.put(0, defaultModel);
+        models.put(0, () -> defaultModel);
         models.put(1, LaserBladeModelType1::new);
         models.put(101, LaserBladeModelType101::new);
         models.put(217, LaserBladeModelType217::new);
+        models.put(222, LaserBladeModelType222::new);
         models.put(305, LaserBladeModelType305::new);
         models.put(316, LaserBladeModelType316::new);
         models.put(407, LaserBladeModelType407::new);
@@ -51,27 +59,63 @@ public class LaserBladeInternalModelManager {
         models.put(1216, LaserBladeModelType1216::new);
     }
 
-    public void addInternalModel(int index, Supplier<? extends SimpleModel> model) {
+    public void addInternalModel(int index, Supplier<? extends ILaserBladeModel> model) {
+        if (index < 0) {
+            ToLaserBlade.LOGGER.warn("[ToLaserBlade] Attempted to add a model to invalid number {}.", index);
+            return;
+        }
+
         if (model == null) {
-            ToLaserBlade.LOGGER.warn("Attempted to add null as internal Laser Blade model #{}.", index);
+            ToLaserBlade.LOGGER.warn("[ToLaserBlade] Attempted to add null as internal Laser Blade model #{}.", index);
             return;
         }
 
         if (models.containsKey(index)) {
-            ToLaserBlade.LOGGER.info("Internal Laser Blade model #{} already exists. It will be overwritten.", index);
+            ToLaserBlade.LOGGER.info("[ToLaserBlade] Internal Laser Blade model #{} already exists. It will be overwritten.", index);
         }
 
         models.put(index, model);
     }
 
-    public SimpleModel getModel() {
+    public ILaserBladeModel getModel() {
         int modelType = ToLaserBladeConfig.CLIENT.internalModelType.get();
+        return getModel(modelType);
+    }
 
+    public ILaserBladeModel getModel(int modelType) {
         if (modelType < 0) {
-            final Calendar calendar = Calendar.getInstance();
-            modelType = (calendar.get(Calendar.MONTH) + 1) * 100 + calendar.get(Calendar.DATE);
+            modelType = getTodayDateNumber();
         }
 
-        return models.getOrDefault(modelType, defaultModel).get();
+        ILaserBladeModel model = modelCache.get(modelType);
+
+        if(model != null) {
+            // Return cached model
+            return model;
+        }
+
+        Supplier<? extends ILaserBladeModel> supplier = models.get(modelType);
+
+        if (supplier == null) {
+            // Return default model for non-existent model type
+            return defaultModel;
+        }
+
+        model = supplier.get();
+        modelCache.put(modelType, model);
+        return model;
+    }
+
+    public static int getTodayDateNumber() {
+        Calendar calendar = Calendar.getInstance();
+        return (calendar.get(Calendar.MONTH) + 1) * 100 + calendar.get(Calendar.DATE);
+    }
+
+    public boolean canUseInternalModel() {
+        return canUseInternalModel;
+    }
+
+    public boolean canRenderMultipleModels() {
+        return canRenderMultipleModels;
     }
 }

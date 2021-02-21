@@ -2,6 +2,7 @@ package com.github.iunius118.tolaserblade.client;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.ToLaserBladeConfig;
+import com.github.iunius118.tolaserblade.client.model.LaserBladeInternalModelManager;
 import com.github.iunius118.tolaserblade.client.model.LaserBladeItemBakedModel;
 import com.github.iunius118.tolaserblade.item.*;
 import net.minecraft.client.Minecraft;
@@ -51,7 +52,9 @@ public class ClientEventHandler {
 
     @SubscribeEvent
     public void onModelBakeEvent(ModelBakeEvent event) {
-        if (!ToLaserBladeConfig.CLIENT.useInternalModel.get() && ToLaserBladeConfig.CLIENT.externalModelType.get() != 1) {
+        LaserBladeInternalModelManager internalModelManager = LaserBladeInternalModelManager.renewInstance();   // Reset internal model manager
+
+        if (!internalModelManager.canUseInternalModel() && ToLaserBladeConfig.CLIENT.externalModelType.get() != 1) {
             return; // Use generated model
         }
 

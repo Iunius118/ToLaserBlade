@@ -65,6 +65,7 @@ public class ToLaserBladeConfig {
         public final BooleanValue showUpdateMessage;
         public final BooleanValue useFixedVertexBuffer;
         public final BooleanValue useInternalModel;
+        public final BooleanValue renderMultipleModels;
         public final IntValue internalModelType;
         public final IntValue externalModelType;
 
@@ -80,9 +81,9 @@ public class ToLaserBladeConfig {
             useFixedVertexBuffer = builder
                     .comment("Add mod's vertex buffers to Minecraft's fixed buffer list.\n" +
                             "Need to restart client after changing this.\n" +
-                            "Default: true")
+                            "Default: false")
                     .translation("tolaserblade.configgui.client.useFixedVertexBuffer")
-                    .define("useFixedVertexBuffer", true);
+                    .define("useFixedVertexBuffer", false);
 
             useInternalModel = builder
                     .comment("Using internal model for rendering Laser Blade. " +
@@ -92,6 +93,13 @@ public class ToLaserBladeConfig {
                     .translation("tolaserblade.configgui.client.useInternalModel")
                     .define("useInternalModel", true);
 
+            renderMultipleModels = builder
+                    .comment("Enable to render Laser Blades using multiple models. This setting is valid when useInternalModel is true. If this is true, useFixedVertexBuffer will be disabled.\n" +
+                            "Need to reload resource packs after changing this.\n" +
+                            "Default: true")
+                    .translation("tolaserblade.configgui.client.renderMultipleModels")
+                    .define("renderMultipleModels", true);
+
             internalModelType = builder
                     .comment("Select type of internal model to use for rendering Laser Blade (0: original model, 1: another model). This setting is valid when useInternalModel is true.\n" +
                             "Need to reload resource packs after changing this.\n" +
@@ -100,7 +108,7 @@ public class ToLaserBladeConfig {
                     .defineInRange("internalModelType", -1, -1, Integer.MAX_VALUE);
 
             externalModelType = builder
-                    .comment("Select type of external model to use for rendering Laser Blade (0: generated model, 1: OBJ model). This setting is valid when useInternalModel is false.\n" +
+                    .comment("Select type of external model to use for rendering Laser Blade (0: generated model, 1: OBJ model [not recommended]). This setting is valid when useInternalModel is false.\n" +
                             "Need to reload resource packs after changing this.\n" +
                             "Default: 0")
                     .translation("tolaserblade.configgui.client.externalModelType")

@@ -12,24 +12,33 @@ import net.minecraft.world.biome.Biomes;
 import net.minecraftforge.common.util.Constants;
 
 public class LaserBladeVisual {
-    private final BladeColor bladeColor;
-    private final GripColor gripColor;
+    private final ModelType modelType;
+    private final Coloring coloring;
+
 
     public LaserBladeVisual(CompoundNBT compound) {
-        bladeColor = new BladeColor(compound);
-        gripColor = new GripColor(compound);
+        modelType = new ModelType(compound);
+        coloring = new Coloring(compound);
+    }
+
+    public int getModelType() {
+        return modelType.type;
     }
 
     public PartColor getInnerColor() {
-        return bladeColor.innerColor;
+        return coloring.bladeColor.innerColor;
     }
 
     public PartColor getOuterColor() {
-        return bladeColor.outerColor;
+        return coloring.bladeColor.outerColor;
     }
 
     public PartColor getGripColor() {
-        return gripColor.gripColor;
+        return coloring.gripColor.gripColor;
+    }
+
+    public void setModelType(int type) {
+        modelType.type = type;
     }
 
     public void setColorsByBiome(World world, Biome biome) {
@@ -100,11 +109,46 @@ public class LaserBladeVisual {
     }
 
     public void write(CompoundNBT compound) {
-        bladeColor.write(compound);
-        gripColor.write(compound);
+        modelType.write(compound);
+        coloring.write(compound);
     }
 
     /* Inner classes */
+    public static class ModelType { // This is also used in laser blade renderer so be public
+        public int type = -1;
+
+        private static final String KEY_TYPE = "type";
+
+        public ModelType(CompoundNBT compound) {
+            if (compound.contains(KEY_TYPE, Constants.NBT.TAG_INT)) {
+                type = compound.getInt(KEY_TYPE);
+            }
+        }
+
+        public void write(CompoundNBT compound) {
+            if (type >= 0) {
+                compound.putInt(KEY_TYPE, type);
+            } else if (compound.contains(KEY_TYPE, Constants.NBT.TAG_INT)) {
+                compound.remove(KEY_TYPE);
+            }
+        }
+    }
+
+    private static class Coloring {
+        private final BladeColor bladeColor;
+        private final GripColor gripColor;
+
+        public Coloring(CompoundNBT compound) {
+            bladeColor = new BladeColor(compound);
+            gripColor = new GripColor(compound);
+        }
+
+        public void write(CompoundNBT compound) {
+            bladeColor.write(compound);
+            gripColor.write(compound);
+        }
+    }
+
     private static class BladeColor {
         public PartColor innerColor;
         public PartColor outerColor;
@@ -159,16 +203,6 @@ public class LaserBladeVisual {
             if (subKey != null) {
                 isSubtractColor = compound.getBoolean(subKey);
             }
-        }
-    }
-
-    private static class ModelType {
-        private int type;
-
-        private static final String KEY_TYPE = "type";
-
-        public ModelType(int modelType) {
-            this.type = modelType;
         }
     }
 }

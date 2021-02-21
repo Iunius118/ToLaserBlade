@@ -83,6 +83,7 @@ public class Ja_jpLanguageProvider extends LanguageProvider {
         add("tolaserblade.configgui.client.showUpdateMessage", "アップデートの通知を表示する");
         add("tolaserblade.configgui.client.useFixedVertexBuffer", "Fixed Vertex Bufferを使用する");
         add("tolaserblade.configgui.client.useInternalModel", "内部モデルを使用する");
+        add("tolaserblade.configgui.client.renderMultipleModels", "レーザーブレードを複数モデルで描画する");
         add("tolaserblade.configgui.client.internalModelType", "内部モデルのタイプ");
         add("tolaserblade.configgui.client.externalModelType", "外部モデルのタイプ");
 

@@ -1,4 +1,4 @@
-# ToLaserBlade v1.16.4-4.1.2.1
+# ToLaserBlade v1.16.4-4.1.3.0
 
 ToLaserBladeはMinecraftに光の刃を持つ剣「レーザーブレイド」を追加するmodです。
 
@@ -95,6 +95,7 @@ Item ID: `tolaserblade:lb_brand_new_1`
   - 基本攻撃力：7
   - エンチャント：光属性I、効率強化I
   - 色：レーザーブレイドを入手したバイオームによっては刃の色が変わることもあります
+  - モデル：レーザーブレイドを入手した日付（サーバー側の時計基準）によっては通常と異なるモデルで描画されることがあります（`renderMultipleModels`有効時）
 
 #### 新品のレーザーブレイドⅡ / Brand-new Laser Blade II
 
@@ -160,9 +161,14 @@ Item ID: `tolaserblade:laser_blade`
 - 「カーペット」と合成すると「柄の部分」の色を変更することができます  
   ![ ](img/ver4/color_grip.png "柄の部分の色変更")
 
+#### モデルの変更
+
+鍛冶台でレーザーブレイドに作業台を合成することにより、そのレーザーブレイドの描画で使用されるモデルを合成した日の日付（サーバー側の時計基準）に応じたモデルに固定できます。
+ただし固定したモデルでの描画は`tolaserblade-client.toml`の`useInternalModel`と`renderMultipleModels`が両方とも`true`のときにのみ有効です。
+
 #### アップグレード
 
-鍛冶台で特定のアイテムとレベルを消費することによりレーザーブレイドを強化することができます。
+鍛冶台で特定のアイテムと合成することによりレーザーブレイドを強化することができます。
 
 ![ ](img/ver4/upgrade_laserblade_attack.png "アップグレード：レーザーブレイド（攻撃力）")
 
@@ -276,6 +282,16 @@ Item ID: `tolaserblade:lb_casing_fp`
 
 「分解したレーザーブレイド」は手に持って右クリックすると「LB電池」「レーザー媒質」「レーザーブレイド放射器」「レーザーブレイドの外装」「レーザーブレイドの設計図」を入手することができます。そのとき分解したレーザーブレイドに保存されていた能力値、エンチャント、色などは各アイテムへ分割されて保存されます。
 
+データパック例：[ExampleRecipesForToLaserBlade](https://github.com/Iunius118/ExampleRecipesForToLaserBlade)
+
+## 効果音の追加
+リソースパックで音声ファイル（.ogg）を追加するとレーザーブレイドを振ったときに効果音として再生されます。
+DXレーザーブレ一ド、レーザーブレイド、レーザーブレイド（耐火）に対応する音声ファイルのパスは以下の通りです。
+
+- `(リソースパックのルート)/assets/tolaserblade/sounds/item/dx_laser_blade/swing.ogg`
+- `(リソースパックのルート)/assets/tolaserblade/sounds/item/laser_blade/swing.ogg`
+- `(リソースパックのルート)/assets/tolaserblade/sounds/item/laser_blade_fp/swing.ogg`
+
 ## 設定項目（コンフィグ）
 
 ### tolaserblade-server.toml
@@ -284,7 +300,7 @@ Item ID: `tolaserblade:lb_casing_fp`
 
 - **enableBlockingWithLaserBlade**
   - レーザーブレイドによる攻撃のガード（ブロッキング）を有効にします（`true`→有効、`false`→無効）
-- **laserBladeEfficiencyInServer**
+- **laserBladeEfficiency**
   - レーザーブレイドの採掘速度を指定します（`0`→採掘不可）
 - **maxAttackDamageUpgradeCount**
   - レーザーブレイドの攻撃力の最大アップグレード回数を指定します（デフォルトよりも低い値にすると一部の進捗が達成不能となるので注意）
@@ -306,6 +322,9 @@ Item ID: `tolaserblade:lb_casing_fp`
   - レーザーブレイドのパーツの描画順に関係します。これは一部の描画順に関する問題を解決しますが、また別の描画順に関する問題を発生させる可能性があります
 - **useInternalModel**
   - レーザーブレイドの描画に内部モデルを使用します（`true`→内部モデルを使用、`false`→外部モデルを使用）
+- **renderMultipleModels**
+  - レーザーブレイドの描画に内部モデルを使用するとき、各レーザーブレイドに保存されたモデル番号のモデルで描画する（`true`→する、`false`→しない）
+  - この設定が`true`で有効な場合、useFixedVertexBufferとinternalModelTypeの設定は無視されます
 - **internalModelType**
   - レーザーブレイドを内部モデルで描画するときに使用するモデルタイプを指定します（`-1`→通常はデフォルトモデルを使用し日付によっては隠しモデルを使用）
 - **externalModelType**

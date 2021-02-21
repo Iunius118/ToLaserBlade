@@ -1,9 +1,8 @@
 package com.github.iunius118.tolaserblade.client.model.laserblade;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
-import com.github.iunius118.tolaserblade.client.model.SimpleModel;
+import com.github.iunius118.tolaserblade.client.model.SimpleLaserBladeModel;
 import com.github.iunius118.tolaserblade.client.renderer.LaserBladeItemColor;
-import com.github.iunius118.tolaserblade.client.renderer.LaserBladeRenderType;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
@@ -17,7 +16,7 @@ import net.minecraft.util.math.vector.Vector4f;
 
 import java.util.List;
 
-public class LaserBladeModelType726 extends SimpleModel {
+public class LaserBladeModelType726 extends SimpleLaserBladeModel {
     private static final ResourceLocation TEXTURE = new ResourceLocation(ToLaserBlade.MOD_ID, "textures/item/internal/laser_blade_726.png");
     public static final List<SimpleQuad> HILT_QUADS;
     public static final List<SimpleQuad> HILT_NO_TINT_QUADS;
@@ -30,7 +29,7 @@ public class LaserBladeModelType726 extends SimpleModel {
         final int fullLight = 0xF000F0;
         final int noTintColor = 0xFFFFFFFF;
 
-        IVertexBuilder currentBuffer = buffer.getBuffer(LaserBladeRenderType.HILT);
+        IVertexBuilder currentBuffer = buffer.getBuffer(getHiltRenderType());
         renderQuads(matrixStack, currentBuffer, HILT_QUADS, color.gripColor, lightmapCoord, overlayColor);
         renderQuads(matrixStack, currentBuffer, HILT_NO_TINT_QUADS, noTintColor, lightmapCoord, overlayColor);
 
@@ -38,10 +37,10 @@ public class LaserBladeModelType726 extends SimpleModel {
             return;
         }
 
-        currentBuffer = color.isInnerSubColor ? buffer.getBuffer(LaserBladeRenderType.LASER_SUB_INNER) : buffer.getBuffer(LaserBladeRenderType.LASER_ADD);
+        currentBuffer = buffer.getBuffer(getInnerBladeAddRenderType(color.isInnerSubColor));
         renderQuads(matrixStack, currentBuffer, BLADE_IN_QUADS, color.innerColor, fullLight, overlayColor);
 
-        currentBuffer = color.isOuterSubColor ? buffer.getBuffer(LaserBladeRenderType.LASER_SUB) : buffer.getBuffer(LaserBladeRenderType.LASER_ADD);
+        currentBuffer = buffer.getBuffer(getOuterBladeAddRenderType(color.isOuterSubColor));
         renderQuads(matrixStack, currentBuffer, BLADE_OUT_QUADS, color.outerColor, fullLight, overlayColor);
     }
 

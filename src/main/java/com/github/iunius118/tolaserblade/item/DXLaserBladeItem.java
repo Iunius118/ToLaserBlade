@@ -1,10 +1,12 @@
 package com.github.iunius118.tolaserblade.item;
 
+import com.github.iunius118.tolaserblade.util.ModSoundEvents;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
+import net.minecraft.entity.LivingEntity;
 import net.minecraft.entity.ai.attributes.Attribute;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.Attributes;
@@ -14,8 +16,10 @@ import net.minecraft.item.*;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ActionResultType;
 import net.minecraft.util.Direction;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.BlockRayTraceResult;
+import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
 public class DXLaserBladeItem extends SwordItem {
@@ -31,7 +35,6 @@ public class DXLaserBladeItem extends SwordItem {
         attackSpeed = -1.2F;
     }
 
-    /*  DX Laser B1ade could sound--if you had AAA batteries :P
     @Override
     public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         World world = attacker.getEntityWorld();
@@ -62,7 +65,6 @@ public class DXLaserBladeItem extends SwordItem {
         Vector3d pos = entity.getPositionVec().add(0, entity.getEyeHeight(), 0).add(entity.getLookVec());
         world.playSound(null, pos.x, pos.y, pos.z, ModSoundEvents.ITEM_DX_LASER_BLADE_SWING, SoundCategory.PLAYERS, 0.5F, 1.0F);
     }
-    //*/
 
     @Override
     public ActionResultType onItemUse(ItemUseContext context) {

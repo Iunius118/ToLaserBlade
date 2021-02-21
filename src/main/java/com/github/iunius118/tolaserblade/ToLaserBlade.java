@@ -8,6 +8,7 @@ import com.github.iunius118.tolaserblade.entity.LaserTrapEntity;
 import com.github.iunius118.tolaserblade.entity.ModEntities;
 import com.github.iunius118.tolaserblade.item.*;
 import com.github.iunius118.tolaserblade.item.crafting.ColorRecipe;
+import com.github.iunius118.tolaserblade.item.crafting.ModelChangeRecipe;
 import com.github.iunius118.tolaserblade.item.crafting.UpgradeRecipe;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.enchantment.Enchantment;
@@ -82,11 +83,13 @@ public class ToLaserBlade {
 
     @Mod.EventBusSubscriber(bus = Mod.EventBusSubscriber.Bus.MOD)
     public static class RegistryEvents {
+        // Register recipe Serializers
         @SubscribeEvent
         public static void onRecipeSerializerRegistry(RegistryEvent.Register<IRecipeSerializer<?>> event) {
             event.getRegistry().registerAll(
                     new UpgradeRecipe.Serializer().setRegistryName("tolaserblade:upgrade"),
-                    new ColorRecipe.Serializer().setRegistryName("tolaserblade:color")
+                    new ColorRecipe.Serializer().setRegistryName("tolaserblade:color"),
+                    new ModelChangeRecipe.Serializer().setRegistryName("tolaserblade:model_change")
             );
         }
 
@@ -131,7 +134,7 @@ public class ToLaserBlade {
                     .setTrackingRange(64).setUpdateInterval(4).setShouldReceiveVelocityUpdates(false)
                     .build(LaserTrapEntity.ID.toString());
 
-            ToLaserBlade.LOGGER.info("This warning from the data fixer is not an issue for modded entities");
+            ToLaserBlade.LOGGER.info("[ToLaserBlade] This warning of data fixer is not an issue for modded entities");
 
             event.getRegistry().registerAll(
                     laserTrap.setRegistryName(LaserTrapEntity.ID)
@@ -142,11 +145,13 @@ public class ToLaserBlade {
         @SubscribeEvent
         public static void onSoundEventRegistry(final RegistryEvent.Register<SoundEvent> event) {
             event.getRegistry().registerAll(
-                    new SoundEvent(new ResourceLocation(MOD_ID, "item.dx_laser_blade.swing")).setRegistryName("item_dx_laser_blade_swing")
+                    new SoundEvent(new ResourceLocation(MOD_ID, "item.dx_laser_blade.swing")).setRegistryName("item_dx_laser_blade_swing"),
+                    new SoundEvent(new ResourceLocation(MOD_ID, "item.laser_blade.swing")).setRegistryName("item_laser_blade_swing"),
+                    new SoundEvent(new ResourceLocation(MOD_ID, "item.laser_blade_fp.swing")).setRegistryName("item_laser_blade_fp_swing")
             );
         }
 
-        // Generate data
+        // Generate Data
         @SubscribeEvent
         public static void gatherData(GatherDataEvent event) {
             DataGenerator gen = event.getGenerator();
@@ -160,8 +165,6 @@ public class ToLaserBlade {
             }
 
             if (event.includeClient()) {
-
-
                 gen.addProvider(new TLBItemModelProvider(gen, existingFileHelper)); // Item models
                 TLBLanguageProvider.addProviders(gen);  // Languages
                 gen.addProvider(new TLBSoundProvider(gen)); // Sounds
