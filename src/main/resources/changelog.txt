@@ -1,6 +1,27 @@
 ToLaserBlade
 Changelog
 
+v1.16.4-4.1.3.0
+
+    Add sound events for when Laser Blade is swung
+        Need to add a resource pack containing .ogg files to make a sound
+            (resource_pack_root_dir)/assets/tolaserblade/sounds/item/dx_laser_blade/swing.ogg
+            (resource_pack_root_dir)/assets/tolaserblade/sounds/item/laser_blade/swing.ogg
+            (resource_pack_root_dir)/assets/tolaserblade/sounds/item/laser_blade_fp/swing.ogg
+    Add renderMultipleModels to client config
+    Change default value of useFixedVertexBuffer in client config to false
+    Change Laser Blade renderer to choose the model to be used for rendering the Laser Blade according to the model type stored in the item stack
+        This feature only works when renderMultipleModels is enabled
+    Change Laser Blade to store model type in item stack
+        It will be stored when you get Laser Blade from Brand-new Laser Blade I or II
+    Add new recipe type of "tolaserblade:model_change" to change model type of Laser Blade
+    Add sample recipes of tolaserblade:model_change type
+        [Smithing Table] Laser Blade + Crafting Table → changing model type to today's model
+        [Smithing Table] Laser Blade + Dirt → changing model type to 526
+    Fix advancements of color recipes of fireproof Laser Blade
+    Add secret internal Laser Blade model
+
+
 v1.16.4-4.1.2.1
 
     Remove support for Dynamic Lights
