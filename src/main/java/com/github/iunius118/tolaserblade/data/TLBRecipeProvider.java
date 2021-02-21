@@ -77,6 +77,7 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
 
         // Model Change Recipes
         addModelChangeRecipes(consumer, Ingredient.fromItems(Blocks.DIRT.asItem()), 526, "_sample");
+        addModelChangeRecipes(consumer, Ingredient.fromItems(Blocks.CRAFTING_TABLE.asItem()), -1, "");
     }
 
     @Override

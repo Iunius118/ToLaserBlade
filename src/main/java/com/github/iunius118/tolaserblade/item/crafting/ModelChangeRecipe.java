@@ -1,5 +1,6 @@
 package com.github.iunius118.tolaserblade.item.crafting;
 
+import com.github.iunius118.tolaserblade.client.model.LaserBladeInternalModelManager;
 import com.github.iunius118.tolaserblade.laserblade.LaserBlade;
 import com.github.iunius118.tolaserblade.laserblade.LaserBladeVisual;
 import com.google.gson.JsonElement;
@@ -48,8 +49,9 @@ public class ModelChangeRecipe extends SmithingRecipe {
         if (base.test(inv.getStackInSlot(0)) && addition.test(inv.getStackInSlot(1))) {
             ItemStack baseStack = inv.getStackInSlot(0);
             LaserBladeVisual visual = LaserBlade.visualOf(baseStack);
-
-            return visual.getModelType() != type;
+            int baseType = visual.getModelType();
+            int fixedType = type < 0 ? LaserBladeInternalModelManager.getTodayDateNumber() : type;
+            return baseType != fixedType;   // If type < 0 then set today date number to result
         }
 
         return false;
@@ -64,7 +66,8 @@ public class ModelChangeRecipe extends SmithingRecipe {
 
     private ItemStack getResult(ItemStack input) {
         LaserBladeVisual visual = LaserBlade.visualOf(input);
-        visual.setModelType(type);
+        int fixedType = type < 0 ? LaserBladeInternalModelManager.getTodayDateNumber() : type;
+        visual.setModelType(fixedType);
         visual.write(input.getOrCreateTag());
         return input;
     }

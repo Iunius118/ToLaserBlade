@@ -84,8 +84,7 @@ public class LaserBladeInternalModelManager {
 
     public ILaserBladeModel getModel(int modelType) {
         if (modelType < 0) {
-            final Calendar calendar = Calendar.getInstance();
-            modelType = (calendar.get(Calendar.MONTH) + 1) * 100 + calendar.get(Calendar.DATE);
+            modelType = getTodayDateNumber();
         }
 
         ILaserBladeModel model = modelCache.get(modelType);
@@ -105,6 +104,11 @@ public class LaserBladeInternalModelManager {
         model = supplier.get();
         modelCache.put(modelType, model);
         return model;
+    }
+
+    public static int getTodayDateNumber() {
+        Calendar calendar = Calendar.getInstance();
+        return (calendar.get(Calendar.MONTH) + 1) * 100 + calendar.get(Calendar.DATE);
     }
 
     public boolean canUseInternalModel() {

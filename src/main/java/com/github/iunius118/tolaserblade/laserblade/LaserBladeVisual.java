@@ -128,6 +128,8 @@ public class LaserBladeVisual {
         public void write(CompoundNBT compound) {
             if (type >= 0) {
                 compound.putInt(KEY_TYPE, type);
+            } else if (compound.contains(KEY_TYPE, Constants.NBT.TAG_INT)) {
+                compound.remove(KEY_TYPE);
             }
         }
     }
