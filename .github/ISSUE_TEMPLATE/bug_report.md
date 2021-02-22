@@ -15,7 +15,7 @@ assignees: ''
 
 **Steps to Reproduce:**
  1. Do this
- 2. And then do that
+ 2. Then do that
  3. ...
 
 **Description of bug:**
