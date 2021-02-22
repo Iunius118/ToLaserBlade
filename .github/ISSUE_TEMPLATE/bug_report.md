@@ -7,11 +7,13 @@ assignees: ''
 
 ---
 
+<!-- Thank you for reporting -->
+
 - Minecraft {version}
 - Forge {version}
 - ToLaserBlade {version}
 
-{List of the other mods you were using at the time}
+<!-- Add list of the other mods you were using at the time -->
 
 **Steps to Reproduce:**
  1. Do this
@@ -20,4 +22,4 @@ assignees: ''
 
 **Description of bug:**
 
-{If applicable, add screenshots or logs to help explain your problem.}
+<!-- If applicable, add screenshots or logs to help explain your problem -->
