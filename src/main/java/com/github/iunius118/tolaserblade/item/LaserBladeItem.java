@@ -212,6 +212,7 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
         return enchantment.type == EnchantmentType.WEAPON
                 || enchantment == Enchantments.EFFICIENCY
                 || enchantment == Enchantments.MENDING
+                || enchantment == Enchantments.SILK_TOUCH
                 || enchantment == Enchantments.VANISHING_CURSE;
     }
 
