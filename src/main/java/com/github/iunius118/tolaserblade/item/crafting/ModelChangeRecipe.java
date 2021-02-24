@@ -50,8 +50,7 @@ public class ModelChangeRecipe extends SmithingRecipe {
             ItemStack baseStack = inv.getStackInSlot(0);
             LaserBladeVisual visual = LaserBlade.visualOf(baseStack);
             int baseType = visual.getModelType();
-            int fixedType = type < 0 ? LaserBladeInternalModelManager.getTodayDateNumber() : type;
-            return baseType != fixedType;   // If type < 0 then set today date number to result
+            return type < 0 || baseType != type;   // If type < 0, set today date number or reset model type
         }
 
         return false;
@@ -67,6 +66,12 @@ public class ModelChangeRecipe extends SmithingRecipe {
     private ItemStack getResult(ItemStack input) {
         LaserBladeVisual visual = LaserBlade.visualOf(input);
         int fixedType = type < 0 ? LaserBladeInternalModelManager.getTodayDateNumber() : type;
+
+        if (type < 0) {
+            int baseType = visual.getModelType();
+            fixedType = baseType >= 0 ? -1 : LaserBladeInternalModelManager.getTodayDateNumber();
+        }
+
         visual.setModelType(fixedType);
         visual.write(input.getOrCreateTag());
         return input;
