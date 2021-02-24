@@ -42,6 +42,7 @@ public class Ja_jpLanguageProvider extends LanguageProvider {
         add(LBBrandNewItem.KEY_TOOLTIP_BLAND_NEW_HOW_TO_USE_LINE_2, "レーザーブレイドを入手");
         add(LBBrandNewItem.KEY_TOOLTIP_BLAND_NEW_HOW_TO_USE_LINE_3, "できます");
         add(LaserBladeItemBase.KEY_TOOLTIP_REMOVE, "%sを除去");
+        add(LaserBladeItemBase.KEY_TOOLTIP_MODEL, "モデル%s");
 
         // Upgrade tooltip
         add(LaserBladeItemBase.KEY_TOOLTIP_ATTACK_DAMAGE, "レーザー出力 %s");
