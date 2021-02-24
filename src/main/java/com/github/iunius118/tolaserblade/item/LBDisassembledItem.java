@@ -121,6 +121,7 @@ public class LBDisassembledItem extends Item implements LaserBladeItemBase {
         emitterInnerColor.isSubtractColor = laserBladeInnerColor.isSubtractColor;
 
         casingGripColor.color = laserBladeGripColor.color;
+        casingVisual.setModelType(laserBladeVisual.getModelType());
 
         // Process display name
         if (itemStack.hasDisplayName()) {
