@@ -45,6 +45,7 @@ public class En_usLanguageProvider extends LanguageProvider {
         add(LBBrandNewItem.KEY_TOOLTIP_BLAND_NEW_HOW_TO_USE_LINE_2, "right-click to obtain");
         add(LBBrandNewItem.KEY_TOOLTIP_BLAND_NEW_HOW_TO_USE_LINE_3, "Laser Blade");
         add(LaserBladeItemBase.KEY_TOOLTIP_REMOVE, "Remove %s");
+        add(LaserBladeItemBase.KEY_TOOLTIP_MODEL, "Model %s");
 
         // Upgrade tooltip
         add(LaserBladeItemBase.KEY_TOOLTIP_ATTACK_DAMAGE, "Laser Power %s");

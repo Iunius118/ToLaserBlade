@@ -2,6 +2,7 @@ package com.github.iunius118.tolaserblade.item;
 
 import com.github.iunius118.tolaserblade.laserblade.LaserBlade;
 import com.github.iunius118.tolaserblade.laserblade.LaserBladePerformance;
+import com.github.iunius118.tolaserblade.laserblade.LaserBladeVisual;
 import com.github.iunius118.tolaserblade.laserblade.upgrade.Upgrade;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
@@ -18,6 +19,7 @@ import java.util.List;
 
 public interface LaserBladeItemBase {
     String KEY_TOOLTIP_FIREPROOF = "upgrade.tolaserblade.fireproof";
+    String KEY_TOOLTIP_MODEL = "tooltip.tolaserblade.model";
     String KEY_TOOLTIP_ATTACK_DAMAGE = "upgrade.tolaserblade.attackDamage";
     String KEY_TOOLTIP_ATTACK_SPEED = "upgrade.tolaserblade.attackSpeed";
     String KEY_TOOLTIP_REMOVE = "tooltip.tolaserblade.remove";
@@ -38,14 +40,23 @@ public interface LaserBladeItemBase {
 
     @OnlyIn(Dist.CLIENT)
     default void addLaserBladeInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn, Upgrade.Type type) {
-        boolean isFireproof = stack.getItem().isImmuneToFire();
+        LaserBlade laserBlade = LaserBlade.of(stack);
+        boolean isFireproof = laserBlade.isFireproof();
 
         if (isFireproof) {
             tooltip.add(new TranslationTextComponent(KEY_TOOLTIP_FIREPROOF).mergeStyle(TextFormatting.GOLD));
         }
 
-        LaserBladePerformance performance = LaserBlade.performanceOf(stack);
-        LaserBladePerformance.AttackPerformance attack = performance.getAttackPerformance();
+        if (type == Upgrade.Type.OTHER || type == Upgrade.Type.REPAIR || type == Upgrade.Type.CASING) {
+            LaserBladeVisual visual = laserBlade.getVisual();
+            int modelType = visual.getModelType();
+
+            if (modelType >= 0) {
+                tooltip.add(new TranslationTextComponent(KEY_TOOLTIP_MODEL, modelType).mergeStyle(TextFormatting.DARK_GRAY));
+            }
+        }
+
+        LaserBladePerformance.AttackPerformance attack = laserBlade.getAttackPerformance();
 
         if (type == Upgrade.Type.REPAIR || type == Upgrade.Type.MEDIUM) {
             float atk = attack.damage;
