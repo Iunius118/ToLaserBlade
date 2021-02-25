@@ -1,4 +1,4 @@
-# ToLaserBlade v1.16.4-4.1.3.0
+# ToLaserBlade v1.16.4-4.1.4.0
 
 ToLaserBladeはMinecraftに光の刃を持つ剣「レーザーブレイド」を追加するmodです。
 
@@ -12,7 +12,7 @@ ToLaserBladeはMinecraftに光の刃を持つ剣「レーザーブレイド」�
 ### 推奨mod
 
 - Just Enough Items (JEI)  
-ゲーム内でクラフトやアップグレードのレシピを見ることができます
+  ゲーム内でクラフトやアップグレードのレシピを見ることができます
 
 ## ダウンロード
 
@@ -95,7 +95,7 @@ Item ID: `tolaserblade:lb_brand_new_1`
   - 基本攻撃力：7
   - エンチャント：光属性I、効率強化I
   - 色：レーザーブレイドを入手したバイオームによっては刃の色が変わることもあります
-  - モデル：レーザーブレイドを入手した日付（サーバー側の時計基準）によっては通常と異なるモデルで描画されることがあります（`renderMultipleModels`有効時）
+  - モデル：レーザーブレイドを入手した日付（サーバー側時計基準）によっては通常と異なるモデルで描画されることがあります（`renderMultipleModels`有効時）
 
 #### 新品のレーザーブレイドⅡ / Brand-new Laser Blade II
 
@@ -109,6 +109,7 @@ Item ID: `tolaserblade:lb_brand_new_2`
   - 基本攻撃力：7
   - エンチャント：光属性II、効率強化I
   - 色：レーザーブレイドを入手したバイオームによっては刃の色が変わることもあります
+  - モデル：レーザーブレイドを入手した日付（サーバー側時計基準）によっては通常と異なるモデルで描画されることがあります（`renderMultipleModels`有効時）
 
 #### 新品のレーザーブレイド / Brand-new Laser Blade （通常）
 
@@ -147,7 +148,7 @@ Item ID: `tolaserblade:laser_blade`
 - 耐久値：32000
 - 右マウスボタンで盾のようにガード（ブロッキング）することができます（デフォルトでは無効。要コンフィグ編集）
 - 【光属性】（Light Element）は当modで追加される独自のエンチャントです。
-レベルによって攻撃力が少量増加し、アンデッドと邪悪な村人への追加ダメージが増加します（最大レベルX）
+  レベルによって攻撃力が少量増加し、アンデッドと邪悪な村人への追加ダメージが増加します（最大レベルX）
 - 【効率強化】はレベルが高いほどレーザーブレイドの採掘速度が上昇します。一方で【効率強化】がエンチャントされていない状態では採掘能力を失います
 
 #### 色の変更
@@ -163,8 +164,12 @@ Item ID: `tolaserblade:laser_blade`
 
 #### モデルの変更
 
-鍛冶台でレーザーブレイドに作業台を合成することにより、そのレーザーブレイドの描画で使用されるモデルを合成した日の日付（サーバー側の時計基準）に応じたモデルに固定できます。
-ただし固定したモデルでの描画は`tolaserblade-client.toml`の`useInternalModel`と`renderMultipleModels`が両方とも`true`のときにのみ有効です。
+鍛冶台で特定のアイテムと合成することにより、そのレーザーブレイドの描画で使用されるモデルを変更することができます。
+ただし変更されたモデルでの描画は`tolaserblade-client.toml`の`useInternalModel`と`renderMultipleModels`が両方とも`true`のときにのみ有効です。
+
+- 「作業台」と合成すると、そのレーザーブレードのモデルが初期状態だった場合は今日の日付のモデルに変更し、モデルが変更済みだった場合は初期状態に戻します
+
+モデルが変更されたレーザーブレイドのツールチップにはモデル番号が表示されます。
 
 #### アップグレード
 
@@ -257,26 +262,26 @@ Item ID: `tolaserblade:lb_broken_fp`
 
 ### 未使用アイテム
 
-![ ](img/ver4/not_used_items.png "未使用アイテム")  
+![ ](img/ver4/not_used_items.png "未使用アイテム")
 
 ToLaserBladeで追加される以下のアイテムは使用されておらず、レシピもありません。これらはプレイヤーによるデータパックやレシピmodでの使用を想定しています。
 
 - レーザーブレイドの設計図 / Laser Blade Blueprint  
-Item ID: `tolaserblade:lb_blueprint`
+  Item ID: `tolaserblade:lb_blueprint`
 - 分解したレーザーブレイド / Disassembled Laser Blade  
-Item ID: `tolaserblade:lb_disassembled`
+  Item ID: `tolaserblade:lb_disassembled`
 - 分解したレーザーブレイド / Disassembled Laser Blade （耐火）  
-Item ID: `tolaserblade:lb_disassembled_fp`
+  Item ID: `tolaserblade:lb_disassembled_fp`
 - LB電池 / LB Energy Cell  
-Item ID: `tolaserblade:lb_battery`
+  Item ID: `tolaserblade:lb_battery`
 - レーザー媒質 / Laser Medium  
-Item ID: `tolaserblade:lb_medium`
+  Item ID: `tolaserblade:lb_medium`
 - レーザーブレイド放射器 / Laser Blade Emitter  
-Item ID: `tolaserblade:lb_emitter`
+  Item ID: `tolaserblade:lb_emitter`
 - レーザーブレイドの外装 / Laser Blade Casing  
-Item ID: `tolaserblade:lb_casing`
+  Item ID: `tolaserblade:lb_casing`
 - レーザーブレイドの外装 / Laser Blade Casing （耐火）  
-Item ID: `tolaserblade:lb_casing_fp`
+  Item ID: `tolaserblade:lb_casing_fp`
 
 「レーザーブレイドの設計図」はクラフトの材料として使用されたときに消費されません。
 
