@@ -87,7 +87,15 @@ public class LBBrandNewItem extends Item implements LaserBladeItemBase {
 
         // GIFT code
         if ("GIFT".equals(name) || "\u304A\u305F\u304B\u3089".equals(name)) {   // name == {"GIFT" || "おたから"}
-            return LaserBladeStack.GIFT.getCopy();
+            return LaserBladeStack.GIFT.getCopy();  // Get GIFT Laser Blade
+        }
+
+        int modelType;
+
+        try {
+            modelType = Integer.parseInt(name);
+        } catch (NumberFormatException e) {
+            modelType = LaserBladeInternalModelManager.getTodayDateNumber();
         }
 
         // If Brand-new Laser Blade is type of Light Element I or II, its blade will be colored by biome player in, and its model will be set to today's model type
@@ -97,8 +105,7 @@ public class LBBrandNewItem extends Item implements LaserBladeItemBase {
         BlockPos pos = playerIn.getPosition();
         Biome biome = worldIn.getBiome(pos);
         visual.setColorsByBiome(worldIn, biome);
-        int type = LaserBladeInternalModelManager.getTodayDateNumber();
-        visual.setModelType(type);
+        visual.setModelType(modelType);
         laserBlade.write(laserBladeStack);
         return laserBladeStack;
     }
