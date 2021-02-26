@@ -109,7 +109,7 @@ public class ModelChangeRecipe extends SmithingRecipe {
 
     @Override
     public IRecipeSerializer<?> getSerializer() {
-        return ModRecipeSerializers.COLOR;
+        return ModRecipeSerializers.MODEL_CHANGE;
     }
 
     @Override

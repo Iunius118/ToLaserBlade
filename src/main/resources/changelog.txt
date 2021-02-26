@@ -1,6 +1,11 @@
 ToLaserBlade
 Changelog
 
+v1.16.4-4.1.4.1
+
+    Fix ModelChangeRecipe to correctly encode packets of the recipe
+
+
 v1.16.4-4.1.4.0
 
     Add model type information to Laser Blade's tooltip
