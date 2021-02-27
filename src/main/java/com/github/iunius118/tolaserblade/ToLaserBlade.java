@@ -39,6 +39,7 @@ import net.minecraftforge.fml.loading.FMLLoader;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -75,6 +76,11 @@ public class ToLaserBlade {
     private void initClient(final FMLClientSetupEvent event) {
         // Register laser trap entity renderer
         RenderingRegistry.registerEntityRenderingHandler(ModEntities.LASER_TRAP, LaserTrapEntityRenderer::new);
+    }
+
+    public static int getTodayDateNumber() {
+        Calendar calendar = Calendar.getInstance();
+        return (calendar.get(Calendar.MONTH) + 1) * 100 + calendar.get(Calendar.DATE);
     }
 
     /*

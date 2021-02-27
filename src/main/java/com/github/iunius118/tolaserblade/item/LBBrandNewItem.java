@@ -1,6 +1,6 @@
 package com.github.iunius118.tolaserblade.item;
 
-import com.github.iunius118.tolaserblade.client.model.LaserBladeInternalModelManager;
+import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.client.renderer.LBBrandNewItemRenderer;
 import com.github.iunius118.tolaserblade.laserblade.LaserBlade;
 import com.github.iunius118.tolaserblade.laserblade.LaserBladeStack;
@@ -95,7 +95,7 @@ public class LBBrandNewItem extends Item implements LaserBladeItemBase {
         try {
             modelType = Integer.parseInt(name);
         } catch (NumberFormatException e) {
-            modelType = LaserBladeInternalModelManager.getTodayDateNumber();
+            modelType = ToLaserBlade.getTodayDateNumber();
         }
 
         // If Brand-new Laser Blade is type of Light Element I or II, its blade will be colored by biome player in, and its model will be set to today's model type

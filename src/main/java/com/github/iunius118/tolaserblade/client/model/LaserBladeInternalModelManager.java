@@ -5,7 +5,6 @@ import com.github.iunius118.tolaserblade.ToLaserBladeConfig;
 import com.github.iunius118.tolaserblade.api.client.model.ILaserBladeModel;
 import com.github.iunius118.tolaserblade.client.model.laserblade.*;
 
-import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Supplier;
@@ -84,7 +83,7 @@ public class LaserBladeInternalModelManager {
 
     public ILaserBladeModel getModel(int modelType) {
         if (modelType < 0) {
-            modelType = getTodayDateNumber();
+            modelType = ToLaserBlade.getTodayDateNumber();
         }
 
         ILaserBladeModel model = modelCache.get(modelType);
@@ -104,11 +103,6 @@ public class LaserBladeInternalModelManager {
         model = supplier.get();
         modelCache.put(modelType, model);
         return model;
-    }
-
-    public static int getTodayDateNumber() {
-        Calendar calendar = Calendar.getInstance();
-        return (calendar.get(Calendar.MONTH) + 1) * 100 + calendar.get(Calendar.DATE);
     }
 
     public boolean canUseInternalModel() {
