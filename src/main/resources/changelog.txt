@@ -1,6 +1,11 @@
 ToLaserBlade
 Changelog
 
+v1.16.4-4.1.4.2
+
+    Fix server crash caused by Brand-new Laser Blade
+
+
 v1.16.4-4.1.4.1
 
     Fix ModelChangeRecipe to correctly encode packets of the recipe
