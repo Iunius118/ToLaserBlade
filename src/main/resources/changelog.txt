@@ -1,6 +1,12 @@
 ToLaserBlade
 Changelog
 
+v1.16.5-4.2.0.0
+
+    Update to 1.16.5
+    Compatible with Forge 1.16.5-36.0.42+
+
+
 v1.16.4-4.1.4.2
 
     Fix server crash caused by Brand-new Laser Blade
