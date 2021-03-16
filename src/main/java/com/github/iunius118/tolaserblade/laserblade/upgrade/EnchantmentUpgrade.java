@@ -24,14 +24,14 @@ public class EnchantmentUpgrade extends Upgrade {
 
     @Override
     public boolean test(ItemStack base, ItemStack addition) {
-        int level = EnchantmentHelper.getEnchantmentLevel(enchantment, base);
+        int level = EnchantmentHelper.getItemEnchantmentLevel(enchantment, base);
         return level < enchantment.getMaxLevel();
     }
 
     @Override
     public UpgradeResult apply(ItemStack base, int baseCost) {
         int cost = baseCost;
-        int level = EnchantmentHelper.getEnchantmentLevel(enchantment, base);
+        int level = EnchantmentHelper.getItemEnchantmentLevel(enchantment, base);
 
         if (level < enchantment.getMaxLevel()) {
             Map<Enchantment, Integer> oldEnchantments = EnchantmentHelper.getEnchantments(base);
@@ -48,7 +48,7 @@ public class EnchantmentUpgrade extends Upgrade {
 
     private boolean isCompatibleWith(Enchantment e1, Enchantment e2) {
         return e1.isCompatibleWith(e2) || e1.equals(e2) ||
-                (e1 == Enchantments.SILK_TOUCH && e2 == Enchantments.LOOTING) || (e1 == Enchantments.LOOTING && e2 == Enchantments.SILK_TOUCH); // Allow Laser Blade to have Silk Touch and Looting together
+                (e1 == Enchantments.SILK_TOUCH && e2 == Enchantments.MOB_LOOTING) || (e1 == Enchantments.MOB_LOOTING && e2 == Enchantments.SILK_TOUCH); // Allow Laser Blade to have Silk Touch and Looting together
     }
 
     private int getCost(int newLevel) {

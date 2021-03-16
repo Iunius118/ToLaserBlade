@@ -53,7 +53,7 @@ public class LaserBladeItemBakedModel implements IBakedModel {
     }
 
     @Override
-    public boolean isAmbientOcclusion() {
+    public boolean useAmbientOcclusion() {
         return true;
     }
 
@@ -63,30 +63,30 @@ public class LaserBladeItemBakedModel implements IBakedModel {
     }
 
     @Override
-    public boolean isSideLit() {
+    public boolean usesBlockLight() {
         return false;   // isGuiFlatDiffuseLighting or isShadedInGui
     }
 
     @Override
-    public boolean isBuiltInRenderer() {
+    public boolean isCustomRenderer() {
         return true;
     }
 
     @Override
-    public TextureAtlasSprite getParticleTexture() {
+    public TextureAtlasSprite getParticleIcon() {
         return getParticleTexture(EmptyModelData.INSTANCE);
     }
 
     @Override
     public TextureAtlasSprite getParticleTexture(@Nonnull IModelData modelData) {
-        return Minecraft.getInstance().getItemRenderer().getItemModelMesher().getParticleIcon(Items.IRON_INGOT);
+        return Minecraft.getInstance().getItemRenderer().getItemModelShaper().getParticleIcon(Items.IRON_INGOT);
     }
 
     @Override
     public ItemOverrideList getOverrides() {
         return new ItemOverrideList() {
             @Override
-            public IBakedModel getOverrideModel(IBakedModel model, ItemStack stack, @Nullable ClientWorld worldIn, @Nullable LivingEntity entityIn) {
+            public IBakedModel resolve(IBakedModel model, ItemStack stack, @Nullable ClientWorld worldIn, @Nullable LivingEntity entityIn) {
                 if (model instanceof LaserBladeItemBakedModel) {
                     LaserBladeItemBakedModel laserBladeModel = (LaserBladeItemBakedModel) model;
 
@@ -94,8 +94,8 @@ public class LaserBladeItemBakedModel implements IBakedModel {
                     HandSide handSide = HandSide.RIGHT;
 
                     if (entityIn != null) {
-                        isBlocking = ToLaserBladeConfig.SERVER.isEnabledBlockingWithLaserBlade.get() && entityIn.isHandActive();
-                        handSide = entityIn.getPrimaryHand();
+                        isBlocking = ToLaserBladeConfig.SERVER.isEnabledBlockingWithLaserBlade.get() && entityIn.isUsingItem();
+                        handSide = entityIn.getMainArm();
                     }
 
                     return laserBladeModel.handleItemOverride(stack, handSide, isBlocking);
@@ -121,8 +121,8 @@ public class LaserBladeItemBakedModel implements IBakedModel {
             new ItemTransformVec3f(new Vector3f(90F, -45F, 90F), new Vector3f(-0.25F, -0.1F, 0.25F), new Vector3f(0.5F, 0.5F, 0.5F)),
             new ItemTransformVec3f(new Vector3f(90F, -45F, 90F), new Vector3f(-0.175F, -0.485F, 0.44F), new Vector3f(0.95F, 0.95F, 0.95F)));
     private static final ItemCameraTransforms BLOCKING_RIGHTY_ITEM_TRANSFORMS = new ItemCameraTransforms(
-            ITEM_TRANSFORMS.thirdperson_left,
-            ITEM_TRANSFORMS.thirdperson_right,
+            ITEM_TRANSFORMS.thirdPersonLeftHand,
+            ITEM_TRANSFORMS.thirdPersonRightHand,
             new ItemTransformVec3f(new Vector3f(0F, 0F, 60F), new Vector3f(-0.4F, -0.15F, 0.6F), new Vector3f(0.68F, 0.85F, 0.68F)),
             new ItemTransformVec3f(new Vector3f(0F, 0F, 60F), new Vector3f(-0.05F, 0.4F, 0.5F), new Vector3f(0.68F, 0.85F, 0.68F)),
             ITEM_TRANSFORMS.head,
@@ -130,8 +130,8 @@ public class LaserBladeItemBakedModel implements IBakedModel {
             ITEM_TRANSFORMS.ground,
             ITEM_TRANSFORMS.fixed);
     private static final ItemCameraTransforms BLOCKING_LEFTY_ITEM_TRANSFORMS = new ItemCameraTransforms(
-            ITEM_TRANSFORMS.thirdperson_left,
-            ITEM_TRANSFORMS.thirdperson_right,
+            ITEM_TRANSFORMS.thirdPersonLeftHand,
+            ITEM_TRANSFORMS.thirdPersonRightHand,
             new ItemTransformVec3f(new Vector3f(0F, 0F, 60F), new Vector3f(-0.4F, -0.185F, 0.5F), new Vector3f(0.68F, 0.85F, 0.68F)),
             new ItemTransformVec3f(new Vector3f(0F, 0F, 60F), new Vector3f(-0.05F, 0.43F, 0.6F), new Vector3f(0.68F, 0.85F, 0.68F)),
             ITEM_TRANSFORMS.head,
@@ -140,9 +140,9 @@ public class LaserBladeItemBakedModel implements IBakedModel {
             ITEM_TRANSFORMS.fixed);
 
     @Override
-    public ItemCameraTransforms getItemCameraTransforms() {
+    public ItemCameraTransforms getTransforms() {
         if (isBlocking) {
-            if (Minecraft.getInstance().gameSettings.mainHand == HandSide.RIGHT) {
+            if (Minecraft.getInstance().options.mainHand == HandSide.RIGHT) {
                 return BLOCKING_RIGHTY_ITEM_TRANSFORMS;
 
             } else {

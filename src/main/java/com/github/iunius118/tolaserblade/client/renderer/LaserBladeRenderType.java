@@ -42,42 +42,42 @@ public class LaserBladeRenderType extends RenderType {
     }
 
     public static RenderType getBladeRenderType(String name, RenderType.State renderState) {
-        return RenderType.makeType(name, DefaultVertexFormats.ENTITY, GL11.GL_QUADS, 256, true, false, renderState);
+        return RenderType.create(name, DefaultVertexFormats.NEW_ENTITY, GL11.GL_QUADS, 256, true, false, renderState);
     }
 
     public static RenderType getTrapRenderType(ResourceLocation locationIn) {
-        return RenderType.makeType("laser_trap", DefaultVertexFormats.ENTITY, GL11.GL_QUADS, 256, true, false, getLaserTrapRenderState(locationIn));
+        return RenderType.create("laser_trap", DefaultVertexFormats.NEW_ENTITY, GL11.GL_QUADS, 256, true, false, getLaserTrapRenderState(locationIn));
     }
 
     public static RenderType.State getHiltRenderState(TextureState textureState) {
-        return RenderType.State.getBuilder()
-                .texture(textureState)
-                .transparency(TRANSLUCENT_TRANSPARENCY)
-                .diffuseLighting(DIFFUSE_LIGHTING_ENABLED)
-                .alpha(DEFAULT_ALPHA)
-                .lightmap(LIGHTMAP_ENABLED)
-                .overlay(OVERLAY_ENABLED)
-                .build(true);
+        return RenderType.State.builder()
+                .setTextureState(textureState)
+                .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
+                .setDiffuseLightingState(DIFFUSE_LIGHTING)
+                .setAlphaState(DEFAULT_ALPHA)
+                .setLightmapState(LIGHTMAP)
+                .setOverlayState(OVERLAY)
+                .createCompositeState(true);
     }
 
     public static RenderType.State getFlatRenderState(TextureState textureState) {
-        return RenderType.State.getBuilder()
-                .texture(textureState)
-                .transparency(TRANSLUCENT_TRANSPARENCY)
-                .alpha(DEFAULT_ALPHA)
-                .lightmap(LIGHTMAP_ENABLED)
-                .overlay(OVERLAY_ENABLED)
-                .build(true);
+        return RenderType.State.builder()
+                .setTextureState(textureState)
+                .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
+                .setAlphaState(DEFAULT_ALPHA)
+                .setLightmapState(LIGHTMAP)
+                .setOverlayState(OVERLAY)
+                .createCompositeState(true);
     }
 
     public static RenderType.State getAddRenderState(TextureState textureState) {
-        return RenderType.State.getBuilder()
-                .texture(textureState)
-                .transparency(LIGHTNING_TRANSPARENCY)
-                .alpha(DEFAULT_ALPHA)
-                .lightmap(LIGHTMAP_ENABLED)
-                .overlay(OVERLAY_ENABLED)
-                .build(true);
+        return RenderType.State.builder()
+                .setTextureState(textureState)
+                .setTransparencyState(LIGHTNING_TRANSPARENCY)
+                .setAlphaState(DEFAULT_ALPHA)
+                .setLightmapState(LIGHTMAP)
+                .setOverlayState(OVERLAY)
+                .createCompositeState(true);
     }
 
     public static RenderType.State getSubRenderState(TextureState textureState) {
@@ -91,23 +91,23 @@ public class LaserBladeRenderType extends RenderType {
             RenderSystem.defaultBlendFunc();
         });
 
-        return RenderType.State.getBuilder()
-                .texture(textureState)
-                .transparency(transparencyState)
-                .alpha(DEFAULT_ALPHA)
-                .lightmap(LIGHTMAP_ENABLED)
-                .overlay(OVERLAY_ENABLED)
-                .build(true);
+        return RenderType.State.builder()
+                .setTextureState(textureState)
+                .setTransparencyState(transparencyState)
+                .setAlphaState(DEFAULT_ALPHA)
+                .setLightmapState(LIGHTMAP)
+                .setOverlayState(OVERLAY)
+                .createCompositeState(true);
     }
 
     private static RenderType.State getLaserTrapRenderState(ResourceLocation locationIn) {
-        return RenderType.State.getBuilder()
-                .texture(new RenderState.TextureState(locationIn, false, false))
-                .transparency(NO_TRANSPARENCY)
-                .alpha(DEFAULT_ALPHA)
-                .lightmap(LIGHTMAP_ENABLED)
-                .overlay(OVERLAY_ENABLED)
-                .build(true);
+        return RenderType.State.builder()
+                .setTextureState(new RenderState.TextureState(locationIn, false, false))
+                .setTransparencyState(NO_TRANSPARENCY)
+                .setAlphaState(DEFAULT_ALPHA)
+                .setLightmapState(LIGHTMAP)
+                .setOverlayState(OVERLAY)
+                .createCompositeState(true);
     }
 
     public static boolean canUseFixedVertexBuffer() {
@@ -115,12 +115,12 @@ public class LaserBladeRenderType extends RenderType {
     }
 
     private static void registerRenderTypes() {
-        RenderTypeBuffers renderTypeBuffers = Minecraft.getInstance().getRenderTypeBuffers();
+        RenderTypeBuffers renderTypeBuffers = Minecraft.getInstance().renderBuffers();
         // Register mod RenderTypes
-        renderTypeBuffers.fixedBuffers.put(LASER_FLAT, new BufferBuilder(LASER_FLAT.getBufferSize()));
-        renderTypeBuffers.fixedBuffers.put(LASER_SUB_INNER, new BufferBuilder(LASER_SUB_INNER.getBufferSize()));
-        renderTypeBuffers.fixedBuffers.put(LASER_ADD, new BufferBuilder(LASER_ADD.getBufferSize()));
-        renderTypeBuffers.fixedBuffers.put(LASER_SUB, new BufferBuilder(LASER_SUB.getBufferSize()));
+        renderTypeBuffers.fixedBuffers.put(LASER_FLAT, new BufferBuilder(LASER_FLAT.bufferSize()));
+        renderTypeBuffers.fixedBuffers.put(LASER_SUB_INNER, new BufferBuilder(LASER_SUB_INNER.bufferSize()));
+        renderTypeBuffers.fixedBuffers.put(LASER_ADD, new BufferBuilder(LASER_ADD.bufferSize()));
+        renderTypeBuffers.fixedBuffers.put(LASER_SUB, new BufferBuilder(LASER_SUB.bufferSize()));
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -129,8 +129,8 @@ public class LaserBladeRenderType extends RenderType {
         public void setupRenderState() {
             RenderSystem.enableTexture();
             TextureManager texturemanager = Minecraft.getInstance().getTextureManager();
-            texturemanager.bindTexture(LaserBladeModelHolder.getTexture());
-            texturemanager.getTexture(LaserBladeModelHolder.getTexture()).setBlurMipmapDirect(false, false);
+            texturemanager.bind(LaserBladeModelHolder.getTexture());
+            texturemanager.getTexture(LaserBladeModelHolder.getTexture()).setFilter(false, false);
         }
 
         @Override

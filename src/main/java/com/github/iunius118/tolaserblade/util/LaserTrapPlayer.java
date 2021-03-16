@@ -20,25 +20,25 @@ public class LaserTrapPlayer extends FakePlayer {
     }
 
     public void initInventory(ItemStack currentStack) {
-        inventory.clear();
+        inventory.clearContent();
 
         // Set given item stack in main hand
-        inventory.currentItem = 0;
-        inventory.setInventorySlotContents(0, currentStack);
+        inventory.selected = 0;
+        inventory.setItem(0, currentStack);
 
         // Apply attack damage from main hand item
-        getAttributeManager().reapplyModifiers(currentStack.getAttributeModifiers(EquipmentSlotType.MAINHAND));
+        getAttributes().addTransientAttributeModifiers(currentStack.getAttributeModifiers(EquipmentSlotType.MAINHAND));
     }
 
     @Override
-    public void updateHeldItem() {
+    public void broadcastCarriedItem() {
     }
 
     @Override
-    public void sendEnterCombat() {
+    public void onEnterCombat() {
     }
 
     @Override
-    public void sendEndCombat() {
+    public void onLeaveCombat() {
     }
 }

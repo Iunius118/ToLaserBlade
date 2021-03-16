@@ -9,7 +9,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 public class LBEmitterItem extends Item implements LaserBladeItemBase {
-    public static Item.Properties properties = (new Item.Properties()).setNoRepair().group(ModMainItemGroup.ITEM_GROUP);
+    public static Item.Properties properties = (new Item.Properties()).setNoRepair().tab(ModMainItemGroup.ITEM_GROUP);
     public final Upgrade.Type upgradeType = Upgrade.Type.EMITTER;
 
     public LBEmitterItem() {

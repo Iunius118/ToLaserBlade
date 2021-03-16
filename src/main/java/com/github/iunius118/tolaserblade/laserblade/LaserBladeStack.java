@@ -56,8 +56,8 @@ public enum LaserBladeStack {
 
     private static ItemStack getLightElementStack(int lightElementLevel) {
         ItemStack laserBlade = new ItemStack(ModItems.LASER_BLADE);
-        laserBlade.addEnchantment(ModEnchantments.LIGHT_ELEMENT, lightElementLevel);
-        laserBlade.addEnchantment(Enchantments.EFFICIENCY, 1);
+        laserBlade.enchant(ModEnchantments.LIGHT_ELEMENT, lightElementLevel);
+        laserBlade.enchant(Enchantments.BLOCK_EFFICIENCY, 1);
         return laserBlade;
     }
 
@@ -68,8 +68,8 @@ public enum LaserBladeStack {
         LaserBladePerformance.AttackPerformance attack = laserBlade.getAttackPerformance();
         attack.damage = LaserBladePerformance.AttackPerformance.MOD_ATK_GIFT;
 
-        stack.addEnchantment(ModEnchantments.LIGHT_ELEMENT, 5);
-        stack.addEnchantment(Enchantments.EFFICIENCY, 1);
+        stack.enchant(ModEnchantments.LIGHT_ELEMENT, 5);
+        stack.enchant(Enchantments.BLOCK_EFFICIENCY, 1);
 
         LaserBladeVisual visual = laserBlade.getVisual();
         LaserBladeVisual.PartColor outerColor = visual.getOuterColor();
@@ -89,9 +89,9 @@ public enum LaserBladeStack {
         attack.damage = LaserBladePerformance.AttackPerformance.MOD_ATK_CRITICAL_BONUS;
         attack.speed = LaserBladePerformance.AttackPerformance.MOD_SPD_MAX;
 
-        stack.addEnchantment(ModEnchantments.LIGHT_ELEMENT, ModEnchantments.LIGHT_ELEMENT.getMaxLevel());
-        stack.addEnchantment(Enchantments.EFFICIENCY, Enchantments.EFFICIENCY.getMaxLevel());
-        stack.addEnchantment(Enchantments.MENDING, Enchantments.MENDING.getMaxLevel());
+        stack.enchant(ModEnchantments.LIGHT_ELEMENT, ModEnchantments.LIGHT_ELEMENT.getMaxLevel());
+        stack.enchant(Enchantments.BLOCK_EFFICIENCY, Enchantments.BLOCK_EFFICIENCY.getMaxLevel());
+        stack.enchant(Enchantments.MENDING, Enchantments.MENDING.getMaxLevel());
 
         LaserBladeVisual visual = laserBlade.getVisual();
         LaserBladeVisual.PartColor innerColor = visual.getInnerColor();
@@ -102,7 +102,7 @@ public enum LaserBladeStack {
         gripColor.color = Color.GRAY.getGripColor();
 
         laserBlade.write(stack);
-        if (isDamaged) stack.setDamage(LaserBladeItemBase.MAX_USES - 1);
+        if (isDamaged) stack.setDamageValue(LaserBladeItemBase.MAX_USES - 1);
         return stack;
     }
 
@@ -117,13 +117,13 @@ public enum LaserBladeStack {
         attack.damage = LaserBladePerformance.AttackPerformance.MOD_ATK_CRITICAL_BONUS;
         attack.speed = LaserBladePerformance.AttackPerformance.MOD_SPD_MAX;
 
-        stack.addEnchantment(ModEnchantments.LIGHT_ELEMENT, ModEnchantments.LIGHT_ELEMENT.getMaxLevel());
-        stack.addEnchantment(Enchantments.EFFICIENCY, Enchantments.EFFICIENCY.getMaxLevel());
-        stack.addEnchantment(Enchantments.MENDING, Enchantments.MENDING.getMaxLevel());
-        stack.addEnchantment(Enchantments.FIRE_ASPECT, Enchantments.FIRE_ASPECT.getMaxLevel());
-        stack.addEnchantment(Enchantments.SWEEPING, Enchantments.SWEEPING.getMaxLevel());
-        stack.addEnchantment(Enchantments.SILK_TOUCH, Enchantments.SILK_TOUCH.getMaxLevel());
-        stack.addEnchantment(Enchantments.LOOTING, Enchantments.LOOTING.getMaxLevel());
+        stack.enchant(ModEnchantments.LIGHT_ELEMENT, ModEnchantments.LIGHT_ELEMENT.getMaxLevel());
+        stack.enchant(Enchantments.BLOCK_EFFICIENCY, Enchantments.BLOCK_EFFICIENCY.getMaxLevel());
+        stack.enchant(Enchantments.MENDING, Enchantments.MENDING.getMaxLevel());
+        stack.enchant(Enchantments.FIRE_ASPECT, Enchantments.FIRE_ASPECT.getMaxLevel());
+        stack.enchant(Enchantments.SWEEPING_EDGE, Enchantments.SWEEPING_EDGE.getMaxLevel());
+        stack.enchant(Enchantments.SILK_TOUCH, Enchantments.SILK_TOUCH.getMaxLevel());
+        stack.enchant(Enchantments.MOB_LOOTING, Enchantments.MOB_LOOTING.getMaxLevel());
 
         LaserBladeVisual visual = laserBlade.getVisual();
         LaserBladeVisual.PartColor innerColor = visual.getInnerColor();

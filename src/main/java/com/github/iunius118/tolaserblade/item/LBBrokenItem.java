@@ -14,7 +14,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class LBBrokenItem extends Item implements LaserBladeItemBase {
-    public static Item.Properties properties = (new Item.Properties()).setNoRepair().group(ModMainItemGroup.ITEM_GROUP).setISTER(() -> LBBrokenItemRenderer::new);
+    public static Item.Properties properties = (new Item.Properties()).setNoRepair().tab(ModMainItemGroup.ITEM_GROUP).setISTER(() -> LBBrokenItemRenderer::new);
     public final Upgrade.Type upgradeType = Upgrade.Type.REPAIR;
 
     public LBBrokenItem(boolean isFireproof) {
@@ -28,8 +28,8 @@ public class LBBrokenItem extends Item implements LaserBladeItemBase {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
+    public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
         addLaserBladeInformation(stack, worldIn, tooltip, flagIn, upgradeType);
     }
 }

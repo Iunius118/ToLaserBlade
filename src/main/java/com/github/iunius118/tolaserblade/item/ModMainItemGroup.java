@@ -12,7 +12,7 @@ public interface ModMainItemGroup {
     ItemGroup ITEM_GROUP = new ItemGroup(MOD_ID) {
         @Override
         @OnlyIn(Dist.CLIENT)
-        public ItemStack createIcon() {
+        public ItemStack makeIcon() {
             LaserBladeStack icon = LaserBladeStack.ICON;
             return icon.getCopy();
         }

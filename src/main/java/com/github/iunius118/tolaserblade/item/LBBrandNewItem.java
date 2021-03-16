@@ -27,7 +27,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class LBBrandNewItem extends Item implements LaserBladeItemBase {
-    public static Properties properties = (new Item.Properties()).setNoRepair().group(ModMainItemGroup.ITEM_GROUP).setISTER(() -> LBBrandNewItemRenderer::new);
+    public static Properties properties = (new Item.Properties()).setNoRepair().tab(ModMainItemGroup.ITEM_GROUP).setISTER(() -> LBBrandNewItemRenderer::new);
     public static final String KEY_TOOLTIP_BLAND_NEW_HOW_TO_USE_LINE_1 = "tooltip.tolaserblade.brandNew1";
     public static final String KEY_TOOLTIP_BLAND_NEW_HOW_TO_USE_LINE_2 = "tooltip.tolaserblade.brandNew2";
     public static final String KEY_TOOLTIP_BLAND_NEW_HOW_TO_USE_LINE_3 = "tooltip.tolaserblade.brandNew3";
@@ -41,15 +41,15 @@ public class LBBrandNewItem extends Item implements LaserBladeItemBase {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        ItemStack itemStack = playerIn.getHeldItem(handIn);
+    public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
+        ItemStack itemStack = playerIn.getItemInHand(handIn);
 
-        if (!worldIn.isRemote()) {
+        if (!worldIn.isClientSide()) {
             setLaserBladeToPlayer(worldIn, playerIn, handIn, itemStack);
-            return ActionResult.resultSuccess(itemStack);
+            return ActionResult.success(itemStack);
         }
 
-        return ActionResult.resultSuccess(itemStack);
+        return ActionResult.success(itemStack);
     }
 
     private void setLaserBladeToPlayer(World worldIn, PlayerEntity playerIn, Hand handIn, ItemStack itemStack) {
@@ -61,7 +61,7 @@ public class LBBrandNewItem extends Item implements LaserBladeItemBase {
             CompoundNBT newNbt = tag.copy();    // Copy nbt to make it independent of the Brand-new Laser Blade
             laserBladeStack = type.getCopy();
             laserBladeStack.setTag(newNbt);
-            laserBladeStack.setDamage(0);   // Repair Laser Blade
+            laserBladeStack.setDamageValue(0);   // Repair Laser Blade
         } else {
             laserBladeStack = getPresetLaserBlade(worldIn, playerIn, itemStack);
         }
@@ -69,21 +69,21 @@ public class LBBrandNewItem extends Item implements LaserBladeItemBase {
         EquipmentSlotType slotType = (handIn == Hand.MAIN_HAND ? EquipmentSlotType.MAINHAND : EquipmentSlotType.OFFHAND);
 
         // Set Laser Blade to player inventory
-        if (playerIn.abilities.isCreativeMode || itemStack.getCount() > 1) {
+        if (playerIn.abilities.instabuild || itemStack.getCount() > 1) {
             // Remain Brand-new ItemStack and return
             // If the inventory is full, it will fail
-            if (!playerIn.addItemStackToInventory(laserBladeStack)) return;
+            if (!playerIn.addItem(laserBladeStack)) return;
             // Successfully added new Laser Blade to the inventory, and consume 1 Brand-new Laser Blade
             itemStack.shrink(1);
             return;
         }
 
         // ...or Change Brand-new Laser Blade to Laser Blade
-        playerIn.setItemStackToSlot(slotType, laserBladeStack);
+        playerIn.setItemSlot(slotType, laserBladeStack);
     }
 
     private ItemStack getPresetLaserBlade(World worldIn, PlayerEntity playerIn, ItemStack brandNewStack) {
-        String name = brandNewStack.hasDisplayName() ? brandNewStack.getDisplayName().getString() : "";
+        String name = brandNewStack.hasCustomHoverName() ? brandNewStack.getHoverName().getString() : "";
 
         // GIFT code
         if ("GIFT".equals(name) || "\u304A\u305F\u304B\u3089".equals(name)) {   // name == {"GIFT" || "おたから"}
@@ -102,7 +102,7 @@ public class LBBrandNewItem extends Item implements LaserBladeItemBase {
         ItemStack laserBladeStack = type.getCopy();
         LaserBlade laserBlade = LaserBlade.of(laserBladeStack);
         LaserBladeVisual visual = laserBlade.getVisual();
-        BlockPos pos = playerIn.getPosition();
+        BlockPos pos = playerIn.blockPosition();
         Biome biome = worldIn.getBiome(pos);
         visual.setColorsByBiome(worldIn, biome);
         visual.setModelType(modelType);
@@ -112,12 +112,12 @@ public class LBBrandNewItem extends Item implements LaserBladeItemBase {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
+    public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
 
-        tooltip.add(new TranslationTextComponent("tooltip.tolaserblade.brandNew1").mergeStyle(TextFormatting.YELLOW));
-        tooltip.add(new TranslationTextComponent("tooltip.tolaserblade.brandNew2").mergeStyle(TextFormatting.YELLOW));
-        tooltip.add(new TranslationTextComponent("tooltip.tolaserblade.brandNew3").mergeStyle(TextFormatting.YELLOW));
+        tooltip.add(new TranslationTextComponent("tooltip.tolaserblade.brandNew1").withStyle(TextFormatting.YELLOW));
+        tooltip.add(new TranslationTextComponent("tooltip.tolaserblade.brandNew2").withStyle(TextFormatting.YELLOW));
+        tooltip.add(new TranslationTextComponent("tooltip.tolaserblade.brandNew3").withStyle(TextFormatting.YELLOW));
 
         addLaserBladeInformation(stack, worldIn, tooltip, flagIn, Upgrade.Type.REPAIR);
     }

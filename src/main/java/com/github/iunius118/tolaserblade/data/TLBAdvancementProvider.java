@@ -44,18 +44,18 @@ public class TLBAdvancementProvider implements IDataProvider {
 
     protected void registerAdvancements(Consumer<Advancement> consumer) {
         // Main root
-        Advancement root = Advancement.Builder.builder()
-                .withDisplay(LaserBladeStack.ICON.getCopy(),
+        Advancement root = Advancement.Builder.advancement()
+                .display(LaserBladeStack.ICON.getCopy(),
                         new TranslationTextComponent("advancements.tolaserblade.main.root.title"),
                         new TranslationTextComponent("advancements.tolaserblade.main.root.description"),
                         new ResourceLocation("textures/block/polished_andesite.png"),
                         FrameType.TASK, false, false, false)
-                .withCriterion("has_redstone", InventoryChangeTrigger.Instance.forItems(Items.REDSTONE))
-                .withCriterion("has_dx_laser_blade", InventoryChangeTrigger.Instance.forItems(ModItems.DX_LASER_BLADE))
-                .withCriterion("has_laser_blade", InventoryChangeTrigger.Instance.forItems(ModItems.LASER_BLADE))
-                .withCriterion("has_laser_blade_fp", InventoryChangeTrigger.Instance.forItems(ModItems.LASER_BLADE_FP))
-                .withRequirementsStrategy(IRequirementsStrategy.OR)
-                .register(consumer, "tolaserblade:main/root");
+                .addCriterion("has_redstone", InventoryChangeTrigger.Instance.hasItems(Items.REDSTONE))
+                .addCriterion("has_dx_laser_blade", InventoryChangeTrigger.Instance.hasItems(ModItems.DX_LASER_BLADE))
+                .addCriterion("has_laser_blade", InventoryChangeTrigger.Instance.hasItems(ModItems.LASER_BLADE))
+                .addCriterion("has_laser_blade_fp", InventoryChangeTrigger.Instance.hasItems(ModItems.LASER_BLADE_FP))
+                .requirements(IRequirementsStrategy.OR)
+                .save(consumer, "tolaserblade:main/root");
 
         // 1. Laser Blade?
         Advancement dxLaserBlade = registerItemAdvancement(root, ModItems.DX_LASER_BLADE, FrameType.TASK,
@@ -83,29 +83,29 @@ public class TLBAdvancementProvider implements IDataProvider {
 
         // 1-1-3. Give Me Three
         Advancement looting3 = registerEnchantmentAdvancement(laserBlade, Items.NAUTILUS_SHELL, FrameType.TASK,
-                new Item[]{ModItems.LASER_BLADE, ModItems.LASER_BLADE_FP}, Enchantments.LOOTING, 3, consumer);
+                new Item[]{ModItems.LASER_BLADE, ModItems.LASER_BLADE_FP}, Enchantments.MOB_LOOTING, 3, consumer);
 
         // 1-1-4. Returns and Exchanges
         JsonObject jsonMaxZero = new JsonObject();
         jsonMaxZero.add("max", new JsonPrimitive(0));
-        Advancement breakLaserBlade = Advancement.Builder.builder()
-                .withParent(laserBlade)
-                .withDisplay(ModItems.LB_CASING,
+        Advancement breakLaserBlade = Advancement.Builder.advancement()
+                .parent(laserBlade)
+                .display(ModItems.LB_CASING,
                         new TranslationTextComponent("advancements.tolaserblade.main.break_laser_blade.title"),
                         new TranslationTextComponent("advancements.tolaserblade.main.break_laser_blade.description"),
                         null,
                         FrameType.CHALLENGE, true, true, false)
-                .withRewards(AdvancementRewards.Builder.experience(1000))
-                .withRequirementsStrategy(IRequirementsStrategy.OR)
-                .withCriterion("broke_laser_blade",
-                        ItemDurabilityTrigger.Instance.create(
-                                EntityPredicate.AndPredicate.createAndFromEntityCondition(EntityPredicate.ANY),
-                                ItemPredicate.Builder.create().item(ModItems.LASER_BLADE).build(), MinMaxBounds.IntBound.fromJson(jsonMaxZero)))
-                .withCriterion("broke_laser_blade_fp",
-                        ItemDurabilityTrigger.Instance.create(
-                                EntityPredicate.AndPredicate.createAndFromEntityCondition(EntityPredicate.ANY),
-                                ItemPredicate.Builder.create().item(ModItems.LASER_BLADE_FP).build(), MinMaxBounds.IntBound.fromJson(jsonMaxZero)))
-                .register(consumer, "tolaserblade:main/break_laser_blade");
+                .rewards(AdvancementRewards.Builder.experience(1000))
+                .requirements(IRequirementsStrategy.OR)
+                .addCriterion("broke_laser_blade",
+                        ItemDurabilityTrigger.Instance.changedDurability(
+                                EntityPredicate.AndPredicate.wrap(EntityPredicate.ANY),
+                                ItemPredicate.Builder.item().of(ModItems.LASER_BLADE).build(), MinMaxBounds.IntBound.fromJson(jsonMaxZero)))
+                .addCriterion("broke_laser_blade_fp",
+                        ItemDurabilityTrigger.Instance.changedDurability(
+                                EntityPredicate.AndPredicate.wrap(EntityPredicate.ANY),
+                                ItemPredicate.Builder.item().of(ModItems.LASER_BLADE_FP).build(), MinMaxBounds.IntBound.fromJson(jsonMaxZero)))
+                .save(consumer, "tolaserblade:main/break_laser_blade");
 
         // 1-1-5. Life-time Support
         Advancement mending = registerEnchantmentAdvancement(laserBlade, Items.NETHER_STAR, FrameType.GOAL,
@@ -118,57 +118,57 @@ public class TLBAdvancementProvider implements IDataProvider {
 
     private Advancement registerItemAdvancement(Advancement parent, Item icon, FrameType frameType, Item[] requirements, Consumer<Advancement> consumer) {
         String name = requirements[0].getRegistryName().getPath();
-        Advancement.Builder builder = Advancement.Builder.builder()
-                .withParent(parent)
-                .withDisplay(icon,
+        Advancement.Builder builder = Advancement.Builder.advancement()
+                .parent(parent)
+                .display(icon,
                         new TranslationTextComponent("advancements.tolaserblade.main." + name + ".title"),
                         new TranslationTextComponent("advancements.tolaserblade.main." + name + ".description"),
                         null,
                         frameType, true, true, false)
-                .withRequirementsStrategy(IRequirementsStrategy.OR);
+                .requirements(IRequirementsStrategy.OR);
 
         for (Item item : requirements) {
             String itemName = item.getRegistryName().getPath();
-            builder.withCriterion("has_" + itemName,  InventoryChangeTrigger.Instance.forItems(item));
+            builder.addCriterion("has_" + itemName,  InventoryChangeTrigger.Instance.hasItems(item));
         }
 
-        return builder.register(consumer, "tolaserblade:main/" + name);
+        return builder.save(consumer, "tolaserblade:main/" + name);
     }
 
     private Advancement registerEnchantmentAdvancement(Advancement parent, Item icon, FrameType frameType, Item[] requirements, Enchantment enchantment, int level, Consumer<Advancement> consumer) {
         String name = requirements[0].getRegistryName().getPath() + "_" + enchantment.getRegistryName().getPath() + "_" + level;
-        Advancement.Builder builder = Advancement.Builder.builder()
-                .withParent(parent)
-                .withDisplay(icon,
+        Advancement.Builder builder = Advancement.Builder.advancement()
+                .parent(parent)
+                .display(icon,
                         new TranslationTextComponent("advancements.tolaserblade.main." + name + ".title"),
                         new TranslationTextComponent("advancements.tolaserblade.main." + name + ".description"),
                         null,
                         frameType, true, true, false)
-                .withRequirementsStrategy(IRequirementsStrategy.OR);
+                .requirements(IRequirementsStrategy.OR);
 
         for (Item item : requirements) {
             String itemName = item.getRegistryName().getPath();
-            ItemPredicate itemPredicate = ItemPredicate.Builder.create()
-                    .item(item)
-                    .enchantment(new EnchantmentPredicate(enchantment, MinMaxBounds.IntBound.atLeast(level)))
+            ItemPredicate itemPredicate = ItemPredicate.Builder.item()
+                    .of(item)
+                    .hasEnchantment(new EnchantmentPredicate(enchantment, MinMaxBounds.IntBound.atLeast(level)))
                     .build();
 
-            builder.withCriterion("has_" + itemName, InventoryChangeTrigger.Instance.forItems(itemPredicate));
+            builder.addCriterion("has_" + itemName, InventoryChangeTrigger.Instance.hasItems(itemPredicate));
         }
 
-        return builder.register(consumer, "tolaserblade:main/" + name);
+        return builder.save(consumer, "tolaserblade:main/" + name);
     }
 
     private Advancement registerAttackUpgradeAdvancement(Advancement parent, Item icon, FrameType frameType, Item[] requirements, int attackDamage, Consumer<Advancement> consumer) {
         String name = requirements[0].getRegistryName().getPath() + "_attack_" + attackDamage;
-        Advancement.Builder builder = Advancement.Builder.builder()
-                .withParent(parent)
-                .withDisplay(icon,
+        Advancement.Builder builder = Advancement.Builder.advancement()
+                .parent(parent)
+                .display(icon,
                         new TranslationTextComponent("advancements.tolaserblade.main." + name + ".title"),
                         new TranslationTextComponent("advancements.tolaserblade.main." + name + ".description"),
                         null,
                         frameType, true, true, false)
-                .withRequirementsStrategy(IRequirementsStrategy.OR);
+                .requirements(IRequirementsStrategy.OR);
         int maxAtk = (int)LaserBladePerformance.AttackPerformance.MOD_ATK_CRITICAL_BONUS;
         String tagAtk = LaserBladePerformance.AttackPerformance.KEY_ATK;
 
@@ -177,25 +177,25 @@ public class TLBAdvancementProvider implements IDataProvider {
             int baseDamage = 1;
 
             if (item instanceof SwordItem) {
-                baseDamage += ((SwordItem)item).getAttackDamage();
+                baseDamage += ((SwordItem)item).getDamage();
             }
 
             for (int i = attackDamage - baseDamage; i >= 0 && i <= maxAtk; i++) {
                 CompoundNBT nbt = new CompoundNBT();
                 nbt.putFloat(tagAtk, (float) i);
-                ItemPredicate itemPredicate = ItemPredicate.Builder.create()
-                        .item(item)
-                        .nbt(nbt)
+                ItemPredicate itemPredicate = ItemPredicate.Builder.item()
+                        .of(item)
+                        .hasNbt(nbt)
                         .build();
-                builder.withCriterion(itemName + "_attack_" + (i + baseDamage), InventoryChangeTrigger.Instance.forItems(itemPredicate));
+                builder.addCriterion(itemName + "_attack_" + (i + baseDamage), InventoryChangeTrigger.Instance.hasItems(itemPredicate));
             }
         }
 
-        return builder.register(consumer, "tolaserblade:main/" + name);
+        return builder.save(consumer, "tolaserblade:main/" + name);
     }
 
     @Override
-    public void act(DirectoryCache cache) throws IOException {
+    public void run(DirectoryCache cache) throws IOException {
         Path path = this.generator.getOutputFolder();
         Set<ResourceLocation> set = Sets.newHashSet();
         Consumer<Advancement> consumer = (advancement) -> {
@@ -205,7 +205,7 @@ public class TLBAdvancementProvider implements IDataProvider {
                 Path advancementPath = getPath(path, advancement);
 
                 try {
-                    IDataProvider.save(GSON, cache, advancement.copy().serialize(), advancementPath);
+                    IDataProvider.save(GSON, cache, advancement.deconstruct().serializeToJson(), advancementPath);
                 } catch (IOException ioexception) {
                     LOGGER.error("Couldn't save advancement {}", advancementPath, ioexception);
                 }

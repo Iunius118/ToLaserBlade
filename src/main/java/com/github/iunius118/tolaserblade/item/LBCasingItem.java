@@ -15,7 +15,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class LBCasingItem extends Item implements LaserBladeItemBase {
-    public static Item.Properties properties = (new Item.Properties()).setNoRepair().group(ModMainItemGroup.ITEM_GROUP);
+    public static Item.Properties properties = (new Item.Properties()).setNoRepair().tab(ModMainItemGroup.ITEM_GROUP);
     public final Upgrade.Type upgradeType = Upgrade.Type.CASING;
 
     public LBCasingItem(boolean isFireproof) {
@@ -29,8 +29,8 @@ public class LBCasingItem extends Item implements LaserBladeItemBase {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
+    public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
         addLaserBladeInformation(stack, worldIn, tooltip, flagIn, upgradeType);
     }
 

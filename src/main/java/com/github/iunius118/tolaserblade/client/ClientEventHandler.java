@@ -42,7 +42,7 @@ public class ClientEventHandler {
 
     @SubscribeEvent
     public void onTextureStitchEvent(TextureStitchEvent.Pre event) {
-        if (event.getMap().getTextureLocation().equals(PlayerContainer.LOCATION_BLOCKS_TEXTURE)) {
+        if (event.getMap().location().equals(PlayerContainer.BLOCK_ATLAS)) {
             if (!ToLaserBladeConfig.CLIENT.useInternalModel.get() && ToLaserBladeConfig.CLIENT.externalModelType.get() == 1) {
                 // When using external OBJ model, add OBJ model texture to block atlas
                 event.addSprite(new ResourceLocation(ToLaserBlade.MOD_ID, "item/laser_blade_obj"));
@@ -90,15 +90,15 @@ public class ClientEventHandler {
         }
 
         if (status == Status.OUTDATED || status == Status.BETA_OUTDATED) {
-            ITextComponent modNameHighlighted = new StringTextComponent(ToLaserBlade.MOD_NAME).mergeStyle(TextFormatting.YELLOW);
+            ITextComponent modNameHighlighted = new StringTextComponent(ToLaserBlade.MOD_NAME).withStyle(TextFormatting.YELLOW);
 
-            ITextComponent newVersionHighlighted = new StringTextComponent(result.target.toString()).mergeStyle(TextFormatting.YELLOW);
+            ITextComponent newVersionHighlighted = new StringTextComponent(result.target.toString()).withStyle(TextFormatting.YELLOW);
 
-            ITextComponent message = new TranslationTextComponent("tolaserblade.update.newVersion", modNameHighlighted).appendString(": ")
+            ITextComponent message = new TranslationTextComponent("tolaserblade.update.newVersion", modNameHighlighted).append(": ")
                     .append(newVersionHighlighted)
-                    .modifyStyle(style -> style.setClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, result.url)));
+                    .withStyle(style -> style.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, result.url)));
 
-            Minecraft.getInstance().ingameGUI.getChatGUI().printChatMessage(message);
+            Minecraft.getInstance().gui.getChat().addMessage(message);
         }
     }
 }

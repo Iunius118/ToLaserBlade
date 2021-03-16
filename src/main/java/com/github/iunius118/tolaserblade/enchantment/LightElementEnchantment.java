@@ -25,7 +25,7 @@ public class LightElementEnchantment extends DamageEnchantment {
     }
 
     @Override
-    public float calcDamageByCreature(int level, CreatureAttribute creatureType) {
+    public float getDamageBonus(int level, CreatureAttribute creatureType) {
         if (creatureType == CreatureAttribute.UNDEAD || creatureType == CreatureAttribute.ILLAGER) {
             return (float)level * 2.4F;
         }
@@ -34,7 +34,7 @@ public class LightElementEnchantment extends DamageEnchantment {
     }
 
     @Override
-    public boolean canApply(ItemStack stack) {
+    public boolean canEnchant(ItemStack stack) {
         return canApplyAtEnchantingTable(stack);
     }
 
@@ -45,7 +45,7 @@ public class LightElementEnchantment extends DamageEnchantment {
     }
 
     @Override
-    public void onEntityDamaged(LivingEntity user, Entity target, int level) {
+    public void doPostAttack(LivingEntity user, Entity target, int level) {
 
     }
 }

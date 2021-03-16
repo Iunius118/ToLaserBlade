@@ -30,8 +30,8 @@ public class LaserTrapEntity extends Entity implements IEntityAdditionalSpawnDat
 
     public LaserTrapEntity(World worldIn, BlockPos pos, Direction direction, int bladeColor) {
         this(ModEntities.LASER_TRAP, worldIn);
-        setPosition((double)pos.getX() + 0.5D, pos.getY(), (double)pos.getZ() + 0.5D);
-        setRotation(direction.getHorizontalAngle(), (float)(direction.getDirectionVec().getY() * -90));
+        setPos((double)pos.getX() + 0.5D, pos.getY(), (double)pos.getZ() + 0.5D);
+        setRot(direction.toYRot(), (float)(direction.getNormal().getY() * -90));
         color = bladeColor;
     }
 
@@ -41,7 +41,7 @@ public class LaserTrapEntity extends Entity implements IEntityAdditionalSpawnDat
     }
 
     @Override
-    protected void registerData() {
+    protected void defineSynchedData() {
         // Init data manager
     }
 
@@ -55,19 +55,19 @@ public class LaserTrapEntity extends Entity implements IEntityAdditionalSpawnDat
     }
 
     @Override
-    protected void readAdditional(CompoundNBT compound) {
+    protected void readAdditionalSaveData(CompoundNBT compound) {
         life = compound.getInt(KEY_LIFE);
         color = compound.getInt(KEY_COLOR);
     }
 
     @Override
-    protected void writeAdditional(CompoundNBT compound) {
+    protected void addAdditionalSaveData(CompoundNBT compound) {
         compound.putInt(KEY_LIFE, life);
         compound.putInt(KEY_COLOR, color);
     }
 
     @Override
-    public IPacket<?> createSpawnPacket() {
+    public IPacket<?> getAddEntityPacket() {
         return NetworkHooks.getEntitySpawningPacket(this);
     }
 

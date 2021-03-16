@@ -31,7 +31,7 @@ public interface LaserBladeItemBase {
     /* Laser Blade properties */
 
     static Item.Properties setFireproof(Item.Properties properties, boolean isFireproof) {
-        return isFireproof ? properties.isImmuneToFire() : properties;
+        return isFireproof ? properties.fireResistant() : properties;
     }
 
     default boolean canUpgrade(Upgrade.Type type) {
@@ -44,7 +44,7 @@ public interface LaserBladeItemBase {
         boolean isFireproof = laserBlade.isFireproof();
 
         if (isFireproof) {
-            tooltip.add(new TranslationTextComponent(KEY_TOOLTIP_FIREPROOF).mergeStyle(TextFormatting.GOLD));
+            tooltip.add(new TranslationTextComponent(KEY_TOOLTIP_FIREPROOF).withStyle(TextFormatting.GOLD));
         }
 
         if (type == Upgrade.Type.OTHER || type == Upgrade.Type.REPAIR || type == Upgrade.Type.CASING) {
@@ -52,7 +52,7 @@ public interface LaserBladeItemBase {
             int modelType = visual.getModelType();
 
             if (modelType >= 0) {
-                tooltip.add(new TranslationTextComponent(KEY_TOOLTIP_MODEL, modelType).mergeStyle(TextFormatting.DARK_GRAY));
+                tooltip.add(new TranslationTextComponent(KEY_TOOLTIP_MODEL, modelType).withStyle(TextFormatting.DARK_GRAY));
             }
         }
 
@@ -76,6 +76,6 @@ public interface LaserBladeItemBase {
     }
 
     default ITextComponent getUpgradeTextComponent(String key, float value) {
-        return new TranslationTextComponent(key, (value < 0 ? "" : "+") + ItemStack.DECIMALFORMAT.format(value)).mergeStyle(TextFormatting.DARK_GREEN);
+        return new TranslationTextComponent(key, (value < 0 ? "" : "+") + ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(value)).withStyle(TextFormatting.DARK_GREEN);
     }
 }

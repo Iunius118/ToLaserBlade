@@ -35,7 +35,7 @@ public class ModelChangeRecipe extends SmithingRecipe {
     }
 
     private static ItemStack getResultItemStack(Ingredient base) {
-        ItemStack[] matchingStacks = base.getMatchingStacks();
+        ItemStack[] matchingStacks = base.getItems();
 
         if (matchingStacks.length > 0 && matchingStacks[0] != null) {
             return matchingStacks[0].copy();
@@ -46,8 +46,8 @@ public class ModelChangeRecipe extends SmithingRecipe {
 
     @Override
     public boolean matches(IInventory inv, World worldIn) {
-        if (base.test(inv.getStackInSlot(0)) && addition.test(inv.getStackInSlot(1))) {
-            ItemStack baseStack = inv.getStackInSlot(0);
+        if (base.test(inv.getItem(0)) && addition.test(inv.getItem(1))) {
+            ItemStack baseStack = inv.getItem(0);
             LaserBladeVisual visual = LaserBlade.visualOf(baseStack);
             int baseType = visual.getModelType();
             return type < 0 || baseType != type;   // If type < 0, set today date number or reset model type
@@ -57,8 +57,8 @@ public class ModelChangeRecipe extends SmithingRecipe {
     }
 
     @Override
-    public ItemStack getCraftingResult(IInventory inv) {
-        ItemStack baseStack = inv.getStackInSlot(0);
+    public ItemStack assemble(IInventory inv) {
+        ItemStack baseStack = inv.getItem(0);
         ItemStack itemstack = baseStack.copy();
         return getResult(itemstack);
     }
@@ -78,15 +78,15 @@ public class ModelChangeRecipe extends SmithingRecipe {
     }
 
     @Override
-    public boolean canFit(int width, int height) {
+    public boolean canCraftInDimensions(int width, int height) {
         return width * height >= 2;
     }
 
     @Override
-    public ItemStack getRecipeOutput() {
+    public ItemStack getResultItem() {
         if (sample != null) return sample;
 
-        ItemStack output = super.getRecipeOutput();
+        ItemStack output = super.getResultItem();
 
         if (output.isEmpty()) {
             sample = ItemStack.EMPTY;
@@ -98,7 +98,7 @@ public class ModelChangeRecipe extends SmithingRecipe {
     }
 
     @Override
-    public ItemStack getIcon() {
+    public ItemStack getToastSymbol() {
         return new ItemStack(Blocks.SMITHING_TABLE);
     }
 
@@ -119,10 +119,10 @@ public class ModelChangeRecipe extends SmithingRecipe {
 
     public static class Serializer extends net.minecraftforge.registries.ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<ModelChangeRecipe> {
         @Override
-        public ModelChangeRecipe read(ResourceLocation recipeId, JsonObject json) {
-            Ingredient base = Ingredient.deserialize(JSONUtils.getJsonObject(json, "base"));
-            Ingredient addition = Ingredient.deserialize(JSONUtils.getJsonObject(json, "addition"));
-            JsonObject result = JSONUtils.getJsonObject(json, "result");
+        public ModelChangeRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
+            Ingredient base = Ingredient.fromJson(JSONUtils.getAsJsonObject(json, "base"));
+            Ingredient addition = Ingredient.fromJson(JSONUtils.getAsJsonObject(json, "addition"));
+            JsonObject result = JSONUtils.getAsJsonObject(json, "result");
             JsonElement modelType = result.get("model_type");
             int type = modelType.getAsInt();
             return new ModelChangeRecipe(recipeId, base, addition, type);
@@ -130,17 +130,17 @@ public class ModelChangeRecipe extends SmithingRecipe {
 
         @Nullable
         @Override
-        public ModelChangeRecipe read(ResourceLocation recipeId, PacketBuffer buffer) {
-            Ingredient base = Ingredient.read(buffer);
-            Ingredient addition = Ingredient.read(buffer);
+        public ModelChangeRecipe fromNetwork(ResourceLocation recipeId, PacketBuffer buffer) {
+            Ingredient base = Ingredient.fromNetwork(buffer);
+            Ingredient addition = Ingredient.fromNetwork(buffer);
             int type = buffer.readInt();
             return new ModelChangeRecipe(recipeId, base, addition, type);
         }
 
         @Override
-        public void write(PacketBuffer buffer, ModelChangeRecipe recipe) {
-            recipe.base.write(buffer);
-            recipe.addition.write(buffer);
+        public void toNetwork(PacketBuffer buffer, ModelChangeRecipe recipe) {
+            recipe.base.toNetwork(buffer);
+            recipe.addition.toNetwork(buffer);
             buffer.writeInt(recipe.type);
         }
     }

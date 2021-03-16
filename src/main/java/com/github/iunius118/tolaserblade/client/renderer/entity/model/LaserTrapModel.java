@@ -12,22 +12,22 @@ public class LaserTrapModel extends SegmentedModel<LaserTrapEntity> {
     private final ModelRenderer laserBeam;
 
     public LaserTrapModel() {
-        textureWidth = 32;
-        textureHeight = 32;
+        texWidth = 32;
+        texHeight = 32;
 
         laserBeam = new ModelRenderer(this);
-        laserBeam.setTextureOffset(0, 0).addBox(-1.0F, -8.0F, -1.0F, 2.0F, 16.0F, 2.0F);
-        laserBeam.setRotationPoint(0.0F, 8.0F, 0.0F);
+        laserBeam.texOffs(0, 0).addBox(-1.0F, -8.0F, -1.0F, 2.0F, 16.0F, 2.0F);
+        laserBeam.setPos(0.0F, 8.0F, 0.0F);
     }
 
     @Override
-    public Iterable<ModelRenderer> getParts() {
+    public Iterable<ModelRenderer> parts() {
         return ImmutableList.of(this.laserBeam);
     }
 
     @Override
-    public void setRotationAngles(LaserTrapEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
-        laserBeam.rotateAngleY = entityIn.getYaw(1) * ((float)Math.PI / 180F);
-        laserBeam.rotateAngleX = (entityIn.getPitch(1) - 90F) * ((float)Math.PI / 180F);
+    public void setupAnim(LaserTrapEntity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch) {
+        laserBeam.yRot = entityIn.getViewYRot(1) * ((float)Math.PI / 180F);
+        laserBeam.xRot = (entityIn.getViewXRot(1) - 90F) * ((float)Math.PI / 180F);
     }
 }

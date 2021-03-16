@@ -42,8 +42,8 @@ public class LaserBladeModelType1108 extends SimpleLaserBladeModel {
         }
 
         // Rotate blade
-        float angle = Util.milliTime() % 250L * 1.44F;   // 240 rpm
-        matrixStack.rotate(new Quaternion(Vector3f.YP, angle, true));
+        float angle = Util.getMillis() % 250L * 1.44F;   // 240 rpm
+        matrixStack.mulPose(new Quaternion(Vector3f.YP, angle, true));
 
         currentBuffer = buffer.getBuffer(getInnerBladeAddRenderType(color.isInnerSubColor));
         renderQuads(matrixStack, currentBuffer, BLADE_IN_QUADS, color.innerColor, fullLight, overlayColor);

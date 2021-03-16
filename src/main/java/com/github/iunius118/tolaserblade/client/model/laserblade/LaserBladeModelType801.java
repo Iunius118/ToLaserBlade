@@ -36,7 +36,7 @@ public class LaserBladeModelType801 extends SimpleLaserBladeModel {
                 || transformType == ItemCameraTransforms.TransformType.GUI
                 || transformType == ItemCameraTransforms.TransformType.GROUND) {
             matrixStack.translate(0.0D, 0.1D, 0.0D);
-            matrixStack.rotate(new Quaternion(Vector3f.YP, 180.0F, true));
+            matrixStack.mulPose(new Quaternion(Vector3f.YP, 180.0F, true));
         }
 
         LaserBladeItemColor color = new LaserBladeItemColor(itemStack);

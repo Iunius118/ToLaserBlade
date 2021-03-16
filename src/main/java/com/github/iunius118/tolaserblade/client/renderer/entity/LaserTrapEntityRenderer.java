@@ -26,28 +26,28 @@ public class LaserTrapEntityRenderer extends EntityRenderer<LaserTrapEntity> {
 
     @Override
     public void render(LaserTrapEntity entityIn, float entityYaw, float partialTicks, MatrixStack matrixStackIn, IRenderTypeBuffer bufferIn, int packedLightIn) {
-        matrixStackIn.push();
+        matrixStackIn.pushPose();
 
         Color4Float c = new Color4Float(entityIn.getColor());
-        LASER_TRAP_MODEL.setRotationAngles(entityIn, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F);
+        LASER_TRAP_MODEL.setupAnim(entityIn, 0.0F, 0.0F, 0.0F, 0.0F, 0.0F);
         // Render shape (write depth)
         final int fullLight = 0xF000F0;
         IVertexBuilder buffer = bufferIn.getBuffer(RENDER_TYPE);
-        LASER_TRAP_MODEL.render(matrixStackIn, buffer, fullLight, OverlayTexture.NO_OVERLAY, c.r, c.g, c.b, c.a);
+        LASER_TRAP_MODEL.renderToBuffer(matrixStackIn, buffer, fullLight, OverlayTexture.NO_OVERLAY, c.r, c.g, c.b, c.a);
         // Render color
         //buffer = bufferIn.getBuffer(RenderType.getEyes(LASER_TRAP_TEXTURE));
         //LASER_TRAP_MODEL.render(matrixStackIn, buffer, FULL_LIGHT, OverlayTexture.NO_OVERLAY, c.r, c.g, c.b, c.a);
 
-        matrixStackIn.pop();
+        matrixStackIn.popPose();
     }
 
     @Override
-    protected int getBlockLight(LaserTrapEntity entityIn, BlockPos blockPosIn) {
+    protected int getBlockLightLevel(LaserTrapEntity entityIn, BlockPos blockPosIn) {
         return 15;
     }
 
     @Override
-    public ResourceLocation getEntityTexture(LaserTrapEntity entity) {
+    public ResourceLocation getTextureLocation(LaserTrapEntity entity) {
         return LASER_TRAP_TEXTURE;
     }
 }

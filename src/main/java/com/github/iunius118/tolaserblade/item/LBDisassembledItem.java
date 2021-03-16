@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.Map;
 
 public class LBDisassembledItem extends Item implements LaserBladeItemBase {
-    public static Properties properties = (new Properties()).setNoRepair().group(ModMainItemGroup.ITEM_GROUP);
+    public static Properties properties = (new Properties()).setNoRepair().tab(ModMainItemGroup.ITEM_GROUP);
     public final Upgrade.Type upgradeType = Upgrade.Type.REPAIR;
 
     public LBDisassembledItem(boolean isFireproof) {
@@ -41,23 +41,23 @@ public class LBDisassembledItem extends Item implements LaserBladeItemBase {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        ItemStack itemStack = playerIn.getHeldItem(handIn);
+    public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
+        ItemStack itemStack = playerIn.getItemInHand(handIn);
 
-        if (!worldIn.isRemote()) {
+        if (!worldIn.isClientSide()) {
             disassembleLaserBlade(worldIn, playerIn, itemStack);
             itemStack.shrink(1);
-            return ActionResult.resultSuccess(itemStack);
+            return ActionResult.success(itemStack);
         }
 
-        return ActionResult.resultSuccess(itemStack);
+        return ActionResult.success(itemStack);
     }
 
     private void disassembleLaserBlade(World worldIn, PlayerEntity playerIn, ItemStack itemStack) {
         ItemStack batteryStack = new ItemStack(ModItems.LB_BATTERY);
         ItemStack mediumStack = new ItemStack(ModItems.LB_MEDIUM);
         ItemStack emitterStack = new ItemStack(ModItems.LB_EMITTER);
-        ItemStack casingStack = new ItemStack(itemStack.getItem().isImmuneToFire() ? ModItems.LB_CASING_FP : ModItems.LB_CASING);
+        ItemStack casingStack = new ItemStack(itemStack.getItem().isFireResistant() ? ModItems.LB_CASING_FP : ModItems.LB_CASING);
 
         LaserBlade laserBlade = LaserBlade.of(itemStack);
         LaserBlade battery = LaserBlade.of(batteryStack);
@@ -77,26 +77,26 @@ public class LBDisassembledItem extends Item implements LaserBladeItemBase {
 
         // Process enchantments
         enchantments.forEach((enchantment, lvl) -> {
-            if (enchantment == Enchantments.EFFICIENCY) {
-                batteryStack.addEnchantment(enchantment, lvl);
+            if (enchantment == Enchantments.BLOCK_EFFICIENCY) {
+                batteryStack.enchant(enchantment, lvl);
 
             } else if (enchantment instanceof DamageEnchantment ||
                     enchantment == Enchantments.KNOCKBACK ) {
-                mediumStack.addEnchantment(enchantment, lvl);
+                mediumStack.enchant(enchantment, lvl);
 
             } else if (enchantment == Enchantments.FIRE_ASPECT ||
-                    enchantment == Enchantments.SWEEPING ||
+                    enchantment == Enchantments.SWEEPING_EDGE ||
                     enchantment == Enchantments.SILK_TOUCH) {
-                emitterStack.addEnchantment(enchantment, lvl);
+                emitterStack.enchant(enchantment, lvl);
 
             } else if (enchantment == Enchantments.VANISHING_CURSE) {
-                batteryStack.addEnchantment(enchantment, lvl);
-                mediumStack.addEnchantment(enchantment, lvl);
-                emitterStack.addEnchantment(enchantment, lvl);
-                casingStack.addEnchantment(enchantment, lvl);
+                batteryStack.enchant(enchantment, lvl);
+                mediumStack.enchant(enchantment, lvl);
+                emitterStack.enchant(enchantment, lvl);
+                casingStack.enchant(enchantment, lvl);
 
             } else {
-                casingStack.addEnchantment(enchantment, lvl);
+                casingStack.enchant(enchantment, lvl);
             }
         });
 
@@ -124,8 +124,8 @@ public class LBDisassembledItem extends Item implements LaserBladeItemBase {
         casingVisual.setModelType(laserBladeVisual.getModelType());
 
         // Process display name
-        if (itemStack.hasDisplayName()) {
-            casingStack.setDisplayName(itemStack.getDisplayName());
+        if (itemStack.hasCustomHoverName()) {
+            casingStack.setHoverName(itemStack.getHoverName());
         }
 
         // Write to stack
@@ -142,16 +142,16 @@ public class LBDisassembledItem extends Item implements LaserBladeItemBase {
     }
 
     private void dropItem(ItemStack itemStack, PlayerEntity playerIn) {
-        ItemEntity itemEntity = new ItemEntity(playerIn.world, playerIn.getPosX(), playerIn.getPosY() + 0.5, playerIn.getPosZ(), itemStack);
-        playerIn.world.addEntity(itemEntity);
+        ItemEntity itemEntity = new ItemEntity(playerIn.level, playerIn.getX(), playerIn.getY() + 0.5, playerIn.getZ(), itemStack);
+        playerIn.level.addFreshEntity(itemEntity);
     }
 
     @Override
-    public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
-        super.fillItemGroup(group, items);
+    public void fillItemCategory(ItemGroup group, NonNullList<ItemStack> items) {
+        super.fillItemCategory(group, items);
         if (group != ModMainItemGroup.ITEM_GROUP) return;
 
-        if (isImmuneToFire()) {
+        if (isFireResistant()) {
             items.add(LaserBladeStack.DISASSEMBLED_FULL_MOD_FP.getCopy());
         } else {
             items.add(LaserBladeStack.DISASSEMBLED_FULL_MOD.getCopy());
@@ -160,8 +160,8 @@ public class LBDisassembledItem extends Item implements LaserBladeItemBase {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
+    public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
         addLaserBladeInformation(stack, worldIn, tooltip, flagIn, upgradeType);
     }
 }
