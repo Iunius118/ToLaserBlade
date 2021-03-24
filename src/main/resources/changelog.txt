@@ -1,10 +1,17 @@
 ToLaserBlade
 Changelog
 
+v1.16.5-4.3.0.0
+
+    Add secret internal Laser Blade model
+    Implement ToLaserBladeAPI#addInternalModel
+    Compatible with Forge 1.16.5-36.1.0
+
+
 v1.16.5-4.2.0.0
 
     Update to 1.16.5
-    Compatible with Forge 1.16.5-36.0.42+
+    Compatible with Forge 1.16.5-36.0.42
 
 
 v1.16.4-4.1.4.2
