@@ -42,7 +42,7 @@ public class TLBSoundProvider implements IDataProvider {
     }
 
     @Override
-    public void act(DirectoryCache cache) throws IOException {
+    public void run(DirectoryCache cache) throws IOException {
         registerSoundEvents();
         JsonObject jsonSoundsRoot = new JsonObject();
 
@@ -55,7 +55,7 @@ public class TLBSoundProvider implements IDataProvider {
 
     private void addSoundEventToJson(SoundEvent soundEvent, JsonObject jsonObject) {
         // Add sound events of Laser Blades very easily
-        ResourceLocation soundName = soundEvent.getName();
+        ResourceLocation soundName = soundEvent.getLocation();
         String soundPath = soundName.toString().replace(".", "/");
         JsonArray sounds = new JsonArray();
         sounds.add(soundPath);

@@ -43,11 +43,11 @@ public class LaserBladeVisual {
 
     public void setColorsByBiome(World world, Biome biome) {
         // Color by Biome type or Biome temperature
-        if (biome.getCategory() == Biome.Category.NETHER) {
+        if (biome.getBiomeCategory() == Biome.Category.NETHER) {
             // The Nether
             setColorsByNetherBiome(world, biome);
 
-        } else if (biome.getCategory() == Biome.Category.THEEND) {
+        } else if (biome.getBiomeCategory() == Biome.Category.THEEND) {
             // The End
             getOuterColor().color = Color.WHITE.getBladeColor();
             getOuterColor().isSubtractColor = true;
@@ -55,7 +55,7 @@ public class LaserBladeVisual {
 
         } else {
             // Biomes on Over-world etc.
-            float temp = biome.getTemperature();
+            float temp = biome.getBaseTemperature();
             setColorsByTemperature(temp);
         }
     }
@@ -75,10 +75,10 @@ public class LaserBladeVisual {
     private boolean compareBiome(World world, Biome biome, RegistryKey<Biome> biomeKey) {
         if (world == null || biome == null || biomeKey == null) return false;
 
-        DynamicRegistries registries = world.func_241828_r();   // TODO: func_241828_r = getDynamicRegistries ?
-        MutableRegistry<Biome> biomes = registries.getRegistry(Registry.BIOME_KEY);
+        DynamicRegistries registries = world.registryAccess();   // TODO: registryAccess = getDynamicRegistries ?
+        MutableRegistry<Biome> biomes = registries.registryOrThrow(Registry.BIOME_REGISTRY);
         ResourceLocation biome1 = biomes.getKey(biome);
-        ResourceLocation biome2 = biomeKey.getLocation();
+        ResourceLocation biome2 = biomeKey.location();
 
         return biome2.equals(biome1);
     }

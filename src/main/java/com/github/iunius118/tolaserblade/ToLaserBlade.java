@@ -135,8 +135,8 @@ public class ToLaserBlade {
         @SubscribeEvent
         public static void onEntityRegistry(RegistryEvent.Register<EntityType<?>> event) {
             EntityType<LaserTrapEntity> laserTrap = EntityType.Builder
-                    .<LaserTrapEntity>create(LaserTrapEntity::new, EntityClassification.MISC)
-                    .size(1.0F, 1.0F).immuneToFire()
+                    .<LaserTrapEntity>of(LaserTrapEntity::new, EntityClassification.MISC)
+                    .sized(1.0F, 1.0F).fireImmune()
                     .setTrackingRange(64).setUpdateInterval(4).setShouldReceiveVelocityUpdates(false)
                     .build(LaserTrapEntity.ID.toString());
 
@@ -206,7 +206,7 @@ public class ToLaserBlade {
 
     @SubscribeEvent
     public void onEntityJoiningInWorld(final EntityJoinWorldEvent event) {
-        if (event.getWorld().isRemote && event.getEntity() instanceof PlayerEntity) {
+        if (event.getWorld().isClientSide && event.getEntity() instanceof PlayerEntity) {
             if (ToLaserBladeConfig.CLIENT.showUpdateMessage.get() && !hasShownUpdate) {
                 ClientEventHandler.checkUpdate();
                 hasShownUpdate = true;

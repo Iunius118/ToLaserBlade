@@ -88,25 +88,25 @@ public class SimpleModel {
     }
 
     protected void renderQuads(MatrixStack matrixStack, IVertexBuilder buffer, List<SimpleQuad> quads, int lightmapCoord, int overlayColor, float red, float green, float blue, float alpha) {
-        MatrixStack.Entry matrixEntry = matrixStack.getLast();
+        MatrixStack.Entry matrixEntry = matrixStack.last();
 
         for (SimpleQuad face : quads) {
             for (int i = 0; i < 4; i++) {
                 SimpleVertex vertex = face.vertices[i];
 
                 Vector4f pos = new Vector4f(vertex.pos);
-                pos.transform(matrixEntry.getMatrix());
+                pos.transform(matrixEntry.pose());
 
                 Vector4f vColor = vertex.color;
                 Vector2f uv = vertex.uv;
 
                 Vector3f normal = vertex.normal.copy();
-                normal.transform(matrixEntry.getNormal());
+                normal.transform(matrixEntry.normal());
 
-                buffer.addVertex(pos.getX(), pos.getY(), pos.getZ(),
-                        red * vColor.getX(), green * vColor.getY(), blue * vColor.getZ(), alpha * vColor.getW(),
+                buffer.vertex(pos.x(), pos.y(), pos.z(),
+                        red * vColor.x(), green * vColor.y(), blue * vColor.z(), alpha * vColor.w(),
                         uv.x, uv.y, overlayColor, lightmapCoord,
-                        normal.getX(), normal.getY(), normal.getZ());
+                        normal.x(), normal.y(), normal.z());
             }
         }
     }

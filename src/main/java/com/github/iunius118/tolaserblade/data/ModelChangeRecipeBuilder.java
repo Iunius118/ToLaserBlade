@@ -20,7 +20,7 @@ public class ModelChangeRecipeBuilder {
     private final Ingredient base;
     private final Ingredient addition;
     private final int type;
-    private final Advancement.Builder advancementBuilder = Advancement.Builder.builder();
+    private final Advancement.Builder advancementBuilder = Advancement.Builder.advancement();
 
     public ModelChangeRecipeBuilder(IRecipeSerializer<?> serializer, Ingredient base, Ingredient addition, int type) {
         this.serializer = serializer;
@@ -34,7 +34,7 @@ public class ModelChangeRecipeBuilder {
     }
 
     public ModelChangeRecipeBuilder addCriterion(String name, ICriterionInstance criterion) {
-        advancementBuilder.withCriterion(name, criterion);
+        advancementBuilder.addCriterion(name, criterion);
         return this;
     }
 
@@ -48,10 +48,10 @@ public class ModelChangeRecipeBuilder {
         }
 
         advancementBuilder
-                .withParentId(new ResourceLocation("recipes/root"))
-                .withCriterion("has_the_recipe", RecipeUnlockedTrigger.create(id))
-                .withRewards(AdvancementRewards.Builder.recipe(id))
-                .withRequirementsStrategy(IRequirementsStrategy.OR);
+                .parent(new ResourceLocation("recipes/root"))
+                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))
+                .rewards(AdvancementRewards.Builder.recipe(id))
+                .requirements(IRequirementsStrategy.OR);
         consumer.accept(new ModelChangeRecipeBuilder.Result(id, serializer, base, addition, type, advancementBuilder, new ResourceLocation(id.getNamespace(), "recipes/" + id.getPath())));
     }
 
@@ -75,33 +75,33 @@ public class ModelChangeRecipeBuilder {
         }
 
         @Override
-        public void serialize(JsonObject json) {
-            json.add("base", this.base.serialize());
-            json.add("addition", this.addition.serialize());
+        public void serializeRecipeData(JsonObject json) {
+            json.add("base", this.base.toJson());
+            json.add("addition", this.addition.toJson());
             JsonObject result = new JsonObject();
             result.addProperty("model_type", type);
             json.add("result", result);
         }
 
         @Override
-        public ResourceLocation getID() {
+        public ResourceLocation getId() {
             return id;
         }
 
         @Override
-        public IRecipeSerializer<?> getSerializer() {
+        public IRecipeSerializer<?> getType() {
             return serializer;
         }
 
         @Nullable
         @Override
-        public JsonObject getAdvancementJson() {
-            return advancementBuilder.serialize();
+        public JsonObject serializeAdvancement() {
+            return advancementBuilder.serializeToJson();
         }
 
         @Nullable
         @Override
-        public ResourceLocation getAdvancementID() {
+        public ResourceLocation getAdvancementId() {
             return advancementId;
         }
     }

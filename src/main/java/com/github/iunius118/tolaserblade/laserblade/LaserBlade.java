@@ -11,7 +11,7 @@ public class LaserBlade {
     public LaserBlade(ItemStack stack) {
         Item item = stack.getItem();
         CompoundNBT compound = stack.getOrCreateTag();
-        performance = new LaserBladePerformance(compound, item.isImmuneToFire());
+        performance = new LaserBladePerformance(compound, item.isFireResistant());
         visual = new LaserBladeVisual(compound);
     }
 
@@ -22,7 +22,7 @@ public class LaserBlade {
     public static LaserBladePerformance performanceOf(ItemStack stack) {
         Item item = stack.getItem();
         CompoundNBT compound = stack.getOrCreateTag();
-        return new LaserBladePerformance(compound, item.isImmuneToFire());
+        return new LaserBladePerformance(compound, item.isFireResistant());
     }
 
     public static LaserBladeVisual visualOf(ItemStack stack) {

@@ -22,7 +22,7 @@ public class ColorRecipeBuilder {
     private final Ingredient addition;
     private final String part;
     private final int color;
-    private final Advancement.Builder advancementBuilder = Advancement.Builder.builder();
+    private final Advancement.Builder advancementBuilder = Advancement.Builder.advancement();
 
     public ColorRecipeBuilder(IRecipeSerializer<?> serializer, Ingredient base, Ingredient addition, ColorPart colorPart, int color) {
         this.serializer = serializer;
@@ -37,7 +37,7 @@ public class ColorRecipeBuilder {
     }
 
     public ColorRecipeBuilder addCriterion(String name, ICriterionInstance criterion) {
-        advancementBuilder.withCriterion(name, criterion);
+        advancementBuilder.addCriterion(name, criterion);
         return this;
     }
 
@@ -51,10 +51,10 @@ public class ColorRecipeBuilder {
         }
 
         advancementBuilder
-                .withParentId(new ResourceLocation("recipes/root"))
-                .withCriterion("has_the_recipe", RecipeUnlockedTrigger.create(id))
-                .withRewards(AdvancementRewards.Builder.recipe(id))
-                .withRequirementsStrategy(IRequirementsStrategy.OR);
+                .parent(new ResourceLocation("recipes/root"))
+                .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))
+                .rewards(AdvancementRewards.Builder.recipe(id))
+                .requirements(IRequirementsStrategy.OR);
         consumer.accept(new ColorRecipeBuilder.Result(id, serializer, base, addition, part, color, advancementBuilder, new ResourceLocation(id.getNamespace(), "recipes/" + id.getPath())));
     }
 
@@ -80,9 +80,9 @@ public class ColorRecipeBuilder {
         }
 
         @Override
-        public void serialize(JsonObject json) {
-            json.add("base", this.base.serialize());
-            json.add("addition", this.addition.serialize());
+        public void serializeRecipeData(JsonObject json) {
+            json.add("base", this.base.toJson());
+            json.add("addition", this.addition.toJson());
             JsonObject result = new JsonObject();
             result.addProperty("part", part);
             result.addProperty("color", color);
@@ -90,24 +90,24 @@ public class ColorRecipeBuilder {
         }
 
         @Override
-        public ResourceLocation getID() {
+        public ResourceLocation getId() {
             return id;
         }
 
         @Override
-        public IRecipeSerializer<?> getSerializer() {
+        public IRecipeSerializer<?> getType() {
             return serializer;
         }
 
         @Nullable
         @Override
-        public JsonObject getAdvancementJson() {
-            return advancementBuilder.serialize();
+        public JsonObject serializeAdvancement() {
+            return advancementBuilder.serializeToJson();
         }
 
         @Nullable
         @Override
-        public ResourceLocation getAdvancementID() {
+        public ResourceLocation getAdvancementId() {
             return advancementId;
         }
     }

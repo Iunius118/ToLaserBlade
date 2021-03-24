@@ -21,8 +21,8 @@ public class ItemEventHandler {
             PlayerEntity player = event.getPlayer();
             ItemStack itemStack1 = itemStack.isEmpty() ? ItemStack.EMPTY : itemStack.copy();
 
-            if (event.getTarget().processInitialInteract(event.getPlayer(), event.getHand()).isSuccessOrConsume()) {
-                if (player.abilities.isCreativeMode && itemStack == event.getItemStack() && itemStack.getCount() < itemStack1.getCount()) {
+            if (event.getTarget().interact(event.getPlayer(), event.getHand()).consumesAction()) {
+                if (player.abilities.instabuild && itemStack == event.getItemStack() && itemStack.getCount() < itemStack1.getCount()) {
                     itemStack.setCount(itemStack1.getCount());
                 }
 
@@ -38,7 +38,7 @@ public class ItemEventHandler {
     public void onPlayerDestroyItem(PlayerDestroyItemEvent event) {
         PlayerEntity player = event.getPlayer();
 
-        if (!player.getEntityWorld().isRemote) {
+        if (!player.getCommandSenderWorld().isClientSide) {
             ItemStack original = event.getOriginal();
             ItemStack brokenLaserBlade = null;
 
@@ -54,18 +54,18 @@ public class ItemEventHandler {
 
             if (brokenLaserBlade != null) {
                 brokenLaserBlade.setTag(original.getOrCreateTag().copy());
-                brokenLaserBlade.setDamage(0);
+                brokenLaserBlade.setDamageValue(0);
 
                 // Drop Broken Laser Blade
-                ItemEntity itemEntity = new ItemEntity(player.world, player.getPosX(), player.getPosY() + 0.5, player.getPosZ(), brokenLaserBlade);
-                player.world.addEntity(itemEntity);
+                ItemEntity itemEntity = new ItemEntity(player.level, player.getX(), player.getY() + 0.5, player.getZ(), brokenLaserBlade);
+                player.level.addFreshEntity(itemEntity);
             }
         }
     }
 
     @SubscribeEvent
     public void onCriticalHit(CriticalHitEvent event) {
-        ItemStack stack = event.getPlayer().getHeldItemMainhand();
+        ItemStack stack = event.getPlayer().getMainHandItem();
 
         if (stack.getItem() instanceof LaserBladeItem) {
             ((LaserBladeItem) stack.getItem()).onCriticalHit(event);

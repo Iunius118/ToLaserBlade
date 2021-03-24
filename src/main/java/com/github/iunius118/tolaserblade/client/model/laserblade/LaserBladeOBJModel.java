@@ -27,7 +27,7 @@ import java.util.*;
 
 public class LaserBladeOBJModel extends SimpleLaserBladeModel {
     private final Map<Part, List<BakedQuad>> PARTS = Maps.newEnumMap(Part.class);
-    private final ResourceLocation TEXTURE = PlayerContainer.LOCATION_BLOCKS_TEXTURE;
+    private final ResourceLocation TEXTURE = PlayerContainer.BLOCK_ATLAS;
 
     public void loadLaserBladeOBJModel(ModelLoader loader) {
         // Load model
@@ -62,7 +62,7 @@ public class LaserBladeOBJModel extends SimpleLaserBladeModel {
             Part part = Part.find(geometryPart.name());
 
             if (part != null) {
-                IModelBuilder<?> builder = IModelBuilder.of(modelConfig, ItemOverrideList.EMPTY, Minecraft.getInstance().getItemRenderer().getItemModelMesher().getParticleIcon(Items.IRON_INGOT));
+                IModelBuilder<?> builder = IModelBuilder.of(modelConfig, ItemOverrideList.EMPTY, Minecraft.getInstance().getItemRenderer().getItemModelShaper().getParticleIcon(Items.IRON_INGOT));
                 geometryPart.addQuads(modelConfig, builder, loader, ModelLoader.defaultTextureGetter(), SimpleModelTransform.IDENTITY, modelLocation);
                 PARTS.put(part, builder.build().getQuads(null, null, new Random(42L), EmptyModelData.INSTANCE));
             }
@@ -94,7 +94,7 @@ public class LaserBladeOBJModel extends SimpleLaserBladeModel {
     }
 
     public void renderBakedQuads(MatrixStack matrixStack, IVertexBuilder buffer, List<BakedQuad> quads, int color, int lightmapCoord, int overlayColor) {
-        MatrixStack.Entry matrixEntry = matrixStack.getLast();
+        MatrixStack.Entry matrixEntry = matrixStack.last();
         float alpha = (float)(color >>> 24 & 255) / 255.0F;
         float red   = (float)(color >>> 16 & 255) / 255.0F;
         float green = (float)(color >>> 8 & 255) / 255.0F;

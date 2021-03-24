@@ -50,17 +50,17 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
     private final float attackDamage;
     private final float attackSpeed;
 
-    public static Item.Properties properties = (new Item.Properties()).setNoRepair().group(ModMainItemGroup.ITEM_GROUP).setISTER(() -> LaserBladeItemRenderer::new);
+    public static Item.Properties properties = (new Item.Properties()).setNoRepair().tab(ModMainItemGroup.ITEM_GROUP).setISTER(() -> LaserBladeItemRenderer::new);
 
     public LaserBladeItem(boolean isFireproof) {
         super(new ItemTier(isFireproof), 3, -1.2F, LaserBladeItemBase.setFireproof(properties, isFireproof));
 
         tier = getTier();
-        attackDamage = 3.0F + tier.getAttackDamage();
+        attackDamage = 3.0F + tier.getAttackDamageBonus();
         attackSpeed = -1.2F;
 
         // Register dispense behavior
-        DispenserBlock.registerDispenseBehavior(this, new DispenseLaserBladeBehavior());
+        DispenserBlock.registerBehavior(this, new DispenseLaserBladeBehavior());
     }
 
     @Override
@@ -76,7 +76,7 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
     }
 
     @Override
-    public UseAction getUseAction(ItemStack stack) {
+    public UseAction getUseAnimation(ItemStack stack) {
         if (ToLaserBladeConfig.SERVER.isEnabledBlockingWithLaserBlade.get()) {
             return UseAction.BLOCK;
         } else {
@@ -95,14 +95,14 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
     }
 
     @Override
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        ItemStack itemstack = playerIn.getHeldItem(handIn);
+    public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
+        ItemStack itemstack = playerIn.getItemInHand(handIn);
 
         if (ToLaserBladeConfig.SERVER.isEnabledBlockingWithLaserBlade.get()) {
-            UseAction offhandItemAction = playerIn.getHeldItemOffhand().getUseAction();
+            UseAction offhandItemAction = playerIn.getOffhandItem().getUseAnimation();
 
             if (offhandItemAction != UseAction.BOW && offhandItemAction != UseAction.SPEAR) {
-                playerIn.setActiveHand(handIn);
+                playerIn.startUsingItem(handIn);
             }
 
         }
@@ -114,12 +114,12 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
 
     @Override
     public boolean onEntitySwing(ItemStack stack, LivingEntity entity) {
-        World world = entity.getEntityWorld();
+        World world = entity.getCommandSenderWorld();
 
-        if (!world.isRemote && entity instanceof PlayerEntity) {
+        if (!world.isClientSide && entity instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity)entity;
 
-            if (!player.isSwingInProgress) {
+            if (!player.swinging) {
                 playSwingSound(world, entity);
             }
         }
@@ -128,8 +128,8 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
     }
 
     private void playSwingSound(World world, LivingEntity entity) {
-        SoundEvent soundEvent = isImmuneToFire() ? ModSoundEvents.ITEM_LASER_BLADE_FP_SWING : ModSoundEvents.ITEM_LASER_BLADE_SWING;
-        Vector3d pos = entity.getPositionVec().add(0, entity.getEyeHeight(), 0).add(entity.getLookVec());
+        SoundEvent soundEvent = isFireResistant() ? ModSoundEvents.ITEM_LASER_BLADE_FP_SWING : ModSoundEvents.ITEM_LASER_BLADE_SWING;
+        Vector3d pos = entity.position().add(0, entity.getEyeHeight(), 0).add(entity.getLookAngle());
         world.playSound(null, pos.x, pos.y, pos.z, soundEvent, SoundCategory.PLAYERS, 0.5F, 1.0F);
     }
 
@@ -138,7 +138,7 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
     public void onCriticalHit(CriticalHitEvent event) {
         Entity target = event.getTarget();
         PlayerEntity player = event.getPlayer();
-        ItemStack stack = player.getHeldItemMainhand();
+        ItemStack stack = player.getMainHandItem();
         LaserBladePerformance performance = LaserBlade.performanceOf(stack);
         LaserBladePerformance.AttackPerformance attack = performance.getAttackPerformance();
 
@@ -150,45 +150,45 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
     /* Item Characterizing */
 
     @Override
-    public float getAttackDamage() {
+    public float getDamage() {
         return attackDamage;
     }
 
     @Override
-    public boolean onBlockDestroyed(ItemStack stack, World worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
-        if (!worldIn.isRemote && state.getBlockHardness(worldIn, pos) != 0.0F) {
-            stack.damageItem(1, entityLiving, (playerEntity) -> playerEntity.sendBreakAnimation(EquipmentSlotType.MAINHAND));
+    public boolean mineBlock(ItemStack stack, World worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
+        if (!worldIn.isClientSide && state.getDestroySpeed(worldIn, pos) != 0.0F) {
+            stack.hurtAndBreak(1, entityLiving, (playerEntity) -> playerEntity.broadcastBreakEvent(EquipmentSlotType.MAINHAND));
         }
 
         return true;
     }
 
     @Override
-    public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        World world = attacker.getEntityWorld();
+    public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+        World world = attacker.getCommandSenderWorld();
 
-        if (!world.isRemote) {
+        if (!world.isClientSide) {
             playSwingSound(world, attacker);
         }
 
-        stack.damageItem(1, attacker, (playerEntity) -> playerEntity.sendBreakAnimation(EquipmentSlotType.MAINHAND));
+        stack.hurtAndBreak(1, attacker, (playerEntity) -> playerEntity.broadcastBreakEvent(EquipmentSlotType.MAINHAND));
         return true;
     }
 
     @Override
     public float getDestroySpeed(ItemStack stack, BlockState state) {
-        float rate = (float)EnchantmentHelper.getEnchantmentLevel(Enchantments.EFFICIENCY, stack) / 5.0F;
-        return tier.getEfficiency() * MathHelper.clamp(rate, 0.0F, 1.0F);
+        float rate = (float)EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY, stack) / 5.0F;
+        return tier.getSpeed() * MathHelper.clamp(rate, 0.0F, 1.0F);
     }
 
     @Override
-    public boolean canHarvestBlock(BlockState blockIn) {
+    public boolean isCorrectToolForDrops(BlockState blockIn) {
         return true;
     }
 
     @Override
     public int getHarvestLevel(ItemStack stack, ToolType tool, PlayerEntity player, BlockState blockState) {
-        return tier.getHarvestLevel();
+        return tier.getLevel();
     }
 
     @Override
@@ -197,7 +197,7 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
     }
 
     @Override
-    public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
+    public boolean isValidRepairItem(ItemStack toRepair, ItemStack repair) {
         return false;
     }
 
@@ -209,8 +209,8 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
         // Accept Mending and Curse of Vanish
-        return enchantment.type == EnchantmentType.WEAPON
-                || enchantment == Enchantments.EFFICIENCY
+        return enchantment.category == EnchantmentType.WEAPON
+                || enchantment == Enchantments.BLOCK_EFFICIENCY
                 || enchantment == Enchantments.MENDING
                 || enchantment == Enchantments.SILK_TOUCH
                 || enchantment == Enchantments.VANISHING_CURSE;
@@ -230,10 +230,10 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
             LaserBladePerformance.AttackPerformance attack = performance.getAttackPerformance();
 
             multimap.put(Attributes.ATTACK_DAMAGE,
-                    new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier",
+                    new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier",
                             this.attackDamage + attack.damage, AttributeModifier.Operation.ADDITION));
             multimap.put(Attributes.ATTACK_SPEED,
-                    new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier",
+                    new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier",
                             this.attackSpeed + attack.speed, AttributeModifier.Operation.ADDITION));
         }
 
@@ -242,19 +242,19 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void addInformation(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-        super.addInformation(stack, worldIn, tooltip, flagIn);
+    public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
+        super.appendHoverText(stack, worldIn, tooltip, flagIn);
         addLaserBladeInformation(stack, worldIn, tooltip, flagIn, Upgrade.Type.OTHER);
     }
 
     /* Creative Tab */
 
     @Override
-    public void fillItemGroup(ItemGroup group, NonNullList<ItemStack> items) {
-        super.fillItemGroup(group, items);
+    public void fillItemCategory(ItemGroup group, NonNullList<ItemStack> items) {
+        super.fillItemCategory(group, items);
         if (group != ModMainItemGroup.ITEM_GROUP) return;
 
-        if (isImmuneToFire()) {
+        if (isFireResistant()) {
             items.add(LaserBladeStack.UPGRADED_FP.getCopy());
             items.add(LaserBladeStack.DAMAGED_FP.getCopy());
             items.add(LaserBladeStack.FULL_MOD_FP.getCopy());
@@ -304,39 +304,39 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
         }
 
         @Override
-        public int getHarvestLevel() {
+        public int getLevel() {
             return isNetheritic ? NETHERITIC_HARVEST_LEVEL : HARVEST_LEVEL;
         }
 
         @Override
-        public int getMaxUses() {
+        public int getUses() {
             return LaserBladeItemBase.MAX_USES;
         }
 
         @Override
-        public float getEfficiency() {
+        public float getSpeed() {
             return ToLaserBladeConfig.SERVER.laserBladeEfficiency.get();
         }
 
         @Override
-        public float getAttackDamage() {
+        public float getAttackDamageBonus() {
             return isNetheritic ? NETHERITIC_DAMAGE : NORMAL_DAMAGE;
         }
 
         @Override
-        public int getEnchantability() {
+        public int getEnchantmentValue() {
             return ENCHANTABILITY;
         }
 
         @Override
-        public Ingredient getRepairMaterial() {
-            ITag<Item> tag = ItemTags.getCollection().get(new ResourceLocation("forge", "ingots/iron"));
+        public Ingredient getRepairIngredient() {
+            ITag<Item> tag = ItemTags.getAllTags().getTag(new ResourceLocation("forge", "ingots/iron"));
 
             if (tag != null) {
-                return Ingredient.fromTag(tag);
+                return Ingredient.of(tag);
 
             } else {
-                return Ingredient.fromItems(Items.IRON_INGOT);
+                return Ingredient.of(Items.IRON_INGOT);
             }
         }
     }

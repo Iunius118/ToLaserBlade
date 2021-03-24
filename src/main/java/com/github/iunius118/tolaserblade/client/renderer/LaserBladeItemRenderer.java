@@ -16,8 +16,8 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 @OnlyIn(Dist.CLIENT)
 public class LaserBladeItemRenderer extends ItemStackTileEntityRenderer {
     @Override
-    //  TODO: func_239207_a_ = render
-    public void func_239207_a_(ItemStack itemStack, ItemCameraTransforms.TransformType transformType, MatrixStack matrixStack, IRenderTypeBuffer buffer, int lightmapCoord, int overlayColor) {
+    //  TODO: renderByItem = render
+    public void renderByItem(ItemStack itemStack, ItemCameraTransforms.TransformType transformType, MatrixStack matrixStack, IRenderTypeBuffer buffer, int lightmapCoord, int overlayColor) {
         ILaserBladeModel model;
         LaserBladeInternalModelManager internalModelManager = LaserBladeInternalModelManager.getInstance();
 
@@ -30,9 +30,9 @@ public class LaserBladeItemRenderer extends ItemStackTileEntityRenderer {
         }
 
         if (model != null) {
-            matrixStack.push();
+            matrixStack.pushPose();
             model.render(itemStack, transformType, matrixStack, buffer, lightmapCoord, overlayColor);
-            matrixStack.pop();
+            matrixStack.popPose();
         }
     }
 }

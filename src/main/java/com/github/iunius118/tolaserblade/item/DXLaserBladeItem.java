@@ -28,32 +28,32 @@ public class DXLaserBladeItem extends SwordItem {
     private final float attackSpeed;
 
     public DXLaserBladeItem() {
-        super(new DXLaserBladeItem.ItemTier(), 3, -1.2F, (new Item.Properties()).group(ModMainItemGroup.ITEM_GROUP));
+        super(new DXLaserBladeItem.ItemTier(), 3, -1.2F, (new Item.Properties()).tab(ModMainItemGroup.ITEM_GROUP));
 
         tier = getTier();
-        attackDamage = 3.0F + tier.getAttackDamage();
+        attackDamage = 3.0F + tier.getAttackDamageBonus();
         attackSpeed = -1.2F;
     }
 
     @Override
-    public boolean hitEntity(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        World world = attacker.getEntityWorld();
+    public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+        World world = attacker.getCommandSenderWorld();
 
-        if (!world.isRemote && attacker instanceof PlayerEntity) {
+        if (!world.isClientSide && attacker instanceof PlayerEntity) {
             playSwingSound(world, attacker);
         }
 
-        return super.hitEntity(stack, target, attacker);
+        return super.hurtEnemy(stack, target, attacker);
     }
 
     @Override
     public boolean onEntitySwing(ItemStack stack, LivingEntity entity) {
-        World world = entity.getEntityWorld();
+        World world = entity.getCommandSenderWorld();
 
-        if (!world.isRemote && entity instanceof PlayerEntity) {
+        if (!world.isClientSide && entity instanceof PlayerEntity) {
             PlayerEntity player = (PlayerEntity)entity;
 
-            if (!player.isSwingInProgress) {
+            if (!player.swinging) {
                 playSwingSound(world, entity);
             }
         }
@@ -62,17 +62,17 @@ public class DXLaserBladeItem extends SwordItem {
     }
 
     private void playSwingSound(World world, LivingEntity entity) {
-        Vector3d pos = entity.getPositionVec().add(0, entity.getEyeHeight(), 0).add(entity.getLookVec());
+        Vector3d pos = entity.position().add(0, entity.getEyeHeight(), 0).add(entity.getLookAngle());
         world.playSound(null, pos.x, pos.y, pos.z, ModSoundEvents.ITEM_DX_LASER_BLADE_SWING, SoundCategory.PLAYERS, 0.5F, 1.0F);
     }
 
     @Override
-    public ActionResultType onItemUse(ItemUseContext context) {
-        World world = context.getWorld();
+    public ActionResultType useOn(ItemUseContext context) {
+        World world = context.getLevel();
         PlayerEntity player = context.getPlayer();
-        ItemStack itemstack = context.getItem();
-        BlockPos pos = context.getPos();
-        Direction facing = context.getFace();
+        ItemStack itemstack = context.getItemInHand();
+        BlockPos pos = context.getClickedPos();
+        Direction facing = context.getClickedFace();
 
         if (!(itemstack.getItem() instanceof DXLaserBladeItem)) {
             return ActionResultType.PASS;
@@ -80,18 +80,18 @@ public class DXLaserBladeItem extends SwordItem {
 
         BlockState blockstate = world.getBlockState(pos);
         Block block = blockstate.getBlock();
-        int costDamage = tier.getMaxUses() / 2 + 1;
+        int costDamage = tier.getUses() / 2 + 1;
 
         // Redstone Torch -> Repairing/Collecting
 
-        if ((block == Blocks.REDSTONE_TORCH || block == Blocks.REDSTONE_WALL_TORCH) && player.canPlayerEdit(pos, facing, itemstack)) {
-            int itemDamage = itemstack.getDamage();
-            if (itemDamage >= costDamage || player.abilities.isCreativeMode) {
+        if ((block == Blocks.REDSTONE_TORCH || block == Blocks.REDSTONE_WALL_TORCH) && player.mayUseItemAt(pos, facing, itemstack)) {
+            int itemDamage = itemstack.getDamageValue();
+            if (itemDamage >= costDamage || player.abilities.instabuild) {
                 // Repair this
-                itemstack.setDamage(itemDamage - costDamage);
+                itemstack.setDamageValue(itemDamage - costDamage);
             } else {
                 // Collect a Redstone Torch
-                if (!player.inventory.addItemStackToInventory(new ItemStack(Blocks.REDSTONE_TORCH))) {
+                if (!player.inventory.add(new ItemStack(Blocks.REDSTONE_TORCH))) {
                     // Cannot collect because player's inventory is full
                     return ActionResultType.PASS;
                 }
@@ -104,7 +104,7 @@ public class DXLaserBladeItem extends SwordItem {
 
         // Damage -> Redstone Torch
 
-        if (!player.abilities.isCreativeMode && itemstack.getDamage() >= costDamage) {
+        if (!player.abilities.instabuild && itemstack.getDamageValue() >= costDamage) {
             // This is too damaged to place Redstone Torch
             return ActionResultType.PASS;
         }
@@ -112,11 +112,11 @@ public class DXLaserBladeItem extends SwordItem {
         // Place Redstone Torch and Damage this
         ItemStack redstoneTorch = new ItemStack(Blocks.REDSTONE_TORCH);
         ItemUseContext contextRS = new BlockItemUseContext(player, context.getHand(), redstoneTorch,
-                new BlockRayTraceResult(context.getHitVec(), facing, pos, context.isInside()));
+                new BlockRayTraceResult(context.getClickLocation(), facing, pos, context.isInside()));
 
-        if (player.isSteppingCarefully() && redstoneTorch.onItemUse(contextRS).isSuccessOrConsume()) { // player.isSneaking() -> .isSteppingCarefully()
+        if (player.isSteppingCarefully() && redstoneTorch.useOn(contextRS).consumesAction()) { // player.isSneaking() -> .isSteppingCarefully()
             itemstack.setCount(1);
-            itemstack.damageItem(costDamage, player, playerEntity -> {});
+            itemstack.hurtAndBreak(costDamage, player, playerEntity -> {});
             return ActionResultType.SUCCESS;
         }
 
@@ -134,9 +134,9 @@ public class DXLaserBladeItem extends SwordItem {
 
         if (slot == EquipmentSlotType.MAINHAND) {
             multimap.put(Attributes.ATTACK_DAMAGE,
-                    new AttributeModifier(ATTACK_DAMAGE_MODIFIER, "Weapon modifier", attackDamage, AttributeModifier.Operation.ADDITION));
+                    new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", attackDamage, AttributeModifier.Operation.ADDITION));
             multimap.put(Attributes.ATTACK_SPEED,
-                    new AttributeModifier(ATTACK_SPEED_MODIFIER, "Weapon modifier", attackSpeed, AttributeModifier.Operation.ADDITION));
+                    new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", attackSpeed, AttributeModifier.Operation.ADDITION));
         }
 
         return multimap;
@@ -144,33 +144,33 @@ public class DXLaserBladeItem extends SwordItem {
 
     public static class ItemTier implements IItemTier {
         @Override
-        public int getHarvestLevel() {
+        public int getLevel() {
             return 3;
         }
 
         @Override
-        public int getMaxUses() {
+        public int getUses() {
             return 255;
         }
 
         @Override
-        public float getEfficiency() {
+        public float getSpeed() {
             return 12.0F;
         }
 
         @Override
-        public float getAttackDamage() {
+        public float getAttackDamageBonus() {
             return 1.0F;
         }
 
         @Override
-        public int getEnchantability() {
+        public int getEnchantmentValue() {
             return 15;
         }
 
         @Override
-        public Ingredient getRepairMaterial() {
-            return Ingredient.fromItems(Blocks.REDSTONE_TORCH);
+        public Ingredient getRepairIngredient() {
+            return Ingredient.of(Blocks.REDSTONE_TORCH);
         }
     }
 }

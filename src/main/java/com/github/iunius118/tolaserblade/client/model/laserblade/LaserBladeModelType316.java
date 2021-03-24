@@ -29,7 +29,7 @@ public class LaserBladeModelType316 extends SimpleLaserBladeModel {
 
     @Override
     public void render(ItemStack itemStack, ItemCameraTransforms.TransformType transformType, MatrixStack matrixStack, IRenderTypeBuffer buffer, int lightmapCoord, int overlayColor) {
-        if (itemStack.getItem().isImmuneToFire()) {
+        if (itemStack.getItem().isFireResistant()) {
             renderSword(itemStack, transformType, matrixStack, buffer, lightmapCoord, overlayColor);
         } else {
             renderShield(itemStack, transformType, matrixStack, buffer, lightmapCoord, overlayColor);
@@ -81,37 +81,37 @@ public class LaserBladeModelType316 extends SimpleLaserBladeModel {
     private static final Quaternion guiRotation;
     static {
         fpRightHandRotation = new Quaternion(Vector3f.YP, 45.0F, true);
-        fpRightHandRotation.multiply(new Quaternion(Vector3f.XP, 90.0F, true));
+        fpRightHandRotation.mul(new Quaternion(Vector3f.XP, 90.0F, true));
         fpLeftHandRotation = new Quaternion(Vector3f.ZP, 180.0F, true);
 
-        fpLeftHandRotation.multiply(new Quaternion(Vector3f.YP, 45.0F, true));
-        fpLeftHandRotation.multiply(new Quaternion(Vector3f.XP, -90.0F, true));
+        fpLeftHandRotation.mul(new Quaternion(Vector3f.YP, 45.0F, true));
+        fpLeftHandRotation.mul(new Quaternion(Vector3f.XP, -90.0F, true));
 
         tpLeftHandRotation = new Quaternion(Vector3f.ZP, 180.0F, true);
 
         guiRotation = new Quaternion(Vector3f.XP, -90.0F, true);
-        guiRotation.multiply(new Quaternion(Vector3f.ZP, 180.0F, true));
+        guiRotation.mul(new Quaternion(Vector3f.ZP, 180.0F, true));
     }
 
     private void transformShield(ItemCameraTransforms.TransformType transformType, MatrixStack matrixStack) {
         if (transformType == ItemCameraTransforms.TransformType.FIRST_PERSON_RIGHT_HAND) {
-            matrixStack.rotate(fpRightHandRotation);
+            matrixStack.mulPose(fpRightHandRotation);
             matrixStack.translate(0.0D, -0.3125D, 0.0D);
             matrixStack.scale(1.5F, 1.5F, 1.5F);
 
         } else if (transformType == ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND) {
             matrixStack.translate(0.0D, 0.3125D, 0.0D);
-            matrixStack.rotate(fpLeftHandRotation);
+            matrixStack.mulPose(fpLeftHandRotation);
             matrixStack.translate(0.0D, -0.15625D, 0.3125D);
             matrixStack.scale(1.5F, 1.5F, 1.5F);
 
         } else if (transformType == ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND) {
             matrixStack.translate(0.0D, 0.3125D, 0.0D);
-            matrixStack.rotate(tpLeftHandRotation);
+            matrixStack.mulPose(tpLeftHandRotation);
 
         } else if (transformType == ItemCameraTransforms.TransformType.FIXED || transformType == ItemCameraTransforms.TransformType.GUI) {
             matrixStack.translate(0.15625D, 0.75D, -0.15625D);
-            matrixStack.rotate(guiRotation);
+            matrixStack.mulPose(guiRotation);
         }
     }
 

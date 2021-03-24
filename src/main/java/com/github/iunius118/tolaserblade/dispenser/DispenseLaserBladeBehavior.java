@@ -33,9 +33,9 @@ import java.util.function.Predicate;
 public class DispenseLaserBladeBehavior implements IDispenseItemBehavior {
     public static final IDispenseItemBehavior DEFAULT_ITEM_BEHAVIOR = new DefaultDispenseItemBehavior();
     public static final Predicate<Entity> LASER_TRAP_TARGETS =
-            EntityPredicates.NOT_SPECTATING
-                    .and(EntityPredicates.IS_ALIVE)
-                    .and(Entity::canBeCollidedWith)
+            EntityPredicates.NO_SPECTATORS
+                    .and(EntityPredicates.ENTITY_STILL_ALIVE)
+                    .and(Entity::isPickable)
                     .and(entity -> ToLaserBladeConfig.SERVER.canLaserTrapAttackPlayer.get() || !(entity instanceof PlayerEntity));
 
     @Override
@@ -44,14 +44,14 @@ public class DispenseLaserBladeBehavior implements IDispenseItemBehavior {
             return DEFAULT_ITEM_BEHAVIOR.dispense(source, stack);
         }
 
-        World world = source.getWorld();
+        World world = source.getLevel();
 
         if (world instanceof ServerWorld) {
             ServerWorld serverWorld = (ServerWorld)world;
-            BlockPos pos = source.getBlockPos();
-            Direction dir = source.getBlockState().get(DispenserBlock.FACING);
-            BlockPos targetPos = pos.offset(dir);
-            TileEntity tile = world.getTileEntity(targetPos);
+            BlockPos pos = source.getPos();
+            Direction dir = source.getBlockState().getValue(DispenserBlock.FACING);
+            BlockPos targetPos = pos.relative(dir);
+            TileEntity tile = world.getBlockEntity(targetPos);
 
             if (ToLaserBladeConfig.SERVER.canLaserTrapHeatUpFurnace.get() && tile instanceof AbstractFurnaceTileEntity) {
                 heatFurnace((AbstractFurnaceTileEntity)tile, stack);
@@ -66,19 +66,19 @@ public class DispenseLaserBladeBehavior implements IDispenseItemBehavior {
     private void heatFurnace(AbstractFurnaceTileEntity furnaceTile, ItemStack stack) {
         if (stack.getItem() == ModItems.LASER_BLADE_FP) {
             // Only fireproof Laser Blade
-            boolean isNotBurning = furnaceTile.burnTime < 1;
+            boolean isNotBurning = furnaceTile.litTime < 1;
 
-            if (isNotBurning || furnaceTile.burnTime < 201) {
+            if (isNotBurning || furnaceTile.litTime < 201) {
                 // Set burnTime to 200 (10 seconds)
-                furnaceTile.burnTime = 201;
-                furnaceTile.recipesUsed = 200;
-                furnaceTile.markDirty();
+                furnaceTile.litTime = 201;
+                furnaceTile.litDuration = 200;
+                furnaceTile.setChanged();
 
                 if (isNotBurning) {
                     // Lit furnace block
-                    World world = furnaceTile.getWorld();
-                    BlockPos pos = furnaceTile.getPos();
-                    world.setBlockState(pos, world.getBlockState(pos).with(AbstractFurnaceBlock.LIT, Boolean.TRUE), 3);
+                    World world = furnaceTile.getLevel();
+                    BlockPos pos = furnaceTile.getBlockPos();
+                    world.setBlock(pos, world.getBlockState(pos).setValue(AbstractFurnaceBlock.LIT, Boolean.TRUE), 3);
                 }
             }
         }
@@ -87,9 +87,9 @@ public class DispenseLaserBladeBehavior implements IDispenseItemBehavior {
     private void attackEntities(ServerWorld world, BlockPos pos, Direction dir, ItemStack stack) {
         // Create fake player to attack entities
         LaserTrapPlayer laserTrapPlayer = LaserTrapPlayer.get(world);
-        laserTrapPlayer.setPosition(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D);
+        laserTrapPlayer.setPos(pos.getX() + 0.5D, pos.getY(), pos.getZ() + 0.5D);
         laserTrapPlayer.initInventory(stack.copy());
-        BlockPos targetPos = pos.offset(dir);
+        BlockPos targetPos = pos.relative(dir);
 
         // Attack entities
         attackEntitiesInPos(laserTrapPlayer, targetPos);
@@ -104,21 +104,21 @@ public class DispenseLaserBladeBehavior implements IDispenseItemBehavior {
         outerColor = (outerPartColor.isSubtractColor ? ~outerColor : outerColor) | 0xFF000000;
 
         LaserTrapEntity laserTrapEntity = new LaserTrapEntity(world, targetPos, dir, outerColor);
-        world.addEntity(laserTrapEntity);
+        world.addFreshEntity(laserTrapEntity);
     }
 
     private void attackEntitiesInPos(LaserTrapPlayer laserTrapPlayer, BlockPos pos) {
         // Get target entities
-        AxisAlignedBB boundingBox = new AxisAlignedBB(pos).grow(0.5D);
-        List<Entity> targetEntities = laserTrapPlayer.world.getEntitiesInAABBexcluding(null, boundingBox, LASER_TRAP_TARGETS);
+        AxisAlignedBB boundingBox = new AxisAlignedBB(pos).inflate(0.5D);
+        List<Entity> targetEntities = laserTrapPlayer.level.getEntities((Entity) null, boundingBox, LASER_TRAP_TARGETS);
         // Get attack damage
-        ItemStack stack = laserTrapPlayer.getHeldItemMainhand();
-        int level = EnchantmentHelper.getEnchantmentLevel(ModEnchantments.LIGHT_ELEMENT, stack);
+        ItemStack stack = laserTrapPlayer.getMainHandItem();
+        int level = EnchantmentHelper.getItemEnchantmentLevel(ModEnchantments.LIGHT_ELEMENT, stack);
         float attackDamage = (float)laserTrapPlayer.getAttribute(Attributes.ATTACK_DAMAGE).getValue() + level * 0.5F;
 
         // Attack entities
         for (Entity targetEntity : targetEntities) {
-            targetEntity.attackEntityFrom(DamageSource.causePlayerDamage(laserTrapPlayer), attackDamage);
+            targetEntity.hurt(DamageSource.playerAttack(laserTrapPlayer), attackDamage);
         }
     }
 }
