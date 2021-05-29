@@ -1,26 +1,26 @@
 
 --------------------------------------------------------------------------------
---  Model converter v5
+--  Model converter v6
 --      Converts Laser Blade item model from OBJ model
 --      This requires that the OBJ model has v, vt, vn, g and f statements
 --                        and each f statement has 4 v/vt/vn vertex indices.
 --
 --      Usage:
 --              lua model_cnv.lua <obj_file> <version>
---                  <version>: 0 = 1.15 or earlier, 1 = 1.16 or later
+--                  <version>: 0 = 1.15 or earlier, 1 = 1.16 or later (default)
 --
 --      Example:
 --              lua model_cnv.lua laser_blade.obj 1 > output.txt
 --------------------------------------------------------------------------------
 
 if not arg[1] then
-    print("Model converter v5")
+    print("Model converter v6")
     print("  Usage: lua model_cnv.lua <obj_file> <version>")
     return
 end 
 
 local hfile = io.open(arg[1], "r")
-local ver = tonumber(arg[2]) or 0
+local ver = tonumber(arg[2]) or 1
 
 if not hfile then
     print("Failed to open file " .. arg[1])
@@ -41,6 +41,7 @@ local p_4v = "(.*)%s+(.*)%s+(.*)%s+(.*)"
 local p_3v = "(.*)%s+(.*)%s+(.*)"
 local p_2v = "(.*)%s+(.*)"
 local p_4ds = "(%d+)/(%d+)/(%d+)%s+(%d+)/(%d+)/(%d+)%s+(%d+)/(%d+)/(%d+)%s+(%d+)/(%d+)/(%d+)"
+local p_3ds = "(%d+)/(%d+)/(%d+)%s+(%d+)/(%d+)/(%d+)%s+(%d+)/(%d+)/(%d+)"
 
 function getP4F(data)
     local x, y, z, w = string.gmatch(data, p_4v)()
@@ -107,15 +108,21 @@ for line in hfile:lines() do
     elseif key == "g" then
         current_group = data
 
-        if not group_exists_table[current_group] then
-            table.insert(groups, current_group)
-            group_exists_table[current_group] = true
-        end
-
     elseif key == "f" then
         local v1, vt1, vn1, v2, vt2, vn2, v3, vt3, vn3, v4, vt4, vn4 = string.gmatch(data, p_4ds)()
+
+        if not vn4 then
+            -- Triangle -> Quadrangle
+            v1, vt1, vn1, v2, vt2, vn2, v3, vt3, vn3 = string.gmatch(data, p_3ds)()
+            v4, vt4, vn4 = v3, vt3, vn3
+        end
         
         if vn4 then
+            if not group_exists_table[current_group] then
+                table.insert(groups, current_group)
+                group_exists_table[current_group] = true
+            end
+
             if not obj.f[current_group] then
                 obj.f[current_group] = {}
             end
@@ -128,7 +135,8 @@ for line in hfile:lines() do
             })
         end
 
-    elseif key == "#_color" then -- Original statment "#_color red_value green_value blue_value alpha_value" for the current group
+    elseif key == "#_color" then
+        -- Original statment "#_color red_value green_value blue_value alpha_value" for the current group
         local color = getP4F(data)
         if color then
             colors[current_group] = color
@@ -218,7 +226,8 @@ for index, group in ipairs(groups) do
             rgba = colors[group]
         end
 
-        print("    Vector4f " .. color .. " = new Vector4f(" .. rgba .. ");" .. " // " .. group .. " color")   -- Using net.minecraft.client.renderer.Vector4f (-1.15.2) or net.minecraft.util.math.vector.Vector4f (1.16.1-)
+        -- Using net.minecraft.client.renderer.Vector4f (-1.15.2) or net.minecraft.util.math.vector.Vector4f (1.16.1-)
+        print("    Vector4f " .. color .. " = new Vector4f(" .. rgba .. ");" .. " // " .. group .. " color")
     end
 end
 
@@ -228,14 +237,16 @@ end
 
 -- Print 3D vectors (vertex, normal)
 for key, value in pairs(v3f_tbl) do
-    print(string.format("    Vector3f %s = new Vector3f(%s);", value, key)) -- Using net.minecraft.client.renderer.Vector3f (-1.15.2) or net.minecraft.util.math.vector.Vector3f (1.16.1-)
+    -- Using net.minecraft.client.renderer.Vector3f (-1.15.2) or net.minecraft.util.math.vector.Vector3f (1.16.1-)
+    print(string.format("    Vector3f %s = new Vector3f(%s);", value, key))
 end
 
 -- Print 2D vectors (uv)
 local vec2_name = "Vec2f"
 
 if ver > 0 then
-    vec2_name = "Vector2f"  -- Using net.minecraft.util.math.Vec2f (-1.15.2) or net.minecraft.util.math.vector.Vector2f (1.16.1-)
+    -- Using net.minecraft.util.math.Vec2f (-1.15.2) or net.minecraft.util.math.vector.Vector2f (1.16.1-)
+    vec2_name = "Vector2f"
 end
 
 for key, value in pairs(v2f_tbl) do
