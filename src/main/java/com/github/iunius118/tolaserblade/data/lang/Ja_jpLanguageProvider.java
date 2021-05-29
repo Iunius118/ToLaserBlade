@@ -6,9 +6,8 @@ import com.github.iunius118.tolaserblade.item.LBBrandNewItem;
 import com.github.iunius118.tolaserblade.item.LaserBladeItemBase;
 import com.github.iunius118.tolaserblade.item.ModItems;
 import net.minecraft.data.DataGenerator;
-import net.minecraftforge.common.data.LanguageProvider;
 
-public class Ja_jpLanguageProvider extends LanguageProvider {
+public class Ja_jpLanguageProvider extends En_usLanguageProvider {
     public Ja_jpLanguageProvider(DataGenerator gen) {
         super(gen, ToLaserBlade.MOD_ID, "ja_jp");
     }
@@ -35,7 +34,8 @@ public class Ja_jpLanguageProvider extends LanguageProvider {
         add(ModItems.LB_CASING_FP, "レーザーブレイドの外装");
 
         // Enchantments
-        add(ModEnchantments.LIGHT_ELEMENT, "光属性");
+        addEnchantment(ModEnchantments.LIGHT_ELEMENT, "光属性",
+                "レーザーブレイドのダメージを増加させ、アンデッドMobや邪悪な村人に追加ダメージを与える");
 
         // item tooltip
         add(LBBrandNewItem.KEY_TOOLTIP_BLAND_NEW_HOW_TO_USE_LINE_1, "手に持って右クリックで");

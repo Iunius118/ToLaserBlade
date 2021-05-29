@@ -6,11 +6,17 @@ import com.github.iunius118.tolaserblade.item.LBBrandNewItem;
 import com.github.iunius118.tolaserblade.item.LaserBladeItemBase;
 import com.github.iunius118.tolaserblade.item.ModItems;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.enchantment.Enchantment;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.data.LanguageProvider;
 
 public class En_usLanguageProvider extends LanguageProvider {
     public En_usLanguageProvider(DataGenerator gen) {
         super(gen, ToLaserBlade.MOD_ID, "en_us");
+    }
+
+    public En_usLanguageProvider(DataGenerator gen, String modid, String locale) {
+        super(gen, modid, locale);
     }
 
     @Override
@@ -38,7 +44,8 @@ public class En_usLanguageProvider extends LanguageProvider {
         add(ModItems.LB_CASING_FP, "Laser Blade Casing");
 
         // Enchantments
-        add(ModEnchantments.LIGHT_ELEMENT, "Light Element");
+        addEnchantment(ModEnchantments.LIGHT_ELEMENT, "Light Element",
+                "Increases the damage of the Laser Blade, and deals additional damage to undead mobs and illagers.");
 
         // Item tooltip
         add(LBBrandNewItem.KEY_TOOLTIP_BLAND_NEW_HOW_TO_USE_LINE_1, "Hold in your hand and");
@@ -93,6 +100,16 @@ public class En_usLanguageProvider extends LanguageProvider {
 
         // Update message
         add("tolaserblade.update.newVersion", "A new %s version is available");
+    }
+
+    public void addEnchantment(Enchantment enchantment, String name, String description) {
+        // Register enchantment name
+        add(enchantment, name);
+
+        // Support for Enchantment Descriptions mod
+        ResourceLocation registryName = enchantment.getRegistryName();
+        String id = registryName.getNamespace() + "." + registryName.getPath();
+        add("enchantment." + id + ".desc", description);
     }
 
     @Override
