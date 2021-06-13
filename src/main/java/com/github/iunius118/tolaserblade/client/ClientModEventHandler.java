@@ -1,9 +1,9 @@
 package com.github.iunius118.tolaserblade.client;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
-import com.github.iunius118.tolaserblade.ToLaserBladeConfig;
 import com.github.iunius118.tolaserblade.client.model.LaserBladeInternalModelManager;
 import com.github.iunius118.tolaserblade.client.model.LaserBladeItemBakedModel;
+import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
 import com.github.iunius118.tolaserblade.item.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
@@ -23,9 +23,9 @@ import net.minecraftforge.fml.VersionChecker;
 import net.minecraftforge.fml.VersionChecker.CheckResult;
 import net.minecraftforge.fml.VersionChecker.Status;
 
-public class ClientEventHandler {
+public class ClientModEventHandler {
     @SubscribeEvent
-    public void onItemColorHandlerEvent(ColorHandlerEvent.Item event) {
+    public static void onItemColorHandlerEvent(ColorHandlerEvent.Item event) {
         event.getItemColors().register(new LaserBladeItem.ColorHandler(), ModItems.LASER_BLADE);
         event.getItemColors().register(new LaserBladeItem.ColorHandler(), ModItems.LASER_BLADE_FP);
         event.getItemColors().register(new LaserBladeItem.ColorHandler(), ModItems.LB_BRAND_NEW);
@@ -41,7 +41,7 @@ public class ClientEventHandler {
     }
 
     @SubscribeEvent
-    public void onTextureStitchEvent(TextureStitchEvent.Pre event) {
+    public static void onTextureStitchEvent(TextureStitchEvent.Pre event) {
         if (event.getMap().location().equals(PlayerContainer.BLOCK_ATLAS)) {
             if (!ToLaserBladeConfig.CLIENT.useInternalModel.get() && ToLaserBladeConfig.CLIENT.externalModelType.get() == 1) {
                 // When using external OBJ model, add OBJ model texture to block atlas
@@ -51,7 +51,7 @@ public class ClientEventHandler {
     }
 
     @SubscribeEvent
-    public void onModelBakeEvent(ModelBakeEvent event) {
+    public static void onModelBakeEvent(ModelBakeEvent event) {
         LaserBladeInternalModelManager internalModelManager = LaserBladeInternalModelManager.renewInstance();   // Reset internal model manager
 
         if (!internalModelManager.canUseInternalModel() && ToLaserBladeConfig.CLIENT.externalModelType.get() != 1) {

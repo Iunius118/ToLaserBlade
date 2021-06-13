@@ -1,6 +1,6 @@
 package com.github.iunius118.tolaserblade.laserblade.upgrade;
 
-import com.github.iunius118.tolaserblade.ToLaserBladeConfig;
+import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
 import com.github.iunius118.tolaserblade.laserblade.LaserBlade;
 import com.github.iunius118.tolaserblade.laserblade.LaserBladePerformance;
 import net.minecraft.item.ItemStack;

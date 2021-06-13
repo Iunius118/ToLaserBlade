@@ -11,7 +11,7 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 
 public class ItemEventHandler {
     @SubscribeEvent
-    public void onEntityInteract(PlayerInteractEvent.EntityInteract event) {
+    public static void onEntityInteract(PlayerInteractEvent.EntityInteract event) {
         ItemStack itemStack = event.getItemStack();
 
         // Redundant Null Check for Forge
@@ -35,7 +35,7 @@ public class ItemEventHandler {
     }
 
     @SubscribeEvent
-    public void onPlayerDestroyItem(PlayerDestroyItemEvent event) {
+    public static void onPlayerDestroyItem(PlayerDestroyItemEvent event) {
         PlayerEntity player = event.getPlayer();
 
         if (!player.getCommandSenderWorld().isClientSide) {
@@ -64,7 +64,7 @@ public class ItemEventHandler {
     }
 
     @SubscribeEvent
-    public void onCriticalHit(CriticalHitEvent event) {
+    public static void onCriticalHit(CriticalHitEvent event) {
         ItemStack stack = event.getPlayer().getMainHandItem();
 
         if (stack.getItem() instanceof LaserBladeItem) {

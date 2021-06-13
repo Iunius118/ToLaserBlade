@@ -1,4 +1,4 @@
-package com.github.iunius118.tolaserblade;
+package com.github.iunius118.tolaserblade.config;
 
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
@@ -118,7 +118,7 @@ public class ToLaserBladeConfig {
         }
     }
 
-    static final ForgeConfigSpec serverSpec;
+    public static final ForgeConfigSpec serverSpec;
     public static final Server SERVER;
 
     static {
@@ -127,7 +127,7 @@ public class ToLaserBladeConfig {
         SERVER = specPair.getLeft();
     }
 
-    static final ForgeConfigSpec clientSpec;
+    public static final ForgeConfigSpec clientSpec;
     public static final Client CLIENT;
 
     static {

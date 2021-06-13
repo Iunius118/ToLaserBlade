@@ -1,7 +1,7 @@
 package com.github.iunius118.tolaserblade.client.renderer;
 
-import com.github.iunius118.tolaserblade.ToLaserBladeConfig;
 import com.github.iunius118.tolaserblade.client.model.LaserBladeModelHolder;
+import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import net.minecraft.client.Minecraft;

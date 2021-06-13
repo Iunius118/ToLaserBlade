@@ -1,9 +1,9 @@
 package com.github.iunius118.tolaserblade.client.model;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
-import com.github.iunius118.tolaserblade.ToLaserBladeConfig;
 import com.github.iunius118.tolaserblade.api.client.model.ILaserBladeModel;
 import com.github.iunius118.tolaserblade.client.model.laserblade.*;
+import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
 
 import java.util.HashMap;
 import java.util.Map;
