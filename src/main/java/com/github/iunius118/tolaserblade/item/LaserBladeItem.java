@@ -1,22 +1,17 @@
 package com.github.iunius118.tolaserblade.item;
 
-import com.github.iunius118.tolaserblade.client.renderer.LaserBladeItemColor;
 import com.github.iunius118.tolaserblade.client.renderer.LaserBladeItemRenderer;
-import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
 import com.github.iunius118.tolaserblade.dispenser.DispenseLaserBladeBehavior;
 import com.github.iunius118.tolaserblade.laserblade.LaserBlade;
+import com.github.iunius118.tolaserblade.laserblade.LaserBladeBlocking;
 import com.github.iunius118.tolaserblade.laserblade.LaserBladePerformance;
-import com.github.iunius118.tolaserblade.laserblade.LaserBladeStack;
 import com.github.iunius118.tolaserblade.laserblade.upgrade.Upgrade;
-import com.github.iunius118.tolaserblade.util.ModSoundEvents;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.DispenserBlock;
-import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.enchantment.EnchantmentType;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.entity.Entity;
@@ -28,13 +23,11 @@ import net.minecraft.entity.boss.WitherEntity;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.*;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.tags.ITag;
-import net.minecraft.tags.ItemTags;
-import net.minecraft.util.*;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.ActionResultType;
+import net.minecraft.util.Hand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.util.text.ITextComponent;
 import net.minecraft.world.World;
 import net.minecraftforge.api.distmarker.Dist;
@@ -53,7 +46,7 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
     public static Item.Properties properties = (new Item.Properties()).setNoRepair().tab(ModMainItemGroup.ITEM_GROUP).setISTER(() -> LaserBladeItemRenderer::new);
 
     public LaserBladeItem(boolean isFireproof) {
-        super(new ItemTier(isFireproof), 3, -1.2F, LaserBladeItemBase.setFireproof(properties, isFireproof));
+        super(new LaserBladeItemTier(isFireproof), 3, -1.2F, LaserBladeItemBase.setFireproof(properties, isFireproof));
 
         tier = getTier();
         attackDamage = 3.0F + tier.getAttackDamageBonus();
@@ -72,41 +65,23 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
 
     @Override
     public boolean isShield(ItemStack stack, @Nullable LivingEntity entity) {
-        return ToLaserBladeConfig.SERVER.isEnabledBlockingWithLaserBlade.get();
+        return LaserBladeBlocking.isShield();
     }
 
     @Override
     public UseAction getUseAnimation(ItemStack stack) {
-        if (ToLaserBladeConfig.SERVER.isEnabledBlockingWithLaserBlade.get()) {
-            return UseAction.BLOCK;
-        } else {
-            return UseAction.NONE;
-        }
+        return LaserBladeBlocking.getUseAction();
     }
-
 
     @Override
     public int getUseDuration(ItemStack stack) {
-        if (ToLaserBladeConfig.SERVER.isEnabledBlockingWithLaserBlade.get()) {
-            return 72000;
-        } else {
-            return 0;
-        }
+        return LaserBladeBlocking.getUseDuration();
     }
 
     @Override
-    public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        ItemStack itemstack = playerIn.getItemInHand(handIn);
-
-        if (ToLaserBladeConfig.SERVER.isEnabledBlockingWithLaserBlade.get()) {
-            UseAction offhandItemAction = playerIn.getOffhandItem().getUseAnimation();
-
-            if (offhandItemAction != UseAction.BOW && offhandItemAction != UseAction.SPEAR) {
-                playerIn.startUsingItem(handIn);
-            }
-
-        }
-
+    public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
+        ItemStack itemstack = player.getItemInHand(hand);
+        LaserBladeBlocking.start(player, hand);
         return new ActionResult<>(ActionResultType.PASS, itemstack);
     }
 
@@ -120,17 +95,22 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
             PlayerEntity player = (PlayerEntity)entity;
 
             if (!player.swinging) {
-                playSwingSound(world, entity);
+                core.playSwingSound(world, entity, isFireResistant());
             }
         }
 
         return super.onEntitySwing(stack, entity);
     }
 
-    private void playSwingSound(World world, LivingEntity entity) {
-        SoundEvent soundEvent = isFireResistant() ? ModSoundEvents.ITEM_LASER_BLADE_FP_SWING : ModSoundEvents.ITEM_LASER_BLADE_SWING;
-        Vector3d pos = entity.position().add(0, entity.getEyeHeight(), 0).add(entity.getLookAngle());
-        world.playSound(null, pos.x, pos.y, pos.z, soundEvent, SoundCategory.PLAYERS, 0.5F, 1.0F);
+    @Override
+    public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+        World world = attacker.getCommandSenderWorld();
+
+        if (!world.isClientSide) {
+            core.playSwingSound(world, attacker, isFireResistant());
+        }
+
+        return super.hurtEnemy(stack, target, attacker);
     }
 
     /* Handling Events */
@@ -164,21 +144,8 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
     }
 
     @Override
-    public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        World world = attacker.getCommandSenderWorld();
-
-        if (!world.isClientSide) {
-            playSwingSound(world, attacker);
-        }
-
-        stack.hurtAndBreak(1, attacker, (playerEntity) -> playerEntity.broadcastBreakEvent(EquipmentSlotType.MAINHAND));
-        return true;
-    }
-
-    @Override
     public float getDestroySpeed(ItemStack stack, BlockState state) {
-        float rate = (float)EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY, stack) / 5.0F;
-        return tier.getSpeed() * MathHelper.clamp(rate, 0.0F, 1.0F);
+        return core.getDestroySpeed(stack, tier);
     }
 
     @Override
@@ -244,7 +211,7 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
     @OnlyIn(Dist.CLIENT)
     public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        addLaserBladeInformation(stack, worldIn, tooltip, flagIn, Upgrade.Type.OTHER);
+        core.addLaserBladeInformation(stack, worldIn, tooltip, flagIn, Upgrade.Type.OTHER);
     }
 
     /* Creative Tab */
@@ -254,90 +221,6 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
         super.fillItemCategory(group, items);
         if (group != ModMainItemGroup.ITEM_GROUP) return;
 
-        if (isFireResistant()) {
-            items.add(LaserBladeStack.UPGRADED_FP.getCopy());
-            items.add(LaserBladeStack.DAMAGED_FP.getCopy());
-            items.add(LaserBladeStack.FULL_MOD_FP.getCopy());
-        } else {
-            items.add(LaserBladeStack.MODEL_TYPE_526.getCopy());
-            items.add(LaserBladeStack.LIGHT_ELEMENT_1.getCopy());
-            items.add(LaserBladeStack.LIGHT_ELEMENT_2.getCopy());
-            items.add(LaserBladeStack.GIFT.getCopy());
-            items.add(LaserBladeStack.UPGRADED.getCopy());
-            items.add(LaserBladeStack.DAMAGED.getCopy());
-            items.add(LaserBladeStack.FULL_MOD.getCopy());
-        }
-    }
-
-    /* Inner Classes */
-
-    @OnlyIn(Dist.CLIENT)
-    public static class ColorHandler implements IItemColor {
-        @Override
-        public int getColor(ItemStack stack, int tintIndex) {
-            LaserBladeItemColor color = LaserBladeItemColor.of(stack);
-
-            switch (tintIndex) {
-                case 0:
-                    return color.gripColor | 0xFF000000;
-                case 1:
-                    return color.simpleOuterColor | 0xFF000000;
-                case 2:
-                    return color.simpleInnerColor | 0xFF000000;
-                default:
-                    return 0xFFFFFFFF;
-            }
-        }
-    }
-
-    public static class ItemTier implements IItemTier {
-        private final static int NETHERITIC_HARVEST_LEVEL = 4;
-        private final static int HARVEST_LEVEL = 3;
-        private final static float NETHERITIC_DAMAGE = 4.0F;
-        private final static float NORMAL_DAMAGE = 3.0F;
-        private final static int ENCHANTABILITY = 15;
-
-        private final boolean isNetheritic;
-
-        public ItemTier(boolean isFireproof){
-            isNetheritic = isFireproof;
-        }
-
-        @Override
-        public int getLevel() {
-            return isNetheritic ? NETHERITIC_HARVEST_LEVEL : HARVEST_LEVEL;
-        }
-
-        @Override
-        public int getUses() {
-            return LaserBladeItemBase.MAX_USES;
-        }
-
-        @Override
-        public float getSpeed() {
-            return ToLaserBladeConfig.SERVER.laserBladeEfficiency.get();
-        }
-
-        @Override
-        public float getAttackDamageBonus() {
-            return isNetheritic ? NETHERITIC_DAMAGE : NORMAL_DAMAGE;
-        }
-
-        @Override
-        public int getEnchantmentValue() {
-            return ENCHANTABILITY;
-        }
-
-        @Override
-        public Ingredient getRepairIngredient() {
-            ITag<Item> tag = ItemTags.getAllTags().getTag(new ResourceLocation("forge", "ingots/iron"));
-
-            if (tag != null) {
-                return Ingredient.of(tag);
-
-            } else {
-                return Ingredient.of(Items.IRON_INGOT);
-            }
-        }
+        core.addItemStacks(items, isFireResistant());
     }
 }

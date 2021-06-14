@@ -1,4 +1,4 @@
-package com.github.iunius118.tolaserblade.client.renderer;
+package com.github.iunius118.tolaserblade.client.renderer.color;
 
 import com.github.iunius118.tolaserblade.item.LBBrandNewItem;
 import com.github.iunius118.tolaserblade.item.LBBrokenItem;
@@ -14,7 +14,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class LaserBladeItemColor {
+public class LaserBladeColor {
     public final boolean isBroken;
     public final int rawGripColor;
     public final int gripColor;
@@ -27,7 +27,7 @@ public class LaserBladeItemColor {
     public final boolean isOuterSubColor;
     public final int simpleOuterColor;
 
-    public LaserBladeItemColor(ItemStack itemStack) {
+    public LaserBladeColor(ItemStack itemStack) {
         if (itemStack == null || itemStack.isEmpty()) {
             isBroken = false;
 
@@ -69,8 +69,8 @@ public class LaserBladeItemColor {
         simpleOuterColor = (isOuterSubColor ? ~outerColor : outerColor) | 0xFF000000;
     }
 
-    public static LaserBladeItemColor of(ItemStack stack) {
-        return new LaserBladeItemColor(stack);
+    public static LaserBladeColor of(ItemStack stack) {
+        return new LaserBladeColor(stack);
     }
 
     public int checkGamingColor(int colorIn) {

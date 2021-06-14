@@ -1,8 +1,6 @@
 package com.github.iunius118.tolaserblade.item;
 
-import com.github.iunius118.tolaserblade.client.renderer.LaserBladeItemColor;
 import com.github.iunius118.tolaserblade.laserblade.upgrade.Upgrade;
-import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -31,19 +29,6 @@ public class LBMediumItem extends Item implements LaserBladeItemBase {
     @OnlyIn(Dist.CLIENT)
     public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        ModItems.LB_MEDIUM.addLaserBladeInformation(stack, worldIn, tooltip, flagIn, upgradeType);
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public static class ColorHandler implements IItemColor {
-        @Override
-        public int getColor(ItemStack stack, int tintIndex) {
-            if (tintIndex == 1) {
-                LaserBladeItemColor color = LaserBladeItemColor.of(stack);
-                return color.simpleOuterColor | 0xFF000000;
-            }
-
-            return 0xFFFFFFFF;
-        }
+        core.addLaserBladeInformation(stack, worldIn, tooltip, flagIn, upgradeType);
     }
 }

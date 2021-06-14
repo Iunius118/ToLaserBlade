@@ -1,6 +1,5 @@
 package com.github.iunius118.tolaserblade.item;
 
-import com.github.iunius118.tolaserblade.laserblade.LaserBladeStack;
 import net.minecraft.item.ItemGroup;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
@@ -13,7 +12,7 @@ public interface ModMainItemGroup {
         @Override
         @OnlyIn(Dist.CLIENT)
         public ItemStack makeIcon() {
-            LaserBladeStack icon = LaserBladeStack.ICON;
+            LaserBladeItemStack icon = LaserBladeItemStack.ICON;
             return icon.getCopy();
         }
     };

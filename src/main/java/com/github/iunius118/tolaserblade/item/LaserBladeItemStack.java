@@ -1,20 +1,22 @@
-package com.github.iunius118.tolaserblade.laserblade;
+package com.github.iunius118.tolaserblade.item;
 
 import com.github.iunius118.tolaserblade.enchantment.ModEnchantments;
-import com.github.iunius118.tolaserblade.item.LaserBladeItemBase;
-import com.github.iunius118.tolaserblade.item.ModItems;
+import com.github.iunius118.tolaserblade.laserblade.Color;
+import com.github.iunius118.tolaserblade.laserblade.LaserBlade;
+import com.github.iunius118.tolaserblade.laserblade.LaserBladePerformance;
+import com.github.iunius118.tolaserblade.laserblade.LaserBladeVisual;
 import net.minecraft.enchantment.Enchantments;
 import net.minecraft.item.ItemStack;
 
 import java.util.function.Supplier;
 
-public enum LaserBladeStack {
+public enum LaserBladeItemStack {
     ORIGINAL(() -> new ItemStack(ModItems.LASER_BLADE)),
-    ICON(LaserBladeStack::getIconStack),
-    MODEL_TYPE_526(LaserBladeStack::getModelType526Stack),
+    ICON(LaserBladeItemStack::getIconStack),
+    MODEL_TYPE_526(LaserBladeItemStack::getModelType526Stack),
     LIGHT_ELEMENT_1(() -> getLightElementStack(1)),
     LIGHT_ELEMENT_2(() -> getLightElementStack(2)),
-    GIFT(LaserBladeStack::getGiftStack),
+    GIFT(LaserBladeItemStack::getGiftStack),
     UPGRADED(() -> getUpgradedStack(false, false)),
     DAMAGED(() -> getUpgradedStack(false, true)),
     FULL_MOD(() -> getFullModStack(false, false)),
@@ -27,7 +29,7 @@ public enum LaserBladeStack {
 
     private final Supplier<ItemStack> supplier;
 
-    LaserBladeStack(Supplier<ItemStack> supplier) {
+    LaserBladeItemStack(Supplier<ItemStack> supplier) {
         this.supplier = supplier;
     }
 

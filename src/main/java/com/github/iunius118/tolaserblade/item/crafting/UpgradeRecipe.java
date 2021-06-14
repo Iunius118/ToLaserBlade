@@ -1,6 +1,6 @@
 package com.github.iunius118.tolaserblade.item.crafting;
 
-import com.github.iunius118.tolaserblade.item.LaserBladeItemBase;
+import com.github.iunius118.tolaserblade.laserblade.LaserBladeTextKey;
 import com.github.iunius118.tolaserblade.laserblade.upgrade.Upgrade;
 import com.github.iunius118.tolaserblade.laserblade.upgrade.UpgradeManager;
 import com.github.iunius118.tolaserblade.laserblade.upgrade.UpgradeResult;
@@ -104,7 +104,7 @@ public class UpgradeRecipe extends SmithingRecipe {
 
         if (upgradeId.equals(efficiencyRemover)) {
             // Set hint of removing Efficiency to item-stack's display name
-            TranslationTextComponent textComponent = new TranslationTextComponent(LaserBladeItemBase.KEY_TOOLTIP_REMOVE, new TranslationTextComponent("enchantment.minecraft.efficiency"));
+            TranslationTextComponent textComponent = LaserBladeTextKey.KEY_TOOLTIP_REMOVE.translate(new TranslationTextComponent("enchantment.minecraft.efficiency"));
             StringTextComponent info = new StringTextComponent(textComponent.getString());
             CompoundNBT nbt = sample.getOrCreateTagElement("display");
             nbt.putString("Name", ITextComponent.Serializer.toJson(info));

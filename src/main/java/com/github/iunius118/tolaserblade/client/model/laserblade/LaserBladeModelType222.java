@@ -2,7 +2,7 @@ package com.github.iunius118.tolaserblade.client.model.laserblade;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.client.model.SimpleLaserBladeModel;
-import com.github.iunius118.tolaserblade.client.renderer.LaserBladeItemColor;
+import com.github.iunius118.tolaserblade.client.renderer.color.LaserBladeColor;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
@@ -33,7 +33,7 @@ public class LaserBladeModelType222 extends SimpleLaserBladeModel {
             matrixStack.scale(0.9F, 0.9F, 0.9F);
         }
 
-        LaserBladeItemColor color = new LaserBladeItemColor(itemStack);
+        LaserBladeColor color = new LaserBladeColor(itemStack);
         final int fullLight = 0xF000F0;
         final int noTintColor = 0xFFFFFFFF;
 

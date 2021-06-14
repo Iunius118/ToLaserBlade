@@ -3,7 +3,6 @@ package com.github.iunius118.tolaserblade.item;
 import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.client.renderer.LBBrandNewItemRenderer;
 import com.github.iunius118.tolaserblade.laserblade.LaserBlade;
-import com.github.iunius118.tolaserblade.laserblade.LaserBladeStack;
 import com.github.iunius118.tolaserblade.laserblade.LaserBladeVisual;
 import com.github.iunius118.tolaserblade.laserblade.upgrade.Upgrade;
 import net.minecraft.client.util.ITooltipFlag;
@@ -16,8 +15,6 @@ import net.minecraft.util.ActionResult;
 import net.minecraft.util.Hand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.api.distmarker.Dist;
@@ -28,14 +25,10 @@ import java.util.List;
 
 public class LBBrandNewItem extends Item implements LaserBladeItemBase {
     public static Properties properties = (new Item.Properties()).setNoRepair().tab(ModMainItemGroup.ITEM_GROUP).setISTER(() -> LBBrandNewItemRenderer::new);
-    public static final String KEY_TOOLTIP_BLAND_NEW_HOW_TO_USE_LINE_1 = "tooltip.tolaserblade.brandNew1";
-    public static final String KEY_TOOLTIP_BLAND_NEW_HOW_TO_USE_LINE_2 = "tooltip.tolaserblade.brandNew2";
-    public static final String KEY_TOOLTIP_BLAND_NEW_HOW_TO_USE_LINE_3 = "tooltip.tolaserblade.brandNew3";
 
+    private final LBBrandNewType type;
 
-    private final Type type;
-
-    public LBBrandNewItem(Type typeIn, boolean isFireproof) {
+    public LBBrandNewItem(LBBrandNewType typeIn, boolean isFireproof) {
         super(LaserBladeItemBase.setFireproof(properties, isFireproof));
         type = typeIn;
     }
@@ -55,7 +48,7 @@ public class LBBrandNewItem extends Item implements LaserBladeItemBase {
     private void setLaserBladeToPlayer(World worldIn, PlayerEntity playerIn, Hand handIn, ItemStack itemStack) {
         ItemStack laserBladeStack;
 
-        if (type == Type.NONE || type == Type.FP) {
+        if (type == LBBrandNewType.NONE || type == LBBrandNewType.FP) {
             // Copy NBT tag to Laser Blade. This is for customized recipe
             CompoundNBT tag = itemStack.getOrCreateTag();
             CompoundNBT newNbt = tag.copy();    // Copy nbt to make it independent of the Brand-new Laser Blade
@@ -87,7 +80,7 @@ public class LBBrandNewItem extends Item implements LaserBladeItemBase {
 
         // GIFT code
         if ("GIFT".equals(name) || "\u304A\u305F\u304B\u3089".equals(name)) {   // name == {"GIFT" || "おたから"}
-            return LaserBladeStack.GIFT.getCopy();  // Get GIFT Laser Blade
+            return LaserBladeItemStack.GIFT.getCopy();  // Get GIFT Laser Blade
         }
 
         int modelType;
@@ -114,28 +107,8 @@ public class LBBrandNewItem extends Item implements LaserBladeItemBase {
     @OnlyIn(Dist.CLIENT)
     public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
-
-        tooltip.add(new TranslationTextComponent("tooltip.tolaserblade.brandNew1").withStyle(TextFormatting.YELLOW));
-        tooltip.add(new TranslationTextComponent("tooltip.tolaserblade.brandNew2").withStyle(TextFormatting.YELLOW));
-        tooltip.add(new TranslationTextComponent("tooltip.tolaserblade.brandNew3").withStyle(TextFormatting.YELLOW));
-
-        addLaserBladeInformation(stack, worldIn, tooltip, flagIn, Upgrade.Type.REPAIR);
+        core.addBrandNewText(tooltip);
+        core.addLaserBladeInformation(stack, worldIn, tooltip, flagIn, Upgrade.Type.REPAIR);
     }
 
-    public enum Type {
-        NONE(LaserBladeStack.ORIGINAL),
-        LIGHT_ELEMENT_1(LaserBladeStack.LIGHT_ELEMENT_1),
-        LIGHT_ELEMENT_2(LaserBladeStack.LIGHT_ELEMENT_2),
-        FP(LaserBladeStack.FP);
-
-        private final LaserBladeStack original;
-
-        Type(LaserBladeStack stack) {
-            original = stack;
-        }
-
-        public ItemStack getCopy() {
-            return original.getCopy();
-        }
-    }
 }

@@ -1,4 +1,4 @@
-package com.github.iunius118.tolaserblade.client.renderer;
+package com.github.iunius118.tolaserblade.client.renderer.color;
 
 public class Color4Float {
     public final float b;

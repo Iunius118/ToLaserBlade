@@ -2,7 +2,6 @@ package com.github.iunius118.tolaserblade.item;
 
 import com.github.iunius118.tolaserblade.laserblade.LaserBlade;
 import com.github.iunius118.tolaserblade.laserblade.LaserBladePerformance;
-import com.github.iunius118.tolaserblade.laserblade.LaserBladeStack;
 import com.github.iunius118.tolaserblade.laserblade.LaserBladeVisual;
 import com.github.iunius118.tolaserblade.laserblade.upgrade.Upgrade;
 import net.minecraft.client.util.ITooltipFlag;
@@ -47,7 +46,6 @@ public class LBDisassembledItem extends Item implements LaserBladeItemBase {
         if (!worldIn.isClientSide()) {
             disassembleLaserBlade(worldIn, playerIn, itemStack);
             itemStack.shrink(1);
-            return ActionResult.success(itemStack);
         }
 
         return ActionResult.success(itemStack);
@@ -152,9 +150,9 @@ public class LBDisassembledItem extends Item implements LaserBladeItemBase {
         if (group != ModMainItemGroup.ITEM_GROUP) return;
 
         if (isFireResistant()) {
-            items.add(LaserBladeStack.DISASSEMBLED_FULL_MOD_FP.getCopy());
+            items.add(LaserBladeItemStack.DISASSEMBLED_FULL_MOD_FP.getCopy());
         } else {
-            items.add(LaserBladeStack.DISASSEMBLED_FULL_MOD.getCopy());
+            items.add(LaserBladeItemStack.DISASSEMBLED_FULL_MOD.getCopy());
         }
     }
 
@@ -162,6 +160,6 @@ public class LBDisassembledItem extends Item implements LaserBladeItemBase {
     @OnlyIn(Dist.CLIENT)
     public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        addLaserBladeInformation(stack, worldIn, tooltip, flagIn, upgradeType);
+        core.addLaserBladeInformation(stack, worldIn, tooltip, flagIn, upgradeType);
     }
 }

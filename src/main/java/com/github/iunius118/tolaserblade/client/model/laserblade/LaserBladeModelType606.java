@@ -2,7 +2,7 @@ package com.github.iunius118.tolaserblade.client.model.laserblade;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.client.model.SimpleLaserBladeModel;
-import com.github.iunius118.tolaserblade.client.renderer.LaserBladeItemColor;
+import com.github.iunius118.tolaserblade.client.renderer.color.LaserBladeColor;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
@@ -25,7 +25,7 @@ public class LaserBladeModelType606 extends SimpleLaserBladeModel {
 
     @Override
     public void render(ItemStack itemStack, ItemCameraTransforms.TransformType transformType, MatrixStack matrixStack, IRenderTypeBuffer buffer, int lightmapCoord, int overlayColor) {
-        LaserBladeItemColor color = new LaserBladeItemColor(itemStack);
+        LaserBladeColor color = new LaserBladeColor(itemStack);
         final int fullLight = 0xF000F0;
 
         IVertexBuilder currentBuffer = buffer.getBuffer(getHiltRenderType());

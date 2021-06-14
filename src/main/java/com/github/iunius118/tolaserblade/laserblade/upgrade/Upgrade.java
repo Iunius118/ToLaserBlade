@@ -20,6 +20,8 @@ public abstract class Upgrade {
         }
     };
 
+    // Supplier of upgrade ingredient.
+    // Lazy evaluation via the supplier can wait for the timing of sync of tags from server to client.
     private final Supplier<Ingredient> ingredientSupplier;
     private Ingredient ingredient;
     private final String shortName;

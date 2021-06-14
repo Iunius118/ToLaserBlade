@@ -29,6 +29,6 @@ public class LBBatteryItem extends Item implements LaserBladeItemBase {
     @OnlyIn(Dist.CLIENT)
     public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        addLaserBladeInformation(stack, worldIn, tooltip, flagIn, upgradeType);
+        core.addLaserBladeInformation(stack, worldIn, tooltip, flagIn, upgradeType);
     }
 }
