@@ -14,8 +14,8 @@ public class ModItems {
     public static final LBBrandNewItem LB_BRAND_NEW_2 = null;
     public static final LBBrandNewItem LB_BRAND_NEW_FP = null;
     // Laser Blade
-    public static final LaserBladeItem LASER_BLADE = null;
-    public static final LaserBladeItem LASER_BLADE_FP = null;
+    public static final LBSwordItem LASER_BLADE = null;
+    public static final LBSwordItem LASER_BLADE_FP = null;
     public static final LBBrokenItem LB_BROKEN = null;
     public static final LBBrokenItem LB_BROKEN_FP = null;
     // Laser Blade parts

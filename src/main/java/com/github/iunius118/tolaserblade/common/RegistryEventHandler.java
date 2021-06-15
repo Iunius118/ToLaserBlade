@@ -38,8 +38,8 @@ public class RegistryEventHandler {
     public static void onItemsRegistry(final RegistryEvent.Register<Item> event) {
         event.getRegistry().registerAll(
                 new DXLaserBladeItem().setRegistryName("dx_laser_blade"),
-                new LaserBladeItem(false).setRegistryName("laser_blade"),
-                new LaserBladeItem(true).setRegistryName("laser_blade_fp"), // Fireproof
+                new LBSwordItem(false).setRegistryName("laser_blade"),
+                new LBSwordItem(true).setRegistryName("laser_blade_fp"), // Fireproof
                 new LBBrandNewItem(LBBrandNewType.NONE, false).setRegistryName("lb_brand_new"),
                 new LBBrandNewItem(LBBrandNewType.LIGHT_ELEMENT_1, false).setRegistryName("lb_brand_new_1"),
                 new LBBrandNewItem(LBBrandNewType.LIGHT_ELEMENT_2, false).setRegistryName("lb_brand_new_2"),

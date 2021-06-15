@@ -38,14 +38,14 @@ import net.minecraftforge.event.entity.player.CriticalHitEvent;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
+public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
     private final IItemTier tier;
     private final float attackDamage;
     private final float attackSpeed;
 
     public static Item.Properties properties = (new Item.Properties()).setNoRepair().tab(ModMainItemGroup.ITEM_GROUP).setISTER(() -> LaserBladeItemRenderer::new);
 
-    public LaserBladeItem(boolean isFireproof) {
+    public LBSwordItem(boolean isFireproof) {
         super(new LaserBladeItemTier(isFireproof), 3, -1.2F, LaserBladeItemBase.setFireproof(properties, isFireproof));
 
         tier = getTier();
@@ -95,7 +95,7 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
             PlayerEntity player = (PlayerEntity)entity;
 
             if (!player.swinging) {
-                core.playSwingSound(world, entity, isFireResistant());
+                LaserBladeItemUtil.playSwingSound(world, entity, isFireResistant());
             }
         }
 
@@ -107,7 +107,7 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
         World world = attacker.getCommandSenderWorld();
 
         if (!world.isClientSide) {
-            core.playSwingSound(world, attacker, isFireResistant());
+            LaserBladeItemUtil.playSwingSound(world, attacker, isFireResistant());
         }
 
         return super.hurtEnemy(stack, target, attacker);
@@ -123,7 +123,7 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
         LaserBladePerformance.AttackPerformance attack = performance.getAttackPerformance();
 
         if (target instanceof WitherEntity || attack.damage >= LaserBladePerformance.AttackPerformance.MOD_ATK_CRITICAL_BONUS) {
-            event.setDamageModifier(event.getDamageModifier() + MOD_CRITICAL_BONUS_VS_WITHER);
+            event.setDamageModifier(event.getDamageModifier() + LaserBladePerformance.AttackPerformance.MOD_CRITICAL_BONUS_VS_WITHER);
         }
     }
 
@@ -145,7 +145,7 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
 
     @Override
     public float getDestroySpeed(ItemStack stack, BlockState state) {
-        return core.getDestroySpeed(stack, tier);
+        return LaserBladeItemUtil.getDestroySpeed(stack, tier);
     }
 
     @Override
@@ -211,7 +211,7 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
     @OnlyIn(Dist.CLIENT)
     public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        core.addLaserBladeInformation(stack, worldIn, tooltip, flagIn, Upgrade.Type.OTHER);
+        LaserBladeItemUtil.addLaserBladeInformation(stack, worldIn, tooltip, flagIn, Upgrade.Type.OTHER);
     }
 
     /* Creative Tab */
@@ -221,6 +221,6 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
         super.fillItemCategory(group, items);
         if (group != ModMainItemGroup.ITEM_GROUP) return;
 
-        core.addItemStacks(items, isFireResistant());
+        LaserBladeItemUtil.addItemStacks(items, isFireResistant());
     }
 }

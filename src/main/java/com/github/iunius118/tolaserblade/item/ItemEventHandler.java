@@ -67,8 +67,8 @@ public class ItemEventHandler {
     public static void onCriticalHit(CriticalHitEvent event) {
         ItemStack stack = event.getPlayer().getMainHandItem();
 
-        if (stack.getItem() instanceof LaserBladeItem) {
-            ((LaserBladeItem) stack.getItem()).onCriticalHit(event);
+        if (stack.getItem() instanceof LBSwordItem) {
+            ((LBSwordItem) stack.getItem()).onCriticalHit(event);
         }
     }
 }
