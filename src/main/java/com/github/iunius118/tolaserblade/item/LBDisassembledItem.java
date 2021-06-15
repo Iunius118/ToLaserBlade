@@ -160,6 +160,6 @@ public class LBDisassembledItem extends Item implements LaserBladeItemBase {
     @OnlyIn(Dist.CLIENT)
     public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        core.addLaserBladeInformation(stack, worldIn, tooltip, flagIn, upgradeType);
+        LaserBladeItemUtil.addLaserBladeInformation(stack, worldIn, tooltip, flagIn, upgradeType);
     }
 }

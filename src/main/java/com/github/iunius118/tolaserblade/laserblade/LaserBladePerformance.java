@@ -37,6 +37,8 @@ public class LaserBladePerformance {
         public static final float MOD_SPD_MIN = 0.0F;
         public static final float MOD_SPD_MAX = 1.2F;
 
+        public static final float MOD_CRITICAL_BONUS_VS_WITHER = 0.5F;
+
         public static final String KEY_ATK = "ATK";
         public static final String KEY_SPD = "SPD";
 

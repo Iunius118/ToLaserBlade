@@ -27,21 +27,23 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class LaserBladeItemCore {
-    public static final LaserBladeItemCore INSTANCE = new LaserBladeItemCore();
+public class LaserBladeItemUtil {
+    private LaserBladeItemUtil() {
 
-    public float getDestroySpeed(ItemStack itemStack, IItemTier tier) {
+    }
+
+    public static float getDestroySpeed(ItemStack itemStack, IItemTier tier) {
         float rate = (float) EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY, itemStack) / 5.0F;
         return tier.getSpeed() * MathHelper.clamp(rate, 0.0F, 1.0F);
     }
 
-    public void playSwingSound(World world, LivingEntity entity, boolean isFireResistant) {
+    public static void playSwingSound(World world, LivingEntity entity, boolean isFireResistant) {
         SoundEvent soundEvent = isFireResistant ? ModSoundEvents.ITEM_LASER_BLADE_FP_SWING : ModSoundEvents.ITEM_LASER_BLADE_SWING;
         Vector3d pos = entity.position().add(0, entity.getEyeHeight(), 0).add(entity.getLookAngle());
         world.playSound(null, pos.x, pos.y, pos.z, soundEvent, SoundCategory.PLAYERS, 0.5F, 1.0F);
     }
 
-    public void addItemStacks(NonNullList<ItemStack> items, boolean isFireResistant) {
+    public static void addItemStacks(NonNullList<ItemStack> items, boolean isFireResistant) {
         if (isFireResistant) {
             items.add(LaserBladeItemStack.UPGRADED_FP.getCopy());
             items.add(LaserBladeItemStack.DAMAGED_FP.getCopy());
@@ -58,7 +60,7 @@ public class LaserBladeItemCore {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public void addLaserBladeInformation(ItemStack itemStack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn, Upgrade.Type upgradeType) {
+    public static void addLaserBladeInformation(ItemStack itemStack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn, Upgrade.Type upgradeType) {
         LaserBlade laserBlade = LaserBlade.of(itemStack);
         boolean isFireproof = laserBlade.isFireproof();
 
@@ -90,14 +92,14 @@ public class LaserBladeItemCore {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public void addBrandNewText(List<ITextComponent> tooltip) {
+    public static void addBrandNewText(List<ITextComponent> tooltip) {
         tooltip.add(new TranslationTextComponent("tooltip.tolaserblade.brandNew1").withStyle(TextFormatting.YELLOW));
         tooltip.add(new TranslationTextComponent("tooltip.tolaserblade.brandNew2").withStyle(TextFormatting.YELLOW));
         tooltip.add(new TranslationTextComponent("tooltip.tolaserblade.brandNew3").withStyle(TextFormatting.YELLOW));
     }
 
     @OnlyIn(Dist.CLIENT)
-    private void addModelType(List<ITextComponent> tooltip, LaserBlade laserBlade) {
+    private static void addModelType(List<ITextComponent> tooltip, LaserBlade laserBlade) {
             LaserBladeVisual visual = laserBlade.getVisual();
             int modelType = visual.getModelType();
 
@@ -107,21 +109,21 @@ public class LaserBladeItemCore {
     }
 
     @OnlyIn(Dist.CLIENT)
-    private void addAttackDamage(List<ITextComponent> tooltip, float atk) {
+    private static void addAttackDamage(List<ITextComponent> tooltip, float atk) {
         if (atk <= -0.005F || atk >= 0.005) {
             tooltip.add(getUpgradeTextComponent(LaserBladeTextKey.KEY_TOOLTIP_ATTACK_DAMAGE.getKey(), atk));
         }
     }
 
     @OnlyIn(Dist.CLIENT)
-    private void addAttackSpeed(List<ITextComponent> tooltip, float spd) {
+    private static void addAttackSpeed(List<ITextComponent> tooltip, float spd) {
         if (spd <= -0.005F || spd >= 0.005) {
             tooltip.add(getUpgradeTextComponent(LaserBladeTextKey.KEY_TOOLTIP_ATTACK_SPEED.getKey(), spd));
         }
     }
 
     @OnlyIn(Dist.CLIENT)
-    private ITextComponent getUpgradeTextComponent(String key, float value) {
+    private static ITextComponent getUpgradeTextComponent(String key, float value) {
         return new TranslationTextComponent(key, (value < 0 ? "" : "+") + ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(value)).withStyle(TextFormatting.DARK_GREEN);
     }
 }

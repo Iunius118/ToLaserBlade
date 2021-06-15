@@ -34,6 +34,11 @@ public class LBBrandNewItem extends Item implements LaserBladeItemBase {
     }
 
     @Override
+    public boolean canUpgrade(Upgrade.Type type) {
+        return false;
+    }
+
+    @Override
     public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
         ItemStack itemStack = playerIn.getItemInHand(handIn);
 
@@ -107,8 +112,8 @@ public class LBBrandNewItem extends Item implements LaserBladeItemBase {
     @OnlyIn(Dist.CLIENT)
     public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
         super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        core.addBrandNewText(tooltip);
-        core.addLaserBladeInformation(stack, worldIn, tooltip, flagIn, Upgrade.Type.REPAIR);
+        LaserBladeItemUtil.addBrandNewText(tooltip);
+        LaserBladeItemUtil.addLaserBladeInformation(stack, worldIn, tooltip, flagIn, Upgrade.Type.REPAIR);
     }
 
 }

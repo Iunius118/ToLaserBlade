@@ -104,7 +104,11 @@ public enum LaserBladeItemStack {
         gripColor.color = Color.GRAY.getGripColor();
 
         laserBlade.write(stack);
-        if (isDamaged) stack.setDamageValue(LaserBladeItemBase.MAX_USES - 1);
+
+        if (isDamaged) {
+            stack.setDamageValue(LaserBladeItemTier.MAX_USES - 1);
+        }
+
         return stack;
     }
 

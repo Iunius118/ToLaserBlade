@@ -18,15 +18,12 @@ import net.minecraft.util.math.BlockRayTraceResult;
 import net.minecraft.util.math.vector.Vector3d;
 import net.minecraft.world.World;
 
-public class DXLaserBladeItemCore {
-    private final IItemTier tier;
+public class DXLaserBladeItemUtil {
+    private DXLaserBladeItemUtil() {
 
-    public DXLaserBladeItemCore(IItemTier itemTier) {
-        tier = itemTier;
     }
 
-
-    public ActionResultType useOn(ItemUseContext context) {
+    public static ActionResultType useOn(ItemUseContext context, IItemTier tier) {
         World world = context.getLevel();
         PlayerEntity player = context.getPlayer();
         ItemStack itemStack = context.getItemInHand();
@@ -45,7 +42,7 @@ public class DXLaserBladeItemCore {
         }
     }
 
-    private ActionResultType removeRedstoneTorch(ItemUseContext context, int costDamage) {
+    private static ActionResultType removeRedstoneTorch(ItemUseContext context, int costDamage) {
         PlayerEntity player = context.getPlayer();
         ItemStack itemStack = context.getItemInHand();
         int itemDamage = itemStack.getDamageValue();
@@ -64,7 +61,7 @@ public class DXLaserBladeItemCore {
         return destroyRedstoneTorch(context);
     }
 
-    private ActionResultType destroyRedstoneTorch(ItemUseContext context) {
+    private static ActionResultType destroyRedstoneTorch(ItemUseContext context) {
         // Destroy the Redstone Torch block
         World world = context.getLevel();
         BlockPos pos = context.getClickedPos();
@@ -75,7 +72,7 @@ public class DXLaserBladeItemCore {
         return ActionResultType.SUCCESS;
     }
 
-    private ActionResultType placeRedstoneTorch(ItemUseContext context, int costDamage) {
+    private static ActionResultType placeRedstoneTorch(ItemUseContext context, int costDamage) {
         PlayerEntity player = context.getPlayer();
         ItemStack itemStack = context.getItemInHand();
 
@@ -100,7 +97,7 @@ public class DXLaserBladeItemCore {
         return ActionResultType.PASS;
     }
 
-    public void playSwingSound(World world, LivingEntity entity) {
+    public static void playSwingSound(World world, LivingEntity entity) {
         Vector3d pos = entity.position().add(0, entity.getEyeHeight(), 0).add(entity.getLookAngle());
         world.playSound(null, pos.x, pos.y, pos.z, ModSoundEvents.ITEM_DX_LASER_BLADE_SWING, SoundCategory.PLAYERS, 0.5F, 1.0F);
     }

@@ -10,11 +10,12 @@ import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
 
 public class LaserBladeItemTier implements IItemTier {
-    private final static int NETHERITIC_HARVEST_LEVEL = 4;
-    private final static int HARVEST_LEVEL = 3;
-    private final static float NETHERITIC_DAMAGE = 4.0F;
-    private final static float NORMAL_DAMAGE = 3.0F;
-    private final static int ENCHANTABILITY = 15;
+    public static final int MAX_USES = 32000;
+    public final static int NETHERITIC_HARVEST_LEVEL = 4;
+    public final static int HARVEST_LEVEL = 3;
+    public final static float NETHERITIC_DAMAGE = 4.0F;
+    public final static float NORMAL_DAMAGE = 3.0F;
+    public final static int ENCHANTABILITY = 15;
 
     private final boolean isNetheritic;
 
@@ -29,7 +30,7 @@ public class LaserBladeItemTier implements IItemTier {
 
     @Override
     public int getUses() {
-        return LaserBladeItemBase.MAX_USES;
+        return MAX_USES;
     }
 
     @Override

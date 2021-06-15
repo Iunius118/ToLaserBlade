@@ -15,7 +15,6 @@ import net.minecraft.world.World;
 public class DXLaserBladeItem extends SwordItem {
     private final float attackDamage;
     private final float attackSpeed;
-    private final DXLaserBladeItemCore itemBase;
 
     public DXLaserBladeItem() {
         super(new DXLaserBladeItemTier(), 3, -1.2F, (new Item.Properties()).tab(ModMainItemGroup.ITEM_GROUP));
@@ -23,7 +22,6 @@ public class DXLaserBladeItem extends SwordItem {
         IItemTier tier = getTier();
         attackDamage = 3.0F + tier.getAttackDamageBonus();
         attackSpeed = -1.2F;
-        itemBase = new DXLaserBladeItemCore(tier);
     }
 
     @Override
@@ -31,7 +29,7 @@ public class DXLaserBladeItem extends SwordItem {
         World world = attacker.getCommandSenderWorld();
 
         if (!world.isClientSide && attacker instanceof PlayerEntity) {
-            itemBase.playSwingSound(world, attacker);
+            DXLaserBladeItemUtil.playSwingSound(world, attacker);
         }
 
         return super.hurtEnemy(stack, target, attacker);
@@ -45,7 +43,7 @@ public class DXLaserBladeItem extends SwordItem {
             PlayerEntity player = (PlayerEntity)entity;
 
             if (!player.swinging) {
-                itemBase.playSwingSound(world, entity);
+                DXLaserBladeItemUtil.playSwingSound(world, entity);
             }
         }
 
@@ -54,7 +52,7 @@ public class DXLaserBladeItem extends SwordItem {
 
     @Override
     public ActionResultType useOn(ItemUseContext context) {
-        return itemBase.useOn(context);
+        return DXLaserBladeItemUtil.useOn(context, getTier());
     }
 
     @Override
