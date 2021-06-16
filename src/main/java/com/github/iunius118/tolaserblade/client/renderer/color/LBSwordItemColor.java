@@ -9,7 +9,7 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 public class LBSwordItemColor implements IItemColor {
     @Override
     public int getColor(ItemStack stack, int tintIndex) {
-        LaserBladeColor color = LaserBladeColor.of(stack);
+        LaserBladeItemColor color = LaserBladeItemColor.of(stack);
 
         switch (tintIndex) {
             case 0:

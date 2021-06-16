@@ -2,7 +2,7 @@ package com.github.iunius118.tolaserblade.client.model.laserblade;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.client.model.SimpleLaserBladeModel;
-import com.github.iunius118.tolaserblade.client.renderer.color.LaserBladeColor;
+import com.github.iunius118.tolaserblade.client.renderer.color.LaserBladeItemColor;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
@@ -37,7 +37,7 @@ public class LaserBladeModelType316 extends SimpleLaserBladeModel {
     }
 
     private void renderSword(ItemStack itemStack, ItemCameraTransforms.TransformType transformType, MatrixStack matrixStack, IRenderTypeBuffer buffer, int lightmapCoord, int overlayColor) {
-        LaserBladeColor color = new LaserBladeColor(itemStack);
+        LaserBladeItemColor color = new LaserBladeItemColor(itemStack);
         final int fullLight = 0xF000F0;
 
         IVertexBuilder currentBuffer = buffer.getBuffer(getHiltRenderType());
@@ -57,7 +57,7 @@ public class LaserBladeModelType316 extends SimpleLaserBladeModel {
     private void renderShield(ItemStack itemStack, ItemCameraTransforms.TransformType transformType, MatrixStack matrixStack, IRenderTypeBuffer buffer, int lightmapCoord, int overlayColor) {
         transformShield(transformType, matrixStack);    // Extra camera transforming
 
-        LaserBladeColor color = new LaserBladeColor(itemStack);
+        LaserBladeItemColor color = new LaserBladeItemColor(itemStack);
         final int fullLight = 0xF000F0;
 
         IVertexBuilder currentBuffer = buffer.getBuffer(getHiltRenderType());

@@ -1,7 +1,7 @@
 package com.github.iunius118.tolaserblade.item.crafting;
 
-import com.github.iunius118.tolaserblade.laserblade.ColorPart;
 import com.github.iunius118.tolaserblade.laserblade.LaserBlade;
+import com.github.iunius118.tolaserblade.laserblade.LaserBladeColorPart;
 import com.github.iunius118.tolaserblade.laserblade.LaserBladeVisual;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
@@ -22,12 +22,12 @@ import javax.annotation.Nullable;
 public class ColorRecipe extends SmithingRecipe {
     private final Ingredient base;
     private final Ingredient addition;
-    private final ColorPart part;
+    private final LaserBladeColorPart part;
     private final int color;
     private final ResourceLocation recipeId;
     private ItemStack sample;
 
-    public ColorRecipe(ResourceLocation recipeId, Ingredient base, Ingredient addition, ColorPart part, int color) {
+    public ColorRecipe(ResourceLocation recipeId, Ingredient base, Ingredient addition, LaserBladeColorPart part, int color) {
         super(recipeId, base, addition, getResultItemStack(base));
         this.recipeId = recipeId;
         this.base = base;
@@ -143,7 +143,7 @@ public class ColorRecipe extends SmithingRecipe {
             Ingredient addition = Ingredient.fromJson(JSONUtils.getAsJsonObject(json, "addition"));
             JsonObject result = JSONUtils.getAsJsonObject(json, "result");
             JsonElement part = result.get("part");
-            ColorPart colorPart = ColorPart.byPartName(part.getAsString());
+            LaserBladeColorPart colorPart = LaserBladeColorPart.byPartName(part.getAsString());
             JsonElement color = result.get("color");
             int colorValue = color.getAsInt();
             return new ColorRecipe(recipeId, base, addition, colorPart, colorValue);
@@ -154,14 +154,14 @@ public class ColorRecipe extends SmithingRecipe {
         public ColorRecipe fromNetwork(ResourceLocation recipeId, PacketBuffer buffer) {
             Ingredient base = Ingredient.fromNetwork(buffer);
             Ingredient addition = Ingredient.fromNetwork(buffer);
-            ColorPart colorPart = ColorPart.byIndex(buffer.readInt());
+            LaserBladeColorPart colorPart = LaserBladeColorPart.byIndex(buffer.readInt());
             int color = buffer.readInt();
             return new ColorRecipe(recipeId, base, addition, colorPart, color);
         }
 
         @Override
         public void toNetwork(PacketBuffer buffer, ColorRecipe recipe) {
-            ColorPart part = recipe.part;
+            LaserBladeColorPart part = recipe.part;
 
             recipe.base.toNetwork(buffer);
             recipe.addition.toNetwork(buffer);

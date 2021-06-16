@@ -2,7 +2,7 @@ package com.github.iunius118.tolaserblade.laserblade;
 
 import javax.annotation.Nullable;
 
-public enum ColorPart {
+public enum LaserBladeColorPart {
     INNER_BLADE(0, "inner_blade", "ib"),
     OUTER_BLADE(1, "outer_blade", "ob"),
     GRIP(2, "grip", "gr");
@@ -12,7 +12,7 @@ public enum ColorPart {
     private final String name;
     private final String shortName;
 
-    ColorPart(int index, String name, String shortName) {
+    LaserBladeColorPart(int index, String name, String shortName) {
         this.index = index;
         this.name = name;
         this.shortName = shortName;
@@ -31,8 +31,8 @@ public enum ColorPart {
     }
 
     @Nullable
-    public static ColorPart byIndex(int index) {
-        for (ColorPart part : ColorPart.values()) {
+    public static LaserBladeColorPart byIndex(int index) {
+        for (LaserBladeColorPart part : LaserBladeColorPart.values()) {
             if (part.index == index) {
                 return part;
             }
@@ -42,8 +42,8 @@ public enum ColorPart {
     }
 
     @Nullable
-    public static ColorPart byPartName(String name) {
-        for (ColorPart part : ColorPart.values()) {
+    public static LaserBladeColorPart byPartName(String name) {
+        for (LaserBladeColorPart part : LaserBladeColorPart.values()) {
             if (part.name.equals(name)) {
                 return part;
             }

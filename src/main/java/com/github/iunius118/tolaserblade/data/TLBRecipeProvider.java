@@ -2,8 +2,8 @@ package com.github.iunius118.tolaserblade.data;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.item.ModItems;
-import com.github.iunius118.tolaserblade.laserblade.Color;
-import com.github.iunius118.tolaserblade.laserblade.ColorPart;
+import com.github.iunius118.tolaserblade.laserblade.LaserBladeColor;
+import com.github.iunius118.tolaserblade.laserblade.LaserBladeColorPart;
 import com.github.iunius118.tolaserblade.laserblade.upgrade.Upgrade;
 import com.github.iunius118.tolaserblade.laserblade.upgrade.UpgradeManager;
 import com.github.iunius118.tolaserblade.tags.ModItemTags;
@@ -116,67 +116,67 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
     }
 
     private void addInnerColorRecipes(Consumer<IFinishedRecipe> consumer) {
-        ColorPart part = ColorPart.INNER_BLADE;
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_WHITE), part, Color.WHITE);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_ORANGE), part, Color.ORANGE);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_MAGENTA), part, Color.MAGENTA);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_LIGHT_BLUE), part, Color.LIGHT_BLUE);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_YELLOW), part, Color.YELLOW);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_LIME), part, Color.LIME);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_PINK), part, Color.PINK);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_GRAY), part, Color.GRAY);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_LIGHT_GRAY), part, Color.LIGHT_GRAY);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_CYAN), part, Color.CYAN);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_PURPLE), part, Color.PURPLE);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_BLUE), part, Color.BLUE);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_BROWN), part, Color.BROWN);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_GREEN), part, Color.GREEN);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_RED), part, Color.RED);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_BLACK), part, Color.BLACK);
+        LaserBladeColorPart part = LaserBladeColorPart.INNER_BLADE;
+        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_WHITE), part, LaserBladeColor.WHITE);
+        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_ORANGE), part, LaserBladeColor.ORANGE);
+        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_MAGENTA), part, LaserBladeColor.MAGENTA);
+        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_LIGHT_BLUE), part, LaserBladeColor.LIGHT_BLUE);
+        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_YELLOW), part, LaserBladeColor.YELLOW);
+        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_LIME), part, LaserBladeColor.LIME);
+        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_PINK), part, LaserBladeColor.PINK);
+        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_GRAY), part, LaserBladeColor.GRAY);
+        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_LIGHT_GRAY), part, LaserBladeColor.LIGHT_GRAY);
+        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_CYAN), part, LaserBladeColor.CYAN);
+        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_PURPLE), part, LaserBladeColor.PURPLE);
+        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_BLUE), part, LaserBladeColor.BLUE);
+        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_BROWN), part, LaserBladeColor.BROWN);
+        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_GREEN), part, LaserBladeColor.GREEN);
+        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_RED), part, LaserBladeColor.RED);
+        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_BLACK), part, LaserBladeColor.BLACK);
     }
 
     private void addOuterColorRecipes(Consumer<IFinishedRecipe> consumer) {
-        ColorPart part = ColorPart.OUTER_BLADE;
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_WHITE), part, Color.WHITE);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_ORANGE), part, Color.ORANGE);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_MAGENTA), part, Color.MAGENTA);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_LIGHT_BLUE), part, Color.LIGHT_BLUE);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_YELLOW), part, Color.YELLOW);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_LIME), part, Color.LIME);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PINK), part, Color.PINK);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_GRAY), part, Color.GRAY);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_LIGHT_GRAY), part, Color.LIGHT_GRAY);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_CYAN), part, Color.CYAN);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PURPLE), part, Color.PURPLE);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_BLUE), part, Color.BLUE);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_BROWN), part, Color.BROWN);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_GREEN), part, Color.GREEN);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_RED), part, Color.RED);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_BLACK), part, Color.BLACK);
+        LaserBladeColorPart part = LaserBladeColorPart.OUTER_BLADE;
+        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_WHITE), part, LaserBladeColor.WHITE);
+        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_ORANGE), part, LaserBladeColor.ORANGE);
+        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_MAGENTA), part, LaserBladeColor.MAGENTA);
+        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_LIGHT_BLUE), part, LaserBladeColor.LIGHT_BLUE);
+        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_YELLOW), part, LaserBladeColor.YELLOW);
+        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_LIME), part, LaserBladeColor.LIME);
+        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PINK), part, LaserBladeColor.PINK);
+        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_GRAY), part, LaserBladeColor.GRAY);
+        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_LIGHT_GRAY), part, LaserBladeColor.LIGHT_GRAY);
+        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_CYAN), part, LaserBladeColor.CYAN);
+        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PURPLE), part, LaserBladeColor.PURPLE);
+        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_BLUE), part, LaserBladeColor.BLUE);
+        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_BROWN), part, LaserBladeColor.BROWN);
+        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_GREEN), part, LaserBladeColor.GREEN);
+        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_RED), part, LaserBladeColor.RED);
+        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_BLACK), part, LaserBladeColor.BLACK);
     }
 
     private void addGripColorRecipes(Consumer<IFinishedRecipe> consumer) {
-        ColorPart part = ColorPart.GRIP;
-        addColorRecipe(consumer, Ingredient.of(Blocks.WHITE_CARPET), part, Color.WHITE);
-        addColorRecipe(consumer, Ingredient.of(Blocks.ORANGE_CARPET), part, Color.ORANGE);
-        addColorRecipe(consumer, Ingredient.of(Blocks.MAGENTA_CARPET), part, Color.MAGENTA);
-        addColorRecipe(consumer, Ingredient.of(Blocks.LIGHT_BLUE_CARPET), part, Color.LIGHT_BLUE);
-        addColorRecipe(consumer, Ingredient.of(Blocks.YELLOW_CARPET), part, Color.YELLOW);
-        addColorRecipe(consumer, Ingredient.of(Blocks.LIME_CARPET), part, Color.LIME);
-        addColorRecipe(consumer, Ingredient.of(Blocks.PINK_CARPET), part, Color.PINK);
-        addColorRecipe(consumer, Ingredient.of(Blocks.GRAY_CARPET), part, Color.GRAY);
-        addColorRecipe(consumer, Ingredient.of(Blocks.LIGHT_GRAY_CARPET), part, Color.LIGHT_GRAY);
-        addColorRecipe(consumer, Ingredient.of(Blocks.CYAN_CARPET), part, Color.CYAN);
-        addColorRecipe(consumer, Ingredient.of(Blocks.PURPLE_CARPET), part, Color.PURPLE);
-        addColorRecipe(consumer, Ingredient.of(Blocks.BLUE_CARPET), part, Color.BLUE);
-        addColorRecipe(consumer, Ingredient.of(Blocks.BROWN_CARPET), part, Color.BROWN);
-        addColorRecipe(consumer, Ingredient.of(Blocks.GREEN_CARPET), part, Color.GREEN);
-        addColorRecipe(consumer, Ingredient.of(Blocks.RED_CARPET), part, Color.RED);
-        addColorRecipe(consumer, Ingredient.of(Blocks.BLACK_CARPET), part, Color.BLACK);
+        LaserBladeColorPart part = LaserBladeColorPart.GRIP;
+        addColorRecipe(consumer, Ingredient.of(Blocks.WHITE_CARPET), part, LaserBladeColor.WHITE);
+        addColorRecipe(consumer, Ingredient.of(Blocks.ORANGE_CARPET), part, LaserBladeColor.ORANGE);
+        addColorRecipe(consumer, Ingredient.of(Blocks.MAGENTA_CARPET), part, LaserBladeColor.MAGENTA);
+        addColorRecipe(consumer, Ingredient.of(Blocks.LIGHT_BLUE_CARPET), part, LaserBladeColor.LIGHT_BLUE);
+        addColorRecipe(consumer, Ingredient.of(Blocks.YELLOW_CARPET), part, LaserBladeColor.YELLOW);
+        addColorRecipe(consumer, Ingredient.of(Blocks.LIME_CARPET), part, LaserBladeColor.LIME);
+        addColorRecipe(consumer, Ingredient.of(Blocks.PINK_CARPET), part, LaserBladeColor.PINK);
+        addColorRecipe(consumer, Ingredient.of(Blocks.GRAY_CARPET), part, LaserBladeColor.GRAY);
+        addColorRecipe(consumer, Ingredient.of(Blocks.LIGHT_GRAY_CARPET), part, LaserBladeColor.LIGHT_GRAY);
+        addColorRecipe(consumer, Ingredient.of(Blocks.CYAN_CARPET), part, LaserBladeColor.CYAN);
+        addColorRecipe(consumer, Ingredient.of(Blocks.PURPLE_CARPET), part, LaserBladeColor.PURPLE);
+        addColorRecipe(consumer, Ingredient.of(Blocks.BLUE_CARPET), part, LaserBladeColor.BLUE);
+        addColorRecipe(consumer, Ingredient.of(Blocks.BROWN_CARPET), part, LaserBladeColor.BROWN);
+        addColorRecipe(consumer, Ingredient.of(Blocks.GREEN_CARPET), part, LaserBladeColor.GREEN);
+        addColorRecipe(consumer, Ingredient.of(Blocks.RED_CARPET), part, LaserBladeColor.RED);
+        addColorRecipe(consumer, Ingredient.of(Blocks.BLACK_CARPET), part, LaserBladeColor.BLACK);
     }
 
-    private void addColorRecipe(Consumer<IFinishedRecipe> consumer, Ingredient addition, ColorPart part, Color color) {
-        boolean isBlade = (part == ColorPart.INNER_BLADE || part == ColorPart.OUTER_BLADE);
+    private void addColorRecipe(Consumer<IFinishedRecipe> consumer, Ingredient addition, LaserBladeColorPart part, LaserBladeColor color) {
+        boolean isBlade = (part == LaserBladeColorPart.INNER_BLADE || part == LaserBladeColorPart.OUTER_BLADE);
         int colorValue = isBlade ? color.getBladeColor() : color.getGripColor();
 
         ColorRecipeBuilder.colorRecipe(Ingredient.of(ModItems.LASER_BLADE), addition, part, colorValue)

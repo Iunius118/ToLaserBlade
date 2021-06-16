@@ -10,7 +10,7 @@ public class LBEmitterItemColor implements IItemColor {
     @Override
     public int getColor(ItemStack stack, int tintIndex) {
         if (tintIndex == 1) {
-            LaserBladeColor color = LaserBladeColor.of(stack);
+            LaserBladeItemColor color = LaserBladeItemColor.of(stack);
             return color.simpleInnerColor | 0xFF000000;
         }
 

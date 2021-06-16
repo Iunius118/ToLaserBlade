@@ -1,7 +1,7 @@
 package com.github.iunius118.tolaserblade.data;
 
 import com.github.iunius118.tolaserblade.item.crafting.ModRecipeSerializers;
-import com.github.iunius118.tolaserblade.laserblade.ColorPart;
+import com.github.iunius118.tolaserblade.laserblade.LaserBladeColorPart;
 import com.google.gson.JsonObject;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
@@ -24,7 +24,7 @@ public class ColorRecipeBuilder {
     private final int color;
     private final Advancement.Builder advancementBuilder = Advancement.Builder.advancement();
 
-    public ColorRecipeBuilder(IRecipeSerializer<?> serializer, Ingredient base, Ingredient addition, ColorPart colorPart, int color) {
+    public ColorRecipeBuilder(IRecipeSerializer<?> serializer, Ingredient base, Ingredient addition, LaserBladeColorPart colorPart, int color) {
         this.serializer = serializer;
         this.base = base;
         this.addition = addition;
@@ -32,7 +32,7 @@ public class ColorRecipeBuilder {
         this.color = color;
     }
 
-    public static ColorRecipeBuilder colorRecipe(Ingredient base, Ingredient addition, ColorPart colorPart, int color) {
+    public static ColorRecipeBuilder colorRecipe(Ingredient base, Ingredient addition, LaserBladeColorPart colorPart, int color) {
         return new ColorRecipeBuilder(ModRecipeSerializers.COLOR, base, addition, colorPart, color);
     }
 

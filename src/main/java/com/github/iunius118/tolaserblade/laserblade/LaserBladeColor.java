@@ -2,7 +2,7 @@ package com.github.iunius118.tolaserblade.laserblade;
 
 import net.minecraft.util.math.MathHelper;
 
-public enum Color {
+public enum LaserBladeColor {
     WHITE(0xFFFFFFFF, 0xFFF9FFFE, "white"),
     ORANGE(0xFFFF681F, 0xFFF9801D, "orange"),
     MAGENTA(0xFFFF0080, 0xFFC74EBD, "magenta"),
@@ -31,14 +31,14 @@ public enum Color {
     private final int gripColor;
     private final String colorName;
 
-    Color(int bladeColor, int gripColor, String colorName) {
+    LaserBladeColor(int bladeColor, int gripColor, String colorName) {
         this.bladeColor = bladeColor;
         this.gripColor = gripColor;
         this.colorName = colorName;
     }
 
-    public static Color get(int index) {
-        final Color[] values = Color.values();
+    public static LaserBladeColor get(int index) {
+        final LaserBladeColor[] values = LaserBladeColor.values();
         return values[MathHelper.clamp(index, 0, values.length - 1)];
     }
 

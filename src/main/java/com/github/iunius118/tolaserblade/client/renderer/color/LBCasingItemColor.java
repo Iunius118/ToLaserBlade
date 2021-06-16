@@ -10,7 +10,7 @@ public class LBCasingItemColor implements IItemColor {
     @Override
     public int getColor(ItemStack stack, int tintIndex) {
         if (tintIndex == 0) {
-            LaserBladeColor color = LaserBladeColor.of(stack);
+            LaserBladeItemColor color = LaserBladeItemColor.of(stack);
             return color.gripColor | 0xFF000000;
         }
 

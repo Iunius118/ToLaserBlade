@@ -49,7 +49,7 @@ public class LaserBladeVisual {
 
         } else if (biome.getBiomeCategory() == Biome.Category.THEEND) {
             // The End
-            getOuterColor().color = Color.WHITE.getBladeColor();
+            getOuterColor().color = LaserBladeColor.WHITE.getBladeColor();
             getOuterColor().isSubtractColor = true;
             getInnerColor().isSubtractColor = true;
 
@@ -61,7 +61,7 @@ public class LaserBladeVisual {
     }
 
     public void setColorsByNetherBiome(World world, Biome biome) {
-        getOuterColor().color = Color.WHITE.getBladeColor();
+        getOuterColor().color = LaserBladeColor.WHITE.getBladeColor();
 
         if (compareBiome(world, biome, Biomes.SOUL_SAND_VALLEY) ||
                 compareBiome(world, biome, Biomes.WARPED_FOREST)) {
@@ -86,25 +86,25 @@ public class LaserBladeVisual {
     public void setColorsByTemperature(float temp) {
         if (temp > 1.5F) {
             // t > 1.5
-            getOuterColor().color = Color.TEMP_DESERT.getBladeColor();
+            getOuterColor().color = LaserBladeColor.TEMP_DESERT.getBladeColor();
         } else if (temp > 1.0F) {
             // 1.5 >= t > 1.0
-            getOuterColor().color = Color.TEMP_SAVANNA.getBladeColor();
+            getOuterColor().color = LaserBladeColor.TEMP_SAVANNA.getBladeColor();
         } else if (temp > 0.8F) {
             // 1.0 >= t > 0.8
-            getOuterColor().color = Color.TEMP_JUNGLE.getBladeColor();
+            getOuterColor().color = LaserBladeColor.TEMP_JUNGLE.getBladeColor();
         } else if (temp >= 0.5F) {
             // 0.8 >= t >= 0.5
-            getOuterColor().color = Color.RED.getBladeColor();
+            getOuterColor().color = LaserBladeColor.RED.getBladeColor();
         } else if (temp >= 0.2F) {
             // 0.5 > t >= 0.2
-            getOuterColor().color = Color.TEMP_TAIGA.getBladeColor();
+            getOuterColor().color = LaserBladeColor.TEMP_TAIGA.getBladeColor();
         } else if (temp >= -0.25F) {
             // 0.2 > t >= -0.25
-            getOuterColor().color = Color.TEMP_ICE_PLAIN.getBladeColor();
+            getOuterColor().color = LaserBladeColor.TEMP_ICE_PLAIN.getBladeColor();
         } else {
             // -0.25 > t
-            getOuterColor().color = Color.TEMP_SNOWY_TAIGA.getBladeColor();
+            getOuterColor().color = LaserBladeColor.TEMP_SNOWY_TAIGA.getBladeColor();
         }
     }
 
@@ -159,8 +159,8 @@ public class LaserBladeVisual {
         private static final String KEY_IS_OUTER_SUB_COLOR = "isSubH";
 
         public BladeColor(CompoundNBT compound) {
-            innerColor = new PartColor(compound, KEY_INNER_COLOR, KEY_IS_INNER_SUB_COLOR, Color.WHITE.getBladeColor());
-            outerColor = new PartColor(compound, KEY_OUTER_COLOR, KEY_IS_OUTER_SUB_COLOR, Color.RED.getBladeColor());
+            innerColor = new PartColor(compound, KEY_INNER_COLOR, KEY_IS_INNER_SUB_COLOR, LaserBladeColor.WHITE.getBladeColor());
+            outerColor = new PartColor(compound, KEY_OUTER_COLOR, KEY_IS_OUTER_SUB_COLOR, LaserBladeColor.RED.getBladeColor());
         }
 
         public void write(CompoundNBT compound) {
@@ -177,7 +177,7 @@ public class LaserBladeVisual {
         private static final String KEY_GRIP_COLOR = "colorG";
 
         public GripColor(CompoundNBT compound) {
-            gripColor = new PartColor(compound, KEY_GRIP_COLOR, null, Color.WHITE.getBladeColor());
+            gripColor = new PartColor(compound, KEY_GRIP_COLOR, null, LaserBladeColor.WHITE.getBladeColor());
         }
 
         public int getGripColor() {

@@ -1,7 +1,7 @@
 package com.github.iunius118.tolaserblade.entity;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
-import com.github.iunius118.tolaserblade.laserblade.Color;
+import com.github.iunius118.tolaserblade.laserblade.LaserBladeColor;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntitySize;
 import net.minecraft.entity.EntityType;
@@ -19,7 +19,7 @@ import net.minecraftforge.fml.network.NetworkHooks;
 public class LaserTrapEntity extends Entity implements IEntityAdditionalSpawnData {
     public static final ResourceLocation ID = new ResourceLocation(ToLaserBlade.MOD_ID, "laser_trap");
     private int life = 3;
-    private int color = Color.RED.getBladeColor();
+    private int color = LaserBladeColor.RED.getBladeColor();
 
     public static final String KEY_LIFE = "life";
     public static final String KEY_COLOR = "color";

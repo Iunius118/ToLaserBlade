@@ -1,8 +1,8 @@
 package com.github.iunius118.tolaserblade.item;
 
 import com.github.iunius118.tolaserblade.enchantment.ModEnchantments;
-import com.github.iunius118.tolaserblade.laserblade.Color;
 import com.github.iunius118.tolaserblade.laserblade.LaserBlade;
+import com.github.iunius118.tolaserblade.laserblade.LaserBladeColor;
 import com.github.iunius118.tolaserblade.laserblade.LaserBladePerformance;
 import com.github.iunius118.tolaserblade.laserblade.LaserBladeVisual;
 import net.minecraft.enchantment.Enchantments;
@@ -41,7 +41,7 @@ public enum LaserBladeItemStack {
         ItemStack stack = new ItemStack(ModItems.LASER_BLADE);
         LaserBladeVisual visual = LaserBlade.visualOf(stack);
         LaserBladeVisual.PartColor gripColor = visual.getGripColor();
-        gripColor.color = Color.LIGHT_GRAY.getGripColor();
+        gripColor.color = LaserBladeColor.LIGHT_GRAY.getGripColor();
         visual.write(stack.getOrCreateTag());
         return stack;
     }
@@ -50,7 +50,7 @@ public enum LaserBladeItemStack {
         ItemStack stack = new ItemStack(ModItems.LASER_BLADE);
         LaserBladeVisual visual = LaserBlade.visualOf(stack);
         LaserBladeVisual.PartColor gripColor = visual.getGripColor();
-        gripColor.color = Color.GRAY.getGripColor();
+        gripColor.color = LaserBladeColor.GRAY.getGripColor();
         visual.setModelType(526);
         visual.write(stack.getOrCreateTag());
         return stack;
@@ -76,8 +76,8 @@ public enum LaserBladeItemStack {
         LaserBladeVisual visual = laserBlade.getVisual();
         LaserBladeVisual.PartColor outerColor = visual.getOuterColor();
         LaserBladeVisual.PartColor gripColor = visual.getGripColor();
-        outerColor.color = Color.LIME.getBladeColor();
-        gripColor.color = Color.BROWN.getGripColor();
+        outerColor.color = LaserBladeColor.LIME.getBladeColor();
+        gripColor.color = LaserBladeColor.BROWN.getGripColor();
 
         laserBlade.write(stack);
         return stack;
@@ -99,14 +99,14 @@ public enum LaserBladeItemStack {
         LaserBladeVisual.PartColor innerColor = visual.getInnerColor();
         LaserBladeVisual.PartColor outerColor = visual.getOuterColor();
         LaserBladeVisual.PartColor gripColor = visual.getGripColor();
-        innerColor.color = Color.LIGHT_BLUE.getBladeColor();
-        outerColor.color = Color.BLUE.getBladeColor();
-        gripColor.color = Color.GRAY.getGripColor();
+        innerColor.color = LaserBladeColor.LIGHT_BLUE.getBladeColor();
+        outerColor.color = LaserBladeColor.BLUE.getBladeColor();
+        gripColor.color = LaserBladeColor.GRAY.getGripColor();
 
         laserBlade.write(stack);
 
         if (isDamaged) {
-            stack.setDamageValue(LaserBladeItemTier.MAX_USES - 1);
+            stack.setDamageValue(LBSwordItemTier.MAX_USES - 1);
         }
 
         return stack;
@@ -135,11 +135,11 @@ public enum LaserBladeItemStack {
         LaserBladeVisual.PartColor innerColor = visual.getInnerColor();
         LaserBladeVisual.PartColor outerColor = visual.getOuterColor();
         LaserBladeVisual.PartColor gripColor = visual.getGripColor();
-        innerColor.color = Color.WHITE.getBladeColor();
+        innerColor.color = LaserBladeColor.WHITE.getBladeColor();
         innerColor.isSubtractColor = true;
-        outerColor.color = Color.CYAN.getBladeColor();
+        outerColor.color = LaserBladeColor.CYAN.getBladeColor();
         outerColor.isSubtractColor = true;
-        gripColor.color = Color.GRAY.getGripColor();
+        gripColor.color = LaserBladeColor.GRAY.getGripColor();
 
         laserBlade.write(stack);
         return stack;
