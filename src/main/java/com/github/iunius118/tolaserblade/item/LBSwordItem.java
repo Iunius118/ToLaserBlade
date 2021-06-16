@@ -46,7 +46,7 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
     public static Item.Properties properties = (new Item.Properties()).setNoRepair().tab(ModMainItemGroup.ITEM_GROUP).setISTER(() -> LaserBladeItemRenderer::new);
 
     public LBSwordItem(boolean isFireproof) {
-        super(new LaserBladeItemTier(isFireproof), 3, -1.2F, LaserBladeItemBase.setFireproof(properties, isFireproof));
+        super(new LBSwordItemTier(isFireproof), 3, -1.2F, LaserBladeItemBase.setFireproof(properties, isFireproof));
 
         tier = getTier();
         attackDamage = 3.0F + tier.getAttackDamageBonus();

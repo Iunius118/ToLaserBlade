@@ -9,7 +9,7 @@ import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.util.ResourceLocation;
 
-public class LaserBladeItemTier implements IItemTier {
+public class LBSwordItemTier implements IItemTier {
     public static final int MAX_USES = 32000;
     public final static int NETHERITIC_HARVEST_LEVEL = 4;
     public final static int HARVEST_LEVEL = 3;
@@ -19,7 +19,7 @@ public class LaserBladeItemTier implements IItemTier {
 
     private final boolean isNetheritic;
 
-    public LaserBladeItemTier(boolean isFireproof) {
+    public LBSwordItemTier(boolean isFireproof) {
         isNetheritic = isFireproof;
     }
 
