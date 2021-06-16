@@ -6,7 +6,7 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class LaserBladeItemColor implements IItemColor {
+public class LBSwordItemColor implements IItemColor {
     @Override
     public int getColor(ItemStack stack, int tintIndex) {
         LaserBladeColor color = LaserBladeColor.of(stack);

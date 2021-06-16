@@ -6,7 +6,7 @@ import com.github.iunius118.tolaserblade.client.model.LaserBladeItemBakedModel;
 import com.github.iunius118.tolaserblade.client.renderer.color.LBCasingItemColor;
 import com.github.iunius118.tolaserblade.client.renderer.color.LBEmitterItemColor;
 import com.github.iunius118.tolaserblade.client.renderer.color.LBMediumItemColor;
-import com.github.iunius118.tolaserblade.client.renderer.color.LaserBladeItemColor;
+import com.github.iunius118.tolaserblade.client.renderer.color.LBSwordItemColor;
 import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
 import com.github.iunius118.tolaserblade.item.ModItems;
 import net.minecraft.client.Minecraft;
@@ -30,14 +30,14 @@ import net.minecraftforge.fml.VersionChecker.Status;
 public class ClientModEventHandler {
     @SubscribeEvent
     public static void onItemColorHandlerEvent(ColorHandlerEvent.Item event) {
-        event.getItemColors().register(new LaserBladeItemColor(), ModItems.LASER_BLADE);
-        event.getItemColors().register(new LaserBladeItemColor(), ModItems.LASER_BLADE_FP);
-        event.getItemColors().register(new LaserBladeItemColor(), ModItems.LB_BRAND_NEW);
-        event.getItemColors().register(new LaserBladeItemColor(), ModItems.LB_BRAND_NEW_1);
-        event.getItemColors().register(new LaserBladeItemColor(), ModItems.LB_BRAND_NEW_2);
-        event.getItemColors().register(new LaserBladeItemColor(), ModItems.LB_BRAND_NEW_FP);
-        event.getItemColors().register(new LaserBladeItemColor(), ModItems.LB_BROKEN);
-        event.getItemColors().register(new LaserBladeItemColor(), ModItems.LB_BROKEN_FP);
+        event.getItemColors().register(new LBSwordItemColor(), ModItems.LASER_BLADE);
+        event.getItemColors().register(new LBSwordItemColor(), ModItems.LASER_BLADE_FP);
+        event.getItemColors().register(new LBSwordItemColor(), ModItems.LB_BRAND_NEW);
+        event.getItemColors().register(new LBSwordItemColor(), ModItems.LB_BRAND_NEW_1);
+        event.getItemColors().register(new LBSwordItemColor(), ModItems.LB_BRAND_NEW_2);
+        event.getItemColors().register(new LBSwordItemColor(), ModItems.LB_BRAND_NEW_FP);
+        event.getItemColors().register(new LBSwordItemColor(), ModItems.LB_BROKEN);
+        event.getItemColors().register(new LBSwordItemColor(), ModItems.LB_BROKEN_FP);
         event.getItemColors().register(new LBEmitterItemColor(), ModItems.LB_EMITTER);
         event.getItemColors().register(new LBMediumItemColor(), ModItems.LB_MEDIUM);
         event.getItemColors().register(new LBCasingItemColor(), ModItems.LB_CASING);
