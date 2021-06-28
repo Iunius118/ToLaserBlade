@@ -1,14 +1,14 @@
 package com.github.iunius118.tolaserblade.client;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
+import com.github.iunius118.tolaserblade.client.color.item.LBCasingItemColor;
+import com.github.iunius118.tolaserblade.client.color.item.LBEmitterItemColor;
+import com.github.iunius118.tolaserblade.client.color.item.LBMediumItemColor;
+import com.github.iunius118.tolaserblade.client.color.item.LBSwordItemColor;
 import com.github.iunius118.tolaserblade.client.model.LaserBladeInternalModelManager;
 import com.github.iunius118.tolaserblade.client.model.LaserBladeItemBakedModel;
-import com.github.iunius118.tolaserblade.client.renderer.color.LBCasingItemColor;
-import com.github.iunius118.tolaserblade.client.renderer.color.LBEmitterItemColor;
-import com.github.iunius118.tolaserblade.client.renderer.color.LBMediumItemColor;
-import com.github.iunius118.tolaserblade.client.renderer.color.LBSwordItemColor;
 import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
-import com.github.iunius118.tolaserblade.item.ModItems;
+import com.github.iunius118.tolaserblade.world.item.ModItems;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.model.ModelResourceLocation;
 import net.minecraft.inventory.container.PlayerContainer;

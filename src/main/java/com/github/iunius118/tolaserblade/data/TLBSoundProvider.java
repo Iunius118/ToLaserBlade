@@ -1,7 +1,7 @@
 package com.github.iunius118.tolaserblade.data;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
-import com.github.iunius118.tolaserblade.util.ModSoundEvents;
+import com.github.iunius118.tolaserblade.common.util.ModSoundEvents;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;

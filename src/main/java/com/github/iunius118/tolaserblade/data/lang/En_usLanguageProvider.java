@@ -1,9 +1,9 @@
 package com.github.iunius118.tolaserblade.data.lang;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
-import com.github.iunius118.tolaserblade.enchantment.ModEnchantments;
-import com.github.iunius118.tolaserblade.item.ModItems;
-import com.github.iunius118.tolaserblade.laserblade.LaserBladeTextKey;
+import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeTextKey;
+import com.github.iunius118.tolaserblade.world.item.ModItems;
+import com.github.iunius118.tolaserblade.world.item.enchantment.ModEnchantments;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.util.ResourceLocation;

@@ -1,6 +1,6 @@
 package com.github.iunius118.tolaserblade.client.renderer.entity.model;
 
-import com.github.iunius118.tolaserblade.entity.LaserTrapEntity;
+import com.github.iunius118.tolaserblade.world.entity.LaserTrapEntity;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.client.renderer.entity.model.SegmentedModel;
 import net.minecraft.client.renderer.model.ModelRenderer;

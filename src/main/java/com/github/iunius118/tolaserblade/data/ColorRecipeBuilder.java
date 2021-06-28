@@ -1,7 +1,7 @@
 package com.github.iunius118.tolaserblade.data;
 
-import com.github.iunius118.tolaserblade.item.crafting.ModRecipeSerializers;
-import com.github.iunius118.tolaserblade.laserblade.LaserBladeColorPart;
+import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeColorPart;
+import com.github.iunius118.tolaserblade.world.item.crafting.ModRecipeSerializers;
 import com.google.gson.JsonObject;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;

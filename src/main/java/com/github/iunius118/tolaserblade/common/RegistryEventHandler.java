@@ -2,12 +2,12 @@ package com.github.iunius118.tolaserblade.common;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.data.*;
-import com.github.iunius118.tolaserblade.enchantment.LightElementEnchantment;
-import com.github.iunius118.tolaserblade.entity.LaserTrapEntity;
-import com.github.iunius118.tolaserblade.item.*;
-import com.github.iunius118.tolaserblade.item.crafting.ColorRecipe;
-import com.github.iunius118.tolaserblade.item.crafting.ModelChangeRecipe;
-import com.github.iunius118.tolaserblade.item.crafting.UpgradeRecipe;
+import com.github.iunius118.tolaserblade.world.entity.LaserTrapEntity;
+import com.github.iunius118.tolaserblade.world.item.*;
+import com.github.iunius118.tolaserblade.world.item.crafting.ColorRecipe;
+import com.github.iunius118.tolaserblade.world.item.crafting.ModelChangeRecipe;
+import com.github.iunius118.tolaserblade.world.item.crafting.UpgradeRecipe;
+import com.github.iunius118.tolaserblade.world.item.enchantment.LightElementEnchantment;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.EntityClassification;

@@ -5,8 +5,8 @@ import com.github.iunius118.tolaserblade.client.renderer.entity.LaserTrapEntityR
 import com.github.iunius118.tolaserblade.common.CommonEventHandler;
 import com.github.iunius118.tolaserblade.common.RegistryEventHandler;
 import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
-import com.github.iunius118.tolaserblade.entity.ModEntities;
-import com.github.iunius118.tolaserblade.item.ItemEventHandler;
+import com.github.iunius118.tolaserblade.world.entity.ModEntities;
+import com.github.iunius118.tolaserblade.world.item.ItemEventHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;

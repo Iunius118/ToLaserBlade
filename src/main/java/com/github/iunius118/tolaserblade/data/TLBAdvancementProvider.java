@@ -1,9 +1,9 @@
 package com.github.iunius118.tolaserblade.data;
 
-import com.github.iunius118.tolaserblade.enchantment.ModEnchantments;
-import com.github.iunius118.tolaserblade.item.LaserBladeItemStack;
-import com.github.iunius118.tolaserblade.item.ModItems;
-import com.github.iunius118.tolaserblade.laserblade.LaserBladePerformance;
+import com.github.iunius118.tolaserblade.core.laserblade.LaserBladePerformance;
+import com.github.iunius118.tolaserblade.world.item.LaserBladeItemStack;
+import com.github.iunius118.tolaserblade.world.item.ModItems;
+import com.github.iunius118.tolaserblade.world.item.enchantment.ModEnchantments;
 import com.google.common.collect.Sets;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;

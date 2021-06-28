@@ -1,7 +1,7 @@
 package com.github.iunius118.tolaserblade.tags;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
-import com.github.iunius118.tolaserblade.laserblade.upgrade.UpgradeID;
+import com.github.iunius118.tolaserblade.core.laserblade.upgrade.UpgradeID;
 import net.minecraft.item.Item;
 import net.minecraft.tags.ITag;
 import net.minecraft.tags.ItemTags;

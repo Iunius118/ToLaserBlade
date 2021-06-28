@@ -3,7 +3,7 @@ package com.github.iunius118.tolaserblade.client.renderer;
 import com.github.iunius118.tolaserblade.api.client.model.ILaserBladeModel;
 import com.github.iunius118.tolaserblade.client.model.LaserBladeInternalModelManager;
 import com.github.iunius118.tolaserblade.client.model.LaserBladeModelHolder;
-import com.github.iunius118.tolaserblade.laserblade.LaserBladeVisual;
+import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeVisual;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.model.ItemCameraTransforms;

@@ -2,9 +2,9 @@ package com.github.iunius118.tolaserblade.client.renderer.entity;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.client.renderer.LaserBladeRenderType;
-import com.github.iunius118.tolaserblade.client.renderer.color.Color4Float;
 import com.github.iunius118.tolaserblade.client.renderer.entity.model.LaserTrapModel;
-import com.github.iunius118.tolaserblade.entity.LaserTrapEntity;
+import com.github.iunius118.tolaserblade.common.util.Color4Float;
+import com.github.iunius118.tolaserblade.world.entity.LaserTrapEntity;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.renderer.IRenderTypeBuffer;

@@ -1,12 +1,12 @@
 package com.github.iunius118.tolaserblade.data;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
-import com.github.iunius118.tolaserblade.item.ModItems;
-import com.github.iunius118.tolaserblade.laserblade.LaserBladeColor;
-import com.github.iunius118.tolaserblade.laserblade.LaserBladeColorPart;
-import com.github.iunius118.tolaserblade.laserblade.upgrade.Upgrade;
-import com.github.iunius118.tolaserblade.laserblade.upgrade.UpgradeManager;
+import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeColor;
+import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeColorPart;
+import com.github.iunius118.tolaserblade.core.laserblade.upgrade.Upgrade;
+import com.github.iunius118.tolaserblade.core.laserblade.upgrade.UpgradeManager;
 import com.github.iunius118.tolaserblade.tags.ModItemTags;
+import com.github.iunius118.tolaserblade.world.item.ModItems;
 import net.minecraft.block.Blocks;
 import net.minecraft.data.*;
 import net.minecraft.item.Item;
