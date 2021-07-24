@@ -8,6 +8,9 @@
 # Exclude docs
 !/docs/
 
+# GitHub
+!/.github/
+
 # Gradle
 !/gradle/
 !gradle.properties
