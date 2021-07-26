@@ -1,7 +1,7 @@
 package com.github.iunius118.tolaserblade.common.util;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.sounds.SoundEvent;
 import net.minecraftforge.registries.ObjectHolder;
 
 @ObjectHolder(ToLaserBlade.MOD_ID)

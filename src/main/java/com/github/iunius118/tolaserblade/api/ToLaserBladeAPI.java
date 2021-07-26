@@ -1,6 +1,6 @@
 package com.github.iunius118.tolaserblade.api;
 
-import com.github.iunius118.tolaserblade.api.client.model.ILaserBladeModel;
+import com.github.iunius118.tolaserblade.api.client.model.LaserBladeModel;
 
 import java.lang.reflect.Method;
 import java.util.function.Supplier;
@@ -9,7 +9,7 @@ public class ToLaserBladeAPI {
     private static Object modelManagerInstance;
     private static Method addInternalModel;
 
-    public static void addInternalModel(int index, Supplier<? extends ILaserBladeModel> model) {
+    public static void addInternalModel(int index, Supplier<? extends LaserBladeModel> model) {
         if (modelManagerInstance == null || addInternalModel == null) {
             init();
         }

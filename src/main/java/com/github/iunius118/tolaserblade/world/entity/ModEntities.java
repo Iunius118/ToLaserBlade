@@ -1,7 +1,7 @@
 package com.github.iunius118.tolaserblade.world.entity;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
-import net.minecraft.entity.EntityType;
+import net.minecraft.world.entity.EntityType;
 import net.minecraftforge.registries.ObjectHolder;
 
 @ObjectHolder(ToLaserBlade.MOD_ID)

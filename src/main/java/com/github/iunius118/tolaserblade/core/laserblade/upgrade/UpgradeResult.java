@@ -1,6 +1,6 @@
 package com.github.iunius118.tolaserblade.core.laserblade.upgrade;
 
-import net.minecraft.item.ItemStack;
+import net.minecraft.world.item.ItemStack;
 
 public class UpgradeResult {
     private final ItemStack stack;

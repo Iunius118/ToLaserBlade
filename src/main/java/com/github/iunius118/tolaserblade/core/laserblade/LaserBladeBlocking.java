@@ -1,20 +1,20 @@
 package com.github.iunius118.tolaserblade.core.laserblade;
 
 import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.UseAction;
-import net.minecraft.util.Hand;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.UseAnim;
 
 public class LaserBladeBlocking {
     public static boolean isShield() {
         return ToLaserBladeConfig.SERVER.isEnabledBlockingWithLaserBlade.get();
     }
 
-    public static UseAction getUseAction() {
+    public static UseAnim getUseAction() {
         if (isShield()) {
-            return UseAction.BLOCK;
+            return UseAnim.BLOCK;
         } else {
-            return UseAction.NONE;
+            return UseAnim.NONE;
         }
     }
 
@@ -26,11 +26,11 @@ public class LaserBladeBlocking {
             return 0;
         }
     }
-    public static void start(PlayerEntity player, Hand hand) {
+    public static void start(Player player, InteractionHand hand) {
         if (isShield()) {
-            UseAction offhandItemAction = player.getOffhandItem().getUseAnimation();
+            UseAnim offhandItemAction = player.getOffhandItem().getUseAnimation();
 
-            if (offhandItemAction != UseAction.BOW && offhandItemAction != UseAction.SPEAR) {
+            if (offhandItemAction != UseAnim.BOW && offhandItemAction != UseAnim.SPEAR) {
                 player.startUsingItem(hand);
             }
         }

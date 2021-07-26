@@ -4,20 +4,25 @@ import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.client.color.item.LaserBladeItemColor;
 import com.github.iunius118.tolaserblade.client.model.SimpleLaserBladeModel;
 import com.google.common.collect.Maps;
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.model.*;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.BlockModel;
+import net.minecraft.client.renderer.block.model.ItemOverrides;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.inventory.container.PlayerContainer;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.Items;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.client.renderer.texture.TextureAtlas;
+import net.minecraft.client.resources.model.UnbakedModel;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.client.model.BlockModelConfiguration;
 import net.minecraftforge.client.model.IModelBuilder;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.client.model.SimpleModelTransform;
+import net.minecraftforge.client.model.SimpleModelState;
 import net.minecraftforge.client.model.data.EmptyModelData;
 import net.minecraftforge.client.model.geometry.IModelGeometry;
 import net.minecraftforge.client.model.geometry.IModelGeometryPart;
@@ -27,13 +32,13 @@ import java.util.*;
 
 public class LaserBladeOBJModel extends SimpleLaserBladeModel {
     private final Map<Part, List<BakedQuad>> PARTS = Maps.newEnumMap(Part.class);
-    private final ResourceLocation TEXTURE = PlayerContainer.BLOCK_ATLAS;
+    private final ResourceLocation TEXTURE = InventoryMenu.BLOCK_ATLAS;
 
     public void loadLaserBladeOBJModel(ModelLoader loader) {
         // Load model
         PARTS.clear();
         ResourceLocation modelLocation = new ResourceLocation(ToLaserBlade.MOD_ID, "item/laser_blade_obj");
-        IUnbakedModel model = loader.getModelOrMissing(modelLocation);
+        UnbakedModel model = loader.getModelOrMissing(modelLocation);
 
         if (!(model instanceof BlockModel))  return;
 
@@ -62,46 +67,46 @@ public class LaserBladeOBJModel extends SimpleLaserBladeModel {
             Part part = Part.find(geometryPart.name());
 
             if (part != null) {
-                IModelBuilder<?> builder = IModelBuilder.of(modelConfig, ItemOverrideList.EMPTY, Minecraft.getInstance().getItemRenderer().getItemModelShaper().getParticleIcon(Items.IRON_INGOT));
-                geometryPart.addQuads(modelConfig, builder, loader, ModelLoader.defaultTextureGetter(), SimpleModelTransform.IDENTITY, modelLocation);
+                IModelBuilder<?> builder = IModelBuilder.of(modelConfig, ItemOverrides.EMPTY, Minecraft.getInstance().getItemRenderer().getItemModelShaper().getParticleIcon(Items.IRON_INGOT));
+                geometryPart.addQuads(modelConfig, builder, loader, ModelLoader.defaultTextureGetter(), SimpleModelState.IDENTITY, modelLocation);
                 PARTS.put(part, builder.build().getQuads(null, null, new Random(42L), EmptyModelData.INSTANCE));
             }
         }
     }
 
     @Override
-    public void render(ItemStack itemStack, ItemCameraTransforms.TransformType transformType, MatrixStack matrixStack, IRenderTypeBuffer buffer, int lightmapCoord, int overlayColor) {
+    public void render(ItemStack itemStack, ItemTransforms.TransformType mode, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
         LaserBladeItemColor color = new LaserBladeItemColor(itemStack);
         final int fullLight = 0xF000F0;
 
-        IVertexBuilder currentBuffer = buffer.getBuffer(getHiltRenderType());
-        renderBakedQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeOBJModel.Part.HILT), color.gripColor, lightmapCoord, overlayColor);
-        renderBakedQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeOBJModel.Part.HILT_NO_TINT), -1, lightmapCoord, overlayColor);
+        VertexConsumer currentBuffer = vertexConsumers.getBuffer(getHiltRenderType());
+        renderBakedQuads(matrices, currentBuffer, getBakedQuads(LaserBladeOBJModel.Part.HILT), color.gripColor, light, overlay);
+        renderBakedQuads(matrices, currentBuffer, getBakedQuads(LaserBladeOBJModel.Part.HILT_NO_TINT), -1, light, overlay);
 
-        currentBuffer = buffer.getBuffer(getFlatRenderType());
-        renderBakedQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeOBJModel.Part.HILT_LIGHT), -1, fullLight, overlayColor);
+        currentBuffer = vertexConsumers.getBuffer(getFlatRenderType());
+        renderBakedQuads(matrices, currentBuffer, getBakedQuads(LaserBladeOBJModel.Part.HILT_LIGHT), -1, fullLight, overlay);
 
         if (color.isBroken) {
             return;
         }
 
-        currentBuffer = buffer.getBuffer(getInnerBladeAddRenderType(color.isInnerSubColor));
-        renderBakedQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeOBJModel.Part.BLADE_INNER), color.innerColor, fullLight, overlayColor);
+        currentBuffer = vertexConsumers.getBuffer(getInnerBladeAddRenderType(color.isInnerSubColor));
+        renderBakedQuads(matrices, currentBuffer, getBakedQuads(LaserBladeOBJModel.Part.BLADE_INNER), color.innerColor, fullLight, overlay);
 
-        currentBuffer = buffer.getBuffer(getOuterBladeAddRenderType(color.isOuterSubColor));
-        renderBakedQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeOBJModel.Part.BLADE_OUTER_1), color.outerColor, fullLight, overlayColor);
-        renderBakedQuads(matrixStack, currentBuffer, getBakedQuads(LaserBladeOBJModel.Part.BLADE_OUTER_2), color.outerColor, fullLight, overlayColor);
+        currentBuffer = vertexConsumers.getBuffer(getOuterBladeAddRenderType(color.isOuterSubColor));
+        renderBakedQuads(matrices, currentBuffer, getBakedQuads(LaserBladeOBJModel.Part.BLADE_OUTER_1), color.outerColor, fullLight, overlay);
+        renderBakedQuads(matrices, currentBuffer, getBakedQuads(LaserBladeOBJModel.Part.BLADE_OUTER_2), color.outerColor, fullLight, overlay);
     }
 
-    public void renderBakedQuads(MatrixStack matrixStack, IVertexBuilder buffer, List<BakedQuad> quads, int color, int lightmapCoord, int overlayColor) {
-        MatrixStack.Entry matrixEntry = matrixStack.last();
+    public void renderBakedQuads(PoseStack matrices, VertexConsumer buffer, List<BakedQuad> quads, int color, int light, int overlay) {
+        matrices.Entry matrixEntry = matrices.last();
         float alpha = (float)(color >>> 24 & 255) / 255.0F;
         float red   = (float)(color >>> 16 & 255) / 255.0F;
         float green = (float)(color >>> 8 & 255) / 255.0F;
         float blue  = (float)(color & 255) / 255.0F;
 
         for (BakedQuad quad : quads) {
-            buffer.addVertexData(matrixEntry, quad, red, green, blue, alpha, lightmapCoord, OverlayTexture.NO_OVERLAY, true);
+            buffer.putBulkData(matrixEntry, quad, red, green, blue, alpha, light, OverlayTexture.NO_OVERLAY, true);
         }
     }
 

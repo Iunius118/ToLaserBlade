@@ -1,8 +1,8 @@
 package com.github.iunius118.tolaserblade.core.laserblade;
 
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 
 public class LaserBlade {
     private final LaserBladePerformance performance;
@@ -10,7 +10,7 @@ public class LaserBlade {
 
     public LaserBlade(ItemStack stack) {
         Item item = stack.getItem();
-        CompoundNBT compound = stack.getOrCreateTag();
+        CompoundTag compound = stack.getOrCreateTag();
         performance = new LaserBladePerformance(compound, item.isFireResistant());
         visual = new LaserBladeVisual(compound);
     }
@@ -21,13 +21,13 @@ public class LaserBlade {
 
     public static LaserBladePerformance performanceOf(ItemStack stack) {
         Item item = stack.getItem();
-        CompoundNBT compound = stack.getOrCreateTag();
+        CompoundTag compound = stack.getOrCreateTag();
         return new LaserBladePerformance(compound, item.isFireResistant());
     }
 
     public static LaserBladeVisual visualOf(ItemStack stack) {
         Item item = stack.getItem();
-        CompoundNBT compound = stack.getOrCreateTag();
+        CompoundTag compound = stack.getOrCreateTag();
         return new LaserBladeVisual(compound);
     }
 
@@ -44,7 +44,7 @@ public class LaserBlade {
     }
 
     public void write(ItemStack stack) {
-        CompoundNBT compound = stack.getOrCreateTag();
+        CompoundTag compound = stack.getOrCreateTag();
         performance.write(compound);
         visual.write(compound);
     }

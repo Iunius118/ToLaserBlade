@@ -1,6 +1,6 @@
-package com.github.iunius118.tolaserblade.client.renderer;
+package com.github.iunius118.tolaserblade.client.renderer.item;
 
-import com.github.iunius118.tolaserblade.api.client.model.ILaserBladeModel;
+import com.github.iunius118.tolaserblade.api.client.model.LaserBladeModel;
 import com.github.iunius118.tolaserblade.client.model.LaserBladeInternalModelManager;
 import com.github.iunius118.tolaserblade.client.model.LaserBladeModelHolder;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeVisual;
@@ -18,7 +18,7 @@ public class LaserBladeItemRenderer extends ItemStackTileEntityRenderer {
     @Override
     //  TODO: renderByItem = render
     public void renderByItem(ItemStack itemStack, ItemCameraTransforms.TransformType transformType, MatrixStack matrixStack, IRenderTypeBuffer buffer, int lightmapCoord, int overlayColor) {
-        ILaserBladeModel model;
+        LaserBladeModel model;
         LaserBladeInternalModelManager internalModelManager = LaserBladeInternalModelManager.getInstance();
 
         if (internalModelManager.canRenderMultipleModels()) {

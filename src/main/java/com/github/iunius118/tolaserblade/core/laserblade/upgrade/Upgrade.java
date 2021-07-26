@@ -1,7 +1,7 @@
 package com.github.iunius118.tolaserblade.core.laserblade.upgrade;
 
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
 
 import javax.annotation.Nullable;
 import java.lang.reflect.Constructor;

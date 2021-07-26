@@ -1,7 +1,7 @@
 package com.github.iunius118.tolaserblade.core.laserblade.upgrade;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
 
 public enum UpgradeID {
     EFFICIENCY_UPGRADE("upgrade/efficiency", "efc"),

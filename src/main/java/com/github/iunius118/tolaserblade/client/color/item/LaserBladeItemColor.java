@@ -6,10 +6,9 @@ import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeVisual;
 import com.github.iunius118.tolaserblade.world.item.LBBrandNewItem;
 import com.github.iunius118.tolaserblade.world.item.LBBrokenItem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -83,11 +82,11 @@ public class LaserBladeItemColor {
 
     private int getGamingColor() {
         Minecraft minecraft = Minecraft.getInstance();
-        PlayerEntity player = minecraft.player;
+        Player player = minecraft.player;
 
         if (player != null) {
-            World world = player.level;
-            int tick1 = (int)(world.getGameTime() % 30);
+            var level = player.level;
+            int tick1 = (int)(level.getGameTime() % 30);
             int tick2 = tick1 % 10;
             float partialTick = minecraft.getFrameTime();
             int colorElement;

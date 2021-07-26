@@ -1,7 +1,7 @@
 package com.github.iunius118.tolaserblade.client.model;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
-import com.github.iunius118.tolaserblade.api.client.model.ILaserBladeModel;
+import com.github.iunius118.tolaserblade.api.client.model.LaserBladeModel;
 import com.github.iunius118.tolaserblade.client.model.laserblade.*;
 import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
 
@@ -11,9 +11,9 @@ import java.util.function.Supplier;
 
 public class LaserBladeInternalModelManager {
     private static LaserBladeInternalModelManager instance;
-    private static final ILaserBladeModel defaultModel = new LaserBladeModelType0();
-    private final Map<Integer, Supplier<? extends ILaserBladeModel>> models;
-    private final Map<Integer, ILaserBladeModel> modelCache;
+    private static final LaserBladeModel defaultModel = new LaserBladeModelType0();
+    private final Map<Integer, Supplier<? extends LaserBladeModel>> models;
+    private final Map<Integer, LaserBladeModel> modelCache;
     private final boolean canUseInternalModel;
     private final boolean canRenderMultipleModels;
 
@@ -59,7 +59,7 @@ public class LaserBladeInternalModelManager {
         models.put(1216, LaserBladeModelType1216::new);
     }
 
-    public void addInternalModel(int index, Supplier<? extends ILaserBladeModel> model) {
+    public void addInternalModel(int index, Supplier<? extends LaserBladeModel> model) {
         if (index < 0) {
             ToLaserBlade.LOGGER.warn("[ToLaserBlade] Attempted to add a model to invalid number {}.", index);
             return;
@@ -77,24 +77,24 @@ public class LaserBladeInternalModelManager {
         models.put(index, model);
     }
 
-    public ILaserBladeModel getModel() {
+    public LaserBladeModel getModel() {
         int modelType = ToLaserBladeConfig.CLIENT.internalModelType.get();
         return getModel(modelType);
     }
 
-    public ILaserBladeModel getModel(int modelType) {
+    public LaserBladeModel getModel(int modelType) {
         if (modelType < 0) {
             modelType = ToLaserBlade.getTodayDateNumber();
         }
 
-        ILaserBladeModel model = modelCache.get(modelType);
+        LaserBladeModel model = modelCache.get(modelType);
 
         if(model != null) {
             // Return cached model
             return model;
         }
 
-        Supplier<? extends ILaserBladeModel> supplier = models.get(modelType);
+        Supplier<? extends LaserBladeModel> supplier = models.get(modelType);
 
         if (supplier == null) {
             // Return default model for non-existent model type

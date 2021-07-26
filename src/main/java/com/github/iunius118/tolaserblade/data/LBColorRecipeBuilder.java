@@ -1,48 +1,51 @@
 package com.github.iunius118.tolaserblade.data;
 
+import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeColorPart;
 import com.github.iunius118.tolaserblade.world.item.crafting.ModRecipeSerializers;
 import com.google.gson.JsonObject;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
-import net.minecraft.advancements.ICriterionInstance;
-import net.minecraft.advancements.IRequirementsStrategy;
-import net.minecraft.advancements.criterion.RecipeUnlockedTrigger;
-import net.minecraft.data.IFinishedRecipe;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.advancements.CriterionTriggerInstance;
+import net.minecraft.advancements.RequirementsStrategy;
+import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
+import net.minecraft.data.recipes.FinishedRecipe;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
 
 import javax.annotation.Nullable;
 import java.util.function.Consumer;
 
-public class UpgradeRecipeBuilder {
-    private final IRecipeSerializer<?> serializer;
+public class LBColorRecipeBuilder {
+    private final RecipeSerializer<?> serializer;
     private final Ingredient base;
     private final Ingredient addition;
-    private final ResourceLocation upgradeId;
+    private final String part;
+    private final int color;
     private final Advancement.Builder advancementBuilder = Advancement.Builder.advancement();
 
-    public UpgradeRecipeBuilder(IRecipeSerializer<?> serializer, Ingredient base, Ingredient addition, ResourceLocation upgradeId) {
+    public LBColorRecipeBuilder(RecipeSerializer<?> serializer, Ingredient base, Ingredient addition, LaserBladeColorPart colorPart, int color) {
         this.serializer = serializer;
         this.base = base;
         this.addition = addition;
-        this.upgradeId = upgradeId;
+        this.part = colorPart.getPartName();
+        this.color = color;
     }
 
-    public static UpgradeRecipeBuilder upgradeRecipe(Ingredient base, Ingredient addition, ResourceLocation upgradeId) {
-        return new UpgradeRecipeBuilder(ModRecipeSerializers.UPGRADE, base, addition, upgradeId);
+    public static LBColorRecipeBuilder colorRecipe(Ingredient base, Ingredient addition, LaserBladeColorPart colorPart, int color) {
+        return new LBColorRecipeBuilder(ModRecipeSerializers.COLOR, base, addition, colorPart, color);
     }
 
-    public UpgradeRecipeBuilder addCriterion(String name, ICriterionInstance criterion) {
+    public LBColorRecipeBuilder addCriterion(String name, CriterionTriggerInstance criterion) {
         advancementBuilder.addCriterion(name, criterion);
         return this;
     }
 
-    public void build(Consumer<IFinishedRecipe> consumer, String id) {
+    public void build(Consumer<FinishedRecipe> consumer, String id) {
         build(consumer, new ResourceLocation(id));
     }
 
-    public void build(Consumer<IFinishedRecipe> consumer, ResourceLocation id) {
+    public void build(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
         if (advancementBuilder.getCriteria().isEmpty()) {
             throw new IllegalStateException("No way of obtaining recipe " + id);
         }
@@ -51,25 +54,27 @@ public class UpgradeRecipeBuilder {
                 .parent(new ResourceLocation("recipes/root"))
                 .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))
                 .rewards(AdvancementRewards.Builder.recipe(id))
-                .requirements(IRequirementsStrategy.OR);
-        consumer.accept(new UpgradeRecipeBuilder.Result(id, serializer, base, addition, upgradeId, advancementBuilder, new ResourceLocation(id.getNamespace(), "recipes/" + id.getPath())));
+                .requirements(RequirementsStrategy.OR);
+        consumer.accept(new LBColorRecipeBuilder.Result(id, serializer, base, addition, part, color, advancementBuilder, new ResourceLocation(id.getNamespace(), "recipes/" + id.getPath())));
     }
 
-    public static class Result implements IFinishedRecipe {
+    public static class Result implements FinishedRecipe {
         private final ResourceLocation id;
-        private final IRecipeSerializer<?> serializer;
+        private final RecipeSerializer<?> serializer;
         private final Ingredient base;
         private final Ingredient addition;
-        private final ResourceLocation upgradeId;
+        private final String part;
+        private final int color;
         private final Advancement.Builder advancementBuilder;
         private final ResourceLocation advancementId;
 
-        public Result(ResourceLocation id, IRecipeSerializer<?> serializer, Ingredient base, Ingredient addition, ResourceLocation upgradeId, Advancement.Builder advancementBuilder, ResourceLocation advancementId) {
+        public Result(ResourceLocation id, RecipeSerializer<?> serializer, Ingredient base, Ingredient addition, String part, int color, Advancement.Builder advancementBuilder, ResourceLocation advancementId) {
             this.id = id;
             this.serializer = serializer;
             this.base = base;
             this.addition = addition;
-            this.upgradeId = upgradeId;
+            this.part = part;
+            this.color = color;
             this.advancementBuilder = advancementBuilder;
             this.advancementId = advancementId;
         }
@@ -79,7 +84,8 @@ public class UpgradeRecipeBuilder {
             json.add("base", this.base.toJson());
             json.add("addition", this.addition.toJson());
             JsonObject result = new JsonObject();
-            result.addProperty("type", upgradeId.toString());
+            result.addProperty("part", part);
+            result.addProperty("color", color);
             json.add("result", result);
         }
 

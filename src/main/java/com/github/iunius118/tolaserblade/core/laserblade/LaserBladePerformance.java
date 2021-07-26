@@ -1,13 +1,13 @@
 package com.github.iunius118.tolaserblade.core.laserblade;
 
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.util.Mth;
 
 public class LaserBladePerformance {
     private final AttackPerformance attackPerformance;
     private final boolean isFireproof;
 
-    public LaserBladePerformance(CompoundNBT compound, boolean isFireproofIn) {
+    public LaserBladePerformance(CompoundTag compound, boolean isFireproofIn) {
         attackPerformance = new AttackPerformance(compound);
         isFireproof = isFireproofIn;
     }
@@ -20,7 +20,7 @@ public class LaserBladePerformance {
         return isFireproof;
     }
 
-    public void write(CompoundNBT compound) {
+    public void write(CompoundTag compound) {
         attackPerformance.write(compound);
     }
 
@@ -42,26 +42,26 @@ public class LaserBladePerformance {
         public static final String KEY_ATK = "ATK";
         public static final String KEY_SPD = "SPD";
 
-        public AttackPerformance(CompoundNBT compound) {
-            damage = MathHelper.clamp(compound.getFloat(KEY_ATK), MOD_ATK_MIN, MOD_ATK_MAX);
-            speed = MathHelper.clamp(compound.getFloat(KEY_SPD), MOD_SPD_MIN, MOD_SPD_MAX);
+        public AttackPerformance(CompoundTag compound) {
+            damage = Mth.clamp(compound.getFloat(KEY_ATK), MOD_ATK_MIN, MOD_ATK_MAX);
+            speed = Mth.clamp(compound.getFloat(KEY_SPD), MOD_SPD_MIN, MOD_SPD_MAX);
         }
 
         public void changeDamageSafely(float damage) {
-            this.damage = MathHelper.clamp(damage, MOD_ATK_MIN, MOD_ATK_MAX);
+            this.damage = Mth.clamp(damage, MOD_ATK_MIN, MOD_ATK_MAX);
         }
 
         public void changeSpeedSafely(float speed) {
-            this.speed = MathHelper.clamp(speed, MOD_SPD_MIN, MOD_SPD_MAX);
+            this.speed = Mth.clamp(speed, MOD_SPD_MIN, MOD_SPD_MAX);
         }
 
         public boolean canUpgradeSpeed() {
             return this.speed < MOD_SPD_MAX;
         }
 
-        public void write(CompoundNBT compound) {
-            compound.putFloat(KEY_ATK, MathHelper.clamp(damage, MOD_ATK_MIN, MOD_ATK_MAX));
-            compound.putFloat(KEY_SPD, MathHelper.clamp(speed, MOD_SPD_MIN, MOD_SPD_MAX));
+        public void write(CompoundTag compound) {
+            compound.putFloat(KEY_ATK, Mth.clamp(damage, MOD_ATK_MIN, MOD_ATK_MAX));
+            compound.putFloat(KEY_SPD, Mth.clamp(speed, MOD_SPD_MIN, MOD_SPD_MAX));
         }
     }
 }

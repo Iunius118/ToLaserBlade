@@ -6,18 +6,14 @@ import com.github.iunius118.tolaserblade.client.color.item.LBEmitterItemColor;
 import com.github.iunius118.tolaserblade.client.color.item.LBMediumItemColor;
 import com.github.iunius118.tolaserblade.client.color.item.LBSwordItemColor;
 import com.github.iunius118.tolaserblade.client.model.LaserBladeInternalModelManager;
-import com.github.iunius118.tolaserblade.client.model.LaserBladeItemBakedModel;
+import com.github.iunius118.tolaserblade.client.renderer.item.model.LBSwordItemModel;
 import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
 import com.github.iunius118.tolaserblade.world.item.ModItems;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.model.ModelResourceLocation;
-import net.minecraft.inventory.container.PlayerContainer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.StringTextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.util.text.event.ClickEvent;
+import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.network.chat.ClickEvent;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
@@ -70,7 +66,7 @@ public class ClientModEventHandler {
         ModelResourceLocation lBBrandNewFPItemID = new ModelResourceLocation(ModItems.LB_BRAND_NEW_FP.getRegistryName(), "inventory");
         ModelResourceLocation lBBrokenItemID = new ModelResourceLocation(ModItems.LB_BROKEN.getRegistryName(), "inventory");
         ModelResourceLocation lBBrokenFPItemID = new ModelResourceLocation(ModItems.LB_BROKEN_FP.getRegistryName(), "inventory");
-        LaserBladeItemBakedModel bakedModel = new LaserBladeItemBakedModel();
+        LBSwordItemModel bakedModel = new LBSwordItemModel();
 
         bakedModel.loadModel(event);
         event.getModelRegistry().put(laserBladeItemID, bakedModel);
@@ -94,11 +90,11 @@ public class ClientModEventHandler {
         }
 
         if (status == Status.OUTDATED || status == Status.BETA_OUTDATED) {
-            ITextComponent modNameHighlighted = new StringTextComponent(ToLaserBlade.MOD_NAME).withStyle(TextFormatting.YELLOW);
+            TextComponent modNameHighlighted = new StringTextComponent(ToLaserBlade.MOD_NAME).withStyle(TextFormatting.YELLOW);
 
-            ITextComponent newVersionHighlighted = new StringTextComponent(result.target.toString()).withStyle(TextFormatting.YELLOW);
+            TextComponent newVersionHighlighted = new StringTextComponent(result.target.toString()).withStyle(TextFormatting.YELLOW);
 
-            ITextComponent message = new TranslationTextComponent("tolaserblade.update.newVersion", modNameHighlighted).append(": ")
+            TextComponent message = new TranslatableComponent("tolaserblade.update.newVersion", modNameHighlighted).append(": ")
                     .append(newVersionHighlighted)
                     .withStyle(style -> style.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, result.url)));
 

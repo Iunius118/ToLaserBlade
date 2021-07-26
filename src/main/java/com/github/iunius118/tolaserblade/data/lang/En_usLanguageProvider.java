@@ -5,8 +5,6 @@ import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeTextKey;
 import com.github.iunius118.tolaserblade.world.item.ModItems;
 import com.github.iunius118.tolaserblade.world.item.enchantment.ModEnchantments;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.data.LanguageProvider;
 
 public class En_usLanguageProvider extends LanguageProvider {

@@ -1,14 +1,13 @@
 package com.github.iunius118.tolaserblade.core.laserblade;
 
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.RegistryKey;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.registry.DynamicRegistries;
-import net.minecraft.util.registry.MutableRegistry;
-import net.minecraft.util.registry.Registry;
-import net.minecraft.world.World;
-import net.minecraft.world.biome.Biome;
-import net.minecraft.world.biome.Biomes;
+import net.minecraft.core.Registry;
+import net.minecraft.core.RegistryAccess;
+import net.minecraft.nbt.CompoundTag;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.level.biome.Biomes;
 import net.minecraftforge.common.util.Constants;
 
 public class LaserBladeVisual {
@@ -16,7 +15,7 @@ public class LaserBladeVisual {
     private final Coloring coloring;
 
 
-    public LaserBladeVisual(CompoundNBT compound) {
+    public LaserBladeVisual(CompoundTag compound) {
         modelType = new ModelType(compound);
         coloring = new Coloring(compound);
     }
@@ -41,30 +40,30 @@ public class LaserBladeVisual {
         modelType.type = type;
     }
 
-    public void setColorsByBiome(World world, Biome biome) {
+    public void setColorsByBiome(Level level, Biome biome) {
         // Color by Biome type or Biome temperature
-        if (biome.getBiomeCategory() == Biome.Category.NETHER) {
+        if (biome.getBiomeCategory() == Biome.BiomeCategory.NETHER) {
             // The Nether
-            setColorsByNetherBiome(world, biome);
+            setColorsByNetherBiome(level, biome);
 
-        } else if (biome.getBiomeCategory() == Biome.Category.THEEND) {
+        } else if (biome.getBiomeCategory() == Biome.BiomeCategory.THEEND) {
             // The End
             getOuterColor().color = LaserBladeColor.WHITE.getBladeColor();
             getOuterColor().isSubtractColor = true;
             getInnerColor().isSubtractColor = true;
 
         } else {
-            // Biomes on Over-world etc.
+            // Biomes on Over-level etc.
             float temp = biome.getBaseTemperature();
             setColorsByTemperature(temp);
         }
     }
 
-    public void setColorsByNetherBiome(World world, Biome biome) {
+    public void setColorsByNetherBiome(Level level, Biome biome) {
         getOuterColor().color = LaserBladeColor.WHITE.getBladeColor();
 
-        if (compareBiome(world, biome, Biomes.SOUL_SAND_VALLEY) ||
-                compareBiome(world, biome, Biomes.WARPED_FOREST)) {
+        if (compareBiome(level, biome, Biomes.SOUL_SAND_VALLEY) ||
+                compareBiome(level, biome, Biomes.WARPED_FOREST)) {
             getOuterColor().isSubtractColor = true;
 
         } else {
@@ -72,11 +71,11 @@ public class LaserBladeVisual {
         }
     }
 
-    private boolean compareBiome(World world, Biome biome, RegistryKey<Biome> biomeKey) {
-        if (world == null || biome == null || biomeKey == null) return false;
+    private boolean compareBiome(Level level, Biome biome, ResourceKey<Biome> biomeKey) {
+        if (level == null || biome == null || biomeKey == null) return false;
 
-        DynamicRegistries registries = world.registryAccess();   // TODO: registryAccess = getDynamicRegistries ?
-        MutableRegistry<Biome> biomes = registries.registryOrThrow(Registry.BIOME_REGISTRY);
+        RegistryAccess registries = level.registryAccess();
+        Registry<Biome> biomes = registries.registryOrThrow(Registry.BIOME_REGISTRY);
         ResourceLocation biome1 = biomes.getKey(biome);
         ResourceLocation biome2 = biomeKey.location();
 
@@ -108,7 +107,7 @@ public class LaserBladeVisual {
         }
     }
 
-    public void write(CompoundNBT compound) {
+    public void write(CompoundTag compound) {
         modelType.write(compound);
         coloring.write(compound);
     }
@@ -119,13 +118,13 @@ public class LaserBladeVisual {
 
         private static final String KEY_TYPE = "type";
 
-        public ModelType(CompoundNBT compound) {
+        public ModelType(CompoundTag compound) {
             if (compound.contains(KEY_TYPE, Constants.NBT.TAG_INT)) {
                 type = compound.getInt(KEY_TYPE);
             }
         }
 
-        public void write(CompoundNBT compound) {
+        public void write(CompoundTag compound) {
             if (type >= 0) {
                 compound.putInt(KEY_TYPE, type);
             } else if (compound.contains(KEY_TYPE, Constants.NBT.TAG_INT)) {
@@ -138,12 +137,12 @@ public class LaserBladeVisual {
         private final BladeColor bladeColor;
         private final GripColor gripColor;
 
-        public Coloring(CompoundNBT compound) {
+        public Coloring(CompoundTag compound) {
             bladeColor = new BladeColor(compound);
             gripColor = new GripColor(compound);
         }
 
-        public void write(CompoundNBT compound) {
+        public void write(CompoundTag compound) {
             bladeColor.write(compound);
             gripColor.write(compound);
         }
@@ -158,12 +157,12 @@ public class LaserBladeVisual {
         private static final String KEY_IS_INNER_SUB_COLOR = "isSubC";
         private static final String KEY_IS_OUTER_SUB_COLOR = "isSubH";
 
-        public BladeColor(CompoundNBT compound) {
+        public BladeColor(CompoundTag compound) {
             innerColor = new PartColor(compound, KEY_INNER_COLOR, KEY_IS_INNER_SUB_COLOR, LaserBladeColor.WHITE.getBladeColor());
             outerColor = new PartColor(compound, KEY_OUTER_COLOR, KEY_IS_OUTER_SUB_COLOR, LaserBladeColor.RED.getBladeColor());
         }
 
-        public void write(CompoundNBT compound) {
+        public void write(CompoundTag compound) {
             compound.putInt(KEY_INNER_COLOR, innerColor.color);
             compound.putBoolean(KEY_IS_INNER_SUB_COLOR, innerColor.isSubtractColor);
             compound.putInt(KEY_OUTER_COLOR, outerColor.color);
@@ -176,7 +175,7 @@ public class LaserBladeVisual {
 
         private static final String KEY_GRIP_COLOR = "colorG";
 
-        public GripColor(CompoundNBT compound) {
+        public GripColor(CompoundTag compound) {
             gripColor = new PartColor(compound, KEY_GRIP_COLOR, null, LaserBladeColor.WHITE.getBladeColor());
         }
 
@@ -184,7 +183,7 @@ public class LaserBladeVisual {
             return gripColor.color;
         }
 
-        public void write(CompoundNBT compound) {
+        public void write(CompoundTag compound) {
             compound.putInt(KEY_GRIP_COLOR, gripColor.color);
         }
     }
@@ -193,7 +192,7 @@ public class LaserBladeVisual {
         public int color = -1;
         public boolean isSubtractColor = false;
 
-        public PartColor(CompoundNBT compound, String colorKey, String subKey, int defaultColor) {
+        public PartColor(CompoundTag compound, String colorKey, String subKey, int defaultColor) {
             color = defaultColor;
 
             if (colorKey != null && compound.contains(colorKey, Constants.NBT.TAG_INT)) {

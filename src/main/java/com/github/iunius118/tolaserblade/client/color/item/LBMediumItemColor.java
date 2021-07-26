@@ -1,12 +1,12 @@
 package com.github.iunius118.tolaserblade.client.color.item;
 
-import net.minecraft.client.renderer.color.IItemColor;
-import net.minecraft.item.ItemStack;
+import net.minecraft.client.color.item.ItemColor;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
-public class LBMediumItemColor implements IItemColor {
+public class LBMediumItemColor implements ItemColor {
     @Override
     public int getColor(ItemStack stack, int tintIndex) {
         if (tintIndex == 1) {

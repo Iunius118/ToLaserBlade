@@ -1,12 +1,12 @@
 package com.github.iunius118.tolaserblade.world.item;
 
-import com.github.iunius118.tolaserblade.client.renderer.LBBrokenItemRenderer;
+import com.github.iunius118.tolaserblade.client.renderer.item.LBBrokenItemRenderer;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.Upgrade;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.world.World;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -28,8 +28,8 @@ public class LBBrokenItem extends Item implements LaserBladeItemBase {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-        super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        LaserBladeItemUtil.addLaserBladeInformation(stack, worldIn, tooltip, flagIn, upgradeType);
+    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
+        super.appendHoverText(stack, level, tooltip, flag);
+        LaserBladeItemUtil.addLaserBladeInformation(stack, level, tooltip, flag, upgradeType);
     }
 }

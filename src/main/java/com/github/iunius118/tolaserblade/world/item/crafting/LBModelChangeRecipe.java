@@ -5,28 +5,28 @@ import com.github.iunius118.tolaserblade.core.laserblade.LaserBlade;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeVisual;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import net.minecraft.block.Blocks;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.item.crafting.IRecipeType;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.SmithingRecipe;
-import net.minecraft.network.PacketBuffer;
-import net.minecraft.util.JSONUtils;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
+import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.GsonHelper;
+import net.minecraft.world.Container;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.UpgradeRecipe;
+import net.minecraft.world.level.Level;
+import net.minecraft.world.level.block.Blocks;
 
 import javax.annotation.Nullable;
 
-public class ModelChangeRecipe extends SmithingRecipe {
+public class LBModelChangeRecipe extends UpgradeRecipe {
     private final Ingredient base;
     private final Ingredient addition;
     private final int type;
     private final ResourceLocation recipeId;
     private ItemStack sample;
 
-    public ModelChangeRecipe(ResourceLocation recipeId, Ingredient base, Ingredient addition, int type) {
+    public LBModelChangeRecipe(ResourceLocation recipeId, Ingredient base, Ingredient addition, int type) {
         super(recipeId, base, addition, getResultItemStack(base));
         this.recipeId = recipeId;
         this.base = base;
@@ -45,20 +45,21 @@ public class ModelChangeRecipe extends SmithingRecipe {
     }
 
     @Override
-    public boolean matches(IInventory inv, World worldIn) {
-        if (base.test(inv.getItem(0)) && addition.test(inv.getItem(1))) {
-            ItemStack baseStack = inv.getItem(0);
+    public boolean matches(Container container, Level level) {
+        if (base.test(container.getItem(0)) && addition.test(container.getItem(1))) {
+            ItemStack baseStack = container.getItem(0);
             LaserBladeVisual visual = LaserBlade.visualOf(baseStack);
             int baseType = visual.getModelType();
-            return type < 0 || baseType != type;   // If type < 0, set today date number or reset model type
+            // If type < 0, set today date number or reset model type
+            return type < 0 || baseType != type;
         }
 
         return false;
     }
 
     @Override
-    public ItemStack assemble(IInventory inv) {
-        ItemStack baseStack = inv.getItem(0);
+    public ItemStack assemble(Container container) {
+        ItemStack baseStack = container.getItem(0);
         ItemStack itemstack = baseStack.copy();
         return getResult(itemstack);
     }
@@ -78,8 +79,8 @@ public class ModelChangeRecipe extends SmithingRecipe {
     }
 
     @Override
-    public boolean canCraftInDimensions(int width, int height) {
-        return width * height >= 2;
+    public boolean canCraftInDimensions(int i, int j) {
+        return super.canCraftInDimensions(i, j);
     }
 
     @Override
@@ -108,37 +109,38 @@ public class ModelChangeRecipe extends SmithingRecipe {
     }
 
     @Override
-    public IRecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<?> getSerializer() {
         return ModRecipeSerializers.MODEL_CHANGE;
     }
 
     @Override
-    public IRecipeType<?> getType() {
-        return IRecipeType.SMITHING;
+    public RecipeType<?> getType() {
+        // Treat as RecipeType.SMITHING to use on smithing table
+        return super.getType();
     }
 
-    public static class Serializer extends net.minecraftforge.registries.ForgeRegistryEntry<IRecipeSerializer<?>> implements IRecipeSerializer<ModelChangeRecipe> {
+    public static class Serializer extends net.minecraftforge.registries.ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<LBModelChangeRecipe> {
         @Override
-        public ModelChangeRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
-            Ingredient base = Ingredient.fromJson(JSONUtils.getAsJsonObject(json, "base"));
-            Ingredient addition = Ingredient.fromJson(JSONUtils.getAsJsonObject(json, "addition"));
-            JsonObject result = JSONUtils.getAsJsonObject(json, "result");
+        public LBModelChangeRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
+            Ingredient base = Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "base"));
+            Ingredient addition = Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "addition"));
+            JsonObject result = GsonHelper.getAsJsonObject(json, "result");
             JsonElement modelType = result.get("model_type");
             int type = modelType.getAsInt();
-            return new ModelChangeRecipe(recipeId, base, addition, type);
+            return new LBModelChangeRecipe(recipeId, base, addition, type);
         }
 
         @Nullable
         @Override
-        public ModelChangeRecipe fromNetwork(ResourceLocation recipeId, PacketBuffer buffer) {
+        public LBModelChangeRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
             Ingredient base = Ingredient.fromNetwork(buffer);
             Ingredient addition = Ingredient.fromNetwork(buffer);
             int type = buffer.readInt();
-            return new ModelChangeRecipe(recipeId, base, addition, type);
+            return new LBModelChangeRecipe(recipeId, base, addition, type);
         }
 
         @Override
-        public void toNetwork(PacketBuffer buffer, ModelChangeRecipe recipe) {
+        public void toNetwork(FriendlyByteBuf buffer, LBModelChangeRecipe recipe) {
             recipe.base.toNetwork(buffer);
             recipe.addition.toNetwork(buffer);
             buffer.writeInt(recipe.type);

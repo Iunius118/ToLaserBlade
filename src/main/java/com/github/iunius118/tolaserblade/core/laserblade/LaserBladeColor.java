@@ -1,6 +1,6 @@
 package com.github.iunius118.tolaserblade.core.laserblade;
 
-import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.Mth;
 
 public enum LaserBladeColor {
     WHITE(0xFFFFFFFF, 0xFFF9FFFE, "white"),
@@ -39,7 +39,7 @@ public enum LaserBladeColor {
 
     public static LaserBladeColor get(int index) {
         final LaserBladeColor[] values = LaserBladeColor.values();
-        return values[MathHelper.clamp(index, 0, values.length - 1)];
+        return values[Mth.clamp(index, 0, values.length - 1)];
     }
 
     public int getBladeColor() {

@@ -2,15 +2,14 @@ package com.github.iunius118.tolaserblade.world.item;
 
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.entity.ai.attributes.Attribute;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.ai.attributes.Attributes;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.inventory.EquipmentSlotType;
-import net.minecraft.item.*;
-import net.minecraft.util.ActionResultType;
-import net.minecraft.world.World;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.level.Level;
 
 public class DXLaserBladeItem extends SwordItem {
     private final float attackDamage;
@@ -19,17 +18,17 @@ public class DXLaserBladeItem extends SwordItem {
     public DXLaserBladeItem() {
         super(new DXLaserBladeItemTier(), 3, -1.2F, (new Item.Properties()).tab(ModMainItemGroup.ITEM_GROUP));
 
-        IItemTier tier = getTier();
+        ItemTier tier = getTier();
         attackDamage = 3.0F + tier.getAttackDamageBonus();
         attackSpeed = -1.2F;
     }
 
     @Override
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        World world = attacker.getCommandSenderWorld();
+        Level level = attacker.getCommandSenderWorld();
 
-        if (!world.isClientSide && attacker instanceof PlayerEntity) {
-            DXLaserBladeItemUtil.playSwingSound(world, attacker);
+        if (!level.isClientSide && attacker instanceof Player) {
+            DXLaserBladeItemUtil.playSwingSound(level, attacker);
         }
 
         return super.hurtEnemy(stack, target, attacker);

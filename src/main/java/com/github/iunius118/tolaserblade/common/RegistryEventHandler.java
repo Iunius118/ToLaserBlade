@@ -4,18 +4,12 @@ import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.data.*;
 import com.github.iunius118.tolaserblade.world.entity.LaserTrapEntity;
 import com.github.iunius118.tolaserblade.world.item.*;
-import com.github.iunius118.tolaserblade.world.item.crafting.ColorRecipe;
-import com.github.iunius118.tolaserblade.world.item.crafting.ModelChangeRecipe;
-import com.github.iunius118.tolaserblade.world.item.crafting.UpgradeRecipe;
+import com.github.iunius118.tolaserblade.world.item.crafting.LBColorRecipe;
+import com.github.iunius118.tolaserblade.world.item.crafting.LBModelChangeRecipe;
+import com.github.iunius118.tolaserblade.world.item.crafting.LBUpgradeRecipe;
 import com.github.iunius118.tolaserblade.world.item.enchantment.LightElementEnchantment;
+import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.entity.EntityClassification;
-import net.minecraft.entity.EntityType;
-import net.minecraft.item.Item;
-import net.minecraft.item.crafting.IRecipeSerializer;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundEvent;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.ForgeBlockTagsProvider;
 import net.minecraftforge.event.RegistryEvent;
@@ -27,9 +21,9 @@ public class RegistryEventHandler {
     @SubscribeEvent
     public static void onRecipeSerializerRegistry(RegistryEvent.Register<IRecipeSerializer<?>> event) {
         event.getRegistry().registerAll(
-                new UpgradeRecipe.Serializer().setRegistryName("tolaserblade:upgrade"),
-                new ColorRecipe.Serializer().setRegistryName("tolaserblade:color"),
-                new ModelChangeRecipe.Serializer().setRegistryName("tolaserblade:model_change")
+                new LBUpgradeRecipe.Serializer().setRegistryName("tolaserblade:upgrade"),
+                new LBColorRecipe.Serializer().setRegistryName("tolaserblade:color"),
+                new LBModelChangeRecipe.Serializer().setRegistryName("tolaserblade:model_change")
         );
     }
 
@@ -78,6 +72,16 @@ public class RegistryEventHandler {
 
         event.getRegistry().registerAll(
                 laserTrap.setRegistryName(LaserTrapEntity.ID)
+        );
+    }
+
+    // Register Particle Types
+    @SubscribeEvent
+    public static void onParticleTypeRegistry(RegistryEvent.Register<ParticleType<?>> event) {
+        event.getRegistry().registerAll(
+                new SimpleParticleType(true).setRegistryName("laser_trap_x"),
+                new SimpleParticleType(true).setRegistryName("laser_trap_y"),
+                new SimpleParticleType(true).setRegistryName("laser_trap_z")
         );
     }
 

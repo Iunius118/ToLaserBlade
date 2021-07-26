@@ -3,13 +3,13 @@ package com.github.iunius118.tolaserblade.core.laserblade.upgrade;
 import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.tags.ModItemTags;
 import com.github.iunius118.tolaserblade.world.item.enchantment.ModEnchantments;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.tags.ITag;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -34,7 +34,7 @@ public class UpgradeManager {
         register(UpgradeID.ATTACK_SPEED_UPGRADE, ModItemTags.ATTACK_SPEED_UPGRADE, SpeedUpgrade.class);
     }
 
-    private static void register(UpgradeID id, ITag.INamedTag<Item> tag, Class<? extends Upgrade> upgradeClass) {
+    private static void register(UpgradeID id, Tag.Named<Item> tag, Class<? extends Upgrade> upgradeClass) {
         Upgrade upgrade = Upgrade.of(upgradeClass, () -> Ingredient.of(tag), id.getShortName());
 
         if (upgrade != null) {
@@ -42,7 +42,7 @@ public class UpgradeManager {
         }
     }
 
-    private static void registerEnchantment(UpgradeID id, ITag.INamedTag<Item> tag, Enchantment enchantment) {
+    private static void registerEnchantment(UpgradeID id, Tag.Named<Item> tag, Enchantment enchantment) {
         Upgrade upgrade = EnchantmentUpgrade.of(() -> Ingredient.of(tag), enchantment, id.getShortName());
         upgrades.put(id.getID(), upgrade);
     }

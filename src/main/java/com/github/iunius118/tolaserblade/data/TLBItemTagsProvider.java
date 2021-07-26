@@ -1,23 +1,24 @@
 package com.github.iunius118.tolaserblade.data;
 
+import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.tags.ModItemTags;
-import net.minecraft.data.BlockTagsProvider;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.item.Items;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.data.tags.BlockTagsProvider;
+import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Items;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.common.data.ForgeItemTagsProvider;
 
 import java.nio.file.Path;
 import java.util.HashSet;
 import java.util.Set;
 
-public class TLBItemTagsProvider extends ForgeItemTagsProvider {
+public class TLBItemTagsProvider extends ItemTagsProvider {
     private Set<ResourceLocation> filter = null;
 
     public TLBItemTagsProvider(DataGenerator gen, BlockTagsProvider blockTagProvider, ExistingFileHelper existingFileHelper) {
-        super(gen, blockTagProvider, existingFileHelper);
+        super(gen, blockTagProvider, ToLaserBlade.MOD_ID, existingFileHelper);
     }
 
     @SuppressWarnings("unchecked")

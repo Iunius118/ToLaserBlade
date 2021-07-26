@@ -12,19 +12,13 @@ import com.google.gson.JsonPrimitive;
 import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.FrameType;
-import net.minecraft.advancements.IRequirementsStrategy;
-import net.minecraft.advancements.criterion.*;
+import net.minecraft.advancements.RequirementsStrategy;
+import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.data.DirectoryCache;
-import net.minecraft.data.IDataProvider;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.item.SwordItem;
-import net.minecraft.nbt.CompoundNBT;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TranslationTextComponent;
+import net.minecraft.data.DataProvider;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Items;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -33,7 +27,7 @@ import java.nio.file.Path;
 import java.util.Set;
 import java.util.function.Consumer;
 
-public class TLBAdvancementProvider implements IDataProvider {
+public class TLBAdvancementProvider implements DataProvider {
     private static final Logger LOGGER = LogManager.getLogger();
     private static final Gson GSON = (new GsonBuilder()).setPrettyPrinting().create();
     private final DataGenerator generator;
@@ -46,15 +40,15 @@ public class TLBAdvancementProvider implements IDataProvider {
         // Main root
         Advancement root = Advancement.Builder.advancement()
                 .display(LaserBladeItemStack.ICON.getCopy(),
-                        new TranslationTextComponent("advancements.tolaserblade.main.root.title"),
-                        new TranslationTextComponent("advancements.tolaserblade.main.root.description"),
+                        new TranslatableComponent("advancements.tolaserblade.main.root.title"),
+                        new TranslatableComponent("advancements.tolaserblade.main.root.description"),
                         new ResourceLocation("textures/block/polished_andesite.png"),
                         FrameType.TASK, false, false, false)
-                .addCriterion("has_redstone", InventoryChangeTrigger.Instance.hasItems(Items.REDSTONE))
-                .addCriterion("has_dx_laser_blade", InventoryChangeTrigger.Instance.hasItems(ModItems.DX_LASER_BLADE))
-                .addCriterion("has_laser_blade", InventoryChangeTrigger.Instance.hasItems(ModItems.LASER_BLADE))
-                .addCriterion("has_laser_blade_fp", InventoryChangeTrigger.Instance.hasItems(ModItems.LASER_BLADE_FP))
-                .requirements(IRequirementsStrategy.OR)
+                .addCriterion("has_redstone", InventoryChangeTrigger.TriggerInstance.hasItems(Items.REDSTONE))
+                .addCriterion("has_dx_laser_blade", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.DX_LASER_BLADE))
+                .addCriterion("has_laser_blade", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.LASER_BLADE))
+                .addCriterion("has_laser_blade_fp", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.LASER_BLADE_FP))
+                .requirements(RequirementsStrategy.OR)
                 .save(consumer, "tolaserblade:main/root");
 
         // 1. Laser Blade?

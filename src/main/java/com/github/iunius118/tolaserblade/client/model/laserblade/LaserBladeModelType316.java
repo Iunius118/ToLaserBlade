@@ -3,17 +3,17 @@ package com.github.iunius118.tolaserblade.client.model.laserblade;
 import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.client.color.item.LaserBladeItemColor;
 import com.github.iunius118.tolaserblade.client.model.SimpleLaserBladeModel;
+import com.github.iunius118.tolaserblade.client.model.Vector2f;
 import com.google.common.collect.ImmutableList;
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.vector.Quaternion;
-import net.minecraft.util.math.vector.Vector2f;
-import net.minecraft.util.math.vector.Vector3f;
-import net.minecraft.util.math.vector.Vector4f;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Quaternion;
+import com.mojang.math.Vector3f;
+import com.mojang.math.Vector4f;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 
@@ -28,51 +28,52 @@ public class LaserBladeModelType316 extends SimpleLaserBladeModel {
     public static final List<SimpleQuad> SHIELD_OUT_QUADS;
 
     @Override
-    public void render(ItemStack itemStack, ItemCameraTransforms.TransformType transformType, MatrixStack matrixStack, IRenderTypeBuffer buffer, int lightmapCoord, int overlayColor) {
+    public void render(ItemStack itemStack, ItemTransforms.TransformType mode, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
         if (itemStack.getItem().isFireResistant()) {
-            renderSword(itemStack, transformType, matrixStack, buffer, lightmapCoord, overlayColor);
+            renderSword(itemStack, mode, matrices, vertexConsumers, light, overlay);
         } else {
-            renderShield(itemStack, transformType, matrixStack, buffer, lightmapCoord, overlayColor);
+            renderShield(itemStack, mode, matrices, vertexConsumers, light, overlay);
         }
     }
 
-    private void renderSword(ItemStack itemStack, ItemCameraTransforms.TransformType transformType, MatrixStack matrixStack, IRenderTypeBuffer buffer, int lightmapCoord, int overlayColor) {
+    private void renderSword(ItemStack itemStack, ItemTransforms.TransformType mode, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
         LaserBladeItemColor color = new LaserBladeItemColor(itemStack);
         final int fullLight = 0xF000F0;
 
-        IVertexBuilder currentBuffer = buffer.getBuffer(getHiltRenderType());
-        renderQuads(matrixStack, currentBuffer, HILT_QUADS, color.gripColor, lightmapCoord, overlayColor);
+        VertexConsumer currentBuffer = vertexConsumers.getBuffer(getHiltRenderType());
+        renderQuads(matrices, currentBuffer, HILT_QUADS, color.gripColor, light, overlay);
 
         if (color.isBroken) {
             return;
         }
 
-        currentBuffer = buffer.getBuffer(getInnerBladeAddRenderType(color.isInnerSubColor));
-        renderQuads(matrixStack, currentBuffer, BLADE_IN_QUADS, color.innerColor, fullLight, overlayColor);
+        currentBuffer = vertexConsumers.getBuffer(getInnerBladeAddRenderType(color.isInnerSubColor));
+        renderQuads(matrices, currentBuffer, BLADE_IN_QUADS, color.innerColor, fullLight, overlay);
 
-        currentBuffer = buffer.getBuffer(getOuterBladeAddRenderType(color.isOuterSubColor));
-        renderQuads(matrixStack, currentBuffer, BLADE_OUT_QUADS, color.outerColor, fullLight, overlayColor);
+        currentBuffer = vertexConsumers.getBuffer(getOuterBladeAddRenderType(color.isOuterSubColor));
+        renderQuads(matrices, currentBuffer, BLADE_OUT_QUADS, color.outerColor, fullLight, overlay);
     }
 
-    private void renderShield(ItemStack itemStack, ItemCameraTransforms.TransformType transformType, MatrixStack matrixStack, IRenderTypeBuffer buffer, int lightmapCoord, int overlayColor) {
-        transformShield(transformType, matrixStack);    // Extra camera transforming
+    private void renderShield(ItemStack itemStack, ItemTransforms.TransformType mode, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
+        // Extra camera transforming
+        transformShield(mode, matrices);
 
         LaserBladeItemColor color = new LaserBladeItemColor(itemStack);
         final int fullLight = 0xF000F0;
 
-        IVertexBuilder currentBuffer = buffer.getBuffer(getHiltRenderType());
-        renderQuads(matrixStack, currentBuffer, SHIELD_GRIP_QUADS, color.gripColor, lightmapCoord, overlayColor);
+        VertexConsumer currentBuffer = vertexConsumers.getBuffer(getHiltRenderType());
+        renderQuads(matrices, currentBuffer, SHIELD_GRIP_QUADS, color.gripColor, light, overlay);
 
         if (color.isBroken) {
             return;
         }
 
-        currentBuffer = buffer.getBuffer(getInnerBladeAddRenderType(color.isInnerSubColor));
-        renderQuads(matrixStack, currentBuffer, SHIELD_IN_QUADS, color.innerColor, fullLight, overlayColor);
+        currentBuffer = vertexConsumers.getBuffer(getInnerBladeAddRenderType(color.isInnerSubColor));
+        renderQuads(matrices, currentBuffer, SHIELD_IN_QUADS, color.innerColor, fullLight, overlay);
 
-        currentBuffer = buffer.getBuffer(getOuterBladeAddRenderType(color.isOuterSubColor));
-        renderQuads(matrixStack, currentBuffer, SHIELD_MID_QUADS, color.outerColor, fullLight, overlayColor);
-        renderQuads(matrixStack, currentBuffer, SHIELD_OUT_QUADS, color.outerColor, fullLight, overlayColor);
+        currentBuffer = vertexConsumers.getBuffer(getOuterBladeAddRenderType(color.isOuterSubColor));
+        renderQuads(matrices, currentBuffer, SHIELD_MID_QUADS, color.outerColor, fullLight, overlay);
+        renderQuads(matrices, currentBuffer, SHIELD_OUT_QUADS, color.outerColor, fullLight, overlay);
     }
 
     private static final Quaternion fpRightHandRotation;
@@ -93,25 +94,25 @@ public class LaserBladeModelType316 extends SimpleLaserBladeModel {
         guiRotation.mul(new Quaternion(Vector3f.ZP, 180.0F, true));
     }
 
-    private void transformShield(ItemCameraTransforms.TransformType transformType, MatrixStack matrixStack) {
-        if (transformType == ItemCameraTransforms.TransformType.FIRST_PERSON_RIGHT_HAND) {
-            matrixStack.mulPose(fpRightHandRotation);
-            matrixStack.translate(0.0D, -0.3125D, 0.0D);
-            matrixStack.scale(1.5F, 1.5F, 1.5F);
+    private void transformShield(ItemTransforms.TransformType mode, PoseStack matrices) {
+        if (mode == ItemTransforms.TransformType.FIRST_PERSON_RIGHT_HAND) {
+            matrices.mulPose(fpRightHandRotation);
+            matrices.translate(0.0D, -0.3125D, 0.0D);
+            matrices.scale(1.5F, 1.5F, 1.5F);
 
-        } else if (transformType == ItemCameraTransforms.TransformType.FIRST_PERSON_LEFT_HAND) {
-            matrixStack.translate(0.0D, 0.3125D, 0.0D);
-            matrixStack.mulPose(fpLeftHandRotation);
-            matrixStack.translate(0.0D, -0.15625D, 0.3125D);
-            matrixStack.scale(1.5F, 1.5F, 1.5F);
+        } else if (mode == ItemTransforms.TransformType.FIRST_PERSON_LEFT_HAND) {
+            matrices.translate(0.0D, 0.3125D, 0.0D);
+            matrices.mulPose(fpLeftHandRotation);
+            matrices.translate(0.0D, -0.15625D, 0.3125D);
+            matrices.scale(1.5F, 1.5F, 1.5F);
 
-        } else if (transformType == ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND) {
-            matrixStack.translate(0.0D, 0.3125D, 0.0D);
-            matrixStack.mulPose(tpLeftHandRotation);
+        } else if (mode == ItemTransforms.TransformType.THIRD_PERSON_LEFT_HAND) {
+            matrices.translate(0.0D, 0.3125D, 0.0D);
+            matrices.mulPose(tpLeftHandRotation);
 
-        } else if (transformType == ItemCameraTransforms.TransformType.FIXED || transformType == ItemCameraTransforms.TransformType.GUI) {
-            matrixStack.translate(0.15625D, 0.75D, -0.15625D);
-            matrixStack.mulPose(guiRotation);
+        } else if (mode == ItemTransforms.TransformType.FIXED || mode == ItemTransforms.TransformType.GUI) {
+            matrices.translate(0.15625D, 0.75D, -0.15625D);
+            matrices.mulPose(guiRotation);
         }
     }
 

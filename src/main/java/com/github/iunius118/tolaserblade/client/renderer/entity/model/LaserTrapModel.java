@@ -2,26 +2,25 @@ package com.github.iunius118.tolaserblade.client.renderer.entity.model;
 
 import com.github.iunius118.tolaserblade.world.entity.LaserTrapEntity;
 import com.google.common.collect.ImmutableList;
-import net.minecraft.client.renderer.entity.model.SegmentedModel;
-import net.minecraft.client.renderer.model.ModelRenderer;
+import net.minecraft.client.model.ListModel;
+import net.minecraft.client.model.geom.ModelPart;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
+import java.util.Collections;
+
 @OnlyIn(Dist.CLIENT)
-public class LaserTrapModel extends SegmentedModel<LaserTrapEntity> {
-    private final ModelRenderer laserBeam;
+public class LaserTrapModel extends ListModel<LaserTrapEntity> {
+    private final ModelPart laserBeam;
 
     public LaserTrapModel() {
-        texWidth = 32;
-        texHeight = 32;
-
-        laserBeam = new ModelRenderer(this);
-        laserBeam.texOffs(0, 0).addBox(-1.0F, -8.0F, -1.0F, 2.0F, 16.0F, 2.0F);
+        var cube = new ModelPart.Cube(0, 0, -1.0F, -8.0F, -1.0F, 2.0F, 16.0F, 2.0F, 0, 0, 0, false, 32, 32);
+        laserBeam = new ModelPart(ImmutableList.of(cube), Collections.emptyMap());
         laserBeam.setPos(0.0F, 8.0F, 0.0F);
     }
 
     @Override
-    public Iterable<ModelRenderer> parts() {
+    public Iterable<ModelPart> parts() {
         return ImmutableList.of(this.laserBeam);
     }
 

@@ -6,21 +6,18 @@ import com.github.iunius118.tolaserblade.core.laserblade.LaserBladePerformance;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeTextKey;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeVisual;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.Upgrade;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.LivingEntity;
-import net.minecraft.item.IItemTier;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
-import net.minecraft.util.math.MathHelper;
-import net.minecraft.util.math.vector.Vector3d;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.util.text.TextFormatting;
-import net.minecraft.util.text.TranslationTextComponent;
-import net.minecraft.world.World;
+import com.mojang.math.Vector3d;
+import net.minecraft.ChatFormatting;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -37,10 +34,10 @@ public class LaserBladeItemUtil {
         return tier.getSpeed() * MathHelper.clamp(rate, 0.0F, 1.0F);
     }
 
-    public static void playSwingSound(World world, LivingEntity entity, boolean isFireResistant) {
+    public static void playSwingSound(Level level, LivingEntity entity, boolean isFireResistant) {
         SoundEvent soundEvent = isFireResistant ? ModSoundEvents.ITEM_LASER_BLADE_FP_SWING : ModSoundEvents.ITEM_LASER_BLADE_SWING;
         Vector3d pos = entity.position().add(0, entity.getEyeHeight(), 0).add(entity.getLookAngle());
-        world.playSound(null, pos.x, pos.y, pos.z, soundEvent, SoundCategory.PLAYERS, 0.5F, 1.0F);
+        level.playSound(null, pos.x, pos.y, pos.z, soundEvent, SoundCategory.PLAYERS, 0.5F, 1.0F);
     }
 
     public static void addItemStacks(NonNullList<ItemStack> items, boolean isFireResistant) {
@@ -60,7 +57,7 @@ public class LaserBladeItemUtil {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static void addLaserBladeInformation(ItemStack itemStack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn, Upgrade.Type upgradeType) {
+    public static void addLaserBladeInformation(ItemStack itemStack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag, Upgrade.Type upgradeType) {
         LaserBlade laserBlade = LaserBlade.of(itemStack);
         boolean isFireproof = laserBlade.isFireproof();
 
@@ -104,26 +101,26 @@ public class LaserBladeItemUtil {
             int modelType = visual.getModelType();
 
             if (modelType >= 0) {
-                tooltip.add(LaserBladeTextKey.KEY_TOOLTIP_MODEL.translate(modelType).withStyle(TextFormatting.DARK_GRAY));
+                tooltip.add(LaserBladeTextKey.KEY_TOOLTIP_MODEL.translate(modelType).withStyle(ChatFormatting.DARK_GRAY));
             }
     }
 
     @OnlyIn(Dist.CLIENT)
-    private static void addAttackDamage(List<ITextComponent> tooltip, float atk) {
+    private static void addAttackDamage(List<Component> tooltip, float atk) {
         if (atk <= -0.005F || atk >= 0.005) {
             tooltip.add(getUpgradeTextComponent(LaserBladeTextKey.KEY_TOOLTIP_ATTACK_DAMAGE.getKey(), atk));
         }
     }
 
     @OnlyIn(Dist.CLIENT)
-    private static void addAttackSpeed(List<ITextComponent> tooltip, float spd) {
+    private static void addAttackSpeed(List<Component> tooltip, float spd) {
         if (spd <= -0.005F || spd >= 0.005) {
             tooltip.add(getUpgradeTextComponent(LaserBladeTextKey.KEY_TOOLTIP_ATTACK_SPEED.getKey(), spd));
         }
     }
 
     @OnlyIn(Dist.CLIENT)
-    private static ITextComponent getUpgradeTextComponent(String key, float value) {
-        return new TranslationTextComponent(key, (value < 0 ? "" : "+") + ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(value)).withStyle(TextFormatting.DARK_GREEN);
+    private static Component getUpgradeTextComponent(String key, float value) {
+        return new TranslatableComponent(key, (value < 0 ? "" : "+") + ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(value)).withStyle(ChatFormatting.DARK_GREEN);
     }
 }
