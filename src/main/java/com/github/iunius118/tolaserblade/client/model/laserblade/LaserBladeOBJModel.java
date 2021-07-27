@@ -99,7 +99,7 @@ public class LaserBladeOBJModel extends SimpleLaserBladeModel {
     }
 
     public void renderBakedQuads(PoseStack matrices, VertexConsumer buffer, List<BakedQuad> quads, int color, int light, int overlay) {
-        matrices.Entry matrixEntry = matrices.last();
+        PoseStack.Pose matrixEntry = matrices.last();
         float alpha = (float)(color >>> 24 & 255) / 255.0F;
         float red   = (float)(color >>> 16 & 255) / 255.0F;
         float green = (float)(color >>> 8 & 255) / 255.0F;

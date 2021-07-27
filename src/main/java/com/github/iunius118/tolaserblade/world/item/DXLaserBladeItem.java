@@ -1,26 +1,17 @@
 package com.github.iunius118.tolaserblade.world.item;
 
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
 public class DXLaserBladeItem extends SwordItem {
-    private final float attackDamage;
-    private final float attackSpeed;
-
     public DXLaserBladeItem() {
         super(new DXLaserBladeItemTier(), 3, -1.2F, (new Item.Properties()).tab(ModMainItemGroup.ITEM_GROUP));
-
-        ItemTier tier = getTier();
-        attackDamage = 3.0F + tier.getAttackDamageBonus();
-        attackSpeed = -1.2F;
     }
 
     @Override
@@ -36,13 +27,11 @@ public class DXLaserBladeItem extends SwordItem {
 
     @Override
     public boolean onEntitySwing(ItemStack stack, LivingEntity entity) {
-        World world = entity.getCommandSenderWorld();
+        Level level = entity.getCommandSenderWorld();
 
-        if (!world.isClientSide && entity instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity)entity;
-
+        if (!level.isClientSide && entity instanceof Player player) {
             if (!player.swinging) {
-                DXLaserBladeItemUtil.playSwingSound(world, entity);
+                DXLaserBladeItemUtil.playSwingSound(level, entity);
             }
         }
 
@@ -50,26 +39,12 @@ public class DXLaserBladeItem extends SwordItem {
     }
 
     @Override
-    public ActionResultType useOn(ItemUseContext context) {
+    public InteractionResult useOn(UseOnContext context) {
         return DXLaserBladeItemUtil.useOn(context, getTier());
     }
 
     @Override
     public boolean isRepairable(ItemStack stack) {
         return false;
-    }
-
-    @Override
-    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType slot, ItemStack stack) {
-        Multimap<Attribute, AttributeModifier> multimap = HashMultimap.create();
-
-        if (slot == EquipmentSlotType.MAINHAND) {
-            multimap.put(Attributes.ATTACK_DAMAGE,
-                    new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", attackDamage, AttributeModifier.Operation.ADDITION));
-            multimap.put(Attributes.ATTACK_SPEED,
-                    new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", attackSpeed, AttributeModifier.Operation.ADDITION));
-        }
-
-        return multimap;
     }
 }

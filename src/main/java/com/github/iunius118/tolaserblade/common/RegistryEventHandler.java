@@ -8,18 +8,26 @@ import com.github.iunius118.tolaserblade.world.item.crafting.LBColorRecipe;
 import com.github.iunius118.tolaserblade.world.item.crafting.LBModelChangeRecipe;
 import com.github.iunius118.tolaserblade.world.item.crafting.LBUpgradeRecipe;
 import com.github.iunius118.tolaserblade.world.item.enchantment.LightElementEnchantment;
+import net.minecraft.core.particles.ParticleType;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.data.DataGenerator;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvent;
+import net.minecraft.world.entity.EntityType;
+import net.minecraft.world.entity.MobCategory;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.ForgeBlockTagsProvider;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
-import net.minecraftforge.fml.event.lifecycle.GatherDataEvent;
+import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 
 public class RegistryEventHandler {
     // Register recipe Serializers
     @SubscribeEvent
-    public static void onRecipeSerializerRegistry(RegistryEvent.Register<IRecipeSerializer<?>> event) {
+    public static void onRecipeSerializerRegistry(RegistryEvent.Register<RecipeSerializer<?>> event) {
         event.getRegistry().registerAll(
                 new LBUpgradeRecipe.Serializer().setRegistryName("tolaserblade:upgrade"),
                 new LBColorRecipe.Serializer().setRegistryName("tolaserblade:color"),
@@ -63,7 +71,7 @@ public class RegistryEventHandler {
     @SubscribeEvent
     public static void onEntityRegistry(RegistryEvent.Register<EntityType<?>> event) {
         EntityType<LaserTrapEntity> laserTrap = EntityType.Builder
-                .<LaserTrapEntity>of(LaserTrapEntity::new, EntityClassification.MISC)
+                .<LaserTrapEntity>of(LaserTrapEntity::new, MobCategory.MISC)
                 .sized(1.0F, 1.0F).fireImmune()
                 .setTrackingRange(64).setUpdateInterval(4).setShouldReceiveVelocityUpdates(false)
                 .build(LaserTrapEntity.ID.toString());

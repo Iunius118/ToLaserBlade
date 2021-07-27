@@ -4,21 +4,21 @@ import com.github.iunius118.tolaserblade.core.laserblade.LaserBlade;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladePerformance;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeVisual;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.Upgrade;
-import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.enchantment.DamageEnchantment;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.enchantment.EnchantmentHelper;
-import net.minecraft.enchantment.Enchantments;
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemGroup;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.Hand;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.text.ITextComponent;
-import net.minecraft.world.World;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.enchantment.DamageEnchantment;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.Level;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -40,18 +40,18 @@ public class LBDisassembledItem extends Item implements LaserBladeItemBase {
     }
 
     @Override
-    public ActionResult<ItemStack> use(World worldIn, PlayerEntity playerIn, Hand handIn) {
-        ItemStack itemStack = playerIn.getItemInHand(handIn);
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+        ItemStack itemStack = player.getItemInHand(hand);
 
-        if (!worldIn.isClientSide()) {
-            disassembleLaserBlade(worldIn, playerIn, itemStack);
+        if (!level.isClientSide()) {
+            disassembleLaserBlade(level, player, itemStack);
             itemStack.shrink(1);
         }
 
-        return ActionResult.success(itemStack);
+        return InteractionResultHolder.success(itemStack);
     }
 
-    private void disassembleLaserBlade(World worldIn, PlayerEntity playerIn, ItemStack itemStack) {
+    private void disassembleLaserBlade(Level level, Player player, ItemStack itemStack) {
         ItemStack batteryStack = new ItemStack(ModItems.LB_BATTERY);
         ItemStack mediumStack = new ItemStack(ModItems.LB_MEDIUM);
         ItemStack emitterStack = new ItemStack(ModItems.LB_EMITTER);
@@ -133,19 +133,19 @@ public class LBDisassembledItem extends Item implements LaserBladeItemBase {
         casing.write(casingStack);
 
         // Drop items
-        dropItem(batteryStack, playerIn);
-        dropItem(mediumStack, playerIn);
-        dropItem(emitterStack, playerIn);
-        dropItem(casingStack, playerIn);
+        dropItem(batteryStack, player);
+        dropItem(mediumStack, player);
+        dropItem(emitterStack, player);
+        dropItem(casingStack, player);
     }
 
-    private void dropItem(ItemStack itemStack, PlayerEntity playerIn) {
-        ItemEntity itemEntity = new ItemEntity(playerIn.level, playerIn.getX(), playerIn.getY() + 0.5, playerIn.getZ(), itemStack);
-        playerIn.level.addFreshEntity(itemEntity);
+    private void dropItem(ItemStack itemStack, Player player) {
+        ItemEntity itemEntity = new ItemEntity(player.level, player.getX(), player.getY() + 0.5, player.getZ(), itemStack);
+        player.level.addFreshEntity(itemEntity);
     }
 
     @Override
-    public void fillItemCategory(ItemGroup group, NonNullList<ItemStack> items) {
+    public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
         super.fillItemCategory(group, items);
         if (group != ModMainItemGroup.ITEM_GROUP) return;
 
@@ -158,8 +158,8 @@ public class LBDisassembledItem extends Item implements LaserBladeItemBase {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-        super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        LaserBladeItemUtil.addLaserBladeInformation(stack, worldIn, tooltip, flagIn, upgradeType);
+    public void appendHoverText(ItemStack stack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
+        super.appendHoverText(stack, level, tooltip, flag);
+        LaserBladeItemUtil.addLaserBladeInformation(stack, level, tooltip, flag, upgradeType);
     }
 }

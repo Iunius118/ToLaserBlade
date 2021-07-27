@@ -1,9 +1,9 @@
 package com.github.iunius118.tolaserblade.world.item;
 
-import net.minecraft.entity.item.ItemEntity;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResultType;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.item.ItemEntity;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.entity.player.CriticalHitEvent;
 import net.minecraftforge.event.entity.player.PlayerDestroyItemEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -18,25 +18,25 @@ public class ItemEventHandler {
         if (itemStack != null && (itemStack.getItem() == ModItems.LASER_BLADE || itemStack.getItem() == ModItems.LASER_BLADE_FP)) {
             // Avoid duplication of Laser Blade when player interact with Item Frame
             event.setCanceled(true);
-            PlayerEntity player = event.getPlayer();
+            Player player = event.getPlayer();
             ItemStack itemStack1 = itemStack.isEmpty() ? ItemStack.EMPTY : itemStack.copy();
 
             if (event.getTarget().interact(event.getPlayer(), event.getHand()).consumesAction()) {
-                if (player.abilities.instabuild && itemStack == event.getItemStack() && itemStack.getCount() < itemStack1.getCount()) {
+                if (player.getAbilities().instabuild && itemStack == event.getItemStack() && itemStack.getCount() < itemStack1.getCount()) {
                     itemStack.setCount(itemStack1.getCount());
                 }
 
-                event.setCancellationResult(ActionResultType.SUCCESS);
+                event.setCancellationResult(InteractionResult.SUCCESS);
                 return;
             }
 
-            event.setCancellationResult(ActionResultType.PASS);
+            event.setCancellationResult(InteractionResult.PASS);
         }
     }
 
     @SubscribeEvent
     public static void onPlayerDestroyItem(PlayerDestroyItemEvent event) {
-        PlayerEntity player = event.getPlayer();
+        Player player = event.getPlayer();
 
         if (!player.getCommandSenderWorld().isClientSide) {
             ItemStack original = event.getOriginal();

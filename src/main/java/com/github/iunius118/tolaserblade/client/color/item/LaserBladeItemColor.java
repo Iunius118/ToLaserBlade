@@ -94,25 +94,19 @@ public class LaserBladeItemColor {
             if (tick2 % 10 < 5) {
                 colorElement = (int)(((float)tick2 + partialTick) * (float)0x33) & 0xFF;
 
-                switch (tick1 / 10) {
-                    case 0:
-                        return 0xFFFF0000 | (colorElement << 8);
-                    case 1:
-                        return 0xFF00FF00 | colorElement;
-                    default:
-                        return 0xFF0000FF | (colorElement << 16);
-                }
+                return switch (tick1 / 10) {
+                    case 0 -> 0xFFFF0000 | (colorElement << 8);
+                    case 1 -> 0xFF00FF00 | colorElement;
+                    default -> 0xFF0000FF | (colorElement << 16);
+                };
             } else {
                 colorElement = (int)(((float)(10 - tick2) - partialTick) * (float)0x33) & 0xFF;
 
-                switch (tick1 / 10) {
-                    case 0:
-                        return 0xFF00FF00 | (colorElement << 16);
-                    case 1:
-                        return 0xFF0000FF | (colorElement << 8);
-                    default:
-                        return 0xFFFF0000 | colorElement;
-                }
+                return switch (tick1 / 10) {
+                    case 0 -> 0xFF00FF00 | (colorElement << 16);
+                    case 1 -> 0xFF0000FF | (colorElement << 8);
+                    default -> 0xFFFF0000 | colorElement;
+                };
             }
 
 

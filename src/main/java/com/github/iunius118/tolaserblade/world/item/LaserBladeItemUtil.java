@@ -12,12 +12,16 @@ import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundEvent;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -29,15 +33,15 @@ public class LaserBladeItemUtil {
 
     }
 
-    public static float getDestroySpeed(ItemStack itemStack, IItemTier tier) {
+    public static float getDestroySpeed(ItemStack itemStack, Tier tier) {
         float rate = (float) EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY, itemStack) / 5.0F;
-        return tier.getSpeed() * MathHelper.clamp(rate, 0.0F, 1.0F);
+        return tier.getSpeed() * Mth.clamp(rate, 0.0F, 1.0F);
     }
 
     public static void playSwingSound(Level level, LivingEntity entity, boolean isFireResistant) {
         SoundEvent soundEvent = isFireResistant ? ModSoundEvents.ITEM_LASER_BLADE_FP_SWING : ModSoundEvents.ITEM_LASER_BLADE_SWING;
-        Vector3d pos = entity.position().add(0, entity.getEyeHeight(), 0).add(entity.getLookAngle());
-        level.playSound(null, pos.x, pos.y, pos.z, soundEvent, SoundCategory.PLAYERS, 0.5F, 1.0F);
+        Vec3 pos = entity.position().add(0, entity.getEyeHeight(), 0).add(entity.getLookAngle());
+        level.playSound(null, pos.x, pos.y, pos.z, soundEvent, SoundSource.PLAYERS, 0.5F, 1.0F);
     }
 
     public static void addItemStacks(NonNullList<ItemStack> items, boolean isFireResistant) {
@@ -62,41 +66,33 @@ public class LaserBladeItemUtil {
         boolean isFireproof = laserBlade.isFireproof();
 
         if (isFireproof) {
-            tooltip.add(LaserBladeTextKey.KEY_TOOLTIP_FIREPROOF.translate().withStyle(TextFormatting.GOLD));
+            tooltip.add(LaserBladeTextKey.KEY_TOOLTIP_FIREPROOF.translate().withStyle(ChatFormatting.GOLD));
         }
 
         switch (upgradeType) {
-            case BATTERY:
-                addAttackSpeed(tooltip, laserBlade.getAttackPerformance().speed);
-                break;
-            case MEDIUM:
-                addAttackDamage(tooltip, laserBlade.getAttackPerformance().damage);
-                break;
-            case EMITTER:
-                break;
-            case CASING:
-            case OTHER:
+            case BATTERY -> addAttackSpeed(tooltip, laserBlade.getAttackPerformance().speed);
+            case MEDIUM -> addAttackDamage(tooltip, laserBlade.getAttackPerformance().damage);
+            case EMITTER -> {}
+            case CASING, OTHER -> addModelType(tooltip, laserBlade);
+            case REPAIR -> {
                 addModelType(tooltip, laserBlade);
-                break;
-            case REPAIR:
-                addModelType(tooltip, laserBlade);
-
                 LaserBladePerformance.AttackPerformance attack = laserBlade.getAttackPerformance();
                 addAttackDamage(tooltip, attack.damage);
                 addAttackSpeed(tooltip, attack.speed);
-                break;
+            }
+            default -> {}
         }
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static void addBrandNewText(List<ITextComponent> tooltip) {
-        tooltip.add(new TranslationTextComponent("tooltip.tolaserblade.brandNew1").withStyle(TextFormatting.YELLOW));
-        tooltip.add(new TranslationTextComponent("tooltip.tolaserblade.brandNew2").withStyle(TextFormatting.YELLOW));
-        tooltip.add(new TranslationTextComponent("tooltip.tolaserblade.brandNew3").withStyle(TextFormatting.YELLOW));
+    public static void addBrandNewText(List<Component> tooltip) {
+        tooltip.add(new TranslatableComponent("tooltip.tolaserblade.brandNew1").withStyle(ChatFormatting.YELLOW));
+        tooltip.add(new TranslatableComponent("tooltip.tolaserblade.brandNew2").withStyle(ChatFormatting.YELLOW));
+        tooltip.add(new TranslatableComponent("tooltip.tolaserblade.brandNew3").withStyle(ChatFormatting.YELLOW));
     }
 
     @OnlyIn(Dist.CLIENT)
-    private static void addModelType(List<ITextComponent> tooltip, LaserBlade laserBlade) {
+    private static void addModelType(List<Component> tooltip, LaserBlade laserBlade) {
             LaserBladeVisual visual = laserBlade.getVisual();
             int modelType = visual.getModelType();
 

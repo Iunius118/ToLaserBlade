@@ -3,12 +3,19 @@ package com.github.iunius118.tolaserblade.world.item;
 import com.github.iunius118.tolaserblade.common.util.ModSoundEvents;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
+import net.minecraft.sounds.SoundSource;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.context.BlockPlaceContext;
+import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
+import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
 public class DXLaserBladeItemUtil {
@@ -16,17 +23,17 @@ public class DXLaserBladeItemUtil {
 
     }
 
-    public static ActionResultType useOn(ItemUseContext context, IItemTier tier) {
-        World world = context.getLevel();
-        PlayerEntity player = context.getPlayer();
-        ItemStack itemStack = context.getItemInHand();
-        BlockPos pos = context.getClickedPos();
-        Direction facing = context.getClickedFace();
-        BlockState blockState = world.getBlockState(pos);
-        Block block = blockState.getBlock();
+    public static InteractionResult useOn(UseOnContext context, Tier tier) {
+        var level = context.getLevel();
+        var player = context.getPlayer();
+        var itemStack = context.getItemInHand();
+        var blockPos = context.getClickedPos();
+        var direction = context.getClickedFace();
+        var blockState = level.getBlockState(blockPos);
+        var block = blockState.getBlock();
         int costDamage = tier.getUses() / 2 + 1;
 
-        if ((block == Blocks.REDSTONE_TORCH || block == Blocks.REDSTONE_WALL_TORCH) && player.mayUseItemAt(pos, facing, itemStack)) {
+        if ((block == Blocks.REDSTONE_TORCH || block == Blocks.REDSTONE_WALL_TORCH) && player.mayUseItemAt(blockPos, direction, itemStack)) {
             // Redstone Torch -> Repairing/Collecting
             return removeRedstoneTorch(context, costDamage);
         } else {
@@ -35,63 +42,63 @@ public class DXLaserBladeItemUtil {
         }
     }
 
-    private static ActionResultType removeRedstoneTorch(ItemUseContext context, int costDamage) {
-        PlayerEntity player = context.getPlayer();
-        ItemStack itemStack = context.getItemInHand();
+    private static InteractionResult removeRedstoneTorch(UseOnContext context, int costDamage) {
+        var player = context.getPlayer();
+        var itemStack = context.getItemInHand();
         int itemDamage = itemStack.getDamageValue();
 
-        if (itemDamage >= costDamage || player.abilities.instabuild) {
+        if (itemDamage >= costDamage || player.getAbilities().instabuild) {
             // Repair DX Laser B1ade
             itemStack.setDamageValue(itemDamage - costDamage);
         } else {
             // Collect a Redstone Torch
-            if (!player.inventory.add(new ItemStack(Blocks.REDSTONE_TORCH))) {
+            if (!player.getInventory().add(new ItemStack(Blocks.REDSTONE_TORCH))) {
                 // Cannot collect because player's inventory is full
-                return ActionResultType.PASS;
+                return InteractionResult.PASS;
             }
         }
 
         return destroyRedstoneTorch(context);
     }
 
-    private static ActionResultType destroyRedstoneTorch(ItemUseContext context) {
+    private static InteractionResult destroyRedstoneTorch(UseOnContext context) {
         // Destroy the Redstone Torch block
-        World world = context.getLevel();
-        BlockPos pos = context.getClickedPos();
-        PlayerEntity player = context.getPlayer();
-        BlockState blockState = world.getBlockState(pos);
+        var level = context.getLevel();
+        var blockPos = context.getClickedPos();
+        var player = context.getPlayer();
+        var blockState = level.getBlockState(blockPos);
 
-        blockState.removedByPlayer(world, pos, player, false, world.getFluidState(pos));
-        return ActionResultType.SUCCESS;
+        blockState.removedByPlayer(level, blockPos, player, false, level.getFluidState(blockPos));
+        return InteractionResult.SUCCESS;
     }
 
-    private static ActionResultType placeRedstoneTorch(ItemUseContext context, int costDamage) {
-        PlayerEntity player = context.getPlayer();
-        ItemStack itemStack = context.getItemInHand();
+    private static InteractionResult placeRedstoneTorch(UseOnContext context, int costDamage) {
+        var player = context.getPlayer();
+        var itemStack = context.getItemInHand();
 
-        if (!player.abilities.instabuild && itemStack.getDamageValue() >= costDamage) {
+        if (!player.getAbilities().instabuild && itemStack.getDamageValue() >= costDamage) {
             // DX Laser B1ade is too damaged to place Redstone Torch
-            return ActionResultType.PASS;
+            return InteractionResult.PASS;
         }
 
         // Place Redstone Torch and damage DX Laser B1ade
-        BlockPos pos = context.getClickedPos();
-        Direction facing = context.getClickedFace();
+        var blockPos = context.getClickedPos();
+        var direction = context.getClickedFace();
         ItemStack redstoneTorch = new ItemStack(Blocks.REDSTONE_TORCH);
-        ItemUseContext contextRS = new BlockItemUseContext(player, context.getHand(), redstoneTorch,
-                new BlockRayTraceResult(context.getClickLocation(), facing, pos, context.isInside()));
+        UseOnContext contextRS = new BlockPlaceContext(player, context.getHand(), redstoneTorch,
+                new BlockHitResult(context.getClickLocation(), direction, blockPos, context.isInside()));
 
         if (player.isSteppingCarefully() && redstoneTorch.useOn(contextRS).consumesAction()) {
             itemStack.setCount(1);
             itemStack.hurtAndBreak(costDamage, player, playerEntity -> {});
-            return ActionResultType.SUCCESS;
+            return InteractionResult.SUCCESS;
         }
 
-        return ActionResultType.PASS;
+        return InteractionResult.PASS;
     }
 
     public static void playSwingSound(Level level, LivingEntity entity) {
         Vec3 pos = entity.position().add(0, entity.getEyeHeight(), 0).add(entity.getLookAngle());
-        level.playSound(null, pos.x, pos.y, pos.z, ModSoundEvents.ITEM_DX_LASER_BLADE_SWING, SoundCategory.PLAYERS, 0.5F, 1.0F);
+        level.playSound(null, pos.x, pos.y, pos.z, ModSoundEvents.ITEM_DX_LASER_BLADE_SWING, SoundSource.PLAYERS, 0.5F, 1.0F);
     }
 }

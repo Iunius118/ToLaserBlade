@@ -1,6 +1,6 @@
 package com.github.iunius118.tolaserblade.world.item;
 
-import com.github.iunius118.tolaserblade.client.renderer.item.LaserBladeItemRenderer;
+import com.github.iunius118.tolaserblade.client.renderer.item.LBSwordItemRenderer;
 import com.github.iunius118.tolaserblade.core.dispenser.DispenseLaserBladeBehavior;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBlade;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeBlocking;
@@ -8,11 +8,30 @@ import com.github.iunius118.tolaserblade.core.laserblade.LaserBladePerformance;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.Upgrade;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.SwordItem;
+import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
+import net.minecraft.core.BlockPos;
+import net.minecraft.core.NonNullList;
+import net.minecraft.network.chat.Component;
+import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
+import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.entity.Entity;
+import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.AttributeModifier;
+import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.boss.wither.WitherBoss;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.*;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.EnchantmentCategory;
+import net.minecraft.world.item.enchantment.Enchantments;
+import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DispenserBlock;
+import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.client.IItemRenderProperties;
 import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.entity.player.CriticalHitEvent;
 
@@ -20,11 +39,11 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
-    private final IItemTier tier;
+    private final Tier tier;
     private final float attackDamage;
     private final float attackSpeed;
 
-    public static Item.Properties properties = (new Item.Properties()).setNoRepair().tab(ModMainItemGroup.ITEM_GROUP).setISTER(() -> LaserBladeItemRenderer::new);
+    public static Item.Properties properties = (new Item.Properties()).setNoRepair().tab(ModMainItemGroup.ITEM_GROUP);
 
     public LBSwordItem(boolean isFireproof) {
         super(new LBSwordItemTier(isFireproof), 3, -1.2F, LaserBladeItemBase.setFireproof(properties, isFireproof));
@@ -50,7 +69,7 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
     }
 
     @Override
-    public UseAction getUseAnimation(ItemStack stack) {
+    public UseAnim getUseAnimation(ItemStack stack) {
         return LaserBladeBlocking.getUseAction();
     }
 
@@ -60,23 +79,21 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
     }
 
     @Override
-    public ActionResult<ItemStack> use(World world, PlayerEntity player, Hand hand) {
+    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         LaserBladeBlocking.start(player, hand);
-        return new ActionResult<>(ActionResultType.PASS, itemstack);
+        return new InteractionResultHolder<>(InteractionResult.PASS, itemstack);
     }
 
     /* Sounds */
 
     @Override
     public boolean onEntitySwing(ItemStack stack, LivingEntity entity) {
-        World world = entity.getCommandSenderWorld();
+        Level level = entity.getCommandSenderWorld();
 
-        if (!world.isClientSide && entity instanceof PlayerEntity) {
-            PlayerEntity player = (PlayerEntity)entity;
-
+        if (!level.isClientSide && entity instanceof Player player) {
             if (!player.swinging) {
-                LaserBladeItemUtil.playSwingSound(world, entity, isFireResistant());
+                LaserBladeItemUtil.playSwingSound(level, entity, isFireResistant());
             }
         }
 
@@ -85,10 +102,10 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
 
     @Override
     public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        World world = attacker.getCommandSenderWorld();
+        Level level = attacker.getCommandSenderWorld();
 
-        if (!world.isClientSide) {
-            LaserBladeItemUtil.playSwingSound(world, attacker, isFireResistant());
+        if (!level.isClientSide) {
+            LaserBladeItemUtil.playSwingSound(level, attacker, isFireResistant());
         }
 
         return super.hurtEnemy(stack, target, attacker);
@@ -98,12 +115,12 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
 
     public void onCriticalHit(CriticalHitEvent event) {
         Entity target = event.getTarget();
-        PlayerEntity player = event.getPlayer();
+        Player player = event.getPlayer();
         ItemStack stack = player.getMainHandItem();
         LaserBladePerformance performance = LaserBlade.performanceOf(stack);
         LaserBladePerformance.AttackPerformance attack = performance.getAttackPerformance();
 
-        if (target instanceof WitherEntity || attack.damage >= LaserBladePerformance.AttackPerformance.MOD_ATK_CRITICAL_BONUS) {
+        if (target instanceof WitherBoss || attack.damage >= LaserBladePerformance.AttackPerformance.MOD_ATK_CRITICAL_BONUS) {
             event.setDamageModifier(event.getDamageModifier() + LaserBladePerformance.AttackPerformance.MOD_CRITICAL_BONUS_VS_WITHER);
         }
     }
@@ -116,9 +133,9 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
     }
 
     @Override
-    public boolean mineBlock(ItemStack stack, World worldIn, BlockState state, BlockPos pos, LivingEntity entityLiving) {
-        if (!worldIn.isClientSide && state.getDestroySpeed(worldIn, pos) != 0.0F) {
-            stack.hurtAndBreak(1, entityLiving, (playerEntity) -> playerEntity.broadcastBreakEvent(EquipmentSlotType.MAINHAND));
+    public boolean mineBlock(ItemStack stack, Level level, BlockState state, BlockPos pos, LivingEntity entityLiving) {
+        if (!level.isClientSide && state.getDestroySpeed(level, pos) != 0.0F) {
+            stack.hurtAndBreak(1, entityLiving, (playerEntity) -> playerEntity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
         }
 
         return true;
@@ -135,7 +152,7 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
     }
 
     @Override
-    public int getHarvestLevel(ItemStack stack, ToolType tool, PlayerEntity player, BlockState blockState) {
+    public int getHarvestLevel(ItemStack stack, ToolType tool, Player player, BlockState blockState) {
         return tier.getLevel();
     }
 
@@ -157,7 +174,7 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
         // Accept Mending and Curse of Vanish
-        return enchantment.category == EnchantmentType.WEAPON
+        return enchantment.category == EnchantmentCategory.WEAPON
                 || enchantment == Enchantments.BLOCK_EFFICIENCY
                 || enchantment == Enchantments.MENDING
                 || enchantment == Enchantments.SILK_TOUCH
@@ -165,11 +182,12 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
     }
 
     @Override
-    public boolean canEquip(ItemStack stack, EquipmentSlotType armorType, Entity entity) {
-        return armorType == EquipmentSlotType.HEAD;
+    public boolean canEquip(ItemStack stack, EquipmentSlot armorType, Entity entity) {
+        return armorType == EquipmentSlot.HEAD;
     }
 
-    @Override
+    // TODO: Need Mixin for setting AttributeModifiers!!!
+/*    @Override
     public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType slot, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> multimap = HashMultimap.create();
 
@@ -186,19 +204,29 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
         }
 
         return multimap;
+    }*/
+
+    @Override
+    public void initializeClient(java.util.function.Consumer<net.minecraftforge.client.IItemRenderProperties> consumer) {
+        var itemRenderProperties = new IItemRenderProperties() {
+            final BlockEntityWithoutLevelRenderer renderer = new LBSwordItemRenderer();
+            @Override public BlockEntityWithoutLevelRenderer getItemStackRenderer() { return renderer; }
+        };
+
+        consumer.accept(itemRenderProperties);
     }
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void appendHoverText(ItemStack stack, @Nullable World worldIn, List<ITextComponent> tooltip, ITooltipFlag flagIn) {
-        super.appendHoverText(stack, worldIn, tooltip, flagIn);
-        LaserBladeItemUtil.addLaserBladeInformation(stack, worldIn, tooltip, flagIn, Upgrade.Type.OTHER);
+    public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
+        super.appendHoverText(itemStack, level, tooltip, flag);
+        LaserBladeItemUtil.addLaserBladeInformation(itemStack, level, tooltip, flag, Upgrade.Type.OTHER);
     }
 
     /* Creative Tab */
 
     @Override
-    public void fillItemCategory(ItemGroup group, NonNullList<ItemStack> items) {
+    public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
         super.fillItemCategory(group, items);
         if (group != ModMainItemGroup.ITEM_GROUP) return;
 

@@ -146,7 +146,7 @@ public class LaserBladeRenderType extends RenderType {
                 return true;
             } else if (other != null && this.getClass() == other.getClass()) {
                 LaserBladeTextureState state = (LaserBladeTextureState)other;
-                return this.texture().equals(state.texture());
+                return this.cutoutTexture().equals(state.cutoutTexture());
             } else {
                 return false;
             }
@@ -158,7 +158,7 @@ public class LaserBladeRenderType extends RenderType {
         }
 
         @Override
-        protected Optional<ResourceLocation> texture() {
+        protected Optional<ResourceLocation> cutoutTexture() {
             return Optional.of(LaserBladeModelHolder.getTexture());
         }
     }

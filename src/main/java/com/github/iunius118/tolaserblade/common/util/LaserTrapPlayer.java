@@ -12,6 +12,7 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
+import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
@@ -37,6 +38,7 @@ public class LaserTrapPlayer extends FakePlayer {
     }
 
     public void initInventory(ItemStack currentStack) {
+        var inventory = getInventory();
         inventory.clearContent();
 
         // Set given item stack in main hand
@@ -44,7 +46,7 @@ public class LaserTrapPlayer extends FakePlayer {
         inventory.setItem(0, currentStack);
 
         // Apply attack damage from main hand item
-        getAttributes().addTransientAttributeModifiers(currentStack.getAttributeModifiers(EquipmentSlotType.MAINHAND));
+        getAttributes().addTransientAttributeModifiers(currentStack.getAttributeModifiers(EquipmentSlot.MAINHAND));
     }
 
     public void attackEntities(Direction dir) {

@@ -1,15 +1,15 @@
 package com.github.iunius118.tolaserblade.world.item;
 
 import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
-import net.minecraft.item.IItemTier;
-import net.minecraft.item.Item;
-import net.minecraft.item.Items;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.tags.ITag;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.ItemTags;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.tags.Tag;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.Items;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.crafting.Ingredient;
 
-public class LBSwordItemTier implements IItemTier {
+public class LBSwordItemTier implements Tier {
     public static final int MAX_USES = 32000;
     public final static int NETHERITIC_HARVEST_LEVEL = 4;
     public final static int HARVEST_LEVEL = 3;
@@ -50,7 +50,7 @@ public class LBSwordItemTier implements IItemTier {
 
     @Override
     public Ingredient getRepairIngredient() {
-        ITag<Item> tag = ItemTags.getAllTags().getTag(new ResourceLocation("forge", "ingots/iron"));
+        Tag<Item> tag = ItemTags.getAllTags().getTag(new ResourceLocation("forge", "ingots/iron"));
 
         if (tag != null) {
             return Ingredient.of(tag);

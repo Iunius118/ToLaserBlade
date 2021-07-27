@@ -37,7 +37,7 @@ public class LaserTrapEntity extends Entity implements IEntityAdditionalSpawnDat
 
     @Override
     protected float getEyeHeight(Pose pose, EntityDimensions size) {
-        return pose.height * 0.5F;
+        return size.height * 0.5F;
     }
 
     @Override

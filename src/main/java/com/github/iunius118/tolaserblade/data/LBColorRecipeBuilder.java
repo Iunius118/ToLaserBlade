@@ -95,7 +95,7 @@ public class LBColorRecipeBuilder {
         }
 
         @Override
-        public IRecipeSerializer<?> getType() {
+        public RecipeSerializer<?> getType() {
             return serializer;
         }
 

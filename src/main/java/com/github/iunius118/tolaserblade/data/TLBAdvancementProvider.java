@@ -13,12 +13,18 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.FrameType;
 import net.minecraft.advancements.RequirementsStrategy;
-import net.minecraft.advancements.critereon.InventoryChangeTrigger;
+import net.minecraft.advancements.critereon.*;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
+import net.minecraft.data.HashCache;
+import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
+import net.minecraft.world.item.SwordItem;
+import net.minecraft.world.item.enchantment.Enchantment;
+import net.minecraft.world.item.enchantment.Enchantments;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -85,20 +91,18 @@ public class TLBAdvancementProvider implements DataProvider {
         Advancement breakLaserBlade = Advancement.Builder.advancement()
                 .parent(laserBlade)
                 .display(ModItems.LB_CASING,
-                        new TranslationTextComponent("advancements.tolaserblade.main.break_laser_blade.title"),
-                        new TranslationTextComponent("advancements.tolaserblade.main.break_laser_blade.description"),
+                        new TranslatableComponent("advancements.tolaserblade.main.break_laser_blade.title"),
+                        new TranslatableComponent("advancements.tolaserblade.main.break_laser_blade.description"),
                         null,
                         FrameType.CHALLENGE, true, true, false)
                 .rewards(AdvancementRewards.Builder.experience(1000))
-                .requirements(IRequirementsStrategy.OR)
+                .requirements(RequirementsStrategy.OR)
                 .addCriterion("broke_laser_blade",
-                        ItemDurabilityTrigger.Instance.changedDurability(
-                                EntityPredicate.AndPredicate.wrap(EntityPredicate.ANY),
-                                ItemPredicate.Builder.item().of(ModItems.LASER_BLADE).build(), MinMaxBounds.IntBound.fromJson(jsonMaxZero)))
+                        ItemDurabilityTrigger.TriggerInstance.changedDurability(
+                                ItemPredicate.Builder.item().of(ModItems.LASER_BLADE).build(), MinMaxBounds.Ints.fromJson(jsonMaxZero)))
                 .addCriterion("broke_laser_blade_fp",
-                        ItemDurabilityTrigger.Instance.changedDurability(
-                                EntityPredicate.AndPredicate.wrap(EntityPredicate.ANY),
-                                ItemPredicate.Builder.item().of(ModItems.LASER_BLADE_FP).build(), MinMaxBounds.IntBound.fromJson(jsonMaxZero)))
+                        ItemDurabilityTrigger.TriggerInstance.changedDurability(
+                                ItemPredicate.Builder.item().of(ModItems.LASER_BLADE_FP).build(), MinMaxBounds.Ints.fromJson(jsonMaxZero)))
                 .save(consumer, "tolaserblade:main/break_laser_blade");
 
         // 1-1-5. Life-time Support
@@ -115,15 +119,15 @@ public class TLBAdvancementProvider implements DataProvider {
         Advancement.Builder builder = Advancement.Builder.advancement()
                 .parent(parent)
                 .display(icon,
-                        new TranslationTextComponent("advancements.tolaserblade.main." + name + ".title"),
-                        new TranslationTextComponent("advancements.tolaserblade.main." + name + ".description"),
+                        new TranslatableComponent("advancements.tolaserblade.main." + name + ".title"),
+                        new TranslatableComponent("advancements.tolaserblade.main." + name + ".description"),
                         null,
                         frameType, true, true, false)
-                .requirements(IRequirementsStrategy.OR);
+                .requirements(RequirementsStrategy.OR);
 
         for (Item item : requirements) {
             String itemName = item.getRegistryName().getPath();
-            builder.addCriterion("has_" + itemName,  InventoryChangeTrigger.Instance.hasItems(item));
+            builder.addCriterion("has_" + itemName,  InventoryChangeTrigger.TriggerInstance.hasItems(item));
         }
 
         return builder.save(consumer, "tolaserblade:main/" + name);
@@ -134,20 +138,20 @@ public class TLBAdvancementProvider implements DataProvider {
         Advancement.Builder builder = Advancement.Builder.advancement()
                 .parent(parent)
                 .display(icon,
-                        new TranslationTextComponent("advancements.tolaserblade.main." + name + ".title"),
-                        new TranslationTextComponent("advancements.tolaserblade.main." + name + ".description"),
+                        new TranslatableComponent("advancements.tolaserblade.main." + name + ".title"),
+                        new TranslatableComponent("advancements.tolaserblade.main." + name + ".description"),
                         null,
                         frameType, true, true, false)
-                .requirements(IRequirementsStrategy.OR);
+                .requirements(RequirementsStrategy.OR);
 
         for (Item item : requirements) {
             String itemName = item.getRegistryName().getPath();
             ItemPredicate itemPredicate = ItemPredicate.Builder.item()
                     .of(item)
-                    .hasEnchantment(new EnchantmentPredicate(enchantment, MinMaxBounds.IntBound.atLeast(level)))
+                    .hasEnchantment(new EnchantmentPredicate(enchantment, MinMaxBounds.Ints.atLeast(level)))
                     .build();
 
-            builder.addCriterion("has_" + itemName, InventoryChangeTrigger.Instance.hasItems(itemPredicate));
+            builder.addCriterion("has_" + itemName, InventoryChangeTrigger.TriggerInstance.hasItems(itemPredicate));
         }
 
         return builder.save(consumer, "tolaserblade:main/" + name);
@@ -158,11 +162,11 @@ public class TLBAdvancementProvider implements DataProvider {
         Advancement.Builder builder = Advancement.Builder.advancement()
                 .parent(parent)
                 .display(icon,
-                        new TranslationTextComponent("advancements.tolaserblade.main." + name + ".title"),
-                        new TranslationTextComponent("advancements.tolaserblade.main." + name + ".description"),
+                        new TranslatableComponent("advancements.tolaserblade.main." + name + ".title"),
+                        new TranslatableComponent("advancements.tolaserblade.main." + name + ".description"),
                         null,
                         frameType, true, true, false)
-                .requirements(IRequirementsStrategy.OR);
+                .requirements(RequirementsStrategy.OR);
         int maxAtk = (int)LaserBladePerformance.AttackPerformance.MOD_ATK_CRITICAL_BONUS;
         String tagAtk = LaserBladePerformance.AttackPerformance.KEY_ATK;
 
@@ -175,13 +179,13 @@ public class TLBAdvancementProvider implements DataProvider {
             }
 
             for (int i = attackDamage - baseDamage; i >= 0 && i <= maxAtk; i++) {
-                CompoundNBT nbt = new CompoundNBT();
-                nbt.putFloat(tagAtk, (float) i);
+                CompoundTag compound = new CompoundTag();
+                compound.putFloat(tagAtk, (float) i);
                 ItemPredicate itemPredicate = ItemPredicate.Builder.item()
                         .of(item)
-                        .hasNbt(nbt)
+                        .hasNbt(compound)
                         .build();
-                builder.addCriterion(itemName + "_attack_" + (i + baseDamage), InventoryChangeTrigger.Instance.hasItems(itemPredicate));
+                builder.addCriterion(itemName + "_attack_" + (i + baseDamage), InventoryChangeTrigger.TriggerInstance.hasItems(itemPredicate));
             }
         }
 
@@ -189,7 +193,7 @@ public class TLBAdvancementProvider implements DataProvider {
     }
 
     @Override
-    public void run(DirectoryCache cache) throws IOException {
+    public void run(HashCache cache) throws IOException {
         Path path = this.generator.getOutputFolder();
         Set<ResourceLocation> set = Sets.newHashSet();
         Consumer<Advancement> consumer = (advancement) -> {
@@ -199,7 +203,7 @@ public class TLBAdvancementProvider implements DataProvider {
                 Path advancementPath = getPath(path, advancement);
 
                 try {
-                    IDataProvider.save(GSON, cache, advancement.deconstruct().serializeToJson(), advancementPath);
+                    DataProvider.save(GSON, cache, advancement.deconstruct().serializeToJson(), advancementPath);
                 } catch (IOException ioexception) {
                     LOGGER.error("Couldn't save advancement {}", advancementPath, ioexception);
                 }

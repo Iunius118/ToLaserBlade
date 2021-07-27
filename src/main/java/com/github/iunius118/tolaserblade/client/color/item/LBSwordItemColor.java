@@ -11,15 +11,11 @@ public class LBSwordItemColor implements ItemColor {
     public int getColor(ItemStack stack, int tintIndex) {
         LaserBladeItemColor color = LaserBladeItemColor.of(stack);
 
-        switch (tintIndex) {
-            case 0:
-                return color.gripColor | 0xFF000000;
-            case 1:
-                return color.simpleOuterColor | 0xFF000000;
-            case 2:
-                return color.simpleInnerColor | 0xFF000000;
-            default:
-                return 0xFFFFFFFF;
-        }
+        return switch (tintIndex) {
+            case 0 -> color.gripColor | 0xFF000000;
+            case 1 -> color.simpleOuterColor | 0xFF000000;
+            case 2 -> color.simpleInnerColor | 0xFF000000;
+            default -> 0xFFFFFFFF;
+        };
     }
 }

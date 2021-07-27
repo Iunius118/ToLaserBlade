@@ -1,10 +1,10 @@
 package com.github.iunius118.tolaserblade.world.item;
 
-import net.minecraft.block.Blocks;
-import net.minecraft.item.IItemTier;
-import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.world.item.Tier;
+import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.level.block.Blocks;
 
-public class DXLaserBladeItemTier implements IItemTier  {
+public class DXLaserBladeItemTier implements Tier {
     @Override
     public int getLevel() {
         return 3;

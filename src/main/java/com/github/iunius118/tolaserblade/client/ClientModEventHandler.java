@@ -9,11 +9,12 @@ import com.github.iunius118.tolaserblade.client.model.LaserBladeInternalModelMan
 import com.github.iunius118.tolaserblade.client.renderer.item.model.LBSwordItemModel;
 import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
 import com.github.iunius118.tolaserblade.world.item.ModItems;
+import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelResourceLocation;
-import net.minecraft.network.chat.ClickEvent;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.*;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
@@ -42,7 +43,7 @@ public class ClientModEventHandler {
 
     @SubscribeEvent
     public static void onTextureStitchEvent(TextureStitchEvent.Pre event) {
-        if (event.getMap().location().equals(PlayerContainer.BLOCK_ATLAS)) {
+        if (event.getMap().location().equals(InventoryMenu.BLOCK_ATLAS)) {
             if (!ToLaserBladeConfig.CLIENT.useInternalModel.get() && ToLaserBladeConfig.CLIENT.externalModelType.get() == 1) {
                 // When using external OBJ model, add OBJ model texture to block atlas
                 event.addSprite(new ResourceLocation(ToLaserBlade.MOD_ID, "item/laser_blade_obj"));
@@ -82,21 +83,21 @@ public class ClientModEventHandler {
     public static void checkUpdate() {
         // Check update and Notify client
         CheckResult result = VersionChecker.getResult(ModList.get().getModFileById(ToLaserBlade.MOD_ID).getMods().get(0));
-        Status status = result.status;
+        Status status = result.status();
 
-        if (status == Status.PENDING || result.target == null) {
+        if (status == Status.PENDING || result.target() == null) {
             // Failed to get update information
             return;
         }
 
         if (status == Status.OUTDATED || status == Status.BETA_OUTDATED) {
-            TextComponent modNameHighlighted = new StringTextComponent(ToLaserBlade.MOD_NAME).withStyle(TextFormatting.YELLOW);
+            Component modNameHighlighted = new TextComponent(ToLaserBlade.MOD_NAME).withStyle(ChatFormatting.YELLOW);
 
-            TextComponent newVersionHighlighted = new StringTextComponent(result.target.toString()).withStyle(TextFormatting.YELLOW);
+            Component newVersionHighlighted = new TextComponent(result.target().toString()).withStyle(ChatFormatting.YELLOW);
 
-            TextComponent message = new TranslatableComponent("tolaserblade.update.newVersion", modNameHighlighted).append(": ")
+            Component message = new TranslatableComponent("tolaserblade.update.newVersion", modNameHighlighted).append(": ")
                     .append(newVersionHighlighted)
-                    .withStyle(style -> style.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, result.url)));
+                    .withStyle(style -> style.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, result.url())));
 
             Minecraft.getInstance().gui.getChat().addMessage(message);
         }

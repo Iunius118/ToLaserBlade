@@ -4,9 +4,9 @@ import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.client.ClientModEventHandler;
 import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
 import com.github.iunius118.tolaserblade.world.item.ModItems;
-import net.minecraft.entity.player.PlayerEntity;
-import net.minecraft.item.Item;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
@@ -46,7 +46,7 @@ public class CommonEventHandler {
 
     @SubscribeEvent
     public static void onEntityJoiningInWorld(final EntityJoinWorldEvent event) {
-        if (event.getWorld().isClientSide && event.getEntity() instanceof PlayerEntity) {
+        if (event.getWorld().isClientSide && event.getEntity() instanceof Player) {
             // In client
             if (ToLaserBladeConfig.CLIENT.showUpdateMessage.get() && !hasShownUpdate) {
                 ClientModEventHandler.checkUpdate();
