@@ -7,10 +7,8 @@ import com.github.iunius118.tolaserblade.client.model.Vector2f;
 import com.google.common.collect.ImmutableList;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Quaternion;
 import com.mojang.math.Vector3f;
 import com.mojang.math.Vector4f;
-import net.minecraft.Util;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.resources.ResourceLocation;
@@ -42,8 +40,9 @@ public class LaserBladeModelType1108 extends SimpleLaserBladeModel {
         }
 
         // Rotate blade
-        float angle = Util.getMillis() % 250L * 1.44F;   // 240 rpm
-        matrices.mulPose(new Quaternion(Vector3f.YP, angle, true));
+        // 240 rpm
+        // float angle = Util.getMillis() % 250L * 1.44F;
+        // matrices.mulPose(new Quaternion(Vector3f.YP, angle, true));
 
         currentBuffer = vertexConsumers.getBuffer(getInnerBladeAddRenderType(color.isInnerSubColor));
         renderQuads(matrices, currentBuffer, BLADE_IN_QUADS, color.innerColor, fullLight, overlay);

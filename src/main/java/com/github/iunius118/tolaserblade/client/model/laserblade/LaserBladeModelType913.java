@@ -40,7 +40,8 @@ public class LaserBladeModelType913 extends SimpleLaserBladeModel {
         }
 
         // Rotate blades
-        float angle = Util.getMillis() % 250L * 1.44F;   // 240 rpm
+        // 240 rpm
+        float angle = Util.getMillis() % 250L * 1.44F;
         matrices.mulPose(new Quaternion(Vector3f.YP, angle, true));
 
         currentBuffer = vertexConsumers.getBuffer(getInnerBladeAddRenderType(color.isInnerSubColor));
