@@ -2,7 +2,6 @@ package com.github.iunius118.tolaserblade.common;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.data.*;
-import com.github.iunius118.tolaserblade.world.entity.LaserTrapEntity;
 import com.github.iunius118.tolaserblade.world.item.*;
 import com.github.iunius118.tolaserblade.world.item.crafting.LBColorRecipe;
 import com.github.iunius118.tolaserblade.world.item.crafting.LBModelChangeRecipe;
@@ -13,8 +12,6 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.entity.EntityType;
-import net.minecraft.world.entity.MobCategory;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -64,22 +61,6 @@ public class RegistryEventHandler {
     public static void onEnchantmentRegistry(final RegistryEvent.Register<Enchantment> event) {
         event.getRegistry().registerAll(
                 new LightElementEnchantment().setRegistryName(LightElementEnchantment.ID)
-        );
-    }
-
-    // Register Entity Types
-    @SubscribeEvent
-    public static void onEntityRegistry(RegistryEvent.Register<EntityType<?>> event) {
-        EntityType<LaserTrapEntity> laserTrap = EntityType.Builder
-                .<LaserTrapEntity>of(LaserTrapEntity::new, MobCategory.MISC)
-                .sized(1.0F, 1.0F).fireImmune()
-                .setTrackingRange(64).setUpdateInterval(4).setShouldReceiveVelocityUpdates(false)
-                .build(LaserTrapEntity.ID.toString());
-
-        ToLaserBlade.LOGGER.info("[ToLaserBlade] This warning of data fixer is not an issue for modded entities");
-
-        event.getRegistry().registerAll(
-                laserTrap.setRegistryName(LaserTrapEntity.ID)
         );
     }
 
