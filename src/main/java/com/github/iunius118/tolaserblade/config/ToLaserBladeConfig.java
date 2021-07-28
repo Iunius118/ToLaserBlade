@@ -47,9 +47,9 @@ public class ToLaserBladeConfig {
 
             canLaserTrapAttackPlayer = builder
                     .comment("A boolean value represents whether laser trap can attack player or not. This setting is valid when enableLaserTrap is true.\n" +
-                            "Default: false")
+                            "Default: true")
                     .translation("tolaserblade.configgui.server.canLaserTrapAttackPlayer")
-                    .define("canLaserTrapAttackPlayer", false);
+                    .define("canLaserTrapAttackPlayer", true);
 
             canLaserTrapHeatUpFurnace = builder
                     .comment("A boolean value represents whether laser trap with fireproof Laser Blade can heat up furnace or not. This setting is valid when enableLaserTrap is true.\n" +
