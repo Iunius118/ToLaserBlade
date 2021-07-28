@@ -1,6 +1,8 @@
 package com.github.iunius118.tolaserblade.common.util;
 
 import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
+import com.github.iunius118.tolaserblade.core.laserblade.LaserBlade;
+import com.github.iunius118.tolaserblade.core.particle.ModParticleTypes;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -16,6 +18,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.phys.AABB;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.util.FakePlayer;
 
 import java.util.List;
@@ -23,6 +26,7 @@ import java.util.UUID;
 
 public class LaserTrapPlayer extends FakePlayer {
     private static final GameProfile PROFILE = new GameProfile(UUID.fromString("2BDD19A3-9616-417A-8797-EE805F5FF9E3"), "[LaserBlade]");
+    // Block-position without FakePlayer
     private BlockPos blockPosition;
 
     private LaserTrapPlayer(ServerLevel serverLevel) {
@@ -50,7 +54,6 @@ public class LaserTrapPlayer extends FakePlayer {
     }
 
     public void attackEntities(Direction dir) {
-        // Get this.blockPosition without FakePlayer
         BlockPos trapPos = blockPosition();
         BlockPos targetPos = trapPos.relative(dir);
         AABB aabb = new AABB(targetPos).inflate(0.5D);
@@ -67,7 +70,7 @@ public class LaserTrapPlayer extends FakePlayer {
             EnchantmentHelper.doPostDamageEffects(this, targetEntity);
         }
 
-        // spawnParticle(dir, targetPos, itemStack);
+        spawnParticle(dir, targetPos, itemStack);
     }
 
     @Override
@@ -96,6 +99,17 @@ public class LaserTrapPlayer extends FakePlayer {
 
     private boolean canBurn(Entity entity, int fireAspectLevel) {
         return fireAspectLevel > 0 && (entity instanceof Mob || entity instanceof Player);
+    }
+
+    private void spawnParticle(Direction dir, BlockPos effectPos, ItemStack itemStack) {
+        if (!(level instanceof ServerLevel serverLevel)) return;
+
+        var laserTrapParticleType = ModParticleTypes.getLaserTrapParticleType(dir.getAxis());
+        var vecPos = new Vec3(effectPos.getX(), effectPos.getY(), effectPos.getZ()).add(0.5, 0.5, 0.5);
+        var laserBladeVisual = LaserBlade.visualOf(itemStack);
+        var outerColor = laserBladeVisual.getOuterColor();
+        var color4F = Color4F.of((outerColor.isSubtractColor ? ~outerColor.color : outerColor.color) | 0xFF000000);
+        serverLevel.sendParticles(laserTrapParticleType, vecPos.x, vecPos.y, vecPos.z, 0, color4F.r(), color4F.g(), color4F.b(), 1);
     }
 
     @Override public void onEnterCombat() {}

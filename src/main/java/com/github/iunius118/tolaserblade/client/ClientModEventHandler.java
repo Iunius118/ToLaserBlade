@@ -6,14 +6,15 @@ import com.github.iunius118.tolaserblade.client.color.item.LBEmitterItemColor;
 import com.github.iunius118.tolaserblade.client.color.item.LBMediumItemColor;
 import com.github.iunius118.tolaserblade.client.color.item.LBSwordItemColor;
 import com.github.iunius118.tolaserblade.client.model.LaserBladeInternalModelManager;
-import com.github.iunius118.tolaserblade.client.renderer.entity.LaserTrapEntityRenderer;
+import com.github.iunius118.tolaserblade.client.particle.LaserTrapParticle;
 import com.github.iunius118.tolaserblade.client.renderer.item.model.LBSwordItemModel;
 import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
-import com.github.iunius118.tolaserblade.world.entity.ModEntities;
+import com.github.iunius118.tolaserblade.core.particle.ModParticleTypes;
 import com.github.iunius118.tolaserblade.world.item.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.core.Direction;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.TextComponent;
@@ -22,6 +23,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraftforge.client.event.ColorHandlerEvent;
 import net.minecraftforge.client.event.ModelBakeEvent;
+import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
@@ -86,8 +88,11 @@ public class ClientModEventHandler {
     }
 
     @SubscribeEvent
-    public static void onRegisterRendererEvent(EntityRenderersEvent.RegisterRenderers event) {
-        event.registerEntityRenderer(ModEntities.LASER_TRAP, LaserTrapEntityRenderer::new);
+    public static void onParticleFactoryRegisterEvent(ParticleFactoryRegisterEvent event) {
+        var particleEngine = Minecraft.getInstance().particleEngine;
+        particleEngine.register(ModParticleTypes.LASER_TRAP_X, new LaserTrapParticle.Provider(Direction.Axis.X));
+        particleEngine.register(ModParticleTypes.LASER_TRAP_Y, new LaserTrapParticle.Provider(Direction.Axis.Y));
+        particleEngine.register(ModParticleTypes.LASER_TRAP_Z, new LaserTrapParticle.Provider(Direction.Axis.Z));
     }
 
     public static void checkUpdate() {

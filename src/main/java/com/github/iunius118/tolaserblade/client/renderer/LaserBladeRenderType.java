@@ -36,10 +36,6 @@ public class LaserBladeRenderType {
         return RenderType.create(name, DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, false, renderState);
     }
 
-    public static RenderType getTrapRenderType(ResourceLocation locationIn) {
-        return RenderType.create("laser_trap", DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, false, Internal.getLaserTrapRenderState(locationIn));
-    }
-
     public static RenderType.CompositeState getHiltRenderState(RenderStateShard.TextureStateShard textureState) {
         return Internal.getHiltRenderState(textureState);
     }
@@ -54,10 +50,6 @@ public class LaserBladeRenderType {
 
     public static RenderType.CompositeState getSubRenderState(TextureStateShard textureState) {
         return Internal.getSubRenderState(textureState);
-    }
-
-    public static RenderType.CompositeState getLaserTrapRenderState(ResourceLocation locationIn) {
-        return Internal.getLaserTrapRenderState(locationIn);
     }
 
     private static final Boolean CAN_USE_FIXED_VERTEX_BUFFER;
@@ -140,16 +132,6 @@ public class LaserBladeRenderType {
                     .setShaderState(flatShaderState)
                     .setTextureState(textureState)
                     .setTransparencyState(transparencyState)
-                    .setLightmapState(LIGHTMAP)
-                    .setOverlayState(OVERLAY)
-                    .createCompositeState(true);
-        }
-
-        public static CompositeState getLaserTrapRenderState(ResourceLocation locationIn) {
-            return CompositeState.builder()
-                    .setShaderState(RENDERTYPE_ENTITY_TRANSLUCENT_SHADER)
-                    .setTextureState(new TextureStateShard(locationIn, false, false))
-                    .setTransparencyState(NO_TRANSPARENCY)
                     .setLightmapState(LIGHTMAP)
                     .setOverlayState(OVERLAY)
                     .createCompositeState(true);
