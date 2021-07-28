@@ -18,6 +18,7 @@ import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
@@ -186,12 +187,11 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
         return armorType == EquipmentSlot.HEAD;
     }
 
-    // TODO: Need Mixin for setting AttributeModifiers!!!
-/*    @Override
-    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlotType slot, ItemStack stack) {
+    @Override
+    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {
         Multimap<Attribute, AttributeModifier> multimap = HashMultimap.create();
 
-        if (slot == EquipmentSlotType.MAINHAND) {
+        if (slot == EquipmentSlot.MAINHAND) {
             LaserBladePerformance performance = LaserBlade.performanceOf(stack);
             LaserBladePerformance.AttackPerformance attack = performance.getAttackPerformance();
 
@@ -204,7 +204,7 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
         }
 
         return multimap;
-    }*/
+    }
 
     @Override
     public void initializeClient(java.util.function.Consumer<net.minecraftforge.client.IItemRenderProperties> consumer) {
