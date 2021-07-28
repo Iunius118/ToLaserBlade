@@ -1,6 +1,6 @@
 package com.github.iunius118.tolaserblade.common.util;
 
-import com.github.iunius118.tolaserblade.core.laserblade.LaserBlade;
+import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
@@ -12,12 +12,10 @@ import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
 import net.minecraft.world.entity.ai.attributes.Attributes;
-import net.minecraft.world.entity.player.Inventory;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.phys.AABB;
-import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.common.util.FakePlayer;
 
 import java.util.List;
@@ -25,6 +23,7 @@ import java.util.UUID;
 
 public class LaserTrapPlayer extends FakePlayer {
     private static final GameProfile PROFILE = new GameProfile(UUID.fromString("2BDD19A3-9616-417A-8797-EE805F5FF9E3"), "[LaserBlade]");
+    private BlockPos blockPosition;
 
     private LaserTrapPlayer(ServerLevel serverLevel) {
         super(serverLevel, PROFILE);
@@ -33,6 +32,7 @@ public class LaserTrapPlayer extends FakePlayer {
     public static LaserTrapPlayer get(ServerLevel serverLevel, BlockPos trapPos, ItemStack itemStackHeld) {
         final var laserTrapPlayer = new LaserTrapPlayer(serverLevel);
         laserTrapPlayer.setPos(trapPos.getX() + 0.5D, trapPos.getY(), trapPos.getZ() + 0.5D);
+        laserTrapPlayer.blockPosition = new BlockPos(trapPos);
         laserTrapPlayer.initInventory(itemStackHeld.copy());
         return laserTrapPlayer;
     }
@@ -50,6 +50,7 @@ public class LaserTrapPlayer extends FakePlayer {
     }
 
     public void attackEntities(Direction dir) {
+        // Get this.blockPosition without FakePlayer
         BlockPos trapPos = blockPosition();
         BlockPos targetPos = trapPos.relative(dir);
         AABB aabb = new AABB(targetPos).inflate(0.5D);
@@ -69,12 +70,17 @@ public class LaserTrapPlayer extends FakePlayer {
         // spawnParticle(dir, targetPos, itemStack);
     }
 
+    @Override
+    public BlockPos blockPosition(){
+        return blockPosition;
+    }
+
     private boolean canHitEntity(Entity entity) {
         if (!entity.isSpectator() && entity.isAlive() && entity.isPickable()) {
             MinecraftServer server = level.getServer();
             // Check if the trap can attack players
-            boolean isPvpAllowed = (server != null && server.isPvpAllowed());
-            return isPvpAllowed || !(entity instanceof Player);
+            boolean canAttackPlayers = ToLaserBladeConfig.SERVER.canLaserTrapAttackPlayer.get();
+            return canAttackPlayers || !(entity instanceof Player);
         } else {
             return false;
         }
