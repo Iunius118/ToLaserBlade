@@ -6,16 +6,22 @@ import com.github.iunius118.tolaserblade.client.color.item.LBEmitterItemColor;
 import com.github.iunius118.tolaserblade.client.color.item.LBMediumItemColor;
 import com.github.iunius118.tolaserblade.client.color.item.LBSwordItemColor;
 import com.github.iunius118.tolaserblade.client.model.LaserBladeInternalModelManager;
+import com.github.iunius118.tolaserblade.client.renderer.entity.LaserTrapEntityRenderer;
 import com.github.iunius118.tolaserblade.client.renderer.item.model.LBSwordItemModel;
 import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
+import com.github.iunius118.tolaserblade.world.entity.ModEntities;
 import com.github.iunius118.tolaserblade.world.item.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.resources.model.ModelResourceLocation;
-import net.minecraft.network.chat.*;
+import net.minecraft.network.chat.ClickEvent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.TextComponent;
+import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraftforge.client.event.ColorHandlerEvent;
+import net.minecraftforge.client.event.EntityRenderersEvent;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -78,6 +84,11 @@ public class ClientModEventHandler {
         event.getModelRegistry().put(lBBrandNewFPItemID, bakedModel);
         event.getModelRegistry().put(lBBrokenItemID, bakedModel);
         event.getModelRegistry().put(lBBrokenFPItemID, bakedModel);
+    }
+
+    @SubscribeEvent
+    public static void onRegisterRendererEvent(EntityRenderersEvent.RegisterRenderers event) {
+        event.registerEntityRenderer(ModEntities.LASER_TRAP, LaserTrapEntityRenderer::new);
     }
 
     public static void checkUpdate() {

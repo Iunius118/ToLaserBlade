@@ -1,11 +1,9 @@
 package com.github.iunius118.tolaserblade;
 
 import com.github.iunius118.tolaserblade.client.ClientModEventHandler;
-import com.github.iunius118.tolaserblade.client.renderer.entity.LaserTrapEntityRenderer;
 import com.github.iunius118.tolaserblade.common.CommonEventHandler;
 import com.github.iunius118.tolaserblade.common.RegistryEventHandler;
 import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
-import com.github.iunius118.tolaserblade.world.entity.ModEntities;
 import com.github.iunius118.tolaserblade.world.item.ItemEventHandler;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -16,7 +14,6 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLLoader;
-import net.minecraftforge.fmlclient.registry.RenderingRegistry;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -52,8 +49,7 @@ public class ToLaserBlade {
     }
 
     private void initClient(final FMLClientSetupEvent event) {
-        // Register laser trap entity renderer
-        RenderingRegistry.registerEntityRenderingHandler(ModEntities.LASER_TRAP, LaserTrapEntityRenderer::new);
+
     }
 
     public static int getTodayDateNumber() {
