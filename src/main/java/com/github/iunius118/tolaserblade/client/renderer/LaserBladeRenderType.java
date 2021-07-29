@@ -73,21 +73,21 @@ public class LaserBladeRenderType {
 
     @OnlyIn(Dist.CLIENT)
     private static class Internal extends RenderType {
-        // Temporarily initialize with RENDERTYPE_ENTITY_TRANSLUCENT_SHADER
-        public static RenderStateShard.ShaderStateShard flatShaderState = RENDERTYPE_ENTITY_TRANSLUCENT_SHADER;
+        // Initialize with RENDERTYPE_ENERGY_SWIRL_SHADER temporarily
+        public static RenderStateShard.ShaderStateShard flatShaderState = RenderStateShard.RENDERTYPE_ENERGY_SWIRL_SHADER;
 
         private Internal(String name, VertexFormat fmt, VertexFormat.Mode glMode, int size, boolean doCrumbling, boolean depthSorting, Runnable onEnable, Runnable onDisable) {
             super(name, fmt, glMode, size, doCrumbling, depthSorting, onEnable, onDisable);
         }
 
-        // TODO: Need Mixin for initializing ShaderInstance!!!
+        // TODO: <del>Need Mixin for initializing ShaderInstance!!!</del>
         public static void setFlatShaderInstance(ShaderInstance shaderInstance) {
             flatShaderState = new RenderStateShard.ShaderStateShard(() -> shaderInstance);
         }
 
         public static RenderType.CompositeState getHiltRenderState(RenderStateShard.TextureStateShard textureState) {
             return RenderType.CompositeState.builder()
-                    .setShaderState(flatShaderState)
+                    .setShaderState(RENDERTYPE_ENTITY_TRANSLUCENT_SHADER)
                     .setTextureState(textureState)
                     .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
                     .setLightmapState(LIGHTMAP)
