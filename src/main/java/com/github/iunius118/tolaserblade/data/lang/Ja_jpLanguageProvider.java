@@ -90,9 +90,4 @@ public class Ja_jpLanguageProvider extends En_usLanguageProvider {
         // Update message
         add("tolaserblade.update.newVersion", "%s の新しいバージョンが利用可能です");
     }
-
-    @Override
-    public String getName() {
-        return "ToLaserBlade " + super.getName();
-    }
 }
