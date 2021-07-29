@@ -5,5 +5,19 @@
 ## [Unreleased]
 
 ## [1.17.1-5.0.0.0]
+### Added
+- Particles for visual effects of laser trap.
+- Recipes to switch blend mode of blade color.
+
 ### Changed
-- Initial port to 1.17.1
+- Port to 1.17.1.
+- Update Forge to 1.17.1-37.0.12+.
+- Default value of canLaserTrapAttackPlayer in server config to true.
+- Non-fireproof laser blade can be used for laser furnace.
+- Add amethyst shard to the ingredients of silk touch upgrade.
+
+### Removed
+- Laser trap entity (tolaserblade:laser_trap).
+
+### Deprecated
+- .OBJ model support.

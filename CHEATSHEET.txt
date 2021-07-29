@@ -1,6 +1,12 @@
 # Cheatsheet
 ToLaserBlade v5.0.0.0
 
+## How to Get Started
+1. Craft a brand-new laser blade I or II, and use it.
+   Holding a brand-new laser blade in your hand and right-clicking, you can get a laser blade
+2. Craft a smithing table and upgrade the laser blade.
+   Using smithing table, you can upgrade your laser blade
+
 ## Items
 ### DX Laser B1ade
 - ID: tolaserblade:dx_laser_blade
@@ -61,14 +67,12 @@ Crafting Table:
 ### Not Used Items
 These items are not used and have no recipes:
 
-
 - Laser Blade Blueprint
 - Disassembled Laser Blade
 - LB Energy Cell
 - Laser Medium
 - Laser Blade Emitter
 - Laser Blade Casing
-
 
 ## Features
 ### Changing Laser Blade colors
@@ -77,16 +81,15 @@ Smithing Table:
 - Outer Blade: Laser Blade + Stained Glass
 - Inner blade: Laser Blade + Stained Glass Pane
 - Grip: Laser Blade + Carpet
-
 - Switching Blend Mode of Outer Blade: Laser Blade + Tinted Glass
 - Switching Blend Mode of Inner Blade: Laser Blade + Block of Amethyst
 
 ### Changing Laser Blade model
 Smithing Table:
 
--Saving Model Type: Laser Blade + Crafting Table
--Removing Model Type: Laser Blade (with model type saved) + Crafting Table
--Model Type 526: Laser Blade + Dirt
+- Saving Model Type: Laser Blade + Crafting Table
+- Removing Model Type: Laser Blade (with model type saved) + Crafting Table
+- Model Type 526: Laser Blade + Dirt
 
 ### Upgrading Laser Blades
 Smithing Table:
