@@ -33,7 +33,7 @@ public class TLBItemTagsProvider extends ItemTagsProvider {
         tag(ModItemTags.LIGHT_ELEMENT_UPGRADE).add(Items.GLOWSTONE);
         tag(ModItemTags.FIRE_ASPECT_UPGRADE).addTags(Tags.Items.RODS_BLAZE);
         tag(ModItemTags.SWEEPING_EDGE_UPGRADE).add(Items.ENDER_EYE);
-        tag(ModItemTags.SILK_TOUCH_UPGRADE).add(Items.PRISMARINE_CRYSTALS);
+        tag(ModItemTags.SILK_TOUCH_UPGRADE).add(Items.PRISMARINE_CRYSTALS).add(Items.AMETHYST_SHARD);
         tag(ModItemTags.LOOTING_UPGRADE).add(Items.NAUTILUS_SHELL).addTags(Tags.Items.STORAGE_BLOCKS_EMERALD);
         tag(ModItemTags.MENDING_UPGRADE).add(Items.NETHER_STAR, Items.DRAGON_HEAD, Items.TOTEM_OF_UNDYING);
         tag(ModItemTags.CASING_REPAIR).addTags(Tags.Items.INGOTS_IRON);
