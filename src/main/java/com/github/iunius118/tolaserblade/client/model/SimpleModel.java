@@ -1,10 +1,9 @@
 package com.github.iunius118.tolaserblade.client.model;
 
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-import net.minecraft.util.math.vector.Vector2f;
-import net.minecraft.util.math.vector.Vector3f;
-import net.minecraft.util.math.vector.Vector4f;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Vector3f;
+import com.mojang.math.Vector4f;
 
 import java.util.List;
 
@@ -79,33 +78,33 @@ public class SimpleModel {
         }
     }
 
-    protected void renderQuads(MatrixStack matrixStack, IVertexBuilder buffer, List<SimpleQuad> quads, int color, int lightmapCoord, int overlayColor) {
+    protected void renderQuads(PoseStack matrices, VertexConsumer buffer, List<SimpleQuad> quads, int color, int lightmapCoord, int overlayColor) {
         float alpha = (float)(color >>> 24 & 255) / 255.0F;
         float red   = (float)(color >>> 16 & 255) / 255.0F;
         float green = (float)(color >>> 8 & 255) / 255.0F;
         float blue  = (float)(color & 255) / 255.0F;
-        renderQuads(matrixStack, buffer, quads, lightmapCoord, overlayColor, red, green, blue, alpha);
+        renderQuads(matrices, buffer, quads, lightmapCoord, overlayColor, red, green, blue, alpha);
     }
 
-    protected void renderQuads(MatrixStack matrixStack, IVertexBuilder buffer, List<SimpleQuad> quads, int lightmapCoord, int overlayColor, float red, float green, float blue, float alpha) {
-        MatrixStack.Entry matrixEntry = matrixStack.last();
+    protected void renderQuads(PoseStack matrices, VertexConsumer buffer, List<SimpleQuad> quads, int lightmapCoord, int overlayColor, float red, float green, float blue, float alpha) {
+        PoseStack.Pose pose = matrices.last();
 
         for (SimpleQuad face : quads) {
             for (int i = 0; i < 4; i++) {
                 SimpleVertex vertex = face.vertices[i];
 
                 Vector4f pos = new Vector4f(vertex.pos);
-                pos.transform(matrixEntry.pose());
+                pos.transform(pose.pose());
 
                 Vector4f vColor = vertex.color;
                 Vector2f uv = vertex.uv;
 
                 Vector3f normal = vertex.normal.copy();
-                normal.transform(matrixEntry.normal());
+                normal.transform(pose.normal());
 
                 buffer.vertex(pos.x(), pos.y(), pos.z(),
                         red * vColor.x(), green * vColor.y(), blue * vColor.z(), alpha * vColor.w(),
-                        uv.x, uv.y, overlayColor, lightmapCoord,
+                        uv.x(), uv.y(), overlayColor, lightmapCoord,
                         normal.x(), normal.y(), normal.z());
             }
         }

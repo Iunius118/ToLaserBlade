@@ -21,7 +21,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tolaserblade:laser_blade",
+            "items": [
+              "tolaserblade:laser_blade"
+            ],
             "nbt": "{ATK:8.0f}"
           }
         ]
@@ -32,7 +34,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tolaserblade:laser_blade_fp",
+            "items": [
+              "tolaserblade:laser_blade_fp"
+            ],
             "nbt": "{ATK:7.0f}"
           }
         ]
@@ -43,7 +47,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tolaserblade:laser_blade_fp",
+            "items": [
+              "tolaserblade:laser_blade_fp"
+            ],
             "nbt": "{ATK:8.0f}"
           }
         ]

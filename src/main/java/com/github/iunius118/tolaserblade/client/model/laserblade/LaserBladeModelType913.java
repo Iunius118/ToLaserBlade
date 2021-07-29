@@ -1,20 +1,20 @@
 package com.github.iunius118.tolaserblade.client.model.laserblade;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
+import com.github.iunius118.tolaserblade.client.color.item.LaserBladeItemColor;
 import com.github.iunius118.tolaserblade.client.model.SimpleLaserBladeModel;
-import com.github.iunius118.tolaserblade.client.renderer.LaserBladeItemColor;
+import com.github.iunius118.tolaserblade.client.model.Vector2f;
 import com.google.common.collect.ImmutableList;
-import com.mojang.blaze3d.matrix.MatrixStack;
-import com.mojang.blaze3d.vertex.IVertexBuilder;
-import net.minecraft.client.renderer.IRenderTypeBuffer;
-import net.minecraft.client.renderer.model.ItemCameraTransforms;
-import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.Util;
-import net.minecraft.util.math.vector.Quaternion;
-import net.minecraft.util.math.vector.Vector2f;
-import net.minecraft.util.math.vector.Vector3f;
-import net.minecraft.util.math.vector.Vector4f;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
+import com.mojang.math.Quaternion;
+import com.mojang.math.Vector3f;
+import com.mojang.math.Vector4f;
+import net.minecraft.Util;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.ItemStack;
 
 import java.util.List;
 
@@ -26,28 +26,29 @@ public class LaserBladeModelType913 extends SimpleLaserBladeModel {
     public static final List<SimpleQuad> BLADE_OUT_QUADS;
 
     @Override
-    public void render(ItemStack itemStack, ItemCameraTransforms.TransformType transformType, MatrixStack matrixStack, IRenderTypeBuffer buffer, int lightmapCoord, int overlayColor) {
+    public void render(ItemStack itemStack, ItemTransforms.TransformType mode, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
         LaserBladeItemColor color = new LaserBladeItemColor(itemStack);
         final int fullLight = 0xF000F0;
         final int offColor = 0xFFCCCCCC;
 
-        IVertexBuilder currentBuffer = buffer.getBuffer(getHiltRenderType());
-        renderQuads(matrixStack, currentBuffer, HILT_QUADS, color.gripColor, lightmapCoord, overlayColor);
-        renderQuads(matrixStack, currentBuffer, BLADE_OFF_QUADS, offColor, lightmapCoord, overlayColor);
+        VertexConsumer currentBuffer = vertexConsumers.getBuffer(getHiltRenderType());
+        renderQuads(matrices, currentBuffer, HILT_QUADS, color.gripColor, light, overlay);
+        renderQuads(matrices, currentBuffer, BLADE_OFF_QUADS, offColor, light, overlay);
 
         if (color.isBroken) {
             return;
         }
 
         // Rotate blades
-        float angle = Util.getMillis() % 250L * 1.44F;   // 240 rpm
-        matrixStack.mulPose(new Quaternion(Vector3f.YP, angle, true));
+        // 240 rpm
+        float angle = Util.getMillis() % 250L * 1.44F;
+        matrices.mulPose(new Quaternion(Vector3f.YP, angle, true));
 
-        currentBuffer = buffer.getBuffer(getInnerBladeAddRenderType(color.isInnerSubColor));
-        renderQuads(matrixStack, currentBuffer, BLADE_IN_QUADS, color.innerColor, fullLight, overlayColor);
+        currentBuffer = vertexConsumers.getBuffer(getInnerBladeAddRenderType(color.isInnerSubColor));
+        renderQuads(matrices, currentBuffer, BLADE_IN_QUADS, color.innerColor, fullLight, overlay);
 
-        currentBuffer = buffer.getBuffer(getOuterBladeAddRenderType(color.isOuterSubColor));
-        renderQuads(matrixStack, currentBuffer, BLADE_OUT_QUADS, color.outerColor, fullLight, overlayColor);
+        currentBuffer = vertexConsumers.getBuffer(getOuterBladeAddRenderType(color.isOuterSubColor));
+        renderQuads(matrices, currentBuffer, BLADE_OUT_QUADS, color.outerColor, fullLight, overlay);
     }
 
     @Override

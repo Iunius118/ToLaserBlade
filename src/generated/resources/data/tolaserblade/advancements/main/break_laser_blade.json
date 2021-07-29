@@ -23,7 +23,9 @@
       "trigger": "minecraft:item_durability_changed",
       "conditions": {
         "item": {
-          "item": "tolaserblade:laser_blade"
+          "items": [
+            "tolaserblade:laser_blade"
+          ]
         },
         "durability": {
           "max": 0
@@ -34,7 +36,9 @@
       "trigger": "minecraft:item_durability_changed",
       "conditions": {
         "item": {
-          "item": "tolaserblade:laser_blade_fp"
+          "items": [
+            "tolaserblade:laser_blade_fp"
+          ]
         },
         "durability": {
           "max": 0

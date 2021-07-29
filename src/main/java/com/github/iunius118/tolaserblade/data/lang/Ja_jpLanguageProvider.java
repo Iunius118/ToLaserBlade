@@ -1,10 +1,9 @@
 package com.github.iunius118.tolaserblade.data.lang;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
-import com.github.iunius118.tolaserblade.enchantment.ModEnchantments;
-import com.github.iunius118.tolaserblade.item.LBBrandNewItem;
-import com.github.iunius118.tolaserblade.item.LaserBladeItemBase;
-import com.github.iunius118.tolaserblade.item.ModItems;
+import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeTextKey;
+import com.github.iunius118.tolaserblade.world.item.ModItems;
+import com.github.iunius118.tolaserblade.world.item.enchantment.ModEnchantments;
 import net.minecraft.data.DataGenerator;
 
 public class Ja_jpLanguageProvider extends En_usLanguageProvider {
@@ -38,16 +37,16 @@ public class Ja_jpLanguageProvider extends En_usLanguageProvider {
                 "レーザーブレイドのダメージを増加させ、アンデッドMobや邪悪な村人に追加ダメージを与える");
 
         // item tooltip
-        add(LBBrandNewItem.KEY_TOOLTIP_BLAND_NEW_HOW_TO_USE_LINE_1, "手に持って右クリックで");
-        add(LBBrandNewItem.KEY_TOOLTIP_BLAND_NEW_HOW_TO_USE_LINE_2, "レーザーブレイドを入手");
-        add(LBBrandNewItem.KEY_TOOLTIP_BLAND_NEW_HOW_TO_USE_LINE_3, "できます");
-        add(LaserBladeItemBase.KEY_TOOLTIP_REMOVE, "%sを除去");
-        add(LaserBladeItemBase.KEY_TOOLTIP_MODEL, "モデル%s");
+        add(LaserBladeTextKey.KEY_TOOLTIP_BLAND_NEW_HOW_TO_USE_LINE_1.getKey(), "手に持って右クリックで");
+        add(LaserBladeTextKey.KEY_TOOLTIP_BLAND_NEW_HOW_TO_USE_LINE_2.getKey(), "レーザーブレイドを入手");
+        add(LaserBladeTextKey.KEY_TOOLTIP_BLAND_NEW_HOW_TO_USE_LINE_3.getKey(), "できます");
+        add(LaserBladeTextKey.KEY_TOOLTIP_REMOVE.getKey(), "%sを除去");
+        add(LaserBladeTextKey.KEY_TOOLTIP_MODEL.getKey(), "モデル%s");
 
         // Upgrade tooltip
-        add(LaserBladeItemBase.KEY_TOOLTIP_ATTACK_DAMAGE, "レーザー出力 %s");
-        add(LaserBladeItemBase.KEY_TOOLTIP_ATTACK_SPEED, "充電効率 %s");
-        add(LaserBladeItemBase.KEY_TOOLTIP_FIREPROOF, "耐熱強化 8000");
+        add(LaserBladeTextKey.KEY_TOOLTIP_ATTACK_DAMAGE.getKey(), "レーザー出力 %s");
+        add(LaserBladeTextKey.KEY_TOOLTIP_ATTACK_SPEED.getKey(), "充電効率 %s");
+        add(LaserBladeTextKey.KEY_TOOLTIP_FIREPROOF.getKey(), "耐熱強化 8000");
 
         // Advancements
         add("advancements.tolaserblade.main.root.title", "ToLaserBlade");
@@ -90,10 +89,5 @@ public class Ja_jpLanguageProvider extends En_usLanguageProvider {
 
         // Update message
         add("tolaserblade.update.newVersion", "%s の新しいバージョンが利用可能です");
-    }
-
-    @Override
-    public String getName() {
-        return "ToLaserBlade " + super.getName();
     }
 }

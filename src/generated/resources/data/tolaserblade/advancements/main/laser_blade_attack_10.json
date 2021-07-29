@@ -21,7 +21,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tolaserblade:laser_blade",
+            "items": [
+              "tolaserblade:laser_blade"
+            ],
             "nbt": "{ATK:3.0f}"
           }
         ]
@@ -32,7 +34,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tolaserblade:laser_blade",
+            "items": [
+              "tolaserblade:laser_blade"
+            ],
             "nbt": "{ATK:4.0f}"
           }
         ]
@@ -43,7 +47,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tolaserblade:laser_blade",
+            "items": [
+              "tolaserblade:laser_blade"
+            ],
             "nbt": "{ATK:5.0f}"
           }
         ]
@@ -54,7 +60,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tolaserblade:laser_blade",
+            "items": [
+              "tolaserblade:laser_blade"
+            ],
             "nbt": "{ATK:6.0f}"
           }
         ]
@@ -65,7 +73,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tolaserblade:laser_blade",
+            "items": [
+              "tolaserblade:laser_blade"
+            ],
             "nbt": "{ATK:7.0f}"
           }
         ]
@@ -76,7 +86,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tolaserblade:laser_blade",
+            "items": [
+              "tolaserblade:laser_blade"
+            ],
             "nbt": "{ATK:8.0f}"
           }
         ]
@@ -87,7 +99,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tolaserblade:laser_blade_fp",
+            "items": [
+              "tolaserblade:laser_blade_fp"
+            ],
             "nbt": "{ATK:2.0f}"
           }
         ]
@@ -98,7 +112,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tolaserblade:laser_blade_fp",
+            "items": [
+              "tolaserblade:laser_blade_fp"
+            ],
             "nbt": "{ATK:3.0f}"
           }
         ]
@@ -109,7 +125,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tolaserblade:laser_blade_fp",
+            "items": [
+              "tolaserblade:laser_blade_fp"
+            ],
             "nbt": "{ATK:4.0f}"
           }
         ]
@@ -120,7 +138,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tolaserblade:laser_blade_fp",
+            "items": [
+              "tolaserblade:laser_blade_fp"
+            ],
             "nbt": "{ATK:5.0f}"
           }
         ]
@@ -131,7 +151,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tolaserblade:laser_blade_fp",
+            "items": [
+              "tolaserblade:laser_blade_fp"
+            ],
             "nbt": "{ATK:6.0f}"
           }
         ]
@@ -142,7 +164,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tolaserblade:laser_blade_fp",
+            "items": [
+              "tolaserblade:laser_blade_fp"
+            ],
             "nbt": "{ATK:7.0f}"
           }
         ]
@@ -153,7 +177,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tolaserblade:laser_blade_fp",
+            "items": [
+              "tolaserblade:laser_blade_fp"
+            ],
             "nbt": "{ATK:8.0f}"
           }
         ]

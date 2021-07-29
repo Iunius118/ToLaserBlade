@@ -1,13 +1,12 @@
 package com.github.iunius118.tolaserblade.data.lang;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
-import com.github.iunius118.tolaserblade.enchantment.ModEnchantments;
-import com.github.iunius118.tolaserblade.item.LBBrandNewItem;
-import com.github.iunius118.tolaserblade.item.LaserBladeItemBase;
-import com.github.iunius118.tolaserblade.item.ModItems;
+import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeTextKey;
+import com.github.iunius118.tolaserblade.world.item.ModItems;
+import com.github.iunius118.tolaserblade.world.item.enchantment.ModEnchantments;
 import net.minecraft.data.DataGenerator;
-import net.minecraft.enchantment.Enchantment;
-import net.minecraft.util.ResourceLocation;
+import net.minecraft.resources.ResourceLocation;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraftforge.common.data.LanguageProvider;
 
 public class En_usLanguageProvider extends LanguageProvider {
@@ -48,16 +47,16 @@ public class En_usLanguageProvider extends LanguageProvider {
                 "Increases the damage of the Laser Blade, and deals additional damage to undead mobs and illagers.");
 
         // Item tooltip
-        add(LBBrandNewItem.KEY_TOOLTIP_BLAND_NEW_HOW_TO_USE_LINE_1, "Hold in your hand and");
-        add(LBBrandNewItem.KEY_TOOLTIP_BLAND_NEW_HOW_TO_USE_LINE_2, "right-click to obtain");
-        add(LBBrandNewItem.KEY_TOOLTIP_BLAND_NEW_HOW_TO_USE_LINE_3, "Laser Blade");
-        add(LaserBladeItemBase.KEY_TOOLTIP_REMOVE, "Remove %s");
-        add(LaserBladeItemBase.KEY_TOOLTIP_MODEL, "Model %s");
+        add(LaserBladeTextKey.KEY_TOOLTIP_BLAND_NEW_HOW_TO_USE_LINE_1.getKey(), "Hold in your hand and");
+        add(LaserBladeTextKey.KEY_TOOLTIP_BLAND_NEW_HOW_TO_USE_LINE_2.getKey(), "right-click to obtain");
+        add(LaserBladeTextKey.KEY_TOOLTIP_BLAND_NEW_HOW_TO_USE_LINE_3.getKey(), "Laser Blade");
+        add(LaserBladeTextKey.KEY_TOOLTIP_REMOVE.getKey(), "Remove %s");
+        add(LaserBladeTextKey.KEY_TOOLTIP_MODEL.getKey(), "Model %s");
 
         // Upgrade tooltip
-        add(LaserBladeItemBase.KEY_TOOLTIP_ATTACK_DAMAGE, "Laser Power %s");
-        add(LaserBladeItemBase.KEY_TOOLTIP_ATTACK_SPEED, "Recharge %s");
-        add(LaserBladeItemBase.KEY_TOOLTIP_FIREPROOF, "HEAT RESISTANT 8000");
+        add(LaserBladeTextKey.KEY_TOOLTIP_ATTACK_DAMAGE.getKey(), "Laser Power %s");
+        add(LaserBladeTextKey.KEY_TOOLTIP_ATTACK_SPEED.getKey(), "Recharge %s");
+        add(LaserBladeTextKey.KEY_TOOLTIP_FIREPROOF.getKey(), "HEAT RESISTANT 8000");
 
         // Advancements
         add("advancements.tolaserblade.main.root.title", "ToLaserBlade");
