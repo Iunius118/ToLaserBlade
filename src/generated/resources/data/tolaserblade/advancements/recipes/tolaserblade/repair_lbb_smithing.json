@@ -11,7 +11,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tolaserblade:lb_broken"
+            "items": [
+              "tolaserblade:lb_broken"
+            ]
           }
         ]
       }

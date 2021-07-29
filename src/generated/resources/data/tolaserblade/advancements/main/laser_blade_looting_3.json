@@ -21,7 +21,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tolaserblade:laser_blade",
+            "items": [
+              "tolaserblade:laser_blade"
+            ],
             "enchantments": [
               {
                 "enchantment": "minecraft:looting",
@@ -39,7 +41,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tolaserblade:laser_blade_fp",
+            "items": [
+              "tolaserblade:laser_blade_fp"
+            ],
             "enchantments": [
               {
                 "enchantment": "minecraft:looting",

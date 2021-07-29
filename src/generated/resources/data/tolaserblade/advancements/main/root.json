@@ -2,7 +2,7 @@
   "display": {
     "icon": {
       "item": "tolaserblade:laser_blade",
-      "nbt": "{isSubC:0b,isSubH:0b,colorG:-6447721,colorH:-65536,Damage:0,colorC:-1}"
+      "nbt": "{Damage:0,colorC:-1,colorG:-6447721,colorH:-65536,isSubC:0b,isSubH:0b}"
     },
     "title": {
       "translate": "advancements.tolaserblade.main.root.title"
@@ -22,7 +22,9 @@
       "conditions": {
         "items": [
           {
-            "item": "minecraft:redstone"
+            "items": [
+              "minecraft:redstone"
+            ]
           }
         ]
       }
@@ -32,7 +34,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tolaserblade:dx_laser_blade"
+            "items": [
+              "tolaserblade:dx_laser_blade"
+            ]
           }
         ]
       }
@@ -42,7 +46,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tolaserblade:laser_blade"
+            "items": [
+              "tolaserblade:laser_blade"
+            ]
           }
         ]
       }
@@ -52,7 +58,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tolaserblade:laser_blade_fp"
+            "items": [
+              "tolaserblade:laser_blade_fp"
+            ]
           }
         ]
       }

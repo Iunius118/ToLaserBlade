@@ -22,7 +22,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tolaserblade:dx_laser_blade"
+            "items": [
+              "tolaserblade:dx_laser_blade"
+            ]
           }
         ]
       }

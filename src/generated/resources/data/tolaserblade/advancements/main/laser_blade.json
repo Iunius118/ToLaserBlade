@@ -22,7 +22,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tolaserblade:laser_blade"
+            "items": [
+              "tolaserblade:laser_blade"
+            ]
           }
         ]
       }
@@ -32,7 +34,9 @@
       "conditions": {
         "items": [
           {
-            "item": "tolaserblade:laser_blade_fp"
+            "items": [
+              "tolaserblade:laser_blade_fp"
+            ]
           }
         ]
       }

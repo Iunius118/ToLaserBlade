@@ -1,0 +1,34 @@
+{
+  "parent": "minecraft:recipes/root",
+  "rewards": {
+    "recipes": [
+      "tolaserblade:color/lb_ib_special_sbm"
+    ]
+  },
+  "criteria": {
+    "has_laser_blade": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "tolaserblade:laser_blade"
+            ]
+          }
+        ]
+      }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "tolaserblade:color/lb_ib_special_sbm"
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_laser_blade",
+      "has_the_recipe"
+    ]
+  ]
+}
