@@ -16,7 +16,9 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class LBSwordItemRenderer extends BlockEntityWithoutLevelRenderer {
-    public LBSwordItemRenderer() {
+    public static final LBSwordItemRenderer INSTANCE = new LBSwordItemRenderer();
+
+    protected LBSwordItemRenderer() {
         super(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());
     }
 

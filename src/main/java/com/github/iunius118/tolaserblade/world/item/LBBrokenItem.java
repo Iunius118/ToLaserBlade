@@ -1,6 +1,5 @@
 package com.github.iunius118.tolaserblade.world.item;
 
-import com.github.iunius118.tolaserblade.client.renderer.item.LBBrandNewItemRenderer;
 import com.github.iunius118.tolaserblade.client.renderer.item.LBBrokenItemRenderer;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.Upgrade;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
@@ -32,8 +31,7 @@ public class LBBrokenItem extends Item implements LaserBladeItemBase {
     @Override
     public void initializeClient(java.util.function.Consumer<net.minecraftforge.client.IItemRenderProperties> consumer) {
         var itemRenderProperties = new IItemRenderProperties() {
-            final BlockEntityWithoutLevelRenderer renderer = new LBBrokenItemRenderer();
-            @Override public BlockEntityWithoutLevelRenderer getItemStackRenderer() { return renderer; }
+            @Override public BlockEntityWithoutLevelRenderer getItemStackRenderer() { return LBBrokenItemRenderer.INSTANCE; }
         };
 
         consumer.accept(itemRenderProperties);

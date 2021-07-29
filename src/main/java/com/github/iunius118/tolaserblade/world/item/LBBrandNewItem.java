@@ -2,7 +2,6 @@ package com.github.iunius118.tolaserblade.world.item;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.client.renderer.item.LBBrandNewItemRenderer;
-import com.github.iunius118.tolaserblade.client.renderer.item.LBBrokenItemRenderer;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBlade;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeVisual;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.Upgrade;
@@ -117,8 +116,7 @@ public class LBBrandNewItem extends Item implements LaserBladeItemBase {
     @Override
     public void initializeClient(java.util.function.Consumer<net.minecraftforge.client.IItemRenderProperties> consumer) {
         var itemRenderProperties = new IItemRenderProperties() {
-            final BlockEntityWithoutLevelRenderer renderer = new LBBrandNewItemRenderer();
-            @Override public BlockEntityWithoutLevelRenderer getItemStackRenderer() { return renderer; }
+            @Override public BlockEntityWithoutLevelRenderer getItemStackRenderer() { return LBBrandNewItemRenderer.INSTANCE; }
         };
 
         consumer.accept(itemRenderProperties);

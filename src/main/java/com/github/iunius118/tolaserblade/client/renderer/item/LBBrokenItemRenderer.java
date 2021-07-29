@@ -5,5 +5,5 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 @OnlyIn(Dist.CLIENT)
 public class LBBrokenItemRenderer extends LBSwordItemRenderer {
-
+    public static final LBBrokenItemRenderer INSTANCE = new LBBrokenItemRenderer();
 }

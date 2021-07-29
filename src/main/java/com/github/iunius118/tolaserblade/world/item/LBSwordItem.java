@@ -209,8 +209,7 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
     @Override
     public void initializeClient(java.util.function.Consumer<net.minecraftforge.client.IItemRenderProperties> consumer) {
         var itemRenderProperties = new IItemRenderProperties() {
-            final BlockEntityWithoutLevelRenderer renderer = new LBSwordItemRenderer();
-            @Override public BlockEntityWithoutLevelRenderer getItemStackRenderer() { return renderer; }
+            @Override public BlockEntityWithoutLevelRenderer getItemStackRenderer() { return LBSwordItemRenderer.INSTANCE; }
         };
 
         consumer.accept(itemRenderProperties);
