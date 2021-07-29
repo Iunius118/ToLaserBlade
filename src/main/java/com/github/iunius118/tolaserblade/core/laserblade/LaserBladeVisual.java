@@ -203,5 +203,9 @@ public class LaserBladeVisual {
                 isSubtractColor = compound.getBoolean(subKey);
             }
         }
+
+        public void switchBlendMode() {
+            isSubtractColor = !isSubtractColor;
+        }
     }
 }

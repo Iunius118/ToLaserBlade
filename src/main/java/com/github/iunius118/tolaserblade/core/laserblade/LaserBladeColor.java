@@ -25,7 +25,9 @@ public enum LaserBladeColor {
     TEMP_TAIGA(0xFF00FF00, 0xFFF9FFFE, "temp_taiga"),
     TEMP_ICE_PLAIN(0xFF0080FF, 0xFFF9FFFE, "temp_ice_plain"),
     TEMP_SNOWY_TAIGA(0xFF0030FF, 0xFFF9FFFE, "temp_snowy_taiga"),
-    SPECIAL_GAMING(0xFF010101, 0xFF010101, "special_gaming");
+    SPECIAL_GAMING(0xFF010101, 0xFF010101, "special_gaming"),
+    SPECIAL_SWITCH_BLEND_MODE(0x01010101, 0x01010101, "special_sbm"),
+    ;
 
     private final int bladeColor;
     private final int gripColor;

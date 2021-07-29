@@ -137,6 +137,8 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
         addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_GREEN), part, LaserBladeColor.GREEN);
         addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_RED), part, LaserBladeColor.RED);
         addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_BLACK), part, LaserBladeColor.BLACK);
+
+        addColorRecipe(consumer, Ingredient.of(Blocks.AMETHYST_BLOCK), part, LaserBladeColor.SPECIAL_SWITCH_BLEND_MODE);
     }
 
     private void addOuterColorRecipes(Consumer<FinishedRecipe> consumer) {
@@ -157,6 +159,8 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
         addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_GREEN), part, LaserBladeColor.GREEN);
         addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_RED), part, LaserBladeColor.RED);
         addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_BLACK), part, LaserBladeColor.BLACK);
+
+        addColorRecipe(consumer, Ingredient.of(Blocks.TINTED_GLASS), part, LaserBladeColor.SPECIAL_SWITCH_BLEND_MODE);
     }
 
     private void addGripColorRecipes(Consumer<FinishedRecipe> consumer) {
