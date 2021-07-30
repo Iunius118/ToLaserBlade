@@ -72,7 +72,7 @@ public class LBUpgradeRecipe extends UpgradeRecipe {
     private ItemStack getUpgradingResult(ItemStack input) {
         Upgrade upgrade = getUpgrade();
         UpgradeResult result = upgrade.apply(input, 0);
-        return result.getItemStack();
+        return result.itemStack();
     }
 
     private Upgrade getUpgrade() {
