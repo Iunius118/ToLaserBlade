@@ -80,6 +80,8 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
         addColorRecipes(consumer);
 
         // Model Change Recipes
+        addModelChangeRecipes(consumer, Ingredient.of(Blocks.GLASS.asItem()), 0, "");
+        addModelChangeRecipes(consumer, Ingredient.of(Blocks.SAND.asItem()), 1, "");
         addModelChangeRecipes(consumer, Ingredient.of(Blocks.DIRT.asItem()), 526, "_sample");
         addModelChangeRecipes(consumer, Ingredient.of(Blocks.CRAFTING_TABLE.asItem()), -1, "");
     }

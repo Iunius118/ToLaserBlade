@@ -1,0 +1,12 @@
+{
+  "type": "tolaserblade:model_change",
+  "base": {
+    "item": "tolaserblade:laser_blade_fp"
+  },
+  "addition": {
+    "item": "minecraft:glass"
+  },
+  "result": {
+    "model_type": 0
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "type": "tolaserblade:model_change",
+  "base": {
+    "item": "tolaserblade:laser_blade"
+  },
+  "addition": {
+    "item": "minecraft:sand"
+  },
+  "result": {
+    "model_type": 1
+  }
+}
