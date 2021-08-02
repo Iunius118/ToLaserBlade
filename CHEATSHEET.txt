@@ -1,5 +1,5 @@
 # Cheatsheet
-ToLaserBlade v5.0.0.0
+ToLaserBlade v5.0.1.0
 
 ## How to Get Started
 1. Craft a brand-new laser blade I or II, and use it.
@@ -89,6 +89,8 @@ Smithing Table:
 
 - Saving Model Type: Laser Blade + Crafting Table
 - Removing Model Type: Laser Blade (with model type saved) + Crafting Table
+- Model Type 0 (Standard): Laser Blade + Glass
+- Model Type 1: Laser Blade + Sand
 - Model Type 526: Laser Blade + Dirt
 
 ### Upgrading Laser Blades
