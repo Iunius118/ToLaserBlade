@@ -70,7 +70,7 @@ public class LBModelChangeRecipe extends UpgradeRecipe {
 
         if (type < 0) {
             int baseType = visual.getModelType();
-            fixedType = baseType >= 0 ? -1 : ToLaserBlade.getTodayDateNumber();
+            fixedType = baseType >= 0 ? LaserBladeVisual.MODEL_TYPE_NO_MODEL : ToLaserBlade.getTodayDateNumber();
         }
 
         visual.setModelType(fixedType);

@@ -107,7 +107,7 @@ public class LBBrandNewItem extends Item implements LaserBladeItemBase {
         Biome biome = level.getBiome(pos);
         // ... its blade will be colored by biome player in, ...
         visual.setColorsByBiome(level, biome);
-        // ... and its model will be set to today's model type
+        // ... and its model will be set to specific model type
         visual.setModelType(modelType);
         laserBlade.write(laserBladeStack);
         return laserBladeStack;

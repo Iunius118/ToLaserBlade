@@ -14,6 +14,7 @@ public class LaserBladeVisual {
     private final ModelType modelType;
     private final Coloring coloring;
 
+    public static final int MODEL_TYPE_NO_MODEL = -1;
 
     public LaserBladeVisual(CompoundTag compound) {
         modelType = new ModelType(compound);
@@ -113,8 +114,9 @@ public class LaserBladeVisual {
     }
 
     /* Inner classes */
-    public static class ModelType { // This is also used in laser blade renderer so be public
-        public int type = -1;
+    // This is also used in laser blade renderer so be public
+    public static class ModelType {
+        public int type = MODEL_TYPE_NO_MODEL;
 
         private static final String KEY_TYPE = "type";
 
