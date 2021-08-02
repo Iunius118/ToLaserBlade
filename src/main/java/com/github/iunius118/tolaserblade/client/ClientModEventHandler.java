@@ -7,12 +7,15 @@ import com.github.iunius118.tolaserblade.client.color.item.LBMediumItemColor;
 import com.github.iunius118.tolaserblade.client.color.item.LBSwordItemColor;
 import com.github.iunius118.tolaserblade.client.model.LaserBladeInternalModelManager;
 import com.github.iunius118.tolaserblade.client.particle.LaserTrapParticle;
+import com.github.iunius118.tolaserblade.client.renderer.LaserBladeRenderType;
 import com.github.iunius118.tolaserblade.client.renderer.item.model.LBSwordItemModel;
 import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
 import com.github.iunius118.tolaserblade.core.particle.ModParticleTypes;
 import com.github.iunius118.tolaserblade.world.item.ModItems;
+import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.ClickEvent;
@@ -21,15 +24,14 @@ import net.minecraft.network.chat.TextComponent;
 import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
-import net.minecraftforge.client.event.ColorHandlerEvent;
-import net.minecraftforge.client.event.ModelBakeEvent;
-import net.minecraftforge.client.event.ParticleFactoryRegisterEvent;
-import net.minecraftforge.client.event.TextureStitchEvent;
+import net.minecraftforge.client.event.*;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.VersionChecker;
 import net.minecraftforge.fml.VersionChecker.CheckResult;
 import net.minecraftforge.fml.VersionChecker.Status;
+
+import java.io.IOException;
 
 public class ClientModEventHandler {
     @SubscribeEvent
@@ -85,6 +87,13 @@ public class ClientModEventHandler {
         event.getModelRegistry().put(lBBrandNewFPItemID, bakedModel);
         event.getModelRegistry().put(lBBrokenItemID, bakedModel);
         event.getModelRegistry().put(lBBrokenFPItemID, bakedModel);
+    }
+
+    @SubscribeEvent
+    public static void onRegisterShadersEvent(RegisterShadersEvent event) throws IOException {
+        var resourceManager = event.getResourceManager();
+        var lbUnlitShaderInstance = new ShaderInstance(resourceManager, new ResourceLocation(ToLaserBlade.MOD_ID, LaserBladeRenderType.UNLIT_SHADER_INSTANCE_NAME), DefaultVertexFormat.NEW_ENTITY);
+        event.registerShader(lbUnlitShaderInstance, LaserBladeRenderType::setUnlitShaderInstance);
     }
 
     @SubscribeEvent

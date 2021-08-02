@@ -63,7 +63,7 @@ public class LBSwordItemModel implements BakedModel {
 
     @Override
     public boolean usesBlockLight() {
-        return false;   // isGuiFlatDiffuseLighting or isShadedInGui
+        return false;
     }
 
     @Override

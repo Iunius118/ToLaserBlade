@@ -13,7 +13,6 @@ import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
-import net.minecraft.client.renderer.texture.TextureAtlas;
 import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
@@ -83,7 +82,7 @@ public class LaserBladeOBJModel extends SimpleLaserBladeModel {
         renderBakedQuads(matrices, currentBuffer, getBakedQuads(LaserBladeOBJModel.Part.HILT), color.gripColor, light, overlay);
         renderBakedQuads(matrices, currentBuffer, getBakedQuads(LaserBladeOBJModel.Part.HILT_NO_TINT), -1, light, overlay);
 
-        currentBuffer = vertexConsumers.getBuffer(getFlatRenderType());
+        currentBuffer = vertexConsumers.getBuffer(getUnlitRenderType());
         renderBakedQuads(matrices, currentBuffer, getBakedQuads(LaserBladeOBJModel.Part.HILT_LIGHT), -1, fullLight, overlay);
 
         if (color.isBroken) {

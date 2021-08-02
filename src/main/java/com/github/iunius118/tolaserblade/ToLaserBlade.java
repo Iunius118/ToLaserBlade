@@ -48,8 +48,15 @@ public class ToLaserBlade {
         }
     }
 
-    private void initClient(final FMLClientSetupEvent event) {
+    private static boolean canUseFixedVertexBuffer;
 
+    private void initClient(final FMLClientSetupEvent event) {
+        // Get useFixedVertexBuffer only once at startup
+        canUseFixedVertexBuffer = ToLaserBladeConfig.CLIENT.useFixedVertexBuffer.get();
+    }
+
+    public static boolean canUseFixedVertexBuffer() {
+        return canUseFixedVertexBuffer;
     }
 
     public static int getTodayDateNumber() {

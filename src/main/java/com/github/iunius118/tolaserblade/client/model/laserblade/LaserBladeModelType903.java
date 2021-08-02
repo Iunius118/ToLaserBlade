@@ -41,7 +41,7 @@ public class LaserBladeModelType903 extends SimpleLaserBladeModel {
             return;
         }
 
-        currentBuffer = vertexConsumers.getBuffer(getFlatRenderType());
+        currentBuffer = vertexConsumers.getBuffer(getUnlitRenderType());
         renderQuads(matrices, currentBuffer, BLADE_MID_QUADS, color.simpleOuterColor, fullLight, overlay);
         renderQuads(matrices, currentBuffer, BLADE_IN_QUADS, color.simpleInnerColor, fullLight, overlay);
 

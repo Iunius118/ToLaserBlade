@@ -1,7 +1,7 @@
 package com.github.iunius118.tolaserblade.client.renderer;
 
+import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.client.model.LaserBladeModelHolder;
-import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
@@ -20,14 +20,15 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import org.lwjgl.opengl.GL14;
 
 import javax.annotation.Nullable;
+import java.util.Map;
 import java.util.Optional;
 
 public class LaserBladeRenderType {
     private static final LaserBladeTextureState LASER_BLADE_TEXTURE_STATE = new LaserBladeTextureState();
 
-    public static final String FLAT_SHADER_INSTANCE_NAME = "rendertype_laser_blade_flat";
+    public static final String UNLIT_SHADER_INSTANCE_NAME = "rendertype_laser_blade_unlit";
     public static final RenderType HILT = getBladeRenderType("hilt", getHiltRenderState(LaserBladeRenderType.LASER_BLADE_TEXTURE_STATE));
-    public static final RenderType LASER_FLAT = getBladeRenderType("laser_flat", getFlatRenderState(LaserBladeRenderType.LASER_BLADE_TEXTURE_STATE));
+    public static final RenderType LASER_UNLIT = getBladeRenderType("laser_unlit", getUnlitRenderState(LaserBladeRenderType.LASER_BLADE_TEXTURE_STATE));
     public static final RenderType LASER_ADD = getBladeRenderType("laser_add", getAddRenderState(LaserBladeRenderType.LASER_BLADE_TEXTURE_STATE));
     public static final RenderType LASER_SUB_INNER = getBladeRenderType("laser_sub_in", getSubRenderState(LaserBladeRenderType.LASER_BLADE_TEXTURE_STATE));
     public static final RenderType LASER_SUB = getBladeRenderType("laser_sub", getSubRenderState(LaserBladeRenderType.LASER_BLADE_TEXTURE_STATE));
@@ -40,8 +41,8 @@ public class LaserBladeRenderType {
         return Internal.getHiltRenderState(textureState);
     }
 
-    public static RenderType.CompositeState getFlatRenderState(TextureStateShard textureState) {
-        return Internal.getFlatRenderState(textureState);
+    public static RenderType.CompositeState getUnlitRenderState(TextureStateShard textureState) {
+        return Internal.getUnlitRenderState(textureState);
     }
 
     public static RenderType.CompositeState getAddRenderState(TextureStateShard textureState) {
@@ -52,37 +53,40 @@ public class LaserBladeRenderType {
         return Internal.getSubRenderState(textureState);
     }
 
-    private static final Boolean CAN_USE_FIXED_VERTEX_BUFFER;
     static {
-        CAN_USE_FIXED_VERTEX_BUFFER = ToLaserBladeConfig.CLIENT.useFixedVertexBuffer.get();
-        if (CAN_USE_FIXED_VERTEX_BUFFER) registerRenderTypes();
+        if (ToLaserBlade.canUseFixedVertexBuffer()) {
+            RenderBuffers renderBuffers = Minecraft.getInstance().renderBuffers();
+            Map<RenderType, BufferBuilder> fixedBuffers = renderBuffers.fixedBuffers;
+            registerRenderTypes(fixedBuffers);
+        }
     }
 
-    public static boolean canUseFixedVertexBuffer() {
-        return CAN_USE_FIXED_VERTEX_BUFFER;
-    }
-
-    private static void registerRenderTypes() {
-        RenderBuffers renderBuffers = Minecraft.getInstance().renderBuffers();
+    private static void registerRenderTypes(Map<RenderType, BufferBuilder> bufferBuilders) {
         // Register mod RenderTypes
-        renderBuffers.fixedBuffers.put(LASER_FLAT, new BufferBuilder(LASER_FLAT.bufferSize()));
-        renderBuffers.fixedBuffers.put(LASER_SUB_INNER, new BufferBuilder(LASER_SUB_INNER.bufferSize()));
-        renderBuffers.fixedBuffers.put(LASER_ADD, new BufferBuilder(LASER_ADD.bufferSize()));
-        renderBuffers.fixedBuffers.put(LASER_SUB, new BufferBuilder(LASER_SUB.bufferSize()));
+        bufferBuilders.put(LASER_UNLIT, new BufferBuilder(LASER_UNLIT.bufferSize()));
+        bufferBuilders.put(LASER_SUB_INNER, new BufferBuilder(LASER_SUB_INNER.bufferSize()));
+        bufferBuilders.put(LASER_ADD, new BufferBuilder(LASER_ADD.bufferSize()));
+        bufferBuilders.put(LASER_SUB, new BufferBuilder(LASER_SUB.bufferSize()));
+    }
+
+    public static void setUnlitShaderInstance(ShaderInstance shaderInstance) {
+        Internal.setUnlitShaderInstance(shaderInstance);
     }
 
     @OnlyIn(Dist.CLIENT)
     private static class Internal extends RenderType {
-        // Initialize with RENDERTYPE_ENERGY_SWIRL_SHADER temporarily
-        public static RenderStateShard.ShaderStateShard flatShaderState = RenderStateShard.RENDERTYPE_ENERGY_SWIRL_SHADER;
+        private static ShaderInstance laserBladeUnlitShader;
+        private static final ShaderStateShard LASER_BLADE_UNLIT_SHADER_STATE = new ShaderStateShard(() -> laserBladeUnlitShader);
 
         private Internal(String name, VertexFormat fmt, VertexFormat.Mode glMode, int size, boolean doCrumbling, boolean depthSorting, Runnable onEnable, Runnable onDisable) {
             super(name, fmt, glMode, size, doCrumbling, depthSorting, onEnable, onDisable);
         }
 
-        // TODO: <del>Need Mixin for initializing ShaderInstance!!!</del>
-        public static void setFlatShaderInstance(ShaderInstance shaderInstance) {
-            flatShaderState = new RenderStateShard.ShaderStateShard(() -> shaderInstance);
+        public static void setUnlitShaderInstance(ShaderInstance shader) {
+            if (shader != null) {
+                laserBladeUnlitShader = shader;
+            }
+
         }
 
         public static RenderType.CompositeState getHiltRenderState(RenderStateShard.TextureStateShard textureState) {
@@ -95,9 +99,9 @@ public class LaserBladeRenderType {
                     .createCompositeState(true);
         }
 
-        public static CompositeState getFlatRenderState(TextureStateShard textureState) {
+        public static CompositeState getUnlitRenderState(TextureStateShard textureState) {
             return CompositeState.builder()
-                    .setShaderState(flatShaderState)
+                    .setShaderState(LASER_BLADE_UNLIT_SHADER_STATE)
                     .setTextureState(textureState)
                     .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
                     .setLightmapState(LIGHTMAP)
@@ -107,7 +111,7 @@ public class LaserBladeRenderType {
 
         public static CompositeState getAddRenderState(TextureStateShard textureState) {
             return CompositeState.builder()
-                    .setShaderState(flatShaderState)
+                    .setShaderState(LASER_BLADE_UNLIT_SHADER_STATE)
                     .setTextureState(textureState)
                     .setTransparencyState(LIGHTNING_TRANSPARENCY)
                     .setLightmapState(LIGHTMAP)
@@ -129,7 +133,7 @@ public class LaserBladeRenderType {
                     });
 
             return CompositeState.builder()
-                    .setShaderState(flatShaderState)
+                    .setShaderState(LASER_BLADE_UNLIT_SHADER_STATE)
                     .setTextureState(textureState)
                     .setTransparencyState(transparencyState)
                     .setLightmapState(LIGHTMAP)

@@ -1,5 +1,6 @@
 package com.github.iunius118.tolaserblade.client.model;
 
+import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.api.client.model.LaserBladeModel;
 import com.github.iunius118.tolaserblade.client.renderer.LaserBladeRenderType;
 import com.mojang.blaze3d.vertex.PoseStack;
@@ -14,7 +15,7 @@ import net.minecraft.world.item.ItemStack;
 public class SimpleLaserBladeModel extends SimpleModel implements LaserBladeModel {
     private final boolean canUseFixedVertexBuffer;
     private RenderType typeHilt;
-    private RenderType typeFlat;
+    private RenderType typeUnlit;
     private RenderType typeAdd;
     private RenderType typeSubInner;
     private RenderType typeSub;
@@ -23,7 +24,7 @@ public class SimpleLaserBladeModel extends SimpleModel implements LaserBladeMode
     public SimpleLaserBladeModel() {
         LaserBladeInternalModelManager internalModelManager = LaserBladeInternalModelManager.getInstance();
         // Can use fixed vertex buffer when using external model, or using internal model but not multiple models.
-        canUseFixedVertexBuffer = LaserBladeRenderType.canUseFixedVertexBuffer()
+        canUseFixedVertexBuffer = ToLaserBlade.canUseFixedVertexBuffer()
                 && !internalModelManager.canRenderMultipleModels();
         textureState = new RenderStateShard.TextureStateShard(getTexture(), false, false);
     }
@@ -47,18 +48,18 @@ public class SimpleLaserBladeModel extends SimpleModel implements LaserBladeMode
         return typeHilt;
     }
 
-    public RenderType getFlatRenderType() {
+    public RenderType getUnlitRenderType() {
         if (canUseFixedVertexBuffer) {
-            return LaserBladeRenderType.LASER_FLAT;
+            return LaserBladeRenderType.LASER_UNLIT;
         }
 
         // Not use fixed vertex buffer
-        if (typeFlat == null) {
-            CompositeState renderState = LaserBladeRenderType.getFlatRenderState(textureState);
-            typeFlat = LaserBladeRenderType.getBladeRenderType("laser_flat", renderState);
+        if (typeUnlit == null) {
+            CompositeState renderState = LaserBladeRenderType.getUnlitRenderState(textureState);
+            typeUnlit = LaserBladeRenderType.getBladeRenderType("laser_unlit", renderState);
         }
 
-        return typeFlat;
+        return typeUnlit;
     }
 
     public RenderType getAddRenderType() {
