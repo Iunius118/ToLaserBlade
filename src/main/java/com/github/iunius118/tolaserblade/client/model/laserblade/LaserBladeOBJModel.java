@@ -39,18 +39,18 @@ public class LaserBladeOBJModel extends SimpleLaserBladeModel {
         ResourceLocation modelLocation = new ResourceLocation(ToLaserBlade.MOD_ID, "item/laser_blade_obj");
         UnbakedModel model = loader.getModelOrMissing(modelLocation);
 
-        if (!(model instanceof BlockModel))  return;
+        if (!(model instanceof BlockModel blockModel))  return;
 
         // Get model geometry objects
-        BlockModelConfiguration modelConfig = ((BlockModel)model).customData;
+        BlockModelConfiguration modelConfig = blockModel.customData;
         IModelGeometry<?> modelGeometry = modelConfig.getCustomGeometry();
         Collection<? extends IModelGeometryPart> geometryParts = Collections.emptyList();
 
         if (modelGeometry instanceof OBJModel) {
             Optional<? extends IModelGeometryPart> part = modelGeometry.getPart("laser_blade");
 
-            if (part.isPresent() && part.get() instanceof OBJModel.ModelGroup) {
-                geometryParts = ((OBJModel.ModelGroup) part.get()).getParts();
+            if (part.isPresent() && part.get() instanceof OBJModel.ModelGroup modelGroup) {
+                geometryParts = modelGroup.getParts();
             }
 
         } else if (modelGeometry != null) {

@@ -174,8 +174,8 @@ public class TLBAdvancementProvider implements DataProvider {
             String itemName = item.getRegistryName().getPath();
             int baseDamage = 1;
 
-            if (item instanceof SwordItem) {
-                baseDamage += ((SwordItem)item).getDamage();
+            if (item instanceof SwordItem swordItem) {
+                baseDamage += swordItem.getDamage();
             }
 
             for (int i = attackDamage - baseDamage; i >= 0 && i <= maxAtk; i++) {

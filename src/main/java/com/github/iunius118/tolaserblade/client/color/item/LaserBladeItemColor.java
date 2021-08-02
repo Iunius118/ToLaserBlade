@@ -47,7 +47,7 @@ public class LaserBladeItemColor {
         }
 
         Item item = itemStack.getItem();
-        isBroken = (item instanceof LBBrokenItem|| item instanceof LBBrandNewItem);
+        isBroken = (item instanceof LBBrokenItem || item instanceof LBBrandNewItem);
 
         LaserBladeVisual visual = LaserBlade.visualOf(itemStack);
 
