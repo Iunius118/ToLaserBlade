@@ -8,6 +8,7 @@
 ### Added
 - Recipes to change model type of laser blade to 0 or 1.
 - Laser blade unlit shader.
+- Update Forge to 1.17.1-37.0.19.
 
 ## [1.17.1-5.0.0.0]
 ### Added
@@ -16,7 +17,7 @@
 
 ### Changed
 - Port to 1.17.1.
-- Update Forge to 1.17.1-37.0.12+.
+- Update Forge to 1.17.1-37.0.12.
 - Default value of canLaserTrapAttackPlayer in server config to true.
 - Non-fireproof laser blade can be used for laser furnace.
 - Add amethyst shard to the ingredients of silk touch upgrade.
