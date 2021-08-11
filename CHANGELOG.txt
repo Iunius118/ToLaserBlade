@@ -8,6 +8,8 @@
 ### Added
 - Recipes to change model type of laser blade to 0 or 1.
 - Laser blade unlit shader.
+
+### Changed
 - Update Forge to 1.17.1-37.0.19.
 
 ## [1.17.1-5.0.0.0]
@@ -23,7 +25,7 @@
 - Add amethyst shard to the ingredients of silk touch upgrade.
 
 ### Removed
-- Laser trap entity (tolaserblade:laser_trap).
+- Laser trap entity (ID: `tolaserblade:laser_trap`).
 
 ### Deprecated
 - .OBJ model support.
