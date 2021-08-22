@@ -2,14 +2,15 @@
 ToLaserBlade v5.0.1.0
 
 ## How to Get Started
-1. Craft a brand-new laser blade I or II, and use it.
-   Holding a brand-new laser blade in your hand and right-clicking, you can get a laser blade
-2. Craft a smithing table and upgrade the laser blade.
-   Using smithing table, you can upgrade your laser blade
+### 1. Craft a Brand-new Laser Blade I or II, and Use It
+Holding a brand-new laser blade in your hand and right-clicking, you will obtain a laser blade.
+
+### 2. Craft a Smithing Table and Upgrade the Laser Blade
+Using smithing table, you can upgrade your laser blade.
 
 ## Items
 ### DX Laser B1ade
-- ID: tolaserblade:dx_laser_blade
+- ID: `tolaserblade:dx_laser_blade`
 - Tool type: Sword
 - Durability: 255
 - Basic attack damage: 5
@@ -26,7 +27,7 @@ Crafting Table:
   - S; -> DX Laser B1ade
 
 ### Brand-new Laser Blade I
-- ID: tolaserblade:lb_brand_new_1
+- ID: `tolaserblade:lb_brand_new_1`
 - Holding this item in your hand and right-clicking, you will get a laser blade enchanted with Efficiency I and Light Element I
 
 Crafting Table:
@@ -37,7 +38,7 @@ Crafting Table:
   - R, I, G; -> Brand-new Laser Blade I
 
 ### Brand-new Laser Blade II
-- ID: tolaserblade:lb_brand_new_2
+- ID: `tolaserblade:lb_brand_new_2`
 - Holding this item in your hand and right-clicking, you will get a laser blade enchanted with Efficiency I and Light Element II
 
 Crafting Table:
@@ -48,14 +49,14 @@ Crafting Table:
   - R, I, g; -> Brand-new Laser Blade II
 
 ### Brand-new Laser Blade
-- ID: tolaserblade:lb_brand_new
-- ID (fireproof): tolaserblade:lb_brand_new_fp
+- ID: `tolaserblade:lb_brand_new`
+- ID (fireproof): `tolaserblade:lb_brand_new_fp`
 - This item can be obtained by repairing or fireproofing the laser blade
 - Holding this item in your hand and right-clicking, you can return it to the laser blade
 
 ### Laser Blade
-- ID: tolaserblade:laser_blade
-- ID (fireproof): tolaserblade:laser_blade_fp
+- ID: `tolaserblade:laser_blade`
+- ID (fireproof): `tolaserblade:laser_blade_fp`
 - Tool type: Sword
 - Durability: 32000
 - Basic attack damage: 7
@@ -63,6 +64,13 @@ Crafting Table:
 - Enchanting: See Upgrading Laser Blades
 - Mining level: 3 or 4 (fireproof)
 - Mining speed: Affected by Efficiency level
+- Repairing: See Repairing Laser Blades
+- When the durability of the laser blade reaches 0, the laser blade will break and you will obtain a broken laser blade
+
+### Broken Laser Blade
+- ID: `tolaserblade:lb_broken`
+- ID (fireproof): `tolaserblade:lb_broken_fp`
+- Repairing: See Repairing Laser Blades
 
 ### Not Used Items
 These items are not used and have no recipes:
@@ -108,8 +116,14 @@ Smithing Table:
 - Mending: Laser Blade + Nether Star / Dragon Head / Totem of Undying
 - Fireproof: Laser Blade + Netherite Ingot
 
+### Repairing Laser Blades
+Smithing Table:
+
+- Brand-new Laser Blade: Laser Blade (damaged) + Iron Ingot
+- Brand-new Laser Blade: Broken Laser Blade + Iron Ingot
+
 ### Enchantment: Light Element
-- ID: tolaserblade:light_element
+- ID: `tolaserblade:light_element`
 - Enchanting: See Upgrading Laser Blades
 - Max level: 10
 - Incompatible with Sharpness, Smite, and Bane of Arthropods
@@ -122,19 +136,21 @@ When you put a laser blade in a dispenser and activate it, you can attack the mo
 When a laser trap is fired at a furnace, it will light the furnace.
 
 ### Laser Blade Sound Events
-- (resource_pack_root_dir)/assets/tolaserblade/sounds/item/dx_laser_blade/swing.ogg
-- (resource_pack_root_dir)/assets/tolaserblade/sounds/item/laser_blade/swing.ogg
-- (resource_pack_root_dir)/assets/tolaserblade/sounds/item/laser_blade_fp/swing.ogg
+You can add audio files that will be played when laser blades are swung.
+
+- `(resource_pack_root_dir)/assets/tolaserblade/sounds/item/dx_laser_blade/swing.ogg`
+- `(resource_pack_root_dir)/assets/tolaserblade/sounds/item/laser_blade/swing.ogg`
+- `(resource_pack_root_dir)/assets/tolaserblade/sounds/item/laser_blade_fp/swing.ogg`
+
+## Configurations
+- Server-side settings: `(game_dir)/saves/(each_world_save_dir)/serverconfig/tolaserblade-server.toml`
+- Client-side settings: `(game_dir)/config/tolaserblade-client.toml`
 
 ## FAQ
 ### Didn't Laser Blade support OptiFine's Dynamic Lights before?
 Yes, it did. However, the Dynamic Lights currently ignore items added by mods. This issue has already been reported to the OptiFine developer, so please wait for them to fix it.
 
-### What are items like Energy Cell, Medium, Blade Emitter, Casing, and Blueprint for? Planning to add a Laser Blade recipe that uses them? 
+### What are items like Energy Cell, Medium, Blade Emitter, Casing, and Blueprint for? Planning to add a Laser Blade recipe that uses them?
 These items are for players to customize Laser Blade recipes with JSON files for data packs,or scripts for CraftTweaker, so I don't plan to add any recipes using them to the mod.
 
 Example data pack: https://github.com/Iunius118/ExampleRecipesForToLaserBlade
-
-## Configurations
-- Server-side settings: (game_dir)/saves/(each_world_save_dir)/serverconfig/tolaserblade-server.toml
-- Client-side settings: (game_dir)/config/tolaserblade-client.toml

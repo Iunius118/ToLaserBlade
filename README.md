@@ -1,4 +1,4 @@
-# ToLaserBlade
+# ToLaserBlade [![ToLaserBlade (Forge) - CurseForge](http://cf.way2muchnoise.eu/title/294861.svg)](https://www.curseforge.com/minecraft/mc-mods/tolaserblade)
 
 [<img src="docs/img/tolaserblade_1.png" title="The Laser Blade" width="427" height="240">](docs/img/tolaserblade_1.png)
 
@@ -17,5 +17,10 @@ ToLaserBlade (T. o. Laser Blade) adds a simple sword with a laser blade.
 
 - [Project Page (CurseForge)](https://minecraft.curseforge.com/projects/tolaserblade)
 
+## Licenses
+
+- MIT license
+- [LICENSE.txt](./src/main/resources/LICENSE.txt) in `src/main/resources` applies only to the .jar files built by Iunius118
+
 ---
-&copy; 2016-2020 Iunius118
+&copy; 2016 Iunius118

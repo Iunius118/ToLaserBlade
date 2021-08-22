@@ -2,12 +2,12 @@
 Copyright (c) 2016 Iunius118
 
 ## Permissions
-- You may use this mod within the scope of the Mojang's Minecraft EULA and guidelines.
-- You may redistribute this .jar file or include it in a modpack.
+- You can use this mod within the scope of the Mojang's Minecraft EULA and guidelines.
+- You can redistribute this .jar file or include it in a modpack.
 
 ## Limitations
-- You may not charge for this .jar file.
-- You may not distribute any modified versions of this .jar file.
+- You cannot charge for this .jar file.
+- You cannot distribute any modified versions of this .jar file.
 
 ## Disclaimer
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
