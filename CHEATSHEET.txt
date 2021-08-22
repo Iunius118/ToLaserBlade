@@ -2,10 +2,11 @@
 ToLaserBlade v5.0.1.0
 
 ## How to Get Started
-1. Craft a brand-new laser blade I or II, and use it.
-   Holding a brand-new laser blade in your hand and right-clicking, you can get a laser blade
-2. Craft a smithing table and upgrade the laser blade.
-   Using smithing table, you can upgrade your laser blade
+### 1. Craft a Brand-new Laser Blade I or II, and Use It
+Holding a brand-new laser blade in your hand and right-clicking, you will obtain a laser blade.
+
+### 2. Craft a Smithing Table and Upgrade the Laser Blade
+Using smithing table, you can upgrade your laser blade.
 
 ## Items
 ### DX Laser B1ade
@@ -63,6 +64,13 @@ Crafting Table:
 - Enchanting: See Upgrading Laser Blades
 - Mining level: 3 or 4 (fireproof)
 - Mining speed: Affected by Efficiency level
+- Repairing: See Repairing Laser Blades
+- When the durability of the laser blade reaches 0, the laser blade will break and you will obtain a broken laser blade
+
+### Broken Laser Blade
+- ID: `tolaserblade:lb_broken`
+- ID (fireproof): `tolaserblade:lb_broken_fp`
+- Repairing: See Repairing Laser Blades
 
 ### Not Used Items
 These items are not used and have no recipes:
@@ -107,6 +115,12 @@ Smithing Table:
 - Looting: Laser Blade + Nautilus Shell / Block of Emerald
 - Mending: Laser Blade + Nether Star / Dragon Head / Totem of Undying
 - Fireproof: Laser Blade + Netherite Ingot
+
+### Repairing Laser Blades
+Smithing Table:
+
+- Brand-new Laser Blade: Laser Blade (damaged) + Iron Ingot
+- Brand-new Laser Blade: Broken Laser Blade + Iron Ingot
 
 ### Enchantment: Light Element
 - ID: `tolaserblade:light_element`
