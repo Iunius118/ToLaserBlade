@@ -7,7 +7,6 @@ import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeVisual;
 import com.github.iunius118.tolaserblade.world.item.enchantment.ModEnchantments;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.minecraft.world.level.ItemLike;
 
 import java.util.function.Supplier;
 
@@ -107,7 +106,8 @@ public enum LaserBladeItemStack {
         laserBlade.write(stack);
 
         if (isDamaged) {
-            stack.setDamageValue(LBSwordItemTier.MAX_USES - 1);
+            int maxUses = isFireproof ? ModItemTiers.LASER_BLADE_FP.getUses() : ModItemTiers.LASER_BLADE.getUses();
+            stack.setDamageValue(maxUses - 1);
         }
 
         return stack;

@@ -11,7 +11,7 @@ import net.minecraft.world.level.Level;
 
 public class DXLaserBladeItem extends SwordItem {
     public DXLaserBladeItem() {
-        super(new DXLaserBladeItemTier(), 3, -1.2F, (new Item.Properties()).tab(ModMainItemGroup.ITEM_GROUP));
+        super(ModItemTiers.DX_LASER_BLADE, 3, -1.2F, (new Item.Properties()).tab(ModMainItemGroup.ITEM_GROUP));
     }
 
     @Override
