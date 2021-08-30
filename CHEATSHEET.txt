@@ -1,5 +1,5 @@
 # Cheatsheet
-ToLaserBlade v5.0.1.0
+ToLaserBlade v5.1.0.0
 
 ## How to Get Started
 ### 1. Craft a Brand-new Laser Blade I or II, and Use It

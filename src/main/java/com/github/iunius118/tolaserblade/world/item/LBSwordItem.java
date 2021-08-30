@@ -33,7 +33,6 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.IItemRenderProperties;
-import net.minecraftforge.common.ToolType;
 import net.minecraftforge.event.entity.player.CriticalHitEvent;
 
 import javax.annotation.Nullable;
@@ -47,7 +46,7 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
     public static Item.Properties properties = (new Item.Properties()).setNoRepair().tab(ModMainItemGroup.ITEM_GROUP);
 
     public LBSwordItem(boolean isFireproof) {
-        super(new LBSwordItemTier(isFireproof), 3, -1.2F, LaserBladeItemBase.setFireproof(properties, isFireproof));
+        super(ModItemTiers.getLBSwordTier(isFireproof), 3, -1.2F, LaserBladeItemBase.setFireproof(properties, isFireproof));
 
         tier = getTier();
         attackDamage = 3.0F + tier.getAttackDamageBonus();
@@ -150,11 +149,6 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
     @Override
     public boolean isCorrectToolForDrops(BlockState blockIn) {
         return true;
-    }
-
-    @Override
-    public int getHarvestLevel(ItemStack stack, ToolType tool, Player player, BlockState blockState) {
-        return tier.getLevel();
     }
 
     @Override
