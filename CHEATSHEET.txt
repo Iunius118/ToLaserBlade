@@ -83,7 +83,7 @@ These items are not used and have no recipes:
 - Laser Blade Casing
 
 ## Features
-### Changing Laser Blade colors
+### Changing Laser Blade Colors
 Smithing Table:
 
 - Outer Blade: Laser Blade + Stained Glass
@@ -92,7 +92,7 @@ Smithing Table:
 - Switching Blend Mode of Outer Blade: Laser Blade + Tinted Glass
 - Switching Blend Mode of Inner Blade: Laser Blade + Block of Amethyst
 
-### Changing Laser Blade model
+### Changing Laser Blade Model
 Smithing Table:
 
 - Saving Model Type: Laser Blade + Crafting Table
