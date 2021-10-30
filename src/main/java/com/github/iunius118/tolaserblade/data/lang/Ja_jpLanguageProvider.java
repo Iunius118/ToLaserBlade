@@ -13,6 +13,9 @@ public class Ja_jpLanguageProvider extends En_usLanguageProvider {
 
     @Override
     protected void addTranslations() {
+        // Item group
+        add("itemGroup.tolaserblade", ToLaserBlade.MOD_NAME);
+
         // Items
         add(ModItems.DX_LASER_BLADE, "DXレーザーブレ一ド");
         add(ModItems.LASER_BLADE, "レーザーブレイド");
