@@ -4,6 +4,13 @@
 
 ## [Unreleased]
 
+## [1.17.1-5.1.1.0]
+### Added
+- Translation keys to ru_ru.json and zh_cn.json.
+
+### Changed
+- Update Simplified Chinese (zh_cn) translation (thanks to tankyap).
+
 ## [1.17.1-5.1.0.0]
 ### Changed
 - Require Forge 1.17.1-37.0.45+.
