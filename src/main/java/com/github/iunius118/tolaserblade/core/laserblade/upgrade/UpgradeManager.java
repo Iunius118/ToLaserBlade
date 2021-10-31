@@ -22,7 +22,8 @@ public class UpgradeManager {
         // Add new upgrade:
         // 1. Add upgrade-ID to UpgradeID
         // 2. Add item-tag to ModItemTags and TLBItemTagsProvider
-        // 3. Add upgrade here
+        // 3. Add upgrader class
+        // 4. Add upgrade here
         registerEnchantment(UpgradeID.EFFICIENCY_UPGRADE, ModItemTags.EFFICIENCY_UPGRADE, Enchantments.BLOCK_EFFICIENCY);
         registerEnchantment(UpgradeID.LIGHT_ELEMENT_UPGRADE, ModItemTags.LIGHT_ELEMENT_UPGRADE, ModEnchantments.LIGHT_ELEMENT);
         registerEnchantment(UpgradeID.FIRE_ASPECT_UPGRADE, ModItemTags.FIRE_ASPECT_UPGRADE, Enchantments.FIRE_ASPECT);
@@ -31,22 +32,19 @@ public class UpgradeManager {
         registerEnchantment(UpgradeID.LOOTING_UPGRADE, ModItemTags.LOOTING_UPGRADE, Enchantments.MOB_LOOTING);
         registerEnchantment(UpgradeID.MENDING_UPGRADE, ModItemTags.MENDING_UPGRADE, Enchantments.MENDING);
 
-        register(UpgradeID.EFFICIENCY_REMOVER, ModItemTags.EFFICIENCY_REMOVER, RemoveEfficiencyUpgrade.class);
+        register(UpgradeID.EFFICIENCY_REMOVER, ModItemTags.EFFICIENCY_REMOVER, new RemoveEfficiencyUpgrader());
 
-        register(UpgradeID.ATTACK_DAMAGE_UPGRADE, ModItemTags.ATTACK_DAMAGE_UPGRADE, DamageUpgrade.class);
-        register(UpgradeID.ATTACK_SPEED_UPGRADE, ModItemTags.ATTACK_SPEED_UPGRADE, SpeedUpgrade.class);
+        register(UpgradeID.ATTACK_DAMAGE_UPGRADE, ModItemTags.ATTACK_DAMAGE_UPGRADE, new DamageUpgrader());
+        register(UpgradeID.ATTACK_SPEED_UPGRADE, ModItemTags.ATTACK_SPEED_UPGRADE, new SpeedUpgrader());
     }
 
-    private static void register(UpgradeID id, Tag.Named<Item> tag, Class<? extends Upgrade> upgradeClass) {
-        Upgrade upgrade = Upgrade.of(upgradeClass, () -> Ingredient.of(tag), id.getShortName());
-
-        if (upgrade != null) {
-            upgrades.put(id.getID(), upgrade);
-        }
+    private static void register(UpgradeID id, Tag.Named<Item> tag, Upgrader upgrader) {
+        Upgrade upgrade = Upgrade.of(upgrader, () -> Ingredient.of(tag), id.getShortName());
+        upgrades.put(id.getID(), upgrade);
     }
 
-    private static void registerEnchantment(UpgradeID id, Tag.Named<Item> tag, Enchantment enchantment) {
-        Upgrade upgrade = EnchantmentUpgrade.of(() -> Ingredient.of(tag), enchantment, id.getShortName());
+    private static void registerEnchantment(UpgradeID id, Tag<Item> tag, Enchantment enchantment) {
+        Upgrade upgrade = Upgrade.of(EnchantmentUpgrader.of(enchantment), () -> Ingredient.of(tag), id.getShortName());
         upgrades.put(id.getID(), upgrade);
     }
 

@@ -1,22 +1,17 @@
 package com.github.iunius118.tolaserblade.core.laserblade.upgrade;
 
+import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBlade;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladePerformance;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 
-import java.util.function.Supplier;
-
-public class SpeedUpgrade extends Upgrade {
-    public SpeedUpgrade(Supplier<Ingredient> ingredientSupplierIn, String shortNameIn) {
-        super(ingredientSupplierIn, shortNameIn);
-    }
-
+public class DamageUpgrader implements Upgrader {
     @Override
-    public boolean test(ItemStack base, ItemStack addition) {
+    public boolean canApply(ItemStack base, ItemStack addition) {
         final LaserBlade laserBlade = LaserBlade.of(base);
         final LaserBladePerformance.AttackPerformance attack = laserBlade.getAttackPerformance();
-        return attack.canUpgradeSpeed();
+        final float maxUpgradeCount = getMaxUpgradeCount();
+        return attack.damage < maxUpgradeCount;
     }
 
     @Override
@@ -24,17 +19,22 @@ public class SpeedUpgrade extends Upgrade {
         int cost = baseCost;
         final LaserBlade laserBlade = LaserBlade.of(base);
         final LaserBladePerformance.AttackPerformance attack = laserBlade.getAttackPerformance();
+        float maxUpgradeCount = getMaxUpgradeCount();
 
-        if (attack.canUpgradeSpeed()) {
-            attack.changeSpeedSafely(attack.speed + 0.4F);
+        if (attack.damage < maxUpgradeCount) {
+            attack.changeDamageSafely(Math.min(attack.damage + 1.0F, maxUpgradeCount));
             laserBlade.write(base);
-            cost += getCost(attack.speed);
+            cost += getCost(attack.damage);
         }
 
         return UpgradeResult.of(base, cost);
     }
 
-    private int getCost(float newSpeed) {
-        return Math.max((int)(newSpeed / 0.4F), 1);
+    private float getMaxUpgradeCount() {
+        return (float) ToLaserBladeConfig.SERVER.maxAttackDamageUpgradeCount.get();
+    }
+
+    private int getCost(float newDamage) {
+        return Math.max((int)newDamage, 1);
     }
 }

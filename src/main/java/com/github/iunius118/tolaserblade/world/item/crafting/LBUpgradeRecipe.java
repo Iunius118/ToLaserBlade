@@ -56,7 +56,7 @@ public class LBUpgradeRecipe extends UpgradeRecipe {
             ItemStack baseStack = container.getItem(0);
             ItemStack additionalStack = container.getItem(1);
             Upgrade upgrade = getUpgrade();
-            return upgrade.test(baseStack, additionalStack);
+            return upgrade.canApply(baseStack, additionalStack);
         }
 
         return false;
