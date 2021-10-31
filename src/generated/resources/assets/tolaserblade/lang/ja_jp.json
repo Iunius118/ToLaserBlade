@@ -40,6 +40,7 @@
   "item.tolaserblade.lb_disassembled_fp": "\u5206\u89E3\u3057\u305F\u30EC\u30FC\u30B6\u30FC\u30D6\u30EC\u30A4\u30C9",
   "item.tolaserblade.lb_emitter": "\u30EC\u30FC\u30B6\u30FC\u30D6\u30EC\u30A4\u30C9\u653E\u5C04\u5668",
   "item.tolaserblade.lb_medium": "\u30EC\u30FC\u30B6\u30FC\u5A92\u8CEA",
+  "itemGroup.tolaserblade": "ToLaserBlade",
   "tolaserblade.configgui.client.externalModelType": "\u5916\u90E8\u30E2\u30C7\u30EB\u306E\u30BF\u30A4\u30D7",
   "tolaserblade.configgui.client.internalModelType": "\u5185\u90E8\u30E2\u30C7\u30EB\u306E\u30BF\u30A4\u30D7",
   "tolaserblade.configgui.client.renderMultipleModels": "\u30EC\u30FC\u30B6\u30FC\u30D6\u30EC\u30FC\u30C9\u3092\u8907\u6570\u30E2\u30C7\u30EB\u3067\u63CF\u753B\u3059\u308B",

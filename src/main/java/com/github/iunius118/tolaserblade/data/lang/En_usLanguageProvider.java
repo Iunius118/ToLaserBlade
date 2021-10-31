@@ -21,7 +21,7 @@ public class En_usLanguageProvider extends LanguageProvider {
 
     @Override
     protected void addTranslations() {
-        // Item group (only 'en_us')
+        // Item group
         add("itemGroup.tolaserblade", ToLaserBlade.MOD_NAME);
 
         // Items
