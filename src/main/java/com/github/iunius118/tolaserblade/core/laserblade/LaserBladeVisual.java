@@ -3,12 +3,12 @@ package com.github.iunius118.tolaserblade.core.laserblade;
 import net.minecraft.core.Registry;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
+import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
-import net.minecraftforge.common.util.Constants;
 
 public class LaserBladeVisual {
     private final ModelType modelType;
@@ -121,7 +121,7 @@ public class LaserBladeVisual {
         private static final String KEY_TYPE = "type";
 
         public ModelType(CompoundTag compound) {
-            if (compound.contains(KEY_TYPE, Constants.NBT.TAG_INT)) {
+            if (compound.contains(KEY_TYPE, Tag.TAG_INT)) {
                 type = compound.getInt(KEY_TYPE);
             }
         }
@@ -129,7 +129,7 @@ public class LaserBladeVisual {
         public void write(CompoundTag compound) {
             if (type >= 0) {
                 compound.putInt(KEY_TYPE, type);
-            } else if (compound.contains(KEY_TYPE, Constants.NBT.TAG_INT)) {
+            } else if (compound.contains(KEY_TYPE, Tag.TAG_INT)) {
                 compound.remove(KEY_TYPE);
             }
         }
@@ -197,7 +197,7 @@ public class LaserBladeVisual {
         public PartColor(CompoundTag compound, String colorKey, String subKey, int defaultColor) {
             color = defaultColor;
 
-            if (colorKey != null && compound.contains(colorKey, Constants.NBT.TAG_INT)) {
+            if (colorKey != null && compound.contains(colorKey, Tag.TAG_INT)) {
                 color = compound.getInt(colorKey);
             }
 

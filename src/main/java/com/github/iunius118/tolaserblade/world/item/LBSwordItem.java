@@ -33,6 +33,8 @@ import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.IItemRenderProperties;
+import net.minecraftforge.common.ToolAction;
+import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.event.entity.player.CriticalHitEvent;
 
 import javax.annotation.Nullable;
@@ -64,8 +66,8 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
     /* Shield Functions */
 
     @Override
-    public boolean isShield(ItemStack stack, @Nullable LivingEntity entity) {
-        return LaserBladeBlocking.isShield();
+    public boolean canPerformAction(ItemStack stack, ToolAction toolAction) {
+        return LaserBladeBlocking.isShield() && ToolActions.DEFAULT_SHIELD_ACTIONS.contains(toolAction);
     }
 
     @Override
