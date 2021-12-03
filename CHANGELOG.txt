@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+## [1.18-5.1.1.0]
+### Changed
+- Port to 1.18.
+
 ## [1.17.1-5.1.1.0]
 ### Added
 - Translation keys to `ru_ru.json` and `zh_cn.json`.

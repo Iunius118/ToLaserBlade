@@ -78,7 +78,7 @@ public class LBSwordItemModel implements BakedModel {
 
     @Override
     public TextureAtlasSprite getParticleIcon(@Nonnull IModelData data) {
-        return Minecraft.getInstance().getItemRenderer().getItemModelShaper().getParticleIcon(Items.IRON_INGOT);
+        return Minecraft.getInstance().getItemRenderer().getItemModelShaper().getItemModel(Items.IRON_INGOT).getParticleIcon(EmptyModelData.INSTANCE);
     }
 
     private static final ItemOverrides ITEM_OVERRIDES = new LBSwordItemOverrides();

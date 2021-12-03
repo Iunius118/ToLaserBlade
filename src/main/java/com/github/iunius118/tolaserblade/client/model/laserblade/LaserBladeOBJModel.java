@@ -19,8 +19,8 @@ import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.client.model.BlockModelConfiguration;
+import net.minecraftforge.client.model.ForgeModelBakery;
 import net.minecraftforge.client.model.IModelBuilder;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.SimpleModelState;
 import net.minecraftforge.client.model.data.EmptyModelData;
 import net.minecraftforge.client.model.geometry.IModelGeometry;
@@ -33,7 +33,7 @@ public class LaserBladeOBJModel extends SimpleLaserBladeModel {
     private final Map<Part, List<BakedQuad>> PARTS = Maps.newEnumMap(Part.class);
     private final ResourceLocation TEXTURE = InventoryMenu.BLOCK_ATLAS;
 
-    public void loadLaserBladeOBJModel(ModelLoader loader) {
+    public void loadLaserBladeOBJModel(ForgeModelBakery loader) {
         // Load model
         PARTS.clear();
         ResourceLocation modelLocation = new ResourceLocation(ToLaserBlade.MOD_ID, "item/laser_blade_obj");
@@ -66,8 +66,9 @@ public class LaserBladeOBJModel extends SimpleLaserBladeModel {
             Part part = Part.find(geometryPart.name());
 
             if (part != null) {
-                IModelBuilder<?> builder = IModelBuilder.of(modelConfig, ItemOverrides.EMPTY, Minecraft.getInstance().getItemRenderer().getItemModelShaper().getParticleIcon(Items.IRON_INGOT));
-                geometryPart.addQuads(modelConfig, builder, loader, ModelLoader.defaultTextureGetter(), SimpleModelState.IDENTITY, modelLocation);
+                var particleIcon = Minecraft.getInstance().getItemRenderer().getItemModelShaper().getItemModel(Items.IRON_INGOT).getParticleIcon(EmptyModelData.INSTANCE);
+                IModelBuilder<?> builder = IModelBuilder.of(modelConfig, ItemOverrides.EMPTY, particleIcon);
+                geometryPart.addQuads(modelConfig, builder, loader, ForgeModelBakery.defaultTextureGetter(), SimpleModelState.IDENTITY, modelLocation);
                 PARTS.put(part, builder.build().getQuads(null, null, new Random(42L), EmptyModelData.INSTANCE));
             }
         }

@@ -20,7 +20,7 @@ ToLaserBlade (T. o. Laser Blade) adds a simple sword with a laser blade.
 ## Licenses
 
 - MIT license
-- [LICENSE.txt](./src/main/resources/LICENSE.txt) in `src/main/resources` applies only to the .jar files built by Iunius118
+- [LICENSE.txt](./src/main/resources/LICENSE.txt) in `src/main/resources/` only applies to the .jar files built from this source
 
 ---
 &copy; 2016 Iunius118

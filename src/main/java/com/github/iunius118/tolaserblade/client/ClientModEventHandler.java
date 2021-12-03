@@ -52,7 +52,7 @@ public class ClientModEventHandler {
 
     @SubscribeEvent
     public static void onTextureStitchEvent(TextureStitchEvent.Pre event) {
-        if (event.getMap().location().equals(InventoryMenu.BLOCK_ATLAS)) {
+        if (event.getAtlas().location().equals(InventoryMenu.BLOCK_ATLAS)) {
             if (!ToLaserBladeConfig.CLIENT.useInternalModel.get() && ToLaserBladeConfig.CLIENT.externalModelType.get() == 1) {
                 // When using external OBJ model, add OBJ model texture to block atlas
                 event.addSprite(new ResourceLocation(ToLaserBlade.MOD_ID, "item/laser_blade_obj"));
