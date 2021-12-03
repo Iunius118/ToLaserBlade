@@ -1,5 +1,5 @@
 # Cheatsheet
-ToLaserBlade v5.1.1.0
+ToLaserBlade v5.1.0.0
 
 ## How to Get Started
 ### 1. Craft a Brand-new Laser Blade I or II, and Use It
@@ -148,7 +148,7 @@ You can add audio files that will be played when laser blades are swung.
 
 ## FAQ
 ### Didn't Laser Blade support OptiFine's Dynamic Lights before?
-Use H1 or later.
+Yes, it did. However, the Dynamic Lights currently ignore items added by mods. This issue has already been reported to the OptiFine developer, so please wait for them to fix it.
 
 ### What are items like Energy Cell, Medium, Blade Emitter, Casing, and Blueprint for? Planning to add a Laser Blade recipe that uses them?
 These items are for players to customize Laser Blade recipes with JSON files for data packs,or scripts for CraftTweaker, so I don't plan to add any recipes using them to the mod.
