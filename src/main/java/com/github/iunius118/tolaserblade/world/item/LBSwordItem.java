@@ -13,7 +13,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResult;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
@@ -84,7 +83,12 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
     public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
         ItemStack itemstack = player.getItemInHand(hand);
         LaserBladeBlocking.start(player, hand);
-        return new InteractionResultHolder<>(InteractionResult.PASS, itemstack);
+
+        if (LaserBladeBlocking.isShield()) {
+            return InteractionResultHolder.consume(itemstack);
+        } else {
+            return InteractionResultHolder.pass(itemstack);
+        }
     }
 
     /* Sounds */
@@ -176,11 +180,6 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
                 || enchantment == Enchantments.MENDING
                 || enchantment == Enchantments.SILK_TOUCH
                 || enchantment == Enchantments.VANISHING_CURSE;
-    }
-
-    @Override
-    public boolean canEquip(ItemStack stack, EquipmentSlot armorType, Entity entity) {
-        return armorType == EquipmentSlot.HEAD;
     }
 
     @Override
