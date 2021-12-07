@@ -4,6 +4,11 @@
 
 ## [Unreleased]
 
+## [1.18-5.1.1.1]
+### Fixed
+- Behavior of laser blade when using (right-clicking) it in hand.
+- Fix laser blade so that it cannot be worn as helmet.
+
 ## [1.18-5.1.1.0]
 ### Changed
 - Port to 1.18.
