@@ -20,7 +20,7 @@ public class LBSwordItemOverrides extends ItemOverrides {
 
         if (livingEntity != null) {
             humanoidArm = livingEntity.getMainArm();
-            isBlocking = livingEntity.isUsingItem();
+            isBlocking = livingEntity.isBlocking();
         }
 
         return laserBladeModel.handleItemOverride(itemStack, humanoidArm, isBlocking);
