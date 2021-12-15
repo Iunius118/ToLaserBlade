@@ -1,0 +1,51 @@
+# Translation Guide
+ToLaserBlade 1.18+
+
+## advancements.tolaserblade.main.laser_blade_attack_10.title
+"It's Over 9"
+This refers to an internet meme "It's Over 9000!".
+
+## advancements.tolaserblade.main.laser_blade_fp.title
+"Into The Core"
+"The Core" means the earth's core and refers to a sci-fi film.
+
+## advancements.tolaserblade.main.laser_blade_light_element_10.title
+"Unlimited Power"
+This refers to a Star Wars meme.
+
+## advancements.tolaserblade.main.laser_blade_looting_3.title
+"Give Me Three"
+This refers to "Give me four" from Blade Runner.
+
+## itemGroup.tolaserblade
+"ToLaserBlade"
+Mod name, don't translate.
+
+## tooltip.tolaserblade.brandNew1, tooltip.tolaserblade.brandNew2, tooltip.tolaserblade.brandNew3
+"Hold in your hand and",
+"right-click to obtain",
+"Laser Blade"
+How to obtain a Laser Blade from a Brand-new Laser Blade.
+This is written in a maximum of three parts, and will be displayed in the tooltip of Brand-new Laser Blade in three lines.
+
+## tooltip.tolaserblade.remove
+"Remove %s"
+Description of the upgrade to remove Efficiency enchantment from laser blades.
+"Remove %s" will be displayed as "Remove Efficiency" in-game.
+
+## upgrade.tolaserblade.attackDamage
+"Laser Power %s"
+Value of enhanced attack damage of laser blade.
+It is used in the tooltip of Broken Laser Blade and Brand-new Laser Blade.
+For example, "Laser Power %s" will be displayed as "Laser Power +8" in-game.
+
+## upgrade.tolaserblade.attackSpeed
+"Recharge %s"
+Value of enhanced attack speed of laser blade.
+It is used in the tooltip of Broken Laser Blade and Brand-new Laser Blade.
+For example, "Recharge %s" will be displayed as "Recharge +1.2" in-game.
+
+## upgrade.tolaserblade.fireproof
+"HEAT RESISTANT 8000"
+A simple phrase that appears in tooltip of fireproof laser blade.
+It means that the laser blade can withstand a temperature of 8000 (K, but no need for temperature unit).
