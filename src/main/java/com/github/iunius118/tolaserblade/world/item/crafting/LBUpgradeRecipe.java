@@ -100,7 +100,7 @@ public class LBUpgradeRecipe extends UpgradeRecipe {
             return sample;
         }
 
-        ResourceLocation efficiencyRemover = ModItemTags.EFFICIENCY_REMOVER.getName();
+        ResourceLocation efficiencyRemover = ModItemTags.EFFICIENCY_REMOVER.location();
 
         if (upgradeId.equals(efficiencyRemover)) {
             // Set hint of removing Efficiency to item-stack's display name

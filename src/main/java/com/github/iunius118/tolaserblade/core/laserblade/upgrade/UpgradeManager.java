@@ -4,7 +4,7 @@ import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.tags.ModItemTags;
 import com.github.iunius118.tolaserblade.world.item.enchantment.ModEnchantments;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.tags.Tag;
+import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -38,12 +38,12 @@ public class UpgradeManager {
         register(UpgradeID.ATTACK_SPEED_UPGRADE, ModItemTags.ATTACK_SPEED_UPGRADE, new SpeedUpgrader());
     }
 
-    private static void register(UpgradeID id, Tag.Named<Item> tag, Upgrader upgrader) {
+    private static void register(UpgradeID id, TagKey<Item> tag, Upgrader upgrader) {
         Upgrade upgrade = Upgrade.of(upgrader, () -> Ingredient.of(tag), id.getShortName());
         upgrades.put(id.getID(), upgrade);
     }
 
-    private static void registerEnchantment(UpgradeID id, Tag<Item> tag, Enchantment enchantment) {
+    private static void registerEnchantment(UpgradeID id, TagKey<Item> tag, Enchantment enchantment) {
         Upgrade upgrade = Upgrade.of(EnchantmentUpgrader.of(enchantment), () -> Ingredient.of(tag), id.getShortName());
         upgrades.put(id.getID(), upgrade);
     }
