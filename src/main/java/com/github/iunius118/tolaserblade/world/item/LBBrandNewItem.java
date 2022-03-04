@@ -7,6 +7,7 @@ import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeVisual;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.Upgrade;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
@@ -58,10 +59,12 @@ public class LBBrandNewItem extends Item implements LaserBladeItemBase {
         if (type == LBBrandNewType.NONE || type == LBBrandNewType.FP) {
             // Copy NBT tag to Laser Blade. This is for customized recipe
             CompoundTag tag = itemStack.getOrCreateTag();
-            CompoundTag tagNew = tag.copy();    // Copy nbt to make it independent of the Brand-new Laser Blade
+            // Copy nbt to make it independent of the Brand-new Laser Blade
+            CompoundTag tagNew = tag.copy();
             laserBladeStack = type.getCopy();
             laserBladeStack.setTag(tagNew);
-            laserBladeStack.setDamageValue(0);   // Repair Laser Blade
+            // Repair Laser Blade
+            laserBladeStack.setDamageValue(0);
         } else {
             laserBladeStack = getPresetLaserBlade(level, player, itemStack);
         }
@@ -86,8 +89,10 @@ public class LBBrandNewItem extends Item implements LaserBladeItemBase {
         String name = brandNewStack.hasCustomHoverName() ? brandNewStack.getHoverName().getString() : "";
 
         // GIFT code
-        if ("GIFT".equals(name) || "\u304A\u305F\u304B\u3089".equals(name)) {   // name == {"GIFT" || "おたから"}
-            return LaserBladeItemStack.GIFT.getCopy();  // Get GIFT Laser Blade
+        // name == {"GIFT" || "おたから"}
+        if ("GIFT".equals(name) || "\u304A\u305F\u304B\u3089".equals(name)) {
+            // Get GIFT Laser Blade
+            return LaserBladeItemStack.GIFT.getCopy();
         }
 
         int modelType;
@@ -104,7 +109,7 @@ public class LBBrandNewItem extends Item implements LaserBladeItemBase {
         LaserBlade laserBlade = LaserBlade.of(laserBladeStack);
         LaserBladeVisual visual = laserBlade.getVisual();
         BlockPos pos = player.blockPosition();
-        Biome biome = level.getBiome(pos);
+        Holder<Biome> biome = level.getBiome(pos);
         // ... its blade will be colored by biome player in, ...
         visual.setColorsByBiome(level, biome);
         // ... and its model will be set to specific model type
