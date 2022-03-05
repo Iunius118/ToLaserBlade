@@ -2,9 +2,9 @@ package com.github.iunius118.tolaserblade.world.item.crafting;
 
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeTextKey;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.Upgrade;
+import com.github.iunius118.tolaserblade.core.laserblade.upgrade.UpgradeID;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.UpgradeManager;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.UpgradeResult;
-import com.github.iunius118.tolaserblade.tags.ModItemTags;
 import com.google.gson.JsonObject;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
@@ -100,7 +100,7 @@ public class LBUpgradeRecipe extends UpgradeRecipe {
             return sample;
         }
 
-        ResourceLocation efficiencyRemover = ModItemTags.EFFICIENCY_REMOVER.location();
+        ResourceLocation efficiencyRemover = UpgradeID.EFFICIENCY_REMOVER.getID();
 
         if (upgradeId.equals(efficiencyRemover)) {
             // Set hint of removing Efficiency to item-stack's display name
