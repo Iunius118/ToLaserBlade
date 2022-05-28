@@ -109,10 +109,10 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
         upgrades.forEach((id, upgrade) -> {
             LBUpgradeRecipeBuilder.upgradeRecipe(Ingredient.of(ModItems.LASER_BLADE), upgrade.getIngredient(), id)
                     .addCriterion("has_laser_blade", has(ModItems.LASER_BLADE))
-                    .build(consumer, ToLaserBlade.MOD_ID + ":upgrade/lb_" + upgrade.getShortName());
+                    .build(consumer, ToLaserBlade.MOD_ID + ":upgrade/lb_" + upgrade.shortName());
             LBUpgradeRecipeBuilder.upgradeRecipe(Ingredient.of(ModItems.LASER_BLADE_FP), upgrade.getIngredient(), id)
                     .addCriterion("has_laser_blade_fp", has(ModItems.LASER_BLADE_FP))
-                    .build(consumer, ToLaserBlade.MOD_ID + ":upgrade/lbf_" + upgrade.getShortName());
+                    .build(consumer, ToLaserBlade.MOD_ID + ":upgrade/lbf_" + upgrade.shortName());
         });
     }
 

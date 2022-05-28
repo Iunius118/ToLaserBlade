@@ -14,9 +14,9 @@ public class SpeedUpgrader implements Upgrader {
 
     @Override
     public UpgradeResult apply(ItemStack base, int baseCost) {
-        int cost = baseCost;
         final LaserBlade laserBlade = LaserBlade.of(base);
         final LaserBladePerformance.AttackPerformance attack = laserBlade.getAttackPerformance();
+        int cost = baseCost;
 
         if (attack.canUpgradeSpeed()) {
             attack.changeSpeedSafely(attack.speed + 0.4F);

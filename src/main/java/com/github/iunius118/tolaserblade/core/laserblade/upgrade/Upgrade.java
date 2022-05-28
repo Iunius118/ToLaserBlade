@@ -1,44 +1,26 @@
 package com.github.iunius118.tolaserblade.core.laserblade.upgrade;
 
+import net.minecraft.tags.TagKey;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 
-import java.util.function.Supplier;
-
-public class Upgrade {
+public record Upgrade(Upgrader upgrader, TagKey<Item> ingredientItemTag, String shortName) {
     public static final Upgrade NONE = new Upgrade(
             new Upgrader() {
-                @Override public boolean canApply(ItemStack base, ItemStack addition) { return false; }
-                @Override public UpgradeResult apply(ItemStack base, int baseCost) { return UpgradeResult.of(base, baseCost); }
-            }, () -> Ingredient.EMPTY, "00");
+                @Override
+                public boolean canApply(ItemStack base, ItemStack addition) {
+                    return false;
+                }
 
-    private final Upgrader upgrader;
-    // Supplier of upgrade ingredient.
-    // Lazy evaluation via the supplier can wait for the timing of sync of tags from server to client.
-    private final Supplier<Ingredient> ingredientSupplier;
-    private Ingredient ingredient;
-    private final String shortName;
-
-    public Upgrade(Upgrader upgrader, Supplier<Ingredient> ingredientSupplier, String shortName) {
-        this.upgrader = upgrader;
-        this.ingredientSupplier = ingredientSupplier;
-        this.shortName = shortName;
-    }
-
-    public static Upgrade of(Upgrader upgrader, Supplier<Ingredient> ingredientSupplier, String shortName) {
-        return new Upgrade(upgrader, ingredientSupplier, shortName);
-    }
+                @Override
+                public UpgradeResult apply(ItemStack base, int baseCost) {
+                    return UpgradeResult.of(base, baseCost);
+                }
+            }, null, "00");
 
     public Ingredient getIngredient() {
-        if (ingredient == null) {
-            ingredient = ingredientSupplier.get();
-        }
-
-        return ingredient;
-    }
-
-    public String getShortName() {
-        return shortName;
+        return ingredientItemTag != null ? Ingredient.of(ingredientItemTag) : Ingredient.EMPTY;
     }
 
     public boolean canApply(ItemStack base, ItemStack addition) {
@@ -46,7 +28,7 @@ public class Upgrade {
     }
 
     public UpgradeResult apply(ItemStack base, int baseCost) {
-        return upgrader.apply(base,baseCost);
+        return upgrader.apply(base, baseCost);
     }
 
     public enum Type {

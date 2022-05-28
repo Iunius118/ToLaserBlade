@@ -80,7 +80,7 @@ public class LBUpgradeRecipe extends UpgradeRecipe {
             return upgrade;
         }
 
-        upgrade = UpgradeManager.get(upgradeId);
+        upgrade = UpgradeManager.getUpgrade(upgradeId);
         return upgrade;
     }
 

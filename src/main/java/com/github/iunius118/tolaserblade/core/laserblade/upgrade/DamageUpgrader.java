@@ -16,10 +16,10 @@ public class DamageUpgrader implements Upgrader {
 
     @Override
     public UpgradeResult apply(ItemStack base, int baseCost) {
-        int cost = baseCost;
         final LaserBlade laserBlade = LaserBlade.of(base);
         final LaserBladePerformance.AttackPerformance attack = laserBlade.getAttackPerformance();
         float maxUpgradeCount = getMaxUpgradeCount();
+        int cost = baseCost;
 
         if (attack.damage < maxUpgradeCount) {
             attack.changeDamageSafely(Math.min(attack.damage + 1.0F, maxUpgradeCount));

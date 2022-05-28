@@ -7,7 +7,6 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 
@@ -21,7 +20,7 @@ public class UpgradeManager {
     static {
         // Add new upgrade:
         // 1. Add upgrade-ID to UpgradeID
-        // 2. Add item-tag to ModItemTags and TLBItemTagsProvider
+        // 2. Add item-tag to ModItemTags and TLBItemTagsProvider(Forge)
         // 3. Add upgrader class
         // 4. Add upgrade here
         registerEnchantment(UpgradeID.EFFICIENCY_UPGRADE, ModItemTags.EFFICIENCY_UPGRADE, Enchantments.BLOCK_EFFICIENCY);
@@ -38,13 +37,13 @@ public class UpgradeManager {
         register(UpgradeID.ATTACK_SPEED_UPGRADE, ModItemTags.ATTACK_SPEED_UPGRADE, new SpeedUpgrader());
     }
 
-    private static void register(UpgradeID id, TagKey<Item> tag, Upgrader upgrader) {
-        Upgrade upgrade = Upgrade.of(upgrader, () -> Ingredient.of(tag), id.getShortName());
+    private static void register(UpgradeID id, TagKey<Item> ingredientItemTag, Upgrader upgrader) {
+        var upgrade = new Upgrade(upgrader, ingredientItemTag, id.getShortName());
         upgrades.put(id.getID(), upgrade);
     }
 
-    private static void registerEnchantment(UpgradeID id, TagKey<Item> tag, Enchantment enchantment) {
-        Upgrade upgrade = Upgrade.of(EnchantmentUpgrader.of(enchantment), () -> Ingredient.of(tag), id.getShortName());
+    private static void registerEnchantment(UpgradeID id, TagKey<Item> ingredientItemTag, Enchantment enchantment) {
+        var upgrade = new Upgrade(EnchantmentUpgrader.of(enchantment), ingredientItemTag, id.getShortName());
         upgrades.put(id.getID(), upgrade);
     }
 
@@ -52,8 +51,8 @@ public class UpgradeManager {
         return upgrades;
     }
 
-    public static Upgrade get(ResourceLocation key) {
-        Upgrade upgrade = upgrades.get(key);
+    public static Upgrade getUpgrade(ResourceLocation key) {
+        var upgrade = upgrades.get(key);
 
         if (upgrade == null) {
             ToLaserBlade.LOGGER.warn("[ToLaserBlade] Upgrade {} was not found in UpgradeManager", key.toString());
@@ -63,14 +62,14 @@ public class UpgradeManager {
         return upgrade;
     }
 
-    public static Upgrade get(UpgradeID id) {
-        return get(id.getID());
+    public static Upgrade getUpgrade(UpgradeID id) {
+        return getUpgrade(id.getID());
     }
 
-    public static List<Upgrade> get(ItemStack additionalItem) {
+    public static List<Upgrade> getUpgradeList(ItemStack additionalItem) {
         List<Upgrade> list = new ArrayList<>();
         upgrades.forEach((key, upgrade)->{
-            Ingredient ingredient = upgrade.getIngredient();
+            var ingredient = upgrade.getIngredient();
             if (ingredient.test(additionalItem)) list.add(upgrade);
         });
         return list;

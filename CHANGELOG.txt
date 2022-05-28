@@ -3,6 +3,8 @@
 [Source](https://github.com/Iunius118/ToLaserBlade).
 
 ## [Unreleased]
+### Changed
+- Refactor laser blade upgrade.
 
 ## [1.18.2-5.2.0.0]
 ### Changed
