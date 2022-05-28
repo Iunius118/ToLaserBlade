@@ -1,42 +1,35 @@
 package com.github.iunius118.tolaserblade.core.laserblade;
 
 import net.minecraft.nbt.CompoundTag;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-public class LaserBlade {
-    private final LaserBladePerformance performance;
-    private final LaserBladeVisual visual;
-
-    public LaserBlade(ItemStack stack) {
-        Item item = stack.getItem();
-        CompoundTag compound = stack.getOrCreateTag();
-        performance = new LaserBladePerformance(compound, item.isFireResistant());
-        visual = new LaserBladeVisual(compound);
-    }
-
+public record LaserBlade(LaserBladePerformance performance, LaserBladeVisual visual) {
     public static LaserBlade of(ItemStack stack) {
-        return new LaserBlade(stack);
+        var item = stack.getItem();
+        var compoundTag = stack.getOrCreateTag();
+        var performance = LaserBladePerformance.of(compoundTag, item.isFireResistant());
+        var visual = LaserBladeVisual.of(compoundTag);
+        return new LaserBlade(performance, visual);
     }
 
     public static LaserBladePerformance performanceOf(ItemStack stack) {
-        Item item = stack.getItem();
-        CompoundTag compound = stack.getOrCreateTag();
-        return new LaserBladePerformance(compound, item.isFireResistant());
+        var item = stack.getItem();
+        var compoundTag = stack.getOrCreateTag();
+        return LaserBladePerformance.of(compoundTag, item.isFireResistant());
     }
 
+
     public static LaserBladeVisual visualOf(ItemStack stack) {
-        Item item = stack.getItem();
-        CompoundTag compound = stack.getOrCreateTag();
-        return new LaserBladeVisual(compound);
+        var compoundTag = stack.getOrCreateTag();
+        return LaserBladeVisual.of(compoundTag);
     }
 
     public LaserBladePerformance.AttackPerformance getAttackPerformance() {
         return performance.getAttackPerformance();
     }
 
-    public boolean isFireproof() {
-        return performance.isFireproof();
+    public boolean isFireResistant() {
+        return performance.isFireResistant();
     }
 
     public LaserBladeVisual getVisual() {

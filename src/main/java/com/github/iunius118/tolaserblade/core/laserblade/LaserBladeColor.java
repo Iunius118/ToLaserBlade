@@ -44,6 +44,31 @@ public enum LaserBladeColor {
         return values[Mth.clamp(index, 0, values.length - 1)];
     }
 
+    public static LaserBladeColor getColorByTemperature(float temp) {
+        if (temp > 1.5F) {
+            // t > 1.5
+            return LaserBladeColor.TEMP_DESERT;
+        } else if (temp > 1.0F) {
+            // 1.5 >= t > 1.0
+            return LaserBladeColor.TEMP_SAVANNA;
+        } else if (temp > 0.8F) {
+            // 1.0 >= t > 0.8
+            return LaserBladeColor.TEMP_JUNGLE;
+        } else if (temp >= 0.5F) {
+            // 0.8 >= t >= 0.5
+            return LaserBladeColor.RED;
+        } else if (temp >= 0.2F) {
+            // 0.5 > t >= 0.2
+            return LaserBladeColor.TEMP_TAIGA;
+        } else if (temp >= -0.25F) {
+            // 0.2 > t >= -0.25
+            return LaserBladeColor.TEMP_ICE_PLAIN;
+        } else {
+            // -0.25 > t
+            return LaserBladeColor.TEMP_SNOWY_TAIGA;
+        }
+    }
+
     public int getBladeColor() {
         return bladeColor;
     }

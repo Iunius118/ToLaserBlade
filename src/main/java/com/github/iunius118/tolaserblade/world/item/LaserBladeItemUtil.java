@@ -6,7 +6,6 @@ import com.github.iunius118.tolaserblade.core.laserblade.LaserBladePerformance;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeTextKey;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeVisual;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.Upgrade;
-import com.mojang.math.Vector3d;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
@@ -63,9 +62,9 @@ public class LaserBladeItemUtil {
     @OnlyIn(Dist.CLIENT)
     public static void addLaserBladeInformation(ItemStack itemStack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag, Upgrade.Type upgradeType) {
         LaserBlade laserBlade = LaserBlade.of(itemStack);
-        boolean isFireproof = laserBlade.isFireproof();
+        boolean isFireResistant = laserBlade.isFireResistant();
 
-        if (isFireproof) {
+        if (isFireResistant) {
             tooltip.add(LaserBladeTextKey.KEY_TOOLTIP_FIREPROOF.translate().withStyle(ChatFormatting.GOLD));
         }
 

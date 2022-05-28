@@ -5,6 +5,7 @@
 ## [Unreleased]
 ### Changed
 - Refactor laser blade upgrade.
+- Refactor laser blade classes.
 
 ## [1.18.2-5.2.0.0]
 ### Changed
