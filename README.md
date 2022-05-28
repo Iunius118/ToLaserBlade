@@ -1,8 +1,8 @@
-# ToLaserBlade [![ToLaserBlade (Forge) - CurseForge](http://cf.way2muchnoise.eu/title/294861.svg)](https://www.curseforge.com/minecraft/mc-mods/tolaserblade)
+# ToLaserBlade
 
 [<img src="docs/img/tolaserblade_1.png" title="The Laser Blade" width="427" height="240">](docs/img/tolaserblade_1.png)
 
-ToLaserBlade (T. o. Laser Blade) adds a simple sword with a laser blade.
+ToLaserBlade (T. o. Laser Blade) is a Minecraft mod adds a simple sword with a laser blade.
 
 - Sub Projects
   - [ToLaserBlade-1.12.2](https://github.com/Iunius118/ToLaserBlade-1.12.2)
@@ -15,7 +15,7 @@ ToLaserBlade (T. o. Laser Blade) adds a simple sword with a laser blade.
 
 ## Description and Download
 
-- [Project Page (CurseForge)](https://minecraft.curseforge.com/projects/tolaserblade)
+[![ToLaserBlade (Forge) - CurseForge](./docs/img/tolaserblade-forge_cf_badge.svg)](https://www.curseforge.com/minecraft/mc-mods/tolaserblade)
 
 ## Licenses
 
