@@ -9,7 +9,6 @@ import com.github.iunius118.tolaserblade.core.laserblade.upgrade.Upgrade;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -85,9 +84,9 @@ public class LaserBladeItemUtil {
 
     @OnlyIn(Dist.CLIENT)
     public static void addBrandNewText(List<Component> tooltip) {
-        tooltip.add(new TranslatableComponent("tooltip.tolaserblade.brandNew1").withStyle(ChatFormatting.YELLOW));
-        tooltip.add(new TranslatableComponent("tooltip.tolaserblade.brandNew2").withStyle(ChatFormatting.YELLOW));
-        tooltip.add(new TranslatableComponent("tooltip.tolaserblade.brandNew3").withStyle(ChatFormatting.YELLOW));
+        tooltip.add(Component.translatable("tooltip.tolaserblade.brandNew1").withStyle(ChatFormatting.YELLOW));
+        tooltip.add(Component.translatable("tooltip.tolaserblade.brandNew2").withStyle(ChatFormatting.YELLOW));
+        tooltip.add(Component.translatable("tooltip.tolaserblade.brandNew3").withStyle(ChatFormatting.YELLOW));
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -116,6 +115,6 @@ public class LaserBladeItemUtil {
 
     @OnlyIn(Dist.CLIENT)
     private static Component getUpgradeTextComponent(String key, float value) {
-        return new TranslatableComponent(key, (value < 0 ? "" : "+") + ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(value)).withStyle(ChatFormatting.DARK_GREEN);
+        return Component.translatable(key, (value < 0 ? "" : "+") + ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(value)).withStyle(ChatFormatting.DARK_GREEN);
     }
 }

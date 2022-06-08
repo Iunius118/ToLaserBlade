@@ -1,15 +1,12 @@
 package com.github.iunius118.tolaserblade.core.particle;
 
-import com.github.iunius118.tolaserblade.ToLaserBlade;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.SimpleParticleType;
-import net.minecraftforge.registries.ObjectHolder;
 
-@ObjectHolder(ToLaserBlade.MOD_ID)
 public class ModParticleTypes {
-    public static final SimpleParticleType LASER_TRAP_X = null;
-    public static final SimpleParticleType LASER_TRAP_Y = null;
-    public static final SimpleParticleType LASER_TRAP_Z = null;
+    public static final SimpleParticleType LASER_TRAP_X = new SimpleParticleType(true);
+    public static final SimpleParticleType LASER_TRAP_Y = new SimpleParticleType(true);
+    public static final SimpleParticleType LASER_TRAP_Z = new SimpleParticleType(true);
 
     public static SimpleParticleType getLaserTrapParticleType(Direction.Axis axis) {
         switch(axis) {

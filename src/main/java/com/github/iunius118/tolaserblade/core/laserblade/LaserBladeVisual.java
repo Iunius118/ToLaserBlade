@@ -42,23 +42,21 @@ public record LaserBladeVisual(ModelType modelType, Coloring coloring) {
 
     public void setColorsByBiome(Level level, Holder<Biome> biomeHolder) {
         // Color by Biome type or Biome temperature
-        switch (Biome.getBiomeCategory(biomeHolder)) {
-            case NETHER -> {
-                // The Nether
-                setColorsByNetherBiome(level, biomeHolder);
-            }
-            case THEEND -> {
-                // The End
-                getOuterColor().color = LaserBladeColor.WHITE.getBladeColor();
-                getOuterColor().isSubtractColor = true;
-                getInnerColor().isSubtractColor = true;
-            }
-            default -> {
-                // Biomes on Over-level etc.
-                float temp = biomeHolder.value().getBaseTemperature();
-                var laserBladeColor = LaserBladeColor.getColorByTemperature(temp);
-                getOuterColor().color = laserBladeColor.getBladeColor();
-            }
+        ResourceKey<Level> dimension = level.dimension();
+
+        if (Level.NETHER.equals(dimension)) {
+            // The Nether
+            setColorsByNetherBiome(level, biomeHolder);
+        } else if (Level.END.equals(dimension)) {
+            // The End
+            getOuterColor().color = LaserBladeColor.WHITE.getBladeColor();
+            getOuterColor().isSubtractColor = true;
+            getInnerColor().isSubtractColor = true;
+        } else {
+            // Over-world etc.
+            float temp = biomeHolder.value().getBaseTemperature();
+            var laserBladeColor = LaserBladeColor.getColorByTemperature(temp);
+            getOuterColor().color = laserBladeColor.getBladeColor();
         }
     }
 

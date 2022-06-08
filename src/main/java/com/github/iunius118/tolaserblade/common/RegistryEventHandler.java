@@ -1,87 +1,84 @@
 package com.github.iunius118.tolaserblade.common;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
+import com.github.iunius118.tolaserblade.common.util.ModSoundEvents;
+import com.github.iunius118.tolaserblade.core.particle.ModParticleTypes;
 import com.github.iunius118.tolaserblade.data.*;
-import com.github.iunius118.tolaserblade.world.item.*;
-import com.github.iunius118.tolaserblade.world.item.crafting.LBColorRecipe;
-import com.github.iunius118.tolaserblade.world.item.crafting.LBModelChangeRecipe;
-import com.github.iunius118.tolaserblade.world.item.crafting.LBUpgradeRecipe;
+import com.github.iunius118.tolaserblade.world.item.ModItems;
+import com.github.iunius118.tolaserblade.world.item.crafting.ModRecipeSerializers;
 import com.github.iunius118.tolaserblade.world.item.enchantment.LightElementEnchantment;
-import net.minecraft.core.particles.ParticleType;
-import net.minecraft.core.particles.SimpleParticleType;
+import com.github.iunius118.tolaserblade.world.item.enchantment.ModEnchantments;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.sounds.SoundEvent;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.ForgeBlockTagsProvider;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.RegisterEvent;
 
 public class RegistryEventHandler {
-    // Register recipe Serializers
     @SubscribeEvent
-    public static void onRecipeSerializerRegistry(RegistryEvent.Register<RecipeSerializer<?>> event) {
-        event.getRegistry().registerAll(
-                new LBUpgradeRecipe.Serializer().setRegistryName("tolaserblade:upgrade"),
-                new LBColorRecipe.Serializer().setRegistryName("tolaserblade:color"),
-                new LBModelChangeRecipe.Serializer().setRegistryName("tolaserblade:model_change")
-        );
+    public static void registerRecipeSerializers(RegisterEvent event) {
+        if (!event.getRegistryKey().equals(ForgeRegistries.Keys.RECIPE_SERIALIZERS))
+            return;
+
+        event.register(ForgeRegistries.Keys.RECIPE_SERIALIZERS, new ResourceLocation(ToLaserBlade.MOD_ID, "upgrade"), ()-> ModRecipeSerializers.UPGRADE);
+        event.register(ForgeRegistries.Keys.RECIPE_SERIALIZERS, new ResourceLocation(ToLaserBlade.MOD_ID, "color"), ()-> ModRecipeSerializers.COLOR);
+        event.register(ForgeRegistries.Keys.RECIPE_SERIALIZERS, new ResourceLocation(ToLaserBlade.MOD_ID, "model_change"), ()-> ModRecipeSerializers.MODEL_CHANGE);
+
     }
 
-    // Register items
     @SubscribeEvent
-    public static void onItemsRegistry(final RegistryEvent.Register<Item> event) {
-        event.getRegistry().registerAll(
-                new DXLaserBladeItem().setRegistryName("dx_laser_blade"),
-                new LBSwordItem(false).setRegistryName("laser_blade"),
-                new LBSwordItem(true).setRegistryName("laser_blade_fp"), // Fireproof
-                new LBBrandNewItem(LBBrandNewType.NONE, false).setRegistryName("lb_brand_new"),
-                new LBBrandNewItem(LBBrandNewType.LIGHT_ELEMENT_1, false).setRegistryName("lb_brand_new_1"),
-                new LBBrandNewItem(LBBrandNewType.LIGHT_ELEMENT_2, false).setRegistryName("lb_brand_new_2"),
-                new LBBrandNewItem(LBBrandNewType.FP, true).setRegistryName("lb_brand_new_fp"),
-                new LBBrokenItem(false).setRegistryName("lb_broken"),
-                new LBBrokenItem(true).setRegistryName("lb_broken_fp"), // Fireproof
-                new LBBlueprintItem().setRegistryName("lb_blueprint"),
-                new LBDisassembledItem(false).setRegistryName("lb_disassembled"),
-                new LBDisassembledItem(true).setRegistryName("lb_disassembled_fp"), // Fireproof
-                new LBBatteryItem().setRegistryName("lb_battery"),
-                new LBMediumItem().setRegistryName("lb_medium"),
-                new LBEmitterItem().setRegistryName("lb_emitter"),
-                new LBCasingItem(false).setRegistryName("lb_casing"),
-                new LBCasingItem(true).setRegistryName("lb_casing_fp")  // Fireproof
-        );
+    public static void registerItems(RegisterEvent event) {
+        if (!event.getRegistryKey().equals(ForgeRegistries.Keys.ITEMS))
+            return;
+
+        event.register(ForgeRegistries.Keys.ITEMS, new ResourceLocation(ToLaserBlade.MOD_ID, "dx_laser_blade"), () -> ModItems.DX_LASER_BLADE);
+        event.register(ForgeRegistries.Keys.ITEMS, new ResourceLocation(ToLaserBlade.MOD_ID, "laser_blade"), ()-> ModItems.LASER_BLADE);
+        event.register(ForgeRegistries.Keys.ITEMS, new ResourceLocation(ToLaserBlade.MOD_ID, "laser_blade_fp"), ()-> ModItems.LASER_BLADE_FP);
+        event.register(ForgeRegistries.Keys.ITEMS, new ResourceLocation(ToLaserBlade.MOD_ID, "lb_brand_new"), ()-> ModItems.LB_BRAND_NEW);
+        event.register(ForgeRegistries.Keys.ITEMS, new ResourceLocation(ToLaserBlade.MOD_ID, "lb_brand_new_1"), ()-> ModItems.LB_BRAND_NEW_1);
+        event.register(ForgeRegistries.Keys.ITEMS, new ResourceLocation(ToLaserBlade.MOD_ID, "lb_brand_new_2"), ()-> ModItems.LB_BRAND_NEW_2);
+        event.register(ForgeRegistries.Keys.ITEMS, new ResourceLocation(ToLaserBlade.MOD_ID, "lb_brand_new_fp"), ()-> ModItems.LB_BRAND_NEW_FP);
+        event.register(ForgeRegistries.Keys.ITEMS, new ResourceLocation(ToLaserBlade.MOD_ID, "lb_broken"), ()-> ModItems.LB_BROKEN);
+        event.register(ForgeRegistries.Keys.ITEMS, new ResourceLocation(ToLaserBlade.MOD_ID, "lb_broken_fp"), ()-> ModItems.LB_BROKEN_FP);
+        event.register(ForgeRegistries.Keys.ITEMS, new ResourceLocation(ToLaserBlade.MOD_ID, "lb_blueprint"), ()-> ModItems.LB_BLUEPRINT);
+        event.register(ForgeRegistries.Keys.ITEMS, new ResourceLocation(ToLaserBlade.MOD_ID, "lb_disassembled"), ()-> ModItems.LB_DISASSEMBLED);
+        event.register(ForgeRegistries.Keys.ITEMS, new ResourceLocation(ToLaserBlade.MOD_ID, "lb_disassembled_fp"), ()-> ModItems.LB_DISASSEMBLED_FP);
+        event.register(ForgeRegistries.Keys.ITEMS, new ResourceLocation(ToLaserBlade.MOD_ID, "lb_battery"), ()-> ModItems.LB_BATTERY);
+        event.register(ForgeRegistries.Keys.ITEMS, new ResourceLocation(ToLaserBlade.MOD_ID, "lb_medium"), ()-> ModItems.LB_MEDIUM);
+        event.register(ForgeRegistries.Keys.ITEMS, new ResourceLocation(ToLaserBlade.MOD_ID, "lb_emitter"), ()-> ModItems.LB_EMITTER);
+        event.register(ForgeRegistries.Keys.ITEMS, new ResourceLocation(ToLaserBlade.MOD_ID, "lb_casing"), ()-> ModItems.LB_CASING);
+        event.register(ForgeRegistries.Keys.ITEMS, new ResourceLocation(ToLaserBlade.MOD_ID, "lb_casing_fp"), ()-> ModItems.LB_CASING_FP);
     }
 
-    // Register Enchantments
     @SubscribeEvent
-    public static void onEnchantmentRegistry(final RegistryEvent.Register<Enchantment> event) {
-        event.getRegistry().registerAll(
-                new LightElementEnchantment().setRegistryName(LightElementEnchantment.ID)
-        );
+    public static void registerEnchantments(RegisterEvent event) {
+        if (!event.getRegistryKey().equals(ForgeRegistries.Keys.ENCHANTMENTS))
+            return;
+
+        event.register(ForgeRegistries.Keys.ENCHANTMENTS, LightElementEnchantment.ID, () -> ModEnchantments.LIGHT_ELEMENT);
     }
 
-    // Register Particle Types
     @SubscribeEvent
-    public static void onParticleTypeRegistry(RegistryEvent.Register<ParticleType<?>> event) {
-        event.getRegistry().registerAll(
-                new SimpleParticleType(true).setRegistryName("laser_trap_x"),
-                new SimpleParticleType(true).setRegistryName("laser_trap_y"),
-                new SimpleParticleType(true).setRegistryName("laser_trap_z")
-        );
+    public static void registerParticleTypes(RegisterEvent event) {
+        if (!event.getRegistryKey().equals(ForgeRegistries.Keys.PARTICLE_TYPES))
+            return;
+
+        event.register(ForgeRegistries.Keys.PARTICLE_TYPES, new ResourceLocation(ToLaserBlade.MOD_ID, "laser_trap_x"), ()->  ModParticleTypes.LASER_TRAP_X);
+        event.register(ForgeRegistries.Keys.PARTICLE_TYPES, new ResourceLocation(ToLaserBlade.MOD_ID, "laser_trap_y"), ()-> ModParticleTypes.LASER_TRAP_Y);
+        event.register(ForgeRegistries.Keys.PARTICLE_TYPES, new ResourceLocation(ToLaserBlade.MOD_ID, "laser_trap_z"), ()-> ModParticleTypes.LASER_TRAP_Z);
     }
 
-    // Register Sound Events
     @SubscribeEvent
-    public static void onSoundEventRegistry(final RegistryEvent.Register<SoundEvent> event) {
-        event.getRegistry().registerAll(
-                new SoundEvent(new ResourceLocation(ToLaserBlade.MOD_ID, "item.dx_laser_blade.swing")).setRegistryName("item_dx_laser_blade_swing"),
-                new SoundEvent(new ResourceLocation(ToLaserBlade.MOD_ID, "item.laser_blade.swing")).setRegistryName("item_laser_blade_swing"),
-                new SoundEvent(new ResourceLocation(ToLaserBlade.MOD_ID, "item.laser_blade_fp.swing")).setRegistryName("item_laser_blade_fp_swing")
-        );
+    public static void registerSoundEvents(RegisterEvent event) {
+        if (!event.getRegistryKey().equals(ForgeRegistries.Keys.SOUND_EVENTS))
+            return;
+
+        event.register(ForgeRegistries.Keys.SOUND_EVENTS, new ResourceLocation(ToLaserBlade.MOD_ID, "item_dx_laser_blade_swing"), ()-> ModSoundEvents.ITEM_DX_LASER_BLADE_SWING);
+        event.register(ForgeRegistries.Keys.SOUND_EVENTS, new ResourceLocation(ToLaserBlade.MOD_ID, "item_laser_blade_swing"), ()-> ModSoundEvents.ITEM_LASER_BLADE_SWING);
+        event.register(ForgeRegistries.Keys.SOUND_EVENTS, new ResourceLocation(ToLaserBlade.MOD_ID, "item_laser_blade_fp_swing"), ()-> ModSoundEvents.ITEM_LASER_BLADE_FP_SWING);
     }
 
     // Generate Data
@@ -91,16 +88,20 @@ public class RegistryEventHandler {
         ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
         ForgeBlockTagsProvider blockTags = new ForgeBlockTagsProvider(gen, existingFileHelper);
 
-        if (event.includeServer()) {
-            gen.addProvider(new TLBRecipeProvider(gen));    // Recipes
-            gen.addProvider(new TLBItemTagsProvider(gen, blockTags, existingFileHelper));  // Item tags
-            gen.addProvider(new TLBAdvancementProvider(gen));   // Advancements
-        }
+        // Server
+        // Recipes
+        gen.addProvider(event.includeServer(), new TLBRecipeProvider(gen));
+        // Item tags
+        gen.addProvider(event.includeServer(), new TLBItemTagsProvider(gen, blockTags, existingFileHelper));
+        // Advancements
+        gen.addProvider(event.includeServer(), new TLBAdvancementProvider(gen));
 
-        if (event.includeClient()) {
-            gen.addProvider(new TLBItemModelProvider(gen, existingFileHelper)); // Item models
-            TLBLanguageProvider.addProviders(gen);  // Languages
-            gen.addProvider(new TLBSoundProvider(gen)); // Sounds
-        }
+        // Client
+        // Item models
+        gen.addProvider(event.includeClient(), new TLBItemModelProvider(gen, existingFileHelper));
+        // Languages
+        TLBLanguageProvider.addProviders(event.includeClient(), gen);
+        // Sounds
+        gen.addProvider(event.includeClient(), new TLBSoundProvider(gen));
     }
 }

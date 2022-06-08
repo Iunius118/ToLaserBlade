@@ -7,10 +7,11 @@ import com.github.iunius118.tolaserblade.world.item.ModItems;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.registries.ForgeRegistries;
+import net.minecraftforge.registries.MissingMappingsEvent;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -21,7 +22,10 @@ public class CommonEventHandler {
      */
 
     @SubscribeEvent
-    public static void remapItems(RegistryEvent.MissingMappings<Item> mappings) {
+    public static void remapItems(MissingMappingsEvent event) {
+        if (event.getKey() != ForgeRegistries.Keys.ITEMS)
+            return;
+
         final Map<ResourceLocation, Item> remappingItemMap = new HashMap<>();
         // Replace item ID "tolaserblade:tolaserblade.laser_blade" (-1.11.2) with "tolaserblade:laser_blade" (1.12-)
         remappingItemMap.put(new ResourceLocation(ToLaserBlade.MOD_ID, "tolaserblade.laser_blade"), ModItems.LASER_BLADE);
@@ -33,9 +37,9 @@ public class CommonEventHandler {
         remappingItemMap.put(new ResourceLocation(ToLaserBlade.MOD_ID, "laser_blade_core"), ModItems.LB_BROKEN);
 
         // Replace item IDs
-        mappings.getAllMappings().stream()
-                .filter(mapping -> mapping.key.getNamespace().equals(ToLaserBlade.MOD_ID) && remappingItemMap.containsKey(mapping.key))
-                .forEach(mapping -> mapping.remap(remappingItemMap.get(mapping.key)));
+        event.getAllMappings(ForgeRegistries.Keys.ITEMS).stream()
+                .filter(mapping -> mapping.getKey().getNamespace().equals(ToLaserBlade.MOD_ID) && remappingItemMap.containsKey(mapping.getKey()))
+                .forEach(mapping -> mapping.remap(remappingItemMap.get(mapping.getKey())));
     }
 
     /*

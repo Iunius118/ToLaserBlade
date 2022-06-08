@@ -15,7 +15,7 @@ public class LBSwordItemOverrides extends ItemOverrides {
     public BakedModel resolve(BakedModel bakedModel, ItemStack itemStack, @Nullable ClientLevel clientLevel, @Nullable LivingEntity livingEntity, int i) {
         if (!(bakedModel instanceof LBSwordItemModel laserBladeModel)) return bakedModel;
 
-        var humanoidArm = Minecraft.getInstance().options.mainHand;
+        var humanoidArm = Minecraft.getInstance().options.mainHand().get();
         var isBlocking = false;
 
         if (livingEntity != null) {

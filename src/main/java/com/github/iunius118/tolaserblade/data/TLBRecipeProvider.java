@@ -20,6 +20,7 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Map;
 import java.util.function.Consumer;
@@ -39,7 +40,7 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
                 .define('R', Items.REDSTONE_TORCH)
                 .define('s', Tags.Items.RODS_WOODEN)
                 .unlockedBy("has_redstone", has(Items.REDSTONE))
-                .save(consumer, ModItems.DX_LASER_BLADE.getRegistryName());
+                .save(consumer, getItemId(ModItems.DX_LASER_BLADE));
 
         // Laser Blade with Light Element I
         ShapedRecipeBuilder.shaped(ModItems.LB_BRAND_NEW_1)
@@ -51,7 +52,7 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
                 .define('d', Tags.Items.GEMS_DIAMOND)
                 .define('r', Tags.Items.DUSTS_REDSTONE)
                 .unlockedBy("has_redstone", has(Items.REDSTONE))
-                .save(consumer, ModItems.LB_BRAND_NEW_1.getRegistryName());
+                .save(consumer, getItemId(ModItems.LB_BRAND_NEW_1));
 
         // Laser Blade with Light Element II
         ShapedRecipeBuilder.shaped(ModItems.LB_BRAND_NEW_2)
@@ -63,7 +64,7 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
                 .define('d', Tags.Items.GEMS_DIAMOND)
                 .define('r', Tags.Items.DUSTS_REDSTONE)
                 .unlockedBy("has_redstone", has(Items.REDSTONE))
-                .save(consumer, ModItems.LB_BRAND_NEW_2.getRegistryName());
+                .save(consumer, getItemId(ModItems.LB_BRAND_NEW_2));
 
         // Netherite Laser Blade by using Smithing Table
         addSmithingRecipe(Ingredient.of(ModItems.LASER_BLADE), Ingredient.of(Items.NETHERITE_INGOT), ModItems.LB_BRAND_NEW_FP, Items.NETHERITE_INGOT, consumer);
@@ -92,15 +93,19 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
         return "ToLaserBlade " + super.getName();
     }
 
+    private ResourceLocation getItemId(Item item) {
+        return ForgeRegistries.ITEMS.getKey(item);
+    }
+
     private void addSmithingRecipe(Ingredient base, Ingredient addition, Item result, Item criterionItem, Consumer<FinishedRecipe> consumer) {
         UpgradeRecipeBuilder.smithing(base, addition, result)
-                .unlocks("has_" + criterionItem.getRegistryName().getPath(), has(criterionItem))
-                .save(consumer, result.getRegistryName().toString() + "_smithing");
+                .unlocks("has_" + getItemId(criterionItem).getPath(), has(criterionItem))
+                .save(consumer, getItemId(result).toString() + "_smithing");
     }
 
     private void addSmithingRepairRecipe(String shortName, Item base, Ingredient addition, Item result, Item criterionItem, Consumer<FinishedRecipe> consumer) {
         UpgradeRecipeBuilder.smithing(Ingredient.of(base), addition, result)
-                .unlocks("has_" + criterionItem.getRegistryName().getPath(), has(criterionItem))
+                .unlocks("has_" + getItemId(criterionItem).getPath(), has(criterionItem))
                 .save(consumer, ToLaserBlade.MOD_ID + ":repair_" + shortName + "_smithing");
     }
 

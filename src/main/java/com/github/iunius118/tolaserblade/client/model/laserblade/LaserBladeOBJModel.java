@@ -15,6 +15,7 @@ import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
 import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.RandomSource;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -69,7 +70,7 @@ public class LaserBladeOBJModel extends SimpleLaserBladeModel {
                 var particleIcon = Minecraft.getInstance().getItemRenderer().getItemModelShaper().getItemModel(Items.IRON_INGOT).getParticleIcon(EmptyModelData.INSTANCE);
                 IModelBuilder<?> builder = IModelBuilder.of(modelConfig, ItemOverrides.EMPTY, particleIcon);
                 geometryPart.addQuads(modelConfig, builder, loader, ForgeModelBakery.defaultTextureGetter(), SimpleModelState.IDENTITY, modelLocation);
-                PARTS.put(part, builder.build().getQuads(null, null, new Random(42L), EmptyModelData.INSTANCE));
+                PARTS.put(part, builder.build().getQuads(null, null, RandomSource.create(42L), EmptyModelData.INSTANCE));
             }
         }
     }

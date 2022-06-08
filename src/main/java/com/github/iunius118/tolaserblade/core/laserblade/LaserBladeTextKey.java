@@ -1,6 +1,7 @@
 package com.github.iunius118.tolaserblade.core.laserblade;
 
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.Component;
+import net.minecraft.network.chat.MutableComponent;
 
 public enum LaserBladeTextKey {
     KEY_TOOLTIP_FIREPROOF("upgrade.tolaserblade.fireproof"),
@@ -24,12 +25,12 @@ public enum LaserBladeTextKey {
         return key;
     }
 
-    public TranslatableComponent translate() {
-        return new TranslatableComponent(key);
+    public MutableComponent translate() {
+        return Component.translatable(key);
     }
 
-    public TranslatableComponent translate(Object... additional) {
-        return new TranslatableComponent(key, additional);
+    public MutableComponent translate(Object... additional) {
+        return Component.translatable(key, additional);
     }
 
     @Override
