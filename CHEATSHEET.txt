@@ -1,5 +1,5 @@
 # Cheatsheet
-ToLaserBlade v5.1.1.0
+ToLaserBlade v5.3.0.0
 
 ## How to Get Started
 ### 1. Craft a Brand-new Laser Blade I or II, and Use It
@@ -111,7 +111,7 @@ Smithing Table:
 - Light Element: Laser Blade + Glowstone
 - Fire Aspect: Laser Blade + Blaze Rod
 - Sweeping Edge: Laser Blade + Eye of Ender
-- Silk Touch: Laser Blade + Prismarine Crystals / Amethyst Shard
+- Silk Touch: Laser Blade + Prismarine Crystals / Amethyst Shard / Echo Shard
 - Looting: Laser Blade + Nautilus Shell / Block of Emerald
 - Mending: Laser Blade + Nether Star / Dragon Head / Totem of Undying
 - Fireproof: Laser Blade + Netherite Ingot

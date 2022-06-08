@@ -3,9 +3,12 @@
 [Source](https://github.com/Iunius118/ToLaserBlade).
 
 ## [Unreleased]
+
+## [1.19-5.3.0.0]
 ### Changed
-- Refactor laser blade upgrade.
-- Refactor laser blade classes.
+- Port to 1.19.
+- Require Forge 1.19-41.0.1+.
+- Add echo shard to the ingredients of silk touch upgrade.
 
 ## [1.18.2-5.2.0.0]
 ### Changed
