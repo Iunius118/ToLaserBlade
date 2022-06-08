@@ -1,10 +1,10 @@
 {
   "type": "tolaserblade:upgrade",
-  "base": {
-    "item": "tolaserblade:laser_blade"
-  },
   "addition": {
     "tag": "tolaserblade:upgrade/efficiency"
+  },
+  "base": {
+    "item": "tolaserblade:laser_blade"
   },
   "result": {
     "type": "tolaserblade:upgrade/efficiency"

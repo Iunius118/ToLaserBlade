@@ -1,49 +1,46 @@
 {
   "parent": "tolaserblade:main/laser_blade",
-  "display": {
-    "icon": {
-      "item": "tolaserblade:lb_casing"
-    },
-    "title": {
-      "translate": "advancements.tolaserblade.main.break_laser_blade.title"
-    },
-    "description": {
-      "translate": "advancements.tolaserblade.main.break_laser_blade.description"
-    },
-    "frame": "challenge",
-    "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": false
-  },
-  "rewards": {
-    "experience": 1000
-  },
   "criteria": {
     "broke_laser_blade": {
-      "trigger": "minecraft:item_durability_changed",
       "conditions": {
+        "durability": {
+          "max": 0
+        },
         "item": {
           "items": [
             "tolaserblade:laser_blade"
           ]
-        },
-        "durability": {
-          "max": 0
         }
-      }
+      },
+      "trigger": "minecraft:item_durability_changed"
     },
     "broke_laser_blade_fp": {
-      "trigger": "minecraft:item_durability_changed",
       "conditions": {
+        "durability": {
+          "max": 0
+        },
         "item": {
           "items": [
             "tolaserblade:laser_blade_fp"
           ]
-        },
-        "durability": {
-          "max": 0
         }
-      }
+      },
+      "trigger": "minecraft:item_durability_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.tolaserblade.main.break_laser_blade.description"
+    },
+    "frame": "challenge",
+    "hidden": false,
+    "icon": {
+      "item": "tolaserblade:lb_casing"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.tolaserblade.main.break_laser_blade.title"
     }
   },
   "requirements": [
@@ -51,5 +48,8 @@
       "broke_laser_blade",
       "broke_laser_blade_fp"
     ]
-  ]
+  ],
+  "rewards": {
+    "experience": 1000
+  }
 }

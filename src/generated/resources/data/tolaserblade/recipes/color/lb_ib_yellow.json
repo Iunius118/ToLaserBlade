@@ -1,13 +1,13 @@
 {
   "type": "tolaserblade:color",
-  "base": {
-    "item": "tolaserblade:laser_blade"
-  },
   "addition": {
     "tag": "forge:glass_panes/yellow"
   },
+  "base": {
+    "item": "tolaserblade:laser_blade"
+  },
   "result": {
-    "part": "inner_blade",
-    "color": -4608
+    "color": -4608,
+    "part": "inner_blade"
   }
 }

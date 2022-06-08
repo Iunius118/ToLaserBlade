@@ -2,13 +2,11 @@ package com.github.iunius118.tolaserblade.data;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.common.util.ModSoundEvents;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import net.minecraft.data.CachedOutput;
 import net.minecraft.data.DataGenerator;
 import net.minecraft.data.DataProvider;
-import net.minecraft.data.HashCache;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.sounds.SoundEvent;
 
@@ -17,7 +15,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class TLBSoundProvider implements DataProvider {
-    private static final Gson GSON = (new GsonBuilder()).setPrettyPrinting().create();
     private final DataGenerator generator;
     private final String modid;
     private final List<SoundEvent> soundEvents = new ArrayList<>();
@@ -42,7 +39,7 @@ public class TLBSoundProvider implements DataProvider {
     }
 
     @Override
-    public void run(HashCache cache) throws IOException {
+    public void run(CachedOutput cache) throws IOException {
         registerSoundEvents();
         JsonObject jsonSoundsRoot = new JsonObject();
 
@@ -50,7 +47,7 @@ public class TLBSoundProvider implements DataProvider {
             addSoundEventToJson(soundEvent, jsonSoundsRoot);
         }
 
-        DataProvider.save(GSON, cache, jsonSoundsRoot, generator.getOutputFolder().resolve("assets/" + modid + "/sounds.json"));
+        DataProvider.saveStable(cache, jsonSoundsRoot, generator.getOutputFolder().resolve("assets/" + modid + "/sounds.json"));
     }
 
     private void addSoundEventToJson(SoundEvent soundEvent, JsonObject jsonObject) {

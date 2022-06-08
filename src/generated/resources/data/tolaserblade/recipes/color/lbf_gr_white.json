@@ -1,13 +1,13 @@
 {
   "type": "tolaserblade:color",
-  "base": {
-    "item": "tolaserblade:laser_blade_fp"
-  },
   "addition": {
     "item": "minecraft:white_carpet"
   },
+  "base": {
+    "item": "tolaserblade:laser_blade_fp"
+  },
   "result": {
-    "part": "grip",
-    "color": -393218
+    "color": -393218,
+    "part": "grip"
   }
 }

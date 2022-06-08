@@ -1,31 +1,28 @@
 package com.github.iunius118.tolaserblade.world.item;
 
-import com.github.iunius118.tolaserblade.ToLaserBlade;
-import net.minecraftforge.registries.ObjectHolder;
+import net.minecraft.world.item.Item;
 
-@ObjectHolder(ToLaserBlade.MOD_ID)
 public class ModItems {
     // DX Laser B1ade
-    public static final DXLaserBladeItem DX_LASER_BLADE = null;
-
-    // Brand-new Laser Blade
-    public static final LBBrandNewItem LB_BRAND_NEW = null;
-    public static final LBBrandNewItem LB_BRAND_NEW_1 = null;
-    public static final LBBrandNewItem LB_BRAND_NEW_2 = null;
-    public static final LBBrandNewItem LB_BRAND_NEW_FP = null;
+    public static final Item DX_LASER_BLADE = new DXLaserBladeItem();
     // Laser Blade
-    public static final LBSwordItem LASER_BLADE = null;
-    public static final LBSwordItem LASER_BLADE_FP = null;
-    public static final LBBrokenItem LB_BROKEN = null;
-    public static final LBBrokenItem LB_BROKEN_FP = null;
-    // Laser Blade parts
-    public static final LBDisassembledItem LB_DISASSEMBLED = null;
-    public static final LBDisassembledItem LB_DISASSEMBLED_FP = null;
-    public static final LBBatteryItem LB_BATTERY = null;
-    public static final LBMediumItem LB_MEDIUM = null;
-    public static final LBEmitterItem LB_EMITTER = null;
-    public static final LBCasingItem LB_CASING = null;
-    public static final LBCasingItem LB_CASING_FP = null;
+    public static final Item LASER_BLADE = new LBSwordItem(false);
+    public static final Item LASER_BLADE_FP = new LBSwordItem(true);
+    // Brand-new Laser Blade
+    public static final Item LB_BRAND_NEW = new LBBrandNewItem(LBBrandNewType.NONE, false);
+    public static final Item LB_BRAND_NEW_1 = new LBBrandNewItem(LBBrandNewType.LIGHT_ELEMENT_1, false);
+    public static final Item LB_BRAND_NEW_2 = new LBBrandNewItem(LBBrandNewType.LIGHT_ELEMENT_2, false);
+    public static final Item LB_BRAND_NEW_FP = new LBBrandNewItem(LBBrandNewType.FP, true);
+    public static final Item LB_BROKEN = new LBBrokenItem(false);
+    public static final Item LB_BROKEN_FP = new LBBrokenItem(true);
     // Blueprint
-    public static final LBBlueprintItem LB_BLUEPRINT = null;
+    public static final Item LB_BLUEPRINT = new LBBlueprintItem();
+    // Laser Blade parts
+    public static final Item LB_DISASSEMBLED = new LBDisassembledItem(false);
+    public static final Item LB_DISASSEMBLED_FP = new LBDisassembledItem(true);
+    public static final Item LB_BATTERY = new LBBatteryItem();
+    public static final Item LB_MEDIUM = new LBMediumItem();
+    public static final Item LB_EMITTER = new LBEmitterItem();
+    public static final Item LB_CASING = new LBCasingItem(false);
+    public static final Item LB_CASING_FP = new LBCasingItem(true);
 }

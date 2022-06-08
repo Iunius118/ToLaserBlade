@@ -2,15 +2,14 @@ package com.github.iunius118.tolaserblade.world.item.crafting;
 
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeTextKey;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.Upgrade;
+import com.github.iunius118.tolaserblade.core.laserblade.upgrade.UpgradeID;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.UpgradeManager;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.UpgradeResult;
-import com.github.iunius118.tolaserblade.tags.ModItemTags;
 import com.google.gson.JsonObject;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
@@ -80,7 +79,7 @@ public class LBUpgradeRecipe extends UpgradeRecipe {
             return upgrade;
         }
 
-        upgrade = UpgradeManager.get(upgradeId);
+        upgrade = UpgradeManager.getUpgrade(upgradeId);
         return upgrade;
     }
 
@@ -100,12 +99,12 @@ public class LBUpgradeRecipe extends UpgradeRecipe {
             return sample;
         }
 
-        ResourceLocation efficiencyRemover = ModItemTags.EFFICIENCY_REMOVER.location();
+        ResourceLocation efficiencyRemover = UpgradeID.EFFICIENCY_REMOVER.getID();
 
         if (upgradeId.equals(efficiencyRemover)) {
             // Set hint of removing Efficiency to item-stack's display name
-            TranslatableComponent textComponent = LaserBladeTextKey.KEY_TOOLTIP_REMOVE.translate(new TranslatableComponent("enchantment.minecraft.efficiency"));
-            TextComponent info = new TextComponent(textComponent.getString());
+            MutableComponent componentContents = LaserBladeTextKey.KEY_TOOLTIP_REMOVE.translate(Component.translatable("enchantment.minecraft.efficiency"));
+            MutableComponent info = Component.literal(componentContents.getString());
             CompoundTag nbt = sample.getOrCreateTagElement("display");
             nbt.putString("Name", Component.Serializer.toJson(info));
         } else {
@@ -137,7 +136,7 @@ public class LBUpgradeRecipe extends UpgradeRecipe {
         return super.getType();
     }
 
-    public static class Serializer extends net.minecraftforge.registries.ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<LBUpgradeRecipe> {
+    public static class Serializer implements RecipeSerializer<LBUpgradeRecipe> {
         @Override
         public LBUpgradeRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
             Ingredient base = Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "base"));

@@ -20,16 +20,17 @@ import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TextComponent;
-import net.minecraft.network.chat.TranslatableComponent;
+import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.inventory.InventoryMenu;
+import net.minecraft.world.item.Item;
 import net.minecraftforge.client.event.*;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.VersionChecker;
 import net.minecraftforge.fml.VersionChecker.CheckResult;
 import net.minecraftforge.fml.VersionChecker.Status;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import java.io.IOException;
 
@@ -68,14 +69,14 @@ public class ClientModEventHandler {
             return; // Use generated model
         }
 
-        ModelResourceLocation laserBladeItemID = new ModelResourceLocation(ModItems.LASER_BLADE.getRegistryName(), "inventory");
-        ModelResourceLocation laserBladeFPItemID = new ModelResourceLocation(ModItems.LASER_BLADE_FP.getRegistryName(), "inventory");
-        ModelResourceLocation lBBrandNewItemID = new ModelResourceLocation(ModItems.LB_BRAND_NEW.getRegistryName(), "inventory");
-        ModelResourceLocation lBBrandNew1ItemID = new ModelResourceLocation(ModItems.LB_BRAND_NEW_1.getRegistryName(), "inventory");
-        ModelResourceLocation lBBrandNew2ItemID = new ModelResourceLocation(ModItems.LB_BRAND_NEW_2.getRegistryName(), "inventory");
-        ModelResourceLocation lBBrandNewFPItemID = new ModelResourceLocation(ModItems.LB_BRAND_NEW_FP.getRegistryName(), "inventory");
-        ModelResourceLocation lBBrokenItemID = new ModelResourceLocation(ModItems.LB_BROKEN.getRegistryName(), "inventory");
-        ModelResourceLocation lBBrokenFPItemID = new ModelResourceLocation(ModItems.LB_BROKEN_FP.getRegistryName(), "inventory");
+        ModelResourceLocation laserBladeItemID = new ModelResourceLocation(getItemId(ModItems.LASER_BLADE), "inventory");
+        ModelResourceLocation laserBladeFPItemID = new ModelResourceLocation(getItemId(ModItems.LASER_BLADE_FP), "inventory");
+        ModelResourceLocation lBBrandNewItemID = new ModelResourceLocation(getItemId(ModItems.LB_BRAND_NEW), "inventory");
+        ModelResourceLocation lBBrandNew1ItemID = new ModelResourceLocation(getItemId(ModItems.LB_BRAND_NEW_1), "inventory");
+        ModelResourceLocation lBBrandNew2ItemID = new ModelResourceLocation(getItemId(ModItems.LB_BRAND_NEW_2), "inventory");
+        ModelResourceLocation lBBrandNewFPItemID = new ModelResourceLocation(getItemId(ModItems.LB_BRAND_NEW_FP), "inventory");
+        ModelResourceLocation lBBrokenItemID = new ModelResourceLocation(getItemId(ModItems.LB_BROKEN), "inventory");
+        ModelResourceLocation lBBrokenFPItemID = new ModelResourceLocation(getItemId(ModItems.LB_BROKEN_FP), "inventory");
         LBSwordItemModel bakedModel = new LBSwordItemModel();
 
         bakedModel.loadModel(event);
@@ -87,6 +88,10 @@ public class ClientModEventHandler {
         event.getModelRegistry().put(lBBrandNewFPItemID, bakedModel);
         event.getModelRegistry().put(lBBrokenItemID, bakedModel);
         event.getModelRegistry().put(lBBrokenFPItemID, bakedModel);
+    }
+
+    private static ResourceLocation getItemId(Item item) {
+        return ForgeRegistries.ITEMS.getKey(item);
     }
 
     @SubscribeEvent
@@ -115,11 +120,11 @@ public class ClientModEventHandler {
         }
 
         if (status == Status.OUTDATED || status == Status.BETA_OUTDATED) {
-            Component modNameHighlighted = new TextComponent(ToLaserBlade.MOD_NAME).withStyle(ChatFormatting.YELLOW);
+            MutableComponent modNameHighlighted = Component.literal(ToLaserBlade.MOD_NAME).withStyle(ChatFormatting.YELLOW);
 
-            Component newVersionHighlighted = new TextComponent(result.target().toString()).withStyle(ChatFormatting.YELLOW);
+            MutableComponent newVersionHighlighted = Component.literal(result.target().toString()).withStyle(ChatFormatting.YELLOW);
 
-            Component message = new TranslatableComponent("tolaserblade.update.newVersion", modNameHighlighted).append(": ")
+            MutableComponent message = Component.translatable("tolaserblade.update.newVersion", modNameHighlighted).append(": ")
                     .append(newVersionHighlighted)
                     .withStyle(style -> style.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, result.url())));
 

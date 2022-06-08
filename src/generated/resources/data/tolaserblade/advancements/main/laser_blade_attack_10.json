@@ -1,23 +1,7 @@
 {
   "parent": "tolaserblade:main/laser_blade",
-  "display": {
-    "icon": {
-      "item": "minecraft:diamond"
-    },
-    "title": {
-      "translate": "advancements.tolaserblade.main.laser_blade_attack_10.title"
-    },
-    "description": {
-      "translate": "advancements.tolaserblade.main.laser_blade_attack_10.description"
-    },
-    "frame": "task",
-    "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": false
-  },
   "criteria": {
     "laser_blade_attack_10": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -27,10 +11,10 @@
             "nbt": "{ATK:3.0f}"
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     },
     "laser_blade_attack_11": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -40,10 +24,10 @@
             "nbt": "{ATK:4.0f}"
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     },
     "laser_blade_attack_12": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -53,10 +37,10 @@
             "nbt": "{ATK:5.0f}"
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     },
     "laser_blade_attack_13": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -66,10 +50,10 @@
             "nbt": "{ATK:6.0f}"
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     },
     "laser_blade_attack_14": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -79,10 +63,10 @@
             "nbt": "{ATK:7.0f}"
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     },
     "laser_blade_attack_15": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -92,10 +76,10 @@
             "nbt": "{ATK:8.0f}"
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     },
     "laser_blade_fp_attack_10": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -105,10 +89,10 @@
             "nbt": "{ATK:2.0f}"
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     },
     "laser_blade_fp_attack_11": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -118,10 +102,10 @@
             "nbt": "{ATK:3.0f}"
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     },
     "laser_blade_fp_attack_12": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -131,10 +115,10 @@
             "nbt": "{ATK:4.0f}"
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     },
     "laser_blade_fp_attack_13": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -144,10 +128,10 @@
             "nbt": "{ATK:5.0f}"
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     },
     "laser_blade_fp_attack_14": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -157,10 +141,10 @@
             "nbt": "{ATK:6.0f}"
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     },
     "laser_blade_fp_attack_15": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -170,10 +154,10 @@
             "nbt": "{ATK:7.0f}"
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     },
     "laser_blade_fp_attack_16": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -183,7 +167,23 @@
             "nbt": "{ATK:8.0f}"
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": true,
+    "description": {
+      "translate": "advancements.tolaserblade.main.laser_blade_attack_10.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "minecraft:diamond"
+    },
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.tolaserblade.main.laser_blade_attack_10.title"
     }
   },
   "requirements": [

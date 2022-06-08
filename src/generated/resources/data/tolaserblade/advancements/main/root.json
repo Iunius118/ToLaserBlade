@@ -1,36 +1,6 @@
 {
-  "display": {
-    "icon": {
-      "item": "tolaserblade:laser_blade",
-      "nbt": "{Damage:0,colorC:-1,colorG:-6447721,colorH:-65536,isSubC:0b,isSubH:0b}"
-    },
-    "title": {
-      "translate": "advancements.tolaserblade.main.root.title"
-    },
-    "description": {
-      "translate": "advancements.tolaserblade.main.root.description"
-    },
-    "frame": "task",
-    "show_toast": false,
-    "announce_to_chat": false,
-    "hidden": false,
-    "background": "minecraft:textures/block/polished_andesite.png"
-  },
   "criteria": {
-    "has_redstone": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "minecraft:redstone"
-            ]
-          }
-        ]
-      }
-    },
     "has_dx_laser_blade": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -39,10 +9,10 @@
             ]
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     },
     "has_laser_blade": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -51,10 +21,10 @@
             ]
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
     },
     "has_laser_blade_fp": {
-      "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
@@ -63,7 +33,37 @@
             ]
           }
         ]
-      }
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_redstone": {
+      "conditions": {
+        "items": [
+          {
+            "items": [
+              "minecraft:redstone"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "announce_to_chat": false,
+    "background": "minecraft:textures/block/polished_andesite.png",
+    "description": {
+      "translate": "advancements.tolaserblade.main.root.description"
+    },
+    "frame": "task",
+    "hidden": false,
+    "icon": {
+      "item": "tolaserblade:laser_blade",
+      "nbt": "{Damage:0,colorC:-1,colorG:-6447721,colorH:-65536,isSubC:0b,isSubH:0b}"
+    },
+    "show_toast": false,
+    "title": {
+      "translate": "advancements.tolaserblade.main.root.title"
     }
   },
   "requirements": [

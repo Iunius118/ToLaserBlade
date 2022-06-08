@@ -1,13 +1,13 @@
 {
   "type": "tolaserblade:color",
-  "base": {
-    "item": "tolaserblade:laser_blade_fp"
-  },
   "addition": {
     "item": "minecraft:amethyst_block"
   },
+  "base": {
+    "item": "tolaserblade:laser_blade_fp"
+  },
   "result": {
-    "part": "inner_blade",
-    "color": 16843009
+    "color": 16843009,
+    "part": "inner_blade"
   }
 }

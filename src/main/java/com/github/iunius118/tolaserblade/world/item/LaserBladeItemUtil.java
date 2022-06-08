@@ -6,11 +6,9 @@ import com.github.iunius118.tolaserblade.core.laserblade.LaserBladePerformance;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeTextKey;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeVisual;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.Upgrade;
-import com.mojang.math.Vector3d;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
-import net.minecraft.network.chat.TranslatableComponent;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
@@ -63,9 +61,9 @@ public class LaserBladeItemUtil {
     @OnlyIn(Dist.CLIENT)
     public static void addLaserBladeInformation(ItemStack itemStack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag, Upgrade.Type upgradeType) {
         LaserBlade laserBlade = LaserBlade.of(itemStack);
-        boolean isFireproof = laserBlade.isFireproof();
+        boolean isFireResistant = laserBlade.isFireResistant();
 
-        if (isFireproof) {
+        if (isFireResistant) {
             tooltip.add(LaserBladeTextKey.KEY_TOOLTIP_FIREPROOF.translate().withStyle(ChatFormatting.GOLD));
         }
 
@@ -86,9 +84,9 @@ public class LaserBladeItemUtil {
 
     @OnlyIn(Dist.CLIENT)
     public static void addBrandNewText(List<Component> tooltip) {
-        tooltip.add(new TranslatableComponent("tooltip.tolaserblade.brandNew1").withStyle(ChatFormatting.YELLOW));
-        tooltip.add(new TranslatableComponent("tooltip.tolaserblade.brandNew2").withStyle(ChatFormatting.YELLOW));
-        tooltip.add(new TranslatableComponent("tooltip.tolaserblade.brandNew3").withStyle(ChatFormatting.YELLOW));
+        tooltip.add(Component.translatable("tooltip.tolaserblade.brandNew1").withStyle(ChatFormatting.YELLOW));
+        tooltip.add(Component.translatable("tooltip.tolaserblade.brandNew2").withStyle(ChatFormatting.YELLOW));
+        tooltip.add(Component.translatable("tooltip.tolaserblade.brandNew3").withStyle(ChatFormatting.YELLOW));
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -117,6 +115,6 @@ public class LaserBladeItemUtil {
 
     @OnlyIn(Dist.CLIENT)
     private static Component getUpgradeTextComponent(String key, float value) {
-        return new TranslatableComponent(key, (value < 0 ? "" : "+") + ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(value)).withStyle(ChatFormatting.DARK_GREEN);
+        return Component.translatable(key, (value < 0 ? "" : "+") + ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(value)).withStyle(ChatFormatting.DARK_GREEN);
     }
 }

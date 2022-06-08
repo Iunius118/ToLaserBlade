@@ -1,7 +1,7 @@
 {
-  "replace": false,
   "values": [
     "minecraft:prismarine_crystals",
-    "minecraft:amethyst_shard"
+    "minecraft:amethyst_shard",
+    "minecraft:echo_shard"
   ]
 }

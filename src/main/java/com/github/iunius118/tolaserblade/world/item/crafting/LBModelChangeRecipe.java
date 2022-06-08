@@ -119,7 +119,7 @@ public class LBModelChangeRecipe extends UpgradeRecipe {
         return super.getType();
     }
 
-    public static class Serializer extends net.minecraftforge.registries.ForgeRegistryEntry<RecipeSerializer<?>> implements RecipeSerializer<LBModelChangeRecipe> {
+    public static class Serializer implements RecipeSerializer<LBModelChangeRecipe> {
         @Override
         public LBModelChangeRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
             Ingredient base = Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "base"));

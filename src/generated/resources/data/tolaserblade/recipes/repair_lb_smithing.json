@@ -1,10 +1,10 @@
 {
   "type": "minecraft:smithing",
-  "base": {
-    "item": "tolaserblade:laser_blade"
-  },
   "addition": {
     "tag": "tolaserblade:casing_repair"
+  },
+  "base": {
+    "item": "tolaserblade:laser_blade"
   },
   "result": {
     "item": "tolaserblade:lb_brand_new"
