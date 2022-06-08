@@ -1,13 +1,13 @@
 {
   "type": "tolaserblade:color",
-  "base": {
-    "item": "tolaserblade:laser_blade_fp"
-  },
   "addition": {
     "tag": "forge:glass/brown"
   },
+  "base": {
+    "item": "tolaserblade:laser_blade_fp"
+  },
   "result": {
-    "part": "outer_blade",
-    "color": -38144
+    "color": -38144,
+    "part": "outer_blade"
   }
 }

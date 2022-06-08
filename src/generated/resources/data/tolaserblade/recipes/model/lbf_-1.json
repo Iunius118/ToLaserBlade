@@ -1,10 +1,10 @@
 {
   "type": "tolaserblade:model_change",
-  "base": {
-    "item": "tolaserblade:laser_blade_fp"
-  },
   "addition": {
     "item": "minecraft:crafting_table"
+  },
+  "base": {
+    "item": "tolaserblade:laser_blade_fp"
   },
   "result": {
     "model_type": -1

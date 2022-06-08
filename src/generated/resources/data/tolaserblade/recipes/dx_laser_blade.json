@@ -1,10 +1,5 @@
 {
   "type": "minecraft:crafting_shaped",
-  "pattern": [
-    "R",
-    "R",
-    "s"
-  ],
   "key": {
     "R": {
       "item": "minecraft:redstone_torch"
@@ -13,6 +8,11 @@
       "tag": "forge:rods/wooden"
     }
   },
+  "pattern": [
+    "R",
+    "R",
+    "s"
+  ],
   "result": {
     "item": "tolaserblade:dx_laser_blade"
   }

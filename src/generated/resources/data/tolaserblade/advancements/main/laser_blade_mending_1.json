@@ -1,60 +1,60 @@
 {
   "parent": "tolaserblade:main/laser_blade",
+  "criteria": {
+    "has_laser_blade": {
+      "conditions": {
+        "items": [
+          {
+            "enchantments": [
+              {
+                "enchantment": "minecraft:mending",
+                "levels": {
+                  "min": 1
+                }
+              }
+            ],
+            "items": [
+              "tolaserblade:laser_blade"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_laser_blade_fp": {
+      "conditions": {
+        "items": [
+          {
+            "enchantments": [
+              {
+                "enchantment": "minecraft:mending",
+                "levels": {
+                  "min": 1
+                }
+              }
+            ],
+            "items": [
+              "tolaserblade:laser_blade_fp"
+            ]
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
   "display": {
-    "icon": {
-      "item": "minecraft:nether_star"
-    },
-    "title": {
-      "translate": "advancements.tolaserblade.main.laser_blade_mending_1.title"
-    },
+    "announce_to_chat": true,
     "description": {
       "translate": "advancements.tolaserblade.main.laser_blade_mending_1.description"
     },
     "frame": "goal",
-    "show_toast": true,
-    "announce_to_chat": true,
-    "hidden": false
-  },
-  "criteria": {
-    "has_laser_blade": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "tolaserblade:laser_blade"
-            ],
-            "enchantments": [
-              {
-                "enchantment": "minecraft:mending",
-                "levels": {
-                  "min": 1
-                }
-              }
-            ]
-          }
-        ]
-      }
+    "hidden": false,
+    "icon": {
+      "item": "minecraft:nether_star"
     },
-    "has_laser_blade_fp": {
-      "trigger": "minecraft:inventory_changed",
-      "conditions": {
-        "items": [
-          {
-            "items": [
-              "tolaserblade:laser_blade_fp"
-            ],
-            "enchantments": [
-              {
-                "enchantment": "minecraft:mending",
-                "levels": {
-                  "min": 1
-                }
-              }
-            ]
-          }
-        ]
-      }
+    "show_toast": true,
+    "title": {
+      "translate": "advancements.tolaserblade.main.laser_blade_mending_1.title"
     }
   },
   "requirements": [
