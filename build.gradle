@@ -72,7 +72,7 @@ minecraft {
 
             property 'forge.enabledGameTestNamespaces', 'tolaserblade'
 
-            args '--mod', 'examplemod', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            args '--mod', 'tolaserblade', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
             mods {
                 tolaserblade {
