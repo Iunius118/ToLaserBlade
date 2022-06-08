@@ -1,4 +1,4 @@
-// 1.19	2022-06-09T00:54:49.3952864	ToLaserBlade Tags for minecraft:item
+// 1.19	2022-06-09T02:53:48.3634805	ToLaserBlade Tags for minecraft:item
 1a95ba6c8de8bf45015131964d973d94d905f8b8 data/tolaserblade/tags/items/casing_repair.json
 a38efefda0bff84df4844f584f966a588fcac9de data/tolaserblade/tags/items/upgrade/damage.json
 b292fd1c61bdb4c34269772b5010fa49d88d3cfb data/tolaserblade/tags/items/upgrade/efficiency.json
@@ -7,6 +7,6 @@ b292fd1c61bdb4c34269772b5010fa49d88d3cfb data/tolaserblade/tags/items/upgrade/ef
 2e32a7b83e54ddce24aaeff94c215bb46e0c6628 data/tolaserblade/tags/items/upgrade/light_element.json
 312b58b504a5a9a98253993e4c24535f85c2e98f data/tolaserblade/tags/items/upgrade/looting.json
 0c8a5941bea0d8b2ae3ac7509847384211a393b0 data/tolaserblade/tags/items/upgrade/mending.json
-4cb7bf96995e5aa8aeb633c691f7b7ba31aac685 data/tolaserblade/tags/items/upgrade/silk_touch.json
+cf80419edb7211f0877371b3d90eab53236887d5 data/tolaserblade/tags/items/upgrade/silk_touch.json
 6c03372113064cc00ab7b158b0a585872a0fca41 data/tolaserblade/tags/items/upgrade/speed.json
 74eefeb986d633d26ad42202c4a6b5e71463c425 data/tolaserblade/tags/items/upgrade/sweeping_edge.json
