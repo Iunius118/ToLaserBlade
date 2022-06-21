@@ -1,5 +1,5 @@
 # Cheatsheet
-ToLaserBlade v5.3.0.0
+ToLaserBlade v5.3.1.0
 
 ## How to Get Started
 ### 1. Craft a Brand-new Laser Blade I or II, and Use It
@@ -100,6 +100,7 @@ Smithing Table:
 - Model Type 0 (Standard): Laser Blade + Glass
 - Model Type 1: Laser Blade + Sand
 - Model Type 526: Laser Blade + Dirt
+- Model Type 1221: Laser Blade + End Crystal
 
 ### Upgrading Laser Blades
 Smithing Table:
