@@ -4,8 +4,12 @@ import com.github.iunius118.tolaserblade.client.ClientModEventHandler;
 import com.github.iunius118.tolaserblade.common.CommonEventHandler;
 import com.github.iunius118.tolaserblade.common.RegistryEventHandler;
 import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
+import com.github.iunius118.tolaserblade.data.*;
 import com.github.iunius118.tolaserblade.world.item.ItemEventHandler;
+import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.data.ExistingFileHelper;
+import net.minecraftforge.common.data.ForgeBlockTagsProvider;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
@@ -13,6 +17,7 @@ import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLLoader;
+import net.minecraftforge.forge.event.lifecycle.GatherDataEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -36,7 +41,8 @@ public class ToLaserBlade {
         ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ToLaserBladeConfig.clientSpec);
 
         // Register event handlers
-        modEventBus.register(RegistryEventHandler.class);
+        RegistryEventHandler.registerGameObjects(modEventBus);
+        modEventBus.addListener(this::gatherData);
         MinecraftForge.EVENT_BUS.register(CommonEventHandler.class);
         MinecraftForge.EVENT_BUS.register(ItemEventHandler.class);
 
@@ -60,5 +66,24 @@ public class ToLaserBlade {
     public static int getTodayDateNumber() {
         Calendar calendar = Calendar.getInstance();
         return (calendar.get(Calendar.MONTH) + 1) * 100 + calendar.get(Calendar.DATE);
+    }
+
+    // Generate Data
+    private void gatherData(final GatherDataEvent event) {
+        DataGenerator gen = event.getGenerator();
+        ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
+        ForgeBlockTagsProvider blockTags = new ForgeBlockTagsProvider(gen, existingFileHelper);
+
+        // Server
+        boolean includesServer = event.includeServer();
+        gen.addProvider(includesServer, new TLBRecipeProvider(gen));
+        gen.addProvider(includesServer, new TLBItemTagsProvider(gen, blockTags, existingFileHelper));
+        gen.addProvider(includesServer, new TLBAdvancementProvider(gen));
+
+        // Client
+        boolean includesClient = event.includeClient();
+        gen.addProvider(includesClient, new TLBItemModelProvider(gen, existingFileHelper));
+        TLBLanguageProvider.addProviders(includesClient, gen);
+        gen.addProvider(includesClient, new TLBSoundProvider(gen));
     }
 }

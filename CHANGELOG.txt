@@ -4,6 +4,14 @@
 
 ## [Unreleased]
 
+## [1.19-5.3.1.0]
+### Added
+- New internal Laser Blade model.
+- Recipe to change laser blade model.
+
+### Changed
+- Require Forge 1.19-41.0.45+.
+
 ## [1.19-5.3.0.0]
 ### Changed
 - Port to 1.19.
