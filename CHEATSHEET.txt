@@ -99,6 +99,7 @@ Smithing Table:
 - Removing Model Type: Laser Blade (with model type saved) + Crafting Table
 - Model Type 0 (Standard): Laser Blade + Glass
 - Model Type 1: Laser Blade + Sand
+- Model Type 2: Laser Blade + Sandstone
 - Model Type 526: Laser Blade + Dirt
 - Model Type 1221: Laser Blade + End Crystal
 

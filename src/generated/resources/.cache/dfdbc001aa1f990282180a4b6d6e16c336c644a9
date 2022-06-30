@@ -1,4 +1,4 @@
-// 1.19	2022-06-21T21:50:08.2995736	ToLaserBlade Recipes
+// 1.19	2022-07-01T01:47:51.011501	ToLaserBlade Recipes
 2b604cf42623fe8caeadb63650610cdb7e8df9fa data/tolaserblade/advancements/recipes/color/lbf_gr_black.json
 d5aca23d7a705b5f9b15033e36bb501c2ae86725 data/tolaserblade/advancements/recipes/color/lbf_gr_blue.json
 5275bc2c427b655cd58c3f0edaf2c83bc6750043 data/tolaserblade/advancements/recipes/color/lbf_gr_brown.json
@@ -103,11 +103,13 @@ e2cfcf65e27ae24520f67b56a297154eb401ddc0 data/tolaserblade/advancements/recipes/
 79832245c78961389eae8a482f0ad54c167003b3 data/tolaserblade/advancements/recipes/model/lbf_0.json
 296ec985d2eb486663d586ce339be0df75d93b0f data/tolaserblade/advancements/recipes/model/lbf_1.json
 df6352cd68c924a6639bb4f369f7e1e9f733b7c6 data/tolaserblade/advancements/recipes/model/lbf_1221.json
+3f730f0094b4cdc60712a5f76ffb1e83bf668a87 data/tolaserblade/advancements/recipes/model/lbf_2.json
 fabffd715f71c8e3c966612d363f83f61a7ec39f data/tolaserblade/advancements/recipes/model/lbf_526_sample.json
 74b1de8f540a863d674842318e065097c38990e3 data/tolaserblade/advancements/recipes/model/lb_-1.json
 30f090ae6a780410f43bf44da4e318ae8e7ac7b5 data/tolaserblade/advancements/recipes/model/lb_0.json
 1de23e34648f491e554d2eb514522eab6b1b4eff data/tolaserblade/advancements/recipes/model/lb_1.json
 2748647408d0e9d8a423abd13a4a14189268080d data/tolaserblade/advancements/recipes/model/lb_1221.json
+0c68efedc8783ca9f24dcc3c88c1980e09044ee6 data/tolaserblade/advancements/recipes/model/lb_2.json
 6e406832423161d85d6ff5888e6a46b198eb03a7 data/tolaserblade/advancements/recipes/model/lb_526_sample.json
 a614decf4dbfe1641526a5129f5a9209e77ec7d2 data/tolaserblade/advancements/recipes/tolaserblade/dx_laser_blade.json
 94f688a1b3ceb69e1aec24e3f7f8517b4a5a3027 data/tolaserblade/advancements/recipes/tolaserblade/lb_brand_new_1.json
@@ -245,11 +247,13 @@ f776e684517bde6d9ca556cfb5dffcb871f5a72e data/tolaserblade/recipes/lb_brand_new_
 f5d62941c564e9d5583088441d220f0cfaafaf3d data/tolaserblade/recipes/model/lbf_0.json
 43e58f2676e574665345d79acee764697932e42d data/tolaserblade/recipes/model/lbf_1.json
 d2124eb246dc71e25abed5c6fe06c24c89884cb6 data/tolaserblade/recipes/model/lbf_1221.json
+5664e910bb6fd21efafa02bedf81a9db86a75bda data/tolaserblade/recipes/model/lbf_2.json
 e55fe49bc384849435494993b1c3b01f83d067ef data/tolaserblade/recipes/model/lbf_526_sample.json
 e212747ba88a1a7c0c1b9d972ea1e1962c71caa8 data/tolaserblade/recipes/model/lb_-1.json
 ba0bbbbd233cc05c0b6a807f0774e59ab11f6e2e data/tolaserblade/recipes/model/lb_0.json
 2b33413589db5dbfe245ef1ffb8922e7ea79e556 data/tolaserblade/recipes/model/lb_1.json
 07a5789c6e4130d10979829c8efca6d90d4b1448 data/tolaserblade/recipes/model/lb_1221.json
+0a0e273ee91fcb6e364385c6708fc83eb4c81435 data/tolaserblade/recipes/model/lb_2.json
 ff0694dce7358d53253f07c102ead1c4510d1965 data/tolaserblade/recipes/model/lb_526_sample.json
 66678750649d72671dc0239f36b8882dc4c294cd data/tolaserblade/recipes/repair_lbbf_smithing.json
 0cacf032ad8b75065ec6dc38a9e2f29f33c0cb45 data/tolaserblade/recipes/repair_lbb_smithing.json
