@@ -1,5 +1,5 @@
 # Cheatsheet
-ToLaserBlade v5.3.1.0
+ToLaserBlade v5.3.2.0
 
 ## How to Get Started
 ### 1. Craft a Brand-new Laser Blade I or II, and Use It
@@ -99,6 +99,7 @@ Smithing Table:
 - Removing Model Type: Laser Blade (with model type saved) + Crafting Table
 - Model Type 0 (Standard): Laser Blade + Glass
 - Model Type 1: Laser Blade + Sand
+- Model Type 2: Laser Blade + Sandstone
 - Model Type 526: Laser Blade + Dirt
 - Model Type 1221: Laser Blade + End Crystal
 
@@ -144,7 +145,7 @@ You can add audio files that will be played when laser blades are swung.
 - `(resource_pack_root_dir)/assets/tolaserblade/sounds/item/laser_blade_fp/swing.ogg`
 
 ## Configurations
-- Server-side settings: `(game_dir)/saves/(each_world_save_dir)/serverconfig/tolaserblade-server.toml`
+- Server-side settings: `(world_save_dir)/serverconfig/tolaserblade-server.toml`
 - Client-side settings: `(game_dir)/config/tolaserblade-client.toml`
 
 ## FAQ

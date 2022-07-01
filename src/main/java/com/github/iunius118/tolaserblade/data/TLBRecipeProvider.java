@@ -84,6 +84,7 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
         // Model Change Recipes
         addModelChangeRecipes(consumer, Ingredient.of(Blocks.GLASS.asItem()), 0, "");
         addModelChangeRecipes(consumer, Ingredient.of(Blocks.SAND.asItem()), 1, "");
+        addModelChangeRecipes(consumer, Ingredient.of(Blocks.SANDSTONE.asItem()), 2, "");
         addModelChangeRecipes(consumer, Ingredient.of(Blocks.DIRT.asItem()), 526, "_sample");
         addModelChangeRecipes(consumer, Ingredient.of(Items.END_CRYSTAL), 1221, "");
         addModelChangeRecipes(consumer, Ingredient.of(Blocks.CRAFTING_TABLE.asItem()), LaserBladeVisual.MODEL_TYPE_NO_MODEL, "");
