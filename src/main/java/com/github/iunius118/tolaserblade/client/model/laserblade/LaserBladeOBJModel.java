@@ -6,72 +6,60 @@ import com.github.iunius118.tolaserblade.client.model.SimpleLaserBladeModel;
 import com.google.common.collect.Maps;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.Minecraft;
+import com.mojang.math.Transformation;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.BlockModel;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.OverlayTexture;
+import net.minecraft.client.resources.model.ModelBakery;
 import net.minecraft.client.resources.model.UnbakedModel;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.RandomSource;
 import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Items;
-import net.minecraftforge.client.model.BlockModelConfiguration;
-import net.minecraftforge.client.model.ForgeModelBakery;
-import net.minecraftforge.client.model.IModelBuilder;
 import net.minecraftforge.client.model.SimpleModelState;
-import net.minecraftforge.client.model.data.EmptyModelData;
-import net.minecraftforge.client.model.geometry.IModelGeometry;
-import net.minecraftforge.client.model.geometry.IModelGeometryPart;
-import net.minecraftforge.client.model.obj.OBJModel;
+import net.minecraftforge.client.model.data.ModelData;
+import net.minecraftforge.client.model.geometry.BlockGeometryBakingContext;
+import net.minecraftforge.client.model.geometry.IUnbakedGeometry;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
 
 public class LaserBladeOBJModel extends SimpleLaserBladeModel {
-    private final Map<Part, List<BakedQuad>> PARTS = Maps.newEnumMap(Part.class);
-    private final ResourceLocation TEXTURE = InventoryMenu.BLOCK_ATLAS;
+    private static final ResourceLocation TEXTURE = InventoryMenu.BLOCK_ATLAS;
 
-    public void loadLaserBladeOBJModel(ForgeModelBakery loader) {
+    private final Map<Part, List<BakedQuad>> bakedParts = Maps.newEnumMap(Part.class);
+
+    public void loadLaserBladeOBJModel(ModelBakery loader) {
         // Load model
-        PARTS.clear();
-        ResourceLocation modelLocation = new ResourceLocation(ToLaserBlade.MOD_ID, "item/laser_blade_obj");
-        UnbakedModel model = loader.getModelOrMissing(modelLocation);
+        bakedParts.clear();
+        var modelLocation = new ResourceLocation(ToLaserBlade.MOD_ID, "item/laser_blade_obj");
+        UnbakedModel model = loader.getModel(modelLocation);
 
         if (!(model instanceof BlockModel blockModel))  return;
 
-        // Get model geometry objects
-        BlockModelConfiguration modelConfig = blockModel.customData;
-        IModelGeometry<?> modelGeometry = modelConfig.getCustomGeometry();
-        Collection<? extends IModelGeometryPart> geometryParts = Collections.emptyList();
+        // Get model geometry object
+        BlockGeometryBakingContext customData = blockModel.customData;
+        IUnbakedGeometry<?> modelGeometry = customData.getCustomGeometry();
 
-        if (modelGeometry instanceof OBJModel) {
-            Optional<? extends IModelGeometryPart> part = modelGeometry.getPart("laser_blade");
-
-            if (part.isPresent() && part.get() instanceof OBJModel.ModelGroup modelGroup) {
-                geometryParts = modelGroup.getParts();
-            }
-
-        } else if (modelGeometry != null) {
-            geometryParts = modelGeometry.getParts();
-
-        } else {
-            return;
-
-        }
+        var defaultVisibilityData = new BlockGeometryBakingContext.VisibilityData();
+        Part[] values = Part.values();
+        Arrays.stream(values).forEach(part1 -> defaultVisibilityData.setVisibilityState(part1.getName(), false));
 
         // Get model parts and their baked quads
-        for (IModelGeometryPart geometryPart : geometryParts) {
-            Part part = Part.find(geometryPart.name());
+        for (Part part : values) {
+            var visibilityData = customData.visibilityData;
+            visibilityData.copyFrom(defaultVisibilityData);
+            visibilityData.setVisibilityState(part.name, true);
+            visibilityData.setVisibilityState(part.name, true);
 
-            if (part != null) {
-                var particleIcon = Minecraft.getInstance().getItemRenderer().getItemModelShaper().getItemModel(Items.IRON_INGOT).getParticleIcon(EmptyModelData.INSTANCE);
-                IModelBuilder<?> builder = IModelBuilder.of(modelConfig, ItemOverrides.EMPTY, particleIcon);
-                geometryPart.addQuads(modelConfig, builder, loader, ForgeModelBakery.defaultTextureGetter(), SimpleModelState.IDENTITY, modelLocation);
-                PARTS.put(part, builder.build().getQuads(null, null, RandomSource.create(42L), EmptyModelData.INSTANCE));
-            }
+            var bakedModel = modelGeometry.bake(customData, loader, loader.getAtlasSet()::getSprite, new SimpleModelState(Transformation.identity()), ItemOverrides.EMPTY, null);
+            var bakedQuads = bakedModel.getQuads(null, null, RandomSource.create(42L), ModelData.EMPTY, null);
+            bakedParts.put(part, bakedQuads);
         }
     }
 
@@ -112,7 +100,7 @@ public class LaserBladeOBJModel extends SimpleLaserBladeModel {
     }
 
     public List<BakedQuad> getBakedQuads(LaserBladeOBJModel.Part part) {
-        return PARTS.getOrDefault(part, Collections.emptyList());
+        return bakedParts.getOrDefault(part, Collections.emptyList());
     }
 
     @Override
