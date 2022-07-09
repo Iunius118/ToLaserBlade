@@ -36,19 +36,19 @@ import java.io.IOException;
 
 public class ClientModEventHandler {
     @SubscribeEvent
-    public static void onItemColorHandlerEvent(ColorHandlerEvent.Item event) {
-        event.getItemColors().register(new LBSwordItemColor(), ModItems.LASER_BLADE);
-        event.getItemColors().register(new LBSwordItemColor(), ModItems.LASER_BLADE_FP);
-        event.getItemColors().register(new LBSwordItemColor(), ModItems.LB_BRAND_NEW);
-        event.getItemColors().register(new LBSwordItemColor(), ModItems.LB_BRAND_NEW_1);
-        event.getItemColors().register(new LBSwordItemColor(), ModItems.LB_BRAND_NEW_2);
-        event.getItemColors().register(new LBSwordItemColor(), ModItems.LB_BRAND_NEW_FP);
-        event.getItemColors().register(new LBSwordItemColor(), ModItems.LB_BROKEN);
-        event.getItemColors().register(new LBSwordItemColor(), ModItems.LB_BROKEN_FP);
-        event.getItemColors().register(new LBEmitterItemColor(), ModItems.LB_EMITTER);
-        event.getItemColors().register(new LBMediumItemColor(), ModItems.LB_MEDIUM);
-        event.getItemColors().register(new LBCasingItemColor(), ModItems.LB_CASING);
-        event.getItemColors().register(new LBCasingItemColor(), ModItems.LB_CASING_FP);
+    public static void onItemColorHandlerEvent(RegisterColorHandlersEvent.Item event) {
+        event.register(new LBSwordItemColor(), ModItems.LASER_BLADE);
+        event.register(new LBSwordItemColor(), ModItems.LASER_BLADE_FP);
+        event.register(new LBSwordItemColor(), ModItems.LB_BRAND_NEW);
+        event.register(new LBSwordItemColor(), ModItems.LB_BRAND_NEW_1);
+        event.register(new LBSwordItemColor(), ModItems.LB_BRAND_NEW_2);
+        event.register(new LBSwordItemColor(), ModItems.LB_BRAND_NEW_FP);
+        event.register(new LBSwordItemColor(), ModItems.LB_BROKEN);
+        event.register(new LBSwordItemColor(), ModItems.LB_BROKEN_FP);
+        event.register(new LBEmitterItemColor(), ModItems.LB_EMITTER);
+        event.register(new LBMediumItemColor(), ModItems.LB_MEDIUM);
+        event.register(new LBCasingItemColor(), ModItems.LB_CASING);
+        event.register(new LBCasingItemColor(), ModItems.LB_CASING_FP);
     }
 
     @SubscribeEvent
@@ -62,11 +62,13 @@ public class ClientModEventHandler {
     }
 
     @SubscribeEvent
-    public static void onModelBakeEvent(ModelBakeEvent event) {
-        LaserBladeInternalModelManager internalModelManager = LaserBladeInternalModelManager.renewInstance();   // Reset internal model manager
+    public static void onModelBakeEvent(ModelEvent.BakingCompleted event) {
+        // Reset internal model manager
+        var internalModelManager = LaserBladeInternalModelManager.renewInstance();
 
         if (!internalModelManager.canUseInternalModel() && ToLaserBladeConfig.CLIENT.externalModelType.get() != 1) {
-            return; // Use generated model
+            // Use generated model
+            return;
         }
 
         ModelResourceLocation laserBladeItemID = new ModelResourceLocation(getItemId(ModItems.LASER_BLADE), "inventory");
@@ -80,14 +82,15 @@ public class ClientModEventHandler {
         LBSwordItemModel bakedModel = new LBSwordItemModel();
 
         bakedModel.loadModel(event);
-        event.getModelRegistry().put(laserBladeItemID, bakedModel);
-        event.getModelRegistry().put(laserBladeFPItemID, bakedModel);
-        event.getModelRegistry().put(lBBrandNewItemID, bakedModel);
-        event.getModelRegistry().put(lBBrandNew1ItemID, bakedModel);
-        event.getModelRegistry().put(lBBrandNew2ItemID, bakedModel);
-        event.getModelRegistry().put(lBBrandNewFPItemID, bakedModel);
-        event.getModelRegistry().put(lBBrokenItemID, bakedModel);
-        event.getModelRegistry().put(lBBrokenFPItemID, bakedModel);
+        var models = event.getModels();
+        models.put(laserBladeItemID, bakedModel);
+        models.put(laserBladeFPItemID, bakedModel);
+        models.put(lBBrandNewItemID, bakedModel);
+        models.put(lBBrandNew1ItemID, bakedModel);
+        models.put(lBBrandNew2ItemID, bakedModel);
+        models.put(lBBrandNewFPItemID, bakedModel);
+        models.put(lBBrokenItemID, bakedModel);
+        models.put(lBBrokenFPItemID, bakedModel);
     }
 
     private static ResourceLocation getItemId(Item item) {
@@ -102,11 +105,10 @@ public class ClientModEventHandler {
     }
 
     @SubscribeEvent
-    public static void onParticleFactoryRegisterEvent(ParticleFactoryRegisterEvent event) {
-        var particleEngine = Minecraft.getInstance().particleEngine;
-        particleEngine.register(ModParticleTypes.LASER_TRAP_X, new LaserTrapParticle.Provider(Direction.Axis.X));
-        particleEngine.register(ModParticleTypes.LASER_TRAP_Y, new LaserTrapParticle.Provider(Direction.Axis.Y));
-        particleEngine.register(ModParticleTypes.LASER_TRAP_Z, new LaserTrapParticle.Provider(Direction.Axis.Z));
+    public static void onParticleFactoryRegisterEvent(RegisterParticleProvidersEvent event) {
+        event.register(ModParticleTypes.LASER_TRAP_X, new LaserTrapParticle.Provider(Direction.Axis.X));
+        event.register(ModParticleTypes.LASER_TRAP_Y, new LaserTrapParticle.Provider(Direction.Axis.Y));
+        event.register(ModParticleTypes.LASER_TRAP_Z, new LaserTrapParticle.Provider(Direction.Axis.Z));
     }
 
     public static void checkUpdate() {
