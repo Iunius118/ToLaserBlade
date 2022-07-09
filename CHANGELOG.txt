@@ -4,6 +4,13 @@
 
 ## [Unreleased]
 
+## [1.19-5.3.2.1]
+### Fixed
+- Port to Forge 1.19-41.0.64.
+
+### Changed
+- Require Forge 1.19-41.0.64+.
+
 ## [1.19-5.3.2.0]
 ### Added
 - New internal Laser Blade model.

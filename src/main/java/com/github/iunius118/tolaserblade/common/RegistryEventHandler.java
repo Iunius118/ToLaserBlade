@@ -23,9 +23,9 @@ public class RegistryEventHandler {
     private static void registerRecipeSerializers(IEventBus modEventBus) {
         var recipeSerializerDeferredRegister = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, ToLaserBlade.MOD_ID);
 
-        recipeSerializerDeferredRegister.register("upgrade", ()-> ModRecipeSerializers.UPGRADE);
-        recipeSerializerDeferredRegister.register("color", ()-> ModRecipeSerializers.COLOR);
-        recipeSerializerDeferredRegister.register("model_change", ()-> ModRecipeSerializers.MODEL_CHANGE);
+        recipeSerializerDeferredRegister.register("upgrade", () -> ModRecipeSerializers.UPGRADE);
+        recipeSerializerDeferredRegister.register("color", () -> ModRecipeSerializers.COLOR);
+        recipeSerializerDeferredRegister.register("model_change", () -> ModRecipeSerializers.MODEL_CHANGE);
 
         recipeSerializerDeferredRegister.register(modEventBus);
     }
@@ -34,22 +34,22 @@ public class RegistryEventHandler {
         var itemDeferredRegister = DeferredRegister.create(ForgeRegistries.ITEMS, ToLaserBlade.MOD_ID);
 
         itemDeferredRegister.register("dx_laser_blade", () -> ModItems.DX_LASER_BLADE);
-        itemDeferredRegister.register("laser_blade", ()-> ModItems.LASER_BLADE);
-        itemDeferredRegister.register("laser_blade_fp", ()-> ModItems.LASER_BLADE_FP);
-        itemDeferredRegister.register("lb_brand_new", ()-> ModItems.LB_BRAND_NEW);
-        itemDeferredRegister.register("lb_brand_new_1", ()-> ModItems.LB_BRAND_NEW_1);
-        itemDeferredRegister.register("lb_brand_new_2", ()-> ModItems.LB_BRAND_NEW_2);
-        itemDeferredRegister.register("lb_brand_new_fp", ()-> ModItems.LB_BRAND_NEW_FP);
-        itemDeferredRegister.register("lb_broken", ()-> ModItems.LB_BROKEN);
-        itemDeferredRegister.register("lb_broken_fp", ()-> ModItems.LB_BROKEN_FP);
-        itemDeferredRegister.register("lb_blueprint", ()-> ModItems.LB_BLUEPRINT);
-        itemDeferredRegister.register("lb_disassembled", ()-> ModItems.LB_DISASSEMBLED);
-        itemDeferredRegister.register("lb_disassembled_fp", ()-> ModItems.LB_DISASSEMBLED_FP);
-        itemDeferredRegister.register("lb_battery", ()-> ModItems.LB_BATTERY);
-        itemDeferredRegister.register("lb_medium", ()-> ModItems.LB_MEDIUM);
-        itemDeferredRegister.register("lb_emitter", ()-> ModItems.LB_EMITTER);
-        itemDeferredRegister.register("lb_casing", ()-> ModItems.LB_CASING);
-        itemDeferredRegister.register("lb_casing_fp", ()-> ModItems.LB_CASING_FP);
+        itemDeferredRegister.register("laser_blade", () -> ModItems.LASER_BLADE);
+        itemDeferredRegister.register("laser_blade_fp", () -> ModItems.LASER_BLADE_FP);
+        itemDeferredRegister.register("lb_brand_new", () -> ModItems.LB_BRAND_NEW);
+        itemDeferredRegister.register("lb_brand_new_1", () -> ModItems.LB_BRAND_NEW_1);
+        itemDeferredRegister.register("lb_brand_new_2", () -> ModItems.LB_BRAND_NEW_2);
+        itemDeferredRegister.register("lb_brand_new_fp", () -> ModItems.LB_BRAND_NEW_FP);
+        itemDeferredRegister.register("lb_broken", () -> ModItems.LB_BROKEN);
+        itemDeferredRegister.register("lb_broken_fp", () -> ModItems.LB_BROKEN_FP);
+        itemDeferredRegister.register("lb_blueprint", () -> ModItems.LB_BLUEPRINT);
+        itemDeferredRegister.register("lb_disassembled", () -> ModItems.LB_DISASSEMBLED);
+        itemDeferredRegister.register("lb_disassembled_fp", () -> ModItems.LB_DISASSEMBLED_FP);
+        itemDeferredRegister.register("lb_battery", () -> ModItems.LB_BATTERY);
+        itemDeferredRegister.register("lb_medium", () -> ModItems.LB_MEDIUM);
+        itemDeferredRegister.register("lb_emitter", () -> ModItems.LB_EMITTER);
+        itemDeferredRegister.register("lb_casing", () -> ModItems.LB_CASING);
+        itemDeferredRegister.register("lb_casing_fp", () -> ModItems.LB_CASING_FP);
 
         itemDeferredRegister.register(modEventBus);
     }
@@ -65,9 +65,9 @@ public class RegistryEventHandler {
     private static void registerParticleTypes(IEventBus modEventBus) {
         var particleTypeDeferredRegister = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, ToLaserBlade.MOD_ID);
 
-        particleTypeDeferredRegister.register("laser_trap_x", ()-> ModParticleTypes.LASER_TRAP_X);
-        particleTypeDeferredRegister.register("laser_trap_y", ()-> ModParticleTypes.LASER_TRAP_Y);
-        particleTypeDeferredRegister.register("laser_trap_z", ()-> ModParticleTypes.LASER_TRAP_Z);
+        particleTypeDeferredRegister.register("laser_trap_x", () -> ModParticleTypes.LASER_TRAP_X);
+        particleTypeDeferredRegister.register("laser_trap_y", () -> ModParticleTypes.LASER_TRAP_Y);
+        particleTypeDeferredRegister.register("laser_trap_z", () -> ModParticleTypes.LASER_TRAP_Z);
 
         particleTypeDeferredRegister.register(modEventBus);
     }
@@ -75,9 +75,9 @@ public class RegistryEventHandler {
     private static void registerSoundEvents(IEventBus modEventBus) {
         var soundEventDeferredRegister = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, ToLaserBlade.MOD_ID);
 
-        soundEventDeferredRegister.register("item_dx_laser_blade_swing", ()-> ModSoundEvents.ITEM_DX_LASER_BLADE_SWING);
-        soundEventDeferredRegister.register("item_laser_blade_swing", ()-> ModSoundEvents.ITEM_LASER_BLADE_SWING);
-        soundEventDeferredRegister.register("item_laser_blade_fp_swing", ()-> ModSoundEvents.ITEM_LASER_BLADE_FP_SWING);
+        soundEventDeferredRegister.register("item_dx_laser_blade_swing", () -> ModSoundEvents.ITEM_DX_LASER_BLADE_SWING);
+        soundEventDeferredRegister.register("item_laser_blade_swing", () -> ModSoundEvents.ITEM_LASER_BLADE_SWING);
+        soundEventDeferredRegister.register("item_laser_blade_fp_swing", () -> ModSoundEvents.ITEM_LASER_BLADE_FP_SWING);
 
         soundEventDeferredRegister.register(modEventBus);
     }

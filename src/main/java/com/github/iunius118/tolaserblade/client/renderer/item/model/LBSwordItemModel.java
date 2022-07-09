@@ -4,7 +4,9 @@ import com.github.iunius118.tolaserblade.api.client.model.LaserBladeModel;
 import com.github.iunius118.tolaserblade.client.model.LaserBladeInternalModelManager;
 import com.github.iunius118.tolaserblade.client.model.LaserBladeModelHolder;
 import com.github.iunius118.tolaserblade.client.model.laserblade.LaserBladeOBJModel;
+import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
@@ -16,17 +18,16 @@ import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.event.ModelBakeEvent;
-import net.minecraftforge.client.model.data.EmptyModelData;
-import net.minecraftforge.client.model.data.IModelData;
+import net.minecraftforge.client.event.ModelEvent;
+import net.minecraftforge.client.model.IDynamicBakedModel;
+import net.minecraftforge.client.model.data.ModelData;
+import org.jetbrains.annotations.NotNull;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Collections;
 import java.util.List;
 
-@SuppressWarnings("deprecation") // for getQuads, getParticleTexture
-public class LBSwordItemModel implements BakedModel {
+public class LBSwordItemModel implements IDynamicBakedModel {
     ItemStack itemStack = ItemStack.EMPTY;
     public HumanoidArm mainArm = HumanoidArm.RIGHT;
     public boolean isBlocking = false;
@@ -40,15 +41,10 @@ public class LBSwordItemModel implements BakedModel {
         return newModel;
     }
 
-    @Nonnull
     @Override
-    public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @Nonnull RandomSource randomSource, @Nonnull IModelData modelData) {
+    @NotNull
+    public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @NotNull RandomSource rand, @NotNull ModelData extraData, @Nullable RenderType renderType) {
         return Collections.emptyList();
-    }
-
-    @Override
-    public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @Nonnull RandomSource randomSource) {
-        return getQuads(state, side, randomSource, EmptyModelData.INSTANCE);
     }
 
     @Override
@@ -73,12 +69,12 @@ public class LBSwordItemModel implements BakedModel {
 
     @Override
     public TextureAtlasSprite getParticleIcon() {
-        return getParticleIcon(EmptyModelData.INSTANCE);
+        return getParticleIcon(ModelData.EMPTY);
     }
 
     @Override
-    public TextureAtlasSprite getParticleIcon(@Nonnull IModelData data) {
-        return Minecraft.getInstance().getItemRenderer().getItemModelShaper().getItemModel(Items.IRON_INGOT).getParticleIcon(EmptyModelData.INSTANCE);
+    public TextureAtlasSprite getParticleIcon(@NotNull ModelData data) {
+        return Minecraft.getInstance().getItemRenderer().getItemModelShaper().getItemModel(Items.IRON_INGOT).getParticleIcon(data);
     }
 
     private static final ItemOverrides ITEM_OVERRIDES = new LBSwordItemOverrides();
@@ -89,8 +85,14 @@ public class LBSwordItemModel implements BakedModel {
     }
 
     @Override
-    public ItemTransforms getTransforms() {
-        if (!isBlocking) return LBSwordItemTransforms.ITEM_TRANSFORMS.get();
+    public BakedModel applyTransform(ItemTransforms.TransformType transformType, PoseStack poseStack, boolean applyLeftHandTransform) {
+        getItemTransforms().getTransform(transformType).apply(applyLeftHandTransform, poseStack);
+        return this;
+    }
+
+    private ItemTransforms getItemTransforms() {
+        if (!isBlocking)
+            return LBSwordItemTransforms.ITEM_TRANSFORMS.get();
 
         if (mainArm == HumanoidArm.RIGHT) {
             return LBSwordItemTransforms.BLOCKING_RIGHT_ITEM_TRANSFORMS.get();
@@ -99,9 +101,9 @@ public class LBSwordItemModel implements BakedModel {
         }
     }
 
-    public void loadModel(ModelBakeEvent event) {
+    public void loadModel(ModelEvent.BakingCompleted event) {
         LaserBladeModel model;
-        LaserBladeInternalModelManager internalModelManager = LaserBladeInternalModelManager.getInstance();
+        var internalModelManager = LaserBladeInternalModelManager.getInstance();
 
         if (internalModelManager.canUseInternalModel()) {
             // Use internal model
@@ -110,7 +112,7 @@ public class LBSwordItemModel implements BakedModel {
             // Use external model
             // If ToLaserBladeConfig.CLIENT.externalModelType.get() == 1
             LaserBladeOBJModel objModel = new LaserBladeOBJModel();
-            objModel.loadLaserBladeOBJModel(event.getModelLoader());
+            objModel.loadLaserBladeOBJModel(event.getModelBakery());
             model = objModel;
         }
 

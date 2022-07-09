@@ -31,13 +31,14 @@ import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import net.minecraftforge.client.IItemRenderProperties;
+import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.event.entity.player.CriticalHitEvent;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.function.Consumer;
 
 public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
     private final Tier tier;
@@ -202,9 +203,11 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
     }
 
     @Override
-    public void initializeClient(java.util.function.Consumer<net.minecraftforge.client.IItemRenderProperties> consumer) {
-        var itemRenderProperties = new IItemRenderProperties() {
-            @Override public BlockEntityWithoutLevelRenderer getItemStackRenderer() { return LBSwordItemRenderer.INSTANCE; }
+    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
+        var itemRenderProperties = new IClientItemExtensions() {
+            @Override public BlockEntityWithoutLevelRenderer getCustomRenderer() {
+                return LBSwordItemRenderer.INSTANCE;
+            }
         };
 
         consumer.accept(itemRenderProperties);
