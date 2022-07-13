@@ -3,6 +3,8 @@
 [Source](https://github.com/Iunius118/ToLaserBlade).
 
 ## [Unreleased]
+### Fixed
+- Compatible with Forge 1.19-41.0.98.
 
 ## [1.19-5.3.2.1]
 ### Fixed
