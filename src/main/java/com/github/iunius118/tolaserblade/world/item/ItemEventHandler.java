@@ -18,10 +18,10 @@ public class ItemEventHandler {
         if (itemStack != null && (itemStack.getItem() == ModItems.LASER_BLADE || itemStack.getItem() == ModItems.LASER_BLADE_FP)) {
             // Avoid duplication of Laser Blade when player interact with Item Frame
             event.setCanceled(true);
-            Player player = event.getPlayer();
+            Player player = event.getEntity();
             ItemStack itemStack1 = itemStack.isEmpty() ? ItemStack.EMPTY : itemStack.copy();
 
-            if (event.getTarget().interact(event.getPlayer(), event.getHand()).consumesAction()) {
+            if (event.getTarget().interact(event.getEntity(), event.getHand()).consumesAction()) {
                 if (player.getAbilities().instabuild && itemStack == event.getItemStack() && itemStack.getCount() < itemStack1.getCount()) {
                     itemStack.setCount(itemStack1.getCount());
                 }
@@ -36,7 +36,7 @@ public class ItemEventHandler {
 
     @SubscribeEvent
     public static void onPlayerDestroyItem(PlayerDestroyItemEvent event) {
-        Player player = event.getPlayer();
+        Player player = event.getEntity();
 
         if (!player.getCommandSenderWorld().isClientSide) {
             ItemStack original = event.getOriginal();
@@ -65,7 +65,7 @@ public class ItemEventHandler {
 
     @SubscribeEvent
     public static void onCriticalHit(CriticalHitEvent event) {
-        ItemStack stack = event.getPlayer().getMainHandItem();
+        ItemStack stack = event.getEntity().getMainHandItem();
 
         if (stack.getItem() instanceof LBSwordItem lbSwordItem) {
             lbSwordItem.onCriticalHit(event);

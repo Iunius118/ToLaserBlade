@@ -122,7 +122,7 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
 
     public void onCriticalHit(CriticalHitEvent event) {
         Entity target = event.getTarget();
-        Player player = event.getPlayer();
+        Player player = event.getEntity();
         ItemStack stack = player.getMainHandItem();
         LaserBladePerformance performance = LaserBlade.performanceOf(stack);
         LaserBladePerformance.AttackPerformance attack = performance.getAttackPerformance();

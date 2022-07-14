@@ -7,7 +7,7 @@ import com.github.iunius118.tolaserblade.world.item.ModItems;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -49,8 +49,8 @@ public class CommonEventHandler {
     public static boolean hasShownUpdate = false;
 
     @SubscribeEvent
-    public static void onEntityJoiningInWorld(final EntityJoinWorldEvent event) {
-        if (event.getWorld().isClientSide && event.getEntity() instanceof Player) {
+    public static void onEntityJoiningInWorld(final EntityJoinLevelEvent event) {
+        if (event.getLevel().isClientSide && event.getEntity() instanceof Player) {
             // In client
             if (ToLaserBladeConfig.CLIENT.showUpdateMessage.get() && !hasShownUpdate) {
                 ClientModEventHandler.checkUpdate();
