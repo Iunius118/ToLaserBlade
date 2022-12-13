@@ -7,9 +7,7 @@ import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
 import com.github.iunius118.tolaserblade.data.*;
 import com.github.iunius118.tolaserblade.world.item.ItemEventHandler;
 import com.mojang.logging.LogUtils;
-import net.minecraft.data.DataGenerator;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.ForgeBlockTagsProvider;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -70,20 +68,22 @@ public class ToLaserBlade {
 
     // Generate Data
     private void gatherData(final GatherDataEvent event) {
-        DataGenerator gen = event.getGenerator();
-        ExistingFileHelper existingFileHelper = event.getExistingFileHelper();
-        ForgeBlockTagsProvider blockTags = new ForgeBlockTagsProvider(gen, existingFileHelper);
+        var dataGenerator = event.getGenerator();
+        var packOutput = dataGenerator.getPackOutput();
+        var lookupProvider = event.getLookupProvider();
+        var existingFileHelper = event.getExistingFileHelper();
+        ForgeBlockTagsProvider blockTags = new ForgeBlockTagsProvider(packOutput, lookupProvider, existingFileHelper);
 
         // Server
         boolean includesServer = event.includeServer();
-        gen.addProvider(includesServer, new TLBRecipeProvider(gen));
-        gen.addProvider(includesServer, new TLBItemTagsProvider(gen, blockTags, existingFileHelper));
-        gen.addProvider(includesServer, new TLBAdvancementProvider(gen));
+        dataGenerator.addProvider(includesServer, new TLBRecipeProvider(packOutput));
+        dataGenerator.addProvider(includesServer, new TLBItemTagsProvider(packOutput, lookupProvider, blockTags, existingFileHelper));
+        dataGenerator.addProvider(includesServer, new TLBAdvancementProvider(packOutput, lookupProvider, existingFileHelper));
 
         // Client
         boolean includesClient = event.includeClient();
-        gen.addProvider(includesClient, new TLBItemModelProvider(gen, existingFileHelper));
-        TLBLanguageProvider.addProviders(includesClient, gen);
-        gen.addProvider(includesClient, new TLBSoundProvider(gen));
+        dataGenerator.addProvider(includesClient, new TLBItemModelProvider(packOutput, existingFileHelper));
+        TLBLanguageProvider.addProviders(includesClient, dataGenerator, packOutput);
+        dataGenerator.addProvider(includesClient, new TLBSoundDefinitionsProvider(packOutput, existingFileHelper));
     }
 }

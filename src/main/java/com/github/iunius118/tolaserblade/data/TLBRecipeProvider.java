@@ -3,16 +3,12 @@ package com.github.iunius118.tolaserblade.data;
 import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeColor;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeColorPart;
-import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeVisual;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.Upgrade;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.UpgradeManager;
 import com.github.iunius118.tolaserblade.tags.ModItemTags;
 import com.github.iunius118.tolaserblade.world.item.ModItems;
-import net.minecraft.data.DataGenerator;
-import net.minecraft.data.recipes.FinishedRecipe;
-import net.minecraft.data.recipes.RecipeProvider;
-import net.minecraft.data.recipes.ShapedRecipeBuilder;
-import net.minecraft.data.recipes.UpgradeRecipeBuilder;
+import net.minecraft.data.PackOutput;
+import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -26,14 +22,14 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 public class TLBRecipeProvider extends RecipeProvider implements IConditionBuilder {
-    public TLBRecipeProvider(DataGenerator generatorIn) {
-        super(generatorIn);
+    public TLBRecipeProvider(PackOutput packOutput) {
+        super(packOutput);
     }
 
     @Override
-    public void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
+    public void buildRecipes(Consumer<FinishedRecipe> consumer) {
         // DX Laser Blade
-        ShapedRecipeBuilder.shaped(ModItems.DX_LASER_BLADE)
+        ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.DX_LASER_BLADE)
                 .pattern("R")
                 .pattern("R")
                 .pattern("s")
@@ -43,7 +39,7 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
                 .save(consumer, getItemId(ModItems.DX_LASER_BLADE));
 
         // Laser Blade with Light Element I
-        ShapedRecipeBuilder.shaped(ModItems.LB_BRAND_NEW_1)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.LB_BRAND_NEW_1)
                 .pattern("Gid")
                 .pattern("idi")
                 .pattern("riG")
@@ -55,7 +51,7 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
                 .save(consumer, getItemId(ModItems.LB_BRAND_NEW_1));
 
         // Laser Blade with Light Element II
-        ShapedRecipeBuilder.shaped(ModItems.LB_BRAND_NEW_2)
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.LB_BRAND_NEW_2)
                 .pattern("gid")
                 .pattern("idi")
                 .pattern("rig")
@@ -85,14 +81,7 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
         addModelChangeRecipes(consumer, Ingredient.of(Blocks.GLASS.asItem()), 0, "");
         addModelChangeRecipes(consumer, Ingredient.of(Blocks.SAND.asItem()), 1, "");
         addModelChangeRecipes(consumer, Ingredient.of(Blocks.SANDSTONE.asItem()), 2, "");
-        addModelChangeRecipes(consumer, Ingredient.of(Blocks.DIRT.asItem()), 526, "_sample");
-        addModelChangeRecipes(consumer, Ingredient.of(Items.END_CRYSTAL), 1221, "");
-        addModelChangeRecipes(consumer, Ingredient.of(Blocks.CRAFTING_TABLE.asItem()), LaserBladeVisual.MODEL_TYPE_NO_MODEL, "");
-    }
-
-    @Override
-    public String getName() {
-        return "ToLaserBlade " + super.getName();
+        addModelChangeRecipes(consumer, Ingredient.of(Blocks.DIRT.asItem()), 526, "");
     }
 
     private ResourceLocation getItemId(Item item) {
@@ -100,13 +89,13 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
     }
 
     private void addSmithingRecipe(Ingredient base, Ingredient addition, Item result, Item criterionItem, Consumer<FinishedRecipe> consumer) {
-        UpgradeRecipeBuilder.smithing(base, addition, result)
+        UpgradeRecipeBuilder.smithing(base, addition, RecipeCategory.MISC, result)
                 .unlocks("has_" + getItemId(criterionItem).getPath(), has(criterionItem))
                 .save(consumer, getItemId(result).toString() + "_smithing");
     }
 
     private void addSmithingRepairRecipe(String shortName, Item base, Ingredient addition, Item result, Item criterionItem, Consumer<FinishedRecipe> consumer) {
-        UpgradeRecipeBuilder.smithing(Ingredient.of(base), addition, result)
+        UpgradeRecipeBuilder.smithing(Ingredient.of(base), addition, RecipeCategory.MISC, result)
                 .unlocks("has_" + getItemId(criterionItem).getPath(), has(criterionItem))
                 .save(consumer, ToLaserBlade.MOD_ID + ":repair_" + shortName + "_smithing");
     }

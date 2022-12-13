@@ -4,11 +4,11 @@ import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeTextKey;
 import com.github.iunius118.tolaserblade.world.item.ModItems;
 import com.github.iunius118.tolaserblade.world.item.enchantment.ModEnchantments;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 
 public class Ja_jpLanguageProvider extends En_usLanguageProvider {
-    public Ja_jpLanguageProvider(DataGenerator gen) {
-        super(gen, ToLaserBlade.MOD_ID, "ja_jp");
+    public Ja_jpLanguageProvider(PackOutput packOutput) {
+        super(packOutput, ToLaserBlade.MOD_ID, "ja_jp");
     }
 
     @Override

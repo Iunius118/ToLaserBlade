@@ -4,17 +4,17 @@ import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeTextKey;
 import com.github.iunius118.tolaserblade.world.item.ModItems;
 import com.github.iunius118.tolaserblade.world.item.enchantment.ModEnchantments;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraftforge.common.data.LanguageProvider;
 
 public class En_usLanguageProvider extends LanguageProvider {
-    public En_usLanguageProvider(DataGenerator gen) {
-        super(gen, ToLaserBlade.MOD_ID, "en_us");
+    public En_usLanguageProvider(PackOutput packOutput) {
+        super(packOutput, ToLaserBlade.MOD_ID, "en_us");
     }
 
-    public En_usLanguageProvider(DataGenerator gen, String modid, String locale) {
-        super(gen, modid, locale);
+    public En_usLanguageProvider(PackOutput packOutput, String modid, String locale) {
+        super(packOutput, modid, locale);
     }
 
     @Override

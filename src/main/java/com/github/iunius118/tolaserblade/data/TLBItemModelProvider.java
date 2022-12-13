@@ -2,7 +2,7 @@ package com.github.iunius118.tolaserblade.data;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.world.item.ModItems;
-import net.minecraft.data.DataGenerator;
+import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.client.model.generators.ItemModelProvider;
@@ -12,8 +12,8 @@ import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class TLBItemModelProvider extends ItemModelProvider {
-    public TLBItemModelProvider(DataGenerator generator, ExistingFileHelper existingFileHelper) {
-        super(generator, ToLaserBlade.MOD_ID, existingFileHelper);
+    public TLBItemModelProvider(PackOutput packOutput, ExistingFileHelper existingFileHelper) {
+        super(packOutput, ToLaserBlade.MOD_ID, existingFileHelper);
     }
 
     @Override
@@ -59,11 +59,6 @@ public class TLBItemModelProvider extends ItemModelProvider {
 
         registerPartItemModel(ModItems.LB_CASING, handheldModel);
         registerChildModel(ModItems.LB_CASING_FP, getItemId(ModItems.LB_CASING).getPath());
-    }
-
-    @Override
-    public String getName() {
-        return "ToLaserBlade Item Models";
     }
 
     private ResourceLocation getItemId(Item item) {
