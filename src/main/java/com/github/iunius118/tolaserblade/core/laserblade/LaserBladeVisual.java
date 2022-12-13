@@ -1,12 +1,9 @@
 package com.github.iunius118.tolaserblade.core.laserblade;
 
 import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
-import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.nbt.Tag;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
@@ -64,8 +61,8 @@ public record LaserBladeVisual(ModelType modelType, Coloring coloring) {
         getOuterColor().color = LaserBladeColor.WHITE.getBladeColor();
 
 
-        if (compareBiome(level, biomeHolder, Biomes.SOUL_SAND_VALLEY) ||
-                compareBiome(level, biomeHolder, Biomes.WARPED_FOREST)) {
+        if (compareBiome(biomeHolder, Biomes.SOUL_SAND_VALLEY) ||
+                compareBiome(biomeHolder, Biomes.WARPED_FOREST)) {
             getOuterColor().isSubtractColor = true;
 
         } else {
@@ -73,16 +70,11 @@ public record LaserBladeVisual(ModelType modelType, Coloring coloring) {
         }
     }
 
-    private boolean compareBiome(Level level, Holder<Biome> biomeHolder, ResourceKey<Biome> biomeKey) {
-        if (level == null || biomeKey == null) return false;
+    private boolean compareBiome(Holder<Biome> biomeHolder, ResourceKey<Biome> biomeKey) {
+        if (biomeHolder == null)
+            return false;
 
-        RegistryAccess registries = level.registryAccess();
-        Registry<Biome> biomes = registries.registryOrThrow(Registry.BIOME_REGISTRY);
-        Biome biome = biomeHolder.value();
-        ResourceLocation biome1 = biomes.getKey(biome);
-        ResourceLocation biome2 = biomeKey.location();
-
-        return biome2.equals(biome1);
+        return biomeHolder.is(biomeKey);
     }
 
     public void write(CompoundTag compound) {
