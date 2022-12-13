@@ -2,8 +2,8 @@ package com.github.iunius118.tolaserblade.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import com.mojang.math.Vector3f;
-import com.mojang.math.Vector4f;
+import org.joml.Vector3f;
+import org.joml.Vector4f;
 
 import java.util.List;
 
@@ -93,14 +93,14 @@ public class SimpleModel {
             for (int i = 0; i < 4; i++) {
                 SimpleVertex vertex = face.vertices[i];
 
-                Vector4f pos = new Vector4f(vertex.pos);
-                pos.transform(pose.pose());
+                Vector4f pos = new Vector4f(vertex.pos, 1.0F);
+                pose.pose().transform(pos);
 
                 Vector4f vColor = vertex.color;
                 Vector2f uv = vertex.uv;
 
-                Vector3f normal = vertex.normal.copy();
-                normal.transform(pose.normal());
+                Vector3f normal = new Vector3f(vertex.normal);
+                pose.normal().transform(normal);
 
                 buffer.vertex(pos.x(), pos.y(), pos.z(),
                         red * vColor.x(), green * vColor.y(), blue * vColor.z(), alpha * vColor.w(),

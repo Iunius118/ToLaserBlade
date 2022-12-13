@@ -2,8 +2,6 @@ package com.github.iunius118.tolaserblade.client.particle;
 
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.*;
-import com.mojang.math.Quaternion;
-import com.mojang.math.Vector3f;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
@@ -15,6 +13,8 @@ import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.Mth;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import org.joml.Quaternionf;
+import org.joml.Vector3f;
 
 @OnlyIn(Dist.CLIENT)
 public class LaserTrapParticle extends Particle {
@@ -69,25 +69,23 @@ public class LaserTrapParticle extends Particle {
         var cameraPos = camera.getPosition();
 
         for (int i = 0; i < 4; i++) {
-            Vector3f vertex = v[i].copy();
-            vertex.transform(getRotation());
+            Vector3f vertex = new Vector3f(v[i]);
+            getRotation().transform(vertex);
             vertex.add((float) (x - cameraPos.x), (float) (y - cameraPos.y), (float) (z - cameraPos.z));
             vertexConsumer.vertex(vertex.x(), vertex.y(), vertex.z()).color(rCol, gCol, bCol, alpha).endVertex();
         }
     }
 
-    private Quaternion getRotation() {
-        switch (axis) {
-            case Y -> {
-                return Vector3f.ZP.rotationDegrees(90);
-            }
-            case Z -> {
-                return Vector3f.YP.rotationDegrees(90);
-            }
-            default -> {
-                return Quaternion.ONE;
-            }
-        }
+    private final static Quaternionf Q_X = new Quaternionf();
+    private final static Quaternionf Q_Y = new Quaternionf(0, 0, Math.sin(Math.toRadians(45f)), Math.cos(Math.toRadians(45f)));
+    private final static Quaternionf Q_Z = new Quaternionf(0, Math.sin(Math.toRadians(45f)), 0, Math.cos(Math.toRadians(45f)));
+
+    private Quaternionf getRotation() {
+        return switch (axis) {
+            case Y -> Q_Y;
+            case Z -> Q_Z;
+            default -> Q_X;
+        };
     }
 
 
