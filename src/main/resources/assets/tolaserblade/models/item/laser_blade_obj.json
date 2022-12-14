@@ -1,6 +1,0 @@
-{
-    "parent": "forge:item/default",
-    "loader": "forge:obj",
-    "model": "tolaserblade:models/item/laser_blade.obj",
-    "detectCullableFaces": "false"
-}
