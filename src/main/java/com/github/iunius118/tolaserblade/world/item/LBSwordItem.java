@@ -66,7 +66,7 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
 
     @Override
     public boolean canPerformAction(ItemStack stack, ToolAction toolAction) {
-        return LaserBladeBlocking.isShield() && ToolActions.DEFAULT_SHIELD_ACTIONS.contains(toolAction);
+        return super.canPerformAction(stack, toolAction) || (LaserBladeBlocking.isShield() && ToolActions.DEFAULT_SHIELD_ACTIONS.contains(toolAction));
     }
 
     @Override
