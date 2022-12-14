@@ -7,7 +7,6 @@ import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeTextKey;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeVisual;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.Upgrade;
 import net.minecraft.ChatFormatting;
-import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
@@ -40,22 +39,6 @@ public class LaserBladeItemUtil {
         SoundEvent soundEvent = isFireResistant ? ModSoundEvents.ITEM_LASER_BLADE_FP_SWING : ModSoundEvents.ITEM_LASER_BLADE_SWING;
         Vec3 pos = entity.position().add(0, entity.getEyeHeight(), 0).add(entity.getLookAngle());
         level.playSound(null, pos.x, pos.y, pos.z, soundEvent, SoundSource.PLAYERS, 0.5F, 1.0F);
-    }
-
-    public static void addItemStacks(NonNullList<ItemStack> items, boolean isFireResistant) {
-        if (isFireResistant) {
-            items.add(LaserBladeItemStack.UPGRADED_FP.getCopy());
-            items.add(LaserBladeItemStack.DAMAGED_FP.getCopy());
-            items.add(LaserBladeItemStack.FULL_MOD_FP.getCopy());
-        } else {
-            items.add(LaserBladeItemStack.MODEL_TYPE_526.getCopy());
-            items.add(LaserBladeItemStack.LIGHT_ELEMENT_1.getCopy());
-            items.add(LaserBladeItemStack.LIGHT_ELEMENT_2.getCopy());
-            items.add(LaserBladeItemStack.GIFT.getCopy());
-            items.add(LaserBladeItemStack.UPGRADED.getCopy());
-            items.add(LaserBladeItemStack.DAMAGED.getCopy());
-            items.add(LaserBladeItemStack.FULL_MOD.getCopy());
-        }
     }
 
     @OnlyIn(Dist.CLIENT)
