@@ -4,7 +4,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 public class LBBlueprintItem extends Item {
-    public static Properties properties = (new Properties()).setNoRepair().tab(ModMainItemGroup.ITEM_GROUP);
+    public static Properties properties = (new Properties()).setNoRepair();
 
     public LBBlueprintItem() {
         super(properties);

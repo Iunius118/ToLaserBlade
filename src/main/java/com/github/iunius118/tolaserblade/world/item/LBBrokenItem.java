@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public class LBBrokenItem extends Item implements LaserBladeItemBase {
-    public static Item.Properties properties = (new Item.Properties()).setNoRepair().tab(ModMainItemGroup.ITEM_GROUP);
+    public static Item.Properties properties = (new Item.Properties()).setNoRepair();
     public final Upgrade.Type upgradeType = Upgrade.Type.REPAIR;
 
     public LBBrokenItem(boolean isFireproof) {

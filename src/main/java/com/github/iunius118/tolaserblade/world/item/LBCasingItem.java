@@ -13,7 +13,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class LBCasingItem extends Item implements LaserBladeItemBase {
-    public static Item.Properties properties = (new Item.Properties()).setNoRepair().tab(ModMainItemGroup.ITEM_GROUP);
+    public static Item.Properties properties = (new Item.Properties()).setNoRepair();
     public final Upgrade.Type upgradeType = Upgrade.Type.CASING;
 
     public LBCasingItem(boolean isFireproof) {

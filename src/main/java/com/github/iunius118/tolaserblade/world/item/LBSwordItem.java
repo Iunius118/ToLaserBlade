@@ -10,7 +10,6 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -45,7 +44,7 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
     private final float attackDamage;
     private final float attackSpeed;
 
-    public static Item.Properties properties = (new Item.Properties()).setNoRepair().tab(ModMainItemGroup.ITEM_GROUP);
+    public static Item.Properties properties = (new Item.Properties()).setNoRepair();
 
     public LBSwordItem(boolean isFireproof) {
         super(ModItemTiers.getLBSwordTier(isFireproof), 3, -1.2F, LaserBladeItemBase.setFireproof(properties, isFireproof));
@@ -218,15 +217,5 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
     public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
         super.appendHoverText(itemStack, level, tooltip, flag);
         LaserBladeItemUtil.addLaserBladeInformation(itemStack, level, tooltip, flag, Upgrade.Type.OTHER);
-    }
-
-    /* Creative Tab */
-
-    @Override
-    public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
-        super.fillItemCategory(group, items);
-        if (group != ModMainItemGroup.ITEM_GROUP) return;
-
-        LaserBladeItemUtil.addItemStacks(items, isFireResistant());
     }
 }

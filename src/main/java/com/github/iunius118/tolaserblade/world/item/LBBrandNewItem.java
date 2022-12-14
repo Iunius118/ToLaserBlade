@@ -28,7 +28,7 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public class LBBrandNewItem extends Item implements LaserBladeItemBase {
-    public static Properties properties = (new Item.Properties()).setNoRepair().tab(ModMainItemGroup.ITEM_GROUP);
+    public static Properties properties = (new Item.Properties()).setNoRepair();
 
     private final LBBrandNewType type;
 

@@ -4,13 +4,11 @@ import com.github.iunius118.tolaserblade.core.laserblade.LaserBlade;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladePerformance;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeVisual;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.Upgrade;
-import net.minecraft.core.NonNullList;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
@@ -27,7 +25,7 @@ import java.util.List;
 import java.util.Map;
 
 public class LBDisassembledItem extends Item implements LaserBladeItemBase {
-    public static Properties properties = (new Properties()).setNoRepair().tab(ModMainItemGroup.ITEM_GROUP);
+    public static Properties properties = (new Properties()).setNoRepair();
     public final Upgrade.Type upgradeType = Upgrade.Type.REPAIR;
 
     public LBDisassembledItem(boolean isFireproof) {
@@ -142,18 +140,6 @@ public class LBDisassembledItem extends Item implements LaserBladeItemBase {
     private void dropItem(ItemStack itemStack, Player player) {
         ItemEntity itemEntity = new ItemEntity(player.level, player.getX(), player.getY() + 0.5, player.getZ(), itemStack);
         player.level.addFreshEntity(itemEntity);
-    }
-
-    @Override
-    public void fillItemCategory(CreativeModeTab group, NonNullList<ItemStack> items) {
-        super.fillItemCategory(group, items);
-        if (group != ModMainItemGroup.ITEM_GROUP) return;
-
-        if (isFireResistant()) {
-            items.add(LaserBladeItemStack.DISASSEMBLED_FULL_MOD_FP.getCopy());
-        } else {
-            items.add(LaserBladeItemStack.DISASSEMBLED_FULL_MOD.getCopy());
-        }
     }
 
     @Override
