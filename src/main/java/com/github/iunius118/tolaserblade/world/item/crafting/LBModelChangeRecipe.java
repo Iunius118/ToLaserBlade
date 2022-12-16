@@ -1,6 +1,5 @@
 package com.github.iunius118.tolaserblade.world.item.crafting;
 
-import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBlade;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeVisual;
 import com.google.gson.JsonElement;
@@ -66,12 +65,7 @@ public class LBModelChangeRecipe extends UpgradeRecipe {
 
     private ItemStack getResult(ItemStack input) {
         LaserBladeVisual visual = LaserBlade.visualOf(input);
-        int fixedType = type;
-
-        if (type < 0) {
-            int baseType = visual.getModelType();
-            fixedType = baseType >= 0 ? LaserBladeVisual.MODEL_TYPE_NO_MODEL : ToLaserBlade.getTodayDateNumber();
-        }
+        int fixedType = Math.max(type, 0);
 
         visual.setModelType(fixedType);
         visual.write(input.getOrCreateTag());

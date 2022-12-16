@@ -20,8 +20,6 @@ import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLLoader;
 import org.slf4j.Logger;
 
-import java.util.Calendar;
-
 @Mod(ToLaserBlade.MOD_ID)
 public class ToLaserBlade {
     public static final String MOD_ID = "tolaserblade";
@@ -61,11 +59,6 @@ public class ToLaserBlade {
 
     public static boolean canUseFixedVertexBuffer() {
         return canUseFixedVertexBuffer;
-    }
-
-    public static int getTodayDateNumber() {
-        Calendar calendar = Calendar.getInstance();
-        return (calendar.get(Calendar.MONTH) + 1) * 100 + calendar.get(Calendar.DATE);
     }
 
     // Generate Data

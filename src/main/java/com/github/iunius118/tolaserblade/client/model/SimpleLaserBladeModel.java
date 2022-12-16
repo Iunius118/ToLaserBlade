@@ -7,26 +7,37 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.RenderType.CompositeState;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemStack;
 
 public class SimpleLaserBladeModel extends SimpleModel implements LaserBladeModel {
-    private final boolean canUseFixedVertexBuffer;
-    private RenderType typeHilt;
-    private RenderType typeUnlit;
-    private RenderType typeAdd;
-    private RenderType typeSubInner;
-    private RenderType typeSub;
-    private final RenderStateShard.TextureStateShard textureState;
+    private static RenderType typeHilt;
+    private static RenderType typeUnlit;
+    private static RenderType typeSubInner;
+    private static RenderType typeAdd;
+    private static RenderType typeSub;
 
-    public SimpleLaserBladeModel() {
-        LaserBladeInternalModelManager internalModelManager = LaserBladeInternalModelManager.getInstance();
-        // Can use fixed vertex buffer when using external model, or using internal model but not multiple models.
-        canUseFixedVertexBuffer = ToLaserBlade.canUseFixedVertexBuffer()
-                && !internalModelManager.canRenderMultipleModels();
-        textureState = new RenderStateShard.TextureStateShard(getTexture(), false, false);
+    public static void resetRenderTypes(ResourceLocation texture) {
+        if (ToLaserBlade.canUseFixedVertexBuffer()) {
+            typeHilt = LaserBladeRenderType.HILT;
+            typeUnlit = LaserBladeRenderType.LASER_UNLIT;
+            typeSubInner = LaserBladeRenderType.LASER_SUB_INNER;
+            typeAdd = LaserBladeRenderType.LASER_ADD;
+            typeSub = LaserBladeRenderType.LASER_SUB;
+        } else {
+            var textureStateShard = new RenderStateShard.TextureStateShard(texture, false, false);
+            typeHilt = LaserBladeRenderType.getBladeRenderType("tlb_hilt",
+                    LaserBladeRenderType.getHiltRenderState(textureStateShard));
+            typeUnlit = LaserBladeRenderType.getBladeRenderType("tlb_unlit",
+                    LaserBladeRenderType.getUnlitRenderState(textureStateShard));
+            typeSubInner = LaserBladeRenderType.getBladeRenderType("tlb_sub_in",
+                    LaserBladeRenderType.getSubRenderState(textureStateShard));
+            typeAdd = LaserBladeRenderType.getBladeRenderType("tlb_add",
+                    LaserBladeRenderType.getAddRenderState(textureStateShard));
+            typeSub = LaserBladeRenderType.getBladeRenderType("tlb_sub",
+                    LaserBladeRenderType.getSubRenderState(textureStateShard));
+        }
     }
 
     @Override
@@ -35,72 +46,22 @@ public class SimpleLaserBladeModel extends SimpleModel implements LaserBladeMode
     }
 
     public RenderType getHiltRenderType() {
-        if (canUseFixedVertexBuffer) {
-            return LaserBladeRenderType.HILT;
-        }
-
-        // Not use fixed vertex buffer
-        if (typeHilt == null) {
-            CompositeState renderState = LaserBladeRenderType.getHiltRenderState(textureState);
-            typeHilt = LaserBladeRenderType.getBladeRenderType("hilt", renderState);
-        }
-
         return typeHilt;
     }
 
     public RenderType getUnlitRenderType() {
-        if (canUseFixedVertexBuffer) {
-            return LaserBladeRenderType.LASER_UNLIT;
-        }
-
-        // Not use fixed vertex buffer
-        if (typeUnlit == null) {
-            CompositeState renderState = LaserBladeRenderType.getUnlitRenderState(textureState);
-            typeUnlit = LaserBladeRenderType.getBladeRenderType("laser_unlit", renderState);
-        }
-
         return typeUnlit;
     }
 
-    public RenderType getAddRenderType() {
-        if (canUseFixedVertexBuffer) {
-            return LaserBladeRenderType.LASER_ADD;
-        }
-
-        // Not use fixed vertex buffer
-        if (typeAdd == null) {
-            CompositeState renderState = LaserBladeRenderType.getAddRenderState(textureState);
-            typeAdd = LaserBladeRenderType.getBladeRenderType("laser_add", renderState);
-        }
-
-        return typeAdd;
-    }
-
     public RenderType getSubInnerRenderType() {
-        if (canUseFixedVertexBuffer) {
-            return LaserBladeRenderType.LASER_SUB_INNER;
-        }
-
-        // Not use fixed vertex buffer
-        if (typeSubInner == null) {
-            CompositeState renderState = LaserBladeRenderType.getSubRenderState(textureState);
-            typeSubInner = LaserBladeRenderType.getBladeRenderType("laser_sub_in", renderState);
-        }
-
         return typeSubInner;
     }
 
+    public RenderType getAddRenderType() {
+        return typeAdd;
+    }
+
     public RenderType getSubRenderType() {
-        if (canUseFixedVertexBuffer) {
-            return LaserBladeRenderType.LASER_SUB;
-        }
-
-        // Not use fixed vertex buffer
-        if (typeSub == null) {
-            CompositeState renderState = LaserBladeRenderType.getSubRenderState(textureState);
-            typeSub = LaserBladeRenderType.getBladeRenderType("laser_sub", renderState);
-        }
-
         return typeSub;
     }
 
@@ -110,12 +71,5 @@ public class SimpleLaserBladeModel extends SimpleModel implements LaserBladeMode
 
     public RenderType getOuterBladeAddRenderType(boolean isSubColor) {
         return isSubColor ? getSubRenderType() : getAddRenderType();
-    }
-
-    public static final ResourceLocation TEXTURE_WHITE = new ResourceLocation("forge", "textures/white.png");
-
-    @Override
-    public ResourceLocation getTexture() {
-        return TEXTURE_WHITE;
     }
 }

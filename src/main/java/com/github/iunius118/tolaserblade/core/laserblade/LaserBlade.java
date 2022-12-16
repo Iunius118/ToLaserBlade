@@ -18,7 +18,6 @@ public record LaserBlade(LaserBladePerformance performance, LaserBladeVisual vis
         return LaserBladePerformance.of(compoundTag, item.isFireResistant());
     }
 
-
     public static LaserBladeVisual visualOf(ItemStack stack) {
         var compoundTag = stack.hasTag() ? stack.getTag() : new CompoundTag();
         return LaserBladeVisual.of(compoundTag);

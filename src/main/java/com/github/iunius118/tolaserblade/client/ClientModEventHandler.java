@@ -5,11 +5,10 @@ import com.github.iunius118.tolaserblade.client.color.item.LBCasingItemColor;
 import com.github.iunius118.tolaserblade.client.color.item.LBEmitterItemColor;
 import com.github.iunius118.tolaserblade.client.color.item.LBMediumItemColor;
 import com.github.iunius118.tolaserblade.client.color.item.LBSwordItemColor;
-import com.github.iunius118.tolaserblade.client.model.LaserBladeInternalModelManager;
+import com.github.iunius118.tolaserblade.client.model.LaserBladeModelManager;
 import com.github.iunius118.tolaserblade.client.particle.LaserTrapParticle;
 import com.github.iunius118.tolaserblade.client.renderer.LaserBladeRenderType;
 import com.github.iunius118.tolaserblade.client.renderer.item.model.LBSwordItemModel;
-import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
 import com.github.iunius118.tolaserblade.core.particle.ModParticleTypes;
 import com.github.iunius118.tolaserblade.world.item.ModItems;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
@@ -22,9 +21,11 @@ import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.inventory.InventoryMenu;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.client.event.*;
+import net.minecraftforge.client.event.ModelEvent;
+import net.minecraftforge.client.event.RegisterColorHandlersEvent;
+import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
+import net.minecraftforge.client.event.RegisterShadersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.VersionChecker;
@@ -52,22 +53,13 @@ public class ClientModEventHandler {
     }
 
     @SubscribeEvent
-    public static void onTextureStitchEvent(TextureStitchEvent.Pre event) {
-        if (event.getAtlas().location().equals(InventoryMenu.BLOCK_ATLAS)) {
-            if (!ToLaserBladeConfig.CLIENT.useInternalModel.get() && ToLaserBladeConfig.CLIENT.externalModelType.get() == 1) {
-                // When using external OBJ model, add OBJ model texture to block atlas
-                event.addSprite(new ResourceLocation(ToLaserBlade.MOD_ID, "item/laser_blade_obj"));
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public static void onModelBakeEvent(ModelEvent.BakingCompleted event) {
+    public static void onModifyBakingResultEvent(ModelEvent.ModifyBakingResult event) {
         // Reset internal model manager
-        var internalModelManager = LaserBladeInternalModelManager.renewInstance();
+        var modelManager = LaserBladeModelManager.getInstance();
+        modelManager.reload();
 
-        if (!internalModelManager.canUseInternalModel() && ToLaserBladeConfig.CLIENT.externalModelType.get() != 1) {
-            // Use generated model
+        if (!modelManager.canUseOriginalModelType()) {
+            // Use vanilla-like model
             return;
         }
 
@@ -81,7 +73,6 @@ public class ClientModEventHandler {
         ModelResourceLocation lBBrokenFPItemID = new ModelResourceLocation(getItemId(ModItems.LB_BROKEN_FP), "inventory");
         LBSwordItemModel bakedModel = new LBSwordItemModel();
 
-        bakedModel.loadModel(event);
         var models = event.getModels();
         models.put(laserBladeItemID, bakedModel);
         models.put(laserBladeFPItemID, bakedModel);
@@ -98,9 +89,14 @@ public class ClientModEventHandler {
     }
 
     @SubscribeEvent
+    public static void onBakingCompletedEvent(ModelEvent.BakingCompleted event) {
+        LaserBladeModelManager.getInstance().logLoadedModelCount();
+    }
+
+    @SubscribeEvent
     public static void onRegisterShadersEvent(RegisterShadersEvent event) throws IOException {
-        var resourceManager = event.getResourceManager();
-        var lbUnlitShaderInstance = new ShaderInstance(resourceManager, new ResourceLocation(ToLaserBlade.MOD_ID, LaserBladeRenderType.UNLIT_SHADER_INSTANCE_NAME), DefaultVertexFormat.NEW_ENTITY);
+        var resourceProvider = event.getResourceProvider();
+        var lbUnlitShaderInstance = new ShaderInstance(resourceProvider, new ResourceLocation(ToLaserBlade.MOD_ID, LaserBladeRenderType.UNLIT_SHADER_INSTANCE_NAME), DefaultVertexFormat.NEW_ENTITY);
         event.registerShader(lbUnlitShaderInstance, LaserBladeRenderType::setUnlitShaderInstance);
     }
 

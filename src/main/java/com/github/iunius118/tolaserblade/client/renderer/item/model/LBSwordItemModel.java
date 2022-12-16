@@ -1,9 +1,5 @@
 package com.github.iunius118.tolaserblade.client.renderer.item.model;
 
-import com.github.iunius118.tolaserblade.api.client.model.LaserBladeModel;
-import com.github.iunius118.tolaserblade.client.model.LaserBladeInternalModelManager;
-import com.github.iunius118.tolaserblade.client.model.LaserBladeModelHolder;
-import com.github.iunius118.tolaserblade.client.model.laserblade.LaserBladeOBJModel;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
@@ -18,7 +14,6 @@ import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.state.BlockState;
-import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.client.model.IDynamicBakedModel;
 import net.minecraftforge.client.model.data.ModelData;
 import org.jetbrains.annotations.NotNull;
@@ -99,23 +94,5 @@ public class LBSwordItemModel implements IDynamicBakedModel {
         } else {
             return LBSwordItemTransforms.BLOCKING_LEFT_ITEM_TRANSFORMS.get();
         }
-    }
-
-    public void loadModel(ModelEvent.BakingCompleted event) {
-        LaserBladeModel model;
-        var internalModelManager = LaserBladeInternalModelManager.getInstance();
-
-        if (internalModelManager.canUseInternalModel()) {
-            // Use internal model
-            model = internalModelManager.getModel();
-        } else {
-            // Use external model
-            // If ToLaserBladeConfig.CLIENT.externalModelType.get() == 1
-            LaserBladeOBJModel objModel = new LaserBladeOBJModel();
-            objModel.loadLaserBladeOBJModel(event.getModelBakery());
-            model = objModel;
-        }
-
-        LaserBladeModelHolder.setModel(model);
     }
 }

@@ -1,7 +1,6 @@
 package com.github.iunius118.tolaserblade.client.renderer;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
-import com.github.iunius118.tolaserblade.client.model.LaserBladeModelHolder;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
@@ -27,11 +26,11 @@ public class LaserBladeRenderType {
     private static final LaserBladeTextureState LASER_BLADE_TEXTURE_STATE = new LaserBladeTextureState();
 
     public static final String UNLIT_SHADER_INSTANCE_NAME = "rendertype_laser_blade_unlit";
-    public static final RenderType HILT = getBladeRenderType("hilt", getHiltRenderState(LaserBladeRenderType.LASER_BLADE_TEXTURE_STATE));
-    public static final RenderType LASER_UNLIT = getBladeRenderType("laser_unlit", getUnlitRenderState(LaserBladeRenderType.LASER_BLADE_TEXTURE_STATE));
-    public static final RenderType LASER_ADD = getBladeRenderType("laser_add", getAddRenderState(LaserBladeRenderType.LASER_BLADE_TEXTURE_STATE));
-    public static final RenderType LASER_SUB_INNER = getBladeRenderType("laser_sub_in", getSubRenderState(LaserBladeRenderType.LASER_BLADE_TEXTURE_STATE));
-    public static final RenderType LASER_SUB = getBladeRenderType("laser_sub", getSubRenderState(LaserBladeRenderType.LASER_BLADE_TEXTURE_STATE));
+    public static final RenderType HILT = getBladeRenderType("tlb_hilt", getHiltRenderState(LaserBladeRenderType.LASER_BLADE_TEXTURE_STATE));
+    public static final RenderType LASER_UNLIT = getBladeRenderType("tlb_unlit", getUnlitRenderState(LaserBladeRenderType.LASER_BLADE_TEXTURE_STATE));
+    public static final RenderType LASER_SUB_INNER = getBladeRenderType("tlb_sub_in", getSubRenderState(LaserBladeRenderType.LASER_BLADE_TEXTURE_STATE));
+    public static final RenderType LASER_ADD = getBladeRenderType("tlb_add", getAddRenderState(LaserBladeRenderType.LASER_BLADE_TEXTURE_STATE));
+    public static final RenderType LASER_SUB = getBladeRenderType("tlb_sub", getSubRenderState(LaserBladeRenderType.LASER_BLADE_TEXTURE_STATE));
 
     public static RenderType getBladeRenderType(String name, RenderType.CompositeState renderState) {
         return RenderType.create(name, DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, false, renderState);
@@ -144,18 +143,19 @@ public class LaserBladeRenderType {
 
     @OnlyIn(Dist.CLIENT)
     private static class LaserBladeTextureState extends TextureStateShard {
+        private static final ResourceLocation TEXTURE = new ResourceLocation("forge", "textures/white.png");
+
         public LaserBladeTextureState() {
-            super(new ResourceLocation("forge", "textures/white.png"), false, false);
+            super(TEXTURE, false, false);
         }
 
         @Override
         public void setupRenderState() {
             RenderSystem.enableTexture();
             TextureManager texturemanager = Minecraft.getInstance().getTextureManager();
-            ResourceLocation texture = LaserBladeModelHolder.getTexture();
-            texturemanager.bindForSetup(texture);
-            texturemanager.getTexture(texture).setFilter(false, false);
-            RenderSystem.setShaderTexture(0, texture);
+            texturemanager.bindForSetup(TEXTURE);
+            texturemanager.getTexture(TEXTURE).setFilter(false, false);
+            RenderSystem.setShaderTexture(0, TEXTURE);
         }
 
         @Override
@@ -177,12 +177,12 @@ public class LaserBladeRenderType {
 
         @Override
         public int hashCode() {
-            return LaserBladeModelHolder.getTexture().hashCode();
+            return TEXTURE.hashCode();
         }
 
         @Override
         protected Optional<ResourceLocation> cutoutTexture() {
-            return Optional.of(LaserBladeModelHolder.getTexture());
+            return Optional.of(TEXTURE);
         }
     }
 }
