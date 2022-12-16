@@ -64,10 +64,9 @@ public class ToLaserBladeConfig {
     public static class Client {
         public final BooleanValue showUpdateMessage;
         public final BooleanValue useFixedVertexBuffer;
-        public final BooleanValue useInternalModel;
+        public final BooleanValue useOriginalModelType;
         public final BooleanValue renderMultipleModels;
-        public final IntValue internalModelType;
-        public final IntValue externalModelType;
+        public final IntValue defaultModel;
 
         Client(ForgeConfigSpec.Builder builder) {
             builder.comment("ToLaserBlade's client side settings.").push("client");
@@ -85,34 +84,28 @@ public class ToLaserBladeConfig {
                     .translation("tolaserblade.configgui.client.useFixedVertexBuffer")
                     .define("useFixedVertexBuffer", false);
 
-            useInternalModel = builder
-                    .comment("Using internal model for rendering Laser Blade. " +
-                            "Set to false to use the model that loaded from resource packs.\n" +
+            useOriginalModelType = builder
+                    .comment("Using mod model loader to load Laser Blade models." +
+                            "Set to false to use the model that loaded by vanilla model loader.\n" +
                             "Need to reload resource packs after changing this.\n" +
                             "Default: true")
-                    .translation("tolaserblade.configgui.client.useInternalModel")
+                    .translation("tolaserblade.configgui.client.useOriginalModelType")
                     .define("useInternalModel", true);
 
             renderMultipleModels = builder
-                    .comment("Enable to render Laser Blades using multiple models. This setting is valid when useInternalModel is true. If this is true, useFixedVertexBuffer will be disabled.\n" +
+                    .comment("Enable to render Laser Blades using multiple models. This setting is valid when useOriginalModelLoader is true.\n" +
+                            "Set to false to use the model of defaultModelType.\n" +
                             "Need to reload resource packs after changing this.\n" +
                             "Default: true")
                     .translation("tolaserblade.configgui.client.renderMultipleModels")
                     .define("renderMultipleModels", true);
 
-            internalModelType = builder
-                    .comment("Select type of internal model to use for rendering Laser Blade (0: original model, 1 or 2: another model). This setting is valid when useInternalModel is true.\n" +
-                            "Need to reload resource packs after changing this.\n" +
-                            "Default: -1")
-                    .translation("tolaserblade.configgui.client.internalModelType")
-                    .defineInRange("internalModelType", -1, -1, Integer.MAX_VALUE);
-
-            externalModelType = builder
-                    .comment("Select type of external model to use for rendering Laser Blade (0: generated model, 1: OBJ model [not recommended]). This setting is valid when useInternalModel is false.\n" +
+            defaultModel = builder
+                    .comment("Select model number of laser blade to use when renderMultipleModels is false. This setting is valid when useOriginalModelLoader is true.\n" +
                             "Need to reload resource packs after changing this.\n" +
                             "Default: 0")
-                    .translation("tolaserblade.configgui.client.externalModelType")
-                    .defineInRange("externalModelType", 0, 0, Integer.MAX_VALUE);
+                    .translation("tolaserblade.configgui.client.defaultModel")
+                    .defineInRange("defaultModel", 0, 0, Integer.MAX_VALUE);
 
             builder.pop();
         }
