@@ -1,4 +1,4 @@
-// 1.19	2022-06-11T15:50:08.5329346	ToLaserBlade Tags for minecraft:item
+// 1.19.3	2022-12-14T00:51:37.6154501	Tags for minecraft:item mod id tolaserblade
 1a95ba6c8de8bf45015131964d973d94d905f8b8 data/tolaserblade/tags/items/casing_repair.json
 a38efefda0bff84df4844f584f966a588fcac9de data/tolaserblade/tags/items/upgrade/damage.json
 b292fd1c61bdb4c34269772b5010fa49d88d3cfb data/tolaserblade/tags/items/upgrade/efficiency.json

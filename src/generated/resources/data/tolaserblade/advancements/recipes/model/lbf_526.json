@@ -15,7 +15,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "tolaserblade:model/lbf_526_sample"
+        "recipe": "tolaserblade:model/lbf_526"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -28,7 +28,7 @@
   ],
   "rewards": {
     "recipes": [
-      "tolaserblade:model/lbf_526_sample"
+      "tolaserblade:model/lbf_526"
     ]
   }
 }
