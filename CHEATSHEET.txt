@@ -1,5 +1,5 @@
 # Cheatsheet
-ToLaserBlade v5.3.2.0
+ToLaserBlade v6.0.0.0
 
 ## How to Get Started
 ### 1. Craft a Brand-new Laser Blade I or II, and Use It
@@ -18,35 +18,38 @@ Using smithing table, you can upgrade your laser blade.
 - Enchanting: Available on Enchanting Table or Anvil
 - Sneak-right-clicking a block: place a redstone torch and consume the durability
 - Right-clicking a redstone torch: consume the redstone torch and recover the durability
-
-Crafting Table:
-
-- R = Redstone Torch; S = Stick
+- Crafting on Crafting Table: R = Redstone Torch; S = Stick
   - R;
   - S;
-  - S; -> DX Laser B1ade
+  - S;
 
 ### Brand-new Laser Blade I
 - ID: `tolaserblade:lb_brand_new_1`
-- Holding this item in your hand and right-clicking, you will get a laser blade enchanted with Efficiency I and Light Element I
-
-Crafting Table:
-
-- G = Glass; I = Iron Ingot; D = Diamond; R = Redstone
+- Holding this item in your hand and right-clicking, you will obtain a laser blade enchanted with Efficiency I and Light Element I
+- Crafting on Crafting Table: G = Glass; I = Iron Ingot; D = Diamond; R = Redstone
   - G, I, D;
   - I, D, I;
-  - R, I, G; -> Brand-new Laser Blade I
+  - R, I, G;
+- The color of the laser blade obtained may change depending on the biome where the player obtained it
+  - Nether Wastes, Crimson Forest, or Basalt Deltas: white blades and subtractive inner blade color
+  - Warped Forest or Soul Sand Valley: white blades and subtractive outer blade color
+  - All biomes in the End: white blades and subtractive blade colors
+  - Temperature > 1.5: violet outer blade
+  - 1.5 >= Temperature > 1.0: magenta outer blade
+  - 1.0 >= Temperature > 0.8: gold outer blade
+  - 0.8 >= Temperature >= 0.5: red outer blade
+  - 0.5 > Temperature >= 0.2:  lime outer blade
+  - 0.2 > Temperature >= -0.25: azure outer blade
+  - -0.25 > Temperature: blue outer blade
 
 ### Brand-new Laser Blade II
 - ID: `tolaserblade:lb_brand_new_2`
-- Holding this item in your hand and right-clicking, you will get a laser blade enchanted with Efficiency I and Light Element II
-
-Crafting Table:
-
-- g = Glowstone Dust; I = Iron Ingot; D = Diamond; R = Redstone
+- Holding this item in your hand and right-clicking, you will obtain a laser blade enchanted with Efficiency I and Light Element II
+- Crafting on Crafting Table: g = Glowstone Dust; I = Iron Ingot; D = Diamond; R = Redstone
   - g, I, D;
   - I, D, I;
-  - R, I, g; -> Brand-new Laser Blade II
+  - R, I, g;
+- The color of the laser blade obtained may change depending on the biome where the player obtained it. See Brand-new Laser Blade I
 
 ### Brand-new Laser Blade
 - ID: `tolaserblade:lb_brand_new`
@@ -73,7 +76,7 @@ Crafting Table:
 - Repairing: See Repairing Laser Blades
 
 ### Not Used Items
-These items are not used and have no recipes:
+The following items are not used and have no recipes:
 
 - Laser Blade Blueprint
 - Disassembled Laser Blade
@@ -92,16 +95,13 @@ Smithing Table:
 - Switching Blend Mode of Outer Blade: Laser Blade + Tinted Glass
 - Switching Blend Mode of Inner Blade: Laser Blade + Block of Amethyst
 
-### Changing Laser Blade Model
+### Changing Laser Blade Shape
 Smithing Table:
 
-- Saving Model Type: Laser Blade + Crafting Table
-- Removing Model Type: Laser Blade (with model type saved) + Crafting Table
-- Model Type 0 (Standard): Laser Blade + Glass
-- Model Type 1: Laser Blade + Sand
-- Model Type 2: Laser Blade + Sandstone
-- Model Type 526: Laser Blade + Dirt
-- Model Type 1221: Laser Blade + End Crystal
+- Type 0 (Standard): Laser Blade + Glass
+- Type 1: Laser Blade + Sand
+- Type 2: Laser Blade + Sandstone
+- Type 526: Laser Blade + Dirt
 
 ### Upgrading Laser Blades
 Smithing Table:

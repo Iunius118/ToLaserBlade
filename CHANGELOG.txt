@@ -4,6 +4,23 @@
 
 ## [Unreleased]
 
+## [1.19.3-6.0.0.0-beta.1]
+### Added
+- New model type `tolaserblade:model_v1`.
+- Migrate 4 laser blade shapes to new model types.
+
+### Changed
+- Port to 1.19.3.
+- Require Forge 1.19.3-44.0.30+.
+- Setting items in client config: added `useOriginalModelType` and `defaultModel`; removed `useInternalModel`, `internalModelType`, and `externalModelType`.
+
+### Removed
+- .OBJ model support.
+- Internal laser blade models. They will be distributed as add-on later.
+
+### Fixed
+- Laser blade to allow sweep attack.
+
 ## [1.19-5.3.3.0]
 ### Changed
 - Compatible with Forge 1.19-41.0.98.
