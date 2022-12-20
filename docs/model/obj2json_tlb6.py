@@ -1,6 +1,32 @@
+##########################################################
+#   Obj to JSON for ToLaserBlade v6 for JSON Model v1    #
+##########################################################
+
+'''
+# python obj2json_tlb6.py {obj_path} [-m {model_id}] [-r {renderer_id=0}] [-s {model_rescale=1.0}]
+# Valid model ID is an integer >= 0
+$ python obj2json_tlb6.py test.obj -m 0
+
+Obj requires normal vector ('nv') data
+
+Objects of the model are defined by group names in the obj
+# Group name for object of geometry data
+# object_name:type:part:state
+g test_1:add:blade_in:on
+# Generates {"type": "add", "part": "blade_in", "state": "on", ...}
+f 1/1/1 1/1/1 1/1/1 1/1/1
+#
+# Group name for objects of function and geometry data
+# object_name:type:part:state:function_name:function_state
+g test_2:flat:grip:off:rotate:on
+# Generates {"type": "function", "name": "rotate", "state": "on"}, {"type": "flat", "part": "grip", "state": "off", ...}
+f 1/1/1 1/1/1 1/1/1 1/1/1
+'''
+
 import argparse
 import os
 import json
+import sys
 
 def _main():
     args = _parse_arg()
@@ -11,9 +37,7 @@ def _main():
         os.chdir(new_current_dir)
 
     obj = {'type': 'tolaserblade:model_v1'}
-
-    if args.model >= 0:
-        obj['id'] = args.model
+    obj['id'] = args.model
 
     if args.renderer > 0:
         obj['renderer_id'] = args.renderer
@@ -22,6 +46,7 @@ def _main():
     #print(obj)
 
     _save_json(args.path, obj)
+    print("Done.")
 
 def _parse_arg():
     parser = argparse.ArgumentParser(description='Convert obj file to json file for ToLaserBlade v6 by Iunius118.')
@@ -46,8 +71,11 @@ def load_obj(path, scale):
     vertex_color_map = {}
     vertex_color_index = 0
 
-    file = open(path, 'r')
-    for line in file:
+    lines = []
+    with open(path, 'r') as f:
+        lines = f.readlines()
+
+    for line in lines:
         vals = line.split()
 
         if len(vals) <= 1:
@@ -57,8 +85,10 @@ def load_obj(path, scale):
         if (vals[0] == 'o' or vals[0] == 'g') and len(vals) >= 2:
             size_faces = len(faces)
             if size_faces > object_from:
+                # Set count of faces to prev object and add the object to objects 
                 object['size'] = size_faces - object_from
                 objects.append(object)
+                # Creat next object
                 object = {}
             object_from = len(faces)
             elements = vals[1].split(':')
@@ -79,6 +109,7 @@ def load_obj(path, scale):
                 if len(elements) > 5 and len(elements[5]) > 0:
                     # Function state to call
                     object_fx['state'] = elements[5]
+                # Add function object to objects before the object
                 objects.append(object_fx)
             object['from'] = object_from
         if vals[0] == 'v' and len(vals) >= 4:
@@ -105,23 +136,103 @@ def load_obj(path, scale):
             face = []
             for f in vals[1:]:
                 vs = f.split('/')
-                if len(vs) == 3:
+                if len(vs) >= 3:
                     face.append(int(vs[0]) - 1)
                     if len(vertex_colors) == 0:
                         vertex_colors.append([1.0,1.0,1.0,1.0])
                         vertex_color_map[('', '')] = 0
                     face.append(vertex_color_index)
                     face.append(int(vs[2]) - 1)
+                else:
+                    # When there are no nvs.
+                    print("Elemants of 'nv' are requierd for each vertex in faces.")
+                    sys.exit(1)
             if len(face) == 9:
                 # Fix 3 vertices to 4 vertices
                 face.extend(face[6:9])
 
             faces.append(face)
 
+    # Set count of faces to last object and add the object to objects 
     size_faces = len(faces)
     if size_faces > object_from:
         object['size'] = size_faces - object_from
         objects.append(object)
+
+    # Check normal vectors
+    if len(faces) > 0 and len(normals) == 0:
+        # When there are no nvs.
+        print("Statements of 'nv' are requierd.")
+        sys.exit(1)
+
+    # Remove duplicate vertices
+    vertex_to_fixed_index = {}
+    v_index_replace = []
+    next_index = 0
+    fixed_vertices = []
+    for v in range(len(vertices)):
+        t_vtx = tuple(vertices[v])
+        if t_vtx in vertex_to_fixed_index:
+            v_index_replace.append(vertex_to_fixed_index[t_vtx])
+        else:
+            vertex_to_fixed_index[t_vtx] = next_index
+            v_index_replace.append(next_index)
+            fixed_vertices.append(vertices[v])
+            next_index += 1
+    for face in faces:
+        face[0] = v_index_replace[face[0]]
+        face[3] = v_index_replace[face[3]]
+        face[6] = v_index_replace[face[6]]
+        face[9] = v_index_replace[face[9]]
+    vertices = fixed_vertices
+
+    # Process double state objects
+    fixed_objects = []
+
+    for object in objects:
+        if 'state' in object and '/' in object['state']:
+            object_1 = {}
+            object_2 = {}
+            if 'type' in object:
+                if '/' in object['type']:
+                    types = object['type'].split('/')
+                    if len(types[0]) > 0:
+                        object_1['type'] = types[0]
+                    if len(types[1]) > 0:
+                        object_2['type'] = types[1]
+                else:
+                    object_1['type'] = object_2['type'] = object['type']
+            if 'part' in object:
+                if '/' in object['part']:
+                    parts = object['part'].split('/')
+                    if len(parts[0]) > 0:
+                        object_1['part'] = parts[0]
+                    if len(parts[1]) > 0:
+                        object_2['part'] = parts[1]
+                else:
+                    object_1['part'] = object_2['part'] = object['part']
+            if 'name' in object:
+                if '/' in object['name']:
+                    names = object['name'].split('/')
+                    if len(names[0]) > 0:
+                        object_1['name'] = names[0]
+                    if len(names[1]) > 0:
+                        object_2['name'] = names[1]
+                else:
+                    object_1['name'] = object_2['name'] = object['name']
+            states = object['state'].split('/')
+            if len(states[0]) > 0:
+                object_1['state'] = states[0]
+            if len(states[1]) > 0:
+                object_2['state'] = states[1]
+            if object['type'] != 'function':
+                object_1['from'] = object_2['from'] = object['from']
+                object_1['size'] = object_2['size'] = object['size']
+            fixed_objects.append(object_1)
+            fixed_objects.append(object_2)
+        else:
+             fixed_objects.append(object)
+    objects = fixed_objects
 
     return {'objects': objects, 'vertices': vertices, 'colors': vertex_colors, 'normals': normals, 'faces': faces}
 
@@ -161,7 +272,7 @@ def _load_mtl(path):
 
 def _save_json(path, obj):
     with open(path + '.json', 'w') as f:
-        json.dump(obj, f)
+        json.dump(obj, f, separators=(',', ':'))
 
 if __name__ == "__main__":
     _main()
