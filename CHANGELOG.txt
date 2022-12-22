@@ -3,6 +3,14 @@
 [Source](https://github.com/Iunius118/ToLaserBlade).
 
 ## [Unreleased]
+### Added
+- New function `shield` to laser blade json model.
+
+### Changed
+- Require Forge 1.19.3-44.0.37+.
+
+### Fixed
+- Laser blade models.
 
 ## [1.19.3-6.0.0.0-beta.1]
 ### Added
