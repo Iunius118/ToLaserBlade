@@ -1,4 +1,4 @@
-package com.github.iunius118.tolaserblade.client.model.laserblade;
+package com.github.iunius118.tolaserblade.client.model.laserblade.v1;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.api.client.model.LaserBladeModel;
@@ -8,18 +8,15 @@ import com.github.iunius118.tolaserblade.client.model.Vector2f;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonParseException;
-import com.google.gson.annotations.SerializedName;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.Util;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
+import net.minecraft.util.Tuple;
 import net.minecraft.world.item.ItemStack;
-import org.joml.Matrix4f;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 import org.slf4j.Logger;
@@ -60,6 +57,7 @@ public class LaserBladeModelV1 extends SimpleLaserBladeModel {
     @Override
     public void render(ItemStack itemStack, ItemTransforms.TransformType mode, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
         LaserBladeItemColor color = new LaserBladeItemColor(itemStack);
+        Arguments args = new Arguments(itemStack, mode, matrices);
         int pushCount = 0;
 
         if (guiResize != null && (mode == ItemTransforms.TransformType.GUI || mode == ItemTransforms.TransformType.FIXED)) {
@@ -76,7 +74,7 @@ public class LaserBladeModelV1 extends SimpleLaserBladeModel {
 
             if (modelObject.isFunction()) {
                 // Function
-                pushCount = modelObject.callFunction(matrices, pushCount);
+                pushCount = modelObject.callFunction(args, pushCount);
                 continue;
             }
 
@@ -91,14 +89,14 @@ public class LaserBladeModelV1 extends SimpleLaserBladeModel {
     }
 
     public static LaserBladeModel parseModel(String name, Reader reader) {
-        JsonModel jsonModel = parseFromJson(name, reader);
+        JsonModelV1 jsonModel = parseFromJson(name, reader);
         return getLaserBladeModel(name, jsonModel);
     }
 
-    private static JsonModel parseFromJson(String name, Reader reader) {
+    private static JsonModelV1 parseFromJson(String name, Reader reader) {
         try {
             Gson gson = (new GsonBuilder()).create();
-            return GsonHelper.fromJson(gson, reader, JsonModel.class);
+            return GsonHelper.fromJson(gson, reader, JsonModelV1.class);
         } catch(JsonParseException e) {
             LOGGER.warn("Failed to load model: {}\n{}", name, e);
         }
@@ -106,7 +104,7 @@ public class LaserBladeModelV1 extends SimpleLaserBladeModel {
         return null;
     }
 
-    private static LaserBladeModel getLaserBladeModel(String name, JsonModel jsonModel) {
+    private static LaserBladeModel getLaserBladeModel(String name, JsonModelV1 jsonModel) {
         if (jsonModel == null || !MODEL_TYPE.equals(jsonModel.type) || jsonModel.id < 0) {
             // Not for me
             return null;
@@ -185,64 +183,17 @@ public class LaserBladeModelV1 extends SimpleLaserBladeModel {
     }
 
     public static class ModelObject {
-        private final static BiFunction<PoseStack, Integer, Integer> FN_NOP = (m, i) -> i;
-        private final static BiFunction<PoseStack, Integer, Integer> FN_ROTATE = (m, i) -> {
-            var minecraft = Minecraft.getInstance();
-            var integratedServer = minecraft.getSingleplayerServer();
-            float angle;
-
-            // Calculate rotation angle
-            if (minecraft.isPaused() && integratedServer != null) {
-                // When the game is paused, rotating parts are fixed at certain angle
-                angle = integratedServer.getTickCount() % 5 * 72;
-            } else {
-                angle = Util.getMillis() % 250L * 1.44F;
-            }
-
-            m.pushPose();
-            m.mulPoseMatrix(new Matrix4f().rotate((float) Math.toRadians(angle), 0.0f, 1.0f, 0.0f));
-            return i + 1;
-        };
-        private final static BiFunction<PoseStack, Integer, Integer> FN_POP_POSE = (m, i) -> {
-            if (i > 0) {
-                m.popPose();
-                return i - 1;
-            } else {
-                return 0;
-            }
-        };
-
-        private final static Predicate<LaserBladeItemColor> IS_ANY_STATE = itemColor -> true;
-        private final static Predicate<LaserBladeItemColor> IS_WORKING = itemColor -> !itemColor.isBroken;
-        private final static Predicate<LaserBladeItemColor> IS_BROKEN = itemColor -> itemColor.isBroken;
-
-        private final static BiFunction<SimpleLaserBladeModel, LaserBladeItemColor, RenderType> GET_DEFAULT_RENDERER = (model, itemColor) -> model.getHiltRenderType();
-        private final static BiFunction<SimpleLaserBladeModel, LaserBladeItemColor, RenderType> GET_UNLIT_RENDERER = (model, itemColor) -> model.getUnlitRenderType();
-        private final static BiFunction<SimpleLaserBladeModel, LaserBladeItemColor, RenderType> GET_INNER_ADD_RENDERER = (model, itemColor) -> model.getInnerBladeAddRenderType(itemColor.isInnerSubColor);
-        private final static BiFunction<SimpleLaserBladeModel, LaserBladeItemColor, RenderType> GET_OUTER_ADD_RENDERER = (model, itemColor) -> model.getOuterBladeAddRenderType(itemColor.isOuterSubColor);
-
-        private final static Function<LaserBladeItemColor, Integer> GET_DEFAULT_COLOR = itemColor -> 0xFFFFFFFF;
-        private final static Function<LaserBladeItemColor, Integer> GET_OFF_COLOR = itemColor -> 0xFFCCCCCC;
-        private final static Function<LaserBladeItemColor, Integer> GET_GRIP_COLOR = itemColor -> itemColor.rawGripColor;
-        private final static Function<LaserBladeItemColor, Integer> GET_INNER_DEFAULT_COLOR = itemColor -> itemColor.simpleInnerColor;
-        private final static Function<LaserBladeItemColor, Integer> GET_OUTER_DEFAULT_COLOR = itemColor -> itemColor.simpleOuterColor;
-        private final static Function<LaserBladeItemColor, Integer> GET_INNER_ADD_COLOR = itemColor -> itemColor.rawInnerColor;
-        private final static Function<LaserBladeItemColor, Integer> GET_OUTER_ADD_COLOR = itemColor -> itemColor.rawOuterColor;
-
-        private final static Function<Integer, Integer> GET_GIVEN_LIGHT = i -> i;
-        private final static Function<Integer, Integer> GET_FULL_LIGHT = i -> 0xF000F0;
-
         private final static Vector2f FIXED_UV = new Vector2f(0, 0);
 
         private boolean isFunction = false;
-        private BiFunction<PoseStack, Integer, Integer> fnCallFunction = FN_NOP;
-        private Predicate<LaserBladeItemColor> fnIsVisible = IS_ANY_STATE;
-        private BiFunction<SimpleLaserBladeModel, LaserBladeItemColor, RenderType> fnGetRenderType = GET_DEFAULT_RENDERER;
-        private Function<LaserBladeItemColor, Integer> fnGetPartColor = GET_DEFAULT_COLOR;
-        private Function<Integer, Integer> fnGetLightColor = GET_GIVEN_LIGHT;
+        private BiFunction<Arguments, Integer, Integer> fnCallFunction = FunctionsV1.FN_NOP;
+        private Predicate<LaserBladeItemColor> fnIsVisible = FunctionsV1.IS_ANY_STATE;
+        private BiFunction<SimpleLaserBladeModel, LaserBladeItemColor, RenderType> fnGetRenderType = FunctionsV1.GET_DEFAULT_RENDERER;
+        private Function<LaserBladeItemColor, Integer> fnGetPartColor = FunctionsV1.GET_DEFAULT_COLOR;
+        private Function<Integer, Integer> fnGetLightColor = FunctionsV1.GET_GIVEN_LIGHT;
         private List<SimpleQuad> quads = Collections.emptyList();
 
-        public ModelObject(String objectName, JsonModel.JsonModelObject object, List<Vector3f> vertices, List<Vector4f> colors, List<Vector3f> normals, List<int[]> faces) {
+        public ModelObject(String objectName, JsonModelV1.JsonModelObject object, List<Vector3f> vertices, List<Vector4f> colors, List<Vector3f> normals, List<int[]> faces) {
             initRenderFunctions(object);
 
             if (!isFunction) {
@@ -250,77 +201,82 @@ public class LaserBladeModelV1 extends SimpleLaserBladeModel {
             }
         }
 
-        private void initRenderFunctions(JsonModel.JsonModelObject object) {
+        private void initRenderFunctions(JsonModelV1.JsonModelObject object) {
             final String type = object.type;
             final String part = object.part;
 
+            // Types and lights
             switch (type) {
                 case "default" -> {}
                 case "unlit" -> {
-                    fnGetRenderType = GET_UNLIT_RENDERER;
-                    fnGetLightColor = GET_FULL_LIGHT;
+                    fnGetRenderType = FunctionsV1.GET_UNLIT_RENDERER;
+                    fnGetLightColor = FunctionsV1.GET_FULL_LIGHT;
                 }
                 case "add" -> {
                     if (part.equals("blade_in")) {
-                        fnGetRenderType = GET_INNER_ADD_RENDERER;
+                        fnGetRenderType = FunctionsV1.GET_INNER_ADD_RENDERER;
                     } else {
-                        fnGetRenderType = GET_OUTER_ADD_RENDERER;
+                        fnGetRenderType = FunctionsV1.GET_OUTER_ADD_RENDERER;
                     }
-                    fnGetLightColor = GET_FULL_LIGHT;
+                    fnGetLightColor = FunctionsV1.GET_FULL_LIGHT;
                 }
                 case "flat" -> {
-                    fnGetRenderType = GET_DEFAULT_RENDERER;
-                    fnGetLightColor = GET_FULL_LIGHT;
+                    fnGetRenderType = FunctionsV1.GET_DEFAULT_RENDERER;
+                    fnGetLightColor = FunctionsV1.GET_FULL_LIGHT;
                 }
                 case "function" -> {
                     isFunction = true;
                 }
                 default -> {
-                    fnGetRenderType = GET_DEFAULT_RENDERER;
-                    fnGetLightColor = GET_GIVEN_LIGHT;
+                    fnGetRenderType = FunctionsV1.GET_DEFAULT_RENDERER;
+                    fnGetLightColor = FunctionsV1.GET_GIVEN_LIGHT;
                 }
             }
 
+            // Functions
             if (isFunction) {
                 switch (object.name) {
-                    case "rotate" -> fnCallFunction = FN_ROTATE;
-                    case "pop_pose" -> fnCallFunction = FN_POP_POSE;
-                    default -> fnCallFunction = FN_NOP;
+                    case "rotate" -> fnCallFunction = FunctionsV1.FN_ROTATE;
+                    case "shield" -> fnCallFunction = FunctionsV1.FN_SHIELD;
+                    case "pop_pose" -> fnCallFunction = FunctionsV1.FN_POP_POSE;
+                    default -> fnCallFunction = FunctionsV1.FN_NOP;
                 }
             }
 
+            // Parts
             switch (part) {
                 case "" -> {}
-                case "grip" -> fnGetPartColor = GET_GRIP_COLOR;
-                case "off" -> fnGetPartColor = GET_OFF_COLOR;
+                case "grip" -> fnGetPartColor = FunctionsV1.GET_GRIP_COLOR;
+                case "off" -> fnGetPartColor = FunctionsV1.GET_OFF_COLOR;
                 case "blade_in" -> {
                     if (type.equals("add")) {
-                        fnGetPartColor = GET_INNER_ADD_COLOR;
+                        fnGetPartColor = FunctionsV1.GET_INNER_ADD_COLOR;
                     } else {
-                        fnGetPartColor = GET_INNER_DEFAULT_COLOR;
+                        fnGetPartColor = FunctionsV1.GET_INNER_DEFAULT_COLOR;
                     }
                 }
                 case "blade_out" -> {
                     if (type.equals("add")) {
-                        fnGetPartColor = GET_OUTER_ADD_COLOR;
+                        fnGetPartColor = FunctionsV1.GET_OUTER_ADD_COLOR;
                     } else {
-                        fnGetPartColor = GET_OUTER_DEFAULT_COLOR;
+                        fnGetPartColor = FunctionsV1.GET_OUTER_DEFAULT_COLOR;
                     }
                 }
-                default -> fnGetPartColor = GET_DEFAULT_COLOR;
+                default -> fnGetPartColor = FunctionsV1.GET_DEFAULT_COLOR;
             }
 
+            // States
             final String state = object.state;
 
             switch (state) {
                 case "any" -> {}
-                case "on" -> fnIsVisible = IS_WORKING;
-                case "off" -> fnIsVisible = IS_BROKEN;
-                default -> fnIsVisible = IS_ANY_STATE;
+                case "on" -> fnIsVisible = FunctionsV1.IS_WORKING;
+                case "off" -> fnIsVisible = FunctionsV1.IS_BROKEN;
+                default -> fnIsVisible = FunctionsV1.IS_ANY_STATE;
             }
         }
 
-        private void initQuads(String objectName, List<Vector3f> vertices, List<Vector4f> colors, List<Vector3f> normals, List<int[]> faces, JsonModel.JsonModelObject object) {
+        private void initQuads(String objectName, List<Vector3f> vertices, List<Vector4f> colors, List<Vector3f> normals, List<int[]> faces, JsonModelV1.JsonModelObject object) {
             List<SimpleQuad> simpleQuads = new ArrayList<>();
             final int from = object.from;
             final int size = object.size;
@@ -367,8 +323,8 @@ public class LaserBladeModelV1 extends SimpleLaserBladeModel {
             return isFunction;
         }
 
-        public int callFunction(PoseStack poseStack, int stackIndex) {
-            return fnCallFunction.apply(poseStack, stackIndex);
+        public int callFunction(Arguments args, int stackIndex) {
+            return fnCallFunction.apply(args, stackIndex);
         }
 
         public boolean isVisible(LaserBladeItemColor itemColor) {
@@ -392,27 +348,5 @@ public class LaserBladeModelV1 extends SimpleLaserBladeModel {
         }
     }
 
-    public static class JsonModel {
-        public String type = "";
-        public int id = -1;
-        @SerializedName("renderer_id")
-        public int rendererID = 0;
-        @SerializedName("gui_resize")
-        public float[] guiResize = null;
-        public List<JsonModelObject> objects = Collections.emptyList();
-        public List<int[]> faces = Collections.emptyList();
-        public List<float[]> vertices = Collections.emptyList();
-        public List<float[]> normals = Collections.emptyList();
-        public List<float[]> colors = Collections.emptyList();
-
-        public static class JsonModelObject {
-            public String type = "default";
-            public String name = "";
-            public String part = "";
-            public String state = "any";
-            public int from = 0;
-            public int size = 0;
-        }
-    }
-
+    public record Arguments(ItemStack itemStack, ItemTransforms.TransformType mode, PoseStack matrices) {}
 }

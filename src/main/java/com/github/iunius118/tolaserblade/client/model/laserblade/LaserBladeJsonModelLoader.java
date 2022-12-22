@@ -2,6 +2,7 @@ package com.github.iunius118.tolaserblade.client.model.laserblade;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.api.client.model.LaserBladeModel;
+import com.github.iunius118.tolaserblade.client.model.laserblade.v1.LaserBladeModelV1;
 import net.minecraft.server.packs.resources.Resource;
 import org.slf4j.Logger;
 

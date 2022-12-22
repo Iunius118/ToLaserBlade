@@ -3,7 +3,7 @@ package com.github.iunius118.tolaserblade.client.model;
 import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.api.client.model.LaserBladeModel;
 import com.github.iunius118.tolaserblade.client.model.laserblade.LaserBladeJsonModelLoader;
-import com.github.iunius118.tolaserblade.client.model.laserblade.LaserBladeModelV1;
+import com.github.iunius118.tolaserblade.client.model.laserblade.v1.LaserBladeModelV1;
 import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeVisual;
 import net.minecraft.client.Minecraft;
