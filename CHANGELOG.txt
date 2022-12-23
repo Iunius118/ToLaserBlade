@@ -3,6 +3,8 @@
 [Source](https://github.com/Iunius118/ToLaserBlade).
 
 ## [Unreleased]
+
+## [1.19.3-6.0.0.0-beta.2]
 ### Added
 - New function `shield` to laser blade json model.
 
