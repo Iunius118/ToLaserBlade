@@ -148,6 +148,12 @@ You can add audio files that will be played when laser blades are swung.
 - Server-side settings: `(world_save_dir)/serverconfig/tolaserblade-server.toml`
 - Client-side settings: `(game_dir)/config/tolaserblade-client.toml`
 
+## Related Mod
+### ToLaserBlade-ExtraModels
+A ToLaserBlade add-on to add more laser blade shapes.
+
+https://www.curseforge.com/minecraft/mc-mods/tolaserblade-extramodels
+
 ## FAQ
 ### Didn't Laser Blade support OptiFine's Dynamic Lights before?
 Use H1 or later.
