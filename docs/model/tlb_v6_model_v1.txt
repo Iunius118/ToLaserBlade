@@ -5,7 +5,7 @@
   "type": "tolaserblade:model_v1",
   "id": 0,
   "renderer_id": 0,
-  "gui_resize": [0,0,1],
+  "gui_resize": [1,0,0],
   "objects": [
     {"type": "default",  "part": "grip",      "state": "any", "from": 0, "size": 1},
     {"type": "default",  "part": "off",       "state": "off", "from": 0, "size": 1},
