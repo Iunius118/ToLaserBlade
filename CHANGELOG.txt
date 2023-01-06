@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+## [1.19.3-6.0.0.0]
+### Changed
+- Require Forge 1.19.3-44.1.0+.
+
 ## [1.19.3-6.0.0.0-beta.2]
 ### Added
 - New function `shield` to laser blade json model.
