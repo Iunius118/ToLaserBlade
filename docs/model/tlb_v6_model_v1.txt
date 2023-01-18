@@ -54,7 +54,7 @@ type: string of renderer name or `function`
 
 - Renderer names : renderer used for each geometry
   - default: affected by ambient light and shade
-  - flat: affected by ambient light, not affected by shade
+  - flat: not affected by ambient light, affected by shade
   - unlit: not affected by ambient light and shade, always bright
   - add: rendered with additive color mixing
 - Function: calls function, geometry not included, `name` element is required
