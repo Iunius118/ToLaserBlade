@@ -4,7 +4,7 @@
 
 ## [Unreleased]
 ### Added
-- Add laser blades of extra shapes to mod creative mode tab.
+- Laser blades of extra shapes to mod creative mode tab.
 
 ## [1.19.3-6.0.0.0]
 ### Changed

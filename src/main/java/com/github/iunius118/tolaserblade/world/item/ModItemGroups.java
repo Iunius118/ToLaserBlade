@@ -12,11 +12,11 @@ import net.minecraftforge.eventbus.api.SubscribeEvent;
 import java.util.List;
 
 public class ModItemGroups {
-    public static CreativeModeTab TO_LASER_BLADE_MAIN;
+    public static CreativeModeTab TAB_LASER_BLADE;
 
     @SubscribeEvent
     public static void onCreativeModeTabRegister(CreativeModeTabEvent.Register event) {
-        TO_LASER_BLADE_MAIN = event.registerCreativeModeTab(new ResourceLocation(ToLaserBlade.MOD_ID, "main"),
+        TAB_LASER_BLADE = event.registerCreativeModeTab(new ResourceLocation(ToLaserBlade.MOD_ID, "main"),
                 builder -> builder.icon(LaserBladeItemStack.ICON::getCopy)
                         .title(Component.translatable("itemGroup.tolaserblade"))
                         .displayItems((features, output, hasPermissions) -> {
@@ -62,7 +62,7 @@ public class ModItemGroups {
 
     @SubscribeEvent
     public static void onCreativeModeTabBuildContents(CreativeModeTabEvent.BuildContents event) {
-        if (event.getTab() != ModItemGroups.TO_LASER_BLADE_MAIN)
+        if (event.getTab() != ModItemGroups.TAB_LASER_BLADE)
             return;
 
         // Register model-changed laser blades to mod creative mode tab
