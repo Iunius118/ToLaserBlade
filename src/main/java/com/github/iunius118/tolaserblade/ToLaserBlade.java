@@ -39,8 +39,8 @@ public class ToLaserBlade {
 
         // Register event handlers
         RegistryEventHandler.registerGameObjects(modEventBus);
-        modEventBus.addListener(ModItemGroups::onCreativeModeTabRegister);
         modEventBus.addListener(this::gatherData);
+        modEventBus.register(ModItemGroups.class);
         MinecraftForge.EVENT_BUS.register(CommonEventHandler.class);
         MinecraftForge.EVENT_BUS.register(ItemEventHandler.class);
 

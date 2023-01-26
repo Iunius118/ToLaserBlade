@@ -1,16 +1,22 @@
 package com.github.iunius118.tolaserblade.world.item;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
+import com.github.iunius118.tolaserblade.client.model.LaserBladeModelManager;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.CreativeModeTab;
+import net.minecraft.world.item.ItemStack;
 import net.minecraftforge.event.CreativeModeTabEvent;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
+
+import java.util.List;
 
 public class ModItemGroups {
-    public static CreativeModeTab ITEM_GROUP;
+    public static CreativeModeTab TO_LASER_BLADE_MAIN;
 
+    @SubscribeEvent
     public static void onCreativeModeTabRegister(CreativeModeTabEvent.Register event) {
-        ITEM_GROUP = event.registerCreativeModeTab(new ResourceLocation(ToLaserBlade.MOD_ID, "main"),
+        TO_LASER_BLADE_MAIN = event.registerCreativeModeTab(new ResourceLocation(ToLaserBlade.MOD_ID, "main"),
                 builder -> builder.icon(LaserBladeItemStack.ICON::getCopy)
                         .title(Component.translatable("itemGroup.tolaserblade"))
                         .displayItems((features, output, hasPermissions) -> {
@@ -18,7 +24,6 @@ public class ModItemGroups {
                             output.accept(ModItems.DX_LASER_BLADE);
                             // Laser Blades
                             output.accept(ModItems.LASER_BLADE);
-                            output.accept(LaserBladeItemStack.MODEL_TYPE_526.getCopy());
                             output.accept(LaserBladeItemStack.LIGHT_ELEMENT_1.getCopy());
                             output.accept(LaserBladeItemStack.LIGHT_ELEMENT_2.getCopy());
                             output.accept(LaserBladeItemStack.GIFT.getCopy());
@@ -53,5 +58,20 @@ public class ModItemGroups {
                             output.accept(ModItems.LB_CASING_FP);
                         })
         );
+    }
+
+    @SubscribeEvent
+    public static void onCreativeModeTabBuildContents(CreativeModeTabEvent.BuildContents event) {
+        if (event.getTab() != ModItemGroups.TO_LASER_BLADE_MAIN)
+            return;
+
+        // Register model-changed laser blades to mod creative mode tab
+        List<Integer> modelTypes = LaserBladeModelManager.getInstance().getModels().keySet().stream().sorted().toList();
+        for (int modelType : modelTypes) {
+            if (modelType != 0) {
+                ItemStack laserBlade = LaserBladeItemStack.getModelChangedStack(modelType, false);
+                event.accept(laserBlade);
+            }
+        }
     }
 }

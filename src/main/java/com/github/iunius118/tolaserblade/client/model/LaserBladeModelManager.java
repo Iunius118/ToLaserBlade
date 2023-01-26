@@ -161,4 +161,8 @@ public class LaserBladeModelManager {
             return defaultModel;
         }
     }
+
+    public Map<Integer, LaserBladeModel> getModels() {
+        return models;
+    }
 }

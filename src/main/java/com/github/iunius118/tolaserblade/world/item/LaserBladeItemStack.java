@@ -13,7 +13,7 @@ import java.util.function.Supplier;
 public enum LaserBladeItemStack {
     ORIGINAL(() -> new ItemStack(ModItems.LASER_BLADE)),
     ICON(LaserBladeItemStack::getIconStack),
-    MODEL_TYPE_526(LaserBladeItemStack::getModelType526Stack),
+    MODEL_TYPE_526(() -> getModelChangedStack(526, false)),
     LIGHT_ELEMENT_1(() -> getLightElementStack(1)),
     LIGHT_ELEMENT_2(() -> getLightElementStack(2)),
     GIFT(LaserBladeItemStack::getGiftStack),
@@ -46,12 +46,10 @@ public enum LaserBladeItemStack {
         return stack;
     }
 
-    private static ItemStack getModelType526Stack() {
-        ItemStack stack = new ItemStack(ModItems.LASER_BLADE);
+    public static ItemStack getModelChangedStack(int type, boolean isFireproof) {
+        ItemStack stack = new ItemStack(isFireproof ? ModItems.LASER_BLADE_FP : ModItems.LASER_BLADE);
         LaserBladeVisual visual = LaserBlade.visualOf(stack);
-        LaserBladeVisual.PartColor gripColor = visual.getGripColor();
-        gripColor.color = LaserBladeColor.GRAY.getGripColor();
-        visual.setModelType(526);
+        visual.setModelType(type);
         visual.write(stack.getOrCreateTag());
         return stack;
     }
