@@ -3,8 +3,10 @@
 [Source](https://github.com/Iunius118/ToLaserBlade).
 
 ## [Unreleased]
+
+## [1.19.3-6.0.1.0]
 ### Added
-- Laser blades of extra shapes to mod creative mode tab.
+- Laser blades of additional shapes to creative mode tab.
 
 ## [1.19.3-6.0.0.0]
 ### Changed
