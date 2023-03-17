@@ -12,10 +12,9 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
-import net.minecraft.util.Tuple;
+import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
@@ -55,12 +54,12 @@ public class LaserBladeModelV1 extends SimpleLaserBladeModel {
     }
 
     @Override
-    public void render(ItemStack itemStack, ItemTransforms.TransformType mode, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
+    public void render(ItemStack itemStack, ItemDisplayContext mode, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
         LaserBladeItemColor color = new LaserBladeItemColor(itemStack);
         Arguments args = new Arguments(itemStack, mode, matrices);
         int pushCount = 0;
 
-        if (guiResize != null && (mode == ItemTransforms.TransformType.GUI || mode == ItemTransforms.TransformType.FIXED)) {
+        if (guiResize != null && (mode == ItemDisplayContext.GUI || mode == ItemDisplayContext.FIXED)) {
             // Adjust model size and position to GUI or item frame
             // scale(guiResize.x) -> translate(guiResize.y, guiResize.z)
             matrices.translate(0, guiResize.y(), guiResize.z());
@@ -348,5 +347,5 @@ public class LaserBladeModelV1 extends SimpleLaserBladeModel {
         }
     }
 
-    public record Arguments(ItemStack itemStack, ItemTransforms.TransformType mode, PoseStack matrices) {}
+    public record Arguments(ItemStack itemStack, ItemDisplayContext mode, PoseStack matrices) {}
 }

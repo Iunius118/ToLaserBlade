@@ -6,7 +6,7 @@ import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.world.item.ItemDisplayContext;
 import org.joml.Matrix4f;
 
 import java.util.function.BiFunction;
@@ -58,7 +58,7 @@ public class FunctionsV1 {
     // GUI_TRANSFORMATION: matrices.translate(0.15625D, 0.75D, -0.15D); matrices.mulPose(GUI_TRANSFORMATION); matrices.scale(0.95F, 0.95F, 0.95F);
     private static final Matrix4f GUI_TRANSFORMATION = new Matrix4f(-0.95F, 0, 0, 0, 0, 0, 0.95F, 0, 0, 0.95F, 0, 0, 0.15625F, 0.75F, -0.15F, 1);
 
-    private static void transformShield(ItemTransforms.TransformType mode, PoseStack matrices) {
+    private static void transformShield(ItemDisplayContext mode, PoseStack matrices) {
         switch (mode) {
             case FIRST_PERSON_RIGHT_HAND -> matrices.mulPoseMatrix(FP_RIGHT_HAND_TRANSFORMATION);
             case FIRST_PERSON_LEFT_HAND -> matrices.mulPoseMatrix(FP_LEFT_HAND_TRANSFORMATION);

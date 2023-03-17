@@ -151,7 +151,6 @@ public class LaserBladeRenderType {
 
         @Override
         public void setupRenderState() {
-            RenderSystem.enableTexture();
             TextureManager texturemanager = Minecraft.getInstance().getTextureManager();
             texturemanager.bindForSetup(TEXTURE);
             texturemanager.getTexture(TEXTURE).setFilter(false, false);

@@ -48,7 +48,6 @@ public class LaserTrapParticle extends Particle {
         RenderSystem.disableBlend();
         RenderSystem.depthMask(true);
         RenderSystem.setShader(GameRenderer::getPositionColorShader);
-        RenderSystem.disableTexture();
 
         var bufferBuilder = (BufferBuilder) vertexConsumer;
         bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
