@@ -16,5 +16,6 @@
   ],
   "result": {
     "item": "tolaserblade:dx_laser_blade"
-  }
+  },
+  "show_notification": true
 }
