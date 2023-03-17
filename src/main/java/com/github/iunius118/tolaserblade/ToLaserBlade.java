@@ -9,7 +9,6 @@ import com.github.iunius118.tolaserblade.world.item.ItemEventHandler;
 import com.github.iunius118.tolaserblade.world.item.ModItemGroups;
 import com.mojang.logging.LogUtils;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.common.data.ForgeBlockTagsProvider;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
@@ -67,12 +66,13 @@ public class ToLaserBlade {
         var packOutput = dataGenerator.getPackOutput();
         var lookupProvider = event.getLookupProvider();
         var existingFileHelper = event.getExistingFileHelper();
-        ForgeBlockTagsProvider blockTags = new ForgeBlockTagsProvider(packOutput, lookupProvider, existingFileHelper);
+        var blockTagsProvider = new TLBBlockTagsProvider(packOutput, lookupProvider, existingFileHelper);
 
         // Server
         boolean includesServer = event.includeServer();
         dataGenerator.addProvider(includesServer, new TLBRecipeProvider(packOutput));
-        dataGenerator.addProvider(includesServer, new TLBItemTagsProvider(packOutput, lookupProvider, blockTags, existingFileHelper));
+        dataGenerator.addProvider(includesServer, blockTagsProvider);
+        dataGenerator.addProvider(includesServer, new TLBItemTagsProvider(packOutput, lookupProvider, blockTagsProvider.contentsGetter(), existingFileHelper));
         dataGenerator.addProvider(includesServer, new TLBAdvancementProvider(packOutput, lookupProvider, existingFileHelper));
 
         // Client
