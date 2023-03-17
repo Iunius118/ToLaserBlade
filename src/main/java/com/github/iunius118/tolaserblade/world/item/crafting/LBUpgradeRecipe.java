@@ -6,6 +6,7 @@ import com.github.iunius118.tolaserblade.core.laserblade.upgrade.UpgradeID;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.UpgradeManager;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.UpgradeResult;
 import com.google.gson.JsonObject;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
@@ -15,15 +16,15 @@ import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.LegacyUpgradeRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.UpgradeRecipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 
 import javax.annotation.Nullable;
 
-public class LBUpgradeRecipe extends UpgradeRecipe {
+public class LBUpgradeRecipe extends LegacyUpgradeRecipe {
     private final Ingredient base;
     private final Ingredient addition;
     private final ResourceLocation upgradeId;
@@ -62,7 +63,7 @@ public class LBUpgradeRecipe extends UpgradeRecipe {
     }
 
     @Override
-    public ItemStack assemble(Container container) {
+    public ItemStack assemble(Container container, RegistryAccess registryAccess) {
         ItemStack baseStack = container.getItem(0);
         ItemStack itemstack = baseStack.copy();
         return getUpgradingResult(itemstack);
@@ -89,10 +90,10 @@ public class LBUpgradeRecipe extends UpgradeRecipe {
     }
 
     @Override
-    public ItemStack getResultItem() {
+    public ItemStack getResultItem(RegistryAccess registryAccess) {
         if (sample != null) return sample;
 
-        ItemStack output = super.getResultItem();
+        ItemStack output = super.getResultItem(registryAccess);
         sample = output.copy();
 
         if (sample.isEmpty()) {

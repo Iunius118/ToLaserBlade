@@ -89,13 +89,13 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
     }
 
     private void addSmithingRecipe(Ingredient base, Ingredient addition, Item result, Item criterionItem, Consumer<FinishedRecipe> consumer) {
-        UpgradeRecipeBuilder.smithing(base, addition, RecipeCategory.MISC, result)
+        LegacyUpgradeRecipeBuilder.smithing(base, addition, RecipeCategory.MISC, result)
                 .unlocks("has_" + getItemId(criterionItem).getPath(), has(criterionItem))
                 .save(consumer, getItemId(result).toString() + "_smithing");
     }
 
     private void addSmithingRepairRecipe(String shortName, Item base, Ingredient addition, Item result, Item criterionItem, Consumer<FinishedRecipe> consumer) {
-        UpgradeRecipeBuilder.smithing(Ingredient.of(base), addition, RecipeCategory.MISC, result)
+        LegacyUpgradeRecipeBuilder.smithing(Ingredient.of(base), addition, RecipeCategory.MISC, result)
                 .unlocks("has_" + getItemId(criterionItem).getPath(), has(criterionItem))
                 .save(consumer, ToLaserBlade.MOD_ID + ":repair_" + shortName + "_smithing");
     }

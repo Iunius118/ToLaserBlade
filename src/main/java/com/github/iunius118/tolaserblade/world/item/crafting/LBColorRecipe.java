@@ -6,21 +6,22 @@ import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeColorPart;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeVisual;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+import net.minecraft.world.item.crafting.LegacyUpgradeRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
-import net.minecraft.world.item.crafting.UpgradeRecipe;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.Blocks;
 
 import javax.annotation.Nullable;
 
-public class LBColorRecipe extends UpgradeRecipe {
+public class LBColorRecipe extends LegacyUpgradeRecipe {
     private final Ingredient base;
     private final Ingredient addition;
     private final LaserBladeColorPart part;
@@ -75,7 +76,7 @@ public class LBColorRecipe extends UpgradeRecipe {
     }
 
     @Override
-    public ItemStack assemble(Container container) {
+    public ItemStack assemble(Container container, RegistryAccess registryAccess) {
         ItemStack baseStack = container.getItem(0);
         ItemStack itemstack = baseStack.copy();
         return getColoringResult(itemstack);
@@ -117,10 +118,10 @@ public class LBColorRecipe extends UpgradeRecipe {
     }
 
     @Override
-    public ItemStack getResultItem() {
+    public ItemStack getResultItem(RegistryAccess registryAccess) {
         if (sample != null) return sample;
 
-        ItemStack output = super.getResultItem();
+        ItemStack output = super.getResultItem(registryAccess);
 
         if (output.isEmpty()) {
             sample = ItemStack.EMPTY;
