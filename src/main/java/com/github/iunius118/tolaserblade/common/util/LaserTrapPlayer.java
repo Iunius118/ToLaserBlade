@@ -8,7 +8,6 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.damagesource.DamageSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -66,7 +65,7 @@ public class LaserTrapPlayer extends FakePlayer {
         for (var targetEntity : targetEntities) {
             float totalDamage = attackDamage + getDamageBonus(itemStack, targetEntity);
             if (canBurn(targetEntity, fireLevel)) targetEntity.setSecondsOnFire(Math.min(fireLevel, 1));
-            targetEntity.hurt(DamageSource.playerAttack(this), totalDamage);
+            targetEntity.hurt(damageSources().playerAttack(this), totalDamage);
             EnchantmentHelper.doPostDamageEffects(this, targetEntity);
         }
 
