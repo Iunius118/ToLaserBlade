@@ -1,6 +1,6 @@
 
 modLoader="javafml"
-loaderVersion="[44,)"
+loaderVersion="[45,)"
 license="All rights reserved"
 issueTrackerURL="https://github.com/Iunius118/ToLaserBlade/issues"
 
@@ -18,12 +18,12 @@ description="Adds a Laser Blade."
 [[dependencies.tolaserblade]]
     modId="forge"
     mandatory=true
-    versionRange="[44,)"
+    versionRange="[45,)"
     ordering="NONE"
     side="BOTH"
 [[dependencies.tolaserblade]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.19.3,1.20)"
+    versionRange="[1.19.4,1.20)"
     ordering="NONE"
     side="BOTH"
