@@ -19,7 +19,7 @@ public class ModItemGroups {
         TAB_LASER_BLADE = event.registerCreativeModeTab(new ResourceLocation(ToLaserBlade.MOD_ID, "main"),
                 builder -> builder.icon(LaserBladeItemStack.ICON::getCopy)
                         .title(Component.translatable("itemGroup.tolaserblade"))
-                        .displayItems((features, output, hasPermissions) -> {
+                        .displayItems((params, output) -> {
                             // DX Laser B1ade
                             output.accept(ModItems.DX_LASER_BLADE);
                             // Laser Blades
