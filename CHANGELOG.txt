@@ -9,6 +9,9 @@
 - Port to 1.19.4.
 - Require Forge 1.19.4-45.0.9+.
 
+### Fixed
+- LaserBladeModel in ToLaserBlade API.
+
 ## [1.19.3-6.0.1.0]
 ### Added
 - Laser blades of additional shapes to creative mode tab.
