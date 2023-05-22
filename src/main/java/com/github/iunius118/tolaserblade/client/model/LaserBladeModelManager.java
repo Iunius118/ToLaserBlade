@@ -1,6 +1,7 @@
 package com.github.iunius118.tolaserblade.client.model;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
+import com.github.iunius118.tolaserblade.api.client.event.LaserBladeModelRegistrationEvent;
 import com.github.iunius118.tolaserblade.api.client.model.LaserBladeModel;
 import com.github.iunius118.tolaserblade.client.model.laserblade.LaserBladeJsonModelLoader;
 import com.github.iunius118.tolaserblade.client.model.laserblade.v1.LaserBladeModelV1;
@@ -11,6 +12,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.fml.ModLoader;
 import org.slf4j.Logger;
 
 import java.util.*;
@@ -31,6 +33,10 @@ public class LaserBladeModelManager {
         return INSTANCE;
     }
 
+    public static List<LaserBladeModel> loadModels() {
+        return parseJsonModels();
+    }
+
     public void reload() {
         canUseOriginalModelType = ToLaserBladeConfig.CLIENT.useOriginalModelType.get();
         canUseMultipleModels = ToLaserBladeConfig.CLIENT.renderMultipleModels.get();
@@ -42,8 +48,11 @@ public class LaserBladeModelManager {
             return;
         }
 
+        // Clear model cache
+        models = new HashMap<>();
+
         // Load models
-        models = parseJsonModels();
+        ModLoader.get().postEvent(new LaserBladeModelRegistrationEvent(models -> models.forEach(this::addModel)));
 
         // Set default model
         int defaultModelNumber = ToLaserBladeConfig.CLIENT.defaultModel.get();
@@ -68,21 +77,21 @@ public class LaserBladeModelManager {
         }
     }
 
-    private Map<Integer, LaserBladeModel> parseJsonModels() {
+    private static List<LaserBladeModel> parseJsonModels() {
         Map<ResourceLocation, Resource> resourceMap = findJsonFiles();
-        Map<Integer, LaserBladeModel> jsonModels = new HashMap<>();
+        List<LaserBladeModel> jsonModels = new LinkedList<>();
 
         resourceMap.forEach((location, resource) -> {
             LaserBladeModel model = LaserBladeJsonModelLoader.parse(location.toString(), resource);
             if (model != null) {
-                jsonModels.put(model.getID(), model);
+                jsonModels.add(model);
             }
         });
 
         return jsonModels;
     }
 
-    private Map<ResourceLocation, Resource> findJsonFiles() {
+    private static Map<ResourceLocation, Resource> findJsonFiles() {
         ResourceManager resourceManager = Minecraft.getInstance().getResourceManager();
 
         // Search resource packs for .json files

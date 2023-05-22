@@ -1,6 +1,7 @@
 package com.github.iunius118.tolaserblade.client;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
+import com.github.iunius118.tolaserblade.api.client.event.LaserBladeModelRegistrationEvent;
 import com.github.iunius118.tolaserblade.client.color.item.LBCasingItemColor;
 import com.github.iunius118.tolaserblade.client.color.item.LBEmitterItemColor;
 import com.github.iunius118.tolaserblade.client.color.item.LBMediumItemColor;
@@ -84,6 +85,11 @@ public class ClientModEventHandler {
         models.put(lBBrokenFPItemID, bakedModel);
     }
 
+    @SubscribeEvent
+    public static void onLaserBladeModelRegistrationEvent(LaserBladeModelRegistrationEvent event) {
+        event.register(LaserBladeModelManager.loadModels());
+    }
+
     private static ResourceLocation getItemId(Item item) {
         return ForgeRegistries.ITEMS.getKey(item);
     }
@@ -102,9 +108,9 @@ public class ClientModEventHandler {
 
     @SubscribeEvent
     public static void onParticleFactoryRegisterEvent(RegisterParticleProvidersEvent event) {
-        event.register(ModParticleTypes.LASER_TRAP_X, new LaserTrapParticle.Provider(Direction.Axis.X));
-        event.register(ModParticleTypes.LASER_TRAP_Y, new LaserTrapParticle.Provider(Direction.Axis.Y));
-        event.register(ModParticleTypes.LASER_TRAP_Z, new LaserTrapParticle.Provider(Direction.Axis.Z));
+        event.registerSpecial(ModParticleTypes.LASER_TRAP_X, new LaserTrapParticle.Provider(Direction.Axis.X));
+        event.registerSpecial(ModParticleTypes.LASER_TRAP_Y, new LaserTrapParticle.Provider(Direction.Axis.Y));
+        event.registerSpecial(ModParticleTypes.LASER_TRAP_Z, new LaserTrapParticle.Provider(Direction.Axis.Z));
     }
 
     public static void checkUpdate() {
