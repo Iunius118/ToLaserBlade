@@ -4,6 +4,15 @@
 
 ## [Unreleased]
 
+## [1.19.4-6.2.0.0]
+### Added
+- LaserBladeModelRegistrationEvent to ToLaserBlade API.
+- LaserBladeState to ToLaserBlade API.
+
+### Changed
+- Require Forge 1.19.4-45.0.64+.
+- Update ToLaserBladeAPI.
+
 ## [1.19.4-6.1.0.0]
 ### Changed
 - Port to 1.19.4.
