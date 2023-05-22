@@ -2,9 +2,7 @@ package com.github.iunius118.tolaserblade.world.item;
 
 import com.github.iunius118.tolaserblade.common.util.ModSoundEvents;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBlade;
-import com.github.iunius118.tolaserblade.core.laserblade.LaserBladePerformance;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeTextKey;
-import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeVisual;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.Upgrade;
 import net.minecraft.ChatFormatting;
 import net.minecraft.network.chat.Component;
@@ -43,23 +41,22 @@ public class LaserBladeItemUtil {
 
     @OnlyIn(Dist.CLIENT)
     public static void addLaserBladeInformation(ItemStack itemStack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag, Upgrade.Type upgradeType) {
-        LaserBlade laserBlade = LaserBlade.of(itemStack);
-        boolean isFireResistant = laserBlade.isFireResistant();
+        boolean isFireResistant = itemStack.getItem().isFireResistant();
+        var laserBlade = LaserBlade.of(itemStack);
 
         if (isFireResistant) {
             tooltip.add(LaserBladeTextKey.KEY_TOOLTIP_FIREPROOF.translate().withStyle(ChatFormatting.GOLD));
         }
 
         switch (upgradeType) {
-            case BATTERY -> addAttackSpeed(tooltip, laserBlade.getAttackPerformance().speed);
-            case MEDIUM -> addAttackDamage(tooltip, laserBlade.getAttackPerformance().damage);
+            case BATTERY -> addAttackSpeed(tooltip, laserBlade.getSpeed());
+            case MEDIUM -> addAttackDamage(tooltip, laserBlade.getDamage());
             case EMITTER -> {}
             case CASING, OTHER -> addModelType(tooltip, laserBlade);
             case REPAIR -> {
                 addModelType(tooltip, laserBlade);
-                LaserBladePerformance.AttackPerformance attack = laserBlade.getAttackPerformance();
-                addAttackDamage(tooltip, attack.damage);
-                addAttackSpeed(tooltip, attack.speed);
+                addAttackDamage(tooltip, laserBlade.getDamage());
+                addAttackSpeed(tooltip, laserBlade.getSpeed());
             }
             default -> {}
         }
@@ -74,12 +71,11 @@ public class LaserBladeItemUtil {
 
     @OnlyIn(Dist.CLIENT)
     private static void addModelType(List<Component> tooltip, LaserBlade laserBlade) {
-            LaserBladeVisual visual = laserBlade.getVisual();
-            int modelType = visual.getModelType();
+        int modelType = laserBlade.getType();
 
-            if (modelType >= 0) {
-                tooltip.add(LaserBladeTextKey.KEY_TOOLTIP_MODEL.translate(modelType).withStyle(ChatFormatting.DARK_GRAY));
-            }
+        if (modelType >= 0) {
+            tooltip.add(LaserBladeTextKey.KEY_TOOLTIP_MODEL.translate(modelType).withStyle(ChatFormatting.DARK_GRAY));
+        }
     }
 
     @OnlyIn(Dist.CLIENT)

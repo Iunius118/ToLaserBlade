@@ -1,7 +1,6 @@
 package com.github.iunius118.tolaserblade.world.item;
 
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBlade;
-import com.github.iunius118.tolaserblade.core.laserblade.LaserBladePerformance;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeVisual;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.Upgrade;
 import net.minecraft.network.chat.Component;
@@ -56,20 +55,16 @@ public class LBDisassembledItem extends Item implements LaserBladeItemBase {
         ItemStack casingStack = new ItemStack(itemStack.getItem().isFireResistant() ? ModItems.LB_CASING_FP : ModItems.LB_CASING);
 
         LaserBlade laserBlade = LaserBlade.of(itemStack);
-        LaserBlade battery = LaserBlade.of(batteryStack);
-        LaserBlade medium = LaserBlade.of(mediumStack);
-        LaserBlade emitter = LaserBlade.of(emitterStack);
-        LaserBlade casing = LaserBlade.of(casingStack);
+        LaserBlade.Writer battery = LaserBlade.Writer.of(batteryStack);
+        LaserBlade.Writer medium = LaserBlade.Writer.of(mediumStack);
+        LaserBlade.Writer emitter = LaserBlade.Writer.of(emitterStack);
+        LaserBlade.Writer casing = LaserBlade.Writer.of(casingStack);
 
         Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(itemStack);
 
         // Process attacks
-        LaserBladePerformance.AttackPerformance laserBladeAttack = laserBlade.getAttackPerformance();
-        LaserBladePerformance.AttackPerformance batteryAttack = battery.getAttackPerformance();
-        LaserBladePerformance.AttackPerformance mediumAttack = medium.getAttackPerformance();
-
-        batteryAttack.changeSpeedSafely(laserBladeAttack.speed);
-        mediumAttack.changeDamageSafely(laserBladeAttack.damage);
+        battery.writeSpeed(laserBlade.getSpeed());
+        medium.writeDamage(laserBlade.getDamage());
 
         // Process enchantments
         enchantments.forEach((enchantment, lvl) -> {
@@ -98,37 +93,24 @@ public class LBDisassembledItem extends Item implements LaserBladeItemBase {
 
         // Process colors
         LaserBladeVisual laserBladeVisual = laserBlade.getVisual();
-        LaserBladeVisual mediumVisual = medium.getVisual();
-        LaserBladeVisual emitterVisual = emitter.getVisual();
-        LaserBladeVisual casingVisual = casing.getVisual();
+        LaserBladeVisual.Writer mediumVisual = LaserBladeVisual.Writer.of(mediumStack);
+        LaserBladeVisual.Writer emitterVisual = LaserBladeVisual.Writer.of(emitterStack);
+        LaserBladeVisual.Writer casingVisual = LaserBladeVisual.Writer.of(casingStack);
 
-        LaserBladeVisual.PartColor laserBladeOuterColor = laserBladeVisual.getOuterColor();
-        LaserBladeVisual.PartColor laserBladeInnerColor = laserBladeVisual.getInnerColor();
-        LaserBladeVisual.PartColor laserBladeGripColor = laserBladeVisual.getGripColor();
-
-        LaserBladeVisual.PartColor mediumOuterColor = mediumVisual.getOuterColor();
-        LaserBladeVisual.PartColor emitterInnerColor = emitterVisual.getInnerColor();
-        LaserBladeVisual.PartColor casingGripColor = casingVisual.getGripColor();
-
-        mediumOuterColor.color = laserBladeOuterColor.color;
-        mediumOuterColor.isSubtractColor = laserBladeOuterColor.isSubtractColor;
-
-        emitterInnerColor.color = laserBladeInnerColor.color;
-        emitterInnerColor.isSubtractColor = laserBladeInnerColor.isSubtractColor;
-
-        casingGripColor.color = laserBladeGripColor.color;
-        casingVisual.setModelType(laserBladeVisual.getModelType());
+        mediumVisual
+                .writeOuterColor(laserBladeVisual.getOuterColor())
+                .writeIsOuterSubColor(laserBladeVisual.isOuterSubColor());
+        emitterVisual
+                .writeInnerColor(laserBladeVisual.getInnerColor())
+                .writeIsInnerSubColor(laserBladeVisual.isInnerSubColor());
+        casingVisual
+                .writeGripColor(laserBladeVisual.getGripColor())
+                .writeModelType(laserBladeVisual.getModelType());
 
         // Process display name
         if (itemStack.hasCustomHoverName()) {
             casingStack.setHoverName(itemStack.getHoverName());
         }
-
-        // Write to stack
-        battery.write(batteryStack);
-        medium.write(mediumStack);
-        emitter.write(emitterStack);
-        casing.write(casingStack);
 
         // Drop items
         dropItem(batteryStack, player);

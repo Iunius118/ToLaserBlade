@@ -1,7 +1,7 @@
 package com.github.iunius118.tolaserblade.common.util;
 
 import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
-import com.github.iunius118.tolaserblade.core.laserblade.LaserBlade;
+import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeVisual;
 import com.github.iunius118.tolaserblade.core.particle.ModParticleTypes;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.core.BlockPos;
@@ -105,9 +105,9 @@ public class LaserTrapPlayer extends FakePlayer {
 
         var laserTrapParticleType = ModParticleTypes.getLaserTrapParticleType(dir.getAxis());
         var vecPos = new Vec3(effectPos.getX(), effectPos.getY(), effectPos.getZ()).add(0.5, 0.5, 0.5);
-        var laserBladeVisual = LaserBlade.visualOf(itemStack);
-        var outerColor = laserBladeVisual.getOuterColor();
-        var color4F = Color4F.of((outerColor.isSubtractColor ? ~outerColor.color : outerColor.color) | 0xFF000000);
+        var visual = LaserBladeVisual.of(itemStack);
+        int outerColor = visual.getOuterColor();
+        var color4F = Color4F.of((visual.isOuterSubColor() ? ~outerColor : outerColor) | 0xFF000000);
         serverLevel.sendParticles(laserTrapParticleType, vecPos.x, vecPos.y, vecPos.z, 0, color4F.r(), color4F.g(), color4F.b(), 1);
     }
 

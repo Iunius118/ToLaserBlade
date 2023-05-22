@@ -5,18 +5,15 @@ import com.github.iunius118.tolaserblade.api.client.model.LaserBladeModel;
 import com.github.iunius118.tolaserblade.client.model.laserblade.LaserBladeJsonModelLoader;
 import com.github.iunius118.tolaserblade.client.model.laserblade.v1.LaserBladeModelV1;
 import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
-import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeVisual;
+import com.github.iunius118.tolaserblade.core.laserblade.LaserBlade;
 import net.minecraft.client.Minecraft;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.item.ItemStack;
 import org.slf4j.Logger;
 
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 public class LaserBladeModelManager {
     private static final Logger LOGGER = ToLaserBlade.LOGGER;
@@ -132,9 +129,8 @@ public class LaserBladeModelManager {
 
     public LaserBladeModel getModel(ItemStack itemStack) {
         if (canUseMultipleModels) {
-            CompoundTag tag = itemStack.getOrCreateTag();
-            LaserBladeVisual.ModelType modelType = new LaserBladeVisual.ModelType(tag);
-            LaserBladeModel model = models.get(modelType.type);
+            int type = LaserBlade.of(itemStack).getType();
+            LaserBladeModel model = getModel(type);
 
             if (model != null) {
                 return model;

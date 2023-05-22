@@ -4,7 +4,6 @@ import com.github.iunius118.tolaserblade.client.renderer.item.LBSwordItemRendere
 import com.github.iunius118.tolaserblade.core.dispenser.DispenseLaserBladeBehavior;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBlade;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeBlocking;
-import com.github.iunius118.tolaserblade.core.laserblade.LaserBladePerformance;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.Upgrade;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Multimap;
@@ -123,11 +122,10 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
         Entity target = event.getTarget();
         Player player = event.getEntity();
         ItemStack stack = player.getMainHandItem();
-        LaserBladePerformance performance = LaserBlade.performanceOf(stack);
-        LaserBladePerformance.AttackPerformance attack = performance.getAttackPerformance();
+        var laserBlade = LaserBlade.of(stack);
 
-        if (target instanceof WitherBoss || attack.damage >= LaserBladePerformance.AttackPerformance.MOD_ATK_CRITICAL_BONUS) {
-            event.setDamageModifier(event.getDamageModifier() + LaserBladePerformance.AttackPerformance.MOD_CRITICAL_BONUS_VS_WITHER);
+        if (target instanceof WitherBoss || laserBlade.getDamage() >= LaserBlade.MOD_ATK_CRITICAL_BONUS) {
+            event.setDamageModifier(event.getDamageModifier() + LaserBlade.MOD_CRITICAL_BONUS_VS_WITHER);
         }
     }
 
@@ -187,15 +185,14 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
         Multimap<Attribute, AttributeModifier> multimap = HashMultimap.create();
 
         if (slot == EquipmentSlot.MAINHAND) {
-            LaserBladePerformance performance = LaserBlade.performanceOf(stack);
-            LaserBladePerformance.AttackPerformance attack = performance.getAttackPerformance();
+            var laserBlade = LaserBlade.of(stack);
 
             multimap.put(Attributes.ATTACK_DAMAGE,
                     new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier",
-                            this.attackDamage + attack.damage, AttributeModifier.Operation.ADDITION));
+                            this.attackDamage + laserBlade.getDamage(), AttributeModifier.Operation.ADDITION));
             multimap.put(Attributes.ATTACK_SPEED,
                     new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier",
-                            this.attackSpeed + attack.speed, AttributeModifier.Operation.ADDITION));
+                            this.attackSpeed + laserBlade.getSpeed(), AttributeModifier.Operation.ADDITION));
         }
 
         return multimap;

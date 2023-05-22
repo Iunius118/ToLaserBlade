@@ -1,7 +1,6 @@
 package com.github.iunius118.tolaserblade.world.item;
 
 import com.github.iunius118.tolaserblade.client.renderer.item.LBBrandNewItemRenderer;
-import com.github.iunius118.tolaserblade.core.laserblade.LaserBlade;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeVisual;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.Upgrade;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
@@ -106,15 +105,12 @@ public class LBBrandNewItem extends Item implements LaserBladeItemBase {
 
         // If Brand-new Laser Blade is type of Light Element I or II, ...
         ItemStack laserBladeStack = type.getCopy();
-        LaserBlade laserBlade = LaserBlade.of(laserBladeStack);
-        LaserBladeVisual visual = laserBlade.getVisual();
-        // ... its blade will be colored by biome player in, ...
+        // ... its blade will be colored by biome player in, and its model will be set to specific model type
         BlockPos pos = player.blockPosition();
         Holder<Biome> biome = level.getBiome(pos);
-        visual.setColorsByBiome(level, biome);
-        // ... and its model will be set to specific model type
-        visual.setModelType(modelType);
-        laserBlade.write(laserBladeStack);
+        LaserBladeVisual.Writer.of(laserBladeStack)
+                .setColorsByBiome(level, biome)
+                .writeModelType(modelType);
         return laserBladeStack;
     }
 

@@ -1,6 +1,5 @@
 package com.github.iunius118.tolaserblade.client.color.item;
 
-import com.github.iunius118.tolaserblade.core.laserblade.LaserBlade;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeColor;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeVisual;
 import com.github.iunius118.tolaserblade.world.item.LBBrandNewItem;
@@ -30,18 +29,18 @@ public class LaserBladeItemColor {
         if (itemStack == null || itemStack.isEmpty()) {
             isBroken = false;
 
-            gripColor = -1;
-            rawGripColor = -1;
-            rawInnerColor = -1;
-
-            innerColor = -1;
-            isInnerSubColor = false;
-            simpleInnerColor = -1;
-
             rawOuterColor = -1;
             outerColor = -1;
             isOuterSubColor = false;
             simpleOuterColor = -1;
+
+            rawInnerColor = -1;
+            innerColor = -1;
+            isInnerSubColor = false;
+            simpleInnerColor = -1;
+
+            gripColor = -1;
+            rawGripColor = -1;
 
             return;
         }
@@ -49,23 +48,20 @@ public class LaserBladeItemColor {
         Item item = itemStack.getItem();
         isBroken = (item instanceof LBBrokenItem || item instanceof LBBrandNewItem);
 
-        LaserBladeVisual visual = LaserBlade.visualOf(itemStack);
+        var visual = LaserBladeVisual.of(itemStack);
 
-        LaserBladeVisual.PartColor gripPartColor = visual.getGripColor();
-        rawGripColor = gripPartColor.color;
-        gripColor = checkGamingColor(rawGripColor);
+        rawOuterColor = visual.getOuterColor();
+        outerColor = checkGamingColor(rawOuterColor);
+        isOuterSubColor = visual.isOuterSubColor();
+        simpleOuterColor = (isOuterSubColor ? ~outerColor : outerColor) | 0xFF000000;
 
-        LaserBladeVisual.PartColor innerPartColor = visual.getInnerColor();
-        rawInnerColor = innerPartColor.color;
+        rawInnerColor = visual.getInnerColor();
         innerColor = checkGamingColor(rawInnerColor);
-        isInnerSubColor = innerPartColor.isSubtractColor;
+        isInnerSubColor = visual.isInnerSubColor();
         simpleInnerColor = (isInnerSubColor ? ~innerColor : innerColor) | 0xFF000000;
 
-        LaserBladeVisual.PartColor outerPartColor = visual.getOuterColor();
-        rawOuterColor = outerPartColor.color;
-        outerColor = checkGamingColor(rawOuterColor);
-        isOuterSubColor = outerPartColor.isSubtractColor;
-        simpleOuterColor = (isOuterSubColor ? ~outerColor : outerColor) | 0xFF000000;
+        rawGripColor = visual.getGripColor();
+        gripColor = checkGamingColor(rawGripColor);
     }
 
     public static LaserBladeItemColor of(ItemStack stack) {

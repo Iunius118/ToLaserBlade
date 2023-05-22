@@ -1,7 +1,6 @@
 package com.github.iunius118.tolaserblade.world.item.crafting;
 
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBlade;
-import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeVisual;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.core.RegistryAccess;
@@ -48,10 +47,8 @@ public class LBModelChangeRecipe extends LegacyUpgradeRecipe {
     public boolean matches(Container container, Level level) {
         if (base.test(container.getItem(0)) && addition.test(container.getItem(1))) {
             ItemStack baseStack = container.getItem(0);
-            LaserBladeVisual visual = LaserBlade.visualOf(baseStack);
-            int baseType = visual.getModelType();
-            // If type < 0, set today date number or reset model type
-            return type < 0 || baseType != type;
+            int baseType = LaserBlade.of(baseStack).getType();
+            return type >= 0 && baseType != type;
         }
 
         return false;
@@ -65,11 +62,7 @@ public class LBModelChangeRecipe extends LegacyUpgradeRecipe {
     }
 
     private ItemStack getResult(ItemStack input) {
-        LaserBladeVisual visual = LaserBlade.visualOf(input);
-        int fixedType = Math.max(type, 0);
-
-        visual.setModelType(fixedType);
-        visual.write(input.getOrCreateTag());
+        LaserBlade.Writer.of(input).writeType(type);
         return input;
     }
 

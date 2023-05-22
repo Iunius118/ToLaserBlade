@@ -1,6 +1,5 @@
 package com.github.iunius118.tolaserblade.world.item.crafting;
 
-import com.github.iunius118.tolaserblade.core.laserblade.LaserBlade;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeColor;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeColorPart;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeVisual;
@@ -53,20 +52,17 @@ public class LBColorRecipe extends LegacyUpgradeRecipe {
         if (!base.test(container.getItem(0)) || !addition.test(container.getItem(1))) return false;
 
         ItemStack baseStack = container.getItem(0);
-        LaserBladeVisual visual = LaserBlade.visualOf(baseStack);
+        var visual = LaserBladeVisual.of(baseStack);
 
         switch (part) {
             case INNER_BLADE -> {
-                LaserBladeVisual.PartColor innerColor = visual.getInnerColor();
-                return innerColor.color != color || isSwitchingBlendModeColor();
+                return (visual.getInnerColor() != color) || isSwitchingBlendModeColor();
             }
             case OUTER_BLADE -> {
-                LaserBladeVisual.PartColor outerColor = visual.getOuterColor();
-                return outerColor.color != color || isSwitchingBlendModeColor();
+                return (visual.getOuterColor() != color) || isSwitchingBlendModeColor();
             }
             default -> {
-                LaserBladeVisual.PartColor gripColor = visual.getGripColor();
-                return gripColor.color != color || isSwitchingBlendModeColor();
+                return visual.getGripColor() != color;
             }
         }
     }
@@ -83,33 +79,29 @@ public class LBColorRecipe extends LegacyUpgradeRecipe {
     }
 
     private ItemStack getColoringResult(ItemStack input) {
-        LaserBladeVisual visual = LaserBlade.visualOf(input);
+        var writer = LaserBladeVisual.Writer.of(input);
 
         switch (part) {
             case INNER_BLADE -> {
-                LaserBladeVisual.PartColor innerColor = visual.getInnerColor();
-                changeBladeColor(innerColor);
+                if (isSwitchingBlendModeColor()) {
+                    writer.switchIsInnerSubColor();
+                } else {
+                    writer.writeInnerColor(color);
+                }
             }
             case OUTER_BLADE -> {
-                LaserBladeVisual.PartColor outerColor = visual.getOuterColor();
-                changeBladeColor(outerColor);
+                if (isSwitchingBlendModeColor()) {
+                    writer.switchIsOuterSubColor();
+                } else {
+                    writer.writeOuterColor(color);
+                }
             }
             default -> {
-                LaserBladeVisual.PartColor gripColor = visual.getGripColor();
-                gripColor.color = color;
+                writer.writeGripColor(color);
             }
         }
 
-        visual.write(input.getOrCreateTag());
         return input;
-    }
-
-    private void changeBladeColor(LaserBladeVisual.PartColor bladePartColor) {
-        if (isSwitchingBlendModeColor()) {
-            bladePartColor.switchBlendMode();
-        } else {
-            bladePartColor.color = color;
-        }
     }
 
     @Override

@@ -1,6 +1,6 @@
 package com.github.iunius118.tolaserblade.data;
 
-import com.github.iunius118.tolaserblade.core.laserblade.LaserBladePerformance;
+import com.github.iunius118.tolaserblade.core.laserblade.LaserBlade;
 import com.github.iunius118.tolaserblade.world.item.LaserBladeItemStack;
 import com.github.iunius118.tolaserblade.world.item.ModItems;
 import com.github.iunius118.tolaserblade.world.item.enchantment.ModEnchantments;
@@ -161,8 +161,8 @@ public class TLBAdvancementProvider extends ForgeAdvancementProvider {
                             null,
                             frameType, true, true, false)
                     .requirements(RequirementsStrategy.OR);
-            int maxAtk = (int)LaserBladePerformance.AttackPerformance.MOD_ATK_CRITICAL_BONUS;
-            String tagAtk = LaserBladePerformance.AttackPerformance.KEY_ATK;
+            int maxAtk = (int) LaserBlade.MOD_ATK_CRITICAL_BONUS;
+            String tagAtk = LaserBlade.KEY_ATK;
 
             for (Item item : requirements) {
                 String itemName = getItemId(item).getPath();

@@ -1,27 +1,24 @@
 package com.github.iunius118.tolaserblade.core.laserblade.upgrade;
 
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBlade;
-import com.github.iunius118.tolaserblade.core.laserblade.LaserBladePerformance;
 import net.minecraft.world.item.ItemStack;
 
 public class SpeedUpgrader implements Upgrader {
     @Override
     public boolean canApply(ItemStack base, ItemStack addition) {
-        final LaserBlade laserBlade = LaserBlade.of(base);
-        final LaserBladePerformance.AttackPerformance attack = laserBlade.getAttackPerformance();
-        return attack.canUpgradeSpeed();
+        float speed = LaserBlade.of(base).getSpeed();
+        return LaserBlade.canUpgradeSpeed(speed);
     }
 
     @Override
     public UpgradeResult apply(ItemStack base, int baseCost) {
-        final LaserBlade laserBlade = LaserBlade.of(base);
-        final LaserBladePerformance.AttackPerformance attack = laserBlade.getAttackPerformance();
+        final float speed = LaserBlade.of(base).getSpeed();
         int cost = baseCost;
 
-        if (attack.canUpgradeSpeed()) {
-            attack.changeSpeedSafely(attack.speed + 0.4F);
-            laserBlade.write(base);
-            cost += getCost(attack.speed);
+        if (LaserBlade.canUpgradeSpeed(speed)) {
+            float newSpeed = speed + 0.4F;
+            LaserBlade.Writer.of(base).writeSpeed(newSpeed);
+            cost += getCost(newSpeed);
         }
 
         return UpgradeResult.of(base, cost);
