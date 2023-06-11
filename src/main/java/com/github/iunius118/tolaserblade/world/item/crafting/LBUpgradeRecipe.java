@@ -14,27 +14,26 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
+import net.minecraft.world.inventory.SmithingMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.LegacyUpgradeRecipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.SmithingTransformRecipe;
 import net.minecraft.world.level.Level;
-import net.minecraft.world.level.block.Blocks;
 
 import javax.annotation.Nullable;
 
-public class LBUpgradeRecipe extends LegacyUpgradeRecipe {
+public class LBUpgradeRecipe extends SmithingTransformRecipe {
+    private final Ingredient template;
     private final Ingredient base;
     private final Ingredient addition;
     private final ResourceLocation upgradeId;
-    private final ResourceLocation recipeId;
     private Upgrade upgrade;
     private ItemStack sample;
 
-    public LBUpgradeRecipe(ResourceLocation recipeId, Ingredient base, Ingredient addition, ResourceLocation upgradeId) {
-        super(recipeId, base, addition, getResultItemStack(base));
-        this.recipeId = recipeId;
+    public LBUpgradeRecipe(ResourceLocation recipeId, Ingredient template, Ingredient base, Ingredient addition, ResourceLocation upgradeId) {
+        super(recipeId, template, base, addition, getResultItemStack(base));
+        this.template = template;
         this.base = base;
         this.addition = addition;
         this.upgradeId = upgradeId;
@@ -52,9 +51,9 @@ public class LBUpgradeRecipe extends LegacyUpgradeRecipe {
 
     @Override
     public boolean matches(Container container, Level level) {
-        if (base.test(container.getItem(0)) && addition.test(container.getItem(1))) {
-            ItemStack baseStack = container.getItem(0);
-            ItemStack additionalStack = container.getItem(1);
+        if (super.matches(container, level)) {
+            ItemStack baseStack = container.getItem(SmithingMenu.BASE_SLOT);
+            ItemStack additionalStack = container.getItem(SmithingMenu.ADDITIONAL_SLOT);
             Upgrade upgrade = getUpgrade();
             return upgrade.canApply(baseStack, additionalStack);
         }
@@ -64,7 +63,7 @@ public class LBUpgradeRecipe extends LegacyUpgradeRecipe {
 
     @Override
     public ItemStack assemble(Container container, RegistryAccess registryAccess) {
-        ItemStack baseStack = container.getItem(0);
+        ItemStack baseStack = container.getItem(SmithingMenu.BASE_SLOT);
         ItemStack itemstack = baseStack.copy();
         return getUpgradingResult(itemstack);
     }
@@ -82,11 +81,6 @@ public class LBUpgradeRecipe extends LegacyUpgradeRecipe {
 
         upgrade = UpgradeManager.getUpgrade(upgradeId);
         return upgrade;
-    }
-
-    @Override
-    public boolean canCraftInDimensions(int i, int j) {
-        return super.canCraftInDimensions(i, j);
     }
 
     @Override
@@ -117,46 +111,33 @@ public class LBUpgradeRecipe extends LegacyUpgradeRecipe {
     }
 
     @Override
-    public ItemStack getToastSymbol() {
-        return new ItemStack(Blocks.SMITHING_TABLE);
-    }
-
-    @Override
-    public ResourceLocation getId() {
-        return recipeId;
-    }
-
-    @Override
     public RecipeSerializer<?> getSerializer() {
         return ModRecipeSerializers.UPGRADE;
-    }
-
-    @Override
-    public RecipeType<?> getType() {
-        // Treat as RecipeType.SMITHING to use on smithing table
-        return super.getType();
     }
 
     public static class Serializer implements RecipeSerializer<LBUpgradeRecipe> {
         @Override
         public LBUpgradeRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
+            Ingredient template = Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "template"));
             Ingredient base = Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "base"));
             Ingredient addition = Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "addition"));
             ResourceLocation upgradeId = new ResourceLocation(GsonHelper.getAsJsonObject(json, "result").get("type").getAsString());
-            return new LBUpgradeRecipe(recipeId, base, addition, upgradeId);
+            return new LBUpgradeRecipe(recipeId, template, base, addition, upgradeId);
         }
 
         @Nullable
         @Override
         public LBUpgradeRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+            Ingredient template = Ingredient.fromNetwork(buffer);
             Ingredient base = Ingredient.fromNetwork(buffer);
             Ingredient addition = Ingredient.fromNetwork(buffer);
             ResourceLocation upgradeId = buffer.readResourceLocation();
-            return new LBUpgradeRecipe(recipeId, base, addition, upgradeId);
+            return new LBUpgradeRecipe(recipeId, template, base, addition, upgradeId);
         }
 
         @Override
         public void toNetwork(FriendlyByteBuf  buffer, LBUpgradeRecipe recipe) {
+            recipe.template.toNetwork(buffer);
             recipe.base.toNetwork(buffer);
             recipe.addition.toNetwork(buffer);
             buffer.writeResourceLocation(recipe.upgradeId);
