@@ -1,0 +1,9 @@
+{
+  "package": "com.github.iunius118.tolaserblade.mixin",
+  "mixins": [
+  ],
+  "refmap": "mixins.tolaserblade.refmap.json",
+  "required": true,
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_17"
+}

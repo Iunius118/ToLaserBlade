@@ -1,9 +1,19 @@
+buildscript {
+    dependencies {
+        // MixinGradle:
+        classpath 'org.spongepowered:mixingradle:0.7.+'
+    }
+}
+
 plugins {
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '[6.0,6.2)'
 }
+
+// MixinGradle:
+apply plugin: 'org.spongepowered.mixin'
 
 version = minecraft_version + '-' + mod_version
 group = mod_group_id
@@ -90,6 +100,15 @@ minecraft {
 }
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+mixin {
+    // MixinGradle Settings
+    add sourceSets.main, 'mixins.tolaserblade.refmap.json'
+    config 'mixins.tolaserblade.json'
+
+    debug.verbose = true
+    debug.export = true
+}
 
 repositories {
     // flatDir {
