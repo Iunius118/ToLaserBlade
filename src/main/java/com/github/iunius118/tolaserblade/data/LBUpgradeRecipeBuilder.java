@@ -6,7 +6,6 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.CriterionTriggerInstance;
 import net.minecraft.advancements.RequirementsStrategy;
-import net.minecraft.advancements.critereon.InventoryChangeTrigger;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
 import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.resources.ResourceLocation;
@@ -18,20 +17,22 @@ import java.util.function.Consumer;
 
 public class LBUpgradeRecipeBuilder {
     private final RecipeSerializer<?> serializer;
+    private final Ingredient template;
     private final Ingredient base;
     private final Ingredient addition;
     private final ResourceLocation upgradeId;
-    private final Advancement.Builder advancementBuilder = Advancement.Builder.advancement();
+    private final Advancement.Builder advancementBuilder = Advancement.Builder.recipeAdvancement();
 
-    public LBUpgradeRecipeBuilder(RecipeSerializer<?> serializer, Ingredient base, Ingredient addition, ResourceLocation upgradeId) {
+    public LBUpgradeRecipeBuilder(RecipeSerializer<?> serializer, Ingredient template, Ingredient base, Ingredient addition, ResourceLocation upgradeId) {
         this.serializer = serializer;
+        this.template = template;
         this.base = base;
         this.addition = addition;
         this.upgradeId = upgradeId;
     }
 
-    public static LBUpgradeRecipeBuilder upgradeRecipe(Ingredient base, Ingredient addition, ResourceLocation upgradeId) {
-        return new LBUpgradeRecipeBuilder(ModRecipeSerializers.UPGRADE, base, addition, upgradeId);
+    public static LBUpgradeRecipeBuilder upgradeRecipe(Ingredient template, Ingredient base, Ingredient addition, ResourceLocation upgradeId) {
+        return new LBUpgradeRecipeBuilder(ModRecipeSerializers.UPGRADE, template, base, addition, upgradeId);
     }
 
     public LBUpgradeRecipeBuilder addCriterion(String name, CriterionTriggerInstance criterion) {
@@ -53,21 +54,23 @@ public class LBUpgradeRecipeBuilder {
                 .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))
                 .rewards(AdvancementRewards.Builder.recipe(id))
                 .requirements(RequirementsStrategy.OR);
-        consumer.accept(new LBUpgradeRecipeBuilder.Result(id, serializer, base, addition, upgradeId, advancementBuilder, new ResourceLocation(id.getNamespace(), "recipes/" + id.getPath())));
+        consumer.accept(new LBUpgradeRecipeBuilder.Result(id, serializer, template, base, addition, upgradeId, advancementBuilder, new ResourceLocation(id.getNamespace(), "recipes/" + id.getPath())));
     }
 
     public static class Result implements FinishedRecipe {
         private final ResourceLocation id;
         private final RecipeSerializer<?> serializer;
+        private final Ingredient template;
         private final Ingredient base;
         private final Ingredient addition;
         private final ResourceLocation upgradeId;
         private final Advancement.Builder advancementBuilder;
         private final ResourceLocation advancementId;
 
-        public Result(ResourceLocation id, RecipeSerializer<?> serializer, Ingredient base, Ingredient addition, ResourceLocation upgradeId, Advancement.Builder advancementBuilder, ResourceLocation advancementId) {
+        public Result(ResourceLocation id, RecipeSerializer<?> serializer, Ingredient template, Ingredient base, Ingredient addition, ResourceLocation upgradeId, Advancement.Builder advancementBuilder, ResourceLocation advancementId) {
             this.id = id;
             this.serializer = serializer;
+            this.template = template;
             this.base = base;
             this.addition = addition;
             this.upgradeId = upgradeId;
@@ -77,6 +80,7 @@ public class LBUpgradeRecipeBuilder {
 
         @Override
         public void serializeRecipeData(JsonObject json) {
+            json.add("template", this.template.toJson());
             json.add("base", this.base.toJson());
             json.add("addition", this.addition.toJson());
             JsonObject result = new JsonObject();

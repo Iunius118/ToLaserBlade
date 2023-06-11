@@ -17,20 +17,22 @@ import java.util.function.Consumer;
 
 public class LBModelChangeRecipeBuilder {
     private final RecipeSerializer<?> serializer;
+    private final Ingredient template;
     private final Ingredient base;
     private final Ingredient addition;
     private final int type;
-    private final Advancement.Builder advancementBuilder = Advancement.Builder.advancement();
+    private final Advancement.Builder advancementBuilder = Advancement.Builder.recipeAdvancement();
 
-    public LBModelChangeRecipeBuilder(RecipeSerializer<?> serializer, Ingredient base, Ingredient addition, int type) {
+    public LBModelChangeRecipeBuilder(RecipeSerializer<?> serializer, Ingredient template, Ingredient base, Ingredient addition, int type) {
         this.serializer = serializer;
+        this.template = template;
         this.base = base;
         this.addition = addition;
         this.type = type;
     }
 
-    public static LBModelChangeRecipeBuilder modelChangeRecipe(Ingredient base, Ingredient addition, int type) {
-        return new LBModelChangeRecipeBuilder(ModRecipeSerializers.MODEL_CHANGE, base, addition, type);
+    public static LBModelChangeRecipeBuilder modelChangeRecipe(Ingredient template, Ingredient base, Ingredient addition, int type) {
+        return new LBModelChangeRecipeBuilder(ModRecipeSerializers.MODEL_CHANGE, template, base, addition, type);
     }
 
     public LBModelChangeRecipeBuilder addCriterion(String name, CriterionTriggerInstance criterion) {
@@ -52,21 +54,23 @@ public class LBModelChangeRecipeBuilder {
                 .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))
                 .rewards(AdvancementRewards.Builder.recipe(id))
                 .requirements(RequirementsStrategy.OR);
-        consumer.accept(new LBModelChangeRecipeBuilder.Result(id, serializer, base, addition, type, advancementBuilder, new ResourceLocation(id.getNamespace(), "recipes/" + id.getPath())));
+        consumer.accept(new LBModelChangeRecipeBuilder.Result(id, serializer, template, base, addition, type, advancementBuilder, new ResourceLocation(id.getNamespace(), "recipes/" + id.getPath())));
     }
 
     public static class Result implements FinishedRecipe {
         private final ResourceLocation id;
         private final RecipeSerializer<?> serializer;
+        private final Ingredient template;
         private final Ingredient base;
         private final Ingredient addition;
         private final int type;
         private final Advancement.Builder advancementBuilder;
         private final ResourceLocation advancementId;
 
-        public Result(ResourceLocation id, RecipeSerializer<?> serializer, Ingredient base, Ingredient addition, int type, Advancement.Builder advancementBuilder, ResourceLocation advancementId) {
+        public Result(ResourceLocation id, RecipeSerializer<?> serializer, Ingredient template, Ingredient base, Ingredient addition, int type, Advancement.Builder advancementBuilder, ResourceLocation advancementId) {
             this.id = id;
             this.serializer = serializer;
+            this.template = template;
             this.base = base;
             this.addition = addition;
             this.type = type;
@@ -76,6 +80,7 @@ public class LBModelChangeRecipeBuilder {
 
         @Override
         public void serializeRecipeData(JsonObject json) {
+            json.add("template", this.template.toJson());
             json.add("base", this.base.toJson());
             json.add("addition", this.addition.toJson());
             JsonObject result = new JsonObject();
