@@ -57,8 +57,8 @@ public class ItemEventHandler {
                 brokenLaserBlade.setDamageValue(0);
 
                 // Drop Broken Laser Blade
-                ItemEntity itemEntity = new ItemEntity(player.level, player.getX(), player.getY() + 0.5, player.getZ(), brokenLaserBlade);
-                player.level.addFreshEntity(itemEntity);
+                ItemEntity itemEntity = new ItemEntity(player.level(), player.getX(), player.getY() + 0.5, player.getZ(), brokenLaserBlade);
+                player.level().addFreshEntity(itemEntity);
             }
         }
     }

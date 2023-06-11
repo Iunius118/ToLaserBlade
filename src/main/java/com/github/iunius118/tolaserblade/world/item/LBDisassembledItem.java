@@ -120,8 +120,8 @@ public class LBDisassembledItem extends Item implements LaserBladeItemBase {
     }
 
     private void dropItem(ItemStack itemStack, Player player) {
-        ItemEntity itemEntity = new ItemEntity(player.level, player.getX(), player.getY() + 0.5, player.getZ(), itemStack);
-        player.level.addFreshEntity(itemEntity);
+        ItemEntity itemEntity = new ItemEntity(player.level(), player.getX(), player.getY() + 0.5, player.getZ(), itemStack);
+        player.level().addFreshEntity(itemEntity);
     }
 
     @Override

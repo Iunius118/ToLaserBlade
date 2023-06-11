@@ -81,14 +81,14 @@ public class LaserBladeItemColor {
         Player player = minecraft.player;
 
         if (player != null) {
-            var level = player.level;
-            int tick1 = (int)(level.getGameTime() % 30);
+            var level = player.level();
+            int tick1 = (int) (level.getGameTime() % 30);
             int tick2 = tick1 % 10;
             float partialTick = minecraft.getFrameTime();
             int colorElement;
 
             if (tick2 % 10 < 5) {
-                colorElement = (int)(((float)tick2 + partialTick) * (float)0x33) & 0xFF;
+                colorElement = (int) (((float) tick2 + partialTick) * (float) 0x33) & 0xFF;
 
                 return switch (tick1 / 10) {
                     case 0 -> 0xFFFF0000 | (colorElement << 8);
@@ -96,7 +96,7 @@ public class LaserBladeItemColor {
                     default -> 0xFF0000FF | (colorElement << 16);
                 };
             } else {
-                colorElement = (int)(((float)(10 - tick2) - partialTick) * (float)0x33) & 0xFF;
+                colorElement = (int) (((float) (10 - tick2) - partialTick) * (float) 0x33) & 0xFF;
 
                 return switch (tick1 / 10) {
                     case 0 -> 0xFF00FF00 | (colorElement << 16);

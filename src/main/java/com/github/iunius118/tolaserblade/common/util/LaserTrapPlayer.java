@@ -56,7 +56,7 @@ public class LaserTrapPlayer extends FakePlayer {
         BlockPos trapPos = blockPosition();
         BlockPos targetPos = trapPos.relative(dir);
         AABB aabb = new AABB(targetPos).inflate(0.5D);
-        List<Entity> targetEntities = level.getEntities((Entity) null, aabb, this::canHitEntity);
+        List<Entity> targetEntities = level().getEntities((Entity) null, aabb, this::canHitEntity);
 
         float attackDamage = (float) getAttribute(Attributes.ATTACK_DAMAGE).getValue();
         int fireLevel = EnchantmentHelper.getFireAspect(this);
@@ -79,7 +79,7 @@ public class LaserTrapPlayer extends FakePlayer {
 
     private boolean canHitEntity(Entity entity) {
         if (!entity.isSpectator() && entity.isAlive() && entity.isPickable()) {
-            MinecraftServer server = level.getServer();
+            MinecraftServer server = level().getServer();
             // Check if the trap can attack players
             boolean canAttackPlayers = ToLaserBladeConfig.SERVER.canLaserTrapAttackPlayer.get();
             return canAttackPlayers || !(entity instanceof Player);
@@ -101,7 +101,7 @@ public class LaserTrapPlayer extends FakePlayer {
     }
 
     private void spawnParticle(Direction dir, BlockPos effectPos, ItemStack itemStack) {
-        if (!(level instanceof ServerLevel serverLevel)) return;
+        if (!(level() instanceof ServerLevel serverLevel)) return;
 
         var laserTrapParticleType = ModParticleTypes.getLaserTrapParticleType(dir.getAxis());
         var vecPos = new Vec3(effectPos.getX(), effectPos.getY(), effectPos.getZ()).add(0.5, 0.5, 0.5);
