@@ -1,29 +1,30 @@
 
 modLoader="javafml"
-loaderVersion="[45,)"
-license="All rights reserved"
-issueTrackerURL="https://github.com/Iunius118/ToLaserBlade/issues"
+loaderVersion="${loader_version_range}"
+license="${mod_license}"
+issueTrackerURL="${mod_issue_url}"
 
 [[mods]]
-modId="tolaserblade"
-version="${file.jarVersion}"
-displayName="ToLaserBlade"
-updateJSONURL="https://raw.githubusercontent.com/Iunius118/ToLaserBlade/main/update.json"
-displayURL="https://github.com/Iunius118/ToLaserBlade"
-logoFile="tolaserblade_logo.png"
-credits="Created by Iunius118.  Translation by kazmurenko (ru_ru), tankyap (zh_cn), XuyuEre (zh_cn)."
-authors="Iunius118"
-description="Adds a Laser Blade."
+modId="${mod_id}"
+version="${mod_version}"
+displayName="${mod_name}"
+updateJSONURL="${mod_update_url}"
+displayURL="${mod_url}"
+logoFile="${mod_logos}"
+credits="${mod_credits}"
+authors="${mod_authors}"
+description='''${mod_description}'''
 
-[[dependencies.tolaserblade]]
+
+[[dependencies.${mod_id}]]
     modId="forge"
     mandatory=true
-    versionRange="[45,)"
+    versionRange="${forge_version_range}"
     ordering="NONE"
-    side="BOTH"
-[[dependencies.tolaserblade]]
+    side="${side}"
+[[dependencies.${mod_id}]]
     modId="minecraft"
     mandatory=true
-    versionRange="[1.19.4,1.20)"
+    versionRange="${minecraft_version_range}"
     ordering="NONE"
-    side="BOTH"
+    side="${side}"
