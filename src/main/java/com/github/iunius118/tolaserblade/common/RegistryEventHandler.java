@@ -3,10 +3,12 @@ package com.github.iunius118.tolaserblade.common;
 import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.common.util.ModSoundEvents;
 import com.github.iunius118.tolaserblade.core.particle.ModParticleTypes;
+import com.github.iunius118.tolaserblade.world.item.ModCreativeModeTabs;
 import com.github.iunius118.tolaserblade.world.item.ModItems;
 import com.github.iunius118.tolaserblade.world.item.crafting.ModRecipeSerializers;
 import com.github.iunius118.tolaserblade.world.item.enchantment.LightElementEnchantment;
 import com.github.iunius118.tolaserblade.world.item.enchantment.ModEnchantments;
+import net.minecraft.core.registries.Registries;
 import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.registries.DeferredRegister;
 import net.minecraftforge.registries.ForgeRegistries;
@@ -18,6 +20,7 @@ public class RegistryEventHandler {
         registerEnchantments(modEventBus);
         registerParticleTypes(modEventBus);
         registerSoundEvents(modEventBus);
+        registerCreativeModeTabs(modEventBus);
     }
 
     private static void registerRecipeSerializers(IEventBus modEventBus) {
@@ -80,5 +83,13 @@ public class RegistryEventHandler {
         soundEventDeferredRegister.register("item_laser_blade_fp_swing", () -> ModSoundEvents.ITEM_LASER_BLADE_FP_SWING);
 
         soundEventDeferredRegister.register(modEventBus);
+    }
+
+    private static void registerCreativeModeTabs(IEventBus modEventBus) {
+        var creativeModeTabDeferredRegister = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, ToLaserBlade.MOD_ID);
+
+        creativeModeTabDeferredRegister.register("general", () -> ModCreativeModeTabs.TAB_LASER_BLADE);
+
+        creativeModeTabDeferredRegister.register(modEventBus);
     }
 }

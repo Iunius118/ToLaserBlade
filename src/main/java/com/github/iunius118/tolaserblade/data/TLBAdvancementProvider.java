@@ -38,7 +38,7 @@ public class TLBAdvancementProvider extends ForgeAdvancementProvider {
         @Override
         public void generate(HolderLookup.Provider registries, Consumer<Advancement> consumer, ExistingFileHelper existingFileHelper) {
             // Main root
-            Advancement root = Advancement.Builder.advancement()
+            Advancement root = Advancement.Builder.recipeAdvancement()
                     .display(LaserBladeItemStack.ICON.getCopy(),
                             Component.translatable("advancements.tolaserblade.main.root.title"),
                             Component.translatable("advancements.tolaserblade.main.root.description"),
@@ -82,7 +82,7 @@ public class TLBAdvancementProvider extends ForgeAdvancementProvider {
             // 1-1-4. Returns and Exchanges
             JsonObject jsonMaxZero = new JsonObject();
             jsonMaxZero.add("max", new JsonPrimitive(0));
-            Advancement breakLaserBlade = Advancement.Builder.advancement()
+            Advancement breakLaserBlade = Advancement.Builder.recipeAdvancement()
                     .parent(laserBlade)
                     .display(ModItems.LB_CASING,
                             Component.translatable("advancements.tolaserblade.main.break_laser_blade.title"),
@@ -110,7 +110,7 @@ public class TLBAdvancementProvider extends ForgeAdvancementProvider {
 
         private Advancement registerItemAdvancement(Advancement parent, Item icon, FrameType frameType, Item[] requirements, Consumer<Advancement> consumer) {
             String name = getItemId(requirements[0]).getPath();
-            Advancement.Builder builder = Advancement.Builder.advancement()
+            Advancement.Builder builder = Advancement.Builder.recipeAdvancement()
                     .parent(parent)
                     .display(icon,
                             Component.translatable("advancements.tolaserblade.main." + name + ".title"),
@@ -129,7 +129,7 @@ public class TLBAdvancementProvider extends ForgeAdvancementProvider {
 
         private Advancement registerEnchantmentAdvancement(Advancement parent, Item icon, FrameType frameType, Item[] requirements, Enchantment enchantment, int level, Consumer<Advancement> consumer) {
             String name = getItemId(requirements[0]).getPath() + "_" + getEnchantmentId(enchantment).getPath() + "_" + level;
-            Advancement.Builder builder = Advancement.Builder.advancement()
+            Advancement.Builder builder = Advancement.Builder.recipeAdvancement()
                     .parent(parent)
                     .display(icon,
                             Component.translatable("advancements.tolaserblade.main." + name + ".title"),
@@ -153,7 +153,7 @@ public class TLBAdvancementProvider extends ForgeAdvancementProvider {
 
         private Advancement registerAttackUpgradeAdvancement(Advancement parent, Item icon, FrameType frameType, Item[] requirements, int attackDamage, Consumer<Advancement> consumer) {
             String name = getItemId(requirements[0]).getPath() + "_attack_" + attackDamage;
-            Advancement.Builder builder = Advancement.Builder.advancement()
+            Advancement.Builder builder = Advancement.Builder.recipeAdvancement()
                     .parent(parent)
                     .display(icon,
                             Component.translatable("advancements.tolaserblade.main." + name + ".title"),

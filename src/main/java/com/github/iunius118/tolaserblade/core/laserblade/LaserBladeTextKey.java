@@ -4,6 +4,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 
 public enum LaserBladeTextKey {
+    KEY_ITEM_GROUP_GENERAL("itemGroup.tolaserblade.general"),
+
     KEY_TOOLTIP_FIREPROOF("upgrade.tolaserblade.fireproof"),
     KEY_TOOLTIP_MODEL("tooltip.tolaserblade.model"),
     KEY_TOOLTIP_ATTACK_DAMAGE("upgrade.tolaserblade.attackDamage"),

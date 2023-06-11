@@ -6,7 +6,7 @@ import com.github.iunius118.tolaserblade.common.RegistryEventHandler;
 import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
 import com.github.iunius118.tolaserblade.data.*;
 import com.github.iunius118.tolaserblade.world.item.ItemEventHandler;
-import com.github.iunius118.tolaserblade.world.item.ModItemGroups;
+import com.github.iunius118.tolaserblade.world.item.ModCreativeModeTabs;
 import com.mojang.logging.LogUtils;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.data.event.GatherDataEvent;
@@ -39,7 +39,7 @@ public class ToLaserBlade {
         // Register event handlers
         RegistryEventHandler.registerGameObjects(modEventBus);
         modEventBus.addListener(this::gatherData);
-        modEventBus.register(ModItemGroups.class);
+        modEventBus.addListener(ModCreativeModeTabs::onCreativeModeTabBuildContents);
         MinecraftForge.EVENT_BUS.register(CommonEventHandler.class);
         MinecraftForge.EVENT_BUS.register(ItemEventHandler.class);
 

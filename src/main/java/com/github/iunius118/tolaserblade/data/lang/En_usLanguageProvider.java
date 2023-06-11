@@ -20,7 +20,7 @@ public class En_usLanguageProvider extends LanguageProvider {
     @Override
     protected void addTranslations() {
         // Item group
-        add("itemGroup.tolaserblade", ToLaserBlade.MOD_NAME);
+        add(LaserBladeTextKey.KEY_ITEM_GROUP_GENERAL.getKey(), ToLaserBlade.MOD_NAME);
 
         // Items
         add(ModItems.DX_LASER_BLADE, "DX Laser B1ade");

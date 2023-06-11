@@ -29,7 +29,7 @@ It stands for deluxe and gives children (and their parents) the impression that 
 It means that the sword is a shoddy fake.
 If the translation is difficult, can use the translation of Laser Blade (no misspelling), like "DX [translation of Laser Blade]".
 
-## itemGroup.tolaserblade
+## itemGroup.tolaserblade.general
 "ToLaserBlade"
 
 Mod name, don't translate.
