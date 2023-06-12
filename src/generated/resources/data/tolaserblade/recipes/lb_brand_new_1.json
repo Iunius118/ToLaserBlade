@@ -1,27 +1,27 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "minecraft:crafting_shapeless",
   "category": "misc",
-  "key": {
-    "G": {
-      "tag": "forge:glass/colorless"
+  "ingredients": [
+    {
+      "item": "tolaserblade:lb_blueprint"
     },
-    "d": {
+    {
+      "item": "tolaserblade:lb_battery"
+    },
+    {
       "tag": "forge:gems/diamond"
     },
-    "i": {
-      "tag": "forge:ingots/iron"
+    {
+      "tag": "forge:glass/colorless"
     },
-    "r": {
-      "tag": "forge:dusts/redstone"
+    {
+      "item": "tolaserblade:lb_emitter"
+    },
+    {
+      "item": "tolaserblade:lb_casing"
     }
-  },
-  "pattern": [
-    "Gid",
-    "idi",
-    "riG"
   ],
   "result": {
     "item": "tolaserblade:lb_brand_new_1"
-  },
-  "show_notification": true
+  }
 }

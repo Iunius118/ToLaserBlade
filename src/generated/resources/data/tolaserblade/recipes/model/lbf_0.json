@@ -8,5 +8,8 @@
   },
   "result": {
     "model_type": 0
+  },
+  "template": {
+    "item": "tolaserblade:lb_blueprint"
   }
 }

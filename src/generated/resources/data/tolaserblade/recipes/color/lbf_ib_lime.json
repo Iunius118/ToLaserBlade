@@ -9,5 +9,8 @@
   "result": {
     "color": -5636302,
     "part": "inner_blade"
+  },
+  "template": {
+    "item": "tolaserblade:lb_blueprint"
   }
 }

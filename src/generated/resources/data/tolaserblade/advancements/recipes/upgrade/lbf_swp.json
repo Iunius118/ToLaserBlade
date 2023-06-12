@@ -30,5 +30,6 @@
     "recipes": [
       "tolaserblade:upgrade/lbf_swp"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

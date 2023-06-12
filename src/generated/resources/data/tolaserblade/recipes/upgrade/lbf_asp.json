@@ -8,5 +8,8 @@
   },
   "result": {
     "type": "tolaserblade:upgrade/speed"
+  },
+  "template": {
+    "item": "tolaserblade:lb_blueprint"
   }
 }

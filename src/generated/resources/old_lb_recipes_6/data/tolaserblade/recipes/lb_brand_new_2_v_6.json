@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+    "d": {
+      "tag": "forge:gems/diamond"
+    },
+    "g": {
+      "tag": "forge:dusts/glowstone"
+    },
+    "i": {
+      "tag": "forge:ingots/iron"
+    },
+    "r": {
+      "tag": "forge:dusts/redstone"
+    }
+  },
+  "pattern": [
+    "gid",
+    "idi",
+    "rig"
+  ],
+  "result": {
+    "item": "tolaserblade:lb_brand_new_2"
+  },
+  "show_notification": true
+}

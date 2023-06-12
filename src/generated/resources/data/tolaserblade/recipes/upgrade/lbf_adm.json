@@ -8,5 +8,8 @@
   },
   "result": {
     "type": "tolaserblade:upgrade/damage"
+  },
+  "template": {
+    "item": "tolaserblade:lb_blueprint"
   }
 }

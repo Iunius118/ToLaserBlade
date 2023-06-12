@@ -62,5 +62,6 @@
       "laser_blade_fp_attack_15",
       "laser_blade_fp_attack_16"
     ]
-  ]
+  ],
+  "sends_telemetry_event": false
 }

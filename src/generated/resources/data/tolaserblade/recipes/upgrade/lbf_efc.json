@@ -8,5 +8,8 @@
   },
   "result": {
     "type": "tolaserblade:upgrade/efficiency"
+  },
+  "template": {
+    "item": "tolaserblade:lb_blueprint"
   }
 }

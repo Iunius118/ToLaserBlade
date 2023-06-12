@@ -8,5 +8,8 @@
   },
   "result": {
     "type": "tolaserblade:upgrade/silk_touch"
+  },
+  "template": {
+    "item": "tolaserblade:lb_blueprint"
   }
 }

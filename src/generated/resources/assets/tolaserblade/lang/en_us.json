@@ -40,7 +40,7 @@
   "item.tolaserblade.lb_disassembled_fp": "Disassembled Laser Blade",
   "item.tolaserblade.lb_emitter": "Laser Blade Emitter",
   "item.tolaserblade.lb_medium": "Laser Medium",
-  "itemGroup.tolaserblade": "ToLaserBlade",
+  "itemGroup.tolaserblade.general": "ToLaserBlade",
   "tolaserblade.configgui.client.defaultModel": "Default Model",
   "tolaserblade.configgui.client.renderMultipleModels": "Render Multiple Models",
   "tolaserblade.configgui.client.showUpdateMessage": "Show Update Message",

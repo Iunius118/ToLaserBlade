@@ -30,5 +30,6 @@
     "recipes": [
       "tolaserblade:color/lbf_ib_purple"
     ]
-  }
+  },
+  "sends_telemetry_event": false
 }

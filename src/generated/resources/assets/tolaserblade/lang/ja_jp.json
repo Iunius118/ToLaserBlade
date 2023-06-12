@@ -40,7 +40,7 @@
   "item.tolaserblade.lb_disassembled_fp": "分解したレーザーブレイド",
   "item.tolaserblade.lb_emitter": "レーザーブレイド放射器",
   "item.tolaserblade.lb_medium": "レーザー媒質",
-  "itemGroup.tolaserblade": "ToLaserBlade",
+  "itemGroup.tolaserblade.general": "ToLaserBlade",
   "tolaserblade.configgui.client.defaultModel": "デフォルトのモデル",
   "tolaserblade.configgui.client.renderMultipleModels": "レーザーブレードを複数モデルで描画する",
   "tolaserblade.configgui.client.showUpdateMessage": "アップデートの通知を表示する",

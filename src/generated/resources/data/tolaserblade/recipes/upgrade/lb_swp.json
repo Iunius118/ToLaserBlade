@@ -8,5 +8,8 @@
   },
   "result": {
     "type": "tolaserblade:upgrade/sweeping_edge"
+  },
+  "template": {
+    "item": "tolaserblade:lb_blueprint"
   }
 }

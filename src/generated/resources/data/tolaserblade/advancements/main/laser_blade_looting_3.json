@@ -62,5 +62,6 @@
       "has_laser_blade",
       "has_laser_blade_fp"
     ]
-  ]
+  ],
+  "sends_telemetry_event": false
 }
