@@ -28,6 +28,11 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
 
     @Override
     public void buildRecipes(Consumer<FinishedRecipe> consumer) {
+        buildCraftingRecipes(consumer);
+        buildSmithingRecipes(consumer);
+    }
+
+    public void buildCraftingRecipes(Consumer<FinishedRecipe> consumer) {
         // DX Laser Blade
         ShapedRecipeBuilder.shaped(RecipeCategory.COMBAT, ModItems.DX_LASER_BLADE)
                 .pattern("R")
@@ -46,50 +51,93 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
                 .unlockedBy("has_redstone", has(Items.REDSTONE))
                 .save(consumer, getItemId(ModItems.LB_BLUEPRINT));
 
-        // Laser Blade with Light Element I
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.LB_BRAND_NEW_1)
-                .pattern("Gid")
-                .pattern("idi")
-                .pattern("riG")
-                .define('G', Tags.Items.GLASS_COLORLESS)
+        // LB Energy Cell
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.LB_BATTERY)
+                .pattern("#")
+                .pattern("i")
+                .pattern("r")
+                .define('#', ModItems.LB_BLUEPRINT)
                 .define('i', Tags.Items.INGOTS_IRON)
-                .define('d', Tags.Items.GEMS_DIAMOND)
                 .define('r', Tags.Items.DUSTS_REDSTONE)
-                .unlockedBy("has_redstone", has(Items.REDSTONE))
+                .unlockedBy("has_lb_blueprint", has(ModItems.LB_BLUEPRINT))
+                .save(consumer, getItemId(ModItems.LB_BATTERY));
+
+        // Laser Medium
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.LB_MEDIUM)
+                .pattern(" # ")
+                .pattern("gdg")
+                .define('#', ModItems.LB_BLUEPRINT)
+                .define('g', Tags.Items.DUSTS_GLOWSTONE)
+                .define('d', Tags.Items.GEMS_DIAMOND)
+                .unlockedBy("has_lb_blueprint", has(ModItems.LB_BLUEPRINT))
+                .save(consumer, getItemId(ModItems.LB_MEDIUM));
+
+        // Laser Blade Emitter
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.LB_EMITTER)
+                .pattern("#")
+                .pattern("d")
+                .pattern("i")
+                .define('#', ModItems.LB_BLUEPRINT)
+                .define('d', Tags.Items.GEMS_DIAMOND)
+                .define('i', Tags.Items.INGOTS_IRON)
+                .unlockedBy("has_lb_blueprint", has(ModItems.LB_BLUEPRINT))
+                .save(consumer, getItemId(ModItems.LB_EMITTER));
+
+        // Laser Blade Casing
+        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.LB_CASING)
+                .pattern("#")
+                .pattern("i")
+                .pattern("i")
+                .define('#', ModItems.LB_BLUEPRINT)
+                .define('i', Tags.Items.INGOTS_IRON)
+                .unlockedBy("has_lb_blueprint", has(ModItems.LB_BLUEPRINT))
+                .save(consumer, getItemId(ModItems.LB_CASING));
+
+        // Brand-new Laser Blade I
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.LB_BRAND_NEW_1)
+                .requires(ModItems.LB_BLUEPRINT)
+                .requires(ModItems.LB_BATTERY)
+                .requires(Tags.Items.GEMS_DIAMOND)
+                .requires(Tags.Items.GLASS_COLORLESS)
+                .requires(ModItems.LB_EMITTER)
+                .requires(ModItems.LB_CASING)
+                .unlockedBy("has_lb_blueprint", has(ModItems.LB_BLUEPRINT))
                 .save(consumer, getItemId(ModItems.LB_BRAND_NEW_1));
 
-        // Laser Blade with Light Element II
-        ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.LB_BRAND_NEW_2)
-                .pattern("gid")
-                .pattern("idi")
-                .pattern("rig")
-                .define('g', Tags.Items.DUSTS_GLOWSTONE)
-                .define('i', Tags.Items.INGOTS_IRON)
-                .define('d', Tags.Items.GEMS_DIAMOND)
-                .define('r', Tags.Items.DUSTS_REDSTONE)
-                .unlockedBy("has_redstone", has(Items.REDSTONE))
+        // Brand-new Laser Blade II
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.LB_BRAND_NEW_2)
+                .requires(ModItems.LB_BLUEPRINT)
+                .requires(ModItems.LB_BATTERY)
+                .requires(ModItems.LB_MEDIUM)
+                .requires(ModItems.LB_EMITTER)
+                .requires(ModItems.LB_CASING)
+                .unlockedBy("has_lb_blueprint", has(ModItems.LB_BLUEPRINT))
                 .save(consumer, getItemId(ModItems.LB_BRAND_NEW_2));
+    }
+
+    public void buildSmithingRecipes(Consumer<FinishedRecipe> consumer) {
+        Ingredient template = Ingredient.of(ModItems.LB_BLUEPRINT);
 
         // Netherite Laser Blade by using Smithing Table
-        addSmithingTransformRecipe(Ingredient.of(ModItems.LB_BLUEPRINT), Ingredient.of(ModItems.LASER_BLADE), Ingredient.of(Items.NETHERITE_INGOT), ModItems.LB_BRAND_NEW_FP, Items.NETHERITE_INGOT, consumer);
+        addSmithingTransformRecipe(template, Ingredient.of(ModItems.LASER_BLADE), Ingredient.of(Items.NETHERITE_INGOT), ModItems.LB_BRAND_NEW_FP, Items.NETHERITE_INGOT, consumer);
 
         // Repair recipes
-        addSmithingRepairRecipe("lb", Ingredient.of(ModItems.LB_BLUEPRINT), ModItems.LASER_BLADE, Ingredient.of(ModItemTags.CASING_REPAIR), ModItems.LB_BRAND_NEW, ModItems.LASER_BLADE, consumer);
-        addSmithingRepairRecipe("lbb", Ingredient.of(ModItems.LB_BLUEPRINT), ModItems.LB_BROKEN, Ingredient.of(ModItemTags.CASING_REPAIR), ModItems.LB_BRAND_NEW, ModItems.LB_BROKEN, consumer);
-        addSmithingRepairRecipe("lbf", Ingredient.of(ModItems.LB_BLUEPRINT), ModItems.LASER_BLADE_FP, Ingredient.of(ModItemTags.CASING_REPAIR), ModItems.LB_BRAND_NEW_FP, ModItems.LASER_BLADE_FP, consumer);
-        addSmithingRepairRecipe("lbbf", Ingredient.of(ModItems.LB_BLUEPRINT), ModItems.LB_BROKEN_FP, Ingredient.of(ModItemTags.CASING_REPAIR), ModItems.LB_BRAND_NEW_FP, ModItems.LB_BROKEN_FP, consumer);
+        addSmithingRepairRecipe("lb", template, ModItems.LASER_BLADE, Ingredient.of(ModItemTags.CASING_REPAIR), ModItems.LB_BRAND_NEW, ModItems.LASER_BLADE, consumer);
+        addSmithingRepairRecipe("lbb", template, ModItems.LB_BROKEN, Ingredient.of(ModItemTags.CASING_REPAIR), ModItems.LB_BRAND_NEW, ModItems.LB_BROKEN, consumer);
+        addSmithingRepairRecipe("lbf", template, ModItems.LASER_BLADE_FP, Ingredient.of(ModItemTags.CASING_REPAIR), ModItems.LB_BRAND_NEW_FP, ModItems.LASER_BLADE_FP, consumer);
+        addSmithingRepairRecipe("lbbf", template, ModItems.LB_BROKEN_FP, Ingredient.of(ModItemTags.CASING_REPAIR), ModItems.LB_BRAND_NEW_FP, ModItems.LB_BROKEN_FP, consumer);
 
         // Upgrade Recipes
-        addUpgradeRecipes(consumer);
+        addUpgradeRecipes(template, consumer);
 
         // Color Recipes
-        addColorRecipes(consumer);
+        addColorRecipes(template, consumer);
 
         // Model Change Recipes
-        addModelChangeRecipes(consumer, Ingredient.of(Blocks.GLASS.asItem()), 0, "");
-        addModelChangeRecipes(consumer, Ingredient.of(Blocks.SAND.asItem()), 1, "");
-        addModelChangeRecipes(consumer, Ingredient.of(Blocks.SANDSTONE.asItem()), 2, "");
-        addModelChangeRecipes(consumer, Ingredient.of(Blocks.DIRT.asItem()), 526, "");
+        addModelChangeRecipes(template, consumer, Ingredient.of(Blocks.GLASS.asItem()), 0, "");
+        addModelChangeRecipes(template, consumer, Ingredient.of(Blocks.SAND.asItem()), 1, "");
+        addModelChangeRecipes(template, consumer, Ingredient.of(Blocks.SANDSTONE.asItem()), 2, "");
+        addModelChangeRecipes(template, consumer, Ingredient.of(Blocks.DIRT.asItem()), 526, "");
     }
 
     private ResourceLocation getItemId(Item item) {
@@ -108,107 +156,107 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
                 .save(consumer, ToLaserBlade.MOD_ID + ":repair_" + shortName + "_smithing");
     }
 
-    private void addUpgradeRecipes(Consumer<FinishedRecipe> consumer) {
+    private void addUpgradeRecipes(Ingredient template, Consumer<FinishedRecipe> consumer) {
         Map<ResourceLocation, Upgrade> upgrades = UpgradeManager.getUpgrades();
         upgrades.forEach((id, upgrade) -> {
-            LBUpgradeRecipeBuilder.upgradeRecipe(Ingredient.of(ModItems.LB_BLUEPRINT), Ingredient.of(ModItems.LASER_BLADE), upgrade.getIngredient(), id)
+            LBUpgradeRecipeBuilder.upgradeRecipe(template, Ingredient.of(ModItems.LASER_BLADE), upgrade.getIngredient(), id)
                     .addCriterion("has_laser_blade", has(ModItems.LASER_BLADE))
                     .build(consumer, ToLaserBlade.MOD_ID + ":upgrade/lb_" + upgrade.shortName());
-            LBUpgradeRecipeBuilder.upgradeRecipe(Ingredient.of(ModItems.LB_BLUEPRINT), Ingredient.of(ModItems.LASER_BLADE_FP), upgrade.getIngredient(), id)
+            LBUpgradeRecipeBuilder.upgradeRecipe(template, Ingredient.of(ModItems.LASER_BLADE_FP), upgrade.getIngredient(), id)
                     .addCriterion("has_laser_blade_fp", has(ModItems.LASER_BLADE_FP))
                     .build(consumer, ToLaserBlade.MOD_ID + ":upgrade/lbf_" + upgrade.shortName());
         });
     }
 
-    private void addColorRecipes(Consumer<FinishedRecipe> consumer) {
-        addInnerColorRecipes(consumer);
-        addOuterColorRecipes(consumer);
-        addGripColorRecipes(consumer);
+    private void addColorRecipes(Ingredient template, Consumer<FinishedRecipe> consumer) {
+        addInnerColorRecipes(template, consumer);
+        addOuterColorRecipes(template, consumer);
+        addGripColorRecipes(template, consumer);
     }
 
-    private void addInnerColorRecipes(Consumer<FinishedRecipe> consumer) {
+    private void addInnerColorRecipes(Ingredient template, Consumer<FinishedRecipe> consumer) {
         LaserBladeColorPart part = LaserBladeColorPart.INNER_BLADE;
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_WHITE), part, LaserBladeColor.WHITE);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_ORANGE), part, LaserBladeColor.ORANGE);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_MAGENTA), part, LaserBladeColor.MAGENTA);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_LIGHT_BLUE), part, LaserBladeColor.LIGHT_BLUE);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_YELLOW), part, LaserBladeColor.YELLOW);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_LIME), part, LaserBladeColor.LIME);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_PINK), part, LaserBladeColor.PINK);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_GRAY), part, LaserBladeColor.GRAY);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_LIGHT_GRAY), part, LaserBladeColor.LIGHT_GRAY);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_CYAN), part, LaserBladeColor.CYAN);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_PURPLE), part, LaserBladeColor.PURPLE);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_BLUE), part, LaserBladeColor.BLUE);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_BROWN), part, LaserBladeColor.BROWN);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_GREEN), part, LaserBladeColor.GREEN);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_RED), part, LaserBladeColor.RED);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_BLACK), part, LaserBladeColor.BLACK);
+        addColorRecipe(template, consumer, Ingredient.of(Tags.Items.GLASS_PANES_WHITE), part, LaserBladeColor.WHITE);
+        addColorRecipe(template, consumer, Ingredient.of(Tags.Items.GLASS_PANES_ORANGE), part, LaserBladeColor.ORANGE);
+        addColorRecipe(template, consumer, Ingredient.of(Tags.Items.GLASS_PANES_MAGENTA), part, LaserBladeColor.MAGENTA);
+        addColorRecipe(template, consumer, Ingredient.of(Tags.Items.GLASS_PANES_LIGHT_BLUE), part, LaserBladeColor.LIGHT_BLUE);
+        addColorRecipe(template, consumer, Ingredient.of(Tags.Items.GLASS_PANES_YELLOW), part, LaserBladeColor.YELLOW);
+        addColorRecipe(template, consumer, Ingredient.of(Tags.Items.GLASS_PANES_LIME), part, LaserBladeColor.LIME);
+        addColorRecipe(template, consumer, Ingredient.of(Tags.Items.GLASS_PANES_PINK), part, LaserBladeColor.PINK);
+        addColorRecipe(template, consumer, Ingredient.of(Tags.Items.GLASS_PANES_GRAY), part, LaserBladeColor.GRAY);
+        addColorRecipe(template, consumer, Ingredient.of(Tags.Items.GLASS_PANES_LIGHT_GRAY), part, LaserBladeColor.LIGHT_GRAY);
+        addColorRecipe(template, consumer, Ingredient.of(Tags.Items.GLASS_PANES_CYAN), part, LaserBladeColor.CYAN);
+        addColorRecipe(template, consumer, Ingredient.of(Tags.Items.GLASS_PANES_PURPLE), part, LaserBladeColor.PURPLE);
+        addColorRecipe(template, consumer, Ingredient.of(Tags.Items.GLASS_PANES_BLUE), part, LaserBladeColor.BLUE);
+        addColorRecipe(template, consumer, Ingredient.of(Tags.Items.GLASS_PANES_BROWN), part, LaserBladeColor.BROWN);
+        addColorRecipe(template, consumer, Ingredient.of(Tags.Items.GLASS_PANES_GREEN), part, LaserBladeColor.GREEN);
+        addColorRecipe(template, consumer, Ingredient.of(Tags.Items.GLASS_PANES_RED), part, LaserBladeColor.RED);
+        addColorRecipe(template, consumer, Ingredient.of(Tags.Items.GLASS_PANES_BLACK), part, LaserBladeColor.BLACK);
 
-        addColorRecipe(consumer, Ingredient.of(Blocks.AMETHYST_BLOCK), part, LaserBladeColor.SPECIAL_SWITCH_BLEND_MODE);
+        addColorRecipe(template, consumer, Ingredient.of(Blocks.AMETHYST_BLOCK), part, LaserBladeColor.SPECIAL_SWITCH_BLEND_MODE);
     }
 
-    private void addOuterColorRecipes(Consumer<FinishedRecipe> consumer) {
+    private void addOuterColorRecipes(Ingredient template, Consumer<FinishedRecipe> consumer) {
         LaserBladeColorPart part = LaserBladeColorPart.OUTER_BLADE;
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_WHITE), part, LaserBladeColor.WHITE);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_ORANGE), part, LaserBladeColor.ORANGE);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_MAGENTA), part, LaserBladeColor.MAGENTA);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_LIGHT_BLUE), part, LaserBladeColor.LIGHT_BLUE);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_YELLOW), part, LaserBladeColor.YELLOW);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_LIME), part, LaserBladeColor.LIME);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PINK), part, LaserBladeColor.PINK);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_GRAY), part, LaserBladeColor.GRAY);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_LIGHT_GRAY), part, LaserBladeColor.LIGHT_GRAY);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_CYAN), part, LaserBladeColor.CYAN);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PURPLE), part, LaserBladeColor.PURPLE);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_BLUE), part, LaserBladeColor.BLUE);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_BROWN), part, LaserBladeColor.BROWN);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_GREEN), part, LaserBladeColor.GREEN);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_RED), part, LaserBladeColor.RED);
-        addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_BLACK), part, LaserBladeColor.BLACK);
+        addColorRecipe(template, consumer, Ingredient.of(Tags.Items.GLASS_WHITE), part, LaserBladeColor.WHITE);
+        addColorRecipe(template, consumer, Ingredient.of(Tags.Items.GLASS_ORANGE), part, LaserBladeColor.ORANGE);
+        addColorRecipe(template, consumer, Ingredient.of(Tags.Items.GLASS_MAGENTA), part, LaserBladeColor.MAGENTA);
+        addColorRecipe(template, consumer, Ingredient.of(Tags.Items.GLASS_LIGHT_BLUE), part, LaserBladeColor.LIGHT_BLUE);
+        addColorRecipe(template, consumer, Ingredient.of(Tags.Items.GLASS_YELLOW), part, LaserBladeColor.YELLOW);
+        addColorRecipe(template, consumer, Ingredient.of(Tags.Items.GLASS_LIME), part, LaserBladeColor.LIME);
+        addColorRecipe(template, consumer, Ingredient.of(Tags.Items.GLASS_PINK), part, LaserBladeColor.PINK);
+        addColorRecipe(template, consumer, Ingredient.of(Tags.Items.GLASS_GRAY), part, LaserBladeColor.GRAY);
+        addColorRecipe(template, consumer, Ingredient.of(Tags.Items.GLASS_LIGHT_GRAY), part, LaserBladeColor.LIGHT_GRAY);
+        addColorRecipe(template, consumer, Ingredient.of(Tags.Items.GLASS_CYAN), part, LaserBladeColor.CYAN);
+        addColorRecipe(template, consumer, Ingredient.of(Tags.Items.GLASS_PURPLE), part, LaserBladeColor.PURPLE);
+        addColorRecipe(template, consumer, Ingredient.of(Tags.Items.GLASS_BLUE), part, LaserBladeColor.BLUE);
+        addColorRecipe(template, consumer, Ingredient.of(Tags.Items.GLASS_BROWN), part, LaserBladeColor.BROWN);
+        addColorRecipe(template, consumer, Ingredient.of(Tags.Items.GLASS_GREEN), part, LaserBladeColor.GREEN);
+        addColorRecipe(template, consumer, Ingredient.of(Tags.Items.GLASS_RED), part, LaserBladeColor.RED);
+        addColorRecipe(template, consumer, Ingredient.of(Tags.Items.GLASS_BLACK), part, LaserBladeColor.BLACK);
 
-        addColorRecipe(consumer, Ingredient.of(Blocks.TINTED_GLASS), part, LaserBladeColor.SPECIAL_SWITCH_BLEND_MODE);
+        addColorRecipe(template, consumer, Ingredient.of(Blocks.TINTED_GLASS), part, LaserBladeColor.SPECIAL_SWITCH_BLEND_MODE);
     }
 
-    private void addGripColorRecipes(Consumer<FinishedRecipe> consumer) {
+    private void addGripColorRecipes(Ingredient template, Consumer<FinishedRecipe> consumer) {
         LaserBladeColorPart part = LaserBladeColorPart.GRIP;
-        addColorRecipe(consumer, Ingredient.of(Blocks.WHITE_CARPET), part, LaserBladeColor.WHITE);
-        addColorRecipe(consumer, Ingredient.of(Blocks.ORANGE_CARPET), part, LaserBladeColor.ORANGE);
-        addColorRecipe(consumer, Ingredient.of(Blocks.MAGENTA_CARPET), part, LaserBladeColor.MAGENTA);
-        addColorRecipe(consumer, Ingredient.of(Blocks.LIGHT_BLUE_CARPET), part, LaserBladeColor.LIGHT_BLUE);
-        addColorRecipe(consumer, Ingredient.of(Blocks.YELLOW_CARPET), part, LaserBladeColor.YELLOW);
-        addColorRecipe(consumer, Ingredient.of(Blocks.LIME_CARPET), part, LaserBladeColor.LIME);
-        addColorRecipe(consumer, Ingredient.of(Blocks.PINK_CARPET), part, LaserBladeColor.PINK);
-        addColorRecipe(consumer, Ingredient.of(Blocks.GRAY_CARPET), part, LaserBladeColor.GRAY);
-        addColorRecipe(consumer, Ingredient.of(Blocks.LIGHT_GRAY_CARPET), part, LaserBladeColor.LIGHT_GRAY);
-        addColorRecipe(consumer, Ingredient.of(Blocks.CYAN_CARPET), part, LaserBladeColor.CYAN);
-        addColorRecipe(consumer, Ingredient.of(Blocks.PURPLE_CARPET), part, LaserBladeColor.PURPLE);
-        addColorRecipe(consumer, Ingredient.of(Blocks.BLUE_CARPET), part, LaserBladeColor.BLUE);
-        addColorRecipe(consumer, Ingredient.of(Blocks.BROWN_CARPET), part, LaserBladeColor.BROWN);
-        addColorRecipe(consumer, Ingredient.of(Blocks.GREEN_CARPET), part, LaserBladeColor.GREEN);
-        addColorRecipe(consumer, Ingredient.of(Blocks.RED_CARPET), part, LaserBladeColor.RED);
-        addColorRecipe(consumer, Ingredient.of(Blocks.BLACK_CARPET), part, LaserBladeColor.BLACK);
+        addColorRecipe(template, consumer, Ingredient.of(Blocks.WHITE_CARPET), part, LaserBladeColor.WHITE);
+        addColorRecipe(template, consumer, Ingredient.of(Blocks.ORANGE_CARPET), part, LaserBladeColor.ORANGE);
+        addColorRecipe(template, consumer, Ingredient.of(Blocks.MAGENTA_CARPET), part, LaserBladeColor.MAGENTA);
+        addColorRecipe(template, consumer, Ingredient.of(Blocks.LIGHT_BLUE_CARPET), part, LaserBladeColor.LIGHT_BLUE);
+        addColorRecipe(template, consumer, Ingredient.of(Blocks.YELLOW_CARPET), part, LaserBladeColor.YELLOW);
+        addColorRecipe(template, consumer, Ingredient.of(Blocks.LIME_CARPET), part, LaserBladeColor.LIME);
+        addColorRecipe(template, consumer, Ingredient.of(Blocks.PINK_CARPET), part, LaserBladeColor.PINK);
+        addColorRecipe(template, consumer, Ingredient.of(Blocks.GRAY_CARPET), part, LaserBladeColor.GRAY);
+        addColorRecipe(template, consumer, Ingredient.of(Blocks.LIGHT_GRAY_CARPET), part, LaserBladeColor.LIGHT_GRAY);
+        addColorRecipe(template, consumer, Ingredient.of(Blocks.CYAN_CARPET), part, LaserBladeColor.CYAN);
+        addColorRecipe(template, consumer, Ingredient.of(Blocks.PURPLE_CARPET), part, LaserBladeColor.PURPLE);
+        addColorRecipe(template, consumer, Ingredient.of(Blocks.BLUE_CARPET), part, LaserBladeColor.BLUE);
+        addColorRecipe(template, consumer, Ingredient.of(Blocks.BROWN_CARPET), part, LaserBladeColor.BROWN);
+        addColorRecipe(template, consumer, Ingredient.of(Blocks.GREEN_CARPET), part, LaserBladeColor.GREEN);
+        addColorRecipe(template, consumer, Ingredient.of(Blocks.RED_CARPET), part, LaserBladeColor.RED);
+        addColorRecipe(template, consumer, Ingredient.of(Blocks.BLACK_CARPET), part, LaserBladeColor.BLACK);
     }
 
-    private void addColorRecipe(Consumer<FinishedRecipe> consumer, Ingredient addition, LaserBladeColorPart part, LaserBladeColor color) {
+    private void addColorRecipe(Ingredient template, Consumer<FinishedRecipe> consumer, Ingredient addition, LaserBladeColorPart part, LaserBladeColor color) {
         boolean isBlade = (part == LaserBladeColorPart.INNER_BLADE || part == LaserBladeColorPart.OUTER_BLADE);
         int colorValue = isBlade ? color.getBladeColor() : color.getGripColor();
 
-        LBColorRecipeBuilder.colorRecipe(Ingredient.of(ModItems.LB_BLUEPRINT), Ingredient.of(ModItems.LASER_BLADE), addition, part, colorValue)
+        LBColorRecipeBuilder.colorRecipe(template, Ingredient.of(ModItems.LASER_BLADE), addition, part, colorValue)
                 .addCriterion("has_laser_blade", has(ModItems.LASER_BLADE))
                 .build(consumer, "tolaserblade:color/lb_" + part.getShortName() + "_" + color.getColorName());
-        LBColorRecipeBuilder.colorRecipe(Ingredient.of(ModItems.LB_BLUEPRINT), Ingredient.of(ModItems.LASER_BLADE_FP), addition, part, colorValue)
+        LBColorRecipeBuilder.colorRecipe(template, Ingredient.of(ModItems.LASER_BLADE_FP), addition, part, colorValue)
                 .addCriterion("has_laser_blade_fp", has(ModItems.LASER_BLADE_FP))
                 .build(consumer, ToLaserBlade.MOD_ID + ":color/lbf_" + part.getShortName() + "_" + color.getColorName());
     }
 
-    private void addModelChangeRecipes(Consumer<FinishedRecipe> consumer, Ingredient addition, int modelType, String suffixIn) {
+    private void addModelChangeRecipes(Ingredient template, Consumer<FinishedRecipe> consumer, Ingredient addition, int modelType, String suffixIn) {
         String suffix = (suffixIn == null) ? "" : suffixIn;
 
-        LBModelChangeRecipeBuilder.modelChangeRecipe(Ingredient.of(ModItems.LB_BLUEPRINT), Ingredient.of(ModItems.LASER_BLADE), addition, modelType)
+        LBModelChangeRecipeBuilder.modelChangeRecipe(template, Ingredient.of(ModItems.LASER_BLADE), addition, modelType)
                 .addCriterion("has_laser_blade", has(ModItems.LASER_BLADE))
                 .build(consumer, "tolaserblade:model/lb_" + modelType + suffix);
-        LBModelChangeRecipeBuilder.modelChangeRecipe(Ingredient.of(ModItems.LB_BLUEPRINT), Ingredient.of(ModItems.LASER_BLADE_FP), addition, modelType)
+        LBModelChangeRecipeBuilder.modelChangeRecipe(template, Ingredient.of(ModItems.LASER_BLADE_FP), addition, modelType)
                 .addCriterion("has_laser_blade_fp", has(ModItems.LASER_BLADE_FP))
                 .build(consumer, "tolaserblade:model/lbf_" + modelType + suffix);
     }
