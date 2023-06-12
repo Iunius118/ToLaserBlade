@@ -40,6 +40,7 @@ public class ToLaserBlade {
         RegistryEventHandler.registerGameObjects(modEventBus);
         modEventBus.addListener(this::gatherData);
         modEventBus.addListener(ModCreativeModeTabs::onCreativeModeTabBuildContents);
+        modEventBus.addListener(TLBOldRecipeProvider6::addPackFinders);
         MinecraftForge.EVENT_BUS.register(CommonEventHandler.class);
         MinecraftForge.EVENT_BUS.register(ItemEventHandler.class);
 
@@ -69,14 +70,15 @@ public class ToLaserBlade {
         var blockTagsProvider = new TLBBlockTagsProvider(packOutput, lookupProvider, existingFileHelper);
 
         // Server
-        boolean includesServer = event.includeServer();
+        final boolean includesServer = event.includeServer();
         dataGenerator.addProvider(includesServer, new TLBRecipeProvider(packOutput));
         dataGenerator.addProvider(includesServer, blockTagsProvider);
         dataGenerator.addProvider(includesServer, new TLBItemTagsProvider(packOutput, lookupProvider, blockTagsProvider.contentsGetter(), existingFileHelper));
         dataGenerator.addProvider(includesServer, new TLBAdvancementProvider(packOutput, lookupProvider, existingFileHelper));
+        TLBOldRecipeProvider6.addProviders(event);
 
         // Client
-        boolean includesClient = event.includeClient();
+        final boolean includesClient = event.includeClient();
         dataGenerator.addProvider(includesClient, new TLBItemModelProvider(packOutput, existingFileHelper));
         TLBLanguageProvider.addProviders(includesClient, dataGenerator, packOutput);
         dataGenerator.addProvider(includesClient, new TLBSoundDefinitionsProvider(packOutput, existingFileHelper));
