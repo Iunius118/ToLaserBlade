@@ -30,7 +30,7 @@ public class TLBItemTagsProvider extends ItemTagsProvider {
         tag(ModItemTags.ATTACK_SPEED_UPGRADE).addTags(Tags.Items.INGOTS_GOLD);
         tag(ModItemTags.EFFICIENCY_UPGRADE).addTags(Tags.Items.STORAGE_BLOCKS_REDSTONE);
         tag(ModItemTags.EFFICIENCY_REMOVER).addTags(Tags.Items.DUSTS_REDSTONE);
-        tag(ModItemTags.ATTACK_DAMAGE_UPGRADE).addTags(Tags.Items.GEMS_DIAMOND);
+        tag(ModItemTags.ATTACK_DAMAGE_UPGRADE).addTags(Tags.Items.STORAGE_BLOCKS_DIAMOND);
         tag(ModItemTags.LIGHT_ELEMENT_UPGRADE).add(Items.GLOWSTONE);
         tag(ModItemTags.FIRE_ASPECT_UPGRADE).addTags(Tags.Items.RODS_BLAZE);
         tag(ModItemTags.SWEEPING_EDGE_UPGRADE).add(Items.ENDER_EYE);
