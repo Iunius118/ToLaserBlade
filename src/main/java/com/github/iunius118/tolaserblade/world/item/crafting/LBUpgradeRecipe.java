@@ -51,14 +51,14 @@ public class LBUpgradeRecipe extends SmithingTransformRecipe {
 
     @Override
     public boolean matches(Container container, Level level) {
-        if (super.matches(container, level)) {
-            ItemStack baseStack = container.getItem(SmithingMenu.BASE_SLOT);
-            ItemStack additionalStack = container.getItem(SmithingMenu.ADDITIONAL_SLOT);
-            Upgrade upgrade = getUpgrade();
-            return upgrade.canApply(baseStack, additionalStack);
+        if (!super.matches(container, level)) {
+            return false;
         }
 
-        return false;
+        ItemStack baseStack = container.getItem(SmithingMenu.BASE_SLOT);
+        ItemStack additionalStack = container.getItem(SmithingMenu.ADDITIONAL_SLOT);
+        Upgrade upgrade = getUpgrade();
+        return upgrade.canApply(baseStack, additionalStack);
     }
 
     @Override
@@ -85,7 +85,9 @@ public class LBUpgradeRecipe extends SmithingTransformRecipe {
 
     @Override
     public ItemStack getResultItem(RegistryAccess registryAccess) {
-        if (sample != null) return sample;
+        if (sample != null) {
+            return sample;
+        }
 
         ItemStack output = super.getResultItem(registryAccess);
         sample = output.copy();

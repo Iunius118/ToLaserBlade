@@ -48,8 +48,9 @@ public class LBColorRecipe extends SmithingTransformRecipe {
 
     @Override
     public boolean matches(Container container, Level level) {
-        if (!super.matches(container, level))
+        if (!super.matches(container, level)) {
             return false;
+        }
 
         ItemStack baseStack = container.getItem(SmithingMenu.BASE_SLOT);
         var visual = LaserBladeVisual.of(baseStack);
@@ -80,7 +81,9 @@ public class LBColorRecipe extends SmithingTransformRecipe {
 
     @Override
     public ItemStack getResultItem(RegistryAccess registryAccess) {
-        if (sample != null) return sample;
+        if (sample != null) {
+            return sample;
+        }
 
         ItemStack output = super.getResultItem(registryAccess);
 
