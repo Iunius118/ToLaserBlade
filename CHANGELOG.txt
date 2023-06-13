@@ -4,6 +4,19 @@
 
 ## [Unreleased]
 
+## [1.20.1-7.0.0.0-beta.1]
+### Added
+- New recipes for Laser Blade Blueprint, LB Energy Cell, Laser Medium, Laser Blade Emitter, and Laser Blade Casing.
+- Built-in optional data pack `tolaserblade:old_lb_recipes_6` to revert laser blade recipes to version 6.
+
+### Changed
+- Port to 1.20.1.
+- Require Forge 1.20.1-47.0.1+.
+- Brand-new laser blade recipes to use Laser Blade Blueprint and laser blade parts.
+- All smithing recipes require Laser Blade Blueprint as template.
+- Laser Blade Blueprint remains in template slot when result item is taken.
+- Attack damage upgrade consumes Block of Diamond now.
+
 ## [1.19.4-6.2.0.0]
 ### Added
 - LaserBladeModelRegistrationEvent to ToLaserBlade API.

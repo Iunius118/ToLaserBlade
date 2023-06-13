@@ -1,5 +1,5 @@
 # Cheatsheet
-ToLaserBlade v6.0.0.0
+ToLaserBlade v7.0.0.0
 
 ## How to Get Started
 ### 1. Craft a Brand-new Laser Blade I or II, and Use It
@@ -23,13 +23,45 @@ Using smithing table, you can upgrade your laser blade.
   - S;
   - S;
 
+ ### Laser Blade Blueprint
+ - ID: `tolaserblade:lb_blueprint`
+ - This item will remain on the crafting grid and the template slot
+ - Crafting on Crafting Table (shapeless):
+   - DX Laser B1ade
+   - Blue Dye
+   - Paper
+
+ ### LB Energy Cell
+ - ID: `tolaserblade:lb_battery`
+ - Crafting on Crafting Table: B = Laser Blade Blueprint; I = Iron Ingot; R = Redstone
+   - B;
+   - I;
+   - R;
+
+ ### Laser Blade Emitter
+ - ID: `tolaserblade:lb_emitter`
+ - Crafting on Crafting Table: B = Laser Blade Blueprint; D = Diamond; I = Iron Ingot
+   - B;
+   - D;
+   - I;
+
+ ### Laser Blade Casing
+ - ID: `tolaserblade:lb_casing`
+ - Crafting on Crafting Table: B = Laser Blade Blueprint; I = Iron Ingot
+   - B;
+   - I;
+   - I;
+
 ### Brand-new Laser Blade I
 - ID: `tolaserblade:lb_brand_new_1`
 - Holding this item in your hand and right-clicking, you will obtain a laser blade enchanted with Efficiency I and Light Element I
-- Crafting on Crafting Table: G = Glass; I = Iron Ingot; D = Diamond; R = Redstone
-  - G, I, D;
-  - I, D, I;
-  - R, I, G;
+- Crafting on Crafting Table (shapeless):
+  - Laser Blade Blueprint
+  - LB Energy Cell
+  - Diamond
+  - Glass
+  - Laser Blade Emitter
+  - Laser Blade Casing
 - The color of the laser blade obtained may change depending on the biome where the player obtained it
   - Nether Wastes, Crimson Forest, or Basalt Deltas: white blades and subtractive inner blade color
   - Warped Forest or Soul Sand Valley: white blades and subtractive outer blade color
@@ -42,13 +74,21 @@ Using smithing table, you can upgrade your laser blade.
   - 0.2 > Temperature >= -0.25: azure outer blade
   - -0.25 > Temperature: blue outer blade
 
+ ### Laser Medium
+ - ID: `tolaserblade:lb_medium`
+ - Crafting on Crafting Table: B = Laser Blade Blueprint; g = Glowstone Dust; D = Diamond
+   - _, B, _;
+   - g, D, g;
+
 ### Brand-new Laser Blade II
 - ID: `tolaserblade:lb_brand_new_2`
 - Holding this item in your hand and right-clicking, you will obtain a laser blade enchanted with Efficiency I and Light Element II
-- Crafting on Crafting Table: g = Glowstone Dust; I = Iron Ingot; D = Diamond; R = Redstone
-  - g, I, D;
-  - I, D, I;
-  - R, I, g;
+- Crafting on Crafting Table (shapeless):
+  - Laser Blade Blueprint
+  - LB Energy Cell
+  - Laser Medium
+  - Laser Blade Emitter
+  - Laser Blade Casing
 - The color of the laser blade obtained may change depending on the biome where the player obtained it. See Brand-new Laser Blade I
 
 ### Brand-new Laser Blade
@@ -73,56 +113,53 @@ Using smithing table, you can upgrade your laser blade.
 ### Broken Laser Blade
 - ID: `tolaserblade:lb_broken`
 - ID (fireproof): `tolaserblade:lb_broken_fp`
+- This item can be obtained by breaking the laser blade.
 - Repairing: See Repairing Laser Blades
 
 ### Not Used Items
 The following items are not used and have no recipes:
 
-- Laser Blade Blueprint
 - Disassembled Laser Blade
-- LB Energy Cell
-- Laser Medium
-- Laser Blade Emitter
-- Laser Blade Casing
+- Disassembled Laser Blade (fireproof)
 
 ## Features
 ### Changing Laser Blade Colors
 Smithing Table:
 
-- Outer Blade: Laser Blade + Stained Glass
-- Inner blade: Laser Blade + Stained Glass Pane
-- Grip: Laser Blade + Carpet
-- Switching Blend Mode of Outer Blade: Laser Blade + Tinted Glass
-- Switching Blend Mode of Inner Blade: Laser Blade + Block of Amethyst
+- Outer Blade: Laser Blade Blueprint + Laser Blade + Stained Glass
+- Inner blade: Laser Blade Blueprint + Laser Blade + Stained Glass Pane
+- Grip: Laser Blade Blueprint + Laser Blade + Carpet
+- Switching Blend Mode of Outer Blade: Laser Blade Blueprint + Laser Blade + Tinted Glass
+- Switching Blend Mode of Inner Blade: Laser Blade Blueprint + Laser Blade + Block of Amethyst
 
 ### Changing Laser Blade Shape
 Smithing Table:
 
-- Type 0 (Standard): Laser Blade + Glass
-- Type 1: Laser Blade + Sand
-- Type 2: Laser Blade + Sandstone
-- Type 526: Laser Blade + Dirt
+- Type 0 (Standard): Laser Blade Blueprint + Laser Blade + Glass
+- Type 1: Laser Blade Blueprint + Laser Blade + Sand
+- Type 2: Laser Blade Blueprint + Laser Blade + Sandstone
+- Type 526: Laser Blade Blueprint + Laser Blade + Dirt
 
 ### Upgrading Laser Blades
 Smithing Table:
 
-- Attack Speed (up to 4.0): Laser Blade + Gold Ingot
-- Efficiency: Laser Blade + Block of Redstone
-- Removing Efficiency: Laser Blade + Redstone
-- Attack Damage: Laser Blade + Diamond
-- Light Element: Laser Blade + Glowstone
-- Fire Aspect: Laser Blade + Blaze Rod
-- Sweeping Edge: Laser Blade + Eye of Ender
-- Silk Touch: Laser Blade + Prismarine Crystals / Amethyst Shard / Echo Shard
-- Looting: Laser Blade + Nautilus Shell / Block of Emerald
-- Mending: Laser Blade + Nether Star / Dragon Head / Totem of Undying
-- Fireproof: Laser Blade + Netherite Ingot
+- Attack Speed (up to 4.0): Laser Blade Blueprint + Laser Blade + Gold Ingot
+- Efficiency: Laser Blade Blueprint + Laser Blade + Block of Redstone
+- Removing Efficiency: Laser Blade Blueprint + Laser Blade + Redstone
+- Attack Damage: Laser Blade Blueprint + Laser Blade + Block of Diamond
+- Light Element: Laser Blade Blueprint + Laser Blade + Glowstone
+- Fire Aspect: Laser Blade Blueprint + Laser Blade + Blaze Rod
+- Sweeping Edge: Laser Blade Blueprint + Laser Blade + Eye of Ender
+- Silk Touch: Laser Blade Blueprint + Laser Blade + Prismarine Crystals / Amethyst Shard / Echo Shard
+- Looting: Laser Blade Blueprint + Laser Blade + Nautilus Shell / Block of Emerald
+- Mending: Laser Blade Blueprint + Laser Blade + Nether Star / Dragon Head / Totem of Undying
+- Fireproof: Laser Blade Blueprint + Laser Blade + Netherite Ingot
 
 ### Repairing Laser Blades
 Smithing Table:
 
-- Brand-new Laser Blade: Laser Blade (damaged) + Iron Ingot
-- Brand-new Laser Blade: Broken Laser Blade + Iron Ingot
+- Brand-new Laser Blade: Laser Blade Blueprint + Laser Blade (damaged) + Iron Ingot
+- Brand-new Laser Blade: Laser Blade Blueprint + Broken Laser Blade + Iron Ingot
 
 ### Enchantment: Light Element
 - ID: `tolaserblade:light_element`
@@ -148,6 +185,22 @@ You can add audio files that will be played when laser blades are swung.
 - Server-side settings: `(world_save_dir)/serverconfig/tolaserblade-server.toml`
 - Client-side settings: `(game_dir)/config/tolaserblade-client.toml`
 
+## Data pack
+Built-in optional data pack
+
+### `tolaserblade:old_lb_recipes_6`
+This data pack reverts the laser blade recipes to version 6.
+
+- Brand-new Laser Blade I (crafting): G = Glass; I = Iron Ingot; D = Diamond; R = Redstone
+  - G, I, D;
+  - I, D, I;
+  - R, I, G;
+- Brand-new Laser Blade II (crafting): g = Glowstone Dust; I = Iron Ingot; D = Diamond; R = Redstone
+  - g, I, D;
+  - I, D, I;
+  - R, I, g;
+- Attack Damage Upgrade (smithing): Laser Blade Blueprint + Laser Blade + Diamond
+
 ## Related Mod
 ### ToLaserBlade-ExtraModels
 A ToLaserBlade add-on to add more laser blade shapes.
@@ -158,7 +211,3 @@ https://www.curseforge.com/minecraft/mc-mods/tolaserblade-extramodels
 ### Didn't Laser Blade support OptiFine's Dynamic Lights before?
 Use H1 or later.
 
-### What are items like Energy Cell, Medium, Blade Emitter, Casing, and Blueprint for? Planning to add a Laser Blade recipe that uses them?
-These items are for players to customize Laser Blade recipes with JSON files for data packs,or scripts for CraftTweaker, so I don't plan to add any recipes using them to the mod.
-
-Example data pack: https://github.com/Iunius118/ExampleRecipesForToLaserBlade
