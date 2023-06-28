@@ -23,7 +23,7 @@ Using smithing table, you can upgrade your laser blade.
   - S;
   - S;
 
- ### Laser Blade Blueprint
+### Laser Blade Blueprint
  - ID: `tolaserblade:lb_blueprint`
  - This item will remain on the crafting grid and the template slot
  - Crafting on Crafting Table (shapeless):
@@ -31,21 +31,21 @@ Using smithing table, you can upgrade your laser blade.
    - Blue Dye
    - Paper
 
- ### LB Energy Cell
+### LB Energy Cell
  - ID: `tolaserblade:lb_battery`
  - Crafting on Crafting Table: B = Laser Blade Blueprint; I = Iron Ingot; R = Redstone
    - B;
    - I;
    - R;
 
- ### Laser Blade Emitter
+### Laser Blade Emitter
  - ID: `tolaserblade:lb_emitter`
  - Crafting on Crafting Table: B = Laser Blade Blueprint; D = Diamond; I = Iron Ingot
    - B;
    - D;
    - I;
 
- ### Laser Blade Casing
+### Laser Blade Casing
  - ID: `tolaserblade:lb_casing`
  - Crafting on Crafting Table: B = Laser Blade Blueprint; I = Iron Ingot
    - B;
@@ -74,7 +74,7 @@ Using smithing table, you can upgrade your laser blade.
   - 0.2 > Temperature >= -0.25: azure outer blade
   - -0.25 > Temperature: blue outer blade
 
- ### Laser Medium
+### Laser Medium
  - ID: `tolaserblade:lb_medium`
  - Crafting on Crafting Table: B = Laser Blade Blueprint; g = Glowstone Dust; D = Diamond
    - _, B, _;
