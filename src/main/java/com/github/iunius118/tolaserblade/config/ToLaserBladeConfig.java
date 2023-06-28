@@ -113,7 +113,6 @@ public class ToLaserBladeConfig {
 
     public static final ForgeConfigSpec serverSpec;
     public static final Server SERVER;
-
     static {
         final Pair<Server, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Server::new);
         serverSpec = specPair.getRight();
@@ -122,7 +121,6 @@ public class ToLaserBladeConfig {
 
     public static final ForgeConfigSpec clientSpec;
     public static final Client CLIENT;
-
     static {
         final Pair<Client, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Client::new);
         clientSpec = specPair.getRight();
