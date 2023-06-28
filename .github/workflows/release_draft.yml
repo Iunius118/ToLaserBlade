@@ -1,0 +1,39 @@
+name: release_draft
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release_draft:
+    strategy:
+      matrix:
+        # Use these Java versions
+        java: [
+          # Current Java LTS & minimum supported by Minecraft
+          17,
+        ]
+        os: [ubuntu-latest]
+    runs-on: ${{ matrix.os }}
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v3
+      - name: validate gradle wrapper
+        uses: gradle/wrapper-validation-action@v1
+      - name: setup jdk
+        uses: actions/setup-java@v3
+        with:
+          distribution: 'temurin'
+          java-version: ${{ matrix.java }}
+          cache: 'gradle'
+      - name: make gradle wrapper executable
+        run: chmod +x ./gradlew
+      - name: build
+        run: ./gradlew build
+      - name: create release
+        uses: softprops/action-gh-release@v1
+        with:
+          draft: true
+          files: build/libs/*.jar
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
