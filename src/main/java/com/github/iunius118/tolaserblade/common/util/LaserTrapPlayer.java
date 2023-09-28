@@ -6,8 +6,14 @@ import com.github.iunius118.tolaserblade.core.particle.ModParticleTypes;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
-import net.minecraft.server.MinecraftServer;
+import net.minecraft.network.Connection;
+import net.minecraft.network.PacketListener;
+import net.minecraft.network.protocol.PacketFlow;
+import net.minecraft.server.level.ClientInformation;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.server.level.ServerPlayer;
+import net.minecraft.server.network.CommonListenerCookie;
+import net.minecraft.server.network.ServerGamePacketListenerImpl;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -23,25 +29,50 @@ import net.minecraftforge.common.util.FakePlayer;
 import java.util.List;
 import java.util.UUID;
 
+// Temporary "extends FakePlayer" due to dummy connection bug in Forge
 public class LaserTrapPlayer extends FakePlayer {
     private static final GameProfile PROFILE = new GameProfile(UUID.fromString("2BDD19A3-9616-417A-8797-EE805F5FF9E3"), "[LaserBlade]");
-    // Block-position without FakePlayer
-    private BlockPos blockPosition;
 
-    private LaserTrapPlayer(ServerLevel serverLevel) {
-        super(serverLevel, PROFILE);
+    private LaserTrapPlayer(ServerLevel level, GameProfile name, ClientInformation info) {
+        super(level, name, info);
+    }
+
+    public static void attackEntities(ServerLevel serverLevel, BlockPos trapPos, ItemStack itemStackHeld, Direction dir) {
+        var laserTrapPlayer = LaserTrapPlayer.get(serverLevel, trapPos, itemStackHeld);
+        laserTrapPlayer.attackEntities(dir);
     }
 
     public static LaserTrapPlayer get(ServerLevel serverLevel, BlockPos trapPos, ItemStack itemStackHeld) {
-        final var laserTrapPlayer = new LaserTrapPlayer(serverLevel);
+        // Temporary fake player generation due to dummy connection bug in Forge
+        var cookie  = CommonListenerCookie.createInitial(PROFILE);
+        var laserTrapPlayer = new LaserTrapPlayer(serverLevel, cookie.gameProfile(), cookie.clientInformation());
+        new LaserTrapPlayer.NetHandler(laserTrapPlayer);
+
         laserTrapPlayer.setPos(trapPos.getX() + 0.5D, trapPos.getY(), trapPos.getZ() + 0.5D);
-        laserTrapPlayer.blockPosition = new BlockPos(trapPos);
         laserTrapPlayer.initInventory(itemStackHeld.copy());
         return laserTrapPlayer;
     }
 
+    // Temporary network handler due to dummy connection bug in Forge
+    private static class NetHandler extends ServerGamePacketListenerImpl {
+        private static final Connection DUMMY_CONNECTION = new DummyConnection();
+
+        public NetHandler(ServerPlayer player) {
+            super(player.server, DUMMY_CONNECTION, player, CommonListenerCookie.createInitial(player.getGameProfile()));
+        }
+
+        private static class DummyConnection extends Connection {
+            public DummyConnection() {
+                super(PacketFlow.CLIENTBOUND);
+            }
+
+            @Override
+            public void setListener(PacketListener packetListener) {}
+        }
+    }
+
     public void initInventory(ItemStack currentStack) {
-        var inventory = getInventory();
+        final var inventory = getInventory();
         inventory.clearContent();
 
         // Set given item stack in main hand
@@ -72,14 +103,8 @@ public class LaserTrapPlayer extends FakePlayer {
         spawnParticle(dir, targetPos, itemStack);
     }
 
-    @Override
-    public BlockPos blockPosition(){
-        return blockPosition;
-    }
-
     private boolean canHitEntity(Entity entity) {
         if (!entity.isSpectator() && entity.isAlive() && entity.isPickable()) {
-            MinecraftServer server = level().getServer();
             // Check if the trap can attack players
             boolean canAttackPlayers = ToLaserBladeConfig.SERVER.canLaserTrapAttackPlayer.get();
             return canAttackPlayers || !(entity instanceof Player);
@@ -110,7 +135,4 @@ public class LaserTrapPlayer extends FakePlayer {
         var color4F = Color4F.of((visual.isOuterSubColor() ? ~outerColor : outerColor) | 0xFF000000);
         serverLevel.sendParticles(laserTrapParticleType, vecPos.x, vecPos.y, vecPos.z, 0, color4F.r(), color4F.g(), color4F.b(), 1);
     }
-
-    @Override public void onEnterCombat() {}
-    @Override public void onLeaveCombat() {}
 }

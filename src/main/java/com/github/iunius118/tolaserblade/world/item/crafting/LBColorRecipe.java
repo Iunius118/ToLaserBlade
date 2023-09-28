@@ -3,12 +3,11 @@ package com.github.iunius118.tolaserblade.world.item.crafting;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeColor;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeColorPart;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeVisual;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.mojang.datafixers.util.Pair;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.SmithingMenu;
 import net.minecraft.world.item.ItemStack;
@@ -16,8 +15,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SmithingTransformRecipe;
 import net.minecraft.world.level.Level;
-
-import javax.annotation.Nullable;
 
 public class LBColorRecipe extends SmithingTransformRecipe {
     private final Ingredient template;
@@ -27,8 +24,8 @@ public class LBColorRecipe extends SmithingTransformRecipe {
     private final int color;
     private ItemStack sample;
 
-    public LBColorRecipe(ResourceLocation recipeId, Ingredient template, Ingredient base, Ingredient addition, LaserBladeColorPart part, int color) {
-        super(recipeId, template, base, addition, getResultItemStack(base));
+    public LBColorRecipe(Ingredient template, Ingredient base, Ingredient addition, LaserBladeColorPart part, int color) {
+        super(template, base, addition, getResultItemStack(base));
         this.template = template;
         this.base = base;
         this.addition = addition;
@@ -128,28 +125,29 @@ public class LBColorRecipe extends SmithingTransformRecipe {
     }
 
     public static class Serializer implements RecipeSerializer<LBColorRecipe> {
+        private static final Codec<LBColorRecipe> CODEC = RecordCodecBuilder.create(
+                (instance) -> instance.group(
+                        Ingredient.CODEC.fieldOf("template").forGetter(lBColorRecipe -> lBColorRecipe.template),
+                        Ingredient.CODEC.fieldOf("base").forGetter(lBColorRecipe -> lBColorRecipe.base),
+                        Ingredient.CODEC.fieldOf("addition").forGetter(lBColorRecipe -> lBColorRecipe.addition),
+                        Codec.pair(Codec.STRING.fieldOf("part").codec(), Codec.INT.fieldOf("color").codec())
+                                .fieldOf("result").forGetter(lBColorRecipe -> new Pair<>(lBColorRecipe.part.getPartName(), lBColorRecipe.color))
+                ).apply(instance, (template, base, addition, result) ->
+                        new LBColorRecipe(template, base, addition, LaserBladeColorPart.byPartName(result.getFirst()), result.getSecond())));
+
         @Override
-        public LBColorRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
-            Ingredient template = Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "template"));
-            Ingredient base = Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "base"));
-            Ingredient addition = Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "addition"));
-            JsonObject result = GsonHelper.getAsJsonObject(json, "result");
-            JsonElement part = result.get("part");
-            LaserBladeColorPart colorPart = LaserBladeColorPart.byPartName(part.getAsString());
-            JsonElement color = result.get("color");
-            int colorValue = color.getAsInt();
-            return new LBColorRecipe(recipeId, template, base, addition, colorPart, colorValue);
+        public Codec<LBColorRecipe> codec() {
+            return CODEC;
         }
 
-        @Nullable
         @Override
-        public LBColorRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+        public LBColorRecipe fromNetwork(FriendlyByteBuf buffer) {
             Ingredient template = Ingredient.fromNetwork(buffer);
             Ingredient base = Ingredient.fromNetwork(buffer);
             Ingredient addition = Ingredient.fromNetwork(buffer);
             LaserBladeColorPart colorPart = LaserBladeColorPart.byIndex(buffer.readInt());
             int color = buffer.readInt();
-            return new LBColorRecipe(recipeId, template, base, addition, colorPart, color);
+            return new LBColorRecipe(template, base, addition, colorPart, color);
         }
 
         @Override

@@ -6,8 +6,8 @@ import com.github.iunius118.tolaserblade.world.item.ModItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.metadata.PackMetadataGenerator;
-import net.minecraft.data.recipes.FinishedRecipe;
 import net.minecraft.data.recipes.RecipeCategory;
+import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.tags.ItemTagsProvider;
@@ -32,7 +32,6 @@ import java.nio.file.Path;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Consumer;
 
 public class TLBOldRecipeProvider6 {
     private final static String PACK_PATH = "old_lb_recipes_6";
@@ -62,7 +61,7 @@ public class TLBOldRecipeProvider6 {
 
         var resourcePath = ModList.get().getModFileById(ToLaserBlade.MOD_ID).getFile().findResource(PACK_PATH);
         var pack = Pack.readMetaAndCreate(PACK_ID.toString(), Component.literal(PACK_PATH), false,
-                (path) -> new PathPackResources(path, resourcePath, false), PackType.SERVER_DATA, Pack.Position.TOP, PackSource.FEATURE);
+                new PathPackResources.PathResourcesSupplier(resourcePath, false), PackType.SERVER_DATA, Pack.Position.TOP, PackSource.FEATURE);
         event.addRepositorySource((packConsumer) -> packConsumer.accept(pack));
     }
 
@@ -72,7 +71,7 @@ public class TLBOldRecipeProvider6 {
         }
 
         @Override
-        protected void buildRecipes(Consumer<FinishedRecipe> consumer) {
+        protected void buildRecipes(RecipeOutput consumer) {
             // Old Brand-new Laser Blade I
             ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.LB_BRAND_NEW_1)
                     .pattern("Gid")

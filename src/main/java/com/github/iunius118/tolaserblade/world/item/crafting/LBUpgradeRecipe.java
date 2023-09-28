@@ -5,14 +5,14 @@ import com.github.iunius118.tolaserblade.core.laserblade.upgrade.Upgrade;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.UpgradeID;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.UpgradeManager;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.UpgradeResult;
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.FriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.SmithingMenu;
 import net.minecraft.world.item.ItemStack;
@@ -20,8 +20,6 @@ import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SmithingTransformRecipe;
 import net.minecraft.world.level.Level;
-
-import javax.annotation.Nullable;
 
 public class LBUpgradeRecipe extends SmithingTransformRecipe {
     private final Ingredient template;
@@ -31,8 +29,8 @@ public class LBUpgradeRecipe extends SmithingTransformRecipe {
     private Upgrade upgrade;
     private ItemStack sample;
 
-    public LBUpgradeRecipe(ResourceLocation recipeId, Ingredient template, Ingredient base, Ingredient addition, ResourceLocation upgradeId) {
-        super(recipeId, template, base, addition, getResultItemStack(base));
+    public LBUpgradeRecipe(Ingredient template, Ingredient base, Ingredient addition, ResourceLocation upgradeId) {
+        super(template, base, addition, getResultItemStack(base));
         this.template = template;
         this.base = base;
         this.addition = addition;
@@ -118,27 +116,30 @@ public class LBUpgradeRecipe extends SmithingTransformRecipe {
     }
 
     public static class Serializer implements RecipeSerializer<LBUpgradeRecipe> {
+        private static final Codec<LBUpgradeRecipe> CODEC = RecordCodecBuilder.create(
+                (instance) -> instance.group(
+                        Ingredient.CODEC.fieldOf("template").forGetter(lBModelChangeRecipe -> lBModelChangeRecipe.template),
+                        Ingredient.CODEC.fieldOf("base").forGetter(lBModelChangeRecipe -> lBModelChangeRecipe.base),
+                        Ingredient.CODEC.fieldOf("addition").forGetter(lBModelChangeRecipe -> lBModelChangeRecipe.addition),
+                        ResourceLocation.CODEC.fieldOf("type").codec().fieldOf("result").forGetter(lBModelChangeRecipe -> lBModelChangeRecipe.upgradeId)
+                ).apply(instance, LBUpgradeRecipe::new));
+
         @Override
-        public LBUpgradeRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
-            Ingredient template = Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "template"));
-            Ingredient base = Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "base"));
-            Ingredient addition = Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "addition"));
-            ResourceLocation upgradeId = new ResourceLocation(GsonHelper.getAsJsonObject(json, "result").get("type").getAsString());
-            return new LBUpgradeRecipe(recipeId, template, base, addition, upgradeId);
+        public Codec<LBUpgradeRecipe> codec() {
+            return CODEC;
         }
 
-        @Nullable
         @Override
-        public LBUpgradeRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+        public LBUpgradeRecipe fromNetwork(FriendlyByteBuf buffer) {
             Ingredient template = Ingredient.fromNetwork(buffer);
             Ingredient base = Ingredient.fromNetwork(buffer);
             Ingredient addition = Ingredient.fromNetwork(buffer);
             ResourceLocation upgradeId = buffer.readResourceLocation();
-            return new LBUpgradeRecipe(recipeId, template, base, addition, upgradeId);
+            return new LBUpgradeRecipe(template, base, addition, upgradeId);
         }
 
         @Override
-        public void toNetwork(FriendlyByteBuf  buffer, LBUpgradeRecipe recipe) {
+        public void toNetwork(FriendlyByteBuf buffer, LBUpgradeRecipe recipe) {
             recipe.template.toNetwork(buffer);
             recipe.base.toNetwork(buffer);
             recipe.addition.toNetwork(buffer);

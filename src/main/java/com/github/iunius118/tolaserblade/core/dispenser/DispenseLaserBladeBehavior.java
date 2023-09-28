@@ -3,12 +3,9 @@ package com.github.iunius118.tolaserblade.core.dispenser;
 import com.github.iunius118.tolaserblade.common.util.LaserTrapPlayer;
 import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
 import net.minecraft.core.BlockPos;
-import net.minecraft.core.BlockSource;
-import net.minecraft.core.Direction;
+import net.minecraft.core.dispenser.BlockSource;
 import net.minecraft.core.dispenser.DefaultDispenseItemBehavior;
 import net.minecraft.core.dispenser.DispenseItemBehavior;
-import net.minecraft.server.level.ServerLevel;
-import net.minecraft.world.entity.Entity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.AbstractFurnaceBlock;
@@ -27,16 +24,18 @@ public class DispenseLaserBladeBehavior implements DispenseItemBehavior {
             return DEFAULT_ITEM_BEHAVIOR.dispense(blockSource, itemStack);
         }
 
-        var serverLevel = blockSource.getLevel();
-        var pos = blockSource.getPos();
-        var dir = blockSource.getBlockState().getValue(DispenserBlock.FACING);
+        var serverLevel = blockSource.level();
+        var pos = blockSource.pos();
+        var dir = blockSource.state().getValue(DispenserBlock.FACING);
         var targetBlockEntity = serverLevel.getBlockEntity(pos.relative(dir));
 
         if (ToLaserBladeConfig.SERVER.canLaserTrapHeatUpFurnace.get()
                 && targetBlockEntity instanceof AbstractFurnaceBlockEntity furnace) {
+            // Laser furnace mode
             litFurnace(furnace, itemStack);
         } else {
-            attackEntities(serverLevel, pos, dir, itemStack);
+            // Laser trap attacks entities
+            LaserTrapPlayer.attackEntities(serverLevel, pos, itemStack, dir);
         }
 
         return itemStack;
@@ -58,11 +57,5 @@ public class DispenseLaserBladeBehavior implements DispenseItemBehavior {
                 level.setBlock(pos, level.getBlockState(pos).setValue(AbstractFurnaceBlock.LIT, Boolean.TRUE), 3);
             }
         }
-    }
-
-    private void attackEntities(ServerLevel serverLevel, BlockPos trapPos, Direction dir, ItemStack stack) {
-        var laserTrapPlayer = LaserTrapPlayer.get(serverLevel, trapPos, stack);
-        laserTrapPlayer.attackEntities(dir);
-        laserTrapPlayer.remove(Entity.RemovalReason.DISCARDED);
     }
 }

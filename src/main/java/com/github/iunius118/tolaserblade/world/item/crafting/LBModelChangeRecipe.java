@@ -1,12 +1,10 @@
 package com.github.iunius118.tolaserblade.world.item.crafting;
 
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBlade;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
+import com.mojang.serialization.Codec;
+import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.RegistryAccess;
 import net.minecraft.network.FriendlyByteBuf;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.util.GsonHelper;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.SmithingMenu;
 import net.minecraft.world.item.ItemStack;
@@ -15,8 +13,6 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SmithingTransformRecipe;
 import net.minecraft.world.level.Level;
 
-import javax.annotation.Nullable;
-
 public class LBModelChangeRecipe extends SmithingTransformRecipe {
     private final Ingredient template;
     private final Ingredient base;
@@ -24,8 +20,8 @@ public class LBModelChangeRecipe extends SmithingTransformRecipe {
     private final int type;
     private ItemStack sample;
 
-    public LBModelChangeRecipe(ResourceLocation recipeId, Ingredient template, Ingredient base, Ingredient addition, int type) {
-        super(recipeId, template, base, addition, getResultItemStack(base));
+    public LBModelChangeRecipe(Ingredient template, Ingredient base, Ingredient addition, int type) {
+        super(template, base, addition, getResultItemStack(base));
         this.template = template;
         this.base = base;
         this.addition = addition;
@@ -88,25 +84,26 @@ public class LBModelChangeRecipe extends SmithingTransformRecipe {
     }
 
     public static class Serializer implements RecipeSerializer<LBModelChangeRecipe> {
+        private static final Codec<LBModelChangeRecipe> CODEC = RecordCodecBuilder.create(
+                (instance) -> instance.group(
+                        Ingredient.CODEC.fieldOf("template").forGetter(lBModelChangeRecipe -> lBModelChangeRecipe.template),
+                        Ingredient.CODEC.fieldOf("base").forGetter(lBModelChangeRecipe -> lBModelChangeRecipe.base),
+                        Ingredient.CODEC.fieldOf("addition").forGetter(lBModelChangeRecipe -> lBModelChangeRecipe.addition),
+                        Codec.INT.fieldOf("model_type").codec().fieldOf("result").forGetter(lBModelChangeRecipe -> lBModelChangeRecipe.type)
+                ).apply(instance, LBModelChangeRecipe::new));
+
         @Override
-        public LBModelChangeRecipe fromJson(ResourceLocation recipeId, JsonObject json) {
-            Ingredient template = Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "template"));
-            Ingredient base = Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "base"));
-            Ingredient addition = Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "addition"));
-            JsonObject result = GsonHelper.getAsJsonObject(json, "result");
-            JsonElement modelType = result.get("model_type");
-            int type = modelType.getAsInt();
-            return new LBModelChangeRecipe(recipeId, template, base, addition, type);
+        public Codec<LBModelChangeRecipe> codec() {
+            return CODEC;
         }
 
-        @Nullable
         @Override
-        public LBModelChangeRecipe fromNetwork(ResourceLocation recipeId, FriendlyByteBuf buffer) {
+        public LBModelChangeRecipe fromNetwork(FriendlyByteBuf buffer) {
             Ingredient template = Ingredient.fromNetwork(buffer);
             Ingredient base = Ingredient.fromNetwork(buffer);
             Ingredient addition = Ingredient.fromNetwork(buffer);
             int type = buffer.readInt();
-            return new LBModelChangeRecipe(recipeId, template, base, addition, type);
+            return new LBModelChangeRecipe(template, base, addition, type);
         }
 
         @Override

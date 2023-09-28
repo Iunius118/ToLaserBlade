@@ -6,10 +6,7 @@ import com.github.iunius118.tolaserblade.world.item.ModItems;
 import com.github.iunius118.tolaserblade.world.item.enchantment.ModEnchantments;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import net.minecraft.advancements.Advancement;
-import net.minecraft.advancements.AdvancementRewards;
-import net.minecraft.advancements.FrameType;
-import net.minecraft.advancements.RequirementsStrategy;
+import net.minecraft.advancements.*;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
@@ -26,6 +23,7 @@ import net.minecraftforge.common.data.ForgeAdvancementProvider;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
@@ -36,9 +34,9 @@ public class TLBAdvancementProvider extends ForgeAdvancementProvider {
 
     private static class TLBAdvancementGenerator implements AdvancementGenerator {
         @Override
-        public void generate(HolderLookup.Provider registries, Consumer<Advancement> consumer, ExistingFileHelper existingFileHelper) {
+        public void generate(HolderLookup.Provider registries, Consumer<AdvancementHolder> consumer, ExistingFileHelper existingFileHelper) {
             // Main root
-            Advancement root = Advancement.Builder.recipeAdvancement()
+            AdvancementHolder root = Advancement.Builder.recipeAdvancement()
                     .display(LaserBladeItemStack.ICON.getCopy(),
                             Component.translatable("advancements.tolaserblade.main.root.title"),
                             Component.translatable("advancements.tolaserblade.main.root.description"),
@@ -48,41 +46,41 @@ public class TLBAdvancementProvider extends ForgeAdvancementProvider {
                     .addCriterion("has_dx_laser_blade", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.DX_LASER_BLADE))
                     .addCriterion("has_laser_blade", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.LASER_BLADE))
                     .addCriterion("has_laser_blade_fp", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.LASER_BLADE_FP))
-                    .requirements(RequirementsStrategy.OR)
+                    .requirements(AdvancementRequirements.Strategy.OR)
                     .save(consumer, "tolaserblade:main/root");
 
             // 1. Laser Blade?
-            Advancement dxLaserBlade = registerItemAdvancement(root, ModItems.DX_LASER_BLADE, FrameType.TASK,
+            AdvancementHolder dxLaserBlade = registerItemAdvancement(root, ModItems.DX_LASER_BLADE, FrameType.TASK,
                     new Item[]{ModItems.DX_LASER_BLADE}, consumer);
 
             // 1-1. Ancient Technology
-            Advancement laserBlade = registerItemAdvancement(dxLaserBlade, ModItems.LASER_BLADE, FrameType.TASK,
+            AdvancementHolder laserBlade = registerItemAdvancement(dxLaserBlade, ModItems.LASER_BLADE, FrameType.TASK,
                     new Item[]{ModItems.LASER_BLADE, ModItems.LASER_BLADE_FP}, consumer);
 
             // 1-1-1. Power of Light
-            Advancement lightElement5 = registerEnchantmentAdvancement(laserBlade, Items.GLOWSTONE, FrameType.TASK,
+            AdvancementHolder lightElement5 = registerEnchantmentAdvancement(laserBlade, Items.GLOWSTONE, FrameType.TASK,
                     new Item[]{ModItems.LASER_BLADE, ModItems.LASER_BLADE_FP}, ModEnchantments.LIGHT_ELEMENT, 5, consumer);
 
             // 1-1-1-1. Unlimited Power
-            Advancement lightElement10 = registerEnchantmentAdvancement(lightElement5, Items.GLOWSTONE, FrameType.TASK,
+            AdvancementHolder lightElement10 = registerEnchantmentAdvancement(lightElement5, Items.GLOWSTONE, FrameType.TASK,
                     new Item[]{ModItems.LASER_BLADE, ModItems.LASER_BLADE_FP}, ModEnchantments.LIGHT_ELEMENT, 10, consumer);
 
             // 1-1-2. It's Over 9
-            Advancement attack10 = registerAttackUpgradeAdvancement(laserBlade, Items.DIAMOND, FrameType.TASK,
+            AdvancementHolder attack10 = registerAttackUpgradeAdvancement(laserBlade, Items.DIAMOND, FrameType.TASK,
                     new Item[]{ModItems.LASER_BLADE, ModItems.LASER_BLADE_FP}, 10, consumer);
 
             // 1-1-2-1. Beyond the Limit
-            Advancement attack15 = registerAttackUpgradeAdvancement(attack10, Items.DIAMOND, FrameType.TASK,
+            AdvancementHolder attack15 = registerAttackUpgradeAdvancement(attack10, Items.DIAMOND, FrameType.TASK,
                     new Item[]{ModItems.LASER_BLADE, ModItems.LASER_BLADE_FP}, 15, consumer);
 
             // 1-1-3. Give Me Three
-            Advancement looting3 = registerEnchantmentAdvancement(laserBlade, Items.NAUTILUS_SHELL, FrameType.TASK,
+            AdvancementHolder looting3 = registerEnchantmentAdvancement(laserBlade, Items.NAUTILUS_SHELL, FrameType.TASK,
                     new Item[]{ModItems.LASER_BLADE, ModItems.LASER_BLADE_FP}, Enchantments.MOB_LOOTING, 3, consumer);
 
             // 1-1-4. Returns and Exchanges
             JsonObject jsonMaxZero = new JsonObject();
             jsonMaxZero.add("max", new JsonPrimitive(0));
-            Advancement breakLaserBlade = Advancement.Builder.recipeAdvancement()
+            AdvancementHolder breakLaserBlade = Advancement.Builder.recipeAdvancement()
                     .parent(laserBlade)
                     .display(ModItems.LB_CASING,
                             Component.translatable("advancements.tolaserblade.main.break_laser_blade.title"),
@@ -90,25 +88,27 @@ public class TLBAdvancementProvider extends ForgeAdvancementProvider {
                             null,
                             FrameType.CHALLENGE, true, true, false)
                     .rewards(AdvancementRewards.Builder.experience(1000))
-                    .requirements(RequirementsStrategy.OR)
+                    .requirements(AdvancementRequirements.Strategy.OR)
                     .addCriterion("broke_laser_blade",
                             ItemDurabilityTrigger.TriggerInstance.changedDurability(
-                                    ItemPredicate.Builder.item().of(ModItems.LASER_BLADE).build(), MinMaxBounds.Ints.fromJson(jsonMaxZero)))
+                                    Optional.of(ItemPredicate.Builder.item().of(ModItems.LASER_BLADE).build()),
+                                    MinMaxBounds.Ints.fromJson(jsonMaxZero)))
                     .addCriterion("broke_laser_blade_fp",
                             ItemDurabilityTrigger.TriggerInstance.changedDurability(
-                                    ItemPredicate.Builder.item().of(ModItems.LASER_BLADE_FP).build(), MinMaxBounds.Ints.fromJson(jsonMaxZero)))
+                                    Optional.of(ItemPredicate.Builder.item().of(ModItems.LASER_BLADE_FP).build()),
+                                    MinMaxBounds.Ints.fromJson(jsonMaxZero)))
                     .save(consumer, "tolaserblade:main/break_laser_blade");
 
             // 1-1-5. Life-time Support
-            Advancement mending = registerEnchantmentAdvancement(laserBlade, Items.NETHER_STAR, FrameType.GOAL,
+            AdvancementHolder mending = registerEnchantmentAdvancement(laserBlade, Items.NETHER_STAR, FrameType.GOAL,
                     new Item[]{ModItems.LASER_BLADE, ModItems.LASER_BLADE_FP}, Enchantments.MENDING, 1, consumer);
 
             // 1-1-6. Into The Core
-            Advancement laserBladeFP = registerItemAdvancement(laserBlade, Items.NETHERITE_INGOT, FrameType.TASK,
+            AdvancementHolder laserBladeFP = registerItemAdvancement(laserBlade, Items.NETHERITE_INGOT, FrameType.TASK,
                     new Item[]{ModItems.LASER_BLADE_FP}, consumer);
         }
 
-        private Advancement registerItemAdvancement(Advancement parent, Item icon, FrameType frameType, Item[] requirements, Consumer<Advancement> consumer) {
+        private AdvancementHolder registerItemAdvancement(AdvancementHolder parent, Item icon, FrameType frameType, Item[] requirements, Consumer<AdvancementHolder> consumer) {
             String name = getItemId(requirements[0]).getPath();
             Advancement.Builder builder = Advancement.Builder.recipeAdvancement()
                     .parent(parent)
@@ -117,7 +117,7 @@ public class TLBAdvancementProvider extends ForgeAdvancementProvider {
                             Component.translatable("advancements.tolaserblade.main." + name + ".description"),
                             null,
                             frameType, true, true, false)
-                    .requirements(RequirementsStrategy.OR);
+                    .requirements(AdvancementRequirements.Strategy.OR);
 
             for (Item item : requirements) {
                 String itemName = getItemId(item).getPath();
@@ -127,7 +127,7 @@ public class TLBAdvancementProvider extends ForgeAdvancementProvider {
             return builder.save(consumer, "tolaserblade:main/" + name);
         }
 
-        private Advancement registerEnchantmentAdvancement(Advancement parent, Item icon, FrameType frameType, Item[] requirements, Enchantment enchantment, int level, Consumer<Advancement> consumer) {
+        private AdvancementHolder registerEnchantmentAdvancement(AdvancementHolder parent, Item icon, FrameType frameType, Item[] requirements, Enchantment enchantment, int level, Consumer<AdvancementHolder> consumer) {
             String name = getItemId(requirements[0]).getPath() + "_" + getEnchantmentId(enchantment).getPath() + "_" + level;
             Advancement.Builder builder = Advancement.Builder.recipeAdvancement()
                     .parent(parent)
@@ -136,7 +136,7 @@ public class TLBAdvancementProvider extends ForgeAdvancementProvider {
                             Component.translatable("advancements.tolaserblade.main." + name + ".description"),
                             null,
                             frameType, true, true, false)
-                    .requirements(RequirementsStrategy.OR);
+                    .requirements(AdvancementRequirements.Strategy.OR);
 
             for (Item item : requirements) {
                 String itemName = getItemId(item).getPath();
@@ -151,7 +151,7 @@ public class TLBAdvancementProvider extends ForgeAdvancementProvider {
             return builder.save(consumer, "tolaserblade:main/" + name);
         }
 
-        private Advancement registerAttackUpgradeAdvancement(Advancement parent, Item icon, FrameType frameType, Item[] requirements, int attackDamage, Consumer<Advancement> consumer) {
+        private AdvancementHolder registerAttackUpgradeAdvancement(AdvancementHolder parent, Item icon, FrameType frameType, Item[] requirements, int attackDamage, Consumer<AdvancementHolder> consumer) {
             String name = getItemId(requirements[0]).getPath() + "_attack_" + attackDamage;
             Advancement.Builder builder = Advancement.Builder.recipeAdvancement()
                     .parent(parent)
@@ -160,7 +160,7 @@ public class TLBAdvancementProvider extends ForgeAdvancementProvider {
                             Component.translatable("advancements.tolaserblade.main." + name + ".description"),
                             null,
                             frameType, true, true, false)
-                    .requirements(RequirementsStrategy.OR);
+                    .requirements(AdvancementRequirements.Strategy.OR);
             int maxAtk = (int) LaserBlade.MOD_ATK_CRITICAL_BONUS;
             String tagAtk = LaserBlade.KEY_ATK;
 
