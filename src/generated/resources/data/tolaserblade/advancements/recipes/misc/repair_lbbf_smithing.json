@@ -22,8 +22,8 @@
   },
   "requirements": [
     [
-      "has_lb_broken_fp",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_lb_broken_fp"
     ]
   ],
   "rewards": {

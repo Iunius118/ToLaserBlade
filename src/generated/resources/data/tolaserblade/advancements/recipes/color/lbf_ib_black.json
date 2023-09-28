@@ -22,8 +22,8 @@
   },
   "requirements": [
     [
-      "has_laser_blade_fp",
-      "has_the_recipe"
+      "has_the_recipe",
+      "has_laser_blade_fp"
     ]
   ],
   "rewards": {
