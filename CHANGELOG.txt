@@ -4,6 +4,12 @@
 
 ## [Unreleased]
 
+## [8.0.0]
+### Changed
+- Port to 1.20.2.
+- Require Forge 1.20.2-48.0.10+.
+- Version scheme.
+
 ## [1.20.1-7.0.0.0]
 ### Changed
 - Require Forge 1.20.1-47.0.34+.

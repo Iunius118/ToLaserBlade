@@ -1,5 +1,5 @@
 # Cheatsheet
-ToLaserBlade v7.0.0.0
+ToLaserBlade v8.0.0
 
 ## How to Get Started
 ### 1. Craft a Brand-new Laser Blade I or II, and Use It
@@ -188,7 +188,9 @@ You can add audio files that will be played when laser blades are swung.
 ## Data pack
 Built-in optional data pack
 
-### `tolaserblade:old_lb_recipes_6`
+### Old Laser Blade Recipes (v6)
+ID: `tolaserblade:old_lb_recipes_6`
+
 This data pack reverts the laser blade recipes to version 6.
 
 - Brand-new Laser Blade I (crafting): G = Glass; I = Iron Ingot; D = Diamond; R = Redstone
