@@ -4,6 +4,15 @@
 
 ## [Unreleased]
 
+## [8.1.0]
+### Changed
+- Require Forge 1.20.2-48.0.24+.
+- Conditions for changing blade colors of laser blade that can be obtained from Brand-new Laser Blade I or II.
+
+### Fixed
+- Fake player for laser trap to attack mobs.
+- Tag type when writing model type number to laser blade item stack.
+
 ## [8.0.0]
 ### Changed
 - Port to 1.20.2.

@@ -1,5 +1,5 @@
 # Cheatsheet
-ToLaserBlade v8.0.0
+ToLaserBlade v8.1.0
 
 ## How to Get Started
 ### 1. Craft a Brand-new Laser Blade I or II, and Use It
@@ -66,13 +66,14 @@ Using smithing table, you can upgrade your laser blade.
   - Nether Wastes, Crimson Forest, or Basalt Deltas: white blades and subtractive inner blade color
   - Warped Forest or Soul Sand Valley: white blades and subtractive outer blade color
   - All biomes in the End: white blades and subtractive blade colors
+  - Deep Dark: ???
   - Temperature > 1.5: violet outer blade
-  - 1.5 >= Temperature > 1.0: magenta outer blade
-  - 1.0 >= Temperature > 0.8: gold outer blade
+  - 1.5 >= Temperature >= 1.0: magenta outer blade
+  - 1.0 > Temperature > 0.8: gold outer blade
   - 0.8 >= Temperature >= 0.5: red outer blade
   - 0.5 > Temperature >= 0.2:  lime outer blade
-  - 0.2 > Temperature >= -0.25: azure outer blade
-  - -0.25 > Temperature: blue outer blade
+  - 0.2 > Temperature >= -0.3: azure outer blade
+  - -0.3 > Temperature: blue outer blade
 
 ### Laser Medium
  - ID: `tolaserblade:lb_medium`
