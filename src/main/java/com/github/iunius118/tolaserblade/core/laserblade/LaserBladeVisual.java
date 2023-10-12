@@ -104,8 +104,8 @@ public class LaserBladeVisual {
             return new LaserBladeVisual.Writer(itemStack.getOrCreateTag());
         }
 
-        public Writer writeModelType(int ModelType) {
-            tag.putFloat(KEY_MODEL_TYPE, Math.max(ModelType, 0));
+        public Writer writeModelType(int modelType) {
+            tag.putInt(KEY_MODEL_TYPE, Math.max(modelType, 0));
             return this;
         }
 
