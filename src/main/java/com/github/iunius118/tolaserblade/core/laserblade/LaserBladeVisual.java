@@ -153,14 +153,10 @@ public class LaserBladeVisual {
                 setColorsByNetherBiome(level, biomeHolder);
             } else if (Level.END.equals(dimension)) {
                 // The End
-                this.writeOuterColor(LaserBladeColor.WHITE.getBladeColor())
-                        .writeIsOuterSubColor(true)
-                        .writeIsInnerSubColor(true);
+                setColorsByEndBiome(level, biomeHolder);
             } else {
                 // Over-world etc.
-                float temp = biomeHolder.value().getBaseTemperature();
-                int color = LaserBladeColor.getColorByTemperature(temp).getBladeColor();
-                this.writeOuterColor(color);
+                setColorsByOverWorldBiome(level, biomeHolder);
             }
 
             return this;
@@ -174,6 +170,31 @@ public class LaserBladeVisual {
             } else {
                 this.writeIsInnerSubColor(true);
             }
+        }
+
+        private void setColorsByEndBiome(Level level, Holder<Biome> biomeHolder) {
+            this.writeOuterColor(LaserBladeColor.WHITE.getBladeColor())
+                    .writeIsOuterSubColor(true)
+                    .writeIsInnerSubColor(true);
+        }
+
+        private void setColorsByOverWorldBiome(Level level, Holder<Biome> biomeHolder) {
+            if (compareBiomes(biomeHolder, Biomes.DEEP_DARK)) {
+                // Deep dark biome
+                setDeepDarkColors();
+            } else {
+                float temp = biomeHolder.value().getBaseTemperature();
+                int color = LaserBladeColor.getColorByTemperature(temp).getBladeColor();
+                this.writeOuterColor(color);
+            }
+        }
+
+        private void setDeepDarkColors() {
+            this.writeOuterColor(LaserBladeColor.CYAN.getBladeColor())
+                    .writeInnerColor(LaserBladeColor.RED.getBladeColor())
+                    .writeIsInnerSubColor(true)
+                    .writeGripColor(LaserBladeColor.BLACK.getGripColor())
+                    .writeModelType(2);
         }
 
         private boolean compareBiomes(Holder<Biome> biomeHolder, ResourceKey<Biome> biomeKey) {
