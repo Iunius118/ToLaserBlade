@@ -191,7 +191,7 @@ public class LaserBladeVisual {
 
         private void setDeepDarkColors() {
             this.writeOuterColor(LaserBladeColor.CYAN.getBladeColor())
-                    .writeInnerColor(LaserBladeColor.RED.getBladeColor())
+                    .writeInnerColor(LaserBladeColor.WHITE.getBladeColor())
                     .writeIsInnerSubColor(true)
                     .writeGripColor(LaserBladeColor.BLACK.getGripColor())
                     .writeModelType(2);
