@@ -3,8 +3,14 @@
 [Source](https://github.com/Iunius118/ToLaserBlade).
 
 ## [Unreleased]
+### Added
+- New blade color of laser blade obtained in cherry grove biome.
+
 ### Changed
 - Require Forge 1.20.2-48.0.30+.
+
+### Fixed
+- Blade color of laser blade obtained in deep dark biome again.
 
 ## [8.1.1]
 ### Fixed

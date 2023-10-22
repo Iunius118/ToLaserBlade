@@ -1,5 +1,5 @@
 # Cheatsheet
-ToLaserBlade v8.1.0
+ToLaserBlade v8.2.0
 
 ## How to Get Started
 ### 1. Craft a Brand-new Laser Blade I or II, and Use It
@@ -67,6 +67,7 @@ Using smithing table, you can upgrade your laser blade.
   - Warped Forest or Soul Sand Valley: white blades and subtractive outer blade color
   - All biomes in the End: white blades and subtractive blade colors
   - Deep Dark: ???
+  - Cherry Grove: ???
   - Temperature > 1.5: violet outer blade
   - 1.5 >= Temperature >= 1.0: magenta outer blade
   - 1.0 > Temperature > 0.8: gold outer blade
