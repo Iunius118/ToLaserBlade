@@ -44,7 +44,7 @@ public enum LaserBladeItemStack {
 
     public static ItemStack getModelChangedStack(int type, boolean isFireproof) {
         ItemStack stack = new ItemStack(isFireproof ? ModItems.LASER_BLADE_FP : ModItems.LASER_BLADE);
-        LaserBlade.Writer.of(stack).writeType(type);
+        LaserBladeVisual.Writer.of(stack).writeModelType(type);
         return stack;
     }
 

@@ -1,6 +1,7 @@
 package com.github.iunius118.tolaserblade.world.item.crafting;
 
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBlade;
+import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeVisual;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.RegistryAccess;
@@ -57,7 +58,7 @@ public class LBModelChangeRecipe extends SmithingTransformRecipe {
     }
 
     private ItemStack getResult(ItemStack input) {
-        LaserBlade.Writer.of(input).writeType(type);
+        LaserBladeVisual.Writer.of(input).writeModelType(type);
         return input;
     }
 
