@@ -19,11 +19,46 @@ public class JsonModelV1 {
     public List<float[]> colors = Collections.emptyList();
 
     public static class JsonModelObject {
-        public String type = "default";
+        public Type type = Type.DEFAULT;
         public String name = "";
-        public String part = "";
-        public String state = "any";
+        public Part part = Part.DEFAULT;
+        public State state = State.ANY;
         public int from = 0;
         public int size = 0;
+
+        public enum Type {
+            @SerializedName("default")
+            DEFAULT,
+            @SerializedName("flat")
+            FLAT,
+            @SerializedName("unlit")
+            UNLIT,
+            @SerializedName("add")
+            ADD,
+            @SerializedName("function")
+            FUNCTION,
+        }
+
+        public enum Part {
+            @SerializedName("default")
+            DEFAULT,
+            @SerializedName("off")
+            OFF,
+            @SerializedName("grip")
+            GRIP,
+            @SerializedName("blade_in")
+            BLADE_IN,
+            @SerializedName("blade_out")
+            BLADE_OUT,
+        }
+
+        public enum State {
+            @SerializedName("any")
+            ANY,
+            @SerializedName("on")
+            ONLY_WORKING,
+            @SerializedName("off")
+            ONLY_BROKEN,
+        }
     }
 }

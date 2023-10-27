@@ -3,6 +3,8 @@
 [Source](https://github.com/Iunius118/ToLaserBlade).
 
 ## [Unreleased]
+### Fixed
+- Loading and rendering of laser blade models.
 
 ## [8.2.0]
 ### Added
