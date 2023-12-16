@@ -28,8 +28,8 @@ ToLaserBladeはMinecraftに光の刃を持つ剣「レーザーブレイド」�
 4. 部品から「新品のレーザーブレイドⅠ」または「新品のレーザーブレイドⅡ」をクラフトします
 5. 新品のレーザーブレイドを手に持って使用（右クリック）してください
 
-![ ](/img/ver7/laser_blade_recipes_v7.png "レシピ：新品のレーザーブレイドⅠ・Ⅱ")  
-![ ](/img/ver4/v4_getting_laser_blade.gif "レーザーブレイドの入手")
+![ ](./img/ver7/laser_blade_recipes_v7.png "レシピ：新品のレーザーブレイドⅠ・Ⅱ")
+![ ](./img/ver4/v4_getting_laser_blade.gif "レーザーブレイドの入手")
 
 レーザーブレイドの設計図はクラフト時に消費されません。
 
@@ -38,7 +38,7 @@ ToLaserBladeはMinecraftに光の刃を持つ剣「レーザーブレイド」�
 1. 鍛冶台をクラフトして設置します
 2. 鍛冶台でレーザーブレイドの設計図をテンプレートスロットに置き、レーザーブレイドと特定のアイテムを組み合わせてください
 
-![ ](/img/ver7/upgrade_laserblade_attack_v7.png "アップグレード：レーザーブレイド")
+![ ](./img/ver7/upgrade_laserblade_attack_v7.png "アップグレード：レーザーブレイド")
 
 レーザーブレイドの設計図はアップグレード時に消費されません。
 
@@ -48,7 +48,7 @@ ToLaserBladeはMinecraftに光の刃を持つ剣「レーザーブレイド」�
 2. 元のレーザーブレイドの能力が保存された「新品のレーザーブレイド」が入手できます
 3. それを手に持って右クリックしてください
 
-![ ](/img/ver7/repair_laserblade_v7.png "修理：レーザーブレイド") ![ ](/img/ver7/repair_broken_v7.png "修理：壊れたレーザーブレイド")
+![ ](./img/ver7/repair_laserblade_v7.png "修理：レーザーブレイド") ![ ](./img/ver7/repair_broken_v7.png "修理：壊れたレーザーブレイド")
 
 レーザーブレイドの設計図は修理時に消費されません。
 
@@ -56,7 +56,7 @@ ToLaserBladeはMinecraftに光の刃を持つ剣「レーザーブレイド」�
 
 ### DXレーザーブレ一ド / DX Laser B1ade
 
-![ ](/img/ver4/item_dxlaserb1ade.png "アイテム：DXレーザーブレ一ド")  
+![ ](./img/ver4/item_dxlaserb1ade.png "アイテム：DXレーザーブレ一ド")  
 Item ID: `tolaserblade:dx_laser_blade`
 
 - タイプ：剣
@@ -66,7 +66,7 @@ Item ID: `tolaserblade:dx_laser_blade`
 - エンチャントテーブルで剣タイプのエンチャントが可能です
 
 素材：レッドストーントーチ×2、棒×1  
-![ ](/img/ver4/recipe_dxlaserb1ade.png "レシピ：DXレーザーブレ一ド")
+![ ](./img/ver4/recipe_dxlaserb1ade.png "レシピ：DXレーザーブレ一ド")
 
 >レーザーブレイドを模して木の棒にレッドストーンを塗った剣。元々は刃が光ったり音が鳴ったりと様々なギミックが仕込まれていたというが、電源となるパーツが失われてしまったため今はもう動かない。バニラの剣よりも少しだけ攻撃力速度が速く、石の剣並みの攻撃力と鉄の剣並みの耐久力がある。
 
@@ -84,47 +84,47 @@ Item ID: `tolaserblade:dx_laser_blade`
 
 #### レーザーブレイドの設計図 / Laser Blade Blueprint
 
-![ ](/img/ver7/item_lb_blueprint.png "アイテム：レーザーブレイドの設計図")  
+![ ](./img/ver7/item_lb_blueprint.png "アイテム：レーザーブレイドの設計図")  
 Item ID: `tolaserblade:lb_blueprint`
 
 素材：DXレーザーブレ一ド×1、紙×1、青色の染料×1  
-![ ](/img/ver7/recipe_lb_blueprint.png "レシピ：レーザーブレイドの設計図")
+![ ](./img/ver7/recipe_lb_blueprint.png "レシピ：レーザーブレイドの設計図")
 
 #### LB電池 / LB Energy Cell
 
-![ ](/img/ver7/item_lb_battery.png "アイテム：LB電池")  
+![ ](./img/ver7/item_lb_battery.png "アイテム：LB電池")  
 Item ID: `tolaserblade:lb_battery`
 
 素材：レーザーブレイドの設計図（消費しません）、鉄インゴット×1、レッドストーンダスト×1  
-![ ](/img/ver7/recipe_lb_battery.png "レシピ：LB電池")
+![ ](./img/ver7/recipe_lb_battery.png "レシピ：LB電池")
 
 #### レーザー媒質 / Laser Medium
 
-![ ](/img/ver7/item_lb_medium.png "アイテム：レーザー媒質")  
+![ ](./img/ver7/item_lb_medium.png "アイテム：レーザー媒質")  
 Item ID: `tolaserblade:lb_medium`
 
 素材：レーザーブレイドの設計図（消費しません）、グロウストーンダスト×2、ダイヤモンド×1  
-![ ](/img/ver7/recipe_lb_medium.png "レシピ：レーザー媒質")
+![ ](./img/ver7/recipe_lb_medium.png "レシピ：レーザー媒質")
 
 #### レーザーブレイド放射器 / Laser Blade Emitter  
 
-![ ](/img/ver7/item_lb_emitter.png "アイテム：レーザーブレイド放射器")  
+![ ](./img/ver7/item_lb_emitter.png "アイテム：レーザーブレイド放射器")  
 Item ID: `tolaserblade:lb_emitter`
 
 素材：レーザーブレイドの設計図（消費しません）、ダイヤモンド×1、鉄インゴット×1  
-![ ](/img/ver7/recipe_lb_emitter.png "レシピ：レーザーブレイド放射器")
+![ ](./img/ver7/recipe_lb_emitter.png "レシピ：レーザーブレイド放射器")
 
 #### レーザーブレイドの外装 / Laser Blade Casing
 
-![ ](/img/ver7/item_lb_casing.png "アイテム：レーザーブレイドの外装")  
+![ ](./img/ver7/item_lb_casing.png "アイテム：レーザーブレイドの外装")  
 Item ID: `tolaserblade:lb_casing`
 
 素材：レーザーブレイドの設計図（消費しません）、鉄インゴット×2  
-![ ](/img/ver7/recipe_lb_casing.png "レシピ：レーザーブレイドの外装")
+![ ](./img/ver7/recipe_lb_casing.png "レシピ：レーザーブレイドの外装")
 
 ### 新品のレーザーブレイド / Brand-new Laser Blade
 
-![ ](img/ver4/item_laserblade_hilt.png "アイテム：新品のレーザーブレイド")
+![ ](./img/ver4/item_laserblade_hilt.png "アイテム：新品のレーザーブレイド")
 
 - クラフトやレーザーブレイドのアップグレード・修理で入手することができるアイテムです
 - 手に持って右クリックするとレーザーブレイドを入手することができます
@@ -140,7 +140,7 @@ Item ID: `tolaserblade:lb_brand_new_1`
   - 色：レーザーブレイドを入手したバイオームによっては刃の色が変わることもあります
 
 素材：レーザーブレイドの設計図（消費しません）、LB電池×1、ダイヤモンド×1、ガラス×1、レーザーブレイド放射器×1、レーザーブレイドの外装×1  
-![ ](/img/ver7/recipe_brand_new_1_v7.png "レシピ：新品のレーザーブレイドⅠ")
+![ ](./img/ver7/recipe_brand_new_1_v7.png "レシピ：新品のレーザーブレイドⅠ")
 
 #### 新品のレーザーブレイドⅡ / Brand-new Laser Blade II
 
@@ -153,7 +153,7 @@ Item ID: `tolaserblade:lb_brand_new_2`
   - 色：レーザーブレイドを入手したバイオームによっては刃の色が変わることもあります
 
 素材：レーザーブレイドの設計図（消費しません）、LB電池×1、レーザー媒質×1、レーザーブレイド放射器×1、レーザーブレイドの外装×1  
-![ ](/img/ver7/recipe_brand_new_2_v7.png "レシピ：新品のレーザーブレイドⅠ")
+![ ](./img/ver7/recipe_brand_new_2_v7.png "レシピ：新品のレーザーブレイドⅠ")
 
 #### 新品のレーザーブレイド / Brand-new Laser Blade （通常）
 
@@ -181,7 +181,7 @@ Item ID: `tolaserblade:lb_brand_new_fp`
 
 ### レーザーブレイド / Laser Blade
 
-![ ](/img/ver4/item_laserblade.png "アイテム：レーザーブレイド")  
+![ ](./img/ver4/item_laserblade.png "アイテム：レーザーブレイド")  
 Item ID: `tolaserblade:laser_blade`
 
 >古代文明の超技術で作られたかもしれないレーザーの刃を持つ《絶対に刃こぼれしない》剣。レッドストーンで励起させたイオン添加ガラスやグロウストーンの発する光で励起させたダイヤモンドから発生した光を反射によって増幅し、ダイヤモンドのレンズで収束させてからレッドストーンの力場に閉じ込めることで棒状の光の刃にしているという。たぶん光属性なのでアンデッドや邪悪な村人に対して強い。なお本来の用途は切削用の工具であり、古代文明の歴史書によれば、レーザーデバイスの規制が強化される以前は都市部の電気街や観光地の土産物屋でも簡単に入手することができたという。
@@ -200,11 +200,11 @@ Item ID: `tolaserblade:laser_blade`
 レーザーブレイドは鍛冶台で特定のアイテムと合成することにより色を変更することができます。
 
 - 「色付きガラス」と合成すると「刃の外側部分」の色を変更することができます  
-  ![ ](img/ver7/color_outer_blade_v7.png "刃の外側部分の色変更")
+  ![ ](./img/ver7/color_outer_blade_v7.png "刃の外側部分の色変更")
 - 「色付きガラス板」と合成すると「刃の内側部分」の色を変更することができます  
-  ![ ](img/ver7/color_inner_blade_v7.png "刃の内側部分の色変更")
+  ![ ](./img/ver7/color_inner_blade_v7.png "刃の内側部分の色変更")
 - 「カーペット」と合成すると「柄の部分」の色を変更することができます  
-  ![ ](img/ver7/color_grip_v7.png "柄の部分の色変更")
+  ![ ](./img/ver7/color_grip_v7.png "柄の部分の色変更")
 
 テンプレートにはレーザーブレイドの設計図を使用しますが消費されません。
 
@@ -219,7 +219,7 @@ Item ID: `tolaserblade:laser_blade`
 
 鍛冶台で特定のアイテムと合成することによりレーザーブレイドを強化することができます。
 
-![ ](/img/ver7/upgrade_laserblade_attack_v7.png "アップグレード：レーザーブレイド")
+![ ](./img/ver7/upgrade_laserblade_attack_v7.png "アップグレード：レーザーブレイド")
 
 テンプレートにはレーザーブレイドの設計図を使用しますが消費されません。
 
@@ -238,7 +238,7 @@ Item ID: `tolaserblade:laser_blade`
 
 鍛冶台で「ネザライトインゴット」を組み合わせると「新品のレーザーブレイド」（耐火）を入手することができます。そしてそれを手に持って右クリックすることでレーザーブレイド（耐火）を入手することができます。
 
-![ ](img/ver7/upgrade_laserblade_fp_v7.png "アップグレード：レーザーブレイド（耐火）")
+![ ](./img/ver7/upgrade_laserblade_fp_v7.png "アップグレード：レーザーブレイド（耐火）")
 
 テンプレートにはレーザーブレイドの設計図を使用しますが消費されません。
 
@@ -246,7 +246,7 @@ Item ID: `tolaserblade:laser_blade`
 
 耐久値の減ったレーザーブレイドは鍛冶台で「鉄インゴット」と合成すると「新品のレーザーブレイド」にすることができます。
 
-![ ](/img/ver7/repair_laserblade_v7.png "修理：レーザーブレイド")
+![ ](./img/ver7/repair_laserblade_v7.png "修理：レーザーブレイド")
 
 テンプレートにはレーザーブレイドの設計図を使用しますが消費されません。
 
@@ -256,7 +256,7 @@ Item ID: `tolaserblade:laser_blade`
 
 レーザートラップはレーザーブレイドを用いて無人で攻撃を行う機能です。
 
-![ ](img/ver4/laser_trap.png "レーザートラップ")  
+![ ](./img/ver4/laser_trap.png "レーザートラップ")  
 
 ディスペンサーにレーザーブレイドを入れてレッドストーン動力を送ると、ディスペンサーの向いている方に対して至近距離の範囲攻撃を行うことができます。
 
@@ -268,7 +268,7 @@ Item ID: `tolaserblade:laser_blade`
 
 バニラのかまどに対してレーザートラップを使用した場合、攻撃する代わりにそのかまどを加熱することができます。
 
-![ ](img/ver4/laser_trap_heat_furnace.png "レーザートラップ：かまど加熱機能")
+![ ](./img/ver4/laser_trap_heat_furnace.png "レーザートラップ：かまど加熱機能")
 
 なお、かまど以外に使用した場合は通常のレーザートラップと同様に作動します。
 
@@ -276,7 +276,7 @@ Item ID: `tolaserblade:laser_blade`
 
 ### レーザーブレイド / Laser Blade（耐火）
 
-![ ](img/ver4/item_laserblade.png "アイテム：レーザーブレイド（耐火）")  
+![ ](./img/ver4/item_laserblade.png "アイテム：レーザーブレイド（耐火）")  
 Item ID: `tolaserblade:laser_blade_fp`
 
 - 基本攻撃力：8
@@ -288,13 +288,13 @@ Item ID: `tolaserblade:laser_blade_fp`
 
 ### 壊れたレーザーブレイド
 
-![ ](img/ver4/item_laserblade_hilt.png "アイテム：壊れたレーザーブレイド")  
+![ ](./img/ver4/item_laserblade_hilt.png "アイテム：壊れたレーザーブレイド")  
 
 レーザーブレイドが耐久値の消耗により破壊された際にドロップします。元のレーザーブレイドの状態が保存されており、修理することによって「新品のレーザーブレイド」を入手できます。
 
 鍛冶台で「鉄インゴット」と合成すると「新品のレーザーブレイド」にできます。
 
-![ ](/img/ver7/repair_broken_v7.png "修理：壊れたレーザーブレイド")
+![ ](./img/ver7/repair_broken_v7.png "修理：壊れたレーザーブレイド")
 
 テンプレートにはレーザーブレイドの設計図を使用しますが消費されません。
 
@@ -316,7 +316,7 @@ Item ID: `tolaserblade:lb_broken_fp`
 
 ### 未使用アイテム
 
-![ ](img/ver7/not_used_items_v7.png "未使用アイテム")
+![ ](./img/ver7/not_used_items_v7.png "未使用アイテム")
 
 ToLaserBladeで追加される以下のアイテムは使用されておらず、レシピもありません。これらはプレイヤーによるデータパックやレシピmodでの使用を想定しています。
 

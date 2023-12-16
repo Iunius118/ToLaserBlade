@@ -1,6 +1,6 @@
 # ToLaserBlade
 
-[<img src="docs/img/tolaserblade_1.png" title="The Laser Blade" width="427" height="240">](docs/img/tolaserblade_1.png)
+[<img src="./docs/img/tolaserblade_1.png" title="The Laser Blade" width="427" height="240">](docs/img/tolaserblade_1.png)
 
 ToLaserBlade (T. o. Laser Blade) is a Minecraft mod adds a simple sword with a laser blade.
 
