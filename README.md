@@ -4,21 +4,25 @@
 
 ToLaserBlade (T. o. Laser Blade) is a Minecraft mod adds a simple sword with a laser blade.
 
-- Sub Projects
-  - [ToLaserBlade-1.12.2](https://github.com/Iunius118/ToLaserBlade-1.12.2)
-  - [ToLaserBlade-1.13.2](https://github.com/Iunius118/ToLaserBlade-1.13.2)
-  - [ToLaserBlade-1.14.x](https://github.com/Iunius118/ToLaserBlade-1.14.x)
-  - [ToLaserBlade-Fabric](https://github.com/Iunius118/ToLaserBlade-Fabric)
-  - [ExampleRecipesForToLaserBlade](https://github.com/Iunius118/ExampleRecipesForToLaserBlade)
-  - [ToLaserBlade-ExtraModels](https://github.com/Iunius118/ToLaserBlade-ExtraModels)
+Sub projects:
 
-- Mod解説 (Mod descriptions in Japanese)
+- [ToLaserBlade-1.12.2](https://github.com/Iunius118/ToLaserBlade-1.12.2) (archived)
+- [ToLaserBlade-1.13.2](https://github.com/Iunius118/ToLaserBlade-1.13.2) (archived)
+- [ToLaserBlade-1.14.x](https://github.com/Iunius118/ToLaserBlade-1.14.x) (archived)
+- [ToLaserBlade-Fabric](https://github.com/Iunius118/ToLaserBlade-Fabric)
+- [ToLaserBlade-BTA](https://github.com/Iunius118/ToLaserBlade-BTA)
+- [ExampleRecipesForToLaserBlade](https://github.com/Iunius118/ExampleRecipesForToLaserBlade) (archived)
+- [ToLaserBlade-ExtraModels](https://github.com/Iunius118/ToLaserBlade-ExtraModels)
 
-  - [1.16.x](docs/manual_ja.md)
+Mod解説 (Mod descriptions in Japanese):
+
+- [1.20.x](docs/manual_ja.md)
+- [1.16.x](docs/manual_1.16.5_ja.md)
 
 ## Description and Download
 
-[![ToLaserBlade (Forge) - CurseForge](./docs/img/tolaserblade-forge_cf_badge.svg)](https://www.curseforge.com/minecraft/mc-mods/tolaserblade)
+- [CurseForge](https://www.curseforge.com/minecraft/mc-mods/tolaserblade)
+- [Modrinth](https://modrinth.com/mod/tolaserblade)
 
 ## Licenses
 

@@ -3,8 +3,15 @@
 [Source](https://github.com/Iunius118/ToLaserBlade).
 
 ## [Unreleased]
+
+## [8.3.0 forge]
+### Changed
+- Change update information file to update-forge.json.
+
 ### Fixed
-- Loading and rendering of laser blade models.
+- Rename client config item `useInternalModel` to `useOriginalModelType`.
+- Improve laser blade model no. 2.
+- Improve loading and rendering of laser blade models.
 
 ## [8.2.0]
 ### Added

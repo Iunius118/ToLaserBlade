@@ -1,5 +1,5 @@
 # Cheatsheet
-ToLaserBlade v8.2.0
+ToLaserBlade v8.3.0 (forge)
 
 ## How to Get Started
 ### 1. Craft a Brand-new Laser Blade I or II, and Use It
@@ -184,8 +184,8 @@ You can add audio files that will be played when laser blades are swung.
 - `(resource_pack_root_dir)/assets/tolaserblade/sounds/item/laser_blade_fp/swing.ogg`
 
 ## Configurations
-- Server-side settings: `(world_save_dir)/serverconfig/tolaserblade-server.toml`
-- Client-side settings: `(game_dir)/config/tolaserblade-client.toml`
+- Server-side settings: `<world_path>/serverconfig/tolaserblade-server.toml`
+- Client-side settings: `<instance_path>/config/tolaserblade-client.toml`
 
 ## Data pack
 Built-in optional data pack
@@ -210,8 +210,4 @@ This data pack reverts the laser blade recipes to version 6.
 A ToLaserBlade add-on to add more laser blade shapes.
 
 https://www.curseforge.com/minecraft/mc-mods/tolaserblade-extramodels
-
-## FAQ
-### Didn't Laser Blade support OptiFine's Dynamic Lights before?
-Use H1 or later.
 
