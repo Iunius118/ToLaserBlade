@@ -122,7 +122,7 @@ Item ID: `tolaserblade:lb_casing`
 素材：レーザーブレイドの設計図（消費しません）、鉄インゴット×2  
 ![ ](./img/ver7/recipe_lb_casing.png "レシピ：レーザーブレイドの外装")
 
-### 新品のレーザーブレイド / Brand-new Laser Blade
+### 新品のレーザーブレイド
 
 ![ ](./img/ver4/item_laserblade_hilt.png "アイテム：新品のレーザーブレイド")
 
@@ -274,7 +274,7 @@ Item ID: `tolaserblade:laser_blade`
 
 レーザー炉はコンフィグで無効化することもできます。また、レーザートラップが無効のときはレーザー炉も無効になります。
 
-### レーザーブレイド / Laser Blade（耐火）
+### レーザーブレイド / Laser Blade （耐火）
 
 ![ ](./img/ver4/item_laserblade.png "アイテム：レーザーブレイド（耐火）")  
 Item ID: `tolaserblade:laser_blade_fp`
@@ -300,13 +300,13 @@ Item ID: `tolaserblade:laser_blade_fp`
 
 >グリップ部分の消耗によってブレイドを放出できなくなったレーザーブレイド。レッドストーンのエネルギーは非常に強力である一方とても安定しているため、（我々の期待に反して）このような状態でも大爆発を起こしたりするようなことはない。
 
-#### 壊れたレーザーブレイド / Broken Laser Blade
+#### 壊れたレーザーブレイド / Broken Laser Blade （通常）
 
 Item ID: `tolaserblade:lb_broken`
 
 レーザーブレイドが耐久値の消耗により破壊された際にドロップします。元のレーザーブレイドの状態が保存されており、修理することによって「新品のレーザーブレイド」を入手できます。
 
-#### 壊れたレーザーブレイド / Broken Laser Blade（耐火）
+#### 壊れたレーザーブレイド / Broken Laser Blade （耐火）
 
 Item ID: `tolaserblade:lb_broken_fp`
 
