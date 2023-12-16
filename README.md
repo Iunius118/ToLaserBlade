@@ -1,24 +1,33 @@
 # ToLaserBlade
 
-[<img src="docs/img/tolaserblade_1.png" title="The Laser Blade" width="427">](docs/img/tolaserblade_1.png)
+[<img src="./docs/img/tolaserblade_1.png" title="The Laser Blade" width="427" height="240">](docs/img/tolaserblade_1.png)
 
-ToLaserBlade (T. o. Laser Blade) adds a simple sword with a laser blade.
+ToLaserBlade (T. o. Laser Blade) is a Minecraft mod adds a simple sword with a laser blade.
 
-- Sub projects
-  - [ToLaserBlade-1.12.2](https://github.com/Iunius118/ToLaserBlade-1.12.2)
-  - [ToLaserBlade-1.13.2](https://github.com/Iunius118/ToLaserBlade-1.13.2)
-  - [ToLaserBlade-1.14.x](https://github.com/Iunius118/ToLaserBlade-1.14.x)
+Sub projects:
 
-- Mod解説 (Mod description in Japanese)
+- [ToLaserBlade-1.12.2](https://github.com/Iunius118/ToLaserBlade-1.12.2) (archived)
+- [ToLaserBlade-1.13.2](https://github.com/Iunius118/ToLaserBlade-1.13.2) (archived)
+- [ToLaserBlade-1.14.x](https://github.com/Iunius118/ToLaserBlade-1.14.x) (archived)
+- [ToLaserBlade-Fabric](https://github.com/Iunius118/ToLaserBlade-Fabric)
+- [ToLaserBlade-BTA](https://github.com/Iunius118/ToLaserBlade-BTA)
+- [ExampleRecipesForToLaserBlade](https://github.com/Iunius118/ExampleRecipesForToLaserBlade) (archived)
+- [ToLaserBlade-ExtraModels](https://github.com/Iunius118/ToLaserBlade-ExtraModels)
 
-  - [1.13.2](docs/recipes_ja.md)
-  - [1.12.2](docs/recipes_1.12.2_ja.md)
+Mod解説 (Mod descriptions in Japanese):
+
+- [1.20.x](docs/manual_ja.md)
+- [1.16.x](docs/manual_1.16.5_ja.md)
 
 ## Description and Download
 
-- [Project Page (CurseForge)](https://minecraft.curseforge.com/projects/tolaserblade)
+- [CurseForge](https://www.curseforge.com/minecraft/mc-mods/tolaserblade)
+- [Modrinth](https://modrinth.com/mod/tolaserblade)
+
+## Licenses
+
+- MIT license
+- [LICENSE.txt](./src/main/resources/LICENSE.txt) in `src/main/resources/` only applies to the .jar files built from this source
 
 ---
-Copyright (c) 2016-2019 Iunius118
-
-This mod is released under the MIT license but including resources licensed under a Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0) License.
+&copy; 2016 Iunius118

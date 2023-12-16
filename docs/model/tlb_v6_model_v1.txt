@@ -1,0 +1,120 @@
+# ToLaserBlade v6 JSON Model v1
+
+```json
+{
+  "type": "tolaserblade:model_v1",
+  "id": 0,
+  "renderer_id": 0,
+  "gui_resize": [1,0,0],
+  "objects": [
+    {"type": "default",  "part": "grip",      "state": "any", "from": 0, "size": 1},
+    {"type": "default",  "part": "off",       "state": "off", "from": 0, "size": 1},
+    {"type": "flat",     "part": "",          "state": "on",  "from": 0, "size": 1},
+    {"type": "function", "name": "rotate",    "state": "on"}, 
+    {"type": "unlit",    "part": "",          "state": "on",  "from": 0, "size": 1},
+    {"type": "add",      "part": "blade_in",  "state": "on",  "from": 0, "size": 1},
+    {"type": "add",      "part": "blade_out", "state": "on",  "from": 0, "size": 1},
+    {"type": "function", "name": "pop_pose",  "state": "on"}, 
+    {"type": "add",      "part": "blade_out", "state": "on",  "from": 0, "size": 1}
+  ],
+  "faces": [[0,0,0,0,0,0,0,0,0,0,0,0], [0,0,0,0,0,0,0,0,0,0,0,0]],
+  "vertices": [[0,0,0], [0,0,0]],
+  "colors": [[0,0,0,0], [0,0,0,0]],
+  "normals": [[0,0,0], [0,0,0]]
+}
+```
+
+## Type
+
+type: "tolaserblade:model_v1"
+
+## ID
+
+id: integer (number) of laser blade shape ID (model type) in laser blade object
+
+## Renderer ID (Optional)
+
+renderer_id: 0
+
+## GUI Resize (Optional)
+
+gui_resize: array of float numbers to adjust laser blade shape to item slot or item frame
+
+Each float number: [scale, offset_y, offset_z]
+
+## Objects
+
+objects: array of objects of geometry data or functions
+
+Converted from each obj group name: "object_name:type:part:state[:functon_name:function_state]"
+
+### Type (Optional)
+
+type: string of renderer name or `function`
+
+- Renderer names : renderer used for each geometry
+  - default: affected by ambient light and shade
+  - flat: not affected by ambient light, affected by shade
+  - unlit: not affected by ambient light and shade, always bright
+  - add: rendered with additive color mixing
+- Function: calls function, geometry not included, `name` element is required
+  - function
+
+### Part (Optional)
+
+part: string of part type of laser blade, this is related to drawing color
+
+- default: geometry not included in specific part
+- off: slightly darker rendering `default`
+- grip: renders in grip color of laser blade
+- blade_in: renders in inner blade color of laser blade
+- blade_out: renders in outer blade color of laser blade
+
+### Name
+
+name: string of function name to call
+
+- rotate: pushes pose stack once, rotates following geometries on Y axis
+- pop_pose: pops pose stack once, limits scope of `rotate`
+
+### State (Optional)
+
+state: string of state that renders geometry or calls function
+
+- default: always rendered or called
+- any: same as default
+- on: rendered or called when laser blade is working
+- off: rendered or called when laser blade is not working
+
+### From
+
+from: integer (number) of start index of series of faces to render, index starts with 0
+
+### Size
+
+size: integer (number) of number of series of faces to render, <= 1
+
+## Faces
+
+faces: array of arrays of integers (numbers)
+
+Each array in `faces`: [vertex_index_0, color_index_0, normal_index_0, vertex_index_1, color_index_1, normal_index_1, vertex_index_2, color_index_2, normal_index_2, vertex_index_3, color_index_3, normal_index_3]
+Each index starts with 0
+
+## Vertices
+
+vertices: Array of arrays of float numbers
+
+Each array in `vertices`: [position_x, position_y, position_z]
+
+## Colors
+
+colors: array of arrays of float numbers
+
+Each array in `colors`: [red, green, blue, alpha]
+
+## Normals
+
+normals: array of arrays of float numbers
+
+Each array in `normals`: [normal_x, normal_y, normal_z]

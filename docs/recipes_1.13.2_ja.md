@@ -1,16 +1,16 @@
-# ToLaserBlade v1.13.2-2.0.1.0
-
-以下の解説は、バージョン 1.13.2-2.0.1.0 時点での仕様に基づいて書かれています。
+# ToLaserBlade v1.13.2-2.0.2.0
 
 ## 動作環境
 
 - Java 8 以降
 - Minecraft 1.13.2
-- Minecraft Forge 1.13.2-25.0.149+
+- Minecraft Forge 1.13.2-25.0.219+
 
 ## ダウンロード
 
-- [ダウンロードサイト（Curse Forge）](https://minecraft.curseforge.com/projects/tolaserblade)
+- [ダウンロードサイト（Curse Forge）](https://www.curseforge.com/minecraft/mc-mods/tolaserblade/files/all?filter-game-version=2020709689%3A7132)
+
+当modのjarファイルの著作権はmodの著作者に帰属します。ただし、内容を変更しない状態での再配布やモッドパックへの収録は可能です。Modの利用や配布にあたっては、Mojang Studiosの定めるMinecraftのエンドユーザーライセンス条項（EULA）及びガイドラインに従ってください。
 
 ## アイテム解説
 
@@ -28,7 +28,7 @@
 
 右クリックでレッドストーントーチに関連した隠し機能が使用できる。
 
-- 耐久度が半分以上残っているとき、地面や壁を右クリックすると耐久度を消費してレッドストーントーチを設置する
+- 耐久度が半分以上残っているとき、地面や壁をスニーク状態で右クリックすると耐久度を消費してレッドストーントーチを設置する
 - 耐久度が半分未満のとき、設置されたレッドストーントーチを右クリックするとそれを消費して耐久度を回復する
 - 耐久度が半分以上のとき、設置されたレッドストーントーチを右クリックするとそれを回収する
 
@@ -153,12 +153,12 @@
 
 ### tolaserblade-client.toml
 
-クライアント側限定の設定ファイル。クライアント側のみで使用される。
-  <!-- - ゲーム内のmodオプション設定GUIでも変更可能 -->
+クライアント側のみで使用される設定ファイル。
 
 - enableLaserBlade3DModel
   - 真偽値、デフォルトは`true`
-  - レーザーブレイドの描画に、`true`のときは3D（OBJ）モデルを使用し、`false`のときは2D（JSON）モデルを使用する
+  - レーザーブレイドの描画に3Dモデルを使用するか
+  - `true`：3D（OBJ）モデルを使用。`false`：2D（JSON）モデルを使用
 - laserBladeRenderingMode
   - 整数値 0～1、デフォルトは`0`
   - レーザーブレイドの刃の描画モードを選択する
@@ -166,8 +166,4 @@
   - この項目は`enableLaserBlade3DModel`が`true`のときのみ使用される
 
 ---
-Copyright 2016-2019 Iunius118
-
-This mod is released under the MIT license but including resources licensed under a Creative Commons Attribution-NonCommercial 4.0 International (CC BY-NC 4.0) License.
-
-このmodはMITライセンスで配布されていますが、リソースにクリエイティブコモンズ 表示 - 非営利 4.0（CC BY-NC 4.0）ライセンスで配布されているファイルを含みます。
+&copy; 2016-2020 Iunius118

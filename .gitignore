@@ -8,10 +8,25 @@
 # Exclude docs
 !/docs/
 
+# GitHub
+!/.github/
+
+# Gradle
+!/gradle/
+!gradle.properties
+!settings.gradle
+!build.gradle
+!gradlew*
+
+# Documents included in jar
+!*.md
+!LICENSE*
+!CREDITS*
+!CHANGELOG*
+!CHEATSHEET*
+!README*
+
 # Others
 !.gitignore
-!*.md
-!build.gradle
-!LICENSE
-!README_*
-!update.json
+!.gitattributes
+!update*.json
