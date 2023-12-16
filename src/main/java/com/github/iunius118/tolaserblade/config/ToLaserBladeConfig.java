@@ -85,12 +85,11 @@ public class ToLaserBladeConfig {
                     .define("useFixedVertexBuffer", false);
 
             useOriginalModelType = builder
-                    .comment("Using mod model loader to load Laser Blade models." +
-                            "Set to false to use the model that loaded by vanilla model loader.\n" +
+                    .comment("Using mod model loader to load Laser Blade models. Set to false to use the model that loaded by vanilla model loader.\n" +
                             "Need to reload resource packs after changing this.\n" +
                             "Default: true")
                     .translation("tolaserblade.configgui.client.useOriginalModelType")
-                    .define("useInternalModel", true);
+                    .define("useOriginalModelType", true);
 
             renderMultipleModels = builder
                     .comment("Enable to render Laser Blades using multiple models. This setting is valid when useOriginalModelLoader is true.\n" +
@@ -101,7 +100,7 @@ public class ToLaserBladeConfig {
                     .define("renderMultipleModels", true);
 
             defaultModel = builder
-                    .comment("Select model number of laser blade to use when renderMultipleModels is false. This setting is valid when useOriginalModelLoader is true.\n" +
+                    .comment("Select model number of laser blade to use when renderMultipleModels is false. This setting is valid when useOriginalModelType is true.\n" +
                             "Need to reload resource packs after changing this.\n" +
                             "Default: 0")
                     .translation("tolaserblade.configgui.client.defaultModel")
