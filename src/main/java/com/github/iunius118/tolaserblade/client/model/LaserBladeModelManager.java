@@ -12,12 +12,15 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.fml.ModLoader;
+import net.neoforged.bus.api.BusBuilder;
+import net.neoforged.bus.api.IEventBus;
 import org.slf4j.Logger;
 
 import java.util.*;
 
 public class LaserBladeModelManager {
+    public static final IEventBus EVENT_BUS = BusBuilder.builder().build();
+
     private static final Logger LOGGER = ToLaserBlade.LOGGER;
     private static final String MODEL_DIR = "models/item/laser_blade";
     private static final LaserBladeModelManager INSTANCE = new LaserBladeModelManager();
@@ -52,7 +55,7 @@ public class LaserBladeModelManager {
         models = new HashMap<>();
 
         // Load models
-        ModLoader.get().postEvent(new LaserBladeModelRegistrationEvent(models -> models.forEach(this::addModel)));
+        EVENT_BUS.post(new LaserBladeModelRegistrationEvent(models -> models.forEach(this::addModel)));
 
         // Set default model
         int defaultModelNumber = ToLaserBladeConfig.CLIENT.defaultModel.get();

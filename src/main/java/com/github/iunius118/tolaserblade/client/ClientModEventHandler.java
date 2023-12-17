@@ -1,7 +1,6 @@
 package com.github.iunius118.tolaserblade.client;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
-import com.github.iunius118.tolaserblade.api.client.event.LaserBladeModelRegistrationEvent;
 import com.github.iunius118.tolaserblade.client.color.item.LBCasingItemColor;
 import com.github.iunius118.tolaserblade.client.color.item.LBEmitterItemColor;
 import com.github.iunius118.tolaserblade.client.color.item.LBMediumItemColor;
@@ -84,11 +83,6 @@ public class ClientModEventHandler {
         models.put(lBBrokenFPItemID, bakedModel);
     }
 
-    @SubscribeEvent
-    public static void onLaserBladeModelRegistrationEvent(LaserBladeModelRegistrationEvent event) {
-        event.register(LaserBladeModelManager.loadModels());
-    }
-
     private static ResourceLocation getItemId(Item item) {
         return BuiltInRegistries.ITEM.getKey(item);
     }
@@ -114,8 +108,8 @@ public class ClientModEventHandler {
 
     public static void checkUpdate() {
         // Check update and Notify client
-        CheckResult result = VersionChecker.getResult(ModList.get().getModFileById(ToLaserBlade.MOD_ID).getMods().get(0));
-        Status status = result.status();
+        var result = VersionChecker.getResult(ModList.get().getModFileById(ToLaserBlade.MOD_ID).getMods().get(0));
+        var status = result.status();
 
         if (status == Status.PENDING || result.target() == null) {
             // Failed to get update information
@@ -124,13 +118,10 @@ public class ClientModEventHandler {
 
         if (status == Status.OUTDATED || status == Status.BETA_OUTDATED) {
             MutableComponent modNameHighlighted = Component.literal(ToLaserBlade.MOD_NAME).withStyle(ChatFormatting.YELLOW);
-
             MutableComponent newVersionHighlighted = Component.literal(result.target().toString()).withStyle(ChatFormatting.YELLOW);
-
             MutableComponent message = Component.translatable("tolaserblade.update.newVersion", modNameHighlighted).append(": ")
                     .append(newVersionHighlighted)
                     .withStyle(style -> style.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, result.url())));
-
             Minecraft.getInstance().gui.getChat().addMessage(message);
         }
     }

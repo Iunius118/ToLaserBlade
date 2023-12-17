@@ -3,8 +3,7 @@ package com.github.iunius118.tolaserblade.api;
 import com.github.iunius118.tolaserblade.api.client.event.LaserBladeModelRegistrationEvent;
 import com.github.iunius118.tolaserblade.api.core.laserblade.LaserBladeState;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.fml.LogicalSide;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
+import net.neoforged.fml.LogicalSide;
 
 import java.util.function.Consumer;
 
@@ -24,7 +23,7 @@ public class ToLaserBladeAPI {
      * @param listener Listener of {@link LaserBladeModelRegistrationEvent}.
      */
     public static void registerModelRegistrationListener(Consumer<LaserBladeModelRegistrationEvent> listener) {
-        FMLJavaModLoadingContext.get().getModEventBus().addListener(listener);
+        com.github.iunius118.tolaserblade.client.model.LaserBladeModelManager.EVENT_BUS.addListener(listener);
     }
 
     /**

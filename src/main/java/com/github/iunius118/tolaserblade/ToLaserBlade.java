@@ -1,6 +1,8 @@
 package com.github.iunius118.tolaserblade;
 
+import com.github.iunius118.tolaserblade.api.ToLaserBladeAPI;
 import com.github.iunius118.tolaserblade.client.ClientModEventHandler;
+import com.github.iunius118.tolaserblade.client.model.LaserBladeModelManager;
 import com.github.iunius118.tolaserblade.common.CommonEventHandler;
 import com.github.iunius118.tolaserblade.common.RegistryEventHandler;
 import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
@@ -44,6 +46,7 @@ public class ToLaserBlade {
         // Register client-side mod event handler
         if (dist.isClient()) {
             modEventBus.register(ClientModEventHandler.class);
+            ToLaserBladeAPI.registerModelRegistrationListener(event -> event.register(LaserBladeModelManager.loadModels()));
         }
     }
 
