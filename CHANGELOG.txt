@@ -1,10 +1,22 @@
 # Change Log
-[ToLaserBlade (Forge)](https://www.curseforge.com/minecraft/mc-mods/tolaserblade).
+[ToLaserBlade (NeoForge)](https://github.com/Iunius118/ToLaserBlade#readme).
 [Source](https://github.com/Iunius118/ToLaserBlade).
 
 ## [Unreleased]
 
-## [8.3.0 forge]
+## [8.3.0 NeoForge]
+### Changed
+- Port to 1.20.4 NeoForge.
+- Require NeoForge 20.4.42-beta+.
+
+### Removed
+- Remapping of item IDs for backward compatibility.
+
+### Fixed
+- Title of achievement: `Into the Core`.
+- Registration event for laser blade models.
+
+## [8.3.0 Forge]
 ### Changed
 - Change update information file to update-forge.json.
 
