@@ -6,7 +6,7 @@ ToLaserBlade 1.18+
 This refers to an internet meme "it's Over 9000!".
 
 ## advancements.tolaserblade.main.laser_blade_fp.title
-"Into The Core"
+"Into the Core"
 "The Core" means the earth's core and refers to a sci-fi film.
 
 ## advancements.tolaserblade.main.laser_blade_light_element_10.title
@@ -66,4 +66,4 @@ For example, "Recharge %s" will be displayed as "Recharge +1.2" in-game.
 "HEAT RESISTANT 8000"
 
 A simple phrase that appears in tooltip of fireproof laser blade.
-It means that the laser blade can withstand a temperature of 8000 (K, but no need for temperature unit).
+It means that the laser blade can withstand a temperature of 8000 (Kelvin, but no need for temperature unit).

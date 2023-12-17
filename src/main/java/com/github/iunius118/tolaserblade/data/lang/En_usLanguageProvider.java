@@ -78,7 +78,7 @@ public class En_usLanguageProvider extends LanguageProvider {
         add("advancements.tolaserblade.main.laser_blade_looting_3.description", "Add Looting III enchantment to a Laser Blade");
         add("advancements.tolaserblade.main.break_laser_blade.title", "Returns and Exchanges");
         add("advancements.tolaserblade.main.break_laser_blade.description", "Completely use up a Laser Blade, and then...");
-        add("advancements.tolaserblade.main.laser_blade_fp.title", "Into The Core");
+        add("advancements.tolaserblade.main.laser_blade_fp.title", "Into the Core");
         add("advancements.tolaserblade.main.laser_blade_fp.description", "Upgrade a Laser Blade with a Netherite Ingot");
 
         // Configs
