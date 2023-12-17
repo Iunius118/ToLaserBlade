@@ -29,16 +29,13 @@
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "advancements.tolaserblade.main.break_laser_blade.description"
     },
     "frame": "challenge",
-    "hidden": false,
     "icon": {
       "item": "tolaserblade:lb_casing"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancements.tolaserblade.main.break_laser_blade.title"
     }
@@ -51,6 +48,5 @@
   ],
   "rewards": {
     "experience": 1000
-  },
-  "sends_telemetry_event": false
+  }
 }

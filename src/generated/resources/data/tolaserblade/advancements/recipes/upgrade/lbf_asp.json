@@ -30,6 +30,5 @@
     "recipes": [
       "tolaserblade:upgrade/lbf_asp"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

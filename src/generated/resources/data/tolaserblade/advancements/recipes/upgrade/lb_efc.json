@@ -30,6 +30,5 @@
     "recipes": [
       "tolaserblade:upgrade/lb_efc"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

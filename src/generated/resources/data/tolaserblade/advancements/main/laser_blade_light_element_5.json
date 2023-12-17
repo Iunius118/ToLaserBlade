@@ -43,16 +43,12 @@
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "advancements.tolaserblade.main.laser_blade_light_element_5.description"
     },
-    "frame": "task",
-    "hidden": false,
     "icon": {
       "item": "minecraft:glowstone"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancements.tolaserblade.main.laser_blade_light_element_5.title"
     }
@@ -62,6 +58,5 @@
       "has_laser_blade",
       "has_laser_blade_fp"
     ]
-  ],
-  "sends_telemetry_event": false
+  ]
 }

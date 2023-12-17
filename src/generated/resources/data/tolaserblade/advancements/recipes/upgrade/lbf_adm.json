@@ -30,6 +30,5 @@
     "recipes": [
       "tolaserblade:upgrade/lbf_adm"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

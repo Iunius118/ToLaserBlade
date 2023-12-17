@@ -15,17 +15,13 @@
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "advancements.tolaserblade.main.dx_laser_blade.description"
     },
-    "frame": "task",
-    "hidden": false,
     "icon": {
       "item": "tolaserblade:dx_laser_blade",
       "nbt": "{Damage:0}"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancements.tolaserblade.main.dx_laser_blade.title"
     }
@@ -34,6 +30,5 @@
     [
       "has_dx_laser_blade"
     ]
-  ],
-  "sends_telemetry_event": false
+  ]
 }

@@ -30,6 +30,5 @@
     "recipes": [
       "tolaserblade:model/lbf_0"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

@@ -30,6 +30,5 @@
     "recipes": [
       "tolaserblade:lb_brand_new_fp_smithing"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

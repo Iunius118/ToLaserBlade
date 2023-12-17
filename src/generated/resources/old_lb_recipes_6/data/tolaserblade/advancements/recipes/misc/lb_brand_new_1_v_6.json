@@ -30,6 +30,5 @@
     "recipes": [
       "tolaserblade:lb_brand_new_1_v_6"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

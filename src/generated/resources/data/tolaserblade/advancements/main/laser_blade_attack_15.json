@@ -42,16 +42,12 @@
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "advancements.tolaserblade.main.laser_blade_attack_15.description"
     },
-    "frame": "task",
-    "hidden": false,
     "icon": {
       "item": "minecraft:diamond"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancements.tolaserblade.main.laser_blade_attack_15.title"
     }
@@ -62,6 +58,5 @@
       "laser_blade_fp_attack_15",
       "laser_blade_fp_attack_16"
     ]
-  ],
-  "sends_telemetry_event": false
+  ]
 }

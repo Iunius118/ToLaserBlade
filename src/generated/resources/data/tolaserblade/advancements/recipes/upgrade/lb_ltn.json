@@ -30,6 +30,5 @@
     "recipes": [
       "tolaserblade:upgrade/lb_ltn"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

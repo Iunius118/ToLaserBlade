@@ -30,6 +30,5 @@
     "recipes": [
       "tolaserblade:repair_lbb_smithing"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }
