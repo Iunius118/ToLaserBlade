@@ -7,6 +7,8 @@ import com.github.iunius118.tolaserblade.core.laserblade.upgrade.Upgrade;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.UpgradeManager;
 import com.github.iunius118.tolaserblade.tags.ModItemTags;
 import com.github.iunius118.tolaserblade.world.item.ModItems;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
@@ -14,15 +16,15 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.level.block.Blocks;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.conditions.IConditionBuilder;
 
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 public class TLBRecipeProvider extends RecipeProvider implements IConditionBuilder {
-    public TLBRecipeProvider(PackOutput packOutput) {
-        super(packOutput);
+    public TLBRecipeProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+        super(packOutput, lookupProvider);
     }
 
     @Override
@@ -140,7 +142,7 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
     }
 
     private ResourceLocation getItemId(Item item) {
-        return ForgeRegistries.ITEMS.getKey(item);
+        return BuiltInRegistries.ITEM.getKey(item);
     }
 
     private void addSmithingTransformRecipe(Ingredient template, Ingredient base, Ingredient addition, Item result, Item criterionItem, RecipeOutput consumer) {

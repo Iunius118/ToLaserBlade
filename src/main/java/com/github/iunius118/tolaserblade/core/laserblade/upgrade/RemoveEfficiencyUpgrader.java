@@ -10,14 +10,14 @@ import java.util.Map;
 public class RemoveEfficiencyUpgrader implements Upgrader {
     @Override
     public boolean canApply(ItemStack base, ItemStack addition) {
-        int level = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY, base);
+        int level = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY, base);
         return level > 0;
     }
 
     @Override
     public UpgradeResult apply(ItemStack base, int baseCost) {
         int cost = baseCost;
-        int level = EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY, base);
+        int level = EnchantmentHelper.getTagEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY, base);
 
         if (level > 0) {
             Map<Enchantment, Integer> enchantments = EnchantmentHelper.getEnchantments(base);

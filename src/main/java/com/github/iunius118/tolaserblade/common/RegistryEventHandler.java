@@ -9,9 +9,8 @@ import com.github.iunius118.tolaserblade.world.item.crafting.ModRecipeSerializer
 import com.github.iunius118.tolaserblade.world.item.enchantment.LightElementEnchantment;
 import com.github.iunius118.tolaserblade.world.item.enchantment.ModEnchantments;
 import net.minecraft.core.registries.Registries;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.registries.DeferredRegister;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.neoforge.registries.DeferredRegister;
 
 public class RegistryEventHandler {
     public static void registerGameObjects(IEventBus modEventBus) {
@@ -24,7 +23,7 @@ public class RegistryEventHandler {
     }
 
     private static void registerRecipeSerializers(IEventBus modEventBus) {
-        var recipeSerializerDeferredRegister = DeferredRegister.create(ForgeRegistries.RECIPE_SERIALIZERS, ToLaserBlade.MOD_ID);
+        var recipeSerializerDeferredRegister = DeferredRegister.create(Registries.RECIPE_SERIALIZER, ToLaserBlade.MOD_ID);
 
         recipeSerializerDeferredRegister.register("upgrade", () -> ModRecipeSerializers.UPGRADE);
         recipeSerializerDeferredRegister.register("color", () -> ModRecipeSerializers.COLOR);
@@ -34,7 +33,7 @@ public class RegistryEventHandler {
     }
 
     private static void registerItems(IEventBus modEventBus) {
-        var itemDeferredRegister = DeferredRegister.create(ForgeRegistries.ITEMS, ToLaserBlade.MOD_ID);
+        var itemDeferredRegister = DeferredRegister.createItems(ToLaserBlade.MOD_ID);
 
         itemDeferredRegister.register("dx_laser_blade", () -> ModItems.DX_LASER_BLADE);
         itemDeferredRegister.register("laser_blade", () -> ModItems.LASER_BLADE);
@@ -58,7 +57,7 @@ public class RegistryEventHandler {
     }
 
     private static void registerEnchantments(IEventBus modEventBus) {
-        var enchantmentDeferredRegister = DeferredRegister.create(ForgeRegistries.ENCHANTMENTS, ToLaserBlade.MOD_ID);
+        var enchantmentDeferredRegister = DeferredRegister.create(Registries.ENCHANTMENT, ToLaserBlade.MOD_ID);
 
         enchantmentDeferredRegister.register(LightElementEnchantment.ID.getPath(), () -> ModEnchantments.LIGHT_ELEMENT);
 
@@ -66,7 +65,7 @@ public class RegistryEventHandler {
     }
 
     private static void registerParticleTypes(IEventBus modEventBus) {
-        var particleTypeDeferredRegister = DeferredRegister.create(ForgeRegistries.PARTICLE_TYPES, ToLaserBlade.MOD_ID);
+        var particleTypeDeferredRegister = DeferredRegister.create(Registries.PARTICLE_TYPE, ToLaserBlade.MOD_ID);
 
         particleTypeDeferredRegister.register("laser_trap_x", () -> ModParticleTypes.LASER_TRAP_X);
         particleTypeDeferredRegister.register("laser_trap_y", () -> ModParticleTypes.LASER_TRAP_Y);
@@ -76,7 +75,7 @@ public class RegistryEventHandler {
     }
 
     private static void registerSoundEvents(IEventBus modEventBus) {
-        var soundEventDeferredRegister = DeferredRegister.create(ForgeRegistries.SOUND_EVENTS, ToLaserBlade.MOD_ID);
+        var soundEventDeferredRegister = DeferredRegister.create(Registries.SOUND_EVENT, ToLaserBlade.MOD_ID);
 
         soundEventDeferredRegister.register("item_dx_laser_blade_swing", () -> ModSoundEvents.ITEM_DX_LASER_BLADE_SWING);
         soundEventDeferredRegister.register("item_laser_blade_swing", () -> ModSoundEvents.ITEM_LASER_BLADE_SWING);

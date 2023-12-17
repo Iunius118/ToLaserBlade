@@ -4,18 +4,17 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.event.entity.player.CriticalHitEvent;
-import net.minecraftforge.event.entity.player.PlayerDestroyItemEvent;
-import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.event.entity.player.CriticalHitEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerDestroyItemEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
 public class ItemEventHandler {
     @SubscribeEvent
     public static void onEntityInteract(PlayerInteractEvent.EntityInteract event) {
         ItemStack itemStack = event.getItemStack();
 
-        // Redundant Null Check for Forge
-        if (itemStack != null && (itemStack.getItem() == ModItems.LASER_BLADE || itemStack.getItem() == ModItems.LASER_BLADE_FP)) {
+        if (itemStack.getItem() == ModItems.LASER_BLADE || itemStack.getItem() == ModItems.LASER_BLADE_FP) {
             // Avoid duplication of Laser Blade when player interact with Item Frame
             event.setCanceled(true);
             Player player = event.getEntity();
@@ -42,10 +41,7 @@ public class ItemEventHandler {
             ItemStack original = event.getOriginal();
             ItemStack brokenLaserBlade = null;
 
-            if (original == null) {
-                // Redundant Null Check for Forge
-
-            } else if (original.getItem() == ModItems.LASER_BLADE) {
+            if (original.getItem() == ModItems.LASER_BLADE) {
                 brokenLaserBlade = new ItemStack(ModItems.LB_BROKEN);
 
             } else if (original.getItem() == ModItems.LASER_BLADE_FP) {

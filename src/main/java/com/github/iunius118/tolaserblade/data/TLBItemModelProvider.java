@@ -2,14 +2,13 @@ package com.github.iunius118.tolaserblade.data;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.world.item.ModItems;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
-import net.minecraftforge.client.model.generators.ItemModelProvider;
-import net.minecraftforge.client.model.generators.ModelFile;
-import net.minecraftforge.client.model.generators.ModelFile.UncheckedModelFile;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.neoforge.client.model.generators.ItemModelProvider;
+import net.neoforged.neoforge.client.model.generators.ModelFile;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 public class TLBItemModelProvider extends ItemModelProvider {
     public TLBItemModelProvider(PackOutput packOutput, ExistingFileHelper existingFileHelper) {
@@ -18,8 +17,8 @@ public class TLBItemModelProvider extends ItemModelProvider {
 
     @Override
     protected void registerModels() {
-        ModelFile generatedModel = new UncheckedModelFile("item/generated");
-        ModelFile handheldModel = new UncheckedModelFile("item/handheld");
+        ModelFile generatedModel = new ModelFile.UncheckedModelFile("item/generated");
+        ModelFile handheldModel = new ModelFile.UncheckedModelFile("item/handheld");
 
         String dx_laser_blade = getItemId(ModItems.DX_LASER_BLADE).getPath();
         getBuilder(dx_laser_blade)
@@ -62,7 +61,7 @@ public class TLBItemModelProvider extends ItemModelProvider {
     }
 
     private ResourceLocation getItemId(Item item) {
-        return ForgeRegistries.ITEMS.getKey(item);
+        return BuiltInRegistries.ITEM.getKey(item);
     }
 
     private void registerPartItemModel(Item item, ModelFile parent) {
@@ -89,7 +88,7 @@ public class TLBItemModelProvider extends ItemModelProvider {
         if (item == null || parent == null) return;
 
         String itemPath = getItemId(item).getPath();
-        ModelFile parentModel = new UncheckedModelFile(ToLaserBlade.MOD_ID + ":item/" + parent);
+        ModelFile parentModel = new ModelFile.UncheckedModelFile(ToLaserBlade.MOD_ID + ":item/" + parent);
         getBuilder(itemPath)
                 .parent(parentModel);
     }

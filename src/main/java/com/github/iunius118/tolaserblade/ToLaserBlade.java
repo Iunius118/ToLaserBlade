@@ -8,15 +8,14 @@ import com.github.iunius118.tolaserblade.data.*;
 import com.github.iunius118.tolaserblade.world.item.ItemEventHandler;
 import com.github.iunius118.tolaserblade.world.item.ModCreativeModeTabs;
 import com.mojang.logging.LogUtils;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.ModLoadingContext;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
-import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
-import net.minecraftforge.fml.loading.FMLLoader;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.bus.api.IEventBus;
+import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.common.Mod;
+import net.neoforged.fml.config.ModConfig;
+import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.neoforge.common.NeoForge;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
 import org.slf4j.Logger;
 
 @Mod(ToLaserBlade.MOD_ID)
@@ -26,11 +25,9 @@ public class ToLaserBlade {
 
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    public ToLaserBlade() {
+    public ToLaserBlade(IEventBus modEventBus, Dist dist) {
         // Register lifecycle event listeners
-        final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         modEventBus.addListener(this::initClient);
-        modEventBus.register(ToLaserBladeConfig.class);
 
         // Register config handlers
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ToLaserBladeConfig.serverSpec);
@@ -41,11 +38,11 @@ public class ToLaserBlade {
         modEventBus.addListener(this::gatherData);
         modEventBus.addListener(ModCreativeModeTabs::onCreativeModeTabBuildContents);
         modEventBus.addListener(TLBOldRecipeProvider6::addPackFinders);
-        MinecraftForge.EVENT_BUS.register(CommonEventHandler.class);
-        MinecraftForge.EVENT_BUS.register(ItemEventHandler.class);
+        NeoForge.EVENT_BUS.register(CommonEventHandler.class);
+        NeoForge.EVENT_BUS.register(ItemEventHandler.class);
 
         // Register client-side mod event handler
-        if (FMLLoader.getDist().isClient()) {
+        if (dist.isClient()) {
             modEventBus.register(ClientModEventHandler.class);
         }
     }
@@ -71,7 +68,7 @@ public class ToLaserBlade {
 
         // Server
         final boolean includesServer = event.includeServer();
-        dataGenerator.addProvider(includesServer, new TLBRecipeProvider(packOutput));
+        dataGenerator.addProvider(includesServer, new TLBRecipeProvider(packOutput, lookupProvider));
         dataGenerator.addProvider(includesServer, blockTagsProvider);
         dataGenerator.addProvider(includesServer, new TLBItemTagsProvider(packOutput, lookupProvider, blockTagsProvider.contentsGetter(), existingFileHelper));
         dataGenerator.addProvider(includesServer, new TLBAdvancementProvider(packOutput, lookupProvider, existingFileHelper));

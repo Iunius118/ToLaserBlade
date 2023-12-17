@@ -6,7 +6,7 @@ import com.github.iunius118.tolaserblade.world.item.ModItems;
 import com.github.iunius118.tolaserblade.world.item.enchantment.ModEnchantments;
 import net.minecraft.data.PackOutput;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraftforge.common.data.LanguageProvider;
+import net.neoforged.neoforge.common.data.LanguageProvider;
 
 public class En_usLanguageProvider extends LanguageProvider {
     public En_usLanguageProvider(PackOutput packOutput) {
@@ -106,10 +106,5 @@ public class En_usLanguageProvider extends LanguageProvider {
         // Support for Enchantment Descriptions mod
         String id = "tolaserblade.light_element";
         add("enchantment." + id + ".desc", description);
-    }
-
-    @Override
-    public String getName() {
-        return "ToLaserBlade " + super.getName();
     }
 }

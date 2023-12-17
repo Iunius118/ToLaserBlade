@@ -7,15 +7,14 @@ import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.RenderBuffers;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderStateShard.TextureStateShard;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
+import net.neoforged.api.distmarker.Dist;
+import net.neoforged.api.distmarker.OnlyIn;
 import org.lwjgl.opengl.GL14;
 
 import javax.annotation.Nullable;
@@ -54,9 +53,9 @@ public class LaserBladeRenderType {
 
     static {
         if (ToLaserBlade.canUseFixedVertexBuffer()) {
-            RenderBuffers renderBuffers = Minecraft.getInstance().renderBuffers();
-            Map<RenderType, BufferBuilder> fixedBuffers = renderBuffers.fixedBuffers;
-            registerRenderTypes(fixedBuffers);
+            var renderBuffers = Minecraft.getInstance().renderBuffers();
+            var bufferSource = renderBuffers.bufferSource();
+            registerRenderTypes(bufferSource.fixedBuffers);
         }
     }
 

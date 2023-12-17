@@ -1,21 +1,18 @@
 package com.github.iunius118.tolaserblade.config;
 
-import net.minecraftforge.common.ForgeConfigSpec;
-import net.minecraftforge.common.ForgeConfigSpec.BooleanValue;
-import net.minecraftforge.common.ForgeConfigSpec.IntValue;
+import net.neoforged.neoforge.common.ModConfigSpec;
 import org.apache.commons.lang3.tuple.Pair;
-
 
 public class ToLaserBladeConfig {
     public static class Server {
-        public final BooleanValue isEnabledBlockingWithLaserBlade;
-        public final IntValue laserBladeEfficiency;
-        public final IntValue maxAttackDamageUpgradeCount;
-        public final BooleanValue isEnabledLaserTrap;
-        public final BooleanValue canLaserTrapAttackPlayer;
-        public final BooleanValue canLaserTrapHeatUpFurnace;
+        public final ModConfigSpec.BooleanValue isEnabledBlockingWithLaserBlade;
+        public final ModConfigSpec.IntValue laserBladeEfficiency;
+        public final ModConfigSpec.IntValue maxAttackDamageUpgradeCount;
+        public final ModConfigSpec.BooleanValue isEnabledLaserTrap;
+        public final ModConfigSpec.BooleanValue canLaserTrapAttackPlayer;
+        public final ModConfigSpec.BooleanValue canLaserTrapHeatUpFurnace;
 
-        Server(ForgeConfigSpec.Builder builder) {
+        Server(ModConfigSpec.Builder builder) {
             builder.comment("ToLaserBlade's game server side settings.").push("server");
 
             isEnabledBlockingWithLaserBlade = builder
@@ -62,13 +59,13 @@ public class ToLaserBladeConfig {
     }
 
     public static class Client {
-        public final BooleanValue showUpdateMessage;
-        public final BooleanValue useFixedVertexBuffer;
-        public final BooleanValue useOriginalModelType;
-        public final BooleanValue renderMultipleModels;
-        public final IntValue defaultModel;
+        public final ModConfigSpec.BooleanValue showUpdateMessage;
+        public final ModConfigSpec.BooleanValue useFixedVertexBuffer;
+        public final ModConfigSpec.BooleanValue useOriginalModelType;
+        public final ModConfigSpec.BooleanValue renderMultipleModels;
+        public final ModConfigSpec.IntValue defaultModel;
 
-        Client(ForgeConfigSpec.Builder builder) {
+        Client(ModConfigSpec.Builder builder) {
             builder.comment("ToLaserBlade's client side settings.").push("client");
 
             showUpdateMessage = builder
@@ -110,18 +107,18 @@ public class ToLaserBladeConfig {
         }
     }
 
-    public static final ForgeConfigSpec serverSpec;
+    public static final ModConfigSpec serverSpec;
     public static final Server SERVER;
     static {
-        final Pair<Server, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Server::new);
+        final Pair<Server, ModConfigSpec> specPair = new ModConfigSpec.Builder().configure(Server::new);
         serverSpec = specPair.getRight();
         SERVER = specPair.getLeft();
     }
 
-    public static final ForgeConfigSpec clientSpec;
+    public static final ModConfigSpec clientSpec;
     public static final Client CLIENT;
     static {
-        final Pair<Client, ForgeConfigSpec> specPair = new ForgeConfigSpec.Builder().configure(Client::new);
+        final Pair<Client, ModConfigSpec> specPair = new ModConfigSpec.Builder().configure(Client::new);
         clientSpec = specPair.getRight();
         CLIENT = specPair.getLeft();
     }

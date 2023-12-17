@@ -15,16 +15,16 @@ credits="${mod_credits}"
 authors="${mod_authors}"
 description='''${mod_description}'''
 
+[[mixins]]
+    config="mixins.tolaserblade.json"
 
 [[dependencies.${mod_id}]]
-    modId="forge"
-    mandatory=true
-    versionRange="${forge_version_range}"
+    modId="neoforge"
+    versionRange="${neo_version_range}"
     ordering="NONE"
     side="${side}"
 [[dependencies.${mod_id}]]
     modId="minecraft"
-    mandatory=true
     versionRange="${minecraft_version_range}"
     ordering="NONE"
     side="${side}"

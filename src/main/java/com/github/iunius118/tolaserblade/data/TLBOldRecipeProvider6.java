@@ -4,6 +4,7 @@ import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.tags.ModItemTags;
 import com.github.iunius118.tolaserblade.world.item.ModItems;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.metadata.PackMetadataGenerator;
 import net.minecraft.data.recipes.RecipeCategory;
@@ -20,13 +21,12 @@ import net.minecraft.server.packs.repository.PackSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
-import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
-import net.minecraftforge.common.data.ExistingFileHelper;
-import net.minecraftforge.data.event.GatherDataEvent;
-import net.minecraftforge.event.AddPackFindersEvent;
-import net.minecraftforge.fml.ModList;
-import net.minecraftforge.registries.ForgeRegistries;
+import net.neoforged.fml.ModList;
+import net.neoforged.neoforge.common.Tags;
+import net.neoforged.neoforge.common.conditions.IConditionBuilder;
+import net.neoforged.neoforge.common.data.ExistingFileHelper;
+import net.neoforged.neoforge.data.event.GatherDataEvent;
+import net.neoforged.neoforge.event.AddPackFindersEvent;
 
 import java.nio.file.Path;
 import java.util.HashSet;
@@ -49,7 +49,7 @@ public class TLBOldRecipeProvider6 {
         var packGenerator = dataGenerator.getBuiltinDatapack(includesServer, PACK_PATH);
 
         packGenerator.addProvider((o) -> PackMetadataGenerator.forFeaturePack(packOutput, Component.literal("ToLaserBlade - revert laser blade recipes to version 6")));
-        packGenerator.addProvider((o) -> new OldRecipeProvider(packOutput));
+        packGenerator.addProvider((o) -> new OldRecipeProvider(packOutput, lookupProvider));
         packGenerator.addProvider((o) -> blockTagsProvider);
         packGenerator.addProvider((o) -> new OldItemTagsProvider(packOutput, lookupProvider, blockTagsProvider.contentsGetter(), existingFileHelper));
     }
@@ -66,8 +66,8 @@ public class TLBOldRecipeProvider6 {
     }
 
     private static class OldRecipeProvider extends RecipeProvider implements IConditionBuilder {
-        public OldRecipeProvider(PackOutput packOutput) {
-            super(packOutput);
+        public OldRecipeProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+            super(packOutput, lookupProvider);
         }
 
         @Override
@@ -98,7 +98,7 @@ public class TLBOldRecipeProvider6 {
         }
 
         private ResourceLocation getItemId(Item item) {
-            return ForgeRegistries.ITEMS.getKey(item);
+            return BuiltInRegistries.ITEM.getKey(item);
         }
     }
 

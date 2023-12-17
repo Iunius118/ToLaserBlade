@@ -1,22 +1,17 @@
-buildscript {
-    dependencies {
-        // MixinGradle:
-        classpath 'org.spongepowered:mixingradle:0.7.+'
-    }
-}
-
 plugins {
+    id 'java-library'
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
-    id 'net.minecraftforge.gradle' version '[6.0.14,6.2)'
+    id 'net.neoforged.gradle.userdev' version '7.0.57'
 }
-
-// MixinGradle:
-apply plugin: 'org.spongepowered.mixin'
 
 version = minecraft_version + '-' + mod_version
 group = mod_group_id
+
+repositories {
+    mavenLocal()
+}
 
 base {
     archivesName = archives_base_name
@@ -25,132 +20,78 @@ base {
 // Mojang ships Java 17 to end users in 1.18+, so your mod should target Java 17.
 java.toolchain.languageVersion = JavaLanguageVersion.of(17)
 
-println "Java: ${System.getProperty 'java.version'}, JVM: ${System.getProperty 'java.vm.version'} (${System.getProperty 'java.vendor'}), Arch: ${System.getProperty 'os.arch'}"
-minecraft {
-    mappings channel: mapping_channel, version: mapping_version
-    // This property allows configuring Gradle's ProcessResources task(s) to run on IDE output locations before launching the game.
-    copyIdeResources = true
+// Use AT
+minecraft.accessTransformers.file rootProject.file('src/main/resources/META-INF/accesstransformer.cfg')
 
-    // This property enables access transformers for use in development.
-    accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
+runs {
+    // applies to all the run configs below
+    configureEach {
+        // property 'forge.logging.markers', 'REGISTRIES'
+        systemProperty 'forge.logging.console.level', 'debug'
 
-    runs {
-        // applies to all the run configs below
-        configureEach {
-            workingDirectory project.file('run')
+        modSource project.sourceSets.main
+    }
 
-            // property 'forge.logging.markers', 'REGISTRIES'
-            property 'forge.logging.console.level', 'debug'
 
-            mods {
-                "${mod_id}" {
-                    source sourceSets.main
-                }
-            }
-        }
+    client {
+        systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
+    }
 
-        client {
-            property 'forge.enabledGameTestNamespaces', mod_id
-        }
+    server {
+        systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
+        programArgument '--nogui'
+    }
 
-        server {
-            property 'forge.enabledGameTestNamespaces', mod_id
-            args '--nogui'
-        }
+    // This run config launches GameTestServer and runs all registered gametests, then exits.
+    gameTestServer {
+        systemProperty 'forge.enabledGameTestNamespaces', project.mod_id
+    }
 
-        // This run config launches GameTestServer and runs all registered gametests, then exits.
-        gameTestServer {
-            property 'forge.enabledGameTestNamespaces', mod_id
-        }
+    data {
+        // example of overriding the workingDirectory set in configureEach above, uncomment if you want to use it
+        workingDirectory project.file('run-data')
 
-        data {
-            // Override the workingDirectory set in configureEach above
-            workingDirectory project.file('run-data')
-
-            // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
-            args '--mod', mod_id, '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
-        }
+        // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
+        programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
     }
 }
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
-mixin {
-    // Mixin Gradle settings
-    add sourceSets.main, 'mixins.tolaserblade.refmap.json'
-    config 'mixins.tolaserblade.json'
-
-    debug.verbose = true
-    debug.export = true
-}
-
-repositories {
-    // If you have mod jar dependencies in ./libs, you can declare them as a repository like so.
-    // See https://docs.gradle.org/current/userguide/declaring_repositories.html#sub:flat_dir_resolver
-    // flatDir {
-    //     dir 'libs'
-    // }
-}
-
 dependencies {
-    // Specify the version of Minecraft to use.
-    minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
-
-    // Apply Mixin AP
-    annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+    implementation "net.neoforged:neoforge:${neo_version}"
 }
 
 // This block of code expands all declared replace properties in the specified resource targets.
-tasks.named('processResources', ProcessResources).configure {
-    def replaceProperties = [
-            minecraft_version: minecraft_version, minecraft_version_range: minecraft_version_range,
-            forge_version: forge_version, forge_version_range: forge_version_range,
+tasks.withType(ProcessResources).configureEach {
+    var replaceProperties = [
+            minecraft_version   : minecraft_version, minecraft_version_range: minecraft_version_range,
+            neo_version         : neo_version, neo_version_range: neo_version_range,
             loader_version_range: loader_version_range, side: side,
-            mod_id: mod_id, mod_name: mod_name, mod_license: mod_license, mod_version: mod_version,
-            mod_url: mod_url, mod_issue_url: mod_issue_url, mod_update_url: mod_update_url, mod_logos: mod_logos,
-            mod_credits: mod_credits, mod_authors: mod_authors, mod_description: mod_description
+            mod_id              : mod_id, mod_name: mod_name, mod_license: mod_license, mod_version: mod_version,
+            mod_url             : mod_url, mod_issue_url: mod_issue_url, mod_update_url: mod_update_url, mod_logos: mod_logos,
+            mod_authors         : mod_authors, mod_description: mod_description,  mod_credits: mod_credits, pack_format_number: pack_format_number,
     ]
     inputs.properties replaceProperties
-
 
     filesMatching(['META-INF/mods.toml', 'pack.mcmeta']) {
         expand replaceProperties + [project: project]
     }
 }
 
-tasks.named('jar', Jar).configure {
-    manifest {
-        attributes([
-                "Specification-Title"     : mod_id,
-                "Specification-Vendor"    : mod_authors,
-                "Specification-Version"   : "1",
-                "Implementation-Title"    : project.name,
-                "Implementation-Version"  : project.jar.archiveVersion,
-                "Implementation-Vendor"   : mod_authors,
-                "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
-        ])
-    }
-
+jar {
     from("CHANGELOG.txt", "CHEATSHEET.txt", "CREDITS.txt")
-
-    // This is the preferred method to reobfuscate your jar file
-    finalizedBy 'reobfJar'
 }
-
-// However if you are in a multi-project build, dev time needs unobfed jar files, so you can delay the obfuscation until publishing by doing:
-// tasks.named('publish').configure {
-//     dependsOn 'reobfJar'
-// }
 
 publishing {
     publications {
         register('mavenJava', MavenPublication) {
-            artifact jar
+            from components.java
         }
     }
     repositories {
         maven {
-            url "file://${project.projectDir}/mcmodsrepo"
+            url "file://${project.projectDir}/repo"
         }
     }
 }
