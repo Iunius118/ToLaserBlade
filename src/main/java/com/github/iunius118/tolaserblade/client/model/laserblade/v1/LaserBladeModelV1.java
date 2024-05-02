@@ -26,7 +26,7 @@ import java.util.List;
 public class LaserBladeModelV1 extends SimpleLaserBladeModel {
     public static final Logger LOGGER = LoggerFactory.getLogger(ToLaserBlade.MOD_NAME + ".LaserBladeModelVersion1");
 
-    private static final ResourceLocation TEXTURE = new ResourceLocation(ToLaserBlade.MOD_ID, "textures/item/laser_blade_3d.png");
+    private static final ResourceLocation TEXTURE = ToLaserBlade.makeId("textures/item/laser_blade_3d.png");
     private static final String MODEL_TYPE = "tolaserblade:model_v1";
 
     private final List<ModelObjectV1> modelObjects = new ArrayList<>();

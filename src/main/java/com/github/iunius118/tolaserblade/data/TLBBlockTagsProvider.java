@@ -11,7 +11,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class TLBBlockTagsProvider extends BlockTagsProvider {
     public TLBBlockTagsProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> lookupProvider, @Nullable ExistingFileHelper existingFileHelper) {
-        super(output, lookupProvider,  ToLaserBlade.MOD_ID, existingFileHelper);
+        super(output, lookupProvider, ToLaserBlade.MOD_ID, existingFileHelper);
     }
 
     @Override

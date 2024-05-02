@@ -8,6 +8,7 @@ import com.github.iunius118.tolaserblade.data.*;
 import com.github.iunius118.tolaserblade.world.item.ItemEventHandler;
 import com.github.iunius118.tolaserblade.world.item.ModCreativeModeTabs;
 import com.mojang.logging.LogUtils;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
@@ -48,6 +49,10 @@ public class ToLaserBlade {
         if (FMLLoader.getDist().isClient()) {
             modEventBus.register(ClientModEventHandler.class);
         }
+    }
+
+    public static ResourceLocation makeId(String name) {
+        return new ResourceLocation(MOD_ID, name);
     }
 
     private static boolean canUseFixedVertexBuffer;

@@ -25,7 +25,7 @@ public class ModItemTags {
     public static final TagKey<Item> CASING_REPAIR = makeWrapperTag("casing_repair");
 
     private static TagKey<Item> makeWrapperTag(String id) {
-        return ItemTags.create(new ResourceLocation(ToLaserBlade.MOD_ID, id));
+        return ItemTags.create(ToLaserBlade.makeId(id));
     }
 
     private static TagKey<Item> makeWrapperTag(UpgradeID upgradeID) {

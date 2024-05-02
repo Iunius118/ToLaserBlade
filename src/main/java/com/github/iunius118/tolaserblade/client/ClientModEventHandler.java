@@ -102,7 +102,7 @@ public class ClientModEventHandler {
     @SubscribeEvent
     public static void onRegisterShadersEvent(RegisterShadersEvent event) throws IOException {
         var resourceProvider = event.getResourceProvider();
-        var lbUnlitShaderInstance = new ShaderInstance(resourceProvider, new ResourceLocation(ToLaserBlade.MOD_ID, LaserBladeRenderType.UNLIT_SHADER_INSTANCE_NAME), DefaultVertexFormat.NEW_ENTITY);
+        var lbUnlitShaderInstance = new ShaderInstance(resourceProvider, ToLaserBlade.makeId(LaserBladeRenderType.UNLIT_SHADER_INSTANCE_NAME), DefaultVertexFormat.NEW_ENTITY);
         event.registerShader(lbUnlitShaderInstance, LaserBladeRenderType::setUnlitShaderInstance);
     }
 

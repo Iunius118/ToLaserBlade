@@ -12,7 +12,7 @@ import net.minecraft.world.item.enchantment.DamageEnchantment;
 import net.minecraft.world.item.enchantment.Enchantment;
 
 public class LightElementEnchantment extends DamageEnchantment {
-    public static final ResourceLocation ID = new ResourceLocation(ToLaserBlade.MOD_ID, "light_element");
+    public static final ResourceLocation ID = ToLaserBlade.makeId("light_element");
     private static final int MAX_LEVEL = 10;
 
     public LightElementEnchantment() {
