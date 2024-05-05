@@ -8,14 +8,11 @@ import com.github.iunius118.tolaserblade.client.color.item.LBMediumItemColor;
 import com.github.iunius118.tolaserblade.client.color.item.LBSwordItemColor;
 import com.github.iunius118.tolaserblade.client.model.LaserBladeModelManager;
 import com.github.iunius118.tolaserblade.client.particle.LaserTrapParticle;
-import com.github.iunius118.tolaserblade.client.renderer.LaserBladeRenderType;
 import com.github.iunius118.tolaserblade.client.renderer.item.model.LBSwordItemModel;
 import com.github.iunius118.tolaserblade.core.particle.ModParticleTypes;
 import com.github.iunius118.tolaserblade.world.item.ModItems;
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.ClickEvent;
@@ -26,15 +23,12 @@ import net.minecraft.world.item.Item;
 import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
-import net.minecraftforge.client.event.RegisterShadersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.VersionChecker;
 import net.minecraftforge.fml.VersionChecker.CheckResult;
 import net.minecraftforge.fml.VersionChecker.Status;
 import net.minecraftforge.registries.ForgeRegistries;
-
-import java.io.IOException;
 
 public class ClientModEventHandler {
     @SubscribeEvent
@@ -97,13 +91,6 @@ public class ClientModEventHandler {
     @SubscribeEvent
     public static void onBakingCompletedEvent(ModelEvent.BakingCompleted event) {
         LaserBladeModelManager.getInstance().logLoadedModelCount();
-    }
-
-    @SubscribeEvent
-    public static void onRegisterShadersEvent(RegisterShadersEvent event) throws IOException {
-        var resourceProvider = event.getResourceProvider();
-        var lbUnlitShaderInstance = new ShaderInstance(resourceProvider, ToLaserBlade.makeId(LaserBladeRenderType.UNLIT_SHADER_INSTANCE_NAME), DefaultVertexFormat.NEW_ENTITY);
-        event.registerShader(lbUnlitShaderInstance, LaserBladeRenderType::setUnlitShaderInstance);
     }
 
     @SubscribeEvent
