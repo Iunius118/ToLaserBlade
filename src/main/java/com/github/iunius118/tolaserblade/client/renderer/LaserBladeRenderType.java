@@ -52,22 +52,6 @@ public class LaserBladeRenderType {
         return Internal.getSubRenderState(textureState);
     }
 
-    static {
-        if (ToLaserBlade.canUseFixedVertexBuffer()) {
-            RenderBuffers renderBuffers = Minecraft.getInstance().renderBuffers();
-            Map<RenderType, BufferBuilder> fixedBuffers = renderBuffers.fixedBuffers;
-            registerRenderTypes(fixedBuffers);
-        }
-    }
-
-    private static void registerRenderTypes(Map<RenderType, BufferBuilder> bufferBuilders) {
-        // Register mod RenderTypes
-        bufferBuilders.put(LASER_UNLIT, new BufferBuilder(LASER_UNLIT.bufferSize()));
-        bufferBuilders.put(LASER_SUB_INNER, new BufferBuilder(LASER_SUB_INNER.bufferSize()));
-        bufferBuilders.put(LASER_ADD, new BufferBuilder(LASER_ADD.bufferSize()));
-        bufferBuilders.put(LASER_SUB, new BufferBuilder(LASER_SUB.bufferSize()));
-    }
-
     public static void setUnlitShaderInstance(ShaderInstance shaderInstance) {
         Internal.setUnlitShaderInstance(shaderInstance);
     }

@@ -15,7 +15,6 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
-import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 import net.minecraftforge.fml.loading.FMLLoader;
 import org.slf4j.Logger;
@@ -30,7 +29,6 @@ public class ToLaserBlade {
     public ToLaserBlade() {
         // Register lifecycle event listeners
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        modEventBus.addListener(this::initClient);
         modEventBus.register(ToLaserBladeConfig.class);
 
         // Register config handlers
@@ -53,17 +51,6 @@ public class ToLaserBlade {
 
     public static ResourceLocation makeId(String name) {
         return new ResourceLocation(MOD_ID, name);
-    }
-
-    private static boolean canUseFixedVertexBuffer;
-
-    private void initClient(final FMLClientSetupEvent event) {
-        // Get useFixedVertexBuffer only once at startup
-        canUseFixedVertexBuffer = ToLaserBladeConfig.CLIENT.useFixedVertexBuffer.get();
-    }
-
-    public static boolean canUseFixedVertexBuffer() {
-        return canUseFixedVertexBuffer;
     }
 
     // Generate Data

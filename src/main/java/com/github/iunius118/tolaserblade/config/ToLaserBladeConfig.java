@@ -63,7 +63,6 @@ public class ToLaserBladeConfig {
 
     public static class Client {
         public final BooleanValue showUpdateMessage;
-        public final BooleanValue useFixedVertexBuffer;
         public final BooleanValue useOriginalModelType;
         public final BooleanValue renderMultipleModels;
         public final IntValue defaultModel;
@@ -76,13 +75,6 @@ public class ToLaserBladeConfig {
                             "Default: true")
                     .translation("tolaserblade.configgui.client.showUpdateMessage")
                     .define("showUpdateMessage", true);
-
-            useFixedVertexBuffer = builder
-                    .comment("Add mod's vertex buffers to Minecraft's fixed buffer list.\n" +
-                            "Need to restart client after changing this.\n" +
-                            "Default: false")
-                    .translation("tolaserblade.configgui.client.useFixedVertexBuffer")
-                    .define("useFixedVertexBuffer", false);
 
             useOriginalModelType = builder
                     .comment("Using mod model loader to load Laser Blade models. Set to false to use the model that loaded by vanilla model loader.\n" +
