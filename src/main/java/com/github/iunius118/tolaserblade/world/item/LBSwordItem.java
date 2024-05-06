@@ -110,10 +110,11 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
         Level level = attacker.getCommandSenderWorld();
 
         if (!level.isClientSide) {
-            LaserBladeItemUtil.playSwingSound(level, attacker, isFireResistant());
+            LaserBladeItemUtil.playSwingSound(level, attacker, stack.has(DataComponents.FIRE_RESISTANT));
+            hurtAndBreak(stack, 1, attacker);
         }
 
-        return super.hurtEnemy(stack, target, attacker);
+        return true;
     }
 
     /* Handling Events */
@@ -139,10 +140,37 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
     @Override
     public boolean mineBlock(ItemStack stack, Level level, BlockState state, BlockPos pos, LivingEntity entityLiving) {
         if (!level.isClientSide && state.getDestroySpeed(level, pos) != 0.0F) {
-            stack.hurtAndBreak(1, entityLiving, (playerEntity) -> playerEntity.broadcastBreakEvent(EquipmentSlot.MAINHAND));
+            hurtAndBreak(stack, 1, entityLiving);
         }
 
         return true;
+    }
+
+    private void hurtAndBreak(ItemStack stack, int damage, LivingEntity entityLiving) {
+        stack.hurtAndBreak(damage, entityLiving, EquipmentSlot.MAINHAND);
+        int count = stack.getCount();
+
+        if (count > 0 /* || !level.isClientSide */) {
+            return;
+        }
+
+        // This item has been broken
+        ToLaserBlade.LOGGER.info("PlayerDestroyItemEvent has been fired.");
+        stack.setCount(1);
+        ItemStack brokenLaserBlade;
+
+        if (stack.has(DataComponents.FIRE_RESISTANT)) {
+            brokenLaserBlade = stack.transmuteCopy(ModItems.LB_BROKEN_FP, 1);
+        } else {
+            brokenLaserBlade = stack.transmuteCopy(ModItems.LB_BROKEN, 1);
+        }
+
+        stack.setCount(count);
+
+        // Drop Broken Laser Blade
+        Level level = entityLiving.level();
+        ItemEntity itemEntity = new ItemEntity(level, entityLiving.getX(), entityLiving.getY() + 0.5, entityLiving.getZ(), brokenLaserBlade);
+        level.addFreshEntity(itemEntity);
     }
 
     @Override
