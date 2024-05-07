@@ -1,11 +1,13 @@
 package com.github.iunius118.tolaserblade.world.item.crafting;
 
-import com.github.iunius118.tolaserblade.core.laserblade.LaserBlade;
-import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeVisual;
+import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeAppearance;
 import com.mojang.serialization.Codec;
+import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.core.RegistryAccess;
-import net.minecraft.network.FriendlyByteBuf;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.network.RegistryFriendlyByteBuf;
+import net.minecraft.network.codec.ByteBufCodecs;
+import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.Container;
 import net.minecraft.world.inventory.SmithingMenu;
 import net.minecraft.world.item.ItemStack;
@@ -46,29 +48,29 @@ public class LBModelChangeRecipe extends SmithingTransformRecipe {
         }
 
         ItemStack baseStack = container.getItem(SmithingMenu.BASE_SLOT);
-        int baseType = LaserBlade.of(baseStack).getType();
+        int baseType = LaserBladeAppearance.of(baseStack).getType();
         return type >= 0 && baseType != type;
     }
 
     @Override
-    public ItemStack assemble(Container container, RegistryAccess registryAccess) {
+    public ItemStack assemble(Container container, HolderLookup.Provider provider) {
         ItemStack baseStack = container.getItem(SmithingMenu.BASE_SLOT);
         ItemStack itemstack = baseStack.copy();
         return getResult(itemstack);
     }
 
     private ItemStack getResult(ItemStack input) {
-        LaserBladeVisual.Writer.of(input).writeModelType(type);
+        LaserBladeAppearance.of(input).setType(type).writeTo(input);
         return input;
     }
 
     @Override
-    public ItemStack getResultItem(RegistryAccess registryAccess) {
+    public ItemStack getResultItem(HolderLookup.Provider provider) {
         if (sample != null) {
             return sample;
         }
 
-        ItemStack output = super.getResultItem(registryAccess);
+        ItemStack output = super.getResultItem(provider);
 
         if (output.isEmpty()) {
             sample = ItemStack.EMPTY;
@@ -85,34 +87,41 @@ public class LBModelChangeRecipe extends SmithingTransformRecipe {
     }
 
     public static class Serializer implements RecipeSerializer<LBModelChangeRecipe> {
-        private static final Codec<LBModelChangeRecipe> CODEC = RecordCodecBuilder.create(
+        private static final MapCodec<LBModelChangeRecipe> CODEC = RecordCodecBuilder.mapCodec(
                 (instance) -> instance.group(
                         Ingredient.CODEC.fieldOf("template").forGetter(lBModelChangeRecipe -> lBModelChangeRecipe.template),
                         Ingredient.CODEC.fieldOf("base").forGetter(lBModelChangeRecipe -> lBModelChangeRecipe.base),
                         Ingredient.CODEC.fieldOf("addition").forGetter(lBModelChangeRecipe -> lBModelChangeRecipe.addition),
                         Codec.INT.fieldOf("model_type").codec().fieldOf("result").forGetter(lBModelChangeRecipe -> lBModelChangeRecipe.type)
-                ).apply(instance, LBModelChangeRecipe::new));
+                ).apply(instance, LBModelChangeRecipe::new)
+        );
+        private static final StreamCodec<RegistryFriendlyByteBuf, LBModelChangeRecipe> STREAM_CODEC = StreamCodec.of(
+                LBModelChangeRecipe.Serializer::toNetwork, LBModelChangeRecipe.Serializer::fromNetwork
+        );
 
         @Override
-        public Codec<LBModelChangeRecipe> codec() {
+        public MapCodec<LBModelChangeRecipe> codec() {
             return CODEC;
         }
 
         @Override
-        public LBModelChangeRecipe fromNetwork(FriendlyByteBuf buffer) {
-            Ingredient template = Ingredient.fromNetwork(buffer);
-            Ingredient base = Ingredient.fromNetwork(buffer);
-            Ingredient addition = Ingredient.fromNetwork(buffer);
-            int type = buffer.readInt();
+        public StreamCodec<RegistryFriendlyByteBuf, LBModelChangeRecipe> streamCodec() {
+            return STREAM_CODEC;
+        }
+
+        private static LBModelChangeRecipe fromNetwork(RegistryFriendlyByteBuf buffer) {
+            Ingredient template = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
+            Ingredient base = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
+            Ingredient addition = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
+            int type = ByteBufCodecs.INT.decode(buffer);
             return new LBModelChangeRecipe(template, base, addition, type);
         }
 
-        @Override
-        public void toNetwork(FriendlyByteBuf buffer, LBModelChangeRecipe recipe) {
-            recipe.template.toNetwork(buffer);
-            recipe.base.toNetwork(buffer);
-            recipe.addition.toNetwork(buffer);
-            buffer.writeInt(recipe.type);
+        private static void toNetwork(RegistryFriendlyByteBuf buffer, LBModelChangeRecipe recipe) {
+            Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.template);
+            Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.base);
+            Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.addition);
+            ByteBufCodecs.INT.encode(buffer, recipe.type);
         }
     }
 }
