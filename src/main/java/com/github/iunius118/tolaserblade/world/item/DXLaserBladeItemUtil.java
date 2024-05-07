@@ -3,6 +3,7 @@ package com.github.iunius118.tolaserblade.world.item;
 import com.github.iunius118.tolaserblade.common.util.ModSoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
@@ -85,7 +86,7 @@ public class DXLaserBladeItemUtil {
 
         if (player.isSteppingCarefully() && redstoneTorch.useOn(contextRS).consumesAction()) {
             itemStack.setCount(1);
-            itemStack.hurtAndBreak(costDamage, player, playerEntity -> {});
+            itemStack.hurtAndBreak(costDamage, player, EquipmentSlot.MAINHAND);
             return InteractionResult.SUCCESS;
         }
 

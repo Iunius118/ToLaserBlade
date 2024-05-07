@@ -7,6 +7,7 @@ import com.github.iunius118.tolaserblade.core.laserblade.upgrade.Upgrade;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.UpgradeManager;
 import com.github.iunius118.tolaserblade.tags.ModItemTags;
 import com.github.iunius118.tolaserblade.world.item.ModItems;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.resources.ResourceLocation;
@@ -19,10 +20,11 @@ import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import net.minecraftforge.registries.ForgeRegistries;
 
 import java.util.Map;
+import java.util.concurrent.CompletableFuture;
 
 public class TLBRecipeProvider extends RecipeProvider implements IConditionBuilder {
-    public TLBRecipeProvider(PackOutput packOutput) {
-        super(packOutput);
+    public TLBRecipeProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+        super(packOutput, lookupProvider);
     }
 
     @Override
@@ -93,7 +95,7 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
                 .save(consumer, getItemId(ModItems.LB_CASING));
 
         // Brand-new Laser Blade I
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.LB_BRAND_NEW_1)
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, ModItems.LB_BRAND_NEW_1)
                 .requires(ModItems.LB_BLUEPRINT)
                 .requires(ModItems.LB_BATTERY)
                 .requires(Tags.Items.GEMS_DIAMOND)
@@ -104,7 +106,7 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
                 .save(consumer, getItemId(ModItems.LB_BRAND_NEW_1));
 
         // Brand-new Laser Blade II
-        ShapelessRecipeBuilder.shapeless(RecipeCategory.MISC, ModItems.LB_BRAND_NEW_2)
+        ShapelessRecipeBuilder.shapeless(RecipeCategory.TOOLS, ModItems.LB_BRAND_NEW_2)
                 .requires(ModItems.LB_BLUEPRINT)
                 .requires(ModItems.LB_BATTERY)
                 .requires(ModItems.LB_MEDIUM)
@@ -144,13 +146,13 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
     }
 
     private void addSmithingTransformRecipe(Ingredient template, Ingredient base, Ingredient addition, Item result, Item criterionItem, RecipeOutput consumer) {
-        SmithingTransformRecipeBuilder.smithing(template, base, addition, RecipeCategory.MISC, result)
+        SmithingTransformRecipeBuilder.smithing(template, base, addition, RecipeCategory.TOOLS, result)
                 .unlocks("has_" + getItemId(criterionItem).getPath(), has(criterionItem))
                 .save(consumer, getItemId(result).toString() + "_smithing");
     }
 
     private void addSmithingRepairRecipe(String shortName, Ingredient template, Item base, Ingredient addition, Item result, Item criterionItem, RecipeOutput consumer) {
-        SmithingTransformRecipeBuilder.smithing(template, Ingredient.of(base), addition, RecipeCategory.MISC, result)
+        SmithingTransformRecipeBuilder.smithing(template, Ingredient.of(base), addition, RecipeCategory.TOOLS, result)
                 .unlocks("has_" + getItemId(criterionItem).getPath(), has(criterionItem))
                 .save(consumer, ToLaserBlade.MOD_ID + ":repair_" + shortName + "_smithing");
     }
@@ -158,10 +160,10 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
     private void addUpgradeRecipes(Ingredient template, RecipeOutput consumer) {
         Map<ResourceLocation, Upgrade> upgrades = UpgradeManager.getUpgrades();
         upgrades.forEach((id, upgrade) -> {
-            LBUpgradeRecipeBuilder.upgradeRecipe(template, Ingredient.of(ModItems.LASER_BLADE), upgrade.getIngredient(), id)
+            LBUpgradeRecipeBuilder.upgradeRecipe(template, Ingredient.of(ModItems.LASER_BLADE), upgrade.getIngredient(), RecipeCategory.TOOLS, id)
                     .unlockedBy("has_laser_blade", has(ModItems.LASER_BLADE))
                     .save(consumer, ToLaserBlade.MOD_ID + ":upgrade/lb_" + upgrade.shortName());
-            LBUpgradeRecipeBuilder.upgradeRecipe(template, Ingredient.of(ModItems.LASER_BLADE_FP), upgrade.getIngredient(), id)
+            LBUpgradeRecipeBuilder.upgradeRecipe(template, Ingredient.of(ModItems.LASER_BLADE_FP), upgrade.getIngredient(), RecipeCategory.TOOLS, id)
                     .unlockedBy("has_laser_blade_fp", has(ModItems.LASER_BLADE_FP))
                     .save(consumer, ToLaserBlade.MOD_ID + ":upgrade/lbf_" + upgrade.shortName());
         });
@@ -241,10 +243,10 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
         boolean isBlade = (part == LaserBladeColorPart.INNER_BLADE || part == LaserBladeColorPart.OUTER_BLADE);
         int colorValue = isBlade ? color.getBladeColor() : color.getGripColor();
 
-        LBColorRecipeBuilder.colorRecipe(template, Ingredient.of(ModItems.LASER_BLADE), addition, part, colorValue)
+        LBColorRecipeBuilder.colorRecipe(template, Ingredient.of(ModItems.LASER_BLADE), addition, RecipeCategory.TOOLS, part, colorValue)
                 .unlockedBy("has_laser_blade", has(ModItems.LASER_BLADE))
                 .save(consumer, "tolaserblade:color/lb_" + part.getShortName() + "_" + color.getColorName());
-        LBColorRecipeBuilder.colorRecipe(template, Ingredient.of(ModItems.LASER_BLADE_FP), addition, part, colorValue)
+        LBColorRecipeBuilder.colorRecipe(template, Ingredient.of(ModItems.LASER_BLADE_FP), addition, RecipeCategory.TOOLS, part, colorValue)
                 .unlockedBy("has_laser_blade_fp", has(ModItems.LASER_BLADE_FP))
                 .save(consumer, ToLaserBlade.MOD_ID + ":color/lbf_" + part.getShortName() + "_" + color.getColorName());
     }
@@ -252,10 +254,10 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
     private void addModelChangeRecipes(Ingredient template, RecipeOutput consumer, Ingredient addition, int modelType, String suffixIn) {
         String suffix = (suffixIn == null) ? "" : suffixIn;
 
-        LBModelChangeRecipeBuilder.modelChangeRecipe(template, Ingredient.of(ModItems.LASER_BLADE), addition, modelType)
+        LBModelChangeRecipeBuilder.modelChangeRecipe(template, Ingredient.of(ModItems.LASER_BLADE), addition, RecipeCategory.TOOLS, modelType)
                 .unlockedBy("has_laser_blade", has(ModItems.LASER_BLADE))
                 .save(consumer, "tolaserblade:model/lb_" + modelType + suffix);
-        LBModelChangeRecipeBuilder.modelChangeRecipe(template, Ingredient.of(ModItems.LASER_BLADE_FP), addition, modelType)
+        LBModelChangeRecipeBuilder.modelChangeRecipe(template, Ingredient.of(ModItems.LASER_BLADE_FP), addition, RecipeCategory.TOOLS, modelType)
                 .unlockedBy("has_laser_blade_fp", has(ModItems.LASER_BLADE_FP))
                 .save(consumer, "tolaserblade:model/lbf_" + modelType + suffix);
     }

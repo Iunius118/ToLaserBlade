@@ -1,12 +1,12 @@
 package com.github.iunius118.tolaserblade.world.item;
 
 import com.github.iunius118.tolaserblade.client.renderer.item.LBBrandNewItemRenderer;
-import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeVisual;
+import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeAppearance;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.Upgrade;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
-import net.minecraft.nbt.CompoundTag;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
@@ -21,12 +21,11 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
 
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Consumer;
 
 public class LBBrandNewItem extends Item implements LaserBladeItemBase {
-    public static Properties properties = (new Item.Properties()).setNoRepair();
+    public static Properties properties = new Item.Properties();
 
     private final LBBrandNewType type;
 
@@ -56,12 +55,8 @@ public class LBBrandNewItem extends Item implements LaserBladeItemBase {
         ItemStack laserBladeStack;
 
         if (type == LBBrandNewType.NONE || type == LBBrandNewType.FP) {
-            // Copy NBT tag to Laser Blade. This is for customized recipe
-            CompoundTag tag = itemStack.getOrCreateTag();
-            // Copy nbt to make it independent of the Brand-new Laser Blade
-            CompoundTag tagNew = tag.copy();
-            laserBladeStack = type.getCopy();
-            laserBladeStack.setTag(tagNew);
+            // Copy components to Laser Blade. This is for customized recipe
+            laserBladeStack = itemStack.transmuteCopy(type.getCopy().getItem(), itemStack.getCount());
             // Repair Laser Blade
             laserBladeStack.setDamageValue(0);
         } else {
@@ -69,24 +64,30 @@ public class LBBrandNewItem extends Item implements LaserBladeItemBase {
             laserBladeStack = getPresetLaserBlade(level, player, itemStack);
         }
 
-        EquipmentSlot slotType = (hand == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
-
         // Set Laser Blade to player inventory
-        if (player.getAbilities().instabuild || itemStack.getCount() > 1) {
+        if (player.getAbilities().instabuild) {
+            // Creative mode player
+            player.addItem(laserBladeStack);
             // Remain Brand-new ItemStack and return
+            return;
+        } else if (itemStack.getCount() > 1) {
             // If the inventory is full, it will fail
-            if (!player.addItem(laserBladeStack)) return;
-            // Successfully added new Laser Blade to the inventory, and consume 1 Brand-new Laser Blade
-            itemStack.shrink(1);
+            if (player.addItem(laserBladeStack)) {
+                // Successfully added new Laser Blade to the inventory, and consume 1 Brand-new Laser Blade
+                itemStack.shrink(1);
+            }
+
             return;
         }
 
         // ...or change Brand-new Laser Blade to Laser Blade
+        EquipmentSlot slotType = (hand == InteractionHand.MAIN_HAND ? EquipmentSlot.MAINHAND : EquipmentSlot.OFFHAND);
         player.setItemSlot(slotType, laserBladeStack);
     }
 
     private ItemStack getPresetLaserBlade(Level level, Player player, ItemStack brandNewStack) {
-        String name = brandNewStack.hasCustomHoverName() ? brandNewStack.getHoverName().getString() : "";
+        var customName = brandNewStack.get(DataComponents.CUSTOM_NAME);
+        String name = (customName != null) ? customName.getString() : "";
 
         // GIFT code
         // name == {"GIFT" || "おたから"}
@@ -100,17 +101,16 @@ public class LBBrandNewItem extends Item implements LaserBladeItemBase {
         // ... its blade will be colored by biome player in, and its model will be set to specific model type
         BlockPos pos = player.blockPosition();
         Holder<Biome> biome = level.getBiome(pos);
-        var laserBlade = LaserBladeVisual.Writer.of(laserBladeStack)
-                .writeModelType(LaserBladeVisual.MODEL_TYPE_DEFAULT)
-                .setColorsByBiome(level, biome);
+        LaserBladeAppearance appearance = LaserBladeAppearance.of().setColorsByBiome(level, biome);
 
         try {
             // Try getting number of model type from display name of item stack
             int modelType = Integer.parseInt(name);
-            laserBlade.writeModelType(modelType);
+            appearance.setType(modelType);
         } catch (NumberFormatException e) {
         }
 
+        appearance.writeTo(laserBladeStack);
         return laserBladeStack;
     }
 
@@ -127,10 +127,10 @@ public class LBBrandNewItem extends Item implements LaserBladeItemBase {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
-        super.appendHoverText(itemStack, level, tooltip, flag);
+    public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag flag) {
+        super.appendHoverText(itemStack, tooltipContext, tooltip, flag);
         LaserBladeItemUtil.addBrandNewText(tooltip);
-        LaserBladeItemUtil.addLaserBladeInformation(itemStack, level, tooltip, flag, Upgrade.Type.REPAIR);
+        LaserBladeItemUtil.addLaserBladeInformation(itemStack, tooltipContext, tooltip, flag, Upgrade.Type.REPAIR);
     }
 
 }

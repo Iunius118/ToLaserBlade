@@ -90,7 +90,6 @@ public class En_usLanguageProvider extends LanguageProvider {
         add("tolaserblade.configgui.server.canLaserTrapHeatUpFurnace", "Can Laser Trap Heat Up Furnace");
 
         add("tolaserblade.configgui.client.showUpdateMessage", "Show Update Message");
-        add("tolaserblade.configgui.client.useFixedVertexBuffer", "Use Fixed Vertex Buffer");
         add("tolaserblade.configgui.client.useOriginalModelType", "Use Original Model Type");
         add("tolaserblade.configgui.client.renderMultipleModels", "Render Multiple Models");
         add("tolaserblade.configgui.client.defaultModel", "Default Model");

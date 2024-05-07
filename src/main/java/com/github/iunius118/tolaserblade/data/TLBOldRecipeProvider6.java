@@ -13,6 +13,8 @@ import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackLocationInfo;
+import net.minecraft.server.packs.PackSelectionConfig;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.PathPackResources;
 import net.minecraft.server.packs.repository.Pack;
@@ -30,6 +32,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 import java.nio.file.Path;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
@@ -49,7 +52,7 @@ public class TLBOldRecipeProvider6 {
         var packGenerator = dataGenerator.getBuiltinDatapack(includesServer, PACK_PATH);
 
         packGenerator.addProvider((o) -> PackMetadataGenerator.forFeaturePack(packOutput, Component.literal("ToLaserBlade - revert laser blade recipes to version 6")));
-        packGenerator.addProvider((o) -> new OldRecipeProvider(packOutput));
+        packGenerator.addProvider((o) -> new OldRecipeProvider(packOutput, lookupProvider));
         packGenerator.addProvider((o) -> blockTagsProvider);
         packGenerator.addProvider((o) -> new OldItemTagsProvider(packOutput, lookupProvider, blockTagsProvider.contentsGetter(), existingFileHelper));
     }
@@ -59,15 +62,16 @@ public class TLBOldRecipeProvider6 {
             return;
         }
 
+        var packInfo = new PackLocationInfo(PACK_ID.toString(), Component.literal(PACK_PATH), PackSource.FEATURE, Optional.empty());
         var resourcePath = ModList.get().getModFileById(ToLaserBlade.MOD_ID).getFile().findResource(PACK_PATH);
-        var pack = Pack.readMetaAndCreate(PACK_ID.toString(), Component.literal(PACK_PATH), false,
-                new PathPackResources.PathResourcesSupplier(resourcePath, false), PackType.SERVER_DATA, Pack.Position.TOP, PackSource.FEATURE);
+        var packConfig = new PackSelectionConfig(false, Pack.Position.TOP, false);
+        var pack = Pack.readMetaAndCreate(packInfo, new PathPackResources.PathResourcesSupplier(resourcePath), PackType.SERVER_DATA, packConfig);
         event.addRepositorySource((packConsumer) -> packConsumer.accept(pack));
     }
 
     private static class OldRecipeProvider extends RecipeProvider implements IConditionBuilder {
-        public OldRecipeProvider(PackOutput packOutput) {
-            super(packOutput);
+        public OldRecipeProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
+            super(packOutput, lookupProvider);
         }
 
         @Override

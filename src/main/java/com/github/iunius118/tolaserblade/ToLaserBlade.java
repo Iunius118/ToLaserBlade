@@ -63,9 +63,10 @@ public class ToLaserBlade {
 
         // Server
         final boolean includesServer = event.includeServer();
-        dataGenerator.addProvider(includesServer, new TLBRecipeProvider(packOutput));
+        dataGenerator.addProvider(includesServer, new TLBRecipeProvider(packOutput, lookupProvider));
         dataGenerator.addProvider(includesServer, blockTagsProvider);
         dataGenerator.addProvider(includesServer, new TLBItemTagsProvider(packOutput, lookupProvider, blockTagsProvider.contentsGetter(), existingFileHelper));
+        dataGenerator.addProvider(includesServer, new TLBEntityTypeTagsProvider(packOutput, lookupProvider, existingFileHelper));
         dataGenerator.addProvider(includesServer, new TLBAdvancementProvider(packOutput, lookupProvider, existingFileHelper));
         TLBOldRecipeProvider6.addProviders(event);
 

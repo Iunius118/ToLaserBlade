@@ -3,26 +3,28 @@ package com.github.iunius118.tolaserblade.world.item;
 import com.github.iunius118.tolaserblade.client.renderer.item.LBSwordItemRenderer;
 import com.github.iunius118.tolaserblade.core.dispenser.DispenseLaserBladeBehavior;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBlade;
+import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeAppearance;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeBlocking;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.Upgrade;
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Multimap;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.Attribute;
 import net.minecraft.world.entity.ai.attributes.AttributeModifier;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
+import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.EnchantmentCategory;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DispenserBlock;
@@ -34,7 +36,6 @@ import net.minecraftforge.common.ToolAction;
 import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.event.entity.player.CriticalHitEvent;
 
-import javax.annotation.Nullable;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -43,10 +44,10 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
     private final float attackDamage;
     private final float attackSpeed;
 
-    public static Item.Properties properties = (new Item.Properties()).setNoRepair();
-
     public LBSwordItem(boolean isFireproof) {
-        super(ModItemTiers.getLBSwordTier(isFireproof), 3, -1.2F, LaserBladeItemBase.setFireproof(properties, isFireproof));
+        super(ModItemTiers.getLBSwordTier(isFireproof),
+                LaserBladeItemBase.setFireproof(new Item.Properties(), isFireproof)
+                        .attributes(SwordItem.createAttributes(ModItemTiers.getLBSwordTier(isFireproof), 3, -1.2F)));
 
         tier = getTier();
         attackDamage = 3.0F + tier.getAttackDamageBonus();
@@ -54,6 +55,30 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
 
         // Register dispense behavior
         DispenserBlock.registerBehavior(this, new DispenseLaserBladeBehavior());
+    }
+
+    @Override
+    public void verifyComponentsAfterLoad(ItemStack stack) {
+        float attackUpgrade = LaserBlade.getAttack(stack);
+        float speedUpgrade = LaserBlade.getSpeed(stack);
+        var itemAttributeModifiers = createAttributes(attackUpgrade, speedUpgrade);
+        stack.set(DataComponents.ATTRIBUTE_MODIFIERS, itemAttributeModifiers);
+        LaserBladeAppearance.of(stack);
+    }
+
+    private ItemAttributeModifiers createAttributes(float attackUpgrade, float speedUpgrade) {
+        return ItemAttributeModifiers.builder()
+                .add(
+                        Attributes.ATTACK_DAMAGE,
+                        new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", attackUpgrade + attackDamage, AttributeModifier.Operation.ADD_VALUE),
+                        EquipmentSlotGroup.MAINHAND
+                )
+                .add(
+                        Attributes.ATTACK_SPEED,
+                        new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", speedUpgrade + attackSpeed, AttributeModifier.Operation.ADD_VALUE),
+                        EquipmentSlotGroup.MAINHAND
+                )
+                .build();
     }
 
     @Override
@@ -98,7 +123,7 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
 
         if (!level.isClientSide && entity instanceof Player player) {
             if (!player.swinging) {
-                LaserBladeItemUtil.playSwingSound(level, entity, isFireResistant());
+                LaserBladeItemUtil.playSwingSound(level, entity, stack.has(DataComponents.FIRE_RESISTANT));
             }
         }
 
@@ -123,16 +148,14 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
         Entity target = event.getTarget();
         Player player = event.getEntity();
         ItemStack stack = player.getMainHandItem();
-        var laserBlade = LaserBlade.of(stack);
 
-        if (target instanceof WitherBoss || laserBlade.getDamage() >= LaserBlade.MOD_ATK_CRITICAL_BONUS) {
+        if (target instanceof WitherBoss || LaserBlade.getAttack(stack) >= LaserBlade.MOD_ATK_CRITICAL_BONUS) {
             event.setDamageModifier(event.getDamageModifier() + LaserBlade.MOD_CRITICAL_BONUS_VS_WITHER);
         }
     }
 
     /* Item Characterizing */
 
-    @Override
     public float getDamage() {
         return attackDamage;
     }
@@ -155,7 +178,6 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
         }
 
         // This item has been broken
-        ToLaserBlade.LOGGER.info("PlayerDestroyItemEvent has been fired.");
         stack.setCount(1);
         ItemStack brokenLaserBlade;
 
@@ -179,16 +201,6 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
     }
 
     @Override
-    public boolean isCorrectToolForDrops(BlockState blockIn) {
-        return true;
-    }
-
-    @Override
-    public boolean isDamageable(ItemStack stack) {
-        return true;
-    }
-
-    @Override
     public boolean isValidRepairItem(ItemStack toRepair, ItemStack repair) {
         return false;
     }
@@ -201,29 +213,11 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
         // Accept Mending and Curse of Vanish
-        return enchantment.category == EnchantmentCategory.WEAPON
-                || enchantment == Enchantments.BLOCK_EFFICIENCY
+        return enchantment.getSupportedItems() == ItemTags.WEAPON_ENCHANTABLE
+                || enchantment == Enchantments.EFFICIENCY
                 || enchantment == Enchantments.MENDING
                 || enchantment == Enchantments.SILK_TOUCH
                 || enchantment == Enchantments.VANISHING_CURSE;
-    }
-
-    @Override
-    public Multimap<Attribute, AttributeModifier> getAttributeModifiers(EquipmentSlot slot, ItemStack stack) {
-        Multimap<Attribute, AttributeModifier> multimap = HashMultimap.create();
-
-        if (slot == EquipmentSlot.MAINHAND) {
-            var laserBlade = LaserBlade.of(stack);
-
-            multimap.put(Attributes.ATTACK_DAMAGE,
-                    new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier",
-                            this.attackDamage + laserBlade.getDamage(), AttributeModifier.Operation.ADDITION));
-            multimap.put(Attributes.ATTACK_SPEED,
-                    new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier",
-                            this.attackSpeed + laserBlade.getSpeed(), AttributeModifier.Operation.ADDITION));
-        }
-
-        return multimap;
     }
 
     @Override
@@ -239,8 +233,8 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
 
     @Override
     @OnlyIn(Dist.CLIENT)
-    public void appendHoverText(ItemStack itemStack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag) {
-        super.appendHoverText(itemStack, level, tooltip, flag);
-        LaserBladeItemUtil.addLaserBladeInformation(itemStack, level, tooltip, flag, Upgrade.Type.OTHER);
+    public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag flag) {
+        super.appendHoverText(itemStack, tooltipContext, tooltip, flag);
+        LaserBladeItemUtil.addLaserBladeInformation(itemStack, tooltipContext, tooltip, flag, Upgrade.Type.OTHER);
     }
 }

@@ -1,8 +1,8 @@
 package com.github.iunius118.tolaserblade.world.item;
 
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBlade;
+import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeAppearance;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeColor;
-import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeVisual;
 import com.github.iunius118.tolaserblade.world.item.enchantment.ModEnchantments;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -37,54 +37,48 @@ public enum LaserBladeItemStack {
     }
 
     private static ItemStack getIconStack() {
-        ItemStack stack = new ItemStack(ModItems.LASER_BLADE);
-        LaserBladeVisual.Writer.of(stack).writeGripColor(LaserBladeColor.LIGHT_GRAY.getGripColor());
+        var stack = new ItemStack(ModItems.LASER_BLADE);
+        new LaserBladeAppearance().setGripColor(LaserBladeColor.LIGHT_GRAY.getGripColor()).writeTo(stack);
         return stack;
     }
 
     public static ItemStack getModelChangedStack(int type, boolean isFireproof) {
-        ItemStack stack = new ItemStack(isFireproof ? ModItems.LASER_BLADE_FP : ModItems.LASER_BLADE);
-        LaserBladeVisual.Writer.of(stack).writeModelType(type);
+        var stack = new ItemStack(isFireproof ? ModItems.LASER_BLADE_FP : ModItems.LASER_BLADE);
+        LaserBladeAppearance.of().setType(type).writeTo(stack);
         return stack;
     }
 
     private static ItemStack getLightElementStack(int lightElementLevel) {
-        ItemStack laserBlade = new ItemStack(ModItems.LASER_BLADE);
-        laserBlade.enchant(ModEnchantments.LIGHT_ELEMENT, lightElementLevel);
-        laserBlade.enchant(Enchantments.BLOCK_EFFICIENCY, 1);
-        return laserBlade;
+        var stack = new ItemStack(ModItems.LASER_BLADE);
+        stack.enchant(ModEnchantments.LIGHT_ELEMENT, lightElementLevel);
+        stack.enchant(Enchantments.EFFICIENCY, 1);
+        return stack;
     }
 
     private static ItemStack getGiftStack() {
-        ItemStack stack = new ItemStack(ModItems.LASER_BLADE);
-
-        LaserBlade.Writer.of(stack).writeDamage(LaserBlade.MOD_ATK_GIFT);
-
+        var stack = new ItemStack(ModItems.LASER_BLADE);
+        LaserBlade.setAttack(stack, LaserBlade.MOD_ATK_GIFT);
+        LaserBladeAppearance.of()
+                .setOuterColor(LaserBladeColor.LIME.getBladeColor())
+                .setGripColor(LaserBladeColor.BROWN.getGripColor())
+                .writeTo(stack);
         stack.enchant(ModEnchantments.LIGHT_ELEMENT, 5);
-        stack.enchant(Enchantments.BLOCK_EFFICIENCY, 1);
-
-        LaserBladeVisual.Writer.of(stack)
-                .writeOuterColor(LaserBladeColor.LIME.getBladeColor())
-                .writeGripColor(LaserBladeColor.BROWN.getGripColor());
-
+        stack.enchant(Enchantments.EFFICIENCY, 1);
         return stack;
     }
 
     private static ItemStack getUpgradedStack(boolean isFireproof, boolean isDamaged) {
-        ItemStack stack = new ItemStack(isFireproof ? ModItems.LASER_BLADE_FP : ModItems.LASER_BLADE);
-
-        LaserBlade.Writer.of(stack)
-                .writeDamage(LaserBlade.MOD_ATK_CRITICAL_BONUS)
-                .writeSpeed(LaserBlade.MOD_SPD_MAX);
-
+        var stack = new ItemStack(isFireproof ? ModItems.LASER_BLADE_FP : ModItems.LASER_BLADE);
+        LaserBlade.setAttack(stack, LaserBlade.MOD_ATK_CRITICAL_BONUS);
+        LaserBlade.setSpeed(stack, LaserBlade.MOD_SPD_MAX);
+        LaserBladeAppearance.of()
+                .setOuterColor(LaserBladeColor.BLUE.getBladeColor())
+                .setInnerColor(LaserBladeColor.LIGHT_BLUE.getBladeColor())
+                .setGripColor(LaserBladeColor.GRAY.getGripColor())
+                .writeTo(stack);
         stack.enchant(ModEnchantments.LIGHT_ELEMENT, ModEnchantments.LIGHT_ELEMENT.getMaxLevel());
-        stack.enchant(Enchantments.BLOCK_EFFICIENCY, Enchantments.BLOCK_EFFICIENCY.getMaxLevel());
+        stack.enchant(Enchantments.EFFICIENCY, Enchantments.EFFICIENCY.getMaxLevel());
         stack.enchant(Enchantments.MENDING, Enchantments.MENDING.getMaxLevel());
-
-        LaserBladeVisual.Writer.of(stack)
-                .writeInnerColor(LaserBladeColor.LIGHT_BLUE.getBladeColor())
-                .writeOuterColor(LaserBladeColor.BLUE.getBladeColor())
-                .writeGripColor(LaserBladeColor.GRAY.getGripColor());
 
         if (isDamaged) {
             int maxUses = isFireproof ? ModItemTiers.LASER_BLADE_FP.getUses() : ModItemTiers.LASER_BLADE.getUses();
@@ -95,28 +89,24 @@ public enum LaserBladeItemStack {
     }
 
     private static ItemStack getFullModStack(boolean isDisassembled, boolean isFireproof) {
-        ItemStack stack = new ItemStack(
+        var stack = new ItemStack(
                 isDisassembled ? (isFireproof ? ModItems.LB_DISASSEMBLED_FP : ModItems.LB_DISASSEMBLED) :
                         (isFireproof ? ModItems.LASER_BLADE_FP : ModItems.LASER_BLADE)
         );
-
-        LaserBlade.Writer.of(stack)
-                .writeDamage(LaserBlade.MOD_ATK_CRITICAL_BONUS)
-                .writeSpeed(LaserBlade.MOD_SPD_MAX);
-
+        LaserBlade.setAttack(stack, LaserBlade.MOD_ATK_CRITICAL_BONUS);
+        LaserBlade.setSpeed(stack, LaserBlade.MOD_SPD_MAX);
+        LaserBladeAppearance.of()
+                .setOuterColor(LaserBladeColor.CYAN.getBladeColor()).setOuterSubColor(true)
+                .setInnerColor(LaserBladeColor.WHITE.getBladeColor()).setInnerSubColor(true)
+                .setGripColor(LaserBladeColor.GRAY.getGripColor())
+                .writeTo(stack);
         stack.enchant(ModEnchantments.LIGHT_ELEMENT, ModEnchantments.LIGHT_ELEMENT.getMaxLevel());
-        stack.enchant(Enchantments.BLOCK_EFFICIENCY, Enchantments.BLOCK_EFFICIENCY.getMaxLevel());
+        stack.enchant(Enchantments.EFFICIENCY, Enchantments.EFFICIENCY.getMaxLevel());
         stack.enchant(Enchantments.MENDING, Enchantments.MENDING.getMaxLevel());
         stack.enchant(Enchantments.FIRE_ASPECT, Enchantments.FIRE_ASPECT.getMaxLevel());
         stack.enchant(Enchantments.SWEEPING_EDGE, Enchantments.SWEEPING_EDGE.getMaxLevel());
         stack.enchant(Enchantments.SILK_TOUCH, Enchantments.SILK_TOUCH.getMaxLevel());
-        stack.enchant(Enchantments.MOB_LOOTING, Enchantments.MOB_LOOTING.getMaxLevel());
-
-        LaserBladeVisual.Writer.of(stack)
-                .writeInnerColor(LaserBladeColor.WHITE.getBladeColor()).writeIsInnerSubColor(true)
-                .writeOuterColor(LaserBladeColor.CYAN.getBladeColor()).writeIsOuterSubColor(true)
-                .writeGripColor(LaserBladeColor.GRAY.getGripColor());
-
+        stack.enchant(Enchantments.LOOTING, Enchantments.LOOTING.getMaxLevel());
         return stack;
     }
 }

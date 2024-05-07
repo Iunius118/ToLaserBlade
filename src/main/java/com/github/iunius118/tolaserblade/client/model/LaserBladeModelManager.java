@@ -6,7 +6,7 @@ import com.github.iunius118.tolaserblade.api.client.model.LaserBladeModel;
 import com.github.iunius118.tolaserblade.client.model.laserblade.LaserBladeJsonModelLoader;
 import com.github.iunius118.tolaserblade.client.model.laserblade.v1.LaserBladeModelV1;
 import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
-import com.github.iunius118.tolaserblade.core.laserblade.LaserBlade;
+import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeAppearance;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
@@ -138,7 +138,7 @@ public class LaserBladeModelManager {
 
     public LaserBladeModel getModel(ItemStack itemStack) {
         if (canUseMultipleModels) {
-            int type = LaserBlade.of(itemStack).getType();
+            int type = LaserBladeAppearance.of(itemStack).getType();
             LaserBladeModel model = getModel(type);
 
             if (model != null) {

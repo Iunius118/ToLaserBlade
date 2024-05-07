@@ -1,7 +1,7 @@
 package com.github.iunius118.tolaserblade.client.color.item;
 
+import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeAppearance;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeColor;
-import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeVisual;
 import com.github.iunius118.tolaserblade.world.item.LBBrandNewItem;
 import com.github.iunius118.tolaserblade.world.item.LBBrokenItem;
 import net.minecraft.client.Minecraft;
@@ -48,19 +48,19 @@ public class LaserBladeItemColor {
         Item item = itemStack.getItem();
         isBroken = (item instanceof LBBrokenItem || item instanceof LBBrandNewItem);
 
-        var visual = LaserBladeVisual.of(itemStack);
+        LaserBladeAppearance appearance = LaserBladeAppearance.of(itemStack);
 
-        rawOuterColor = visual.getOuterColor();
+        rawOuterColor = appearance.getOuterColor();
         outerColor = checkGamingColor(rawOuterColor);
-        isOuterSubColor = visual.isOuterSubColor();
+        isOuterSubColor = appearance.isOuterSubColor();
         simpleOuterColor = (isOuterSubColor ? ~outerColor : outerColor) | 0xFF000000;
 
-        rawInnerColor = visual.getInnerColor();
+        rawInnerColor = appearance.getInnerColor();
         innerColor = checkGamingColor(rawInnerColor);
-        isInnerSubColor = visual.isInnerSubColor();
+        isInnerSubColor = appearance.isInnerSubColor();
         simpleInnerColor = (isInnerSubColor ? ~innerColor : innerColor) | 0xFF000000;
 
-        rawGripColor = visual.getGripColor();
+        rawGripColor = appearance.getGripColor();
         gripColor = checkGamingColor(rawGripColor);
     }
 
