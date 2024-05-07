@@ -201,6 +201,11 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
     }
 
     @Override
+    public boolean isCorrectToolForDrops(ItemStack stack, BlockState state) {
+        return true;
+    }
+
+    @Override
     public boolean isValidRepairItem(ItemStack toRepair, ItemStack repair) {
         return false;
     }
