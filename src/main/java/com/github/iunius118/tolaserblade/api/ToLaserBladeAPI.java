@@ -35,6 +35,6 @@ public class ToLaserBladeAPI {
      * @return State of the laser blade.
      */
     public static LaserBladeState getLaserBladeState(ItemStack itemStack) {
-        return com.github.iunius118.tolaserblade.core.laserblade.LaserBlade.of(itemStack).getState();
+        return com.github.iunius118.tolaserblade.core.laserblade.LaserBlade.getState(itemStack);
     }
 }

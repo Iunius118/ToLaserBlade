@@ -1,15 +1,7 @@
 package com.github.iunius118.tolaserblade.core.laserblade;
 
-import net.minecraft.core.Holder;
-import net.minecraft.nbt.CompoundTag;
-import net.minecraft.nbt.Tag;
-import net.minecraft.resources.ResourceKey;
-import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.level.Level;
-import net.minecraft.world.level.biome.Biome;
-import net.minecraft.world.level.biome.Biomes;
-
 public class LaserBladeVisual {
+    /*
     public static final int MODEL_TYPE_DEFAULT = LaserBlade.TYPE_DEFAULT;
     public static final String KEY_MODEL_TYPE = LaserBlade.KEY_TYPE;
     public static final String KEY_INNER_COLOR = "colorC";
@@ -212,5 +204,5 @@ public class LaserBladeVisual {
 
             return biomeHolder.is(biomeKey);
         }
-    }
+    }*/
 }
