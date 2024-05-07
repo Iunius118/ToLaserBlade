@@ -4,9 +4,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "tolaserblade:dx_laser_blade"
-            ]
+            "items": "tolaserblade:dx_laser_blade"
           }
         ]
       },
@@ -16,9 +14,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "tolaserblade:laser_blade"
-            ]
+            "items": "tolaserblade:laser_blade"
           }
         ]
       },
@@ -28,9 +24,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "tolaserblade:laser_blade_fp"
-            ]
+            "items": "tolaserblade:laser_blade_fp"
           }
         ]
       },
@@ -40,9 +34,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:redstone"
-            ]
+            "items": "minecraft:redstone"
           }
         ]
       },
@@ -55,11 +47,27 @@
     "description": {
       "translate": "advancements.tolaserblade.main.root.description"
     },
-    "frame": "task",
-    "hidden": false,
     "icon": {
-      "item": "tolaserblade:laser_blade",
-      "nbt": "{Damage:0,colorG:-6447721}"
+      "components": {
+        "tolaserblade:lb_mdl": {
+          "parts": {
+            "grip": {
+              "color": -6447721,
+              "is_sub": false
+            },
+            "in": {
+              "color": -1,
+              "is_sub": false
+            },
+            "out": {
+              "color": -65536,
+              "is_sub": false
+            }
+          }
+        }
+      },
+      "count": 1,
+      "id": "tolaserblade:laser_blade"
     },
     "show_toast": false,
     "title": {
@@ -73,6 +81,5 @@
       "has_laser_blade",
       "has_laser_blade_fp"
     ]
-  ],
-  "sends_telemetry_event": false
+  ]
 }

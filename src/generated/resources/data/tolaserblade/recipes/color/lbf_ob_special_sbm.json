@@ -10,7 +10,5 @@
     "color": 16843009,
     "part": "outer_blade"
   },
-  "template": {
-    "item": "tolaserblade:lb_blueprint"
-  }
+  "template": []
 }

@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "tolaserblade:lb_blueprint"
-            ]
+            "items": "tolaserblade:lb_blueprint"
           }
         ]
       },
@@ -30,6 +28,5 @@
     "recipes": [
       "tolaserblade:lb_battery"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

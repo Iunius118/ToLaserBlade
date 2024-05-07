@@ -7,9 +7,7 @@
           "max": 0
         },
         "item": {
-          "items": [
-            "tolaserblade:laser_blade"
-          ]
+          "items": "tolaserblade:laser_blade"
         }
       },
       "trigger": "minecraft:item_durability_changed"
@@ -20,25 +18,21 @@
           "max": 0
         },
         "item": {
-          "items": [
-            "tolaserblade:laser_blade_fp"
-          ]
+          "items": "tolaserblade:laser_blade_fp"
         }
       },
       "trigger": "minecraft:item_durability_changed"
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "advancements.tolaserblade.main.break_laser_blade.description"
     },
     "frame": "challenge",
-    "hidden": false,
     "icon": {
-      "item": "tolaserblade:lb_casing"
+      "count": 1,
+      "id": "tolaserblade:lb_casing"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancements.tolaserblade.main.break_laser_blade.title"
     }
@@ -51,6 +45,5 @@
   ],
   "rewards": {
     "experience": 1000
-  },
-  "sends_telemetry_event": false
+  }
 }

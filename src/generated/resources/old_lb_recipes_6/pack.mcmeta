@@ -1,8 +1,6 @@
 {
   "pack": {
-    "description": {
-      "text": "ToLaserBlade - revert laser blade recipes to version 6"
-    },
-    "pack_format": 18
+    "description": "ToLaserBlade - revert laser blade recipes to version 6",
+    "pack_format": 41
   }
 }

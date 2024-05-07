@@ -1,6 +1,6 @@
-// 1.20.2	2023-10-12T20:37:25.0753634	Tags for minecraft:item mod id tolaserblade
+// 1.20.6	2024-05-08T03:31:21.8649874	Tags for minecraft:item mod id tolaserblade
 1a95ba6c8de8bf45015131964d973d94d905f8b8 data/tolaserblade/tags/items/casing_repair.json
-edfd85648a3d49cb82d1a39c98233b54a31af47b data/tolaserblade/tags/items/upgrade/damage.json
+edfd85648a3d49cb82d1a39c98233b54a31af47b data/tolaserblade/tags/items/upgrade/attack.json
 b292fd1c61bdb4c34269772b5010fa49d88d3cfb data/tolaserblade/tags/items/upgrade/efficiency.json
 2c42f0749711b7c466075eb0b2531ff12864f994 data/tolaserblade/tags/items/upgrade/efficiency_remover.json
 0d1dbb20f2dfd450475fd908b50e201f46f71f20 data/tolaserblade/tags/items/upgrade/fire_aspect.json

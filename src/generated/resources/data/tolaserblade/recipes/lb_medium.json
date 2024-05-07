@@ -17,7 +17,7 @@
     "gdg"
   ],
   "result": {
-    "item": "tolaserblade:lb_medium"
-  },
-  "show_notification": true
+    "count": 1,
+    "id": "tolaserblade:lb_medium"
+  }
 }

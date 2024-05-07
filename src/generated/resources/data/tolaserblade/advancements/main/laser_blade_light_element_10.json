@@ -5,17 +5,17 @@
       "conditions": {
         "items": [
           {
-            "enchantments": [
-              {
-                "enchantment": "tolaserblade:light_element",
-                "levels": {
-                  "min": 10
+            "items": "tolaserblade:laser_blade",
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantment": "tolaserblade:light_element",
+                  "levels": {
+                    "min": 10
+                  }
                 }
-              }
-            ],
-            "items": [
-              "tolaserblade:laser_blade"
-            ]
+              ]
+            }
           }
         ]
       },
@@ -25,17 +25,17 @@
       "conditions": {
         "items": [
           {
-            "enchantments": [
-              {
-                "enchantment": "tolaserblade:light_element",
-                "levels": {
-                  "min": 10
+            "items": "tolaserblade:laser_blade_fp",
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantment": "tolaserblade:light_element",
+                  "levels": {
+                    "min": 10
+                  }
                 }
-              }
-            ],
-            "items": [
-              "tolaserblade:laser_blade_fp"
-            ]
+              ]
+            }
           }
         ]
       },
@@ -43,16 +43,13 @@
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "advancements.tolaserblade.main.laser_blade_light_element_10.description"
     },
-    "frame": "task",
-    "hidden": false,
     "icon": {
-      "item": "minecraft:glowstone"
+      "count": 1,
+      "id": "minecraft:glowstone"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancements.tolaserblade.main.laser_blade_light_element_10.title"
     }
@@ -62,6 +59,5 @@
       "has_laser_blade",
       "has_laser_blade_fp"
     ]
-  ],
-  "sends_telemetry_event": false
+  ]
 }

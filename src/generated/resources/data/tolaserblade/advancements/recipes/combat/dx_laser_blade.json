@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "minecraft:redstone"
-            ]
+            "items": "minecraft:redstone"
           }
         ]
       },
@@ -30,6 +28,5 @@
     "recipes": [
       "tolaserblade:dx_laser_blade"
     ]
-  },
-  "sends_telemetry_event": false
+  }
 }

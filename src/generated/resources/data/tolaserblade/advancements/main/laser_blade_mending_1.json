@@ -5,17 +5,17 @@
       "conditions": {
         "items": [
           {
-            "enchantments": [
-              {
-                "enchantment": "minecraft:mending",
-                "levels": {
-                  "min": 1
+            "items": "tolaserblade:laser_blade",
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantment": "minecraft:mending",
+                  "levels": {
+                    "min": 1
+                  }
                 }
-              }
-            ],
-            "items": [
-              "tolaserblade:laser_blade"
-            ]
+              ]
+            }
           }
         ]
       },
@@ -25,17 +25,17 @@
       "conditions": {
         "items": [
           {
-            "enchantments": [
-              {
-                "enchantment": "minecraft:mending",
-                "levels": {
-                  "min": 1
+            "items": "tolaserblade:laser_blade_fp",
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantment": "minecraft:mending",
+                  "levels": {
+                    "min": 1
+                  }
                 }
-              }
-            ],
-            "items": [
-              "tolaserblade:laser_blade_fp"
-            ]
+              ]
+            }
           }
         ]
       },
@@ -43,16 +43,14 @@
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "advancements.tolaserblade.main.laser_blade_mending_1.description"
     },
     "frame": "goal",
-    "hidden": false,
     "icon": {
-      "item": "minecraft:nether_star"
+      "count": 1,
+      "id": "minecraft:nether_star"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancements.tolaserblade.main.laser_blade_mending_1.title"
     }
@@ -62,6 +60,5 @@
       "has_laser_blade",
       "has_laser_blade_fp"
     ]
-  ],
-  "sends_telemetry_event": false
+  ]
 }

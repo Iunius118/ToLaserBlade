@@ -1,6 +1,6 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "category": "misc",
+  "category": "equipment",
   "ingredients": [
     {
       "item": "tolaserblade:lb_blueprint"
@@ -22,6 +22,7 @@
     }
   ],
   "result": {
-    "item": "tolaserblade:lb_brand_new_1"
+    "count": 1,
+    "id": "tolaserblade:lb_brand_new_1"
   }
 }

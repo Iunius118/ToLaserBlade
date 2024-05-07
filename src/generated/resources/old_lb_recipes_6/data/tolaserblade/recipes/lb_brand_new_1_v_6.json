@@ -21,7 +21,7 @@
     "riG"
   ],
   "result": {
-    "item": "tolaserblade:lb_brand_new_1"
-  },
-  "show_notification": true
+    "count": 1,
+    "id": "tolaserblade:lb_brand_new_1"
+  }
 }

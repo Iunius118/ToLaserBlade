@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "tolaserblade:laser_blade"
-            ]
+            "items": "tolaserblade:laser_blade"
           }
         ]
       },
@@ -17,9 +15,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "tolaserblade:laser_blade_fp"
-            ]
+            "items": "tolaserblade:laser_blade_fp"
           }
         ]
       },
@@ -27,17 +23,13 @@
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "advancements.tolaserblade.main.laser_blade.description"
     },
-    "frame": "task",
-    "hidden": false,
     "icon": {
-      "item": "tolaserblade:laser_blade",
-      "nbt": "{Damage:0}"
+      "count": 1,
+      "id": "tolaserblade:laser_blade"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancements.tolaserblade.main.laser_blade.title"
     }
@@ -47,6 +39,5 @@
       "has_laser_blade",
       "has_laser_blade_fp"
     ]
-  ],
-  "sends_telemetry_event": false
+  ]
 }

@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "tolaserblade:laser_blade_fp"
-            ]
+            "items": "tolaserblade:laser_blade_fp"
           }
         ]
       },
@@ -15,16 +13,13 @@
     }
   },
   "display": {
-    "announce_to_chat": true,
     "description": {
       "translate": "advancements.tolaserblade.main.laser_blade_fp.description"
     },
-    "frame": "task",
-    "hidden": false,
     "icon": {
-      "item": "minecraft:netherite_ingot"
+      "count": 1,
+      "id": "minecraft:netherite_ingot"
     },
-    "show_toast": true,
     "title": {
       "translate": "advancements.tolaserblade.main.laser_blade_fp.title"
     }
@@ -33,6 +28,5 @@
     [
       "has_laser_blade_fp"
     ]
-  ],
-  "sends_telemetry_event": false
+  ]
 }

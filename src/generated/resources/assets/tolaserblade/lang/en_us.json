@@ -44,7 +44,6 @@
   "tolaserblade.configgui.client.defaultModel": "Default Model",
   "tolaserblade.configgui.client.renderMultipleModels": "Render Multiple Models",
   "tolaserblade.configgui.client.showUpdateMessage": "Show Update Message",
-  "tolaserblade.configgui.client.useFixedVertexBuffer": "Use Fixed Vertex Buffer",
   "tolaserblade.configgui.client.useOriginalModelType": "Use Original Model Type",
   "tolaserblade.configgui.server.canLaserTrapAttackPlayer": "Can Laser Trap Attack Player",
   "tolaserblade.configgui.server.canLaserTrapHeatUpFurnace": "Can Laser Trap Heat Up Furnace",

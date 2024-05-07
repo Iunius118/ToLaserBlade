@@ -44,7 +44,6 @@
   "tolaserblade.configgui.client.defaultModel": "デフォルトのモデル",
   "tolaserblade.configgui.client.renderMultipleModels": "レーザーブレードを複数モデルで描画する",
   "tolaserblade.configgui.client.showUpdateMessage": "アップデートの通知を表示する",
-  "tolaserblade.configgui.client.useFixedVertexBuffer": "Fixed Vertex Bufferを使用する",
   "tolaserblade.configgui.client.useOriginalModelType": "独自のモデルタイプを使用する",
   "tolaserblade.configgui.server.canLaserTrapAttackPlayer": "レーザートラップがプレイヤーへ攻撃可能か",
   "tolaserblade.configgui.server.canLaserTrapHeatUpFurnace": "レーザートラップがかまどを加熱可能か",
