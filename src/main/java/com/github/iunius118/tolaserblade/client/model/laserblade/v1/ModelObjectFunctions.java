@@ -6,15 +6,12 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.ItemDisplayContext;
 import org.joml.Matrix4f;
 
-public class FunctionsV1 {
-    // Functions
-    @FunctionalInterface
-    public interface ObjectFunction {
-        int invoke(LaserBladeModelV1.RenderingContext context, int pushCount);
-    }
+class ModelObjectFunctions {
+    private ModelObjectFunctions() {}
 
-    public final static ObjectFunction FN_NOP = (args, i) -> i;
-    public final static ObjectFunction FN_ROTATE = (args, i) -> {
+    // Functions
+    public final static ModelObject.ModelObjectFunction FN_NOP = (args, i) -> i;
+    public final static ModelObject.ModelObjectFunction FN_ROTATE = (args, i) -> {
         var minecraft = Minecraft.getInstance();
         var integratedServer = minecraft.getSingleplayerServer();
         float angle;
@@ -29,16 +26,16 @@ public class FunctionsV1 {
 
         PoseStack matrices = args.matrices();
         matrices.pushPose();
-        matrices.mulPoseMatrix(new Matrix4f().rotate((float) Math.toRadians(angle), 0.0f, 1.0f, 0.0f));
+        matrices.mulPose(new Matrix4f().rotate((float) Math.toRadians(angle), 0.0f, 1.0f, 0.0f));
         return i + 1;
     };
-    public final static ObjectFunction FN_SHIELD = (args, i) -> {
+    public final static ModelObject.ModelObjectFunction FN_SHIELD = (args, i) -> {
         PoseStack matrices = args.matrices();
         matrices.pushPose();
         transformShield(args.mode(), matrices);
         return i + 1;
     };
-    public final static ObjectFunction FN_POP_POSE = (args, i) -> {
+    public final static ModelObject.ModelObjectFunction FN_POP_POSE = (args, i) -> {
         if (i > 0) {
             args.matrices().popPose();
             return i - 1;
@@ -58,10 +55,10 @@ public class FunctionsV1 {
 
     private static void transformShield(ItemDisplayContext mode, PoseStack matrices) {
         switch (mode) {
-            case FIRST_PERSON_RIGHT_HAND -> matrices.mulPoseMatrix(FP_RIGHT_HAND_TRANSFORMATION);
-            case FIRST_PERSON_LEFT_HAND -> matrices.mulPoseMatrix(FP_LEFT_HAND_TRANSFORMATION);
-            case THIRD_PERSON_LEFT_HAND -> matrices.mulPoseMatrix(TP_LEFT_HAND_TRANSFORMATION);
-            case GUI, FIXED -> matrices.mulPoseMatrix(GUI_TRANSFORMATION);
+            case FIRST_PERSON_RIGHT_HAND -> matrices.mulPose(FP_RIGHT_HAND_TRANSFORMATION);
+            case FIRST_PERSON_LEFT_HAND -> matrices.mulPose(FP_LEFT_HAND_TRANSFORMATION);
+            case THIRD_PERSON_LEFT_HAND -> matrices.mulPose(TP_LEFT_HAND_TRANSFORMATION);
+            case GUI, FIXED -> matrices.mulPose(GUI_TRANSFORMATION);
         }
     }
 }
