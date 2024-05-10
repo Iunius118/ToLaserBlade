@@ -9,5 +9,7 @@
   "result": {
     "type": "tolaserblade:upgrade/light_element"
   },
-  "template": []
+  "template": {
+    "item": "tolaserblade:lb_blueprint"
+  }
 }

@@ -9,5 +9,7 @@
   "result": {
     "type": "tolaserblade:upgrade/attack"
   },
-  "template": []
+  "template": {
+    "item": "tolaserblade:lb_blueprint"
+  }
 }

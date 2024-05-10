@@ -9,5 +9,7 @@
   "result": {
     "type": "tolaserblade:upgrade/fire_aspect"
   },
-  "template": []
+  "template": {
+    "item": "tolaserblade:lb_blueprint"
+  }
 }

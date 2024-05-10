@@ -10,5 +10,7 @@
     "color": -75715,
     "part": "grip"
   },
-  "template": []
+  "template": {
+    "item": "tolaserblade:lb_blueprint"
+  }
 }

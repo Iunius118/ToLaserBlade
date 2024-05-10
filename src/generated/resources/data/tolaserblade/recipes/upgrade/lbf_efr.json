@@ -9,5 +9,7 @@
   "result": {
     "type": "tolaserblade:upgrade/efficiency_remover"
   },
-  "template": []
+  "template": {
+    "item": "tolaserblade:lb_blueprint"
+  }
 }

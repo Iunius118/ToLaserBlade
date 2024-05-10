@@ -10,5 +10,7 @@
     "count": 1,
     "id": "tolaserblade:lb_brand_new"
   },
-  "template": []
+  "template": {
+    "item": "tolaserblade:lb_blueprint"
+  }
 }

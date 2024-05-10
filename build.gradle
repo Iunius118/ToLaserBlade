@@ -1,19 +1,11 @@
-buildscript {
-    dependencies {
-        // MixinGradle:
-        classpath 'org.spongepowered:mixingradle:0.7.+'
-    }
-}
-
 plugins {
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '[6.0.24,6.2)'
+    // MixinGradle:
+    id 'org.spongepowered.mixin' version '0.7.+'
 }
-
-// MixinGradle:
-apply plugin: 'org.spongepowered.mixin'
 
 version = minecraft_version + '-' + mod_version
 group = mod_group_id
@@ -128,6 +120,7 @@ tasks.named('jar', Jar).configure {
                 "Implementation-Title"    : project.name,
                 "Implementation-Version"  : project.jar.archiveVersion,
                 "Implementation-Vendor"   : mod_authors
+                ,"MixinConfigs"           : "mixins.tolaserblade.json"  // Temporary fix for Mixin
         ])
     }
 

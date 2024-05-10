@@ -12,7 +12,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(SmithingMenu.class)
+@Mixin(value = SmithingMenu.class, remap = false)
 public abstract class MixinSmithingMenu extends ItemCombinerMenu {
     private MixinSmithingMenu(@Nullable MenuType<?> menuType, int i, Inventory inventory, ContainerLevelAccess containerLevelAccess) {
         super(menuType, i, inventory, containerLevelAccess);

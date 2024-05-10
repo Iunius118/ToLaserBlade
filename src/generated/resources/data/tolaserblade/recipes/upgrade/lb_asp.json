@@ -9,5 +9,7 @@
   "result": {
     "type": "tolaserblade:upgrade/speed"
   },
-  "template": []
+  "template": {
+    "item": "tolaserblade:lb_blueprint"
+  }
 }

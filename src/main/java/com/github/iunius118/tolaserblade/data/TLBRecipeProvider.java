@@ -122,9 +122,6 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
         // Netherite Laser Blade by using Smithing Table
         addSmithingTransformRecipe(template, Ingredient.of(ModItems.LASER_BLADE), Ingredient.of(Items.NETHERITE_INGOT), ModItems.LB_BRAND_NEW_FP, Items.NETHERITE_INGOT, consumer);
 
-        // Temporary fix for broken mixin
-        template = Ingredient.EMPTY;    // TODO: Remove this, when mixin is fixed
-
         // Repair recipes
         addSmithingRepairRecipe("lb", template, ModItems.LASER_BLADE, Ingredient.of(ModItemTags.CASING_REPAIR), ModItems.LB_BRAND_NEW, ModItems.LASER_BLADE, consumer);
         addSmithingRepairRecipe("lbb", template, ModItems.LB_BROKEN, Ingredient.of(ModItemTags.CASING_REPAIR), ModItems.LB_BRAND_NEW, ModItems.LB_BROKEN, consumer);
