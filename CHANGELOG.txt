@@ -4,11 +4,7 @@
 
 ## [Unreleased]
 
-## [9.0.0-beta.2 forge]
-### Fixed
-- Mineable blocks with laser blades.
-
-## [9.0.0-beta.1 forge]
+## [9.0.0 forge]
 ### Added
 - Data components for laser blade: `tolaserblade:lb_atk`, `tolaserblade:lb_spd`, and `tolaserblade:lb_mdl`.
 - Entity type tag `tolaserblade:sensitive_to_light_element` for Light Element enchantment.
@@ -16,7 +12,6 @@
 ### Changed
 - Port to Minecraft 1.20.6.
 - Require Forge 1.20.6-50.0.8+.
-- Temporarily, laser blade upgrade recipes do not require template item.
 
 ### Removed
 - Additional shader for laser blade.

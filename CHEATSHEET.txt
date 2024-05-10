@@ -209,18 +209,18 @@ Value:
 
 ```
 {
-  type: <int model_type>,
+  type: <integer model_type>,
   parts: {
     grip: {
-      color: <int grip_color_in_argb_32>,
+      color: <integer grip_color_in_argb_32>,
       is_sub: 0b
     },
     in: {
-      color: <int inner_blade_color_in_argb_32>,
+      color: <integer inner_blade_color_in_argb_32>,
       is_sub: <byte (boolean) is_inner_blade_subtractive_color>
     },
     out: {
-      color: <int outer_blade_color_in_argb_32>,
+      color: <integer outer_blade_color_in_argb_32>,
       is_sub: <byte (boolean) is_outer_blade_subtractive_color>
     }
   }
