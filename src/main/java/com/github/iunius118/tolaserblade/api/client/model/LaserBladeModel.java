@@ -7,7 +7,7 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
 /**
- * Define and render a model of laser blade.
+ * Class to define and render a model of laser blade.
  * This interface is implemented to register an additional model of laser blade.
  * @see ToLaserBladeAPI#registerModelRegistrationListener
  */

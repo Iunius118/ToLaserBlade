@@ -14,9 +14,9 @@ public class ToLaserBladeAPI {
     /**
      * Add a listener of {@link LaserBladeModelRegistrationEvent} to register laser blade models.
      * Only on the {@linkplain LogicalSide#CLIENT logical client}.
-     *
-     * <p>The following code is an example of usage.</p>
-     *
+     * <p>
+     * The following code is an example of usage.
+     * </p>
      * <pre>{@code
      * ToLaserBladeAPI.registerModelRegistrationListener(event -> event.register(loadMyLaserBladeModels()));
      * }</pre>
