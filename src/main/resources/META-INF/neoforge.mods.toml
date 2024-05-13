@@ -16,15 +16,20 @@ authors="${mod_authors}"
 description='''${mod_description}'''
 
 [[mixins]]
-    config="mixins.tolaserblade.json"
+config="mixins.tolaserblade.json"
+
+[[accessTransformers]]
+file="META-INF/accesstransformer.cfg"
 
 [[dependencies.${mod_id}]]
     modId="neoforge"
+    type="required"
     versionRange="${neo_version_range}"
     ordering="NONE"
     side="${side}"
 [[dependencies.${mod_id}]]
     modId="minecraft"
+    type="required"
     versionRange="${minecraft_version_range}"
     ordering="NONE"
     side="${side}"
