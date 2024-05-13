@@ -7,6 +7,7 @@ import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
+import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -18,11 +19,13 @@ public class LBColorRecipeBuilder {
     private final Ingredient template;
     private final Ingredient base;
     private final Ingredient addition;
+    private final RecipeCategory category;
     private final LaserBladeColorPart part;
     private final int color;
     private final Map<String, Criterion<?>> criteria = new LinkedHashMap<>();
 
-    public LBColorRecipeBuilder(Ingredient template, Ingredient base, Ingredient addition, LaserBladeColorPart colorPart, int color) {
+    public LBColorRecipeBuilder(Ingredient template, Ingredient base, Ingredient addition, RecipeCategory category, LaserBladeColorPart colorPart, int color) {
+        this.category = category;
         this.template = template;
         this.base = base;
         this.addition = addition;
@@ -30,8 +33,8 @@ public class LBColorRecipeBuilder {
         this.color = color;
     }
 
-    public static LBColorRecipeBuilder colorRecipe(Ingredient template, Ingredient base, Ingredient addition, LaserBladeColorPart colorPart, int color) {
-        return new LBColorRecipeBuilder(template, base, addition, colorPart, color);
+    public static LBColorRecipeBuilder colorRecipe(Ingredient template, Ingredient base, Ingredient addition, RecipeCategory category, LaserBladeColorPart colorPart, int color) {
+        return new LBColorRecipeBuilder(template, base, addition, category, colorPart, color);
     }
 
     public LBColorRecipeBuilder unlockedBy(String name, Criterion<?> criterion) {
@@ -50,7 +53,8 @@ public class LBColorRecipeBuilder {
                 .rewards(AdvancementRewards.Builder.recipe(id))
                 .requirements(AdvancementRequirements.Strategy.OR);
         criteria.forEach(advancementBuilder::addCriterion);
-        consumer.accept(id, new LBColorRecipe(template, base, addition, part, color), advancementBuilder.build(new ResourceLocation(id.getNamespace(), "recipes/" + id.getPath())));
+        LBColorRecipe recipe = new LBColorRecipe(template, base, addition, part, color);
+        consumer.accept(id, recipe, advancementBuilder.build(id.withPrefix("recipes/" + this.category.getFolderName() + "/")));
     }
 
     private void ensureValid(ResourceLocation id) {

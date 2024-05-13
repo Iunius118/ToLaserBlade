@@ -6,7 +6,7 @@
       "item": "minecraft:redstone_torch"
     },
     "s": {
-      "tag": "forge:rods/wooden"
+      "tag": "c:rods/wooden"
     }
   },
   "pattern": [
@@ -15,6 +15,7 @@
     "s"
   ],
   "result": {
-    "item": "tolaserblade:dx_laser_blade"
+    "count": 1,
+    "id": "tolaserblade:dx_laser_blade"
   }
 }

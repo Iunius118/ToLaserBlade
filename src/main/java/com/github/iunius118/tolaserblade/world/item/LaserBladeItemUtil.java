@@ -2,25 +2,27 @@ package com.github.iunius118.tolaserblade.world.item;
 
 import com.github.iunius118.tolaserblade.common.util.ModSoundEvents;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBlade;
+import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeAppearance;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeTextKey;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.Upgrade;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
+import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
+import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
 
-import javax.annotation.Nullable;
 import java.util.List;
 
 public class LaserBladeItemUtil {
@@ -29,7 +31,7 @@ public class LaserBladeItemUtil {
     }
 
     public static float getDestroySpeed(ItemStack itemStack, Tier tier) {
-        float rate = (float) EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY, itemStack) / 5.0F;
+        float rate = (float) itemStack.getEnchantmentLevel(Enchantments.EFFICIENCY) / 5.0F;
         return tier.getSpeed() * Mth.clamp(rate, 0.0F, 1.0F);
     }
 
@@ -40,23 +42,22 @@ public class LaserBladeItemUtil {
     }
 
     @OnlyIn(Dist.CLIENT)
-    public static void addLaserBladeInformation(ItemStack itemStack, @Nullable Level level, List<Component> tooltip, TooltipFlag flag, Upgrade.Type upgradeType) {
-        boolean isFireResistant = itemStack.getItem().isFireResistant();
-        var laserBlade = LaserBlade.of(itemStack);
+    public static void addLaserBladeInformation(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag flag, Upgrade.Type upgradeType) {
+        boolean isFireResistant = itemStack.has(DataComponents.FIRE_RESISTANT);
 
         if (isFireResistant) {
             tooltip.add(LaserBladeTextKey.KEY_TOOLTIP_FIREPROOF.translate().withStyle(ChatFormatting.GOLD));
         }
 
         switch (upgradeType) {
-            case BATTERY -> addAttackSpeed(tooltip, laserBlade.getSpeed());
-            case MEDIUM -> addAttackDamage(tooltip, laserBlade.getDamage());
+            case BATTERY -> addAttackSpeed(tooltip, LaserBlade.getSpeed(itemStack));
+            case MEDIUM -> addAttackDamage(tooltip, LaserBlade.getAttack(itemStack));
             case EMITTER -> {}
-            case CASING, OTHER -> addModelType(tooltip, laserBlade);
+            case CASING, OTHER -> addModelType(tooltip, itemStack);
             case REPAIR -> {
-                addModelType(tooltip, laserBlade);
-                addAttackDamage(tooltip, laserBlade.getDamage());
-                addAttackSpeed(tooltip, laserBlade.getSpeed());
+                addModelType(tooltip, itemStack);
+                addAttackDamage(tooltip, LaserBlade.getAttack(itemStack));
+                addAttackSpeed(tooltip, LaserBlade.getSpeed(itemStack));
             }
             default -> {}
         }
@@ -70,8 +71,8 @@ public class LaserBladeItemUtil {
     }
 
     @OnlyIn(Dist.CLIENT)
-    private static void addModelType(List<Component> tooltip, LaserBlade laserBlade) {
-        int modelType = laserBlade.getType();
+    private static void addModelType(List<Component> tooltip, ItemStack itemStack) {
+        int modelType = LaserBladeAppearance.of(itemStack).getType();
 
         if (modelType >= 0) {
             tooltip.add(LaserBladeTextKey.KEY_TOOLTIP_MODEL.translate(modelType).withStyle(ChatFormatting.DARK_GRAY));
@@ -94,6 +95,7 @@ public class LaserBladeItemUtil {
 
     @OnlyIn(Dist.CLIENT)
     private static Component getUpgradeTextComponent(String key, float value) {
-        return Component.translatable(key, (value < 0 ? "" : "+") + ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(value)).withStyle(ChatFormatting.DARK_GREEN);
+        return Component.translatable(key, (value < 0 ? "" : "+") + ItemAttributeModifiers.ATTRIBUTE_MODIFIER_FORMAT.format(value))
+                .withStyle(ChatFormatting.DARK_GREEN);
     }
 }

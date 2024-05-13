@@ -5,17 +5,17 @@
       "conditions": {
         "items": [
           {
-            "enchantments": [
-              {
-                "enchantment": "tolaserblade:light_element",
-                "levels": {
-                  "min": 5
+            "items": "tolaserblade:laser_blade",
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantment": "tolaserblade:light_element",
+                  "levels": {
+                    "min": 5
+                  }
                 }
-              }
-            ],
-            "items": [
-              "tolaserblade:laser_blade"
-            ]
+              ]
+            }
           }
         ]
       },
@@ -25,17 +25,17 @@
       "conditions": {
         "items": [
           {
-            "enchantments": [
-              {
-                "enchantment": "tolaserblade:light_element",
-                "levels": {
-                  "min": 5
+            "items": "tolaserblade:laser_blade_fp",
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantment": "tolaserblade:light_element",
+                  "levels": {
+                    "min": 5
+                  }
                 }
-              }
-            ],
-            "items": [
-              "tolaserblade:laser_blade_fp"
-            ]
+              ]
+            }
           }
         ]
       },
@@ -47,7 +47,8 @@
       "translate": "advancements.tolaserblade.main.laser_blade_light_element_5.description"
     },
     "icon": {
-      "item": "minecraft:glowstone"
+      "count": 1,
+      "id": "minecraft:glowstone"
     },
     "title": {
       "translate": "advancements.tolaserblade.main.laser_blade_light_element_5.title"

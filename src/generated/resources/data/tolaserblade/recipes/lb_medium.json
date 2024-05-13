@@ -6,10 +6,10 @@
       "item": "tolaserblade:lb_blueprint"
     },
     "d": {
-      "tag": "forge:gems/diamond"
+      "tag": "c:gems/diamond"
     },
     "g": {
-      "tag": "forge:dusts/glowstone"
+      "tag": "c:dusts/glowstone"
     }
   },
   "pattern": [
@@ -17,6 +17,7 @@
     "gdg"
   ],
   "result": {
-    "item": "tolaserblade:lb_medium"
+    "count": 1,
+    "id": "tolaserblade:lb_medium"
   }
 }

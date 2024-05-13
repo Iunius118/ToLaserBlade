@@ -5,17 +5,17 @@
       "conditions": {
         "items": [
           {
-            "enchantments": [
-              {
-                "enchantment": "minecraft:looting",
-                "levels": {
-                  "min": 3
+            "items": "tolaserblade:laser_blade",
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantment": "minecraft:looting",
+                  "levels": {
+                    "min": 3
+                  }
                 }
-              }
-            ],
-            "items": [
-              "tolaserblade:laser_blade"
-            ]
+              ]
+            }
           }
         ]
       },
@@ -25,17 +25,17 @@
       "conditions": {
         "items": [
           {
-            "enchantments": [
-              {
-                "enchantment": "minecraft:looting",
-                "levels": {
-                  "min": 3
+            "items": "tolaserblade:laser_blade_fp",
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantment": "minecraft:looting",
+                  "levels": {
+                    "min": 3
+                  }
                 }
-              }
-            ],
-            "items": [
-              "tolaserblade:laser_blade_fp"
-            ]
+              ]
+            }
           }
         ]
       },
@@ -47,7 +47,8 @@
       "translate": "advancements.tolaserblade.main.laser_blade_looting_3.description"
     },
     "icon": {
-      "item": "minecraft:nautilus_shell"
+      "count": 1,
+      "id": "minecraft:nautilus_shell"
     },
     "title": {
       "translate": "advancements.tolaserblade.main.laser_blade_looting_3.title"

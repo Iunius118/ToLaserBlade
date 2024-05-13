@@ -5,10 +5,10 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "tolaserblade:laser_blade"
-            ],
-            "nbt": "{ATK:3.0f}"
+            "components": {
+              "tolaserblade:lb_atk": 3.0
+            },
+            "items": "tolaserblade:laser_blade"
           }
         ]
       },
@@ -18,10 +18,10 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "tolaserblade:laser_blade"
-            ],
-            "nbt": "{ATK:4.0f}"
+            "components": {
+              "tolaserblade:lb_atk": 4.0
+            },
+            "items": "tolaserblade:laser_blade"
           }
         ]
       },
@@ -31,10 +31,10 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "tolaserblade:laser_blade"
-            ],
-            "nbt": "{ATK:5.0f}"
+            "components": {
+              "tolaserblade:lb_atk": 5.0
+            },
+            "items": "tolaserblade:laser_blade"
           }
         ]
       },
@@ -44,10 +44,10 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "tolaserblade:laser_blade"
-            ],
-            "nbt": "{ATK:6.0f}"
+            "components": {
+              "tolaserblade:lb_atk": 6.0
+            },
+            "items": "tolaserblade:laser_blade"
           }
         ]
       },
@@ -57,10 +57,10 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "tolaserblade:laser_blade"
-            ],
-            "nbt": "{ATK:7.0f}"
+            "components": {
+              "tolaserblade:lb_atk": 7.0
+            },
+            "items": "tolaserblade:laser_blade"
           }
         ]
       },
@@ -70,10 +70,10 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "tolaserblade:laser_blade"
-            ],
-            "nbt": "{ATK:8.0f}"
+            "components": {
+              "tolaserblade:lb_atk": 8.0
+            },
+            "items": "tolaserblade:laser_blade"
           }
         ]
       },
@@ -83,10 +83,10 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "tolaserblade:laser_blade_fp"
-            ],
-            "nbt": "{ATK:2.0f}"
+            "components": {
+              "tolaserblade:lb_atk": 2.0
+            },
+            "items": "tolaserblade:laser_blade_fp"
           }
         ]
       },
@@ -96,10 +96,10 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "tolaserblade:laser_blade_fp"
-            ],
-            "nbt": "{ATK:3.0f}"
+            "components": {
+              "tolaserblade:lb_atk": 3.0
+            },
+            "items": "tolaserblade:laser_blade_fp"
           }
         ]
       },
@@ -109,10 +109,10 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "tolaserblade:laser_blade_fp"
-            ],
-            "nbt": "{ATK:4.0f}"
+            "components": {
+              "tolaserblade:lb_atk": 4.0
+            },
+            "items": "tolaserblade:laser_blade_fp"
           }
         ]
       },
@@ -122,10 +122,10 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "tolaserblade:laser_blade_fp"
-            ],
-            "nbt": "{ATK:5.0f}"
+            "components": {
+              "tolaserblade:lb_atk": 5.0
+            },
+            "items": "tolaserblade:laser_blade_fp"
           }
         ]
       },
@@ -135,10 +135,10 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "tolaserblade:laser_blade_fp"
-            ],
-            "nbt": "{ATK:6.0f}"
+            "components": {
+              "tolaserblade:lb_atk": 6.0
+            },
+            "items": "tolaserblade:laser_blade_fp"
           }
         ]
       },
@@ -148,10 +148,10 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "tolaserblade:laser_blade_fp"
-            ],
-            "nbt": "{ATK:7.0f}"
+            "components": {
+              "tolaserblade:lb_atk": 7.0
+            },
+            "items": "tolaserblade:laser_blade_fp"
           }
         ]
       },
@@ -161,10 +161,10 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "tolaserblade:laser_blade_fp"
-            ],
-            "nbt": "{ATK:8.0f}"
+            "components": {
+              "tolaserblade:lb_atk": 8.0
+            },
+            "items": "tolaserblade:laser_blade_fp"
           }
         ]
       },
@@ -176,7 +176,8 @@
       "translate": "advancements.tolaserblade.main.laser_blade_attack_10.description"
     },
     "icon": {
-      "item": "minecraft:diamond"
+      "count": 1,
+      "id": "minecraft:diamond"
     },
     "title": {
       "translate": "advancements.tolaserblade.main.laser_blade_attack_10.title"

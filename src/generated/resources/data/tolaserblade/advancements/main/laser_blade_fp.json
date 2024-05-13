@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "tolaserblade:laser_blade_fp"
-            ]
+            "items": "tolaserblade:laser_blade_fp"
           }
         ]
       },
@@ -19,7 +17,8 @@
       "translate": "advancements.tolaserblade.main.laser_blade_fp.description"
     },
     "icon": {
-      "item": "minecraft:netherite_ingot"
+      "count": 1,
+      "id": "minecraft:netherite_ingot"
     },
     "title": {
       "translate": "advancements.tolaserblade.main.laser_blade_fp.title"

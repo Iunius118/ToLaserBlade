@@ -1,13 +1,13 @@
 {
   "type": "tolaserblade:upgrade",
   "addition": {
-    "tag": "tolaserblade:upgrade/damage"
+    "tag": "tolaserblade:upgrade/attack"
   },
   "base": {
     "item": "tolaserblade:laser_blade_fp"
   },
   "result": {
-    "type": "tolaserblade:upgrade/damage"
+    "type": "tolaserblade:upgrade/attack"
   },
   "template": {
     "item": "tolaserblade:lb_blueprint"

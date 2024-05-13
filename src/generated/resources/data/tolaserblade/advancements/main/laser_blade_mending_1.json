@@ -5,17 +5,17 @@
       "conditions": {
         "items": [
           {
-            "enchantments": [
-              {
-                "enchantment": "minecraft:mending",
-                "levels": {
-                  "min": 1
+            "items": "tolaserblade:laser_blade",
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantment": "minecraft:mending",
+                  "levels": {
+                    "min": 1
+                  }
                 }
-              }
-            ],
-            "items": [
-              "tolaserblade:laser_blade"
-            ]
+              ]
+            }
           }
         ]
       },
@@ -25,17 +25,17 @@
       "conditions": {
         "items": [
           {
-            "enchantments": [
-              {
-                "enchantment": "minecraft:mending",
-                "levels": {
-                  "min": 1
+            "items": "tolaserblade:laser_blade_fp",
+            "predicates": {
+              "minecraft:enchantments": [
+                {
+                  "enchantment": "minecraft:mending",
+                  "levels": {
+                    "min": 1
+                  }
                 }
-              }
-            ],
-            "items": [
-              "tolaserblade:laser_blade_fp"
-            ]
+              ]
+            }
           }
         ]
       },
@@ -48,7 +48,8 @@
     },
     "frame": "goal",
     "icon": {
-      "item": "minecraft:nether_star"
+      "count": 1,
+      "id": "minecraft:nether_star"
     },
     "title": {
       "translate": "advancements.tolaserblade.main.laser_blade_mending_1.title"

@@ -6,10 +6,10 @@
       "item": "tolaserblade:lb_blueprint"
     },
     "i": {
-      "tag": "forge:ingots/iron"
+      "tag": "c:ingots/iron"
     },
     "r": {
-      "tag": "forge:dusts/redstone"
+      "tag": "c:dusts/redstone"
     }
   },
   "pattern": [
@@ -18,6 +18,7 @@
     "r"
   ],
   "result": {
-    "item": "tolaserblade:lb_battery"
+    "count": 1,
+    "id": "tolaserblade:lb_battery"
   }
 }

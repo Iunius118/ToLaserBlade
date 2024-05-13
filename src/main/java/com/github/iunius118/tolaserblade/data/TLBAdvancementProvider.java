@@ -1,20 +1,21 @@
 package com.github.iunius118.tolaserblade.data;
 
+import com.github.iunius118.tolaserblade.core.component.ModDataComponents;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBlade;
+import com.github.iunius118.tolaserblade.world.item.LBSwordItem;
 import com.github.iunius118.tolaserblade.world.item.LaserBladeItemStack;
 import com.github.iunius118.tolaserblade.world.item.ModItems;
 import com.github.iunius118.tolaserblade.world.item.enchantment.ModEnchantments;
 import net.minecraft.advancements.*;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.component.DataComponentPredicate;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.data.PackOutput;
-import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.neoforged.neoforge.common.data.AdvancementProvider;
@@ -73,7 +74,7 @@ public class TLBAdvancementProvider extends AdvancementProvider {
 
             // 1-1-3. Give Me Three
             AdvancementHolder looting3 = registerEnchantmentAdvancement(laserBlade, Items.NAUTILUS_SHELL, AdvancementType.TASK,
-                    new Item[]{ModItems.LASER_BLADE, ModItems.LASER_BLADE_FP}, Enchantments.MOB_LOOTING, 3, consumer);
+                    new Item[]{ModItems.LASER_BLADE, ModItems.LASER_BLADE_FP}, Enchantments.LOOTING, 3, consumer);
 
             // 1-1-4. Returns and Exchanges
             AdvancementHolder breakLaserBlade = Advancement.Builder.recipeAdvancement()
@@ -138,7 +139,9 @@ public class TLBAdvancementProvider extends AdvancementProvider {
                 String itemName = getItemId(item).getPath();
                 ItemPredicate itemPredicate = ItemPredicate.Builder.item()
                         .of(item)
-                        .hasEnchantment(new EnchantmentPredicate(enchantment, MinMaxBounds.Ints.atLeast(level)))
+                        .withSubPredicate(ItemSubPredicates.ENCHANTMENTS,
+                                ItemEnchantmentsPredicate.enchantments(List.of(
+                                        new EnchantmentPredicate(enchantment, MinMaxBounds.Ints.atLeast(level)))))
                         .build();
 
                 builder.addCriterion("has_" + itemName, InventoryChangeTrigger.TriggerInstance.hasItems(itemPredicate));
@@ -158,22 +161,19 @@ public class TLBAdvancementProvider extends AdvancementProvider {
                             advancementType, true, true, false)
                     .requirements(AdvancementRequirements.Strategy.OR);
             int maxAtk = (int) LaserBlade.MOD_ATK_CRITICAL_BONUS;
-            String tagAtk = LaserBlade.KEY_ATK;
 
             for (Item item : requirements) {
                 String itemName = getItemId(item).getPath();
                 int baseDamage = 1;
 
-                if (item instanceof SwordItem swordItem) {
-                    baseDamage += swordItem.getDamage();
+                if (item instanceof LBSwordItem laserBlase) {
+                    baseDamage += (int) laserBlase.getDamage();
                 }
 
                 for (int i = attackDamage - baseDamage; i >= 0 && i <= maxAtk; i++) {
-                    CompoundTag compound = new CompoundTag();
-                    compound.putFloat(tagAtk, (float) i);
                     ItemPredicate itemPredicate = ItemPredicate.Builder.item()
                             .of(item)
-                            .hasNbt(compound)
+                            .hasComponents(DataComponentPredicate.builder().expect(ModDataComponents.LASER_BLADE_ATTACK, (float) i).build())
                             .build();
                     builder.addCriterion(itemName + "_attack_" + (i + baseDamage), InventoryChangeTrigger.TriggerInstance.hasItems(itemPredicate));
                 }

@@ -1,7 +1,7 @@
 {
   "type": "tolaserblade:color",
   "addition": {
-    "tag": "forge:glass_panes/black"
+    "item": "minecraft:black_stained_glass_pane"
   },
   "base": {
     "item": "tolaserblade:laser_blade"

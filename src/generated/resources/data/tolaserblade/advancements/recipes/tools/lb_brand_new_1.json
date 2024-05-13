@@ -1,0 +1,32 @@
+{
+  "parent": "minecraft:recipes/root",
+  "criteria": {
+    "has_lb_blueprint": {
+      "conditions": {
+        "items": [
+          {
+            "items": "tolaserblade:lb_blueprint"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    },
+    "has_the_recipe": {
+      "conditions": {
+        "recipe": "tolaserblade:lb_brand_new_1"
+      },
+      "trigger": "minecraft:recipe_unlocked"
+    }
+  },
+  "requirements": [
+    [
+      "has_the_recipe",
+      "has_lb_blueprint"
+    ]
+  ],
+  "rewards": {
+    "recipes": [
+      "tolaserblade:lb_brand_new_1"
+    ]
+  }
+}

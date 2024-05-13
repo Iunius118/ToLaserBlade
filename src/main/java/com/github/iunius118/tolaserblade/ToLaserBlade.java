@@ -11,12 +11,12 @@ import com.github.iunius118.tolaserblade.world.item.ItemEventHandler;
 import com.github.iunius118.tolaserblade.world.item.ModCreativeModeTabs;
 import com.mojang.logging.LogUtils;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.ModLoadingContext;
+import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
 import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
+import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import org.slf4j.Logger;
@@ -28,13 +28,13 @@ public class ToLaserBlade {
 
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    public ToLaserBlade(IEventBus modEventBus, Dist dist) {
+    public ToLaserBlade(IEventBus modEventBus, ModContainer modContainer) {
         // Register lifecycle event listeners
         modEventBus.addListener(this::initClient);
 
         // Register config handlers
-        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ToLaserBladeConfig.serverSpec);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ToLaserBladeConfig.clientSpec);
+        modContainer.registerConfig(ModConfig.Type.SERVER, ToLaserBladeConfig.serverSpec);
+        modContainer.registerConfig(ModConfig.Type.CLIENT, ToLaserBladeConfig.clientSpec);
 
         // Register event handlers
         RegistryEventHandler.registerGameObjects(modEventBus);
@@ -45,7 +45,7 @@ public class ToLaserBlade {
         NeoForge.EVENT_BUS.register(ItemEventHandler.class);
 
         // Register client-side mod event handler
-        if (dist.isClient()) {
+        if (FMLLoader.getDist().isClient()) {
             modEventBus.register(ClientModEventHandler.class);
             ToLaserBladeAPI.registerModelRegistrationListener(event -> event.register(LaserBladeModelManager.loadModels()));
         }

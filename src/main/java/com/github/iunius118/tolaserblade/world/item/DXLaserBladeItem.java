@@ -11,7 +11,7 @@ import net.minecraft.world.level.Level;
 
 public class DXLaserBladeItem extends SwordItem {
     public DXLaserBladeItem() {
-        super(ModItemTiers.DX_LASER_BLADE, 3, -1.2F, new Item.Properties());
+        super(ModItemTiers.DX_LASER_BLADE, new Item.Properties().attributes(SwordItem.createAttributes(ModItemTiers.DX_LASER_BLADE, 3, -1.2F)));
     }
 
     @Override
@@ -41,10 +41,5 @@ public class DXLaserBladeItem extends SwordItem {
     @Override
     public InteractionResult useOn(UseOnContext context) {
         return DXLaserBladeItemUtil.useOn(context, getTier());
-    }
-
-    @Override
-    public boolean isRepairable(ItemStack stack) {
-        return false;
     }
 }

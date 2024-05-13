@@ -5,9 +5,7 @@
       "conditions": {
         "items": [
           {
-            "items": [
-              "tolaserblade:dx_laser_blade"
-            ]
+            "items": "tolaserblade:dx_laser_blade"
           }
         ]
       },
@@ -19,8 +17,8 @@
       "translate": "advancements.tolaserblade.main.dx_laser_blade.description"
     },
     "icon": {
-      "item": "tolaserblade:dx_laser_blade",
-      "nbt": "{Damage:0}"
+      "count": 1,
+      "id": "tolaserblade:dx_laser_blade"
     },
     "title": {
       "translate": "advancements.tolaserblade.main.dx_laser_blade.title"

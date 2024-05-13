@@ -23,21 +23,20 @@ public class TLBItemTagsProvider extends ItemTagsProvider {
         super(packOutput, lookupProvider, blockTagProvider, ToLaserBlade.MOD_ID, existingFileHelper);
     }
 
-    @SuppressWarnings("unchecked")
     @Override
     public void addTags(HolderLookup.Provider provider) {
         filter = new HashSet<>(this.builders.keySet());
-        tag(ModItemTags.ATTACK_SPEED_UPGRADE).addTags(Tags.Items.INGOTS_GOLD);
-        tag(ModItemTags.EFFICIENCY_UPGRADE).addTags(Tags.Items.STORAGE_BLOCKS_REDSTONE);
-        tag(ModItemTags.EFFICIENCY_REMOVER).addTags(Tags.Items.DUSTS_REDSTONE);
-        tag(ModItemTags.ATTACK_DAMAGE_UPGRADE).addTags(Tags.Items.STORAGE_BLOCKS_DIAMOND);
+        tag(ModItemTags.ATTACK_SPEED_UPGRADE).addTag(Tags.Items.INGOTS_GOLD);
+        tag(ModItemTags.EFFICIENCY_UPGRADE).addTag(Tags.Items.STORAGE_BLOCKS_REDSTONE);
+        tag(ModItemTags.EFFICIENCY_REMOVER).addTag(Tags.Items.DUSTS_REDSTONE);
+        tag(ModItemTags.ATTACK_DAMAGE_UPGRADE).addTag(Tags.Items.STORAGE_BLOCKS_DIAMOND);
         tag(ModItemTags.LIGHT_ELEMENT_UPGRADE).add(Items.GLOWSTONE);
-        tag(ModItemTags.FIRE_ASPECT_UPGRADE).addTags(Tags.Items.RODS_BLAZE);
+        tag(ModItemTags.FIRE_ASPECT_UPGRADE).addTag(Tags.Items.RODS_BLAZE);
         tag(ModItemTags.SWEEPING_EDGE_UPGRADE).add(Items.ENDER_EYE);
         tag(ModItemTags.SILK_TOUCH_UPGRADE).add(Items.PRISMARINE_CRYSTALS).add(Items.AMETHYST_SHARD).add(Items.ECHO_SHARD);
-        tag(ModItemTags.LOOTING_UPGRADE).add(Items.NAUTILUS_SHELL).addTags(Tags.Items.STORAGE_BLOCKS_EMERALD);
+        tag(ModItemTags.LOOTING_UPGRADE).add(Items.NAUTILUS_SHELL).addTag(Tags.Items.STORAGE_BLOCKS_EMERALD);
         tag(ModItemTags.MENDING_UPGRADE).add(Items.NETHER_STAR, Items.DRAGON_HEAD, Items.TOTEM_OF_UNDYING);
-        tag(ModItemTags.CASING_REPAIR).addTags(Tags.Items.INGOTS_IRON);
+        tag(ModItemTags.CASING_REPAIR).addTag(Tags.Items.INGOTS_IRON);
     }
 
     @Override

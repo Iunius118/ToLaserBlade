@@ -6,6 +6,7 @@ import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.Criterion;
 import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
+import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -14,21 +15,24 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 public class LBUpgradeRecipeBuilder {
+
     private final Ingredient template;
     private final Ingredient base;
     private final Ingredient addition;
+    private final RecipeCategory category;
     private final ResourceLocation upgradeId;
     private final Map<String, Criterion<?>> criteria = new LinkedHashMap<>();
 
-    public LBUpgradeRecipeBuilder(Ingredient template, Ingredient base, Ingredient addition, ResourceLocation upgradeId) {
+    public LBUpgradeRecipeBuilder(Ingredient template, Ingredient base, Ingredient addition, RecipeCategory category, ResourceLocation upgradeId) {
+        this.category = category;
         this.template = template;
         this.base = base;
         this.addition = addition;
         this.upgradeId = upgradeId;
     }
 
-    public static LBUpgradeRecipeBuilder upgradeRecipe(Ingredient template, Ingredient base, Ingredient addition, ResourceLocation upgradeId) {
-        return new LBUpgradeRecipeBuilder(template, base, addition, upgradeId);
+    public static LBUpgradeRecipeBuilder upgradeRecipe(Ingredient template, Ingredient base, Ingredient addition, RecipeCategory category, ResourceLocation upgradeId) {
+        return new LBUpgradeRecipeBuilder(template, base, addition, category, upgradeId);
     }
 
     public LBUpgradeRecipeBuilder unlockedBy(String name, Criterion<?> criterion) {
@@ -47,7 +51,8 @@ public class LBUpgradeRecipeBuilder {
                 .rewards(AdvancementRewards.Builder.recipe(id))
                 .requirements(AdvancementRequirements.Strategy.OR);
         criteria.forEach(advancementBuilder::addCriterion);
-        consumer.accept(id, new LBUpgradeRecipe(template, base, addition, upgradeId), advancementBuilder.build(new ResourceLocation(id.getNamespace(), "recipes/" + id.getPath())));
+        LBUpgradeRecipe recipe = new LBUpgradeRecipe(template, base, addition, upgradeId);
+        consumer.accept(id, recipe, advancementBuilder.build(id.withPrefix("recipes/" + this.category.getFolderName() + "/")));
     }
 
     private void ensureValid(ResourceLocation id) {

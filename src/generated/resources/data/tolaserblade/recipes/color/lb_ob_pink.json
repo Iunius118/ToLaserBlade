@@ -1,7 +1,7 @@
 {
   "type": "tolaserblade:color",
   "addition": {
-    "tag": "forge:glass/pink"
+    "item": "minecraft:pink_stained_glass"
   },
   "base": {
     "item": "tolaserblade:laser_blade"

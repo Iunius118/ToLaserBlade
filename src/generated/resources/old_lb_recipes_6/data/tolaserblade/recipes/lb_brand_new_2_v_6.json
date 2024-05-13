@@ -3,16 +3,16 @@
   "category": "misc",
   "key": {
     "d": {
-      "tag": "forge:gems/diamond"
+      "tag": "c:gems/diamond"
     },
     "g": {
-      "tag": "forge:dusts/glowstone"
+      "tag": "c:dusts/glowstone"
     },
     "i": {
-      "tag": "forge:ingots/iron"
+      "tag": "c:ingots/iron"
     },
     "r": {
-      "tag": "forge:dusts/redstone"
+      "tag": "c:dusts/redstone"
     }
   },
   "pattern": [
@@ -21,6 +21,7 @@
     "rig"
   ],
   "result": {
-    "item": "tolaserblade:lb_brand_new_2"
+    "count": 1,
+    "id": "tolaserblade:lb_brand_new_2"
   }
 }

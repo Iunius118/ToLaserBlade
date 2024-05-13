@@ -7,9 +7,7 @@
           "max": 0
         },
         "item": {
-          "items": [
-            "tolaserblade:laser_blade"
-          ]
+          "items": "tolaserblade:laser_blade"
         }
       },
       "trigger": "minecraft:item_durability_changed"
@@ -20,9 +18,7 @@
           "max": 0
         },
         "item": {
-          "items": [
-            "tolaserblade:laser_blade_fp"
-          ]
+          "items": "tolaserblade:laser_blade_fp"
         }
       },
       "trigger": "minecraft:item_durability_changed"
@@ -34,7 +30,8 @@
     },
     "frame": "challenge",
     "icon": {
-      "item": "tolaserblade:lb_casing"
+      "count": 1,
+      "id": "tolaserblade:lb_casing"
     },
     "title": {
       "translate": "advancements.tolaserblade.main.break_laser_blade.title"

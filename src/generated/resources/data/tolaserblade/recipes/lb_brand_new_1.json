@@ -1,6 +1,6 @@
 {
   "type": "minecraft:crafting_shapeless",
-  "category": "misc",
+  "category": "equipment",
   "ingredients": [
     {
       "item": "tolaserblade:lb_blueprint"
@@ -9,10 +9,10 @@
       "item": "tolaserblade:lb_battery"
     },
     {
-      "tag": "forge:gems/diamond"
+      "tag": "c:gems/diamond"
     },
     {
-      "tag": "forge:glass/colorless"
+      "tag": "c:glass_blocks/colorless"
     },
     {
       "item": "tolaserblade:lb_emitter"
@@ -22,6 +22,7 @@
     }
   ],
   "result": {
-    "item": "tolaserblade:lb_brand_new_1"
+    "count": 1,
+    "id": "tolaserblade:lb_brand_new_1"
   }
 }

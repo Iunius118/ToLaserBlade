@@ -14,6 +14,8 @@ import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.server.packs.PackLocationInfo;
+import net.minecraft.server.packs.PackSelectionConfig;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.PathPackResources;
 import net.minecraft.server.packs.repository.Pack;
@@ -30,6 +32,7 @@ import net.neoforged.neoforge.event.AddPackFindersEvent;
 
 import java.nio.file.Path;
 import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
@@ -59,9 +62,10 @@ public class TLBOldRecipeProvider6 {
             return;
         }
 
+        var packInfo = new PackLocationInfo(PACK_ID.toString(), Component.literal(PACK_PATH), PackSource.FEATURE, Optional.empty());
         var resourcePath = ModList.get().getModFileById(ToLaserBlade.MOD_ID).getFile().findResource(PACK_PATH);
-        var pack = Pack.readMetaAndCreate(PACK_ID.toString(), Component.literal(PACK_PATH), false,
-                new PathPackResources.PathResourcesSupplier(resourcePath, false), PackType.SERVER_DATA, Pack.Position.TOP, PackSource.FEATURE);
+        var packConfig = new PackSelectionConfig(false, Pack.Position.TOP, false);
+        var pack = Pack.readMetaAndCreate(packInfo, new PathPackResources.PathResourcesSupplier(resourcePath), PackType.SERVER_DATA, packConfig);
         event.addRepositorySource((packConsumer) -> packConsumer.accept(pack));
     }
 
@@ -77,7 +81,7 @@ public class TLBOldRecipeProvider6 {
                     .pattern("Gid")
                     .pattern("idi")
                     .pattern("riG")
-                    .define('G', Tags.Items.GLASS_COLORLESS)
+                    .define('G', Tags.Items.GLASS_BLOCKS_COLORLESS)
                     .define('i', Tags.Items.INGOTS_IRON)
                     .define('d', Tags.Items.GEMS_DIAMOND)
                     .define('r', Tags.Items.DUSTS_REDSTONE)
