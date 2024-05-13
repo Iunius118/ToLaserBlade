@@ -1,7 +1,7 @@
 package com.github.iunius118.tolaserblade.common.util;
 
 import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
-import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeVisual;
+import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeAppearance;
 import com.github.iunius118.tolaserblade.core.particle.ModParticleTypes;
 import com.mojang.authlib.GameProfile;
 import net.minecraft.core.BlockPos;
@@ -11,6 +11,8 @@ import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.Mob;
+import net.minecraft.world.entity.ai.attributes.AttributeInstance;
+import net.minecraft.world.entity.ai.attributes.AttributeMap;
 import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
@@ -50,7 +52,15 @@ public class LaserTrapPlayer extends FakePlayer {
         inventory.setItem(0, currentStack);
 
         // Apply attack damage from main hand item
-        getAttributes().addTransientAttributeModifiers(currentStack.getAttributeModifiers(EquipmentSlot.MAINHAND));
+        AttributeMap attributeMap = this.getAttributes();
+        currentStack.forEachModifier(EquipmentSlot.MAINHAND, (holder, attributeModifier) -> {
+            AttributeInstance attributeInstance = attributeMap.getInstance(holder);
+
+            if (attributeInstance != null) {
+                attributeInstance.removeModifier(attributeModifier.id());
+                attributeInstance.addTransientModifier(attributeModifier);
+            }
+        });
     }
 
     public void attackEntities(Direction dir) {
@@ -65,7 +75,7 @@ public class LaserTrapPlayer extends FakePlayer {
 
         for (var targetEntity : targetEntities) {
             float totalDamage = attackDamage + getDamageBonus(itemStack, targetEntity);
-            if (canBurn(targetEntity, fireLevel)) targetEntity.setSecondsOnFire(Math.min(fireLevel, 1));
+            if (canBurn(targetEntity, fireLevel)) targetEntity.igniteForSeconds(Math.min(fireLevel, 1));
             targetEntity.hurt(damageSources().playerAttack(this), totalDamage);
             EnchantmentHelper.doPostDamageEffects(this, targetEntity);
         }
@@ -85,7 +95,7 @@ public class LaserTrapPlayer extends FakePlayer {
 
     private float getDamageBonus(ItemStack itemStack, Entity entity) {
         if (entity instanceof LivingEntity livingEntity) {
-            return EnchantmentHelper.getDamageBonus(itemStack, livingEntity.getMobType());
+            return EnchantmentHelper.getDamageBonus(itemStack, livingEntity.getType());
         } else {
             return 0;
         }
@@ -98,11 +108,23 @@ public class LaserTrapPlayer extends FakePlayer {
     private void spawnParticle(Direction dir, BlockPos effectPos, ItemStack itemStack) {
         if (!(level() instanceof ServerLevel serverLevel)) return;
 
+        // Create laser trap particle
         var laserTrapParticleType = ModParticleTypes.getLaserTrapParticleType(dir.getAxis());
         var vecPos = new Vec3(effectPos.getX(), effectPos.getY(), effectPos.getZ()).add(0.5, 0.5, 0.5);
-        var visual = LaserBladeVisual.of(itemStack);
-        int outerColor = visual.getOuterColor();
-        var color4F = Color4F.of((visual.isOuterSubColor() ? ~outerColor : outerColor) | 0xFF000000);
-        serverLevel.sendParticles(laserTrapParticleType, vecPos.x, vecPos.y, vecPos.z, 0, color4F.r(), color4F.g(), color4F.b(), 1);
+        var color = getParticleColor(itemStack);
+        // Spawn particle
+        serverLevel.sendParticles(laserTrapParticleType, vecPos.x, vecPos.y, vecPos.z, 0, color.r(), color.g(), color.b(), 1);
+    }
+
+    private Color4F getParticleColor(ItemStack itemStack) {
+        // Get laser beam color from laser blade
+        var appearance = LaserBladeAppearance.of(itemStack);
+        int outerColor = appearance.getOuterColor();
+
+        if (appearance.isOuterSubColor()) {
+            outerColor = ~outerColor;
+        }
+
+        return Color4F.of(outerColor | 0xFF000000);
     }
 }
