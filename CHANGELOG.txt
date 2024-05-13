@@ -4,7 +4,7 @@
 
 ## [Unreleased]
 
-## [9.0.0 forge]
+## [9.0.0 Forge]
 ### Added
 - Data components for laser blade: `tolaserblade:lb_atk`, `tolaserblade:lb_spd`, and `tolaserblade:lb_mdl`.
 - Entity type tag `tolaserblade:sensitive_to_light_element` for Light Element enchantment.
@@ -15,12 +15,12 @@
 
 ### Removed
 - Additional shader for laser blade.
-- Modification of FixedVertexBuffer.
+- Modification of fixed vertex buffer.
 
 ### Fixed
 - Categories of recipes.
 
-## [8.3.0 forge]
+## [8.3.0 Forge]
 ### Changed
 - Change update information file to update-forge.json.
 

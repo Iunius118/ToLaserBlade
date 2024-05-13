@@ -15,5 +15,4 @@ public class LBEmitterItem extends Item implements LaserBladeItemBase {
     public boolean canUpgrade(Upgrade.Type type) {
         return type == upgradeType;
     }
-
 }

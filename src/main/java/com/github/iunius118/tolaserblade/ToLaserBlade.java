@@ -27,9 +27,8 @@ public class ToLaserBlade {
     public static final Logger LOGGER = LogUtils.getLogger();
 
     public ToLaserBlade() {
-        // Register lifecycle event listeners
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
-        modEventBus.register(ToLaserBladeConfig.class);
+        // Register lifecycle event listeners
 
         // Register config handlers
         ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ToLaserBladeConfig.serverSpec);

@@ -18,14 +18,14 @@ public class EnchantmentUpgrader implements Upgrader {
 
     @Override
     public boolean canApply(ItemStack base, ItemStack addition) {
-        int level = EnchantmentHelper.getItemEnchantmentLevel(enchantment, base);
+        int level = base.getEnchantmentLevel(enchantment);
         return level < enchantment.getMaxLevel();
     }
 
     @Override
     public UpgradeResult apply(ItemStack base, int baseCost) {
         int cost = baseCost;
-        int level = EnchantmentHelper.getItemEnchantmentLevel(enchantment, base);
+        int level = base.getEnchantmentLevel(enchantment);
 
         if (level < enchantment.getMaxLevel()) {
             EnchantmentHelper.updateEnchantments(base, m -> {

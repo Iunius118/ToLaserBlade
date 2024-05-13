@@ -173,7 +173,7 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
         stack.hurtAndBreak(damage, entityLiving, EquipmentSlot.MAINHAND);
         int count = stack.getCount();
 
-        if (count > 0 /* || !level.isClientSide */) {
+        if (count > 0 /* || level.isClientSide */) {
             return;
         }
 

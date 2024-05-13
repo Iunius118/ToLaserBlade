@@ -53,14 +53,13 @@ public class LBDisassembledItem extends Item implements LaserBladeItemBase {
         ItemStack casingStack = new ItemStack(itemStack.has(DataComponents.FIRE_RESISTANT) ? ModItems.LB_CASING_FP : ModItems.LB_CASING);
         ItemEnchantments enchantments = EnchantmentHelper.getEnchantmentsForCrafting(itemStack);
 
-
         // Process attacks
         LaserBlade.setSpeed(batteryStack, LaserBlade.getSpeed(itemStack));
         LaserBlade.setAttack(mediumStack, LaserBlade.getAttack(itemStack));
 
         // Process enchantments
         enchantments.keySet().forEach(e -> {
-            var enchantment = e.get();
+            var enchantment = e.value();
             int lvl = enchantments.getLevel(enchantment);
 
             if (enchantment == Enchantments.EFFICIENCY) {

@@ -17,7 +17,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
-import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
@@ -32,7 +31,7 @@ public class LaserBladeItemUtil {
     }
 
     public static float getDestroySpeed(ItemStack itemStack, Tier tier) {
-        float rate = (float) EnchantmentHelper.getItemEnchantmentLevel(Enchantments.EFFICIENCY, itemStack) / 5.0F;
+        float rate = (float) itemStack.getEnchantmentLevel(Enchantments.EFFICIENCY) / 5.0F;
         return tier.getSpeed() * Mth.clamp(rate, 0.0F, 1.0F);
     }
 

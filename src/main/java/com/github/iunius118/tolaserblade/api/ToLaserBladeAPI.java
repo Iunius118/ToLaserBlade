@@ -15,13 +15,12 @@ public class ToLaserBladeAPI {
     /**
      * Add a listener of {@link LaserBladeModelRegistrationEvent} to register laser blade models.
      * Only on the {@linkplain LogicalSide#CLIENT logical client}.
-     *
-     * <p>The following code is an example of usage.</p>
-     *
+     * <p>
+     * The following code is an example of usage.
+     * </p>
      * <pre>{@code
      * ToLaserBladeAPI.registerModelRegistrationListener(event -> event.register(loadMyLaserBladeModels()));
      * }</pre>
-     *
      * @param listener Listener of {@link LaserBladeModelRegistrationEvent}.
      */
     public static void registerModelRegistrationListener(Consumer<LaserBladeModelRegistrationEvent> listener) {
@@ -30,7 +29,6 @@ public class ToLaserBladeAPI {
 
     /**
      * Get the state of a laser blade.
-     *
      * @param itemStack Item stack of a laser blade.
      * @return State of the laser blade.
      */
