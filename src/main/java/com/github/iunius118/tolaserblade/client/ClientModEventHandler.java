@@ -7,14 +7,11 @@ import com.github.iunius118.tolaserblade.client.color.item.LBMediumItemColor;
 import com.github.iunius118.tolaserblade.client.color.item.LBSwordItemColor;
 import com.github.iunius118.tolaserblade.client.model.LaserBladeModelManager;
 import com.github.iunius118.tolaserblade.client.particle.LaserTrapParticle;
-import com.github.iunius118.tolaserblade.client.renderer.LaserBladeRenderType;
 import com.github.iunius118.tolaserblade.client.renderer.item.model.LBSwordItemModel;
 import com.github.iunius118.tolaserblade.core.particle.ModParticleTypes;
 import com.github.iunius118.tolaserblade.world.item.ModItems;
-import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -30,9 +27,6 @@ import net.neoforged.fml.VersionChecker.Status;
 import net.neoforged.neoforge.client.event.ModelEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
-import net.neoforged.neoforge.client.event.RegisterShadersEvent;
-
-import java.io.IOException;
 
 public class ClientModEventHandler {
     @SubscribeEvent
@@ -90,13 +84,6 @@ public class ClientModEventHandler {
     @SubscribeEvent
     public static void onBakingCompletedEvent(ModelEvent.BakingCompleted event) {
         LaserBladeModelManager.getInstance().logLoadedModelCount();
-    }
-
-    @SubscribeEvent
-    public static void onRegisterShadersEvent(RegisterShadersEvent event) throws IOException {
-        var resourceProvider = event.getResourceProvider();
-        var lbUnlitShaderInstance = new ShaderInstance(resourceProvider, new ResourceLocation(ToLaserBlade.MOD_ID, LaserBladeRenderType.UNLIT_SHADER_INSTANCE_NAME), DefaultVertexFormat.NEW_ENTITY);
-        event.registerShader(lbUnlitShaderInstance, LaserBladeRenderType::setUnlitShaderInstance);
     }
 
     @SubscribeEvent

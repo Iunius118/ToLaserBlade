@@ -10,7 +10,6 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderStateShard.TextureStateShard;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.ShaderInstance;
 import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
@@ -24,7 +23,6 @@ import java.util.Optional;
 public class LaserBladeRenderType {
     private static final LaserBladeTextureState LASER_BLADE_TEXTURE_STATE = new LaserBladeTextureState();
 
-    public static final String UNLIT_SHADER_INSTANCE_NAME = "rendertype_laser_blade_unlit";
     public static final RenderType HILT = getBladeRenderType("tlb_hilt", getHiltRenderState(LaserBladeRenderType.LASER_BLADE_TEXTURE_STATE));
     public static final RenderType LASER_UNLIT = getBladeRenderType("tlb_unlit", getUnlitRenderState(LaserBladeRenderType.LASER_BLADE_TEXTURE_STATE));
     public static final RenderType LASER_SUB_INNER = getBladeRenderType("tlb_sub_in", getSubRenderState(LaserBladeRenderType.LASER_BLADE_TEXTURE_STATE));
@@ -67,24 +65,12 @@ public class LaserBladeRenderType {
         bufferBuilders.put(LASER_SUB, new BufferBuilder(LASER_SUB.bufferSize()));
     }
 
-    public static void setUnlitShaderInstance(ShaderInstance shaderInstance) {
-        Internal.setUnlitShaderInstance(shaderInstance);
-    }
-
     @OnlyIn(Dist.CLIENT)
     private static class Internal extends RenderType {
-        private static ShaderInstance laserBladeUnlitShader;
-        private static final ShaderStateShard LASER_BLADE_UNLIT_SHADER_STATE = new ShaderStateShard(() -> laserBladeUnlitShader);
+        private static final ShaderStateShard LASER_BLADE_UNLIT_SHADER_STATE = RenderType.RENDERTYPE_BEACON_BEAM_SHADER;
 
         private Internal(String name, VertexFormat fmt, VertexFormat.Mode glMode, int size, boolean doCrumbling, boolean depthSorting, Runnable onEnable, Runnable onDisable) {
             super(name, fmt, glMode, size, doCrumbling, depthSorting, onEnable, onDisable);
-        }
-
-        public static void setUnlitShaderInstance(ShaderInstance shader) {
-            if (shader != null) {
-                laserBladeUnlitShader = shader;
-            }
-
         }
 
         public static RenderType.CompositeState getHiltRenderState(RenderStateShard.TextureStateShard textureState) {
