@@ -10,6 +10,7 @@ import com.github.iunius118.tolaserblade.data.*;
 import com.github.iunius118.tolaserblade.world.item.ItemEventHandler;
 import com.github.iunius118.tolaserblade.world.item.ModCreativeModeTabs;
 import com.mojang.logging.LogUtils;
+import net.minecraft.resources.ResourceLocation;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModLoadingContext;
@@ -48,6 +49,10 @@ public class ToLaserBlade {
             modEventBus.register(ClientModEventHandler.class);
             ToLaserBladeAPI.registerModelRegistrationListener(event -> event.register(LaserBladeModelManager.loadModels()));
         }
+    }
+
+    public static ResourceLocation makeId(String name) {
+        return new ResourceLocation(MOD_ID, name);
     }
 
     private static boolean canUseFixedVertexBuffer;

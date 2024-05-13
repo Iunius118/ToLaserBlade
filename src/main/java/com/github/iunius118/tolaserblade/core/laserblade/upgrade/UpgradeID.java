@@ -21,7 +21,7 @@ public enum UpgradeID {
     private final String shortName;
 
     UpgradeID(String key, String shortName) {
-        this.id = new ResourceLocation(ToLaserBlade.MOD_ID, key);
+        this.id = ToLaserBlade.makeId(key);
         this.shortName = shortName;
     }
 
