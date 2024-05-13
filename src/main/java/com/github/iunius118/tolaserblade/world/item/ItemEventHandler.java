@@ -1,12 +1,10 @@
 package com.github.iunius118.tolaserblade.world.item;
 
 import net.minecraft.world.InteractionResult;
-import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.entity.player.CriticalHitEvent;
-import net.neoforged.neoforge.event.entity.player.PlayerDestroyItemEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
 public class ItemEventHandler {
@@ -30,32 +28,6 @@ public class ItemEventHandler {
             }
 
             event.setCancellationResult(InteractionResult.PASS);
-        }
-    }
-
-    @SubscribeEvent
-    public static void onPlayerDestroyItem(PlayerDestroyItemEvent event) {
-        Player player = event.getEntity();
-
-        if (!player.getCommandSenderWorld().isClientSide) {
-            ItemStack original = event.getOriginal();
-            ItemStack brokenLaserBlade = null;
-
-            if (original.getItem() == ModItems.LASER_BLADE) {
-                brokenLaserBlade = new ItemStack(ModItems.LB_BROKEN);
-
-            } else if (original.getItem() == ModItems.LASER_BLADE_FP) {
-                brokenLaserBlade = new ItemStack(ModItems.LB_BROKEN_FP);
-            }
-
-            if (brokenLaserBlade != null) {
-                brokenLaserBlade.setTag(original.getOrCreateTag().copy());
-                brokenLaserBlade.setDamageValue(0);
-
-                // Drop Broken Laser Blade
-                ItemEntity itemEntity = new ItemEntity(player.level(), player.getX(), player.getY() + 0.5, player.getZ(), brokenLaserBlade);
-                player.level().addFreshEntity(itemEntity);
-            }
         }
     }
 
