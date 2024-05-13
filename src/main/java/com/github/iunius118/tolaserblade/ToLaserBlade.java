@@ -15,7 +15,6 @@ import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
 import net.neoforged.fml.config.ModConfig;
-import net.neoforged.fml.event.lifecycle.FMLClientSetupEvent;
 import net.neoforged.fml.loading.FMLLoader;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
@@ -30,7 +29,6 @@ public class ToLaserBlade {
 
     public ToLaserBlade(IEventBus modEventBus, ModContainer modContainer) {
         // Register lifecycle event listeners
-        modEventBus.addListener(this::initClient);
 
         // Register config handlers
         modContainer.registerConfig(ModConfig.Type.SERVER, ToLaserBladeConfig.serverSpec);
@@ -53,17 +51,6 @@ public class ToLaserBlade {
 
     public static ResourceLocation makeId(String name) {
         return new ResourceLocation(MOD_ID, name);
-    }
-
-    private static boolean canUseFixedVertexBuffer;
-
-    private void initClient(final FMLClientSetupEvent event) {
-        // Get useFixedVertexBuffer only once at startup
-        canUseFixedVertexBuffer = ToLaserBladeConfig.CLIENT.useFixedVertexBuffer.get();
-    }
-
-    public static boolean canUseFixedVertexBuffer() {
-        return canUseFixedVertexBuffer;
     }
 
     // Generate Data

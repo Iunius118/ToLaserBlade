@@ -3,170 +3,119 @@ package com.github.iunius118.tolaserblade.client.renderer;
 import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderStateShard;
-import net.minecraft.client.renderer.RenderStateShard.TextureStateShard;
 import net.minecraft.client.renderer.RenderType;
-import net.minecraft.client.renderer.texture.TextureManager;
 import net.minecraft.resources.ResourceLocation;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
+import org.jetbrains.annotations.Nullable;
 import org.lwjgl.opengl.GL14;
 
-import javax.annotation.Nullable;
-import java.util.Map;
+import java.lang.reflect.Method;
 import java.util.Optional;
 
-public class LaserBladeRenderType {
-    private static final LaserBladeTextureState LASER_BLADE_TEXTURE_STATE = new LaserBladeTextureState();
+public class LaserBladeRenderType extends RenderType {
+    private static final RenderStateShard.ShaderStateShard LASER_BLADE_UNLIT_SHADER_STATE = getUnlitShader();
 
-    public static final RenderType HILT = getBladeRenderType("tlb_hilt", getHiltRenderState(LaserBladeRenderType.LASER_BLADE_TEXTURE_STATE));
-    public static final RenderType LASER_UNLIT = getBladeRenderType("tlb_unlit", getUnlitRenderState(LaserBladeRenderType.LASER_BLADE_TEXTURE_STATE));
-    public static final RenderType LASER_SUB_INNER = getBladeRenderType("tlb_sub_in", getSubRenderState(LaserBladeRenderType.LASER_BLADE_TEXTURE_STATE));
-    public static final RenderType LASER_ADD = getBladeRenderType("tlb_add", getAddRenderState(LaserBladeRenderType.LASER_BLADE_TEXTURE_STATE));
-    public static final RenderType LASER_SUB = getBladeRenderType("tlb_sub", getSubRenderState(LaserBladeRenderType.LASER_BLADE_TEXTURE_STATE));
-
-    public static RenderType getBladeRenderType(String name, RenderType.CompositeState renderState) {
-        return RenderType.create(name, DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, true, false, renderState);
+    public LaserBladeRenderType(String string, VertexFormat vertexFormat, VertexFormat.Mode mode, int i, boolean bl, boolean bl2, Runnable runnable, Runnable runnable2) {
+        super(string, vertexFormat, mode, i, bl, bl2, runnable, runnable2);
     }
 
-    public static RenderType.CompositeState getHiltRenderState(RenderStateShard.TextureStateShard textureState) {
-        return Internal.getHiltRenderState(textureState);
+    private static RenderStateShard.ShaderStateShard getUnlitShader() {
+        // Temporarily set beacon beam shader from vanilla shaders
+        return RENDERTYPE_BEACON_BEAM_SHADER;
     }
 
-    public static RenderType.CompositeState getUnlitRenderState(TextureStateShard textureState) {
-        return Internal.getUnlitRenderState(textureState);
+    public static RenderType.CompositeState getHiltRenderState(ResourceLocation texture) {
+        return RenderType.CompositeState.builder()
+                .setShaderState(RENDERTYPE_ENTITY_TRANSLUCENT_SHADER)
+                .setTextureState(new TextureStateShard(texture, false, false))
+                .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
+                .setLightmapState(LIGHTMAP)
+                .setOverlayState(OVERLAY)
+                .createCompositeState(true);
     }
 
-    public static RenderType.CompositeState getAddRenderState(TextureStateShard textureState) {
-        return Internal.getAddRenderState(textureState);
+    public static RenderType.CompositeState getUnlitRenderState(ResourceLocation texture) {
+        return RenderType.CompositeState.builder()
+                .setShaderState(LASER_BLADE_UNLIT_SHADER_STATE)
+                .setTextureState(new TextureStateShard(texture, false, false))
+                .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
+                .setLightmapState(LIGHTMAP)
+                .setOverlayState(OVERLAY)
+                .createCompositeState(true);
     }
 
-    public static RenderType.CompositeState getSubRenderState(TextureStateShard textureState) {
-        return Internal.getSubRenderState(textureState);
+    public static RenderType.CompositeState getAddRenderState(ResourceLocation texture) {
+        return RenderType.CompositeState.builder()
+                .setShaderState(LASER_BLADE_UNLIT_SHADER_STATE)
+                .setTextureState(new TextureStateShard(texture, false, false))
+                .setTransparencyState(LIGHTNING_TRANSPARENCY)
+                .setLightmapState(LIGHTMAP)
+                .setOverlayState(OVERLAY)
+                .createCompositeState(true);
     }
 
-    static {
-        if (ToLaserBlade.canUseFixedVertexBuffer()) {
-            var renderBuffers = Minecraft.getInstance().renderBuffers();
-            var bufferSource = renderBuffers.bufferSource();
-            registerRenderTypes(bufferSource.fixedBuffers);
-        }
+    public static RenderType.CompositeState getSubRenderState(ResourceLocation texture) {
+        RenderStateShard.TransparencyStateShard transparencyState = new RenderStateShard.TransparencyStateShard("sub_transparency",
+                () -> {
+                    RenderSystem.enableBlend();
+                    RenderSystem.blendEquation(GL14.GL_FUNC_REVERSE_SUBTRACT);
+                    RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
+                },
+                () -> {
+                    RenderSystem.disableBlend();
+                    RenderSystem.blendEquation(GL14.GL_FUNC_ADD);
+                    RenderSystem.defaultBlendFunc();
+                });
+
+        return RenderType.CompositeState.builder()
+                .setShaderState(LASER_BLADE_UNLIT_SHADER_STATE)
+                .setTextureState(new TextureStateShard(texture, false, false))
+                .setTransparencyState(transparencyState)
+                .setLightmapState(LIGHTMAP)
+                .setOverlayState(OVERLAY)
+                .createCompositeState(true);
     }
 
-    private static void registerRenderTypes(Map<RenderType, BufferBuilder> bufferBuilders) {
-        // Register mod RenderTypes
-        bufferBuilders.put(LASER_UNLIT, new BufferBuilder(LASER_UNLIT.bufferSize()));
-        bufferBuilders.put(LASER_SUB_INNER, new BufferBuilder(LASER_SUB_INNER.bufferSize()));
-        bufferBuilders.put(LASER_ADD, new BufferBuilder(LASER_ADD.bufferSize()));
-        bufferBuilders.put(LASER_SUB, new BufferBuilder(LASER_SUB.bufferSize()));
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    private static class Internal extends RenderType {
-        private static final ShaderStateShard LASER_BLADE_UNLIT_SHADER_STATE = RenderType.RENDERTYPE_BEACON_BEAM_SHADER;
-
-        private Internal(String name, VertexFormat fmt, VertexFormat.Mode glMode, int size, boolean doCrumbling, boolean depthSorting, Runnable onEnable, Runnable onDisable) {
-            super(name, fmt, glMode, size, doCrumbling, depthSorting, onEnable, onDisable);
-        }
-
-        public static RenderType.CompositeState getHiltRenderState(RenderStateShard.TextureStateShard textureState) {
-            return RenderType.CompositeState.builder()
-                    .setShaderState(RENDERTYPE_ENTITY_TRANSLUCENT_SHADER)
-                    .setTextureState(textureState)
-                    .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
-                    .setLightmapState(LIGHTMAP)
-                    .setOverlayState(OVERLAY)
-                    .createCompositeState(true);
-        }
-
-        public static CompositeState getUnlitRenderState(TextureStateShard textureState) {
-            return CompositeState.builder()
-                    .setShaderState(LASER_BLADE_UNLIT_SHADER_STATE)
-                    .setTextureState(textureState)
-                    .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
-                    .setLightmapState(LIGHTMAP)
-                    .setOverlayState(OVERLAY)
-                    .createCompositeState(true);
-        }
-
-        public static CompositeState getAddRenderState(TextureStateShard textureState) {
-            return CompositeState.builder()
-                    .setShaderState(LASER_BLADE_UNLIT_SHADER_STATE)
-                    .setTextureState(textureState)
-                    .setTransparencyState(LIGHTNING_TRANSPARENCY)
-                    .setLightmapState(LIGHTMAP)
-                    .setOverlayState(OVERLAY)
-                    .createCompositeState(true);
-        }
-
-        public static CompositeState getSubRenderState(TextureStateShard textureState) {
-            RenderStateShard.TransparencyStateShard transparencyState = new RenderStateShard.TransparencyStateShard("sub_transparency",
-                    () -> {
-                        RenderSystem.enableBlend();
-                        RenderSystem.blendEquation(GL14.GL_FUNC_REVERSE_SUBTRACT);
-                        RenderSystem.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
-                    },
-                    () -> {
-                        RenderSystem.disableBlend();
-                        RenderSystem.blendEquation(GL14.GL_FUNC_ADD);
-                        RenderSystem.defaultBlendFunc();
-                    });
-
-            return CompositeState.builder()
-                    .setShaderState(LASER_BLADE_UNLIT_SHADER_STATE)
-                    .setTextureState(textureState)
-                    .setTransparencyState(transparencyState)
-                    .setLightmapState(LIGHTMAP)
-                    .setOverlayState(OVERLAY)
-                    .createCompositeState(true);
-        }
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    private static class LaserBladeTextureState extends TextureStateShard {
-        private static final ResourceLocation TEXTURE = new ResourceLocation("forge", "textures/white.png");
-
-        public LaserBladeTextureState() {
-            super(TEXTURE, false, false);
-        }
-
-        @Override
-        public void setupRenderState() {
-            TextureManager texturemanager = Minecraft.getInstance().getTextureManager();
-            texturemanager.bindForSetup(TEXTURE);
-            texturemanager.getTexture(TEXTURE).setFilter(false, false);
-            RenderSystem.setShaderTexture(0, TEXTURE);
-        }
-
-        @Override
-        public void clearRenderState() {
-
-        }
-
-        @Override
-        public boolean equals(@Nullable Object other) {
-            if (this == other) {
-                return true;
-            } else if (other != null && this.getClass() == other.getClass()) {
-                LaserBladeTextureState state = (LaserBladeTextureState)other;
-                return this.cutoutTexture().equals(state.cutoutTexture());
-            } else {
-                return false;
+    public static Optional<RenderType> getRenderType(String name, RenderType.CompositeState compositeState) {
+        if (createRenderTypeMethod != null) {
+            try {
+                Object object = createRenderTypeMethod.invoke(null, name, DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, compositeState);
+                if (object instanceof RenderType renderType) return Optional.of(renderType);
+            } catch (ReflectiveOperationException e) {
+                e.printStackTrace();
+                createRenderTypeMethod = null;
             }
         }
 
-        @Override
-        public int hashCode() {
-            return TEXTURE.hashCode();
+        return Optional.empty();
+    }
+
+    private static Method createRenderTypeMethod = getCreateRenderTypeMethod();
+
+    @org.jetbrains.annotations.Nullable
+    public static Method getCreateRenderTypeMethod() {
+        Method method = getCreateMethod();
+        if (method != null) method.setAccessible(true);
+
+        ToLaserBlade.LOGGER.info((method != null ? "Succeeded" : "Failed") + " to get " + (method != null ? RenderType.class.getSimpleName() + "#" + method.getName() : "RenderType#create") + " method");
+        return method;
+    }
+
+    @Nullable
+    private static Method getCreateMethod() {
+        Method[] methods = RenderType.class.getDeclaredMethods();
+        var compositeRenderTypeClass = ((RenderType) RenderType.LINE_STRIP).getClass();
+        int numberOfParameters = 5;
+
+        for (var method : methods) {
+            Class<?> returnType = method.getReturnType();
+            if (compositeRenderTypeClass.equals(returnType) && method.getParameterTypes().length == numberOfParameters) {
+                return method;
+            }
         }
 
-        @Override
-        protected Optional<ResourceLocation> cutoutTexture() {
-            return Optional.of(TEXTURE);
-        }
+        return null;
     }
 }
