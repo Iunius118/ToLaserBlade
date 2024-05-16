@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+## [9.0.2 NeoForge]
+### Fixed
+- Fix Light Element not working correctly against undead mobs and illagers.
+
 ## [9.0.1 NeoForge]
 ### Added
 - Data components for laser blade: `tolaserblade:lb_atk`, `tolaserblade:lb_spd`, and `tolaserblade:lb_mdl`.
