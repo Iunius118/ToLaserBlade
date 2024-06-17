@@ -12,7 +12,7 @@ import java.util.function.Supplier;
 public class LaserBladeInternalModelManager {
     private static LaserBladeInternalModelManager instance;
     private final Map<Integer, Supplier<? extends SimpleModel>> models;
-    private static final Supplier<? extends SimpleModel> defaultModel = LaserBladeModelType0::new;
+    private static final Supplier<? extends SimpleModel> defaultModel = LaserBladeModelType2::new;
 
     public static LaserBladeInternalModelManager renewInstance() {
         instance = new LaserBladeInternalModelManager();
@@ -29,8 +29,9 @@ public class LaserBladeInternalModelManager {
     }
 
     private void addInternalModels() {
-        models.put(0, defaultModel);
+        models.put(0, LaserBladeModelType0::new);
         models.put(1, LaserBladeModelType1::new);
+        models.put(2, defaultModel);
         models.put(101, LaserBladeModelType101::new);
         models.put(217, LaserBladeModelType217::new);
         models.put(305, LaserBladeModelType305::new);
