@@ -1,6 +1,13 @@
 ToLaserBlade
 Changelog
 
+v1.15.2-3.1.2.0
+
+    Require Forge 1.15.2-31.2.57
+    Add laser blade model number 2
+    Change to use laser blade model number 2 when rendering mode is -1 (default value)
+
+
 v1.15.2-3.1.1.1
 
     Fix losing broken laser blade when the laser blade is broken by attack on entity
