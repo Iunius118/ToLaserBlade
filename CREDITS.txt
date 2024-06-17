@@ -1,0 +1,9 @@
+# Credits
+## ToLaserBlade
+[ToLaserBlade](https://github.com/Iunius118/ToLaserBlade)
+
+### Author
+- Iunius118
+
+### Contributors
+- XuyuEre (zh_cn translation)
