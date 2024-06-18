@@ -37,6 +37,7 @@ public class LaserBladeInternalModelManager {
     private void addInternalModels() {
         models.put(0, () -> defaultModel);
         models.put(1, LaserBladeModelType1::new);
+        models.put(2, LaserBladeModelType2::new);
         models.put(101, LaserBladeModelType101::new);
         models.put(217, LaserBladeModelType217::new);
         models.put(222, LaserBladeModelType222::new);

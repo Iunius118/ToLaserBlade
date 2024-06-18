@@ -101,7 +101,7 @@ public class ToLaserBladeConfig {
                     .define("renderMultipleModels", true);
 
             internalModelType = builder
-                    .comment("Select type of internal model to use for rendering Laser Blade (0: original model, 1: another model). This setting is valid when useInternalModel is true.\n" +
+                    .comment("Select type of internal model to use for rendering Laser Blade (0: original model, 1: another model, 2: new model). This setting is valid when useInternalModel is true.\n" +
                             "Need to reload resource packs after changing this.\n" +
                             "Default: -1")
                     .translation("tolaserblade.configgui.client.internalModelType")
