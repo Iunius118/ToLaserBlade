@@ -1,5 +1,6 @@
 package com.github.iunius118.tolaserblade.item.crafting;
 
+import com.github.iunius118.tolaserblade.laserblade.Color;
 import com.github.iunius118.tolaserblade.laserblade.ColorPart;
 import com.github.iunius118.tolaserblade.laserblade.LaserBlade;
 import com.github.iunius118.tolaserblade.laserblade.LaserBladeVisual;
@@ -55,17 +56,21 @@ public class ColorRecipe extends SmithingRecipe {
             switch (part) {
                 case INNER_BLADE:
                     LaserBladeVisual.PartColor innerColor = visual.getInnerColor();
-                    return innerColor.color != color;
+                    return innerColor.color != color || isSwitchingBlendModeColor();
                 case OUTER_BLADE:
                     LaserBladeVisual.PartColor outerColor = visual.getOuterColor();
-                    return outerColor.color != color;
+                    return outerColor.color != color || isSwitchingBlendModeColor();
                 default:
                     LaserBladeVisual.PartColor gripColor = visual.getGripColor();
-                    return gripColor.color != color;
+                    return gripColor.color != color || isSwitchingBlendModeColor();
             }
         }
 
         return false;
+    }
+
+    private boolean isSwitchingBlendModeColor() {
+        return Color.SPECIAL_SWITCH_BLEND_MODE.getBladeColor() == color;
     }
 
     @Override
@@ -81,11 +86,11 @@ public class ColorRecipe extends SmithingRecipe {
         switch (part) {
             case INNER_BLADE:
                 LaserBladeVisual.PartColor innerColor = visual.getInnerColor();
-                innerColor.color = color;
+                changeBladeColor(innerColor);
                 break;
             case OUTER_BLADE:
                 LaserBladeVisual.PartColor outerColor = visual.getOuterColor();
-                outerColor.color = color;
+                changeBladeColor(outerColor);
                 break;
             default:
                 LaserBladeVisual.PartColor gripColor = visual.getGripColor();
@@ -94,6 +99,14 @@ public class ColorRecipe extends SmithingRecipe {
 
         visual.write(input.getOrCreateTag());
         return input;
+    }
+
+    private void changeBladeColor(LaserBladeVisual.PartColor bladePartColor) {
+        if (isSwitchingBlendModeColor()) {
+            bladePartColor.switchBlendMode();
+        } else {
+            bladePartColor.color = color;
+        }
     }
 
     @Override

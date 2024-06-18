@@ -136,6 +136,8 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
         addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_GREEN), part, Color.GREEN);
         addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_RED), part, Color.RED);
         addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_PANES_BLACK), part, Color.BLACK);
+
+        addColorRecipe(consumer, Ingredient.of(Tags.Items.GEMS_LAPIS), part, Color.SPECIAL_SWITCH_BLEND_MODE);
     }
 
     private void addOuterColorRecipes(Consumer<IFinishedRecipe> consumer) {
@@ -156,6 +158,8 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
         addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_GREEN), part, Color.GREEN);
         addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_RED), part, Color.RED);
         addColorRecipe(consumer, Ingredient.of(Tags.Items.GLASS_BLACK), part, Color.BLACK);
+
+        addColorRecipe(consumer, Ingredient.of(Tags.Items.STORAGE_BLOCKS_LAPIS), part, Color.SPECIAL_SWITCH_BLEND_MODE);
     }
 
     private void addGripColorRecipes(Consumer<IFinishedRecipe> consumer) {
