@@ -30,6 +30,7 @@ public class ModItemTags {
 
     public static final Tag<Item> FIRE_ASPECT_UPGRADE = addUpgradeTag(makeWrapperTag("upgrade/fire_aspect"), Type.EMITTER, UpgradeFunctions.getUpgradeEnchantmentFunction(Enchantments.FIRE_ASPECT));
     public static final Tag<Item> SWEEPING_EDGE_UPGRADE = addUpgradeTag(makeWrapperTag("upgrade/sweeping_edge"), Type.EMITTER, UpgradeFunctions.getUpgradeEnchantmentFunction(Enchantments.SWEEPING));
+    public static final Tag<Item> SILK_TOUCH_UPGRADE = addUpgradeTag(makeWrapperTag("upgrade/silk_touch"), Type.EMITTER, UpgradeFunctions.getUpgradeEnchantmentFunction(Enchantments.SILK_TOUCH));
 
     public static final Tag<Item> LOOTING_UPGRADE = addUpgradeTag(makeWrapperTag("upgrade/looting"), Type.CASING, UpgradeFunctions.getUpgradeEnchantmentFunction(Enchantments.LOOTING));
     public static final Tag<Item> MENDING_UPGRADE = addUpgradeTag(makeWrapperTag("upgrade/mending"), Type.CASING, UpgradeFunctions.getUpgradeEnchantmentFunction(Enchantments.MENDING));

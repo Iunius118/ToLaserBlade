@@ -239,6 +239,7 @@ public class LaserBladeItem extends SwordItem implements LaserBladeItemBase {
 
         laserBlade.addEnchantment(Enchantments.FIRE_ASPECT, Enchantments.FIRE_ASPECT.getMaxLevel());
         laserBlade.addEnchantment(Enchantments.SWEEPING, Enchantments.SWEEPING.getMaxLevel());
+        laserBlade.addEnchantment(Enchantments.SILK_TOUCH, Enchantments.SILK_TOUCH.getMaxLevel());
         laserBlade.addEnchantment(Enchantments.LOOTING, Enchantments.LOOTING.getMaxLevel());
 
         return laserBlade;
