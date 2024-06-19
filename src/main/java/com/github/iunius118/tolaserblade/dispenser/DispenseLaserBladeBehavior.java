@@ -3,7 +3,6 @@ package com.github.iunius118.tolaserblade.dispenser;
 import com.github.iunius118.tolaserblade.ToLaserBladeConfig;
 import com.github.iunius118.tolaserblade.enchantment.ModEnchantments;
 import com.github.iunius118.tolaserblade.entity.LaserTrapEntity;
-import com.github.iunius118.tolaserblade.item.ModItems;
 import com.github.iunius118.tolaserblade.laserblade.LaserBlade;
 import com.github.iunius118.tolaserblade.laserblade.LaserBladeVisual;
 import com.github.iunius118.tolaserblade.util.LaserTrapPlayer;
@@ -32,6 +31,7 @@ import java.util.function.Predicate;
 
 public class DispenseLaserBladeBehavior implements IDispenseItemBehavior {
     public static final IDispenseItemBehavior DEFAULT_ITEM_BEHAVIOR = new DefaultDispenseItemBehavior();
+    public static final int LASER_BURN_TIME = 200;
     public static final Predicate<Entity> LASER_TRAP_TARGETS =
             EntityPredicates.NO_SPECTATORS
                     .and(EntityPredicates.ENTITY_STILL_ALIVE)
@@ -54,7 +54,7 @@ public class DispenseLaserBladeBehavior implements IDispenseItemBehavior {
             TileEntity tile = world.getBlockEntity(targetPos);
 
             if (ToLaserBladeConfig.SERVER.canLaserTrapHeatUpFurnace.get() && tile instanceof AbstractFurnaceTileEntity) {
-                heatFurnace((AbstractFurnaceTileEntity)tile, stack);
+                litFurnace((AbstractFurnaceTileEntity)tile, stack);
             } else {
                 attackEntities(serverWorld, pos, dir, stack);
             }
@@ -63,23 +63,20 @@ public class DispenseLaserBladeBehavior implements IDispenseItemBehavior {
         return stack;
     }
 
-    private void heatFurnace(AbstractFurnaceTileEntity furnaceTile, ItemStack stack) {
-        if (stack.getItem() == ModItems.LASER_BLADE_FP) {
-            // Only fireproof Laser Blade
-            boolean isNotBurning = furnaceTile.litTime < 1;
+    private void litFurnace(AbstractFurnaceTileEntity furnace, ItemStack stack) {
+        if (furnace.litTime < LASER_BURN_TIME + 1) {
+            boolean isNotLit = furnace.litTime < 1;
 
-            if (isNotBurning || furnaceTile.litTime < 201) {
-                // Set burnTime to 200 (10 seconds)
-                furnaceTile.litTime = 201;
-                furnaceTile.litDuration = 200;
-                furnaceTile.setChanged();
+            // Set burnTime to 200 (10 seconds)
+            furnace.litTime = LASER_BURN_TIME + 1;
+            furnace.litDuration = LASER_BURN_TIME;
+            furnace.setChanged();
 
-                if (isNotBurning) {
-                    // Lit furnace block
-                    World world = furnaceTile.getLevel();
-                    BlockPos pos = furnaceTile.getBlockPos();
-                    world.setBlock(pos, world.getBlockState(pos).setValue(AbstractFurnaceBlock.LIT, Boolean.TRUE), 3);
-                }
+            if (isNotLit) {
+                // Lit furnace block
+                World world = furnace.getLevel();
+                BlockPos pos = furnace.getBlockPos();
+                world.setBlock(pos, world.getBlockState(pos).setValue(AbstractFurnaceBlock.LIT, Boolean.TRUE), 3);
             }
         }
     }
