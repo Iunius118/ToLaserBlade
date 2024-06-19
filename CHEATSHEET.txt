@@ -1,7 +1,7 @@
 # Cheatsheet
 
 [ToLaserBlade](https://github.com/Iunius118/ToLaserBlade)
-Version 1.15.2-3.1.2.0.
+Version 1.15.2-3.1.2.1.
 
 Adds a simple sword with a laser blade.
 
@@ -18,7 +18,7 @@ Adds a simple sword with a laser blade.
 
 ## Items
 
-### Laser B1ade (Prop Laser Blade)
+### DX Laser B1ade
 
 Crafting Recipe:
 
@@ -33,8 +33,8 @@ Performances:
 - Attack Speed  : 2.8
 - Max Durability: 255
 
-When sneaking and right-clicking on a block, a redstone torch is placed on the block and the laser b1ade's durability is consumed.
-When right-clicking on a redstone torch, the redstone torch is broken and the laser b1ade's durability is recovered.
+When sneaking and right-clicking on a block, a redstone torch is placed on the block and the DX Laser B1ade's durability is consumed.
+When right-clicking on a redstone torch, the redstone torch is broken and the DX Laser B1ade's durability is recovered.
 
 ### Laser Blade
 
@@ -85,15 +85,16 @@ Light Element is a mod original enchantment to increase damage to undead mobs an
 Anvil Recipes:
 
 - Rename unupgraded Laser Blade to GIFT → ???
-- Laser Blade + Block of Redstone → + attack speed (up to 4.0)
-- Laser Blade + Block of Diamond → + attack damage (up to 14)
+- Laser Blade + Gold Ingot → + attack speed (up to 4.0)
+- Laser Blade + Block of Redstone → + Efficiency (Efficiency level affects mining speed)
+- Laser Blade + Redstone → removing Efficiency (Efficiency 0 cannot break any blocks)
+- Laser Blade + Diamond → + attack damage
 - Laser Blade + Glowstone → + Smite (up to X)
-- Laser Blade + Nether Star → 4 attack speed, 14 attack damage, and Smite X
 - Laser Blade + Blaze Rod → + Fire Aspect
 - Laser Blade + Eye of Ender → + Sweeping Edge
-- Laser Blade + Nautilus Shell or Block of Emerald → + Looting
 - Laser Blade + Prismarine Crystals → + Silk Touch
-- Laser Blade (14+ attack damage) + Mob Head → + attack damage
+- Laser Blade + Nautilus Shell or Block of Emerald → + Looting
+- Laser Blade + Nether Star, Dragon Head, or Totem of Undying → +Mending
 
 #### Coloring Laser Blade
 

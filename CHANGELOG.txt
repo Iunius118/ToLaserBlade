@@ -1,6 +1,12 @@
 ToLaserBlade
 Changelog
 
+v1.15.2-3.1.2.1
+
+    Add Silk Touch upgrade:
+        [Anvil] Laser Blade + Prismarine Crystals → + Silk Touch
+
+
 v1.15.2-3.1.2.0
 
     Require Forge 1.15.2-31.2.57
