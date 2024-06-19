@@ -4,6 +4,7 @@ import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.item.ModItems;
 import com.github.iunius118.tolaserblade.laserblade.Color;
 import com.github.iunius118.tolaserblade.laserblade.ColorPart;
+import com.github.iunius118.tolaserblade.laserblade.LaserBladeVisual;
 import com.github.iunius118.tolaserblade.laserblade.upgrade.Upgrade;
 import com.github.iunius118.tolaserblade.laserblade.upgrade.UpgradeManager;
 import com.github.iunius118.tolaserblade.tags.ModItemTags;
@@ -80,7 +81,7 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
         addModelChangeRecipes(consumer, Ingredient.of(Blocks.SAND.asItem()), 1, "");
         addModelChangeRecipes(consumer, Ingredient.of(Blocks.SANDSTONE.asItem()), 2, "");
         addModelChangeRecipes(consumer, Ingredient.of(Blocks.DIRT.asItem()), 526, "");
-        addModelChangeRecipes(consumer, Ingredient.of(Blocks.CRAFTING_TABLE.asItem()), -1, "");
+        addModelChangeRecipes(consumer, Ingredient.of(Blocks.CRAFTING_TABLE.asItem()), LaserBladeVisual.MODEL_TYPE_NO_MODEL, "");
     }
 
     @Override

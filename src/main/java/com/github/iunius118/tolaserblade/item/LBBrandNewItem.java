@@ -1,6 +1,5 @@
 package com.github.iunius118.tolaserblade.item;
 
-import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.client.renderer.LBBrandNewItemRenderer;
 import com.github.iunius118.tolaserblade.laserblade.LaserBlade;
 import com.github.iunius118.tolaserblade.laserblade.LaserBladeStack;
@@ -95,16 +94,18 @@ public class LBBrandNewItem extends Item implements LaserBladeItemBase {
         try {
             modelType = Integer.parseInt(name);
         } catch (NumberFormatException e) {
-            modelType = ToLaserBlade.getTodayDateNumber();
+            modelType = LaserBladeVisual.MODEL_TYPE_NO_MODEL;
         }
 
-        // If Brand-new Laser Blade is type of Light Element I or II, its blade will be colored by biome player in, and its model will be set to today's model type
+        // If Brand-new Laser Blade is type of Light Element I or II, ...
         ItemStack laserBladeStack = type.getCopy();
         LaserBlade laserBlade = LaserBlade.of(laserBladeStack);
         LaserBladeVisual visual = laserBlade.getVisual();
         BlockPos pos = playerIn.blockPosition();
         Biome biome = worldIn.getBiome(pos);
+        // ... its blade will be colored by biome player in, ...
         visual.setColorsByBiome(worldIn, biome);
+        // ... and its model will be set to specific model type
         visual.setModelType(modelType);
         laserBlade.write(laserBladeStack);
         return laserBladeStack;
