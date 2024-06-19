@@ -160,7 +160,7 @@ jar {
         ])
     }
 
-    from("CHANGELOG.txt", "CHEATSHEET.txt", "CREDITS.txt")
+    from("LICENSE", "CHANGELOG.txt", "CHEATSHEET.txt", "CREDITS.txt")
 }
 
 // Example configuration to allow publishing using the maven-publish plugin
