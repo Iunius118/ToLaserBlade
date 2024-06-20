@@ -1,6 +1,5 @@
 package com.github.iunius118.tolaserblade.world.item;
 
-import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.client.renderer.item.LBBrandNewItemRenderer;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBlade;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeVisual;
@@ -101,7 +100,7 @@ public class LBBrandNewItem extends Item implements LaserBladeItemBase {
         try {
             modelType = Integer.parseInt(name);
         } catch (NumberFormatException e) {
-            modelType = ToLaserBlade.getTodayDateNumber();
+            modelType = LaserBladeVisual.MODEL_TYPE_NO_MODEL;
         }
 
         // If Brand-new Laser Blade is type of Light Element I or II, ...
