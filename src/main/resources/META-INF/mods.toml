@@ -1,7 +1,7 @@
 
 modLoader="javafml"
 loaderVersion="[41,)"
-license="All rights reserved"
+license="MIT license"
 issueTrackerURL="https://github.com/Iunius118/ToLaserBlade/issues"
 
 [[mods]]
