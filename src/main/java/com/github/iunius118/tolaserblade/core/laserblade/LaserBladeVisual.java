@@ -54,9 +54,7 @@ public record LaserBladeVisual(ModelType modelType, Coloring coloring) {
             getInnerColor().isSubtractColor = true;
         } else {
             // Over-world etc.
-            float temp = biomeHolder.value().getBaseTemperature();
-            var laserBladeColor = LaserBladeColor.getColorByTemperature(temp);
-            getOuterColor().color = laserBladeColor.getBladeColor();
+            setColorsByOverWorldBiome(level, biomeHolder);
         }
     }
 
@@ -71,6 +69,25 @@ public record LaserBladeVisual(ModelType modelType, Coloring coloring) {
         } else {
             getInnerColor().isSubtractColor = true;
         }
+    }
+
+    private void setColorsByOverWorldBiome(Level level, Holder<Biome> biomeHolder) {
+        if (compareBiome(level, biomeHolder, Biomes.DEEP_DARK)) {
+            // Deep dark biome
+            setDeepDarkColors();
+        } else {
+            float temp = biomeHolder.value().getBaseTemperature();
+            var laserBladeColor = LaserBladeColor.getColorByTemperature(temp);
+            getOuterColor().color = laserBladeColor.getBladeColor();
+        }
+    }
+
+    private void setDeepDarkColors() {
+        getOuterColor().color = LaserBladeColor.CYAN.getBladeColor();
+        getInnerColor().color = 0xFFFADCD7; // Sculk's deep dark blue (negative)
+        getInnerColor().isSubtractColor = true;
+        getGripColor().color = 0xFF052328;  // Sculk's deep dark blue
+        setModelType(2);
     }
 
     private boolean compareBiome(Level level, Holder<Biome> biomeHolder, ResourceKey<Biome> biomeKey) {
