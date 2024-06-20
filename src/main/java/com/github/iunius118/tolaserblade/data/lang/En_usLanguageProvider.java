@@ -45,7 +45,7 @@ public class En_usLanguageProvider extends LanguageProvider {
 
         // Enchantments
         addEnchantment(ModEnchantments.LIGHT_ELEMENT, "Light Element",
-                "Increases the damage of the Laser Blade, and deals additional damage to undead mobs and illagers.");
+                "Increases damage from Laser Blade, and deals additional damage to undead mobs and illagers.");
 
         // Item tooltip
         add(LBBrandNewItem.KEY_TOOLTIP_BLAND_NEW_HOW_TO_USE_LINE_1, "Hold in your hand and");
