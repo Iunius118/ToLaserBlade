@@ -2,17 +2,17 @@
   "parent": "minecraft:recipes/root",
   "rewards": {
     "recipes": [
-      "tolaserblade:model/lbf_526_sample"
+      "tolaserblade:model/lb_2"
     ]
   },
   "criteria": {
-    "has_laser_blade_fp": {
+    "has_laser_blade": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
             "items": [
-              "tolaserblade:laser_blade_fp"
+              "tolaserblade:laser_blade"
             ]
           }
         ]
@@ -21,13 +21,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "tolaserblade:model/lbf_526_sample"
+        "recipe": "tolaserblade:model/lb_2"
       }
     }
   },
   "requirements": [
     [
-      "has_laser_blade_fp",
+      "has_laser_blade",
       "has_the_recipe"
     ]
   ]
