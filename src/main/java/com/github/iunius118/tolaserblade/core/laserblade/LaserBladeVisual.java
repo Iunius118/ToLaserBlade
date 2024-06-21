@@ -92,11 +92,11 @@ public class LaserBladeVisual {
         if (temp > 1.5F) {
             // t > 1.5
             getOuterColor().color = LaserBladeColor.TEMP_DESERT.getBladeColor();
-        } else if (temp > 1.0F) {
-            // 1.5 >= t > 1.0
-            getOuterColor().color = LaserBladeColor.TEMP_SAVANNA.getBladeColor();
+        } else if (temp >= 1.0F) {
+            // 1.5 >= t >= 1.0
+            getOuterColor().color = LaserBladeColor.TEMP_STONY_PEAKS.getBladeColor();
         } else if (temp > 0.8F) {
-            // 1.0 >= t > 0.8
+            // 1.0 > t > 0.8
             getOuterColor().color = LaserBladeColor.TEMP_JUNGLE.getBladeColor();
         } else if (temp >= 0.5F) {
             // 0.8 >= t >= 0.5
@@ -104,11 +104,11 @@ public class LaserBladeVisual {
         } else if (temp >= 0.2F) {
             // 0.5 > t >= 0.2
             getOuterColor().color = LaserBladeColor.TEMP_TAIGA.getBladeColor();
-        } else if (temp >= -0.25F) {
-            // 0.2 > t >= -0.25
-            getOuterColor().color = LaserBladeColor.TEMP_ICE_PLAIN.getBladeColor();
+        } else if (temp >= -0.3F) {
+            // 0.2 > t >= -0.3
+            getOuterColor().color = LaserBladeColor.TEMP_SNOWY_PLAINS.getBladeColor();
         } else {
-            // -0.25 > t
+            // -0.3 > t
             getOuterColor().color = LaserBladeColor.TEMP_SNOWY_TAIGA.getBladeColor();
         }
     }
