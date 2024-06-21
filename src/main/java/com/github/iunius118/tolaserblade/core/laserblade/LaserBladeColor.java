@@ -20,10 +20,10 @@ public enum LaserBladeColor {
     RED(0xFFFF0000, 0xFFB02E26, "red"),
     BLACK(0xFF020202, 0xFF1D1D21, "black"),
     TEMP_DESERT(0xFFA000FF, 0xFFF9FFFE, "temp_desert"),
-    TEMP_SAVANNA(0xFFFF00CC, 0xFFF9FFFE, "temp_savanna"),
+    TEMP_STONY_PEAKS(0xFFFF00CC, 0xFFF9FFFE, "temp_stony_peaks"),
     TEMP_JUNGLE(0xFFFFC400, 0xFFF9FFFE, "temp_jungle"),
     TEMP_TAIGA(0xFF00FF00, 0xFFF9FFFE, "temp_taiga"),
-    TEMP_ICE_PLAIN(0xFF0080FF, 0xFFF9FFFE, "temp_ice_plain"),
+    TEMP_SNOWY_PLAINS(0xFF0080FF, 0xFFF9FFFE, "temp_snowy_plains"),
     TEMP_SNOWY_TAIGA(0xFF0030FF, 0xFFF9FFFE, "temp_snowy_taiga"),
     SPECIAL_GAMING(0xFF010101, 0xFF010101, "special_gaming"),
     SPECIAL_SWITCH_BLEND_MODE(0x01010101, 0x01010101, "special_sbm"),
@@ -48,11 +48,11 @@ public enum LaserBladeColor {
         if (temp > 1.5F) {
             // t > 1.5
             return LaserBladeColor.TEMP_DESERT;
-        } else if (temp > 1.0F) {
-            // 1.5 >= t > 1.0
-            return LaserBladeColor.TEMP_SAVANNA;
+        } else if (temp >= 1.0F) {
+            // 1.5 >= t >= 1.0
+            return LaserBladeColor.TEMP_STONY_PEAKS;
         } else if (temp > 0.8F) {
-            // 1.0 >= t > 0.8
+            // 1.0 > t > 0.8
             return LaserBladeColor.TEMP_JUNGLE;
         } else if (temp >= 0.5F) {
             // 0.8 >= t >= 0.5
@@ -60,11 +60,11 @@ public enum LaserBladeColor {
         } else if (temp >= 0.2F) {
             // 0.5 > t >= 0.2
             return LaserBladeColor.TEMP_TAIGA;
-        } else if (temp >= -0.25F) {
-            // 0.2 > t >= -0.25
-            return LaserBladeColor.TEMP_ICE_PLAIN;
+        } else if (temp >= -0.3F) {
+            // 0.2 > t >= -0.3
+            return LaserBladeColor.TEMP_SNOWY_PLAINS;
         } else {
-            // -0.25 > t
+            // -0.3 > t
             return LaserBladeColor.TEMP_SNOWY_TAIGA;
         }
     }
