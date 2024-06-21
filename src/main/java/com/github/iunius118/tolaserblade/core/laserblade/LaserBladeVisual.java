@@ -158,9 +158,7 @@ public class LaserBladeVisual {
                         .writeIsInnerSubColor(true);
             } else {
                 // Over-world etc.
-                float temp = biomeHolder.value().getBaseTemperature();
-                int color = LaserBladeColor.getColorByTemperature(temp).getBladeColor();
-                this.writeOuterColor(color);
+                setColorsByOverWorldBiome(level, biomeHolder);
             }
 
             return this;
@@ -174,6 +172,25 @@ public class LaserBladeVisual {
             } else {
                 this.writeIsInnerSubColor(true);
             }
+        }
+
+        private void setColorsByOverWorldBiome(Level level, Holder<Biome> biomeHolder) {
+            if (compareBiomes(biomeHolder, Biomes.DEEP_DARK)) {
+                // Deep dark biome
+                setDeepDarkColors();
+            } else {
+                float temp = biomeHolder.value().getBaseTemperature();
+                int color = LaserBladeColor.getColorByTemperature(temp).getBladeColor();
+                this.writeOuterColor(color);
+            }
+        }
+
+        private void setDeepDarkColors() {
+            this.writeOuterColor(LaserBladeColor.CYAN.getBladeColor())
+                    .writeInnerColor(0xFFFADCD7)    // Sculk's deep dark blue (negative)
+                    .writeIsInnerSubColor(true)
+                    .writeGripColor(0xFF052328)     // Sculk's deep dark blue
+                    .writeModelType(2);
         }
 
         private boolean compareBiomes(Holder<Biome> biomeHolder, ResourceKey<Biome> biomeKey) {

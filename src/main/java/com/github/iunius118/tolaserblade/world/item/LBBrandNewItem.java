@@ -94,23 +94,22 @@ public class LBBrandNewItem extends Item implements LaserBladeItemBase {
             return LaserBladeItemStack.GIFT.getCopy();
         }
 
-        int modelType;
-
-        // Try getting number of model type from display name of item stack
-        try {
-            modelType = Integer.parseInt(name);
-        } catch (NumberFormatException e) {
-            modelType = LaserBladeVisual.MODEL_TYPE_DEFAULT;
-        }
-
         // If Brand-new Laser Blade is type of Light Element I or II, ...
         ItemStack laserBladeStack = type.getCopy();
         // ... its blade will be colored by biome player in, and its model will be set to specific model type
         BlockPos pos = player.blockPosition();
         Holder<Biome> biome = level.getBiome(pos);
-        LaserBladeVisual.Writer.of(laserBladeStack)
-                .setColorsByBiome(level, biome)
-                .writeModelType(modelType);
+        var laserBlade = LaserBladeVisual.Writer.of(laserBladeStack)
+                .writeModelType(LaserBladeVisual.MODEL_TYPE_DEFAULT)
+                .setColorsByBiome(level, biome);
+
+        try {
+            // Try getting number of model type from display name of item stack
+            int modelType = Integer.parseInt(name);
+            laserBlade.writeModelType(modelType);
+        } catch (NumberFormatException ignored) {
+        }
+
         return laserBladeStack;
     }
 
