@@ -59,7 +59,7 @@
     "hidden": false,
     "icon": {
       "item": "tolaserblade:laser_blade",
-      "nbt": "{Damage:0,colorC:-1,colorG:-6447721,colorH:-65536,isSubC:0b,isSubH:0b,type:0}"
+      "nbt": "{Damage:0,colorG:-6447721}"
     },
     "show_toast": false,
     "title": {
