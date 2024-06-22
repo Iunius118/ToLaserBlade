@@ -1,4 +1,4 @@
-// 1.20.6	2024-05-08T03:31:21.8806125	Advancements
+// 1.20.6	2024-06-22T22:20:29.9655964	Advancements
 ae2163b34e6cbca838c162a607399dc1d2771dfa data/tolaserblade/advancements/main/break_laser_blade.json
 0994cab3ead5998742f41d687a19a3fc650d80d9 data/tolaserblade/advancements/main/dx_laser_blade.json
 14c4aab87f9ab6e4ba51d284378122c8fe8a6cb3 data/tolaserblade/advancements/main/laser_blade.json
@@ -9,4 +9,4 @@ f879887e7c9300a9bcf930b36b819d648fcca43a data/tolaserblade/advancements/main/las
 65a25a78991675f09e0f524ac78dce24159cbf66 data/tolaserblade/advancements/main/laser_blade_light_element_5.json
 3db149a567212fa6730e3475a91649b9c4cfd522 data/tolaserblade/advancements/main/laser_blade_looting_3.json
 caa41251bd9d2edaa863d40d45b1244e2dfb3e05 data/tolaserblade/advancements/main/laser_blade_mending_1.json
-db0044e4ecaf134f6a8bc92ca5c70c042fb5a990 data/tolaserblade/advancements/main/root.json
+cbc7998b2e164cb08b5a267037e5c9333c2b2f58 data/tolaserblade/advancements/main/root.json
