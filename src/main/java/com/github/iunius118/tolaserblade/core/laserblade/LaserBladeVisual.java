@@ -153,14 +153,10 @@ public class LaserBladeVisual {
                 setColorsByNetherBiome(level, biomeHolder);
             } else if (Level.END.equals(dimension)) {
                 // The End
-                this.writeOuterColor(LaserBladeColor.WHITE.getBladeColor())
-                        .writeIsOuterSubColor(true)
-                        .writeIsInnerSubColor(true);
+                setColorsByEndBiome(level, biomeHolder);
             } else {
                 // Over-world etc.
-                float temp = biomeHolder.value().getBaseTemperature();
-                int color = LaserBladeColor.getColorByTemperature(temp).getBladeColor();
-                this.writeOuterColor(color);
+                setColorsByOverWorldBiome(level, biomeHolder);
             }
 
             return this;
@@ -174,6 +170,40 @@ public class LaserBladeVisual {
             } else {
                 this.writeIsInnerSubColor(true);
             }
+        }
+
+        private void setColorsByEndBiome(Level level, Holder<Biome> biomeHolder) {
+            this.writeOuterColor(LaserBladeColor.WHITE.getBladeColor())
+                    .writeIsOuterSubColor(true)
+                    .writeIsInnerSubColor(true);
+        }
+
+        private void setColorsByOverWorldBiome(Level level, Holder<Biome> biomeHolder) {
+            if (compareBiomes(biomeHolder, Biomes.DEEP_DARK)) {
+                // Deep dark biome
+                setDeepDarkColors();
+            } else if (compareBiomes(biomeHolder, Biomes.CHERRY_GROVE)) {
+                // Cherry grove biome
+                setCherryGroveColors();
+            } else {
+                float temp = biomeHolder.value().getBaseTemperature();
+                int color = LaserBladeColor.getColorByTemperature(temp).getBladeColor();
+                this.writeOuterColor(color);
+            }
+        }
+
+        private void setDeepDarkColors() {
+            this.writeOuterColor(LaserBladeColor.CYAN.getBladeColor())
+                    .writeInnerColor(0xFFFADCD7)    // Sculk's deep dark blue (negative)
+                    .writeIsInnerSubColor(true)
+                    .writeGripColor(0xFF052328)     // Sculk's deep dark blue
+                    .writeModelType(2);
+        }
+
+        private void setCherryGroveColors() {
+            this.writeOuterColor(LaserBladeColor.PINK.getBladeColor())
+                    .writeInnerColor(0xFFFADCF0)    // Cherry blossom's light pink
+                    .writeGripColor(0xFF4B2D3C);    // Cherry log's dark brown
         }
 
         private boolean compareBiomes(Holder<Biome> biomeHolder, ResourceKey<Biome> biomeKey) {
