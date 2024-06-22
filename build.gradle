@@ -124,7 +124,7 @@ tasks.named('jar', Jar).configure {
         ])
     }
 
-    from("CHANGELOG.txt", "CHEATSHEET.txt", "CREDITS.txt")
+    from("LICENSE", "CHANGELOG.txt", "CHEATSHEET.txt", "CREDITS.txt")
 }
 
 publishing {
