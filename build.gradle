@@ -80,7 +80,7 @@ tasks.withType(ProcessResources).configureEach {
 }
 
 jar {
-    from("CHANGELOG.txt", "CHEATSHEET.txt", "CREDITS.txt")
+    from("LICENSE", "CHANGELOG.txt", "CHEATSHEET.txt", "CREDITS.txt")
 }
 
 publishing {
