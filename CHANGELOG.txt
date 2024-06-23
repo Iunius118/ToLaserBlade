@@ -1,6 +1,22 @@
 ToLaserBlade
 Changelog
 
+v1.16.5-4.3.3.0
+
+    Require Forge 1.16.5-36.2.34
+    Add laser blade model number 2
+    Add recipes to change laser blade model:
+        [Smithing Table] Laser Blade + Glass → changing model to number 0
+        [Smithing Table] Laser Blade + Sand → changing model to number 1
+        [Smithing Table] Laser Blade + Sandstone → changing model to number 2
+    Change model type of Brand-new Laser Blade I/II to unspecified
+    Add recipes to switch blending mode of rendering laser blade:
+        [Smithing Table] Laser Blade + Block of Lapis Lazuli → switching blend mode of outer part
+        [Smithing Table] Laser Blade + Lapis Lazuli → switching blend mode of inner part
+    All laser blades can now be used for laser furnace
+    Switch license to MIT
+
+
 v1.16.5-4.3.2.0
 
     Add translation keys to ru_ru.json and zh_cn.json

@@ -1,0 +1,142 @@
+# Cheatsheet
+
+[ToLaserBlade](https://github.com/Iunius118/ToLaserBlade)
+Version 1.16.5-4.3.3.0.
+
+Adds a simple sword with a laser blade.
+
+## Requirements
+
+- Minecraft 1.16.5
+- Forge 1.16.5-36.2.34+
+
+## How to Get Started
+
+1. Craft a Brand-new Laser Blade I or II
+2. Use the Brand-new Laser Blade and obtain a Laser Blade
+3. Craft a Smithing Table and upgrade the Laser Blade
+
+## Items
+
+### DX Laser B1ade
+
+Crafting Recipe:
+
+    2 Redstone Torches (R) and Stick (s)
+    |   | R |   |
+    |   | R |   |
+    |   | s |   |
+
+Performances:
+
+- Attack Damage : 5
+- Attack Speed  : 2.8
+- Max Durability: 255
+
+When sneaking and right-clicking on a block, a redstone torch is placed on the block and the DX Laser B1ade's durability is consumed.
+When right-clicking on a redstone torch, the redstone torch is broken and the DX Laser B1ade's durability is recovered.
+
+### Brand-new Laser Blade
+
+Crafting Recipe:
+
+    Brand-new Laser Blade I
+    4 Iron Ingots (i), Diamond (d), Glass (#), and Redstone (r)
+    | # | i | d |
+    | i | d | i |
+    | r | i | # |
+
+    Brand-new Laser Blade II
+    4 Iron Ingots (i), Diamond (d), Glowstone Dust (g), and Redstone (r)
+    | g | i | d |
+    | i | d | i |
+    | r | i | g |
+
+Performances of obtained Laser Blade:
+
+- Brand-new Laser Blade I                 : Light Element I, Efficiency I and blade color by biome
+- Brand-new Laser Blade II                : Light Element II, Efficiency I and blade color by biome
+- Brand-new Laser Blade I/II named GIFT   : Light Element V, Efficiency I, 10 attack damage and special color
+- Brand-new Laser Blade (normal/fireproof): Same performance as the Laser Blade before repair
+
+### Laser Blade
+
+Laser Blade can be used to dig or mine for dirt, gravel, stone, diamond, obsidian, etc.
+
+Performances:
+
+- Attack Damage : 7
+- Attack Speed  : 2.8
+- Max Durability: 32000
+
+#### Light Element Enchantment
+
+Light Element increases damage from Laser Blade, and deals additional damage to undead mobs and illagers.
+
+#### Upgrading Laser Blade
+
+Smithing Recipes:
+
+- Laser Blade + Gold Ingot → + attack speed (up to 4.0)
+- Laser Blade + Block of Redstone → + Efficiency (Efficiency level affects mining speed)
+- Laser Blade + Redstone → removing Efficiency (Efficiency 0 cannot break any blocks)
+- Laser Blade + Diamond → + attack damage
+- Laser Blade + Glowstone → + Smite (up to X)
+- Laser Blade + Blaze Rod → + Fire Aspect
+- Laser Blade + Eye of Ender → + Sweeping Edge
+- Laser Blade + Prismarine Crystals → + Silk Touch
+- Laser Blade + Nautilus Shell or Block of Emerald → + Looting
+- Laser Blade + Nether Star, Dragon Head, or Totem of Undying → +Mending
+
+#### Coloring Laser Blade
+
+Smithing Recipes:
+
+- Laser Blade + Stained Glass → changing color of outer part of blade
+- Laser Blade + Stained Glass pane → changing color of inner part of blade
+- Laser Blade + Carpet → changing grip color
+- Laser Blade + Block of Lapis Lazuli → switching blend mode of outer part
+- Laser Blade + Lapis Lazuli → switching blend mode of inner part
+
+#### Changing Laser Blade Model
+
+Smithing Recipes:
+
+- Laser Blade + Glass → changing model to number 0
+- Laser Blade + Sand → changing model to number 1
+- Laser Blade + Sandstone → changing model to number 2
+- Laser Blade + Dirt → changing model to number 526
+- Laser Blade + Crafting Table → resetting model number
+
+#### Repairing Laser Blade
+
+Smithing Recipes:
+
+- Damaged/Broken Laser Blade + Iron Ingot → Brand-new Laser Blade
+
+#### Laser Trap
+
+When a laser blade is set in a dispenser and activated, it can attack mobs in front of the dispenser with the laser blade.
+This attack is only affected by the laser blade's attack damage and the Looting enchantment.
+
+#### Laser Furnace
+
+When a laser trap is fired at a furnace, it will light the furnace.
+
+### Not Used Items
+
+These items are not used and have no recipes:
+
+- Laser Blade Blueprint
+- Disassembled Laser Blade
+- LB Energy Cell
+- Laser Medium
+- Laser Blade Emitter
+- Laser Blade Casing
+
+They will be used for customizing recipe by players.
+
+## Configurations
+
+- Server: `(world_save_dir)/serverconfig/tolaserblade-server.toml`
+- Client: `config/tolaserblade-client.toml`
