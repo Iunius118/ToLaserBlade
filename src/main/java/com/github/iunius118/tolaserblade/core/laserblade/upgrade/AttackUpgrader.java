@@ -18,6 +18,7 @@ public class AttackUpgrader implements Upgrader {
         if (LaserBlade.canUpgradeAttack(attack)) {
             attack += 1.0F;
             LaserBlade.setAttack(base, attack);
+            LaserBlade.updateItemAttributeModifiers(base);
             cost += getCost(attack);
         }
 
@@ -25,6 +26,6 @@ public class AttackUpgrader implements Upgrader {
     }
 
     private int getCost(float newDamage) {
-        return Math.max((int)newDamage, 1);
+        return Math.max((int) newDamage, 1);
     }
 }

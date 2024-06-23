@@ -60,7 +60,7 @@ public class LBModelChangeRecipe extends SmithingTransformRecipe {
     }
 
     private ItemStack getResult(ItemStack input) {
-        LaserBladeAppearance.of(input).setType(type).writeTo(input);
+        LaserBladeAppearance.of(input).setType(type).setTo(input);
         return input;
     }
 

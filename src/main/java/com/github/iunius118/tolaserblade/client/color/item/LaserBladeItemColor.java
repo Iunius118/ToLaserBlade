@@ -5,25 +5,21 @@ import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeColor;
 import com.github.iunius118.tolaserblade.world.item.LBBrandNewItem;
 import com.github.iunius118.tolaserblade.world.item.LBBrokenItem;
 import net.minecraft.client.Minecraft;
-import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
-@OnlyIn(Dist.CLIENT)
 public class LaserBladeItemColor {
     public final boolean isBroken;
-    public final int rawGripColor;
-    public final int gripColor;
-    public final int rawInnerColor;
-    public final int innerColor;
-    public final boolean isInnerSubColor;
-    public final int simpleInnerColor;
     public final int rawOuterColor;
     public final int outerColor;
     public final boolean isOuterSubColor;
     public final int simpleOuterColor;
+    public final int rawInnerColor;
+    public final int innerColor;
+    public final boolean isInnerSubColor;
+    public final int simpleInnerColor;
+    public final int rawGripColor;
+    public final int gripColor;
 
     public LaserBladeItemColor(ItemStack itemStack) {
         if (itemStack == null || itemStack.isEmpty()) {
@@ -48,7 +44,7 @@ public class LaserBladeItemColor {
         Item item = itemStack.getItem();
         isBroken = (item instanceof LBBrokenItem || item instanceof LBBrandNewItem);
 
-        LaserBladeAppearance appearance = LaserBladeAppearance.of(itemStack);
+        var appearance = LaserBladeAppearance.of(itemStack);
 
         rawOuterColor = appearance.getOuterColor();
         outerColor = checkGamingColor(rawOuterColor);
@@ -68,23 +64,23 @@ public class LaserBladeItemColor {
         return new LaserBladeItemColor(stack);
     }
 
-    public int checkGamingColor(int colorIn) {
-        if (colorIn == LaserBladeColor.SPECIAL_GAMING.getBladeColor()) {
+    public int checkGamingColor(int color) {
+        if (color == LaserBladeColor.SPECIAL_GAMING.getOuterColor()) {
             return getGamingColor();
         }
 
-        return colorIn;
+        return color;
     }
 
     private int getGamingColor() {
-        Minecraft minecraft = Minecraft.getInstance();
-        Player player = minecraft.player;
+        var minecraft = Minecraft.getInstance();
+        var player = minecraft.player;
 
         if (player != null) {
+            float partialTick = minecraft.getFrameTime();
             var level = player.level();
             int tick1 = (int) (level.getGameTime() % 30);
             int tick2 = tick1 % 10;
-            float partialTick = minecraft.getFrameTime();
             int colorElement;
 
             if (tick2 % 10 < 5) {

@@ -166,7 +166,7 @@ public class TLBAdvancementProvider extends ForgeAdvancementProvider {
                 int baseDamage = 1;
 
                 if (item instanceof LBSwordItem laserBlase) {
-                    baseDamage += (int) laserBlase.getDamage();
+                    baseDamage += (int) (laserBlase.getTier().getAttackDamageBonus() + LaserBlade.BASE_ATTACK);
                 }
 
                 for (int i = attackDamage - baseDamage; i >= 0 && i <= maxAtk; i++) {

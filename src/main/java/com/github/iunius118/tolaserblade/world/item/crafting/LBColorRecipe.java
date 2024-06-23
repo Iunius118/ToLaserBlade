@@ -69,7 +69,7 @@ public class LBColorRecipe extends SmithingTransformRecipe {
     }
 
     private boolean isSwitchingBlendModeColor() {
-        return LaserBladeColor.SPECIAL_SWITCH_BLEND_MODE.getBladeColor() == color;
+        return LaserBladeColor.SPECIAL_SWITCH_BLEND_MODE.getOuterColor() == color;
     }
 
     @Override
@@ -119,7 +119,7 @@ public class LBColorRecipe extends SmithingTransformRecipe {
             }
         }
 
-        appearance.writeTo(input);
+        appearance.setTo(input);
         return input;
     }
 

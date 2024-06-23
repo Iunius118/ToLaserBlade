@@ -90,15 +90,15 @@ public class LBDisassembledItem extends Item implements LaserBladeItemBase {
         mediumAppearance
                 .setOuterColor(appearance.getOuterColor())
                 .setOuterSubColor(appearance.isOuterSubColor())
-                .writeTo(mediumStack);
+                .setTo(mediumStack);
         emitterAppearance
                 .setInnerColor(appearance.getInnerColor())
                 .setInnerSubColor(appearance.isInnerSubColor())
-                .writeTo(emitterStack);
+                .setTo(emitterStack);
         casingAppearance
                 .setGripColor(appearance.getGripColor())
                 .setType(appearance.getType())
-                .writeTo(casingStack);
+                .setTo(casingStack);
 
         // Process display name
         if (itemStack.has(DataComponents.CUSTOM_NAME)) {

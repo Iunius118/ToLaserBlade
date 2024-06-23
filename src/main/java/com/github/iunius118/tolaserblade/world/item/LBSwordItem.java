@@ -15,15 +15,11 @@ import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
-import net.minecraft.world.entity.EquipmentSlotGroup;
 import net.minecraft.world.entity.LivingEntity;
-import net.minecraft.world.entity.ai.attributes.AttributeModifier;
-import net.minecraft.world.entity.ai.attributes.Attributes;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
@@ -40,18 +36,10 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
-    private final Tier tier;
-    private final float attackDamage;
-    private final float attackSpeed;
-
     public LBSwordItem(boolean isFireproof) {
         super(ModItemTiers.getLBSwordTier(isFireproof),
                 LaserBladeItemBase.setFireproof(new Item.Properties(), isFireproof)
-                        .attributes(SwordItem.createAttributes(ModItemTiers.getLBSwordTier(isFireproof), 3, -1.2F)));
-
-        tier = getTier();
-        attackDamage = 3.0F + tier.getAttackDamageBonus();
-        attackSpeed = -1.2F;
+                        .attributes(SwordItem.createAttributes(ModItemTiers.getLBSwordTier(isFireproof), 3, LaserBlade.BASE_SPEED)));
 
         // Register dispense behavior
         DispenserBlock.registerBehavior(this, new DispenseLaserBladeBehavior());
@@ -59,26 +47,8 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
 
     @Override
     public void verifyComponentsAfterLoad(ItemStack stack) {
-        float attackUpgrade = LaserBlade.getAttack(stack);
-        float speedUpgrade = LaserBlade.getSpeed(stack);
-        var itemAttributeModifiers = createAttributes(attackUpgrade, speedUpgrade);
-        stack.set(DataComponents.ATTRIBUTE_MODIFIERS, itemAttributeModifiers);
+        LaserBlade.updateItemAttributeModifiers(stack);
         LaserBladeAppearance.of(stack);
-    }
-
-    private ItemAttributeModifiers createAttributes(float attackUpgrade, float speedUpgrade) {
-        return ItemAttributeModifiers.builder()
-                .add(
-                        Attributes.ATTACK_DAMAGE,
-                        new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier", attackUpgrade + attackDamage, AttributeModifier.Operation.ADD_VALUE),
-                        EquipmentSlotGroup.MAINHAND
-                )
-                .add(
-                        Attributes.ATTACK_SPEED,
-                        new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier", speedUpgrade + attackSpeed, AttributeModifier.Operation.ADD_VALUE),
-                        EquipmentSlotGroup.MAINHAND
-                )
-                .build();
     }
 
     @Override
@@ -156,10 +126,6 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
 
     /* Item Characterizing */
 
-    public float getDamage() {
-        return attackDamage;
-    }
-
     @Override
     public boolean mineBlock(ItemStack stack, Level level, BlockState state, BlockPos pos, LivingEntity entityLiving) {
         if (!level.isClientSide && state.getDestroySpeed(level, pos) != 0.0F) {
@@ -187,6 +153,9 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
             brokenLaserBlade = stack.transmuteCopy(ModItems.LB_BROKEN, 1);
         }
 
+        // Remove attribute modifiers from old stack
+        brokenLaserBlade.remove(DataComponents.ATTRIBUTE_MODIFIERS);
+        // Restore old stack count (and make old stack disappear)
         stack.setCount(count);
 
         // Drop Broken Laser Blade
@@ -197,7 +166,7 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
 
     @Override
     public float getDestroySpeed(ItemStack stack, BlockState state) {
-        return LaserBladeItemUtil.getDestroySpeed(stack, tier);
+        return LaserBladeItemUtil.getDestroySpeed(stack, this.getTier());
     }
 
     @Override

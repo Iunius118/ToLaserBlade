@@ -25,18 +25,41 @@ public enum LaserBladeColor {
     TEMP_TAIGA(0xFF00FF00, 0xFFF9FFFE, "temp_taiga"),
     TEMP_SNOWY_PLAINS(0xFF0080FF, 0xFFF9FFFE, "temp_snowy_plains"),
     TEMP_SNOWY_TAIGA(0xFF0030FF, 0xFFF9FFFE, "temp_snowy_taiga"),
+    BIOME_DEEP_DARK(0xFF00FFFF, 0xFFFADCD7, 0xFF052328, false, true, "biome_deep_dark"),
+    BIOME_CHERRY_GROVE(0xFFFF004C, 0xFFFADCF0, 0xFF4B2D3C, "biome_cherry_grove"),
+    BIOME_NETHER_A(0xFFFFFFFF, 0xFFF9FFFE, false, true, "biome_nether_a"),
+    BIOME_NETHER_B(0xFFFFFFFF, 0xFFF9FFFE, true, false, "biome_nether_b"),
+    BIOME_END(0xFFFFFFFF, 0xFFF9FFFE, true, true, "biome_end"),
     SPECIAL_GAMING(0xFF010101, 0xFF010101, "special_gaming"),
     SPECIAL_SWITCH_BLEND_MODE(0x01010101, 0x01010101, "special_sbm"),
     ;
 
-    private final int bladeColor;
+    private final int outerColor;
+    private final int innerColor;
     private final int gripColor;
+    private final boolean isOuterSubColor;
+    private final boolean isInnerSubColor;
     private final String colorName;
 
-    LaserBladeColor(int bladeColor, int gripColor, String colorName) {
-        this.bladeColor = bladeColor;
+    LaserBladeColor(int outerColor, int innerColor, int gripColor, boolean isOuterSubColor, boolean isInnerSubColor, String colorName) {
+        this.outerColor = outerColor;
+        this.innerColor = innerColor;
         this.gripColor = gripColor;
+        this.isOuterSubColor = isOuterSubColor;
+        this.isInnerSubColor = isInnerSubColor;
         this.colorName = colorName;
+    }
+
+    LaserBladeColor(int bladeColor, int gripColor, boolean isOuterSubColor, boolean isInnerSubColor, String colorName) {
+        this(bladeColor, bladeColor, gripColor, isOuterSubColor, isInnerSubColor, colorName);
+    }
+
+    LaserBladeColor(int outerColor, int innerColor, int gripColor, String colorName) {
+        this(outerColor, innerColor, gripColor, false, false, colorName);
+    }
+
+    LaserBladeColor(int bladeColor, int gripColor, String colorName) {
+        this(bladeColor, bladeColor, gripColor, colorName);
     }
 
     public static LaserBladeColor get(int index) {
@@ -70,11 +93,27 @@ public enum LaserBladeColor {
     }
 
     public int getBladeColor() {
-        return bladeColor;
+        return outerColor;
+    }
+
+    public int getOuterColor() {
+        return outerColor;
+    }
+
+    public int getInnerColor() {
+        return innerColor;
     }
 
     public int getGripColor() {
         return gripColor;
+    }
+
+    public boolean isOuterSubColor() {
+        return isOuterSubColor;
+    }
+
+    public boolean isInnerSubColor() {
+        return isInnerSubColor;
     }
 
     public String getColorName() {
