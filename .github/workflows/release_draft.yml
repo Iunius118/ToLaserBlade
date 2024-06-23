@@ -27,10 +27,13 @@ jobs:
           java-version: ${{ matrix.java }}
           cache: 'gradle'
       - name: make gradle wrapper executable
+        if: ${{ runner.os != 'Windows' }}
         run: chmod +x ./gradlew
       - name: build
         run: ./gradlew build
       - name: create release
+        # Only upload artifacts built from latest java on one OS
+        if: ${{ runner.os == 'Linux' && matrix.java == '21' }}
         uses: softprops/action-gh-release@v2
         with:
           draft: true
