@@ -4,6 +4,11 @@
 
 ## [Unreleased]
 
+## [8.4.0 NeoForge]
+### Changed
+- Require NeoForge 20.4.147-beta+.
+- Switch license to MIT.
+
 ## [8.3.0 NeoForge]
 ### Changed
 - Port to 1.20.4 NeoForge.
