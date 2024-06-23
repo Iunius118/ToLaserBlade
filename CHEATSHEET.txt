@@ -112,7 +112,7 @@ Using smithing table, you can upgrade your laser blade.
 - Mining level: 3 or 4 (fireproof)
 - Mining speed: Affected by Efficiency level
 - Repairing: See Repairing Laser Blades
-- When the durability of the laser blade reaches 0, the laser blade will break and you will obtain a broken laser blade
+- When the durability of the laser blade reaches 0, the laser blade will break, and you will obtain a broken laser blade
 
 ### Broken Laser Blade
 - ID: `tolaserblade:lb_broken`
@@ -170,7 +170,7 @@ Smithing Table:
 - Enchanting: See Upgrading Laser Blades
 - Max level: 10
 - Incompatible with Sharpness, Smite, and Bane of Arthropods
-- Effects: increasing the damage of the laser blade, and dealing the additional damage to undead mobs and illagers
+- Effects: Increases damage from Laser Blade, and deals additional damage to undead mobs and illagers
 
 ### Laser Trap
 When you put a laser blade in a dispenser and activate it, you can attack the mobs (of course, players included) in front of the dispenser with the laser blade.
