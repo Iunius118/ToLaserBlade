@@ -4,7 +4,12 @@
 
 ## [Unreleased]
 
-## [8.3.0 forge]
+## [8.4.0 Forge]
+### Changed
+- Require Forge 1.20.2-48.1.0+.
+- Switch license to MIT.
+
+## [8.3.0 Forge]
 ### Changed
 - Change update information file to update-forge.json.
 
