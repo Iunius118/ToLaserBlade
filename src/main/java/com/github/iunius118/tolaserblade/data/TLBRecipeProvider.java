@@ -4,6 +4,7 @@ import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeColor;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeColorPart;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.Upgrade;
+import com.github.iunius118.tolaserblade.core.laserblade.upgrade.UpgradeID;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.UpgradeManager;
 import com.github.iunius118.tolaserblade.tags.ModItemTags;
 import com.github.iunius118.tolaserblade.world.item.ModItems;
@@ -119,13 +120,8 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
     public void buildSmithingRecipes(RecipeOutput consumer) {
         Ingredient template = Ingredient.of(ModItems.LB_BLUEPRINT);
 
-        // Netherite Laser Blade by using Smithing Table
-        addSmithingTransformRecipe(template, Ingredient.of(ModItems.LASER_BLADE), Ingredient.of(Items.NETHERITE_INGOT), ModItems.LB_BRAND_NEW_FP, Items.NETHERITE_INGOT, consumer);
-
         // Repair recipes
-        addSmithingRepairRecipe("lb", template, ModItems.LASER_BLADE, Ingredient.of(ModItemTags.CASING_REPAIR), ModItems.LB_BRAND_NEW, ModItems.LASER_BLADE, consumer);
         addSmithingRepairRecipe("lbb", template, ModItems.LB_BROKEN, Ingredient.of(ModItemTags.CASING_REPAIR), ModItems.LB_BRAND_NEW, ModItems.LB_BROKEN, consumer);
-        addSmithingRepairRecipe("lbf", template, ModItems.LASER_BLADE_FP, Ingredient.of(ModItemTags.CASING_REPAIR), ModItems.LB_BRAND_NEW_FP, ModItems.LASER_BLADE_FP, consumer);
         addSmithingRepairRecipe("lbbf", template, ModItems.LB_BROKEN_FP, Ingredient.of(ModItemTags.CASING_REPAIR), ModItems.LB_BRAND_NEW_FP, ModItems.LB_BROKEN_FP, consumer);
 
         // Upgrade Recipes
@@ -163,6 +159,11 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
             LBUpgradeRecipeBuilder.upgradeRecipe(template, Ingredient.of(ModItems.LASER_BLADE), upgrade.getIngredient(), RecipeCategory.TOOLS, id)
                     .unlockedBy("has_laser_blade", has(ModItems.LASER_BLADE))
                     .save(consumer, ToLaserBlade.MOD_ID + ":upgrade/lb_" + upgrade.shortName());
+
+            if (upgrade == UpgradeManager.getUpgrade(UpgradeID.FIREPROOF_UPGRADE)) {
+                return; // Fireproof upgrade is only available for not fireproof laser blade
+            }
+
             LBUpgradeRecipeBuilder.upgradeRecipe(template, Ingredient.of(ModItems.LASER_BLADE_FP), upgrade.getIngredient(), RecipeCategory.TOOLS, id)
                     .unlockedBy("has_laser_blade_fp", has(ModItems.LASER_BLADE_FP))
                     .save(consumer, ToLaserBlade.MOD_ID + ":upgrade/lbf_" + upgrade.shortName());

@@ -1,14 +1,13 @@
 {
-  "type": "minecraft:smithing_transform",
+  "type": "tolaserblade:upgrade",
   "addition": {
-    "item": "minecraft:netherite_ingot"
+    "tag": "tolaserblade:casing_repair"
   },
   "base": {
     "item": "tolaserblade:laser_blade"
   },
   "result": {
-    "count": 1,
-    "id": "tolaserblade:lb_brand_new_fp"
+    "type": "tolaserblade:upgrade/repair"
   },
   "template": {
     "item": "tolaserblade:lb_blueprint"

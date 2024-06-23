@@ -9,6 +9,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
+import net.neoforged.neoforge.common.Tags;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -20,7 +21,7 @@ public class UpgradeManager {
     static {
         // Add new upgrade:
         // 1. Add upgrade-ID to UpgradeID
-        // 2. Add item-tag to ModItemTags and TLBItemTagsProvider(Forge)
+        // 2. (Optional) Add item-tag to ModItemTags and TLBItemTagsProvider
         // 3. Add upgrader class
         // 4. Add upgrade here
         registerEnchantment(UpgradeID.EFFICIENCY_UPGRADE, ModItemTags.EFFICIENCY_UPGRADE, Enchantments.EFFICIENCY);
@@ -35,6 +36,9 @@ public class UpgradeManager {
 
         register(UpgradeID.ATTACK_DAMAGE_UPGRADE, ModItemTags.ATTACK_DAMAGE_UPGRADE, new AttackUpgrader());
         register(UpgradeID.ATTACK_SPEED_UPGRADE, ModItemTags.ATTACK_SPEED_UPGRADE, new SpeedUpgrader());
+
+        register(UpgradeID.REPAIR_UPGRADE, ModItemTags.CASING_REPAIR, new RepairUpgrader());
+        register(UpgradeID.FIREPROOF_UPGRADE, Tags.Items.INGOTS_NETHERITE, new FireproofUpgrader());
     }
 
     private static void register(UpgradeID id, TagKey<Item> ingredientItemTag, Upgrader upgrader) {

@@ -15,7 +15,11 @@ public enum UpgradeID {
     EFFICIENCY_REMOVER("upgrade/efficiency_remover", "efr"),
 
     ATTACK_DAMAGE_UPGRADE("upgrade/attack", "adm"),
-    ATTACK_SPEED_UPGRADE("upgrade/speed", "asp");
+    ATTACK_SPEED_UPGRADE("upgrade/speed", "asp"),
+
+    REPAIR_UPGRADE("upgrade/repair", "rpr"),
+    FIREPROOF_UPGRADE("upgrade/fireproof", "frp"),
+    ;
 
     private final ResourceLocation id;
     private final String shortName;

@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "tolaserblade:repair_lb_smithing"
+        "recipe": "tolaserblade:upgrade/lb_frp"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -26,7 +26,7 @@
   ],
   "rewards": {
     "recipes": [
-      "tolaserblade:repair_lb_smithing"
+      "tolaserblade:upgrade/lb_frp"
     ]
   }
 }
