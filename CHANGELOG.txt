@@ -4,6 +4,17 @@
 
 ## [Unreleased]
 
+## [1.18.2-5.2.1.0]
+### Added
+- Add laser blade model number 2.
+- Add recipes to change laser blade model to number 2: [Smithing Table] Laser Blade + Sandstone.
+
+### Changed
+- Require Forge 1.18.2-40.2.0.
+- Change model type of Brand-new Laser Blade I/II to unspecified.
+- Make blade colors of brand-new laser blades compatible with new biomes.
+- Switch license to MIT.
+
 ## [1.18.2-5.2.0.0]
 ### Changed
 - Port to 1.18.2.

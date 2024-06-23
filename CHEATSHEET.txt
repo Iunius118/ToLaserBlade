@@ -1,9 +1,11 @@
 # Cheatsheet
-ToLaserBlade v5.1.1.0
+ToLaserBlade v1.18.2-5.2.1.0
 
 ## How to Get Started
 ### 1. Craft a Brand-new Laser Blade I or II, and Use It
 Holding a brand-new laser blade in your hand and right-clicking, you will obtain a laser blade.
+
+When you name your brand-new laser blade I or II GIFT by using an anvil and use it...
 
 ### 2. Craft a Smithing Table and Upgrade the Laser Blade
 Using smithing table, you can upgrade your laser blade.
@@ -37,6 +39,18 @@ Crafting Table:
   - I, D, I;
   - R, I, G; -> Brand-new Laser Blade I
 
+- The color of the laser blade obtained may change depending on the biome where the player obtained it
+  - Nether Wastes, Crimson Forest, or Basalt Deltas: white blades and subtractive inner blade color
+  - Warped Forest or Soul Sand Valley: white blades and subtractive outer blade color
+  - All biomes in the End: white blades and subtractive blade colors
+  - Temperature > 1.5: violet outer blade
+  - 1.5 >= Temperature >= 1.0: magenta outer blade
+  - 1.0 > Temperature > 0.8: gold outer blade
+  - 0.8 >= Temperature >= 0.5: red outer blade
+  - 0.5 > Temperature >= 0.2:  lime outer blade
+  - 0.2 > Temperature >= -0.3: azure outer blade
+  - -0.3 > Temperature: blue outer blade
+
 ### Brand-new Laser Blade II
 - ID: `tolaserblade:lb_brand_new_2`
 - Holding this item in your hand and right-clicking, you will get a laser blade enchanted with Efficiency I and Light Element II
@@ -65,7 +79,7 @@ Crafting Table:
 - Mining level: 3 or 4 (fireproof)
 - Mining speed: Affected by Efficiency level
 - Repairing: See Repairing Laser Blades
-- When the durability of the laser blade reaches 0, the laser blade will break and you will obtain a broken laser blade
+- When the durability of the laser blade reaches 0, the laser blade will break, and you will obtain a broken laser blade
 
 ### Broken Laser Blade
 - ID: `tolaserblade:lb_broken`
@@ -99,6 +113,7 @@ Smithing Table:
 - Removing Model Type: Laser Blade (with model type saved) + Crafting Table
 - Model Type 0 (Standard): Laser Blade + Glass
 - Model Type 1: Laser Blade + Sand
+- Model Type 2: Laser Blade + Sandstone
 - Model Type 526: Laser Blade + Dirt
 
 ### Upgrading Laser Blades
@@ -127,7 +142,7 @@ Smithing Table:
 - Enchanting: See Upgrading Laser Blades
 - Max level: 10
 - Incompatible with Sharpness, Smite, and Bane of Arthropods
-- Effects: increasing the damage of the laser blade, and dealing the additional damage to undead mobs and illagers
+- Effects: Increases damage from Laser Blade, and deals additional damage to undead mobs and illagers
 
 ### Laser Trap
 When you put a laser blade in a dispenser and activate it, you can attack the mobs (of course, players included) in front of the dispenser with the laser blade.
