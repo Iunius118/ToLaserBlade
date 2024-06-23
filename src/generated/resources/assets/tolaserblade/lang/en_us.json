@@ -22,7 +22,7 @@
   "advancements.tolaserblade.main.root.description": "Laser Blade is a tool used to cut through material, so any damage caused by using as a weapon is not covered by the warranty",
   "advancements.tolaserblade.main.root.title": "ToLaserBlade",
   "enchantment.tolaserblade.light_element": "Light Element",
-  "enchantment.tolaserblade.light_element.desc": "Increases the damage of the Laser Blade, and deals additional damage to undead mobs and illagers.",
+  "enchantment.tolaserblade.light_element.desc": "Increases damage from Laser Blade, and deals additional damage to undead mobs and illagers.",
   "item.tolaserblade.dx_laser_blade": "DX Laser B1ade",
   "item.tolaserblade.laser_blade": "Laser Blade",
   "item.tolaserblade.laser_blade_fp": "Laser Blade",
