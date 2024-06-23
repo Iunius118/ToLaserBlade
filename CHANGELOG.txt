@@ -4,6 +4,17 @@
 
 ## [Unreleased]
 
+## [9.1.0 NeoForge]
+### Added
+- Add recipes of repair upgrade and fireproof upgrade.
+
+### Changed
+- Require NeoForge 20.6.112-beta+.
+- Switch license to MIT.
+
+### Fixed
+- Attribute modifiers are now removed when laser blades are converted to brand-new ones.
+
 ## [9.0.2 NeoForge]
 ### Fixed
 - Fix Light Element not working correctly against undead mobs and illagers.
