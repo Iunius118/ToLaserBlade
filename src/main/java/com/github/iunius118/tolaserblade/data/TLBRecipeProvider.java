@@ -241,8 +241,13 @@ public class TLBRecipeProvider extends RecipeProvider implements IConditionBuild
     }
 
     private void addColorRecipe(Ingredient template, RecipeOutput consumer, Ingredient addition, LaserBladeColorPart part, LaserBladeColor color) {
-        boolean isBlade = (part == LaserBladeColorPart.INNER_BLADE || part == LaserBladeColorPart.OUTER_BLADE);
-        int colorValue = isBlade ? color.getBladeColor() : color.getGripColor();
+        int colorValue;
+
+        switch(part) {
+            case OUTER_BLADE -> colorValue = color.getOuterColor();
+            case INNER_BLADE -> colorValue = color.getInnerColor();
+            default -> colorValue = color.getGripColor();
+        }
 
         LBColorRecipeBuilder.colorRecipe(template, Ingredient.of(ModItems.LASER_BLADE), addition, RecipeCategory.TOOLS, part, colorValue)
                 .unlockedBy("has_laser_blade", has(ModItems.LASER_BLADE))

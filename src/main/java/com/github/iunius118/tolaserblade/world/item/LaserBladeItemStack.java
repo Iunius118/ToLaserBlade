@@ -38,13 +38,13 @@ public enum LaserBladeItemStack {
 
     private static ItemStack getIconStack() {
         var stack = new ItemStack(ModItems.LASER_BLADE);
-        new LaserBladeAppearance().setGripColor(LaserBladeColor.LIGHT_GRAY.getGripColor()).writeTo(stack);
+        new LaserBladeAppearance().setGripColor(LaserBladeColor.LIGHT_GRAY.getGripColor()).setTo(stack);
         return stack;
     }
 
     public static ItemStack getModelChangedStack(int type, boolean isFireproof) {
         var stack = new ItemStack(isFireproof ? ModItems.LASER_BLADE_FP : ModItems.LASER_BLADE);
-        LaserBladeAppearance.of().setType(type).writeTo(stack);
+        LaserBladeAppearance.of().setType(type).setTo(stack);
         return stack;
     }
 
@@ -58,10 +58,11 @@ public enum LaserBladeItemStack {
     private static ItemStack getGiftStack() {
         var stack = new ItemStack(ModItems.LASER_BLADE);
         LaserBlade.setAttack(stack, LaserBlade.MOD_ATK_GIFT);
+        LaserBlade.updateItemAttributeModifiers(stack);
         LaserBladeAppearance.of()
                 .setOuterColor(LaserBladeColor.LIME.getBladeColor())
                 .setGripColor(LaserBladeColor.BROWN.getGripColor())
-                .writeTo(stack);
+                .setTo(stack);
         stack.enchant(ModEnchantments.LIGHT_ELEMENT, 5);
         stack.enchant(Enchantments.EFFICIENCY, 1);
         return stack;
@@ -71,11 +72,12 @@ public enum LaserBladeItemStack {
         var stack = new ItemStack(isFireproof ? ModItems.LASER_BLADE_FP : ModItems.LASER_BLADE);
         LaserBlade.setAttack(stack, LaserBlade.MOD_ATK_CRITICAL_BONUS);
         LaserBlade.setSpeed(stack, LaserBlade.MOD_SPD_MAX);
+        LaserBlade.updateItemAttributeModifiers(stack);
         LaserBladeAppearance.of()
                 .setOuterColor(LaserBladeColor.BLUE.getBladeColor())
                 .setInnerColor(LaserBladeColor.LIGHT_BLUE.getBladeColor())
                 .setGripColor(LaserBladeColor.GRAY.getGripColor())
-                .writeTo(stack);
+                .setTo(stack);
         stack.enchant(ModEnchantments.LIGHT_ELEMENT, ModEnchantments.LIGHT_ELEMENT.getMaxLevel());
         stack.enchant(Enchantments.EFFICIENCY, Enchantments.EFFICIENCY.getMaxLevel());
         stack.enchant(Enchantments.MENDING, Enchantments.MENDING.getMaxLevel());
@@ -95,11 +97,12 @@ public enum LaserBladeItemStack {
         );
         LaserBlade.setAttack(stack, LaserBlade.MOD_ATK_CRITICAL_BONUS);
         LaserBlade.setSpeed(stack, LaserBlade.MOD_SPD_MAX);
+        LaserBlade.updateItemAttributeModifiers(stack);
         LaserBladeAppearance.of()
                 .setOuterColor(LaserBladeColor.CYAN.getBladeColor()).setOuterSubColor(true)
                 .setInnerColor(LaserBladeColor.WHITE.getBladeColor()).setInnerSubColor(true)
                 .setGripColor(LaserBladeColor.GRAY.getGripColor())
-                .writeTo(stack);
+                .setTo(stack);
         stack.enchant(ModEnchantments.LIGHT_ELEMENT, ModEnchantments.LIGHT_ELEMENT.getMaxLevel());
         stack.enchant(Enchantments.EFFICIENCY, Enchantments.EFFICIENCY.getMaxLevel());
         stack.enchant(Enchantments.MENDING, Enchantments.MENDING.getMaxLevel());

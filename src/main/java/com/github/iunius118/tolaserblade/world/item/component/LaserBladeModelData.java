@@ -1,5 +1,6 @@
 package com.github.iunius118.tolaserblade.world.item.component;
 
+import com.github.iunius118.tolaserblade.api.core.laserblade.LaserBladeState;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBlade;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -30,7 +31,7 @@ public record LaserBladeModelData(int modelType, Map<String, PartData> parts) {
         this.parts = Objects.requireNonNullElse(parts, Map.of());
     }
 
-    public record PartData(boolean exists, int color, boolean isSubtractiveColor) {
+    public record PartData(boolean exists, int color, boolean isSubtractiveColor) implements LaserBladeState.Part {
         public static final PartData ABSENT = new PartData(false, -1, false);
         public static final Codec<PartData> CODEC = RecordCodecBuilder.create(
                 instance -> instance.group(

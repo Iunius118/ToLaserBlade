@@ -107,10 +107,10 @@ public class LBBrandNewItem extends Item implements LaserBladeItemBase {
             // Try getting number of model type from display name of item stack
             int modelType = Integer.parseInt(name);
             appearance.setType(modelType);
-        } catch (NumberFormatException e) {
+        } catch (NumberFormatException ignored) {
         }
 
-        appearance.writeTo(laserBladeStack);
+        appearance.setTo(laserBladeStack);
         return laserBladeStack;
     }
 

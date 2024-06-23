@@ -18,6 +18,7 @@ public class SpeedUpgrader implements Upgrader {
         if (LaserBlade.canUpgradeSpeed(speed)) {
             speed += 0.4F;
             LaserBlade.setSpeed(base, speed);
+            LaserBlade.updateItemAttributeModifiers(base);
             cost += getCost(speed);
         }
 

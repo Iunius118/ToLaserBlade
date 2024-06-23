@@ -20,6 +20,8 @@ public class LaserBladeDataMigrator {
     public static final String OLD_KEY_IS_OUTER_SUB_COLOR = "isSubH";
     public static final String OLD_KEY_GRIP_COLOR = "colorG";
 
+    private LaserBladeDataMigrator() { }
+
     public static float getAttack(ItemStack itemStack) {
         var customData = itemStack.get(DataComponents.CUSTOM_DATA);
 
@@ -131,10 +133,11 @@ public class LaserBladeDataMigrator {
         }
 
         if (!isDataUpdated) {
+            // Custom data does not have any laser blade data
             return appearance;
         }
 
-        appearance.writeTo(itemStack);
+        appearance.setTo(itemStack);
 
         if (tag.isEmpty()) {
             // Remove empty CUSTOM_DATA

@@ -1,5 +1,6 @@
 package com.github.iunius118.tolaserblade.core.laserblade;
 
+import com.github.iunius118.tolaserblade.api.core.laserblade.LaserBladeState;
 import com.github.iunius118.tolaserblade.core.component.ModDataComponents;
 import com.github.iunius118.tolaserblade.world.item.component.LaserBladeModelData;
 import com.google.common.collect.ImmutableMap;
@@ -11,41 +12,29 @@ import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.level.biome.Biomes;
 
 import java.util.Map;
+import java.util.Objects;
 
 public class LaserBladeAppearance {
     private static final String KEY_OUTER = "out";
     private static final String KEY_INNER = "in";
-    private static final String KEY_GRIP = "grip";
+    private static final String KEY_GRIP  = "grip";
+    private static final LaserBladeModelData.PartData DEFAULT_OUT  = new LaserBladeModelData.PartData(false, LaserBladeColor.RED.getOuterColor(), false);
+    private static final LaserBladeModelData.PartData DEFAULT_IN   = new LaserBladeModelData.PartData(false, LaserBladeColor.WHITE.getInnerColor(), false);
+    private static final LaserBladeModelData.PartData DEFAULT_GRIP = new LaserBladeModelData.PartData(false, LaserBladeColor.WHITE.getGripColor(), false);;
 
-    private int type = LaserBlade.TYPE_DEFAULT;;
-    private int outerColor = LaserBladeColor.RED.getBladeColor();;
-    private int innerColor = LaserBladeColor.WHITE.getBladeColor();;
-    private int gripColor = LaserBladeColor.WHITE.getGripColor();;
-    private boolean isOuterSubColor = false;
-    private boolean isInnerSubColor = false;
+    private int type = LaserBlade.TYPE_DEFAULT;
+    private LaserBladeModelData.PartData out  = DEFAULT_OUT;
+    private LaserBladeModelData.PartData in   = DEFAULT_IN;
+    private LaserBladeModelData.PartData grip = DEFAULT_GRIP;
 
     public LaserBladeAppearance() { }
 
     public LaserBladeAppearance(LaserBladeModelData modelData) {
         type = modelData.modelType();
         Map<String, LaserBladeModelData.PartData> parts = modelData.parts();
-        LaserBladeModelData.PartData out = parts.get(KEY_OUTER);
-        LaserBladeModelData.PartData in = parts.get(KEY_INNER);
-        LaserBladeModelData.PartData grip = parts.get(KEY_GRIP);
-
-        if (out != null) {
-            outerColor = out.color();
-            isOuterSubColor = out.isSubtractiveColor();
-        }
-
-        if (in != null) {
-            innerColor = in.color();
-            isInnerSubColor = in.isSubtractiveColor();
-        }
-
-        if (grip != null) {
-            gripColor = grip.color();
-        }
+        out  = Objects.requireNonNullElse(parts.get(KEY_OUTER), out);
+        in   = Objects.requireNonNullElse(parts.get(KEY_INNER), in);
+        grip = Objects.requireNonNullElse(parts.get(KEY_GRIP), grip);
     }
 
     public static LaserBladeAppearance of() {
@@ -58,10 +47,12 @@ public class LaserBladeAppearance {
         if (modelData != null) {
             return new LaserBladeAppearance(modelData);
         } else {
-            // Attempt to get and migrate data from CUSTOM_DATA
+            // Attempt to get and migrate laser blade data from CUSTOM_DATA
             return LaserBladeDataMigrator.getAppearance(itemStack);
         }
     }
+
+    /* Model Type */
 
     public int getType() {
         return Math.max(type, 0);
@@ -72,58 +63,89 @@ public class LaserBladeAppearance {
         return this;
     }
 
-    public int getOuterColor() {
-        return outerColor;
+    /* Outer Blade Layer */
+
+    public LaserBladeState.Part getOuter() {
+        return out;
     }
 
-    public LaserBladeAppearance setOuterColor(int outerColor) {
-        this.outerColor = outerColor;
-        return this;
+    public int getOuterColor() {
+        return out.color();
     }
 
     public boolean isOuterSubColor() {
-        return isOuterSubColor;
+        return out.isSubtractiveColor();
+    }
+
+    public LaserBladeAppearance setOuterColor(int outerColor, boolean outerSubColor) {
+        out = LaserBladeModelData.PartData.create(outerColor, outerSubColor);
+        return this;
+    }
+
+    public LaserBladeAppearance setOuterColor(int outerColor) {
+        return setOuterColor(outerColor, out.isSubtractiveColor());
     }
 
     public LaserBladeAppearance setOuterSubColor(boolean outerSubColor) {
-        isOuterSubColor = outerSubColor;
-        return this;
+        return setOuterColor(out.color(), outerSubColor);
     }
 
     public LaserBladeAppearance switchOuterSubColor() {
-        isOuterSubColor = !isOuterSubColor;
-        return this;
+        return setOuterSubColor(!out.isSubtractiveColor());
+    }
+
+    /* Inner Blade Layer */
+
+    public LaserBladeState.Part getInner() {
+        return in;
     }
 
     public int getInnerColor() {
-        return innerColor;
-    }
-
-    public LaserBladeAppearance setInnerColor(int innerColor) {
-        this.innerColor = innerColor;
-        return this;
+        return in.color();
     }
 
     public boolean isInnerSubColor() {
-        return isInnerSubColor;
+        return in.isSubtractiveColor();
+    }
+
+    public LaserBladeAppearance setInnerColor(int innerColor, boolean innerSubColor) {
+        in = LaserBladeModelData.PartData.create(innerColor, innerSubColor);
+        return this;
+    }
+
+    public LaserBladeAppearance setInnerColor(int innerColor) {
+        return setInnerColor(innerColor, in.isSubtractiveColor());
     }
 
     public LaserBladeAppearance setInnerSubColor(boolean innerSubColor) {
-        isInnerSubColor = innerSubColor;
-        return this;
+        return setInnerColor(in.color(), innerSubColor);
     }
 
     public LaserBladeAppearance switchInnerSubColor() {
-        isInnerSubColor = !isInnerSubColor;
-        return this;
+        return setInnerSubColor(!in.isSubtractiveColor());
+    }
+
+    /* Grip */
+
+    public LaserBladeState.Part getGrip() {
+        return grip;
     }
 
     public int getGripColor() {
-        return gripColor;
+        return grip.color();
     }
 
     public LaserBladeAppearance setGripColor(int gripColor) {
-        this.gripColor = gripColor;
+        grip = LaserBladeModelData.PartData.create(gripColor, false);
+        return this;
+    }
+
+    /* Util */
+
+    public LaserBladeAppearance setColor(LaserBladeColor color) {
+        out  = LaserBladeModelData.PartData.create(color.getOuterColor(), color.isOuterSubColor());
+        in   = LaserBladeModelData.PartData.create(color.getInnerColor(), color.isInnerSubColor());
+        grip = LaserBladeModelData.PartData.create(color.getGripColor(), false);
         return this;
     }
 
@@ -144,56 +166,49 @@ public class LaserBladeAppearance {
         return this;
     }
 
-    public void writeTo(ItemStack itemStack) {
-        Map<String, LaserBladeModelData.PartData> parts = new ImmutableMap.Builder<String, LaserBladeModelData.PartData>()
-                .put(KEY_OUTER, LaserBladeModelData.PartData.create(outerColor, isOuterSubColor))
-                .put(KEY_INNER, LaserBladeModelData.PartData.create(innerColor, isInnerSubColor))
-                .put(KEY_GRIP, LaserBladeModelData.PartData.create(gripColor, false))
-                .build();
-        LaserBladeModelData modelData = new LaserBladeModelData(type, parts);
+    public void setTo(ItemStack itemStack) {
+        var partBuilder = new ImmutableMap.Builder<String, LaserBladeModelData.PartData>();
+
+        if (out.exists()) {
+            partBuilder.put(KEY_OUTER, out);
+        }
+
+        if (in.exists()) {
+            partBuilder.put(KEY_INNER, in);
+        }
+
+        if (grip.exists()) {
+            partBuilder.put(KEY_GRIP, grip);
+        }
+
+        LaserBladeModelData modelData = new LaserBladeModelData(type, partBuilder.build());
         itemStack.set(ModDataComponents.LASER_BLADE_MODEL, modelData);
     }
 
     private void setColorsByNetherBiome(Level level, Holder<Biome> biomeHolder) {
-        outerColor = LaserBladeColor.WHITE.getBladeColor();
-
         if (compareBiomes(biomeHolder, Biomes.SOUL_SAND_VALLEY) || compareBiomes(biomeHolder, Biomes.WARPED_FOREST)) {
-            isOuterSubColor = true;
+            setColor(LaserBladeColor.BIOME_NETHER_B);
         } else {
-            isInnerSubColor = true;
+            setColor(LaserBladeColor.BIOME_NETHER_A);
         }
     }
 
     private void setColorsByEndBiome(Level level, Holder<Biome> biomeHolder) {
-        outerColor = LaserBladeColor.WHITE.getBladeColor();
-        isOuterSubColor = isInnerSubColor = true;
+        setColor(LaserBladeColor.BIOME_END);
     }
 
     private void setColorsByOverWorldBiome(Level level, Holder<Biome> biomeHolder) {
         if (compareBiomes(biomeHolder, Biomes.DEEP_DARK)) {
             // Deep dark biome
-            setDeepDarkColors();
+            setColor(LaserBladeColor.BIOME_DEEP_DARK);
+            type = 2;
         } else if (compareBiomes(biomeHolder, Biomes.CHERRY_GROVE)) {
             // Cherry grove biome
-            setCherryGroveColors();
+            setColor(LaserBladeColor.BIOME_CHERRY_GROVE);
         } else {
             float temp = biomeHolder.value().getBaseTemperature();
-            outerColor = LaserBladeColor.getColorByTemperature(temp).getBladeColor();
+            setOuterColor(LaserBladeColor.getColorByTemperature(temp).getOuterColor());
         }
-    }
-
-    private void setDeepDarkColors() {
-        outerColor = LaserBladeColor.CYAN.getBladeColor();
-        innerColor = 0xFFFADCD7;    // Sculk's deep dark blue (negative)
-        isInnerSubColor = true;
-        gripColor = 0xFF052328;     // Sculk's deep dark blue
-        type = 2;
-    }
-
-    private void setCherryGroveColors() {
-        outerColor = LaserBladeColor.PINK.getBladeColor();
-        innerColor = 0xFFFADCF0;    // Cherry blossom's light pink
-        gripColor = 0xFF4B2D3C;     // Cherry log's dark brown
     }
 
     private boolean compareBiomes(Holder<Biome> biomeHolder, ResourceKey<Biome> biomeKey) {
