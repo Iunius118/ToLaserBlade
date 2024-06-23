@@ -4,6 +4,17 @@
 
 ## [Unreleased]
 
+## [1.19-5.3.4.0]
+### Added
+- New blade color of laser blade obtained in deep dark.
+
+### Changed
+- Require Forge 1.19-41.1.0+.
+- Change model type of Brand-new Laser Blade I/II to unspecified.
+- Improve laser blade model number 2.
+- Make blade colors of brand-new laser blades compatible with new biomes.
+- Switch license to MIT.
+
 ## [1.19-5.3.3.0]
 ### Changed
 - Compatible with Forge 1.19-41.0.98.
