@@ -4,6 +4,17 @@
 
 ## [Unreleased]
 
+## [1.20.1-7.0.1.0]
+### Added
+- New blade color of laser blade obtained in deep dark.
+- New blade color of laser blade obtained in cherry grove.
+
+### Changed
+- Require Forge 1.20.1-47.2.0+.
+- Improve laser blade model number 2.
+- Make blade colors of brand-new laser blades compatible with new biomes.
+- Switch license to MIT.
+
 ## [1.20.1-7.0.0.0]
 ### Changed
 - Require Forge 1.20.1-47.0.34+.

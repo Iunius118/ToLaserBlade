@@ -1,10 +1,11 @@
 # Credits
-## Author
-ToLaserBlade
-Copyright (c) 2016 Iunius118
-https://github.com/Iunius118/ToLaserBlade
+## ToLaserBlade
+[ToLaserBlade](https://github.com/Iunius118/ToLaserBlade)
 
-## Contributors
+### Author
+- Iunius118
+
+### Contributors
 - kazmurenko (ru_ru translation)
 - tankyap (zh_cn translation)
 - XuyuEre (zh_cn translation)
