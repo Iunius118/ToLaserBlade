@@ -1,9 +1,11 @@
 # Cheatsheet
-ToLaserBlade v9.0.0 (forge)
+ToLaserBlade v9.1.0 (Forge)
 
 ## How to Get Started
 ### 1. Craft a Brand-new Laser Blade I or II, and Use It
 Holding a brand-new laser blade in your hand and right-clicking, you will obtain a laser blade.
+
+When you name your brand-new laser blade I or II GIFT by using an anvil and use it...
 
 ### 2. Craft a Smithing Table and Upgrade the Laser Blade
 Using smithing table, you can upgrade your laser blade.
@@ -187,25 +189,25 @@ You can add audio files that will be played when laser blades are swung.
 - Server-side settings: `<world_path>/serverconfig/tolaserblade-server.toml`
 - Client-side settings: `<instance_path>/config/tolaserblade-client.toml`
 
-## Data Components
-Data components for laser blade data
+### Data Components
+Item components for laser blade items
 
-For example:
+Example:
 ```
-/give @p tolaserblade:laser_blade[tolaserblade:lb_atk=8.0f,tolaserblade:lb_spd=1.2f,tolaserblade:lb_mdl={type:2,parts:{grip:{color:-12103854,is_sub:0b},in:{color:-1,is_sub:1b},out:{color:-1,is_sub:0b}}}]
+/give @p tolaserblade:laser_blade[tolaserblade:lb_atk=8.0f,tolaserblade:lb_spd=1.2f,tolaserblade:lb_mdl={type:2,parts:{grip:{color:-12103854,is_sub:false},in:{color:-1,is_sub:true},out:{color:-1,is_sub:false}}}]
 ```
 
 ### Attack Damage
-ID: `tolaserblade:lb_atk`
-Value: Float value between 0 and 8 (default setting)
+- Key: `tolaserblade:lb_atk`
+- Value: A float value between 0 and 8
 
 ### Attack Speed
-ID: `tolaserblade:lb_spd`
-Value: Float value between 0 and 1.2
+- Key: `tolaserblade:lb_spd`
+- Value: A float value between 0 and 1.2
 
 ### Model and Color
-ID: `tolaserblade:lb_mdl`
-Value:
+- Key: `tolaserblade:lb_mdl`
+- Value: The following data compound
 
 ```
 {
@@ -213,15 +215,15 @@ Value:
   parts: {
     grip: {
       color: <integer grip_color_in_argb_32>,
-      is_sub: 0b
+      is_sub: false
     },
     in: {
-      color: <integer inner_blade_color_in_argb_32>,
-      is_sub: <byte (boolean) is_inner_blade_subtractive_color>
+      color: <integer inner_blade_layer_color_in_argb_32>,
+      is_sub: <boolean is_inner_blade_layer_subtractive_color>
     },
     out: {
-      color: <integer outer_blade_color_in_argb_32>,
-      is_sub: <byte (boolean) is_outer_blade_subtractive_color>
+      color: <integer outer_blade_layer_color_in_argb_32>,
+      is_sub: <boolean is_outer_blade_layer_subtractive_color>
     }
   }
 }

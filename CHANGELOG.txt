@@ -4,6 +4,17 @@
 
 ## [Unreleased]
 
+## [9.1.0 Forge]
+### Added
+- Add recipes of repair upgrade and fireproof upgrade.
+
+### Changed
+- Require Forge 1.20.6-50.1.0+.
+- Switch license to MIT.
+
+### Fixed
+- Attribute modifiers are now removed when laser blades are converted to brand-new ones.
+
 ## [9.0.0 Forge]
 ### Added
 - Data components for laser blade: `tolaserblade:lb_atk`, `tolaserblade:lb_spd`, and `tolaserblade:lb_mdl`.
