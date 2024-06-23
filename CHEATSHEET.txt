@@ -1,9 +1,18 @@
 # Cheatsheet
-ToLaserBlade v5.1.1.0
+[ToLaserBlade](https://github.com/Iunius118/ToLaserBlade)
+Version 1.17.1-5.1.2.0.
+
+Adds a simple sword with a laser blade.
+
+## Requirements
+- Minecraft 1.17.1
+- Forge 1.17.1-37.1.1+
 
 ## How to Get Started
 ### 1. Craft a Brand-new Laser Blade I or II, and Use It
 Holding a brand-new laser blade in your hand and right-clicking, you will obtain a laser blade.
+
+When you name your brand-new laser blade I or II GIFT by using an anvil and use it...
 
 ### 2. Craft a Smithing Table and Upgrade the Laser Blade
 Using smithing table, you can upgrade your laser blade.
@@ -65,7 +74,7 @@ Crafting Table:
 - Mining level: 3 or 4 (fireproof)
 - Mining speed: Affected by Efficiency level
 - Repairing: See Repairing Laser Blades
-- When the durability of the laser blade reaches 0, the laser blade will break and you will obtain a broken laser blade
+- When the durability of the laser blade reaches 0, the laser blade will break, and you will obtain a broken laser blade
 
 ### Broken Laser Blade
 - ID: `tolaserblade:lb_broken`
@@ -99,6 +108,7 @@ Smithing Table:
 - Removing Model Type: Laser Blade (with model type saved) + Crafting Table
 - Model Type 0 (Standard): Laser Blade + Glass
 - Model Type 1: Laser Blade + Sand
+- Model Type 2: Laser Blade + Sandstone
 - Model Type 526: Laser Blade + Dirt
 
 ### Upgrading Laser Blades
@@ -127,7 +137,7 @@ Smithing Table:
 - Enchanting: See Upgrading Laser Blades
 - Max level: 10
 - Incompatible with Sharpness, Smite, and Bane of Arthropods
-- Effects: increasing the damage of the laser blade, and dealing the additional damage to undead mobs and illagers
+- Effects: Increases damage from Laser Blade, and deals additional damage to undead mobs and illagers
 
 ### Laser Trap
 When you put a laser blade in a dispenser and activate it, you can attack the mobs (of course, players included) in front of the dispenser with the laser blade.
