@@ -7,8 +7,6 @@ import com.github.iunius118.tolaserblade.core.particle.ModParticleTypes;
 import com.github.iunius118.tolaserblade.world.item.ModCreativeModeTabs;
 import com.github.iunius118.tolaserblade.world.item.ModItems;
 import com.github.iunius118.tolaserblade.world.item.crafting.ModRecipeSerializers;
-import com.github.iunius118.tolaserblade.world.item.enchantment.LightElementEnchantment;
-import com.github.iunius118.tolaserblade.world.item.enchantment.ModEnchantments;
 import net.minecraft.core.registries.Registries;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
@@ -17,7 +15,6 @@ public class RegistryEventHandler {
     public static void registerGameObjects(IEventBus modEventBus) {
         registerRecipeSerializers(modEventBus);
         registerItems(modEventBus);
-        registerEnchantments(modEventBus);
         registerParticleTypes(modEventBus);
         registerSoundEvents(modEventBus);
         registerCreativeModeTabs(modEventBus);
@@ -56,14 +53,6 @@ public class RegistryEventHandler {
         itemRegister.register("lb_casing_fp", () -> ModItems.LB_CASING_FP);
 
         itemRegister.register(modEventBus);
-    }
-
-    private static void registerEnchantments(IEventBus modEventBus) {
-        var enchantmentRegister = DeferredRegister.create(Registries.ENCHANTMENT, ToLaserBlade.MOD_ID);
-
-        enchantmentRegister.register(LightElementEnchantment.ID.getPath(), () -> ModEnchantments.LIGHT_ELEMENT);
-
-        enchantmentRegister.register(modEventBus);
     }
 
     private static void registerParticleTypes(IEventBus modEventBus) {

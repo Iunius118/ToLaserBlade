@@ -8,11 +8,14 @@ import com.github.iunius118.tolaserblade.world.item.ModItems;
 import com.github.iunius118.tolaserblade.world.item.enchantment.ModEnchantments;
 import net.minecraft.advancements.*;
 import net.minecraft.advancements.critereon.*;
+import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponentPredicate;
 import net.minecraft.core.registries.BuiltInRegistries;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -33,10 +36,10 @@ public class TLBAdvancementProvider extends AdvancementProvider {
 
     private static class TLBAdvancementGenerator implements AdvancementProvider.AdvancementGenerator {
         @Override
-        public void generate(HolderLookup.Provider registries, Consumer<AdvancementHolder> consumer, ExistingFileHelper existingFileHelper) {
+        public void generate(HolderLookup.Provider lookupProvider, Consumer<AdvancementHolder> consumer, ExistingFileHelper existingFileHelper) {
             // Main root
             AdvancementHolder root = Advancement.Builder.recipeAdvancement()
-                    .display(LaserBladeItemStack.ICON.getCopy(),
+                    .display(LaserBladeItemStack.ICON.getCopy(lookupProvider),
                             Component.translatable("advancements.tolaserblade.main.root.title"),
                             Component.translatable("advancements.tolaserblade.main.root.description"),
                             ResourceLocation.withDefaultNamespace("textures/block/polished_andesite.png"),
@@ -58,11 +61,11 @@ public class TLBAdvancementProvider extends AdvancementProvider {
 
             // 1-1-1. Power of Light
             AdvancementHolder lightElement5 = registerEnchantmentAdvancement(laserBlade, Items.GLOWSTONE, AdvancementType.TASK,
-                    new Item[]{ModItems.LASER_BLADE, ModItems.LASER_BLADE_FP}, ModEnchantments.LIGHT_ELEMENT, 5, consumer);
+                    new Item[]{ModItems.LASER_BLADE, ModItems.LASER_BLADE_FP}, ModEnchantments.LIGHT_ELEMENT, 5, lookupProvider, consumer);
 
             // 1-1-1-1. Unlimited Power
             AdvancementHolder lightElement10 = registerEnchantmentAdvancement(lightElement5, Items.GLOWSTONE, AdvancementType.TASK,
-                    new Item[]{ModItems.LASER_BLADE, ModItems.LASER_BLADE_FP}, ModEnchantments.LIGHT_ELEMENT, 10, consumer);
+                    new Item[]{ModItems.LASER_BLADE, ModItems.LASER_BLADE_FP}, ModEnchantments.LIGHT_ELEMENT, 10, lookupProvider, consumer);
 
             // 1-1-2. It's Over 9
             AdvancementHolder attack10 = registerAttackUpgradeAdvancement(laserBlade, Items.DIAMOND, AdvancementType.TASK,
@@ -74,7 +77,7 @@ public class TLBAdvancementProvider extends AdvancementProvider {
 
             // 1-1-3. Give Me Three
             AdvancementHolder looting3 = registerEnchantmentAdvancement(laserBlade, Items.NAUTILUS_SHELL, AdvancementType.TASK,
-                    new Item[]{ModItems.LASER_BLADE, ModItems.LASER_BLADE_FP}, Enchantments.LOOTING, 3, consumer);
+                    new Item[]{ModItems.LASER_BLADE, ModItems.LASER_BLADE_FP}, Enchantments.LOOTING, 3, lookupProvider, consumer);
 
             // 1-1-4. Returns and Exchanges
             AdvancementHolder breakLaserBlade = Advancement.Builder.recipeAdvancement()
@@ -98,14 +101,16 @@ public class TLBAdvancementProvider extends AdvancementProvider {
 
             // 1-1-5. Life-time Support
             AdvancementHolder mending = registerEnchantmentAdvancement(laserBlade, Items.NETHER_STAR, AdvancementType.GOAL,
-                    new Item[]{ModItems.LASER_BLADE, ModItems.LASER_BLADE_FP}, Enchantments.MENDING, 1, consumer);
+                    new Item[]{ModItems.LASER_BLADE, ModItems.LASER_BLADE_FP}, Enchantments.MENDING, 1, lookupProvider, consumer);
 
             // 1-1-6. Into The Core
             AdvancementHolder laserBladeFP = registerItemAdvancement(laserBlade, Items.NETHERITE_INGOT, AdvancementType.TASK,
                     new Item[]{ModItems.LASER_BLADE_FP}, consumer);
         }
 
-        private AdvancementHolder registerItemAdvancement(AdvancementHolder parent, Item icon, AdvancementType advancementType, Item[] requirements, Consumer<AdvancementHolder> consumer) {
+        private AdvancementHolder registerItemAdvancement(AdvancementHolder parent, Item icon, AdvancementType advancementType,
+                                                          Item[] requirements, Consumer<AdvancementHolder> consumer)
+        {
             String name = getItemId(requirements[0]).getPath();
             Advancement.Builder builder = Advancement.Builder.recipeAdvancement()
                     .parent(parent)
@@ -124,8 +129,12 @@ public class TLBAdvancementProvider extends AdvancementProvider {
             return builder.save(consumer, "tolaserblade:main/" + name);
         }
 
-        private AdvancementHolder registerEnchantmentAdvancement(AdvancementHolder parent, Item icon, AdvancementType advancementType, Item[] requirements, Enchantment enchantment, int level, Consumer<AdvancementHolder> consumer) {
-            String name = getItemId(requirements[0]).getPath() + "_" + getEnchantmentId(enchantment).getPath() + "_" + level;
+        private AdvancementHolder registerEnchantmentAdvancement(AdvancementHolder parent, Item icon, AdvancementType advancementType,
+                                                                 Item[] requirements, ResourceKey<Enchantment> enchantment, int level,
+                                                                 HolderLookup.Provider lookupProvider, Consumer<AdvancementHolder> consumer)
+        {
+            var enchantmentHolder = lookupProvider.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(enchantment);
+            String name = getItemId(requirements[0]).getPath() + "_" + getEnchantmentId(enchantmentHolder).getPath() + "_" + level;
             Advancement.Builder builder = Advancement.Builder.recipeAdvancement()
                     .parent(parent)
                     .display(icon,
@@ -141,7 +150,7 @@ public class TLBAdvancementProvider extends AdvancementProvider {
                         .of(item)
                         .withSubPredicate(ItemSubPredicates.ENCHANTMENTS,
                                 ItemEnchantmentsPredicate.enchantments(List.of(
-                                        new EnchantmentPredicate(enchantment, MinMaxBounds.Ints.atLeast(level)))))
+                                        new EnchantmentPredicate(enchantmentHolder, MinMaxBounds.Ints.atLeast(level)))))
                         .build();
 
                 builder.addCriterion("has_" + itemName, InventoryChangeTrigger.TriggerInstance.hasItems(itemPredicate));
@@ -150,7 +159,9 @@ public class TLBAdvancementProvider extends AdvancementProvider {
             return builder.save(consumer, "tolaserblade:main/" + name);
         }
 
-        private AdvancementHolder registerAttackUpgradeAdvancement(AdvancementHolder parent, Item icon, AdvancementType advancementType, Item[] requirements, int attackDamage, Consumer<AdvancementHolder> consumer) {
+        private AdvancementHolder registerAttackUpgradeAdvancement(AdvancementHolder parent, Item icon, AdvancementType advancementType,
+                                                                   Item[] requirements, int attackDamage, Consumer<AdvancementHolder> consumer)
+        {
             String name = getItemId(requirements[0]).getPath() + "_attack_" + attackDamage;
             Advancement.Builder builder = Advancement.Builder.recipeAdvancement()
                     .parent(parent)
@@ -186,8 +197,8 @@ public class TLBAdvancementProvider extends AdvancementProvider {
             return BuiltInRegistries.ITEM.getKey(item);
         }
 
-        private ResourceLocation getEnchantmentId(Enchantment enchantment) {
-            return BuiltInRegistries.ENCHANTMENT.getKey(enchantment);
+        private ResourceLocation getEnchantmentId(Holder<Enchantment> enchantment) {
+            return enchantment.unwrapKey().orElseThrow().location();
         }
     }
 }

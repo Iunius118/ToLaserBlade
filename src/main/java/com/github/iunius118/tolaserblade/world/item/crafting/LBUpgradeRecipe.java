@@ -56,20 +56,21 @@ public class LBUpgradeRecipe extends SmithingTransformRecipe {
 
         ItemStack baseStack = container.getItem(SmithingMenu.BASE_SLOT);
         ItemStack additionalStack = container.getItem(SmithingMenu.ADDITIONAL_SLOT);
+        HolderLookup.Provider provider = level.registryAccess();
         Upgrade upgrade = getUpgrade();
-        return upgrade.canApply(baseStack, additionalStack);
+        return upgrade.canApply(baseStack, additionalStack, provider);
     }
 
     @Override
     public ItemStack assemble(Container container, HolderLookup.Provider provider) {
         ItemStack baseStack = container.getItem(SmithingMenu.BASE_SLOT);
         ItemStack itemstack = baseStack.copy();
-        return getUpgradingResult(itemstack);
+        return getUpgradingResult(itemstack, provider);
     }
 
-    private ItemStack getUpgradingResult(ItemStack input) {
+    private ItemStack getUpgradingResult(ItemStack input, HolderLookup.Provider provider) {
         Upgrade upgrade = getUpgrade();
-        UpgradeResult result = upgrade.apply(input, 0);
+        UpgradeResult result = upgrade.apply(input, 0, provider);
         return result.itemStack();
     }
 
@@ -104,7 +105,7 @@ public class LBUpgradeRecipe extends SmithingTransformRecipe {
             sample.set(DataComponents.CUSTOM_NAME, info);
         } else {
             // Apply upgrade to sample item
-            sample = getUpgradingResult(output);
+            sample = getUpgradingResult(output, provider);
         }
 
         return sample;

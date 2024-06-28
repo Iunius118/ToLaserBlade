@@ -1,5 +1,6 @@
 package com.github.iunius118.tolaserblade.world.item;
 
+import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.ItemStack;
 
 public enum LBBrandNewType {
@@ -14,7 +15,7 @@ public enum LBBrandNewType {
         original = stack;
     }
 
-    public ItemStack getCopy() {
-        return original.getCopy();
+    public ItemStack getCopy(HolderLookup.Provider lookupProvider) {
+        return original.getCopy(lookupProvider);
     }
 }

@@ -4,58 +4,63 @@ import com.github.iunius118.tolaserblade.core.laserblade.LaserBlade;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeAppearance;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeColor;
 import com.github.iunius118.tolaserblade.world.item.enchantment.ModEnchantments;
+import net.minecraft.core.Holder;
+import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 
-import java.util.function.Supplier;
+import java.util.function.Function;
 
 public enum LaserBladeItemStack {
-    ORIGINAL(() -> new ItemStack(ModItems.LASER_BLADE)),
+    ORIGINAL(p -> new ItemStack(ModItems.LASER_BLADE)),
     ICON(LaserBladeItemStack::getIconStack),
-    MODEL_TYPE_526(() -> getModelChangedStack(526, false)),
-    LIGHT_ELEMENT_1(() -> getLightElementStack(1)),
-    LIGHT_ELEMENT_2(() -> getLightElementStack(2)),
+    MODEL_TYPE_526(p -> getModelChangedStack(526, false, p)),
+    LIGHT_ELEMENT_1(p -> getLightElementStack(1, p)),
+    LIGHT_ELEMENT_2(p -> getLightElementStack(2, p)),
     GIFT(LaserBladeItemStack::getGiftStack),
-    UPGRADED(() -> getUpgradedStack(false, false)),
-    DAMAGED(() -> getUpgradedStack(false, true)),
-    FULL_MOD(() -> getFullModStack(false, false)),
-    FP(() -> new ItemStack(ModItems.LASER_BLADE_FP)),
-    UPGRADED_FP(() -> getUpgradedStack(true, false)),
-    DAMAGED_FP(() -> getUpgradedStack(true, true)),
-    FULL_MOD_FP(() -> getFullModStack(false, true)),
-    DISASSEMBLED_FULL_MOD(() -> getFullModStack(true, false)),
-    DISASSEMBLED_FULL_MOD_FP(() -> getFullModStack(true, true));
+    UPGRADED(p -> getUpgradedStack(false, false, p)),
+    DAMAGED(p -> getUpgradedStack(false, true, p)),
+    FULL_MOD(p -> getFullModStack(false, false, p)),
+    FP(p -> new ItemStack(ModItems.LASER_BLADE_FP)),
+    UPGRADED_FP(p -> getUpgradedStack(true, false, p)),
+    DAMAGED_FP(p -> getUpgradedStack(true, true, p)),
+    FULL_MOD_FP(p -> getFullModStack(false, true, p)),
+    DISASSEMBLED_FULL_MOD(p -> getFullModStack(true, false, p)),
+    DISASSEMBLED_FULL_MOD_FP(p -> getFullModStack(true, true, p));
 
-    private final Supplier<ItemStack> supplier;
+    private final Function<HolderLookup.Provider, ItemStack> getter;
 
-    LaserBladeItemStack(Supplier<ItemStack> supplier) {
-        this.supplier = supplier;
+    LaserBladeItemStack(Function<HolderLookup.Provider, ItemStack> getter) {
+        this.getter = getter;
     }
 
-    public ItemStack getCopy() {
-        return supplier.get();
+    public ItemStack getCopy(HolderLookup.Provider lookupProvider) {
+        return getter.apply(lookupProvider);
     }
 
-    private static ItemStack getIconStack() {
+    private static ItemStack getIconStack(HolderLookup.Provider lookupProvider) {
         var stack = new ItemStack(ModItems.LASER_BLADE);
         new LaserBladeAppearance().setGripColor(LaserBladeColor.LIGHT_GRAY.getGripColor()).setTo(stack);
         return stack;
     }
 
-    public static ItemStack getModelChangedStack(int type, boolean isFireproof) {
+    public static ItemStack getModelChangedStack(int type, boolean isFireproof, HolderLookup.Provider lookupProvider) {
         var stack = new ItemStack(isFireproof ? ModItems.LASER_BLADE_FP : ModItems.LASER_BLADE);
         LaserBladeAppearance.of().setType(type).setTo(stack);
         return stack;
     }
 
-    private static ItemStack getLightElementStack(int lightElementLevel) {
+    private static ItemStack getLightElementStack(int lightElementLevel, HolderLookup.Provider lookupProvider) {
         var stack = new ItemStack(ModItems.LASER_BLADE);
-        stack.enchant(ModEnchantments.LIGHT_ELEMENT, lightElementLevel);
-        stack.enchant(Enchantments.EFFICIENCY, 1);
+        enchant(stack, ModEnchantments.LIGHT_ELEMENT, lightElementLevel, lookupProvider);
+        enchant(stack, Enchantments.EFFICIENCY, 1, lookupProvider);
         return stack;
     }
 
-    private static ItemStack getGiftStack() {
+    private static ItemStack getGiftStack(HolderLookup.Provider lookupProvider) {
         var stack = new ItemStack(ModItems.LASER_BLADE);
         LaserBlade.setAttack(stack, LaserBlade.MOD_ATK_GIFT);
         LaserBlade.updateItemAttributeModifiers(stack);
@@ -63,12 +68,12 @@ public enum LaserBladeItemStack {
                 .setOuterColor(LaserBladeColor.LIME.getBladeColor())
                 .setGripColor(LaserBladeColor.BROWN.getGripColor())
                 .setTo(stack);
-        stack.enchant(ModEnchantments.LIGHT_ELEMENT, 5);
-        stack.enchant(Enchantments.EFFICIENCY, 1);
+        enchant(stack, ModEnchantments.LIGHT_ELEMENT, 5, lookupProvider);
+        enchant(stack, Enchantments.EFFICIENCY, 1, lookupProvider);
         return stack;
     }
 
-    private static ItemStack getUpgradedStack(boolean isFireproof, boolean isDamaged) {
+    private static ItemStack getUpgradedStack(boolean isFireproof, boolean isDamaged, HolderLookup.Provider lookupProvider) {
         var stack = new ItemStack(isFireproof ? ModItems.LASER_BLADE_FP : ModItems.LASER_BLADE);
         LaserBlade.setAttack(stack, LaserBlade.MOD_ATK_CRITICAL_BONUS);
         LaserBlade.setSpeed(stack, LaserBlade.MOD_SPD_MAX);
@@ -78,9 +83,9 @@ public enum LaserBladeItemStack {
                 .setInnerColor(LaserBladeColor.LIGHT_BLUE.getBladeColor())
                 .setGripColor(LaserBladeColor.GRAY.getGripColor())
                 .setTo(stack);
-        stack.enchant(ModEnchantments.LIGHT_ELEMENT, ModEnchantments.LIGHT_ELEMENT.getMaxLevel());
-        stack.enchant(Enchantments.EFFICIENCY, Enchantments.EFFICIENCY.getMaxLevel());
-        stack.enchant(Enchantments.MENDING, Enchantments.MENDING.getMaxLevel());
+        enchantMaxLevel(stack, ModEnchantments.LIGHT_ELEMENT, lookupProvider);
+        enchantMaxLevel(stack, Enchantments.EFFICIENCY, lookupProvider);
+        enchantMaxLevel(stack, Enchantments.MENDING, lookupProvider);
 
         if (isDamaged) {
             int maxUses = isFireproof ? ModItemTiers.LASER_BLADE_FP.getUses() : ModItemTiers.LASER_BLADE.getUses();
@@ -90,7 +95,7 @@ public enum LaserBladeItemStack {
         return stack;
     }
 
-    private static ItemStack getFullModStack(boolean isDisassembled, boolean isFireproof) {
+    private static ItemStack getFullModStack(boolean isDisassembled, boolean isFireproof, HolderLookup.Provider lookupProvider) {
         var stack = new ItemStack(
                 isDisassembled ? (isFireproof ? ModItems.LB_DISASSEMBLED_FP : ModItems.LB_DISASSEMBLED) :
                         (isFireproof ? ModItems.LASER_BLADE_FP : ModItems.LASER_BLADE)
@@ -103,13 +108,23 @@ public enum LaserBladeItemStack {
                 .setInnerColor(LaserBladeColor.WHITE.getBladeColor()).setInnerSubColor(true)
                 .setGripColor(LaserBladeColor.GRAY.getGripColor())
                 .setTo(stack);
-        stack.enchant(ModEnchantments.LIGHT_ELEMENT, ModEnchantments.LIGHT_ELEMENT.getMaxLevel());
-        stack.enchant(Enchantments.EFFICIENCY, Enchantments.EFFICIENCY.getMaxLevel());
-        stack.enchant(Enchantments.MENDING, Enchantments.MENDING.getMaxLevel());
-        stack.enchant(Enchantments.FIRE_ASPECT, Enchantments.FIRE_ASPECT.getMaxLevel());
-        stack.enchant(Enchantments.SWEEPING_EDGE, Enchantments.SWEEPING_EDGE.getMaxLevel());
-        stack.enchant(Enchantments.SILK_TOUCH, Enchantments.SILK_TOUCH.getMaxLevel());
-        stack.enchant(Enchantments.LOOTING, Enchantments.LOOTING.getMaxLevel());
+        enchantMaxLevel(stack, ModEnchantments.LIGHT_ELEMENT, lookupProvider);
+        enchantMaxLevel(stack, Enchantments.EFFICIENCY, lookupProvider);
+        enchantMaxLevel(stack, Enchantments.MENDING, lookupProvider);
+        enchantMaxLevel(stack, Enchantments.FIRE_ASPECT, lookupProvider);
+        enchantMaxLevel(stack, Enchantments.SWEEPING_EDGE, lookupProvider);
+        enchantMaxLevel(stack, Enchantments.SILK_TOUCH, lookupProvider);
+        enchantMaxLevel(stack, Enchantments.LOOTING, lookupProvider);
         return stack;
+    }
+
+    private static void enchant(ItemStack stack, ResourceKey<Enchantment> enchantmentKey, int level, HolderLookup.Provider lookupProvider) {
+        Holder.Reference<Enchantment> enchantment = lookupProvider.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(enchantmentKey);
+        stack.enchant(enchantment, level);
+    }
+
+    private static void enchantMaxLevel(ItemStack stack, ResourceKey<Enchantment> enchantmentKey, HolderLookup.Provider lookupProvider) {
+        Holder.Reference<Enchantment> enchantment = lookupProvider.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(enchantmentKey);
+        stack.enchant(enchantment, enchantment.value().getMaxLevel());
     }
 }

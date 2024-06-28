@@ -5,6 +5,7 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.entity.player.CriticalHitEvent;
+import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
 
 public class ItemEventHandler {
@@ -38,5 +39,10 @@ public class ItemEventHandler {
         if (stack.getItem() instanceof LBSwordItem lbSwordItem) {
             lbSwordItem.onCriticalHit(event);
         }
+    }
+
+    @SubscribeEvent
+    public static void onMineBlock(PlayerEvent.BreakSpeed event) {
+        LaserBladeItemUtil.changeDestroySpeed(event);
     }
 }

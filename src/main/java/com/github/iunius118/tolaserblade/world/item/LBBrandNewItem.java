@@ -56,7 +56,7 @@ public class LBBrandNewItem extends Item implements LaserBladeItemBase {
 
         if (type == LBBrandNewType.NONE || type == LBBrandNewType.FP) {
             // Copy components to Laser Blade. This is for customized recipe
-            laserBladeStack = itemStack.transmuteCopy(type.getCopy().getItem(), itemStack.getCount());
+            laserBladeStack = itemStack.transmuteCopy(type.getCopy(level.registryAccess()).getItem(), itemStack.getCount());
             // Repair Laser Blade
             laserBladeStack.setDamageValue(0);
         } else {
@@ -93,11 +93,11 @@ public class LBBrandNewItem extends Item implements LaserBladeItemBase {
         // name == {"GIFT" || "おたから"}
         if ("GIFT".equals(name) || "\u304A\u305F\u304B\u3089".equals(name)) {
             // Get GIFT Laser Blade
-            return LaserBladeItemStack.GIFT.getCopy();
+            return LaserBladeItemStack.GIFT.getCopy(level.registryAccess());
         }
 
         // If Brand-new Laser Blade is type of Light Element I or II, ...
-        ItemStack laserBladeStack = type.getCopy();
+        ItemStack laserBladeStack = type.getCopy(level.registryAccess());
         // ... its blade will be colored by biome player in, and its model will be set to specific model type
         BlockPos pos = player.blockPosition();
         Holder<Biome> biome = level.getBiome(pos);
