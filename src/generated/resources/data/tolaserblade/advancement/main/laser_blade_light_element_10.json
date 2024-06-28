@@ -1,5 +1,5 @@
 {
-  "parent": "tolaserblade:main/laser_blade",
+  "parent": "tolaserblade:main/laser_blade_light_element_5",
   "criteria": {
     "has_laser_blade": {
       "conditions": {
@@ -9,9 +9,9 @@
             "predicates": {
               "minecraft:enchantments": [
                 {
-                  "enchantment": "minecraft:looting",
+                  "enchantments": "tolaserblade:light_element",
                   "levels": {
-                    "min": 3
+                    "min": 10
                   }
                 }
               ]
@@ -29,9 +29,9 @@
             "predicates": {
               "minecraft:enchantments": [
                 {
-                  "enchantment": "minecraft:looting",
+                  "enchantments": "tolaserblade:light_element",
                   "levels": {
-                    "min": 3
+                    "min": 10
                   }
                 }
               ]
@@ -44,14 +44,14 @@
   },
   "display": {
     "description": {
-      "translate": "advancements.tolaserblade.main.laser_blade_looting_3.description"
+      "translate": "advancements.tolaserblade.main.laser_blade_light_element_10.description"
     },
     "icon": {
       "count": 1,
-      "id": "minecraft:nautilus_shell"
+      "id": "minecraft:glowstone"
     },
     "title": {
-      "translate": "advancements.tolaserblade.main.laser_blade_looting_3.title"
+      "translate": "advancements.tolaserblade.main.laser_blade_light_element_10.title"
     }
   },
   "requirements": [

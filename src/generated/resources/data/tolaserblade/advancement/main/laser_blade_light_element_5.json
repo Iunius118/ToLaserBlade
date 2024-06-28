@@ -9,7 +9,7 @@
             "predicates": {
               "minecraft:enchantments": [
                 {
-                  "enchantment": "tolaserblade:light_element",
+                  "enchantments": "tolaserblade:light_element",
                   "levels": {
                     "min": 5
                   }
@@ -29,7 +29,7 @@
             "predicates": {
               "minecraft:enchantments": [
                 {
-                  "enchantment": "tolaserblade:light_element",
+                  "enchantments": "tolaserblade:light_element",
                   "levels": {
                     "min": 5
                   }
