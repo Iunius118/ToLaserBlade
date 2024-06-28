@@ -63,7 +63,7 @@ public class DXLaserBladeItemUtil {
         var blockPos = context.getClickedPos();
         var player = context.getPlayer();
         var blockState = level.getBlockState(blockPos);
-
+        blockState.getBlock().playerWillDestroy(level, blockPos, blockState, player);
         blockState.onDestroyedByPlayer(level, blockPos, player, false, level.getFluidState(blockPos));
         return InteractionResult.SUCCESS;
     }
