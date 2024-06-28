@@ -1,6 +1,6 @@
 # ToLaserBlade
 
-ToLaserBlade for Minecraft 1.20.6 with NeoForge.
+ToLaserBlade for Minecraft 1.21 with NeoForge.
 
 Licensed under the MIT license.
 

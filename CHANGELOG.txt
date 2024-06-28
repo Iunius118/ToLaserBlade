@@ -4,6 +4,14 @@
 
 ## [Unreleased]
 
+## [10.0.0 NeoForge]
+### Changed
+- Port to Minecraft 1.21.
+- Require NeoForge 21.0.38-beta+.
+
+### Fixed
+- Fix sound effect when DX laser b1ade destroys redstone torch.
+
 ## [9.1.0 NeoForge]
 ### Added
 - Add recipes of repair upgrade and fireproof upgrade.
