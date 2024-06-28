@@ -8,11 +8,10 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.world.Container;
-import net.minecraft.world.inventory.SmithingMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.SmithingRecipeInput;
 import net.minecraft.world.item.crafting.SmithingTransformRecipe;
 import net.minecraft.world.level.Level;
 
@@ -42,19 +41,19 @@ public class LBModelChangeRecipe extends SmithingTransformRecipe {
     }
 
     @Override
-    public boolean matches(Container container, Level level) {
-        if (!super.matches(container, level)) {
+    public boolean matches(SmithingRecipeInput smithingRecipeInput, Level level) {
+        if (!super.matches(smithingRecipeInput, level)) {
             return false;
         }
 
-        ItemStack baseStack = container.getItem(SmithingMenu.BASE_SLOT);
+        ItemStack baseStack = smithingRecipeInput.base();
         int baseType = LaserBladeAppearance.of(baseStack).getType();
         return type >= 0 && baseType != type;
     }
 
     @Override
-    public ItemStack assemble(Container container, HolderLookup.Provider provider) {
-        ItemStack baseStack = container.getItem(SmithingMenu.BASE_SLOT);
+    public ItemStack assemble(SmithingRecipeInput smithingRecipeInput, HolderLookup.Provider provider) {
+        ItemStack baseStack = smithingRecipeInput.base();
         ItemStack itemstack = baseStack.copy();
         return getResult(itemstack);
     }
