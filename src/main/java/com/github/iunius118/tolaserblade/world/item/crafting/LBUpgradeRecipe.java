@@ -14,11 +14,10 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.Container;
-import net.minecraft.world.inventory.SmithingMenu;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
+import net.minecraft.world.item.crafting.SmithingRecipeInput;
 import net.minecraft.world.item.crafting.SmithingTransformRecipe;
 import net.minecraft.world.level.Level;
 
@@ -49,21 +48,21 @@ public class LBUpgradeRecipe extends SmithingTransformRecipe {
     }
 
     @Override
-    public boolean matches(Container container, Level level) {
-        if (!super.matches(container, level)) {
+    public boolean matches(SmithingRecipeInput smithingRecipeInput, Level level) {
+        if (!super.matches(smithingRecipeInput, level)) {
             return false;
         }
 
-        ItemStack baseStack = container.getItem(SmithingMenu.BASE_SLOT);
-        ItemStack additionalStack = container.getItem(SmithingMenu.ADDITIONAL_SLOT);
+        ItemStack baseStack = smithingRecipeInput.base();
+        ItemStack additionalStack = smithingRecipeInput.addition();
         HolderLookup.Provider provider = level.registryAccess();
         Upgrade upgrade = getUpgrade();
         return upgrade.canApply(baseStack, additionalStack, provider);
     }
 
     @Override
-    public ItemStack assemble(Container container, HolderLookup.Provider provider) {
-        ItemStack baseStack = container.getItem(SmithingMenu.BASE_SLOT);
+    public ItemStack assemble(SmithingRecipeInput smithingRecipeInput, HolderLookup.Provider provider) {
+        ItemStack baseStack = smithingRecipeInput.base();
         ItemStack itemstack = baseStack.copy();
         return getUpgradingResult(itemstack, provider);
     }
