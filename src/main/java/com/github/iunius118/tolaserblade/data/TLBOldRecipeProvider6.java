@@ -66,7 +66,10 @@ public class TLBOldRecipeProvider6 {
         var resourcePath = ModList.get().getModFileById(ToLaserBlade.MOD_ID).getFile().findResource(PACK_PATH);
         var packConfig = new PackSelectionConfig(false, Pack.Position.TOP, false);
         var pack = Pack.readMetaAndCreate(packInfo, new PathPackResources.PathResourcesSupplier(resourcePath), PackType.SERVER_DATA, packConfig);
-        event.addRepositorySource((packConsumer) -> packConsumer.accept(pack));
+
+        if (pack != null) {
+            event.addRepositorySource((packConsumer) -> packConsumer.accept(pack));
+        }
     }
 
     private static class OldRecipeProvider extends RecipeProvider implements IConditionBuilder {
