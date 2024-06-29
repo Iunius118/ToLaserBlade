@@ -1,12 +1,13 @@
-// 1.20.6	2024-05-08T03:31:21.8649874	Tags for minecraft:item mod id tolaserblade
-1a95ba6c8de8bf45015131964d973d94d905f8b8 data/tolaserblade/tags/items/casing_repair.json
-edfd85648a3d49cb82d1a39c98233b54a31af47b data/tolaserblade/tags/items/upgrade/attack.json
-b292fd1c61bdb4c34269772b5010fa49d88d3cfb data/tolaserblade/tags/items/upgrade/efficiency.json
-2c42f0749711b7c466075eb0b2531ff12864f994 data/tolaserblade/tags/items/upgrade/efficiency_remover.json
-0d1dbb20f2dfd450475fd908b50e201f46f71f20 data/tolaserblade/tags/items/upgrade/fire_aspect.json
-2e32a7b83e54ddce24aaeff94c215bb46e0c6628 data/tolaserblade/tags/items/upgrade/light_element.json
-312b58b504a5a9a98253993e4c24535f85c2e98f data/tolaserblade/tags/items/upgrade/looting.json
-0c8a5941bea0d8b2ae3ac7509847384211a393b0 data/tolaserblade/tags/items/upgrade/mending.json
-cf80419edb7211f0877371b3d90eab53236887d5 data/tolaserblade/tags/items/upgrade/silk_touch.json
-6c03372113064cc00ab7b158b0a585872a0fca41 data/tolaserblade/tags/items/upgrade/speed.json
-74eefeb986d633d26ad42202c4a6b5e71463c425 data/tolaserblade/tags/items/upgrade/sweeping_edge.json
+// 1.21	2024-06-29T22:02:40.5637808	Tags for minecraft:item mod id tolaserblade
+1a95ba6c8de8bf45015131964d973d94d905f8b8 data/tolaserblade/tags/item/casing_repair.json
+cb32695d9050a0e7475de9452193e31ffe7a1271 data/tolaserblade/tags/item/enchantable/light_element.json
+edfd85648a3d49cb82d1a39c98233b54a31af47b data/tolaserblade/tags/item/upgrade/attack.json
+b292fd1c61bdb4c34269772b5010fa49d88d3cfb data/tolaserblade/tags/item/upgrade/efficiency.json
+2c42f0749711b7c466075eb0b2531ff12864f994 data/tolaserblade/tags/item/upgrade/efficiency_remover.json
+0d1dbb20f2dfd450475fd908b50e201f46f71f20 data/tolaserblade/tags/item/upgrade/fire_aspect.json
+2e32a7b83e54ddce24aaeff94c215bb46e0c6628 data/tolaserblade/tags/item/upgrade/light_element.json
+312b58b504a5a9a98253993e4c24535f85c2e98f data/tolaserblade/tags/item/upgrade/looting.json
+0c8a5941bea0d8b2ae3ac7509847384211a393b0 data/tolaserblade/tags/item/upgrade/mending.json
+cf80419edb7211f0877371b3d90eab53236887d5 data/tolaserblade/tags/item/upgrade/silk_touch.json
+6c03372113064cc00ab7b158b0a585872a0fca41 data/tolaserblade/tags/item/upgrade/speed.json
+74eefeb986d633d26ad42202c4a6b5e71463c425 data/tolaserblade/tags/item/upgrade/sweeping_edge.json
