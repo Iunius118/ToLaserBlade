@@ -52,7 +52,4 @@ public class ToLaserBlade {
     public static ResourceLocation makeId(String name) {
         return ResourceLocation.fromNamespaceAndPath(MOD_ID, name);
     }
-
-    // Generate Data
-
 }
