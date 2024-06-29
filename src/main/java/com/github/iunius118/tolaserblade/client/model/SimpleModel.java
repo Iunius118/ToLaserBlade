@@ -102,10 +102,12 @@ public class SimpleModel {
                 Vector3f normal = new Vector3f(vertex.normal);
                 pose.normal().transform(normal);
 
-                buffer.vertex(pos.x(), pos.y(), pos.z(),
-                        red * vColor.x(), green * vColor.y(), blue * vColor.z(), alpha * vColor.w(),
-                        uv.x(), uv.y(), overlayColor, lightmapCoord,
-                        normal.x(), normal.y(), normal.z());
+                buffer.addVertex(pos.x(), pos.y(), pos.z())
+                        .setColor(red * vColor.x(), green * vColor.y(), blue * vColor.z(), alpha * vColor.w())
+                        .setUv(uv.x(), uv.y())
+                        .setOverlay(overlayColor)
+                        .setLight(lightmapCoord)
+                        .setNormal(normal.x(), normal.y(), normal.z());
             }
         }
     }

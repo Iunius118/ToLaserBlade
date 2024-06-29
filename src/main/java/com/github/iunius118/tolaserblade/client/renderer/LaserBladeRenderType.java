@@ -26,7 +26,23 @@ public class LaserBladeRenderType extends RenderType {
         return RENDERTYPE_BEACON_BEAM_SHADER;
     }
 
-    public static CompositeState getHiltRenderState(ResourceLocation texture) {
+    public static Optional<RenderType> getHiltRenderType(String name, ResourceLocation texture) {
+        return getRenderType(name, getHiltRenderState(texture));
+    }
+
+    public static Optional<RenderType> getUnlitRenderType(String name, ResourceLocation texture) {
+        return getRenderType(name, getUnlitRenderState(texture));
+    }
+
+    public static Optional<RenderType> getAddRenderType(String name, ResourceLocation texture) {
+        return getRenderType(name, getAddRenderState(texture));
+    }
+
+    public static Optional<RenderType> getSubRenderType(String name, ResourceLocation texture) {
+        return getRenderType(name, getSubRenderState(texture));
+    }
+
+    protected static RenderType.CompositeState getHiltRenderState(ResourceLocation texture) {
         return CompositeState.builder()
                 .setShaderState(RENDERTYPE_ENTITY_TRANSLUCENT_SHADER)
                 .setTextureState(new TextureStateShard(texture, false, false))
@@ -36,7 +52,7 @@ public class LaserBladeRenderType extends RenderType {
                 .createCompositeState(true);
     }
 
-    public static CompositeState getUnlitRenderState(ResourceLocation texture) {
+    protected static CompositeState getUnlitRenderState(ResourceLocation texture) {
         return CompositeState.builder()
                 .setShaderState(LASER_BLADE_UNLIT_SHADER_STATE)
                 .setTextureState(new TextureStateShard(texture, false, false))
@@ -46,7 +62,7 @@ public class LaserBladeRenderType extends RenderType {
                 .createCompositeState(true);
     }
 
-    public static CompositeState getAddRenderState(ResourceLocation texture) {
+    protected static CompositeState getAddRenderState(ResourceLocation texture) {
         return CompositeState.builder()
                 .setShaderState(LASER_BLADE_UNLIT_SHADER_STATE)
                 .setTextureState(new TextureStateShard(texture, false, false))
@@ -56,7 +72,7 @@ public class LaserBladeRenderType extends RenderType {
                 .createCompositeState(true);
     }
 
-    public static CompositeState getSubRenderState(ResourceLocation texture) {
+    protected static CompositeState getSubRenderState(ResourceLocation texture) {
         RenderStateShard.TransparencyStateShard transparencyState = new RenderStateShard.TransparencyStateShard("sub_transparency",
                 () -> {
                     RenderSystem.enableBlend();
@@ -78,13 +94,13 @@ public class LaserBladeRenderType extends RenderType {
                 .createCompositeState(true);
     }
 
-    public static Optional<RenderType> getRenderType(String name, CompositeState compositeState) {
+    protected static Optional<RenderType> getRenderType(String name, CompositeState compositeState) {
         if (createRenderTypeMethod != null) {
             try {
                 Object object = createRenderTypeMethod.invoke(null, name, DefaultVertexFormat.NEW_ENTITY, VertexFormat.Mode.QUADS, 256, compositeState);
                 if (object instanceof RenderType renderType) return Optional.of(renderType);
             } catch (ReflectiveOperationException e) {
-                e.printStackTrace();
+                e.fillInStackTrace();
                 createRenderTypeMethod = null;
             }
         }

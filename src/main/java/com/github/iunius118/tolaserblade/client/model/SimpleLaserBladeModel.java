@@ -13,15 +13,15 @@ public abstract class SimpleLaserBladeModel extends SimpleModel implements Laser
     private static RenderType typeSub;
 
     public static void resetRenderTypes(ResourceLocation texture) {
-        typeHilt = LaserBladeRenderType.getRenderType("tlb_hilt", LaserBladeRenderType.getHiltRenderState(texture))
+        typeHilt = LaserBladeRenderType.getHiltRenderType("tlb_hilt", texture)
                 .orElse(RenderType.entityTranslucent(texture));
-        typeUnlit = LaserBladeRenderType.getRenderType("tlb_unlit", LaserBladeRenderType.getUnlitRenderState(texture))
+        typeUnlit = LaserBladeRenderType.getUnlitRenderType("tlb_unlit", texture)
                 .orElse(RenderType.entityTranslucent(texture));
-        typeSubInner = LaserBladeRenderType.getRenderType("tlb_sub_in", LaserBladeRenderType.getSubRenderState(texture))
+        typeSubInner = LaserBladeRenderType.getSubRenderType("tlb_sub_in", texture)
                 .orElse(RenderType.entityTranslucent(texture));
-        typeAdd = LaserBladeRenderType.getRenderType("tlb_add", LaserBladeRenderType.getAddRenderState(texture))
+        typeAdd = LaserBladeRenderType.getAddRenderType("tlb_add", texture)
                 .orElse(RenderType.entityTranslucent(texture));
-        typeSub = LaserBladeRenderType.getRenderType("tlb_sub", LaserBladeRenderType.getSubRenderState(texture))
+        typeSub = LaserBladeRenderType.getSubRenderType("tlb_sub", texture)
                 .orElse(RenderType.entityTranslucent(texture));
     }
 
