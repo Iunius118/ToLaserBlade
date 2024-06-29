@@ -7,6 +7,7 @@ import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeTextKey;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.Upgrade;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
@@ -14,14 +15,15 @@ import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.item.component.ItemAttributeModifiers;
+import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.event.entity.player.PlayerEvent;
 
 import java.util.List;
 
@@ -30,9 +32,24 @@ public class LaserBladeItemUtil {
 
     }
 
-    public static float getDestroySpeed(ItemStack itemStack, Tier tier) {
-        float rate = (float) itemStack.getEnchantmentLevel(Enchantments.EFFICIENCY) / 5.0F;
-        return tier.getSpeed() * Mth.clamp(rate, 0.0F, 1.0F);
+    public static void changeDestroySpeed(PlayerEvent.BreakSpeed event) {
+        var player = event.getEntity();
+        ItemStack itemStack = player.getMainHandItem();
+        var item = itemStack.getItem();
+
+        if (item != ModItems.LASER_BLADE && item != ModItems.LASER_BLADE_FP) {
+            return;
+        }
+
+        var optionalEfficiency = player.level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).get(Enchantments.EFFICIENCY);
+
+        if (optionalEfficiency.isEmpty()) {
+            return;
+        }
+
+        float rate = (float) EnchantmentHelper.getItemEnchantmentLevel(optionalEfficiency.get(), itemStack) / 5.0F;
+        float speed = event.getOriginalSpeed() * Mth.clamp(rate, 0.0F, 1.0F);
+        event.setNewSpeed(speed);
     }
 
     public static void playSwingSound(Level level, LivingEntity entity, boolean isFireResistant) {

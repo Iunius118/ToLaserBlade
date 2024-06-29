@@ -2,6 +2,7 @@ package com.github.iunius118.tolaserblade.data;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.tags.ModItemTags;
+import com.github.iunius118.tolaserblade.world.item.ModItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
@@ -37,6 +38,7 @@ public class TLBItemTagsProvider extends ItemTagsProvider {
         tag(ModItemTags.LOOTING_UPGRADE).add(Items.NAUTILUS_SHELL).addTag(Tags.Items.STORAGE_BLOCKS_EMERALD);
         tag(ModItemTags.MENDING_UPGRADE).add(Items.NETHER_STAR, Items.DRAGON_HEAD, Items.TOTEM_OF_UNDYING);
         tag(ModItemTags.CASING_REPAIR).addTag(Tags.Items.INGOTS_IRON);
+        tag(ModItemTags.ENCHANTABLE_LIGHT_ELEMENT).add(ModItems.LASER_BLADE, ModItems.LASER_BLADE_FP, ModItems.LB_MEDIUM);
     }
 
     @Override

@@ -15,9 +15,7 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
 public class DXLaserBladeItemUtil {
-    private DXLaserBladeItemUtil() {
-
-    }
+    private DXLaserBladeItemUtil() {}
 
     public static InteractionResult useOn(UseOnContext context, Tier tier) {
         var level = context.getLevel();

@@ -10,7 +10,6 @@ import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
-import net.minecraft.tags.ItemTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.Entity;
@@ -20,8 +19,6 @@ import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.*;
-import net.minecraft.world.item.enchantment.Enchantment;
-import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -69,7 +66,7 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
     }
 
     @Override
-    public int getUseDuration(ItemStack stack) {
+    public int getUseDuration(ItemStack stack, LivingEntity entity) {
         return LaserBladeBlocking.getUseDuration();
     }
 
@@ -166,7 +163,7 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
 
     @Override
     public float getDestroySpeed(ItemStack stack, BlockState state) {
-        return LaserBladeItemUtil.getDestroySpeed(stack, this.getTier());
+        return this.getTier().getSpeed();
     }
 
     @Override
@@ -182,16 +179,6 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
     @Override
     public boolean isEnchantable(ItemStack stack) {
         return true;
-    }
-
-    @Override
-    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-        // Accept Mending and Curse of Vanish
-        return enchantment.getSupportedItems() == ItemTags.WEAPON_ENCHANTABLE
-                || enchantment == Enchantments.EFFICIENCY
-                || enchantment == Enchantments.MENDING
-                || enchantment == Enchantments.SILK_TOUCH
-                || enchantment == Enchantments.VANISHING_CURSE;
     }
 
     @Override

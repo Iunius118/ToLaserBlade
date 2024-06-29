@@ -3,6 +3,7 @@ package com.github.iunius118.tolaserblade.core.laserblade.upgrade;
 import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.tags.ModItemTags;
 import com.github.iunius118.tolaserblade.world.item.enchantment.ModEnchantments;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
@@ -46,7 +47,7 @@ public class UpgradeManager {
         upgrades.put(id.getID(), upgrade);
     }
 
-    private static void registerEnchantment(UpgradeID id, TagKey<Item> ingredientItemTag, Enchantment enchantment) {
+    private static void registerEnchantment(UpgradeID id, TagKey<Item> ingredientItemTag, ResourceKey<Enchantment> enchantment) {
         var upgrade = new Upgrade(EnchantmentUpgrader.of(enchantment), ingredientItemTag, id.getShortName());
         upgrades.put(id.getID(), upgrade);
     }

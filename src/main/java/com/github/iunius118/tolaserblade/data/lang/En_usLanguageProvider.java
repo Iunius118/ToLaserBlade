@@ -4,7 +4,9 @@ import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeTextKey;
 import com.github.iunius118.tolaserblade.world.item.ModItems;
 import com.github.iunius118.tolaserblade.world.item.enchantment.ModEnchantments;
+import net.minecraft.Util;
 import net.minecraft.data.PackOutput;
+import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraftforge.common.data.LanguageProvider;
 
@@ -98,13 +100,13 @@ public class En_usLanguageProvider extends LanguageProvider {
         add("tolaserblade.update.newVersion", "A new %s version is available");
     }
 
-    public void addEnchantment(Enchantment enchantment, String name, String description) {
+    public void addEnchantment(ResourceKey<Enchantment> enchantment, String name, String description) {
         // Register enchantment name
-        add(enchantment, name);
+        String id = Util.makeDescriptionId("enchantment", enchantment.location());
+        add(id, name);
 
         // Support for Enchantment Descriptions mod
-        String id = "tolaserblade.light_element";
-        add("enchantment." + id + ".desc", description);
+        add(id + ".desc", description);
     }
 
     @Override

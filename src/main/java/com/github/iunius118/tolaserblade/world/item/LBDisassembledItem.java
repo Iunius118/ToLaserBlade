@@ -4,14 +4,17 @@ import com.github.iunius118.tolaserblade.core.laserblade.LaserBlade;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeAppearance;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.Upgrade;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.ResourceKey;
+import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraft.world.item.enchantment.DamageEnchantment;
+import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.item.enchantment.ItemEnchantments;
@@ -58,26 +61,32 @@ public class LBDisassembledItem extends Item implements LaserBladeItemBase {
         LaserBlade.setAttack(mediumStack, LaserBlade.getAttack(itemStack));
 
         // Process enchantments
-        enchantments.keySet().forEach(e -> {
-            var enchantment = e.value();
-            int lvl = enchantments.getLevel(enchantment);
+        var enchantmentLookup = level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
 
-            if (enchantment == Enchantments.EFFICIENCY) {
-                batteryStack.enchant(enchantment, lvl);
-            } else if (enchantment instanceof DamageEnchantment ||
-                    enchantment == Enchantments.KNOCKBACK ) {
-                mediumStack.enchant(enchantment, lvl);
-            } else if (enchantment == Enchantments.FIRE_ASPECT ||
-                    enchantment == Enchantments.SWEEPING_EDGE ||
-                    enchantment == Enchantments.SILK_TOUCH) {
-                emitterStack.enchant(enchantment, lvl);
-            } else if (enchantment == Enchantments.VANISHING_CURSE) {
-                batteryStack.enchant(enchantment, lvl);
-                mediumStack.enchant(enchantment, lvl);
-                emitterStack.enchant(enchantment, lvl);
-                casingStack.enchant(enchantment, lvl);
+        enchantments.keySet().forEach(e -> {
+            if (e.unwrapKey().isEmpty()) {
+                return;
+            }
+
+            int lvl = enchantments.getLevel(e);
+            ResourceKey<Enchantment> key = e.unwrapKey().get();
+
+            if (equals(key, Enchantments.EFFICIENCY)) {
+                batteryStack.enchant(e, lvl);
+            } else if (e.is(EnchantmentTags.DAMAGE_EXCLUSIVE) ||
+                    equals(key, Enchantments.KNOCKBACK)) {
+                mediumStack.enchant(e, lvl);
+            } else if (equals(key, Enchantments.FIRE_ASPECT) ||
+                    equals(key, Enchantments.SWEEPING_EDGE) ||
+                    equals(key, Enchantments.SILK_TOUCH)) {
+                emitterStack.enchant(e, lvl);
+            } else if (equals(key, Enchantments.VANISHING_CURSE)) {
+                batteryStack.enchant(e, lvl);
+                mediumStack.enchant(e, lvl);
+                emitterStack.enchant(e, lvl);
+                casingStack.enchant(e, lvl);
             } else {
-                casingStack.enchant(enchantment, lvl);
+                casingStack.enchant(e, lvl);
             }
         });
 
@@ -109,6 +118,10 @@ public class LBDisassembledItem extends Item implements LaserBladeItemBase {
         player.addItem(mediumStack);
         player.addItem(emitterStack);
         player.addItem(casingStack);
+    }
+
+    private static boolean equals(ResourceKey<?> e1, ResourceKey<?> e2) {
+        return e1.location().equals(e2.location());
     }
 
     @Override

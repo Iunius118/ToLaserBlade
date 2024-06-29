@@ -1,17 +1,18 @@
 package com.github.iunius118.tolaserblade.core.laserblade.upgrade;
 
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBlade;
+import net.minecraft.core.HolderLookup;
 import net.minecraft.world.item.ItemStack;
 
 public class SpeedUpgrader implements Upgrader {
     @Override
-    public boolean canApply(ItemStack base, ItemStack addition) {
+    public boolean canApply(ItemStack base, ItemStack addition, HolderLookup.Provider provider) {
         float speed = LaserBlade.getSpeed(base);
         return LaserBlade.canUpgradeSpeed(speed);
     }
 
     @Override
-    public UpgradeResult apply(ItemStack base, int baseCost) {
+    public UpgradeResult apply(ItemStack base, int baseCost, HolderLookup.Provider provider) {
         float speed = LaserBlade.getSpeed(base);
         int cost = baseCost;
 
