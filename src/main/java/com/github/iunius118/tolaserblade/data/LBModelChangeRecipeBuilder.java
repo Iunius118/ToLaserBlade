@@ -40,7 +40,7 @@ public class LBModelChangeRecipeBuilder {
     }
 
     public void save(RecipeOutput consumer, String id) {
-        save(consumer, new ResourceLocation(id));
+        save(consumer, ResourceLocation.parse(id));
     }
 
     public void save(RecipeOutput consumer, ResourceLocation id) {

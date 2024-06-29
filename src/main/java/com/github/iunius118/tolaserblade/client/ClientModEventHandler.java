@@ -58,14 +58,14 @@ public class ClientModEventHandler {
             return;
         }
 
-        ModelResourceLocation laserBladeItemID = new ModelResourceLocation(getItemId(ModItems.LASER_BLADE), "inventory");
-        ModelResourceLocation laserBladeFPItemID = new ModelResourceLocation(getItemId(ModItems.LASER_BLADE_FP), "inventory");
-        ModelResourceLocation lBBrandNewItemID = new ModelResourceLocation(getItemId(ModItems.LB_BRAND_NEW), "inventory");
-        ModelResourceLocation lBBrandNew1ItemID = new ModelResourceLocation(getItemId(ModItems.LB_BRAND_NEW_1), "inventory");
-        ModelResourceLocation lBBrandNew2ItemID = new ModelResourceLocation(getItemId(ModItems.LB_BRAND_NEW_2), "inventory");
-        ModelResourceLocation lBBrandNewFPItemID = new ModelResourceLocation(getItemId(ModItems.LB_BRAND_NEW_FP), "inventory");
-        ModelResourceLocation lBBrokenItemID = new ModelResourceLocation(getItemId(ModItems.LB_BROKEN), "inventory");
-        ModelResourceLocation lBBrokenFPItemID = new ModelResourceLocation(getItemId(ModItems.LB_BROKEN_FP), "inventory");
+        ModelResourceLocation laserBladeItemID = ModelResourceLocation.inventory(getItemId(ModItems.LASER_BLADE));
+        ModelResourceLocation laserBladeFPItemID = ModelResourceLocation.inventory(getItemId(ModItems.LASER_BLADE_FP));
+        ModelResourceLocation lBBrandNewItemID = ModelResourceLocation.inventory(getItemId(ModItems.LB_BRAND_NEW));
+        ModelResourceLocation lBBrandNew1ItemID = ModelResourceLocation.inventory(getItemId(ModItems.LB_BRAND_NEW_1));
+        ModelResourceLocation lBBrandNew2ItemID = ModelResourceLocation.inventory(getItemId(ModItems.LB_BRAND_NEW_2));
+        ModelResourceLocation lBBrandNewFPItemID = ModelResourceLocation.inventory(getItemId(ModItems.LB_BRAND_NEW_FP));
+        ModelResourceLocation lBBrokenItemID = ModelResourceLocation.inventory(getItemId(ModItems.LB_BROKEN));
+        ModelResourceLocation lBBrokenFPItemID = ModelResourceLocation.inventory(getItemId(ModItems.LB_BROKEN_FP));
         LBSwordItemModel bakedModel = new LBSwordItemModel();
 
         var models = event.getModels();

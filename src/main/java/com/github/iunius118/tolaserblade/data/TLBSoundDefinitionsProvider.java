@@ -27,6 +27,6 @@ public class TLBSoundDefinitionsProvider extends SoundDefinitionsProvider {
     }
 
     private SoundDefinition.Sound getSound(ResourceLocation location) {
-        return sound(new ResourceLocation(location.getNamespace(), location.getPath().replace(".", "/")));
+        return sound(ResourceLocation.fromNamespaceAndPath(location.getNamespace(), location.getPath().replace(".", "/")));
     }
 }
