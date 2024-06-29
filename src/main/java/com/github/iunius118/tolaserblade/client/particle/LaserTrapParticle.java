@@ -45,22 +45,23 @@ public class LaserTrapParticle extends Particle {
 
     @Override
     public void render(VertexConsumer vertexConsumer, Camera camera, float f) {
-        RenderSystem.disableBlend();
-        RenderSystem.depthMask(true);
         RenderSystem.setShader(GameRenderer::getPositionColorShader);
 
-        var bufferBuilder = (BufferBuilder) vertexConsumer;
-        bufferBuilder.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
-
-        renderQuad(bufferBuilder, camera, vertices[1], vertices[3], vertices[2], vertices[0]);
-        renderQuad(bufferBuilder, camera, vertices[3], vertices[5], vertices[4], vertices[2]);
-        renderQuad(bufferBuilder, camera, vertices[5], vertices[7], vertices[6], vertices[4]);
-        renderQuad(bufferBuilder, camera, vertices[7], vertices[1], vertices[0], vertices[6]);
-        renderQuad(bufferBuilder, camera, vertices[0], vertices[2], vertices[4], vertices[6]);
-        renderQuad(bufferBuilder, camera, vertices[7], vertices[5], vertices[3], vertices[1]);
-
         var tesselator = Tesselator.getInstance();
-        tesselator.end();
+        BufferBuilder builder = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
+
+        renderQuad(builder, camera, vertices[1], vertices[3], vertices[2], vertices[0]);
+        renderQuad(builder, camera, vertices[3], vertices[5], vertices[4], vertices[2]);
+        renderQuad(builder, camera, vertices[5], vertices[7], vertices[6], vertices[4]);
+        renderQuad(builder, camera, vertices[7], vertices[1], vertices[0], vertices[6]);
+        renderQuad(builder, camera, vertices[0], vertices[2], vertices[4], vertices[6]);
+        renderQuad(builder, camera, vertices[7], vertices[5], vertices[3], vertices[1]);
+
+        MeshData meshData = builder.build();
+
+        if (meshData != null) {
+            BufferUploader.drawWithShader(meshData);
+        }
     }
 
     private void renderQuad(VertexConsumer vertexConsumer,  Camera camera, Vector3f... v) {
@@ -71,7 +72,7 @@ public class LaserTrapParticle extends Particle {
             Vector3f vertex = new Vector3f(v[i]);
             getRotation().transform(vertex);
             vertex.add((float) (x - cameraPos.x), (float) (y - cameraPos.y), (float) (z - cameraPos.z));
-            vertexConsumer.vertex(vertex.x(), vertex.y(), vertex.z()).color(rCol, gCol, bCol, alpha).endVertex();
+            vertexConsumer.addVertex(vertex.x(), vertex.y(), vertex.z()).setColor(rCol, gCol, bCol, alpha);
         }
     }
 
