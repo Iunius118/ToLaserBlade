@@ -1,5 +1,5 @@
 # Cheatsheet
-ToLaserBlade v9.1.0 (Forge)
+ToLaserBlade v10.0.0 (Forge)
 
 ## How to Get Started
 ### 1. Craft a Brand-new Laser Blade I or II, and Use It
@@ -240,7 +240,7 @@ This is a mandatory data pack to fix mod enchantment.
 ### Old Laser Blade Recipes (v6)
 ID: `tolaserblade:old_lb_recipes_6`
 
-This data pack reverts the laser blade recipes to version 6.
+This is an optional data pack to revert the laser blade recipes to version 6.
 
 - Brand-new Laser Blade I (crafting): G = Glass; I = Iron Ingot; D = Diamond; R = Redstone
   - G, I, D;

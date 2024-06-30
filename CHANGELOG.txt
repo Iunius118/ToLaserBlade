@@ -4,6 +4,14 @@
 
 ## [Unreleased]
 
+## [10.0.0 Forge]
+### Added
+- Add data pack `tolaserblade:enchantment_fix` to fix mod enchantment data.
+
+### Changed
+- Port to Minecraft 1.21.
+- Require Forge 1.21-51.0.18+.
+
 ## [9.1.0 Forge]
 ### Added
 - Add recipes of repair upgrade and fireproof upgrade.
