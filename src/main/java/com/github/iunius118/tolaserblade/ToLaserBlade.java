@@ -5,6 +5,7 @@ import com.github.iunius118.tolaserblade.common.CommonEventHandler;
 import com.github.iunius118.tolaserblade.common.RegistryEventHandler;
 import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
 import com.github.iunius118.tolaserblade.data.TLBDataGenerator;
+import com.github.iunius118.tolaserblade.data.TLBEnchantmentProvider;
 import com.github.iunius118.tolaserblade.data.TLBOldRecipeProvider6;
 import com.github.iunius118.tolaserblade.world.item.ItemEventHandler;
 import com.github.iunius118.tolaserblade.world.item.ModCreativeModeTabs;
@@ -38,6 +39,7 @@ public class ToLaserBlade {
         RegistryEventHandler.registerGameObjects(modEventBus);
         modEventBus.addListener(TLBDataGenerator::gatherData);
         modEventBus.addListener(ModCreativeModeTabs::onCreativeModeTabBuildContents);
+        modEventBus.addListener(TLBEnchantmentProvider::addPackFinders);
         modEventBus.addListener(TLBOldRecipeProvider6::addPackFinders);
         MinecraftForge.EVENT_BUS.register(CommonEventHandler.class);
         MinecraftForge.EVENT_BUS.register(ItemEventHandler.class);

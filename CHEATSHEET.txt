@@ -229,8 +229,13 @@ Example:
 }
 ```
 
-## Data pack
-Built-in optional data pack
+## Data packs
+Built-in data packs
+
+### Enchantment Fix
+ID: `tolaserblade:enchantment_fix`
+
+This is a mandatory data pack to fix mod enchantment.
 
 ### Old Laser Blade Recipes (v6)
 ID: `tolaserblade:old_lb_recipes_6`

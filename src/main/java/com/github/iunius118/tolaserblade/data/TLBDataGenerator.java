@@ -24,13 +24,14 @@ public class TLBDataGenerator {
 
         // Server
         final boolean includesServer = event.includeServer();
-        dataGenerator.addProvider(includesServer, builtinEntriesProvider);
+        // dataGenerator.addProvider(includesServer, builtinEntriesProvider);
         dataGenerator.addProvider(includesServer, new TLBRecipeProvider(packOutput, lookupProvider));
         dataGenerator.addProvider(includesServer, blockTagsProvider);
         dataGenerator.addProvider(includesServer, new TLBItemTagsProvider(packOutput, lookupProvider, blockTagsProvider.contentsGetter(), existingFileHelper));
         dataGenerator.addProvider(includesServer, new TLBEntityTypeTagsProvider(packOutput, lookupProvider, existingFileHelper));
         dataGenerator.addProvider(includesServer, new TLBEnchantmentTagsProvider(packOutput, lookupProvider));
         dataGenerator.addProvider(includesServer, new TLBAdvancementProvider(packOutput, lookupProvider, existingFileHelper));
+        TLBEnchantmentProvider.addProviders(event);
         TLBOldRecipeProvider6.addProviders(event);
 
         // Client
@@ -40,7 +41,7 @@ public class TLBDataGenerator {
         dataGenerator.addProvider(includesClient, new TLBSoundDefinitionsProvider(packOutput, existingFileHelper));
     }
 
-    private static RegistrySetBuilder getEntriesBuilder() {
+    public static RegistrySetBuilder getEntriesBuilder() {
         RegistrySetBuilder.RegistryBootstrap<Enchantment> enchantmentRegistry = bootstrapContext -> {
             HolderGetter<Item> itemGetter = bootstrapContext.lookup(Registries.ITEM);
             HolderGetter<Enchantment> enchantmentGetter = bootstrapContext.lookup(Registries.ENCHANTMENT);
