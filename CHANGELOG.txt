@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+## [9.1.1 Forge]
+### Fixed
+- Fix laser trap attack causing creeper to explode.
+
 ## [9.1.0 Forge]
 ### Added
 - Add recipes of repair upgrade and fireproof upgrade.
