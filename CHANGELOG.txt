@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+## [10.0.1 Forge]
+### Fixed
+- Fix laser trap attack causing creeper to explode.
+
 ## [10.0.0 Forge]
 ### Added
 - Add data pack `tolaserblade:enchantment_fix` to fix mod enchantment data.
