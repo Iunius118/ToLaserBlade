@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+## [10.0.1 NeoForge]
+### Fixed
+- Fix laser trap attack causing creeper to explode.
+
 ## [10.0.0 NeoForge]
 ### Changed
 - Port to Minecraft 1.21.
