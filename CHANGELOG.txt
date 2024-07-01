@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+## [9.1.1 NeoForge]
+### Fixed
+- Fix laser trap attack causing creeper to explode.
+
 ## [9.1.0 NeoForge]
 ### Added
 - Add recipes of repair upgrade and fireproof upgrade.
