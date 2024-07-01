@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+## [8.4.1 NeoForge]
+### Fixed
+- Fix laser trap attack causing creeper to explode.
+
 ## [8.4.0 NeoForge]
 ### Changed
 - Require NeoForge 20.4.147-beta+.
