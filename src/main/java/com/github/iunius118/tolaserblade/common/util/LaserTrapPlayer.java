@@ -43,6 +43,7 @@ public class LaserTrapPlayer extends FakePlayer {
     public static void attackEntities(ServerLevel serverLevel, BlockPos trapPos, ItemStack itemStackHeld, Direction dir) {
         var laserTrapPlayer = LaserTrapPlayer.get(serverLevel, trapPos, itemStackHeld);
         laserTrapPlayer.attackEntities(dir);
+        laserTrapPlayer.remove(Entity.RemovalReason.DISCARDED);
     }
 
     public static LaserTrapPlayer get(ServerLevel serverLevel, BlockPos trapPos, ItemStack itemStackHeld) {
