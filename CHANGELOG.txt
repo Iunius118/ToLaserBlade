@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+## [10.0.2 NeoForge]
+### Fixed
+- Fix crash when opening creative tabs in multiplayer mode.
+
 ## [10.0.1 NeoForge]
 ### Fixed
 - Fix laser trap attack causing creeper to explode.
