@@ -12,6 +12,7 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 
+import java.util.Optional;
 import java.util.function.Function;
 
 public enum LaserBladeItemStack {
@@ -119,12 +120,12 @@ public enum LaserBladeItemStack {
     }
 
     private static void enchant(ItemStack stack, ResourceKey<Enchantment> enchantmentKey, int level, HolderLookup.Provider lookupProvider) {
-        Holder.Reference<Enchantment> enchantment = lookupProvider.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(enchantmentKey);
-        stack.enchant(enchantment, level);
+        Optional<Holder.Reference<Enchantment>> enchantment = lookupProvider.lookupOrThrow(Registries.ENCHANTMENT).get(enchantmentKey);
+        enchantment.ifPresent(e -> stack.enchant(e, level));
     }
 
     private static void enchantMaxLevel(ItemStack stack, ResourceKey<Enchantment> enchantmentKey, HolderLookup.Provider lookupProvider) {
-        Holder.Reference<Enchantment> enchantment = lookupProvider.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(enchantmentKey);
-        stack.enchant(enchantment, enchantment.value().getMaxLevel());
+        Optional<Holder.Reference<Enchantment>> enchantment = lookupProvider.lookupOrThrow(Registries.ENCHANTMENT).get(enchantmentKey);
+        enchantment.ifPresent(e -> stack.enchant(e, e.value().getMaxLevel()));
     }
 }

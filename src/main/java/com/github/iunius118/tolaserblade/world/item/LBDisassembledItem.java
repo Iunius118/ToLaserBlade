@@ -4,7 +4,6 @@ import com.github.iunius118.tolaserblade.core.laserblade.LaserBlade;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeAppearance;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.Upgrade;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.EnchantmentTags;
@@ -61,8 +60,6 @@ public class LBDisassembledItem extends Item implements LaserBladeItemBase {
         LaserBlade.setAttack(mediumStack, LaserBlade.getAttack(itemStack));
 
         // Process enchantments
-        var enchantmentLookup = level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
-
         enchantments.keySet().forEach(e -> {
             if (e.unwrapKey().isEmpty()) {
                 return;
