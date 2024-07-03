@@ -29,7 +29,7 @@ public class EnchantmentUpgrader implements Upgrader {
         }
 
         Holder.Reference<Enchantment> enchantmentHolder = optionalHolder.get();
-        int level = EnchantmentHelper.getItemEnchantmentLevel(enchantmentHolder, base);
+        int level = base.getEnchantmentLevel(enchantmentHolder);
         return level < enchantmentHolder.value().getMaxLevel();
     }
 

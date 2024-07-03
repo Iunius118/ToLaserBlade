@@ -2,7 +2,9 @@ package com.github.iunius118.tolaserblade.world.item;
 
 import com.github.iunius118.tolaserblade.client.model.LaserBladeModelManager;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeTextKey;
+import com.github.iunius118.tolaserblade.world.item.enchantment.ModEnchantments;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.neoforge.event.BuildCreativeModeTabContentsEvent;
@@ -15,12 +17,15 @@ public class ModCreativeModeTabs {
             .icon(() -> LaserBladeItemStack.ICON.getCopy(null))
             .displayItems((params, output) -> {
                 HolderLookup.Provider lookupProvider = params.holders();
+
                 // DX Laser B1ade
                 output.accept(ModItems.DX_LASER_BLADE);
                 // Laser Blades
                 output.accept(ModItems.LASER_BLADE);
                 output.accept(LaserBladeItemStack.LIGHT_ELEMENT_1.getCopy(lookupProvider));
-                output.accept(LaserBladeItemStack.LIGHT_ELEMENT_2.getCopy(lookupProvider));
+                // Ensure that no duplicate stacks are added
+                var lightElement = lookupProvider.lookupOrThrow(Registries.ENCHANTMENT).get(ModEnchantments.LIGHT_ELEMENT);
+                lightElement.ifPresent(e -> output.accept(LaserBladeItemStack.LIGHT_ELEMENT_2.getCopy(lookupProvider)));
                 output.accept(LaserBladeItemStack.GIFT.getCopy(lookupProvider));
                 output.accept(LaserBladeItemStack.UPGRADED.getCopy(lookupProvider));
                 output.accept(LaserBladeItemStack.DAMAGED.getCopy(lookupProvider));
