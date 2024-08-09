@@ -24,9 +24,8 @@ import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
-import net.neoforged.neoforge.common.ToolAction;
-import net.neoforged.neoforge.common.ToolActions;
+import net.neoforged.neoforge.common.ItemAbilities;
+import net.neoforged.neoforge.common.ItemAbility;
 import net.neoforged.neoforge.event.entity.player.CriticalHitEvent;
 
 import java.util.List;
@@ -56,8 +55,8 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
     /* Shield Functions */
 
     @Override
-    public boolean canPerformAction(ItemStack stack, ToolAction toolAction) {
-        return super.canPerformAction(stack, toolAction) || (LaserBladeBlocking.isShield() && ToolActions.DEFAULT_SHIELD_ACTIONS.contains(toolAction));
+    public boolean canPerformAction(ItemStack stack, ItemAbility itemAbility) {
+        return super.canPerformAction(stack, itemAbility) || (LaserBladeBlocking.isShield() && ItemAbilities.DEFAULT_SHIELD_ACTIONS.contains(itemAbility));
     }
 
     @Override
