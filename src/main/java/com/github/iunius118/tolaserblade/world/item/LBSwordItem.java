@@ -1,12 +1,10 @@
 package com.github.iunius118.tolaserblade.world.item;
 
-import com.github.iunius118.tolaserblade.client.renderer.item.LBSwordItemRenderer;
 import com.github.iunius118.tolaserblade.core.dispenser.DispenseLaserBladeBehavior;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBlade;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeAppearance;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeBlocking;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.Upgrade;
-import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
@@ -29,7 +27,6 @@ import net.neoforged.neoforge.common.ItemAbility;
 import net.neoforged.neoforge.event.entity.player.CriticalHitEvent;
 
 import java.util.List;
-import java.util.function.Consumer;
 
 public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
     public LBSwordItem(boolean isFireproof) {
@@ -183,17 +180,6 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
     @Override
     public boolean isEnchantable(ItemStack stack) {
         return true;
-    }
-
-    @Override
-    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-        var itemRenderProperties = new IClientItemExtensions() {
-            @Override public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                return LBSwordItemRenderer.INSTANCE;
-            }
-        };
-
-        consumer.accept(itemRenderProperties);
     }
 
     @Override

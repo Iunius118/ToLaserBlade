@@ -10,10 +10,16 @@ import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 
 @OnlyIn(Dist.CLIENT)
 public class LBSwordItemRenderer extends BlockEntityWithoutLevelRenderer {
     public static final LBSwordItemRenderer INSTANCE = new LBSwordItemRenderer();
+    public static final IClientItemExtensions CLIENT_ITEM_EXTENSIONS = new IClientItemExtensions() {
+        @Override public BlockEntityWithoutLevelRenderer getCustomRenderer() {
+            return INSTANCE;
+        }
+    };
 
     protected LBSwordItemRenderer() {
         super(Minecraft.getInstance().getBlockEntityRenderDispatcher(), Minecraft.getInstance().getEntityModels());

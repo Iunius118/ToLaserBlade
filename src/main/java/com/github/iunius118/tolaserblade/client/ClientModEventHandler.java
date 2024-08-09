@@ -7,6 +7,9 @@ import com.github.iunius118.tolaserblade.client.color.item.LBMediumItemColor;
 import com.github.iunius118.tolaserblade.client.color.item.LBSwordItemColor;
 import com.github.iunius118.tolaserblade.client.model.LaserBladeModelManager;
 import com.github.iunius118.tolaserblade.client.particle.LaserTrapParticle;
+import com.github.iunius118.tolaserblade.client.renderer.item.LBBrandNewItemRenderer;
+import com.github.iunius118.tolaserblade.client.renderer.item.LBBrokenItemRenderer;
+import com.github.iunius118.tolaserblade.client.renderer.item.LBSwordItemRenderer;
 import com.github.iunius118.tolaserblade.client.renderer.item.model.LBSwordItemModel;
 import com.github.iunius118.tolaserblade.core.particle.ModParticleTypes;
 import com.github.iunius118.tolaserblade.world.item.ModItems;
@@ -27,6 +30,7 @@ import net.neoforged.fml.VersionChecker.Status;
 import net.neoforged.neoforge.client.event.ModelEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
+import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 
 public class ClientModEventHandler {
     @SubscribeEvent
@@ -77,13 +81,16 @@ public class ClientModEventHandler {
         models.put(lBBrokenFPItemID, bakedModel);
     }
 
-    private static ResourceLocation getItemId(Item item) {
-        return BuiltInRegistries.ITEM.getKey(item);
-    }
-
     @SubscribeEvent
     public static void onBakingCompletedEvent(ModelEvent.BakingCompleted event) {
         LaserBladeModelManager.getInstance().logLoadedModelCount();
+    }
+
+    @SubscribeEvent
+    public static void onRegisterClientExtensionsEvent(RegisterClientExtensionsEvent event) {
+        event.registerItem(LBSwordItemRenderer.CLIENT_ITEM_EXTENSIONS, ModItems.LASER_BLADE, ModItems.LASER_BLADE_FP);
+        event.registerItem(LBBrandNewItemRenderer.CLIENT_ITEM_EXTENSIONS, ModItems.LB_BRAND_NEW, ModItems.LB_BRAND_NEW_1, ModItems.LB_BRAND_NEW_2, ModItems.LB_BRAND_NEW_FP);
+        event.registerItem(LBBrokenItemRenderer.CLIENT_ITEM_EXTENSIONS, ModItems.LB_BROKEN, ModItems.LB_BROKEN_FP);
     }
 
     @SubscribeEvent
@@ -111,5 +118,9 @@ public class ClientModEventHandler {
                     .withStyle(style -> style.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, result.url())));
             Minecraft.getInstance().gui.getChat().addMessage(message);
         }
+    }
+
+    private static ResourceLocation getItemId(Item item) {
+        return BuiltInRegistries.ITEM.getKey(item);
     }
 }

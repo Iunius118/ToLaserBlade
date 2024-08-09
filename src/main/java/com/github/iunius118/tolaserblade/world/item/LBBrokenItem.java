@@ -1,18 +1,14 @@
 package com.github.iunius118.tolaserblade.world.item;
 
-import com.github.iunius118.tolaserblade.client.renderer.item.LBBrokenItemRenderer;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.Upgrade;
-import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 
 import java.util.List;
-import java.util.function.Consumer;
 
 public class LBBrokenItem extends Item implements LaserBladeItemBase {
     public static Item.Properties properties = new Properties();
@@ -25,17 +21,6 @@ public class LBBrokenItem extends Item implements LaserBladeItemBase {
     @Override
     public boolean canUpgrade(Upgrade.Type type) {
         return type == upgradeType;
-    }
-
-    @Override
-    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-        var itemRenderProperties = new IClientItemExtensions() {
-            @Override public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                return LBBrokenItemRenderer.INSTANCE;
-            }
-        };
-
-        consumer.accept(itemRenderProperties);
     }
 
     @Override

@@ -1,9 +1,7 @@
 package com.github.iunius118.tolaserblade.world.item;
 
-import com.github.iunius118.tolaserblade.client.renderer.item.LBBrandNewItemRenderer;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeAppearance;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.Upgrade;
-import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
@@ -19,10 +17,8 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
-import net.neoforged.neoforge.client.extensions.common.IClientItemExtensions;
 
 import java.util.List;
-import java.util.function.Consumer;
 
 public class LBBrandNewItem extends Item implements LaserBladeItemBase {
     public static Properties properties = new Item.Properties();
@@ -112,17 +108,6 @@ public class LBBrandNewItem extends Item implements LaserBladeItemBase {
 
         appearance.setTo(laserBladeStack);
         return laserBladeStack;
-    }
-
-    @Override
-    public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-        var itemRenderProperties = new IClientItemExtensions() {
-            @Override public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                return LBBrandNewItemRenderer.INSTANCE;
-            }
-        };
-
-        consumer.accept(itemRenderProperties);
     }
 
     @Override
