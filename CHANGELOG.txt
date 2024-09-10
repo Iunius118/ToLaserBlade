@@ -4,6 +4,14 @@
 
 ## [Unreleased]
 
+## [1.20.1-7.0.1.1]
+### Removed
+- Additional shader for laser blade.
+
+### Fixed
+- Fix shaders to render laser blades more correctly with shaders mod.
+  Please note that no individual support will be provided for each shader pack.
+
 ## [1.20.1-7.0.1.0]
 ### Added
 - New blade color of laser blade obtained in deep dark.
