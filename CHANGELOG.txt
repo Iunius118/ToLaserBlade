@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+## [10.0.4 NeoForge]
+### Fixed
+- Fix mining speed of laser blades.
+
 ## [10.0.3 NeoForge]
 ### Fixed
 - Fix optional feature of blocking damage with laser blade that was not working.
