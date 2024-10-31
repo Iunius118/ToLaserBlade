@@ -34,22 +34,20 @@ public class LaserBladeItemUtil {
 
     public static void changeDestroySpeed(PlayerEvent.BreakSpeed event) {
         var player = event.getEntity();
-        ItemStack itemStack = player.getMainHandItem();
+        var itemStack = player.getMainHandItem();
         var item = itemStack.getItem();
 
-        if (item != ModItems.LASER_BLADE && item != ModItems.LASER_BLADE_FP) {
+        if (!(item instanceof LBSwordItem)) {
             return;
         }
 
-        var optionalEfficiency = player.level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).get(Enchantments.EFFICIENCY);
-
-        if (optionalEfficiency.isEmpty()) {
-            return;
-        }
-
-        float rate = (float) EnchantmentHelper.getItemEnchantmentLevel(optionalEfficiency.get(), itemStack) / 5.0F;
-        float speed = event.getOriginalSpeed() * Mth.clamp(rate, 0.0F, 1.0F);
-        event.setNewSpeed(speed);
+        float destroySpeed = item.getDestroySpeed(itemStack, event.getState());
+        float additionalSpeed = event.getOriginalSpeed() - destroySpeed;
+        float efficiency = player.level().registryAccess().lookupOrThrow(Registries.ENCHANTMENT).get(Enchantments.EFFICIENCY)
+                .map(e -> (float) EnchantmentHelper.getItemEnchantmentLevel(e, itemStack)).orElse(1.0F);
+        float rate = Mth.clamp(efficiency / 5.0F, 0.0F, 1.0F);
+        float newSpeed = rate * destroySpeed + additionalSpeed;
+        event.setNewSpeed(newSpeed);
     }
 
     public static void playSwingSound(Level level, LivingEntity entity, boolean isFireResistant) {
