@@ -1,10 +1,14 @@
 package com.github.iunius118.tolaserblade.core.laserblade.upgrade;
 
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.HolderSet;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
+
+import java.util.Optional;
 
 public record Upgrade(Upgrader upgrader, TagKey<Item> ingredientItemTag, String shortName) {
     public static final Upgrade NONE = new Upgrade(
@@ -20,8 +24,12 @@ public record Upgrade(Upgrader upgrader, TagKey<Item> ingredientItemTag, String 
                 }
             }, null, "00");
 
-    public Ingredient getIngredient() {
-        return ingredientItemTag != null ? Ingredient.of(ingredientItemTag) : Ingredient.EMPTY;
+    public Optional<Ingredient> getIngredient() {
+        if (ingredientItemTag == null) {
+            return Optional.empty();
+        }
+        Optional<HolderSet.Named<Item>> itemHolderSet = BuiltInRegistries.ITEM.get(ingredientItemTag);
+        return itemHolderSet.map(Ingredient::of);
     }
 
     public boolean canApply(ItemStack base, ItemStack addition, HolderLookup.Provider provider) {
