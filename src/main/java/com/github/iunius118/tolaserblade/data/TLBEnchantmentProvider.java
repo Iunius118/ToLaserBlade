@@ -34,8 +34,8 @@ public class TLBEnchantmentProvider {
         final boolean includesServer = event.includeServer();
         var packGenerator = dataGenerator.getBuiltinDatapack(includesServer, PACK_PATH);
 
-        packGenerator.addProvider((o) -> PackMetadataGenerator.forFeaturePack(packOutput, Component.literal("ToLB - temporary enchantment correction (mandatory)")));
-        packGenerator.addProvider((o) -> builtinEntriesProvider);
+        packGenerator.addProvider(o -> PackMetadataGenerator.forFeaturePack(packOutput, Component.literal("ToLB - temporary enchantment correction (mandatory)")));
+        packGenerator.addProvider(o -> builtinEntriesProvider);
     }
 
     public static void addPackFinders(final AddPackFindersEvent event) {

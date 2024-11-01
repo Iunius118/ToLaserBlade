@@ -4,12 +4,14 @@ import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.tags.ModItemTags;
 import com.github.iunius118.tolaserblade.world.item.ModItems;
 import net.minecraft.core.HolderLookup;
+import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.metadata.PackMetadataGenerator;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
+import net.minecraft.data.recipes.packs.VanillaRecipeProvider;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
@@ -24,7 +26,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
-import net.minecraftforge.common.crafting.conditions.IConditionBuilder;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.event.AddPackFindersEvent;
@@ -52,10 +53,10 @@ public class TLBOldRecipeProvider6 {
         final boolean includesServer = event.includeServer();
         var packGenerator = dataGenerator.getBuiltinDatapack(includesServer, PACK_PATH);
 
-        packGenerator.addProvider((o) -> PackMetadataGenerator.forFeaturePack(packOutput, Component.literal("ToLaserBlade - revert laser blade recipes to version 6")));
-        packGenerator.addProvider((o) -> new OldRecipeProvider(packOutput, lookupProvider));
-        packGenerator.addProvider((o) -> blockTagsProvider);
-        packGenerator.addProvider((o) -> new OldItemTagsProvider(packOutput, lookupProvider, blockTagsProvider.contentsGetter(), existingFileHelper));
+        packGenerator.addProvider(o -> PackMetadataGenerator.forFeaturePack(packOutput, Component.literal("ToLaserBlade - revert laser blade recipes to version 6")));
+        packGenerator.addProvider(o -> new OldRecipeProvider.Runner(packOutput, lookupProvider));
+        packGenerator.addProvider(o -> blockTagsProvider);
+        packGenerator.addProvider(o -> new OldItemTagsProvider(packOutput, lookupProvider, blockTagsProvider.contentsGetter(), existingFileHelper));
     }
 
     public static void addPackFinders(final AddPackFindersEvent event) {
@@ -74,27 +75,29 @@ public class TLBOldRecipeProvider6 {
         }
     }
 
-    private static class OldRecipeProvider extends RecipeProvider implements IConditionBuilder {
-        public OldRecipeProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider) {
-            super(packOutput, lookupProvider);
+    private static class OldRecipeProvider extends VanillaRecipeProvider {
+        public OldRecipeProvider(HolderLookup.Provider registryLookup, RecipeOutput output) {
+            super(registryLookup, output);
         }
 
         @Override
-        protected void buildRecipes(RecipeOutput consumer) {
+        protected void buildRecipes() {
+            final HolderLookup.RegistryLookup<Item> holderGetter = registries.lookupOrThrow(Registries.ITEM);
+
             // Old Brand-new Laser Blade I
-            ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.LB_BRAND_NEW_1)
+            ShapedRecipeBuilder.shaped(holderGetter, RecipeCategory.MISC, ModItems.LB_BRAND_NEW_1)
                     .pattern("Gid")
                     .pattern("idi")
                     .pattern("riG")
-                    .define('G', Tags.Items.GLASS_COLORLESS)
+                    .define('G', Tags.Items.GLASS_BLOCKS_COLORLESS)
                     .define('i', Tags.Items.INGOTS_IRON)
                     .define('d', Tags.Items.GEMS_DIAMOND)
                     .define('r', Tags.Items.DUSTS_REDSTONE)
                     .unlockedBy("has_redstone", has(Items.REDSTONE))
-                    .save(consumer, getItemId(ModItems.LB_BRAND_NEW_1) + "_v_6");
+                    .save(output, getItemId(ModItems.LB_BRAND_NEW_1) + "_v_6");
 
             // Old Brand-new Laser Blade II
-            ShapedRecipeBuilder.shaped(RecipeCategory.MISC, ModItems.LB_BRAND_NEW_2)
+            ShapedRecipeBuilder.shaped(holderGetter, RecipeCategory.MISC, ModItems.LB_BRAND_NEW_2)
                     .pattern("gid")
                     .pattern("idi")
                     .pattern("rig")
@@ -103,11 +106,27 @@ public class TLBOldRecipeProvider6 {
                     .define('d', Tags.Items.GEMS_DIAMOND)
                     .define('r', Tags.Items.DUSTS_REDSTONE)
                     .unlockedBy("has_redstone", has(Items.REDSTONE))
-                    .save(consumer, getItemId(ModItems.LB_BRAND_NEW_2) + "_v_6");
+                    .save(output, getItemId(ModItems.LB_BRAND_NEW_2) + "_v_6");
         }
 
         private ResourceLocation getItemId(Item item) {
             return ForgeRegistries.ITEMS.getKey(item);
+        }
+
+        public static class Runner extends RecipeProvider.Runner {
+            public Runner(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+                super(output, registries);
+            }
+
+            @Override
+            protected RecipeProvider createRecipeProvider(HolderLookup.Provider registryLookup, RecipeOutput exporter) {
+                return new OldRecipeProvider(registryLookup, exporter);
+            }
+
+            @Override
+            public String getName() {
+                return "Recipes";
+            }
         }
     }
 
