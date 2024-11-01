@@ -18,33 +18,17 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SmithingRecipeInput;
-import net.minecraft.world.item.crafting.SmithingTransformRecipe;
 import net.minecraft.world.level.Level;
 
-public class LBUpgradeRecipe extends SmithingTransformRecipe {
-    private final Ingredient template;
-    private final Ingredient base;
-    private final Ingredient addition;
+import java.util.Optional;
+
+public class LBUpgradeRecipe extends LBSmithingRecipe {
     private final ResourceLocation upgradeId;
     private Upgrade upgrade;
-    private ItemStack sample;
 
-    public LBUpgradeRecipe(Ingredient template, Ingredient base, Ingredient addition, ResourceLocation upgradeId) {
-        super(template, base, addition, getResultItemStack(base));
-        this.template = template;
-        this.base = base;
-        this.addition = addition;
+    public LBUpgradeRecipe(Optional<Ingredient> template, Optional<Ingredient> base, Optional<Ingredient> addition, ResourceLocation upgradeId) {
+        super(template, base, addition);
         this.upgradeId = upgradeId;
-    }
-
-    private static ItemStack getResultItemStack(Ingredient base) {
-        ItemStack[] matchingStacks = base.getItems();
-
-        if (matchingStacks.length > 0 && matchingStacks[0] != null) {
-            return matchingStacks[0].copy();
-        }
-
-        return ItemStack.EMPTY;
     }
 
     @Override
@@ -83,45 +67,34 @@ public class LBUpgradeRecipe extends SmithingTransformRecipe {
     }
 
     @Override
-    public ItemStack getResultItem(HolderLookup.Provider provider) {
-        if (sample != null) {
-            return sample;
-        }
-
-        ItemStack output = super.getResultItem(provider);
-        sample = output.copy();
-
-        if (sample.isEmpty()) {
-            return sample;
-        }
-
+    protected ItemStack getDisplayResult(ItemStack result) {
         ResourceLocation efficiencyRemover = UpgradeID.EFFICIENCY_REMOVER.getID();
+        ItemStack copied = result.copy();
 
         if (upgradeId.equals(efficiencyRemover)) {
             // Set hint of removing Efficiency to item-stack's display name
             MutableComponent componentContents = LaserBladeTextKey.KEY_TOOLTIP_REMOVE.translate(Component.translatable("enchantment.minecraft.efficiency"));
             MutableComponent info = Component.literal(componentContents.getString());
-            sample.set(DataComponents.CUSTOM_NAME, info);
+            copied.set(DataComponents.CUSTOM_NAME, info);
+            return copied;
         } else {
-            // Apply upgrade to sample item
-            sample = getUpgradingResult(output, provider);
+            // For other upgrades, return result without applying upgrade temporarily
+            return copied;
         }
-
-        return sample;
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    public RecipeSerializer<LBUpgradeRecipe> getSerializer() {
         return ModRecipeSerializers.UPGRADE;
     }
 
     public static class Serializer implements RecipeSerializer<LBUpgradeRecipe> {
         private static final MapCodec<LBUpgradeRecipe> CODEC = RecordCodecBuilder.mapCodec(
                 (instance) -> instance.group(
-                        Ingredient.CODEC.fieldOf("template").forGetter(lBModelChangeRecipe -> lBModelChangeRecipe.template),
-                        Ingredient.CODEC.fieldOf("base").forGetter(lBModelChangeRecipe -> lBModelChangeRecipe.base),
-                        Ingredient.CODEC.fieldOf("addition").forGetter(lBModelChangeRecipe -> lBModelChangeRecipe.addition),
-                        ResourceLocation.CODEC.fieldOf("type").codec().fieldOf("result").forGetter(lBModelChangeRecipe -> lBModelChangeRecipe.upgradeId)
+                        Ingredient.CODEC.optionalFieldOf("template").forGetter(recipe -> recipe.template),
+                        Ingredient.CODEC.optionalFieldOf("base").forGetter(recipe -> recipe.base),
+                        Ingredient.CODEC.optionalFieldOf("addition").forGetter(recipe -> recipe.addition),
+                        ResourceLocation.CODEC.fieldOf("type").codec().fieldOf("result").forGetter(recipe -> recipe.upgradeId)
                 ).apply(instance, LBUpgradeRecipe::new)
         );
         private static final StreamCodec<RegistryFriendlyByteBuf, LBUpgradeRecipe> STREAM_CODEC = StreamCodec.of(
@@ -139,17 +112,17 @@ public class LBUpgradeRecipe extends SmithingTransformRecipe {
         }
 
         private static LBUpgradeRecipe fromNetwork(RegistryFriendlyByteBuf buffer) {
-            Ingredient template = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
-            Ingredient base = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
-            Ingredient addition = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
+            Optional<Ingredient> template = Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC.decode(buffer);
+            Optional<Ingredient> base = Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC.decode(buffer);
+            Optional<Ingredient> addition = Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC.decode(buffer);
             ResourceLocation upgradeId = ResourceLocation.STREAM_CODEC.decode(buffer);
             return new LBUpgradeRecipe(template, base, addition, upgradeId);
         }
 
         private static void toNetwork(RegistryFriendlyByteBuf buffer, LBUpgradeRecipe recipe) {
-            Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.template);
-            Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.base);
-            Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.addition);
+            Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC.encode(buffer, recipe.template);
+            Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC.encode(buffer, recipe.base);
+            Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC.encode(buffer, recipe.addition);
             ResourceLocation.STREAM_CODEC.encode(buffer, recipe.upgradeId);
         }
     }

@@ -15,34 +15,18 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.SmithingRecipeInput;
-import net.minecraft.world.item.crafting.SmithingTransformRecipe;
 import net.minecraft.world.level.Level;
 
-public class LBColorRecipe extends SmithingTransformRecipe {
-    private final Ingredient template;
-    private final Ingredient base;
-    private final Ingredient addition;
-    private final LaserBladeColorPart part;
-    private final int color;
-    private ItemStack sample;
+import java.util.Optional;
 
-    public LBColorRecipe(Ingredient template, Ingredient base, Ingredient addition, LaserBladeColorPart part, int color) {
-        super(template, base, addition, getResultItemStack(base));
-        this.template = template;
-        this.base = base;
-        this.addition = addition;
+public class LBColorRecipe extends LBSmithingRecipe {
+    final LaserBladeColorPart part;
+    final int color;
+
+    public LBColorRecipe(Optional<Ingredient> template, Optional<Ingredient> base, Optional<Ingredient> addition, LaserBladeColorPart part, int color) {
+        super(template, base, addition);
         this.part = part;
         this.color = color;
-    }
-
-    private static ItemStack getResultItemStack(Ingredient base) {
-        ItemStack[] matchingStacks = base.getItems();
-
-        if (matchingStacks.length > 0 && matchingStacks[0] != null) {
-            return matchingStacks[0].copy();
-        }
-
-        return ItemStack.EMPTY;
     }
 
     @Override
@@ -78,23 +62,6 @@ public class LBColorRecipe extends SmithingTransformRecipe {
         return getColoringResult(itemstack);
     }
 
-    @Override
-    public ItemStack getResultItem(HolderLookup.Provider provider) {
-        if (sample != null) {
-            return sample;
-        }
-
-        ItemStack output = super.getResultItem(provider);
-
-        if (output.isEmpty()) {
-            sample = ItemStack.EMPTY;
-            return sample;
-        }
-
-        sample = getColoringResult(output.copy());
-        return sample;
-    }
-
     private ItemStack getColoringResult(ItemStack input) {
         var appearance = LaserBladeAppearance.of(input);
 
@@ -123,25 +90,29 @@ public class LBColorRecipe extends SmithingTransformRecipe {
     }
 
     @Override
-    public RecipeSerializer<?> getSerializer() {
+    protected ItemStack getDisplayResult(ItemStack result) {
+        return getColoringResult(result.copy());
+    }
+
+    @Override
+    public RecipeSerializer<LBColorRecipe> getSerializer() {
         return ModRecipeSerializers.COLOR;
     }
 
     public static class Serializer implements RecipeSerializer<LBColorRecipe> {
         private static final MapCodec<LBColorRecipe> CODEC = RecordCodecBuilder.mapCodec(
                 (instance) -> instance.group(
-                        Ingredient.CODEC.fieldOf("template").forGetter(lBColorRecipe -> lBColorRecipe.template),
-                        Ingredient.CODEC.fieldOf("base").forGetter(lBColorRecipe -> lBColorRecipe.base),
-                        Ingredient.CODEC.fieldOf("addition").forGetter(lBColorRecipe -> lBColorRecipe.addition),
+                        Ingredient.CODEC.optionalFieldOf("template").forGetter(recipe -> recipe.template),
+                        Ingredient.CODEC.optionalFieldOf("base").forGetter(recipe -> recipe.base),
+                        Ingredient.CODEC.optionalFieldOf("addition").forGetter(recipe -> recipe.addition),
                         Codec.pair(Codec.STRING.fieldOf("part").codec(), Codec.INT.fieldOf("color").codec())
-                                .fieldOf("result").forGetter(lBColorRecipe -> new Pair<>(lBColorRecipe.part.getPartName(), lBColorRecipe.color))
+                                .fieldOf("result").forGetter(recipe -> new Pair<>(recipe.part.getPartName(), recipe.color))
                 ).apply(instance, (template, base, addition, result) ->
                         new LBColorRecipe(template, base, addition, LaserBladeColorPart.byPartName(result.getFirst()), result.getSecond()))
         );
         private static final StreamCodec<RegistryFriendlyByteBuf, LBColorRecipe> STREAM_CODEC = StreamCodec.of(
                 LBColorRecipe.Serializer::toNetwork, LBColorRecipe.Serializer::fromNetwork
         );
-
         @Override
         public MapCodec<LBColorRecipe> codec() {
             return CODEC;
@@ -153,18 +124,18 @@ public class LBColorRecipe extends SmithingTransformRecipe {
         }
 
         private static LBColorRecipe fromNetwork(RegistryFriendlyByteBuf buffer) {
-            Ingredient template = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
-            Ingredient base = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
-            Ingredient addition = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
+            Optional<Ingredient> template = Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC.decode(buffer);
+            Optional<Ingredient> base = Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC.decode(buffer);
+            Optional<Ingredient> addition = Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC.decode(buffer);
             var colorPart = LaserBladeColorPart.byIndex(ByteBufCodecs.INT.decode(buffer));
             int color = ByteBufCodecs.INT.decode(buffer);
             return new LBColorRecipe(template, base, addition, colorPart, color);
         }
 
         private static void toNetwork(RegistryFriendlyByteBuf buffer, LBColorRecipe recipe) {
-            Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.template);
-            Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.base);
-            Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.addition);
+            Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC.encode(buffer, recipe.template);
+            Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC.encode(buffer, recipe.base);
+            Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC.encode(buffer, recipe.addition);
             ByteBufCodecs.INT.encode(buffer, recipe.part.getIndex());
             ByteBufCodecs.INT.encode(buffer, recipe.color);
         }
