@@ -1,8 +1,9 @@
 {
   "homepage": "https://github.com/Iunius118/ToLaserBlade#readme",
   "promos": {
-    "1.21.1-latest": "10.0.4",
-    "1.21-latest": "10.0.4",
+    "1.21.3-latest": "11.0.0",
+    "1.21.1-recommended": "10.0.4",
+    "1.21-recommended": "10.0.4",
     "1.20.6-recommended": "9.1.1",
     "1.20.4-recommended": "8.4.1"
   }
