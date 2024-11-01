@@ -4,6 +4,12 @@
 
 ## [Unreleased]
 
+## [11.0.0 Forge]
+### Changed
+- Port to Minecraft 1.21.3.
+- Require Forge 1.21.3-53.0.7+.
+- `ToLaserBladeAPI.registerModelRegistrationListener` uses ToLaserBlade event bus.
+
 ## [10.0.4 Forge]
 ### Fixed
 - Fix mining speed of laser blades.
