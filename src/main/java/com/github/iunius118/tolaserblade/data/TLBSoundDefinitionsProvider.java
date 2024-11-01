@@ -22,7 +22,7 @@ public class TLBSoundDefinitionsProvider extends SoundDefinitionsProvider {
     }
 
     private void addSingleFileSound(SoundEvent soundEvent) {
-        var soundDefinition = definition().with(getSound(soundEvent.getLocation()));
+        var soundDefinition = definition().with(getSound(soundEvent.location()));
         add(soundEvent, soundDefinition);
     }
 

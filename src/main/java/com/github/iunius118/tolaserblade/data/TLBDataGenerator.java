@@ -6,6 +6,7 @@ import com.github.iunius118.tolaserblade.world.item.enchantment.ModEnchantments;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
+import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.neoforged.neoforge.common.data.DatapackBuiltinEntriesProvider;
@@ -25,7 +26,7 @@ public class TLBDataGenerator {
         // Server
         final boolean includesServer = event.includeServer();
         dataGenerator.addProvider(includesServer, builtinEntriesProvider);
-        dataGenerator.addProvider(includesServer, new TLBRecipeProvider(packOutput, lookupProvider));
+        dataGenerator.addProvider(includesServer, new TLBRecipeProvider.Runner(packOutput, lookupProvider));
         dataGenerator.addProvider(includesServer, blockTagsProvider);
         dataGenerator.addProvider(includesServer, new TLBItemTagsProvider(packOutput, lookupProvider, blockTagsProvider.contentsGetter(), existingFileHelper));
         dataGenerator.addProvider(includesServer, new TLBEntityTypeTagsProvider(packOutput, lookupProvider, existingFileHelper));
@@ -44,8 +45,9 @@ public class TLBDataGenerator {
         RegistrySetBuilder.RegistryBootstrap<Enchantment> enchantmentRegistry = bootstrapContext -> {
             HolderGetter<Item> itemGetter = bootstrapContext.lookup(Registries.ITEM);
             HolderGetter<Enchantment> enchantmentGetter = bootstrapContext.lookup(Registries.ENCHANTMENT);
+            HolderGetter<EntityType<?>> entityTypeHolderGetter = bootstrapContext.lookup(Registries.ENTITY_TYPE);
             // Register Light Element to bootstrap context
-            bootstrapContext.register(ModEnchantments.LIGHT_ELEMENT, LightElementEnchantment.get(itemGetter, enchantmentGetter));
+            bootstrapContext.register(ModEnchantments.LIGHT_ELEMENT, LightElementEnchantment.get(itemGetter, enchantmentGetter, entityTypeHolderGetter));
         };
         return new RegistrySetBuilder().add(Registries.ENCHANTMENT, enchantmentRegistry);
     }
