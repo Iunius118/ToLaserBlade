@@ -2,6 +2,7 @@
   "required": true,
   "package": "com.github.iunius118.tolaserblade.mixin",
   "mixins": [
+    "ItemAccessor",
     "MixinSmithingMenu"
   ],
   "refmap": "mixins.tolaserblade.refmap.json",

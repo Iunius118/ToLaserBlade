@@ -9,6 +9,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ToolMaterial;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
 
@@ -89,8 +90,8 @@ public enum LaserBladeItemStack {
         enchantMaxLevel(stack, Enchantments.MENDING, lookupProvider);
 
         if (isDamaged) {
-            int maxUses = isFireproof ? ModItemTiers.LASER_BLADE_FP.getUses() : ModItemTiers.LASER_BLADE.getUses();
-            stack.setDamageValue(maxUses - 1);
+            ToolMaterial lbSwordMaterial = ModToolMaterials.getLBSwordMaterial(isFireproof);
+            stack.setDamageValue(lbSwordMaterial.durability() - 1);
         }
 
         return stack;

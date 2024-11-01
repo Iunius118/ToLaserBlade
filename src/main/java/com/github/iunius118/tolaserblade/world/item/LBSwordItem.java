@@ -1,17 +1,20 @@
 package com.github.iunius118.tolaserblade.world.item;
 
 import com.github.iunius118.tolaserblade.client.renderer.item.LBSwordItemRenderer;
+import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
 import com.github.iunius118.tolaserblade.core.dispenser.DispenseLaserBladeBehavior;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBlade;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeAppearance;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeBlocking;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.Upgrade;
+import com.github.iunius118.tolaserblade.mixin.ItemAccessor;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.BlockPos;
+import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -33,13 +36,22 @@ import java.util.List;
 import java.util.function.Consumer;
 
 public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
-    public LBSwordItem(boolean isFireproof) {
-        super(ModItemTiers.getLBSwordTier(isFireproof),
-                LaserBladeItemBase.setFireproof(new Item.Properties(), isFireproof)
-                        .attributes(SwordItem.createAttributes(ModItemTiers.getLBSwordTier(isFireproof), 3, LaserBlade.BASE_SPEED)));
+    public LBSwordItem(Properties properties, boolean isFireResistant) {
+        super(ModToolMaterials.getLBSwordMaterial(isFireResistant), LaserBlade.BASE_ATTACK, LaserBlade.BASE_SPEED, properties);
+        overwriteToolComponent(ModToolMaterials.getLBSwordMaterial(isFireResistant));
 
         // Register dispense behavior
         DispenserBlock.registerBehavior(this, new DispenseLaserBladeBehavior());
+    }
+
+    private void overwriteToolComponent(ToolMaterial toolMaterial) {
+        // Get components via accessor, avoiding components() modified by Forge
+        ItemAccessor itemAccessor = (ItemAccessor) this;
+        DataComponentMap.Builder builder = DataComponentMap.builder().addAll(itemAccessor.getComponents());
+        // Remove some components to handle mining speed and repairability on the mod side
+        builder.set(DataComponents.TOOL, null);
+        builder.set(DataComponents.REPAIRABLE, null);
+        itemAccessor.setComponents(builder.build());
     }
 
     @Override
@@ -61,7 +73,7 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
     }
 
     @Override
-    public UseAnim getUseAnimation(ItemStack stack) {
+    public ItemUseAnimation getUseAnimation(ItemStack stack) {
         return LaserBladeBlocking.getUseAction();
     }
 
@@ -71,14 +83,13 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-        ItemStack itemstack = player.getItemInHand(hand);
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
         LaserBladeBlocking.start(player, hand);
 
         if (LaserBladeBlocking.isShield()) {
-            return InteractionResultHolder.consume(itemstack);
+            return InteractionResult.CONSUME;
         } else {
-            return InteractionResultHolder.pass(itemstack);
+            return InteractionResult.PASS;
         }
     }
 
@@ -90,7 +101,7 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
 
         if (!level.isClientSide && entity instanceof Player player) {
             if (!player.swinging) {
-                LaserBladeItemUtil.playSwingSound(level, entity, stack.has(DataComponents.FIRE_RESISTANT));
+                LaserBladeItemUtil.playSwingSound(level, entity, LaserBladeItemUtil.isFireResistant(stack));
             }
         }
 
@@ -102,7 +113,7 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
         Level level = attacker.getCommandSenderWorld();
 
         if (!level.isClientSide) {
-            LaserBladeItemUtil.playSwingSound(level, attacker, stack.has(DataComponents.FIRE_RESISTANT));
+            LaserBladeItemUtil.playSwingSound(level, attacker, LaserBladeItemUtil.isFireResistant(stack));
             hurtAndBreak(stack, 1, attacker);
         }
 
@@ -144,7 +155,7 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
         stack.setCount(1);
         ItemStack brokenLaserBlade;
 
-        if (stack.has(DataComponents.FIRE_RESISTANT)) {
+        if (LaserBladeItemUtil.isFireResistant(stack)) {
             brokenLaserBlade = stack.transmuteCopy(ModItems.LB_BROKEN_FP, 1);
         } else {
             brokenLaserBlade = stack.transmuteCopy(ModItems.LB_BROKEN, 1);
@@ -163,21 +174,16 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
 
     @Override
     public float getDestroySpeed(ItemStack stack, BlockState state) {
-        return this.getTier().getSpeed();
+        // Normally the config value is used, but it can be overwritten by Tool component
+        if (!stack.has(DataComponents.TOOL)) {
+            return (float) ToLaserBladeConfig.SERVER.laserBladeEfficiency.get();
+        } else {
+            return super.getDestroySpeed(stack, state);
+        }
     }
 
     @Override
     public boolean isCorrectToolForDrops(ItemStack stack, BlockState state) {
-        return true;
-    }
-
-    @Override
-    public boolean isValidRepairItem(ItemStack toRepair, ItemStack repair) {
-        return false;
-    }
-
-    @Override
-    public boolean isEnchantable(ItemStack stack) {
         return true;
     }
 

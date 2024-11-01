@@ -3,15 +3,14 @@ package com.github.iunius118.tolaserblade.world.item;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.SwordItem;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
 
 public class DXLaserBladeItem extends SwordItem {
-    public DXLaserBladeItem() {
-        super(ModItemTiers.DX_LASER_BLADE, new Item.Properties().attributes(SwordItem.createAttributes(ModItemTiers.DX_LASER_BLADE, 3, -1.2F)));
+    public DXLaserBladeItem(Properties properties) {
+        super(ModToolMaterials.DX_LASER_BLADE, 3, -1.2F, properties);
     }
 
     @Override
@@ -40,6 +39,6 @@ public class DXLaserBladeItem extends SwordItem {
 
     @Override
     public InteractionResult useOn(UseOnContext context) {
-        return DXLaserBladeItemUtil.useOn(context, getTier());
+        return DXLaserBladeItemUtil.useOn(context);
     }
 }

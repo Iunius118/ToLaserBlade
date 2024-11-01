@@ -10,12 +10,12 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 
 import java.util.List;
 
-public class LBBatteryItem extends Item implements LaserBladeItemBase {
-    public static Item.Properties properties = new Item.Properties();
-    public final Upgrade.Type upgradeType = Upgrade.Type.BATTERY;
+public class LBPartItem extends Item implements LaserBladeItemBase {
+    public final Upgrade.Type upgradeType;
 
-    public LBBatteryItem() {
+    public LBPartItem(Properties properties, Upgrade.Type type) {
         super(properties);
+        upgradeType = type;
     }
 
     @Override

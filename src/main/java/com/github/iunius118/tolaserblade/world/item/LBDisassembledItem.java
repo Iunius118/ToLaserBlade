@@ -8,7 +8,7 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -24,11 +24,10 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import java.util.List;
 
 public class LBDisassembledItem extends Item implements LaserBladeItemBase {
-    public static Properties properties = new Properties();
     public final Upgrade.Type upgradeType = Upgrade.Type.REPAIR;
 
-    public LBDisassembledItem(boolean isFireproof) {
-        super(LaserBladeItemBase.setFireproof(properties, isFireproof));
+    public LBDisassembledItem(Properties properties) {
+        super(properties);
     }
 
     @Override
@@ -37,22 +36,22 @@ public class LBDisassembledItem extends Item implements LaserBladeItemBase {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
-        ItemStack itemStack = player.getItemInHand(hand);
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
+        var itemStack = player.getItemInHand(hand);
 
         if (!level.isClientSide()) {
             disassembleLaserBlade(level, player, itemStack);
             itemStack.shrink(1);
         }
 
-        return InteractionResultHolder.success(itemStack);
+        return InteractionResult.SUCCESS;
     }
 
     private void disassembleLaserBlade(Level level, Player player, ItemStack itemStack) {
         ItemStack batteryStack = new ItemStack(ModItems.LB_BATTERY);
         ItemStack mediumStack = new ItemStack(ModItems.LB_MEDIUM);
         ItemStack emitterStack = new ItemStack(ModItems.LB_EMITTER);
-        ItemStack casingStack = new ItemStack(itemStack.has(DataComponents.FIRE_RESISTANT) ? ModItems.LB_CASING_FP : ModItems.LB_CASING);
+        ItemStack casingStack = new ItemStack(LaserBladeItemUtil.isFireResistant(itemStack) ? ModItems.LB_CASING_FP : ModItems.LB_CASING);
         ItemEnchantments enchantments = EnchantmentHelper.getEnchantmentsForCrafting(itemStack);
 
         // Process attacks

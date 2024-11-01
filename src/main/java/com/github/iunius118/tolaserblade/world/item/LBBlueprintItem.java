@@ -1,22 +1,11 @@
 package com.github.iunius118.tolaserblade.world.item;
 
+import com.github.iunius118.tolaserblade.mixin.ItemAccessor;
 import net.minecraft.world.item.Item;
-import net.minecraft.world.item.ItemStack;
 
 public class LBBlueprintItem extends Item {
-    public static Properties properties = new Properties();
-
-    public LBBlueprintItem() {
+    public LBBlueprintItem(Properties properties) {
         super(properties);
-    }
-
-    @Override
-    public boolean hasCraftingRemainingItem(ItemStack stack) {
-        return true;
-    }
-
-    @Override
-    public ItemStack getCraftingRemainingItem(ItemStack itemStack) {
-        return itemStack.copy();
+        ((ItemAccessor) this).setCraftingRemainingItem(this);
     }
 }
