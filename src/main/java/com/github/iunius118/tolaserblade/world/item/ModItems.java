@@ -4,25 +4,25 @@ import net.minecraft.world.item.Item;
 
 public class ModItems {
     // DX Laser B1ade
-    public static final Item DX_LASER_BLADE = new DXLaserBladeItem();
+    public static final Item DX_LASER_BLADE = ModItemRegistry.DX_LASER_BLADE.get();
     // Laser Blade
-    public static final Item LASER_BLADE = new LBSwordItem(false);
-    public static final Item LASER_BLADE_FP = new LBSwordItem(true);
+    public static final Item LASER_BLADE = ModItemRegistry.LASER_BLADE.get();
+    public static final Item LASER_BLADE_FP = ModItemRegistry.LASER_BLADE_FP.get();
     // Brand-new Laser Blade
-    public static final Item LB_BRAND_NEW = new LBBrandNewItem(LBBrandNewType.NONE, false);
-    public static final Item LB_BRAND_NEW_1 = new LBBrandNewItem(LBBrandNewType.LIGHT_ELEMENT_1, false);
-    public static final Item LB_BRAND_NEW_2 = new LBBrandNewItem(LBBrandNewType.LIGHT_ELEMENT_2, false);
-    public static final Item LB_BRAND_NEW_FP = new LBBrandNewItem(LBBrandNewType.FP, true);
-    public static final Item LB_BROKEN = new LBBrokenItem(false);
-    public static final Item LB_BROKEN_FP = new LBBrokenItem(true);
+    public static final Item LB_BRAND_NEW = ModItemRegistry.LB_BRAND_NEW.get();
+    public static final Item LB_BRAND_NEW_1 = ModItemRegistry.LB_BRAND_NEW_1.get();
+    public static final Item LB_BRAND_NEW_2 = ModItemRegistry.LB_BRAND_NEW_2.get();
+    public static final Item LB_BRAND_NEW_FP = ModItemRegistry.LB_BRAND_NEW_FP.get();
+    public static final Item LB_BROKEN = ModItemRegistry.LB_BROKEN.get();
+    public static final Item LB_BROKEN_FP = ModItemRegistry.LB_BROKEN_FP.get();
     // Blueprint
-    public static final Item LB_BLUEPRINT = new LBBlueprintItem();
+    public static final Item LB_BLUEPRINT = ModItemRegistry.LB_BLUEPRINT.get();
     // Laser Blade parts
-    public static final Item LB_DISASSEMBLED = new LBDisassembledItem(false);
-    public static final Item LB_DISASSEMBLED_FP = new LBDisassembledItem(true);
-    public static final Item LB_BATTERY = new LBBatteryItem();
-    public static final Item LB_MEDIUM = new LBMediumItem();
-    public static final Item LB_EMITTER = new LBEmitterItem();
-    public static final Item LB_CASING = new LBCasingItem(false);
-    public static final Item LB_CASING_FP = new LBCasingItem(true);
+    public static final Item LB_DISASSEMBLED = ModItemRegistry.LB_DISASSEMBLED.get();
+    public static final Item LB_DISASSEMBLED_FP = ModItemRegistry.LB_DISASSEMBLED_FP.get();
+    public static final Item LB_BATTERY = ModItemRegistry.LB_BATTERY.get();
+    public static final Item LB_MEDIUM = ModItemRegistry.LB_MEDIUM.get();
+    public static final Item LB_EMITTER = ModItemRegistry.LB_EMITTER.get();
+    public static final Item LB_CASING = ModItemRegistry.LB_CASING.get();
+    public static final Item LB_CASING_FP = ModItemRegistry.LB_CASING_FP.get();
 }
