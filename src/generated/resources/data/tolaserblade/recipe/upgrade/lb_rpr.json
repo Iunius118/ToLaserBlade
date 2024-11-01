@@ -1,15 +1,9 @@
 {
   "type": "tolaserblade:upgrade",
-  "addition": {
-    "tag": "tolaserblade:casing_repair"
-  },
-  "base": {
-    "item": "tolaserblade:laser_blade"
-  },
+  "addition": "#tolaserblade:casing_repair",
+  "base": "tolaserblade:laser_blade",
   "result": {
     "type": "tolaserblade:upgrade/repair"
   },
-  "template": {
-    "item": "tolaserblade:lb_blueprint"
-  }
+  "template": "tolaserblade:lb_blueprint"
 }

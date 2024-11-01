@@ -1,15 +1,9 @@
 {
   "type": "tolaserblade:model_change",
-  "addition": {
-    "item": "minecraft:sandstone"
-  },
-  "base": {
-    "item": "tolaserblade:laser_blade_fp"
-  },
+  "addition": "minecraft:sandstone",
+  "base": "tolaserblade:laser_blade_fp",
   "result": {
     "model_type": 2
   },
-  "template": {
-    "item": "tolaserblade:lb_blueprint"
-  }
+  "template": "tolaserblade:lb_blueprint"
 }

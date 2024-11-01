@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": {
-      "item": "tolaserblade:lb_blueprint"
-    },
-    "d": {
-      "tag": "forge:gems/diamond"
-    },
-    "i": {
-      "tag": "forge:ingots/iron"
-    }
+    "#": "tolaserblade:lb_blueprint",
+    "d": "#c:gems/diamond",
+    "i": "#c:ingots/iron"
   },
   "pattern": [
     "#",

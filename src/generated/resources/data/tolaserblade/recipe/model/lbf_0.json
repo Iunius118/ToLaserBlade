@@ -1,15 +1,9 @@
 {
   "type": "tolaserblade:model_change",
-  "addition": {
-    "item": "minecraft:glass"
-  },
-  "base": {
-    "item": "tolaserblade:laser_blade_fp"
-  },
+  "addition": "minecraft:glass",
+  "base": "tolaserblade:laser_blade_fp",
   "result": {
     "model_type": 0
   },
-  "template": {
-    "item": "tolaserblade:lb_blueprint"
-  }
+  "template": "tolaserblade:lb_blueprint"
 }

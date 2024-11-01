@@ -2,15 +2,9 @@
   "type": "minecraft:crafting_shapeless",
   "category": "misc",
   "ingredients": [
-    {
-      "item": "tolaserblade:dx_laser_blade"
-    },
-    {
-      "item": "minecraft:paper"
-    },
-    {
-      "tag": "forge:dyes/blue"
-    }
+    "tolaserblade:dx_laser_blade",
+    "minecraft:paper",
+    "#c:dyes/blue"
   ],
   "result": {
     "count": 1,
