@@ -1,16 +1,10 @@
 {
   "type": "tolaserblade:color",
-  "addition": {
-    "item": "minecraft:magenta_stained_glass_pane"
-  },
-  "base": {
-    "item": "tolaserblade:laser_blade"
-  },
+  "addition": "minecraft:magenta_stained_glass_pane",
+  "base": "tolaserblade:laser_blade",
   "result": {
     "color": -65408,
     "part": "inner_blade"
   },
-  "template": {
-    "item": "tolaserblade:lb_blueprint"
-  }
+  "template": "tolaserblade:lb_blueprint"
 }

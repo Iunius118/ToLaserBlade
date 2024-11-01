@@ -1,16 +1,10 @@
 {
   "type": "tolaserblade:color",
-  "addition": {
-    "item": "minecraft:pink_stained_glass"
-  },
-  "base": {
-    "item": "tolaserblade:laser_blade"
-  },
+  "addition": "minecraft:pink_stained_glass",
+  "base": "tolaserblade:laser_blade",
   "result": {
     "color": -65460,
     "part": "outer_blade"
   },
-  "template": {
-    "item": "tolaserblade:lb_blueprint"
-  }
+  "template": "tolaserblade:lb_blueprint"
 }

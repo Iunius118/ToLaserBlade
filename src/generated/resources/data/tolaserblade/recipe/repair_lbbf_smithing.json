@@ -1,16 +1,10 @@
 {
   "type": "minecraft:smithing_transform",
-  "addition": {
-    "tag": "tolaserblade:casing_repair"
-  },
-  "base": {
-    "item": "tolaserblade:lb_broken_fp"
-  },
+  "addition": "#tolaserblade:casing_repair",
+  "base": "tolaserblade:lb_broken_fp",
   "result": {
     "count": 1,
     "id": "tolaserblade:lb_brand_new_fp"
   },
-  "template": {
-    "item": "tolaserblade:lb_blueprint"
-  }
+  "template": "tolaserblade:lb_blueprint"
 }

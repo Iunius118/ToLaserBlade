@@ -1,15 +1,9 @@
 {
   "type": "tolaserblade:upgrade",
-  "addition": {
-    "tag": "tolaserblade:upgrade/speed"
-  },
-  "base": {
-    "item": "tolaserblade:laser_blade"
-  },
+  "addition": "#tolaserblade:upgrade/speed",
+  "base": "tolaserblade:laser_blade",
   "result": {
     "type": "tolaserblade:upgrade/speed"
   },
-  "template": {
-    "item": "tolaserblade:lb_blueprint"
-  }
+  "template": "tolaserblade:lb_blueprint"
 }

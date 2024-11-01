@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "equipment",
   "key": {
-    "R": {
-      "item": "minecraft:redstone_torch"
-    },
-    "s": {
-      "tag": "c:rods/wooden"
-    }
+    "R": "minecraft:redstone_torch",
+    "s": "#c:rods/wooden"
   },
   "pattern": [
     "R",

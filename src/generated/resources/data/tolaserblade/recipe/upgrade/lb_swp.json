@@ -1,15 +1,9 @@
 {
   "type": "tolaserblade:upgrade",
-  "addition": {
-    "tag": "tolaserblade:upgrade/sweeping_edge"
-  },
-  "base": {
-    "item": "tolaserblade:laser_blade"
-  },
+  "addition": "#tolaserblade:upgrade/sweeping_edge",
+  "base": "tolaserblade:laser_blade",
   "result": {
     "type": "tolaserblade:upgrade/sweeping_edge"
   },
-  "template": {
-    "item": "tolaserblade:lb_blueprint"
-  }
+  "template": "tolaserblade:lb_blueprint"
 }

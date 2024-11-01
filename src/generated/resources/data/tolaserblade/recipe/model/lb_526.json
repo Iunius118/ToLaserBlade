@@ -1,15 +1,9 @@
 {
   "type": "tolaserblade:model_change",
-  "addition": {
-    "item": "minecraft:dirt"
-  },
-  "base": {
-    "item": "tolaserblade:laser_blade"
-  },
+  "addition": "minecraft:dirt",
+  "base": "tolaserblade:laser_blade",
   "result": {
     "model_type": 526
   },
-  "template": {
-    "item": "tolaserblade:lb_blueprint"
-  }
+  "template": "tolaserblade:lb_blueprint"
 }

@@ -2,12 +2,8 @@
   "type": "minecraft:crafting_shaped",
   "category": "misc",
   "key": {
-    "#": {
-      "item": "tolaserblade:lb_blueprint"
-    },
-    "i": {
-      "tag": "c:ingots/iron"
-    }
+    "#": "tolaserblade:lb_blueprint",
+    "i": "#c:ingots/iron"
   },
   "pattern": [
     "#",
