@@ -29,32 +29,31 @@ public class LightElementEnchantment  {
     private static final TagKey<EntityType<?>> TARGETS = ModEntityTypeTags.SENSITIVE_TO_LIGHT_ELEMENT;
 
     public static Enchantment get(HolderLookup.Provider provider) {
-        return get(provider.lookupOrThrow(Registries.ITEM), provider.lookupOrThrow(Registries.ENCHANTMENT));
+        return get(provider.lookupOrThrow(Registries.ITEM), provider.lookupOrThrow(Registries.ENCHANTMENT), provider.lookupOrThrow(Registries.ENTITY_TYPE));
     }
 
-    public static Enchantment get(HolderGetter<Item> ItemHolderGetter, HolderGetter<Enchantment> EnchantmentHolderGetter) {
-        return Enchantment
-                .enchantment(
-                        Enchantment.definition(
-                                ItemHolderGetter.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
-                                ItemHolderGetter.getOrThrow(ItemTags.SWORD_ENCHANTABLE),
-                                5,
-                                MAX_LEVEL,
-                                Enchantment.dynamicCost(5, 8), Enchantment.dynamicCost(25, 8), 2,
-                                EquipmentSlotGroup.MAINHAND))
-                .exclusiveWith(EnchantmentHolderGetter.getOrThrow(EnchantmentTags.DAMAGE_EXCLUSIVE))
-                .withEffect(
-                        EnchantmentEffectComponents.DAMAGE,
-                        new AddValue(LevelBasedValue.perLevel(BASE_DAMAGE_PER_LEVEL)))
-                .withEffect(
-                        EnchantmentEffectComponents.DAMAGE,
-                        new AddValue(LevelBasedValue.perLevel(SPECIAL_DAMAGE_PER_LEVEL)),
-                        LootItemEntityPropertyCondition.hasProperties(
-                                LootContext.EntityTarget.THIS,
-                                EntityPredicate.Builder.entity().entityType(EntityTypePredicate.of(TARGETS))
-                        )
-                )
-                .build(ID);
+    public static Enchantment get(HolderGetter<Item> itemHolderGetter, HolderGetter<Enchantment> enchantmentHolderGetter, HolderGetter<EntityType<?>> entityTypeHolderGetter) {        return Enchantment
+            .enchantment(
+                    Enchantment.definition(
+                            itemHolderGetter.getOrThrow(ItemTags.WEAPON_ENCHANTABLE),
+                            itemHolderGetter.getOrThrow(ItemTags.SWORD_ENCHANTABLE),
+                            5,
+                            MAX_LEVEL,
+                            Enchantment.dynamicCost(5, 8), Enchantment.dynamicCost(25, 8), 2,
+                            EquipmentSlotGroup.MAINHAND))
+            .exclusiveWith(enchantmentHolderGetter.getOrThrow(EnchantmentTags.DAMAGE_EXCLUSIVE))
+            .withEffect(
+                    EnchantmentEffectComponents.DAMAGE,
+                    new AddValue(LevelBasedValue.perLevel(BASE_DAMAGE_PER_LEVEL)))
+            .withEffect(
+                    EnchantmentEffectComponents.DAMAGE,
+                    new AddValue(LevelBasedValue.perLevel(SPECIAL_DAMAGE_PER_LEVEL)),
+                    LootItemEntityPropertyCondition.hasProperties(
+                            LootContext.EntityTarget.THIS,
+                            EntityPredicate.Builder.entity().entityType(EntityTypePredicate.of(entityTypeHolderGetter, TARGETS))
+                    )
+            )
+            .build(ID);
     }
 
     private LightElementEnchantment() {}
