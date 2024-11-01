@@ -8,6 +8,7 @@ import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.util.TriState;
 import org.jetbrains.annotations.Nullable;
 import org.lwjgl.opengl.GL14;
 
@@ -45,7 +46,7 @@ public class LaserBladeRenderType extends RenderType {
     protected static RenderType.CompositeState getHiltRenderState(ResourceLocation texture) {
         return CompositeState.builder()
                 .setShaderState(RENDERTYPE_ENTITY_TRANSLUCENT_SHADER)
-                .setTextureState(new TextureStateShard(texture, false, false))
+                .setTextureState(new TextureStateShard(texture, TriState.FALSE, false))
                 .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
                 .setLightmapState(LIGHTMAP)
                 .setOverlayState(OVERLAY)
@@ -55,7 +56,7 @@ public class LaserBladeRenderType extends RenderType {
     protected static CompositeState getUnlitRenderState(ResourceLocation texture) {
         return CompositeState.builder()
                 .setShaderState(LASER_BLADE_UNLIT_SHADER_STATE)
-                .setTextureState(new TextureStateShard(texture, false, false))
+                .setTextureState(new TextureStateShard(texture, TriState.FALSE, false))
                 .setTransparencyState(TRANSLUCENT_TRANSPARENCY)
                 .setLightmapState(LIGHTMAP)
                 .setOverlayState(OVERLAY)
@@ -65,7 +66,7 @@ public class LaserBladeRenderType extends RenderType {
     protected static CompositeState getAddRenderState(ResourceLocation texture) {
         return CompositeState.builder()
                 .setShaderState(LASER_BLADE_UNLIT_SHADER_STATE)
-                .setTextureState(new TextureStateShard(texture, false, false))
+                .setTextureState(new TextureStateShard(texture, TriState.FALSE, false))
                 .setTransparencyState(LIGHTNING_TRANSPARENCY)
                 .setLightmapState(LIGHTMAP)
                 .setOverlayState(OVERLAY)
@@ -87,7 +88,7 @@ public class LaserBladeRenderType extends RenderType {
 
         return CompositeState.builder()
                 .setShaderState(LASER_BLADE_UNLIT_SHADER_STATE)
-                .setTextureState(new TextureStateShard(texture, false, false))
+                .setTextureState(new TextureStateShard(texture, TriState.FALSE, false))
                 .setTransparencyState(transparencyState)
                 .setLightmapState(LIGHTMAP)
                 .setOverlayState(OVERLAY)

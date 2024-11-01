@@ -3,8 +3,8 @@ package com.github.iunius118.tolaserblade.client.renderer.item.model;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.block.model.BakedOverrides;
 import net.minecraft.client.renderer.block.model.BakedQuad;
-import net.minecraft.client.renderer.block.model.ItemOverrides;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.model.BakedModel;
@@ -20,13 +20,13 @@ import net.minecraftforge.client.model.data.ModelData;
 import org.jetbrains.annotations.NotNull;
 
 import javax.annotation.Nullable;
-import java.util.Collections;
 import java.util.List;
 
 public class LBSwordItemModel implements IDynamicBakedModel {
-    ItemStack itemStack = ItemStack.EMPTY;
-    public HumanoidArm mainArm = HumanoidArm.RIGHT;
-    public boolean isBlocking = false;
+    private ItemStack itemStack = ItemStack.EMPTY;
+    private HumanoidArm mainArm = HumanoidArm.RIGHT;
+    private boolean isBlocking = false;
+    private final BakedOverrides bakedOverrides = new LBSwordBakedOverrides(this);
 
     public LBSwordItemModel handleItemOverride(ItemStack itemStackIn, HumanoidArm mainArm, boolean isBlockingIn) {
         // For rendering
@@ -40,7 +40,7 @@ public class LBSwordItemModel implements IDynamicBakedModel {
     @Override
     @NotNull
     public List<BakedQuad> getQuads(@Nullable BlockState state, @Nullable Direction side, @NotNull RandomSource rand, @NotNull ModelData extraData, @Nullable RenderType renderType) {
-        return Collections.emptyList();
+        return List.of();
     }
 
     @Override
@@ -70,14 +70,12 @@ public class LBSwordItemModel implements IDynamicBakedModel {
 
     @Override
     public TextureAtlasSprite getParticleIcon(@NotNull ModelData data) {
-        return Minecraft.getInstance().getItemRenderer().getItemModelShaper().getItemModel(Items.IRON_INGOT).getParticleIcon(data);
+        return Minecraft.getInstance().getItemRenderer().getModel(new ItemStack(Items.IRON_INGOT), null, null, 0).getParticleIcon(data);
     }
 
-    private static final ItemOverrides ITEM_OVERRIDES = new LBSwordItemOverrides();
-
     @Override
-    public ItemOverrides getOverrides() {
-        return ITEM_OVERRIDES;
+    public BakedOverrides overrides() {
+        return bakedOverrides;
     }
 
     @Override
