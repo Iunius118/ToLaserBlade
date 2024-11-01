@@ -2,6 +2,7 @@
   "package": "com.github.iunius118.tolaserblade.mixin",
   "mixins": [
     "ItemAccessor",
+    "MixinLivingEntity",
     "MixinSmithingMenu"
   ],
   "refmap": "mixins.tolaserblade.refmap.json",
