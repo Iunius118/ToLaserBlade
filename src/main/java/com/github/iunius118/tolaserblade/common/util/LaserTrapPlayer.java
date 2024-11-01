@@ -84,7 +84,7 @@ public class LaserTrapPlayer extends FakePlayer {
                 targetEntity.igniteForSeconds(Math.min(fireLevel, 1));
             }
 
-            targetEntity.hurt(damageSources().playerAttack(this), totalDamage);
+            targetEntity.hurtServer(level, damageSources().playerAttack(this), totalDamage);
         }
 
         spawnParticle(dir, targetPos, itemStack);
