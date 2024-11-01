@@ -1,6 +1,8 @@
 package com.github.iunius118.tolaserblade;
 
+import com.github.iunius118.tolaserblade.api.ToLaserBladeAPI;
 import com.github.iunius118.tolaserblade.client.ClientModEventHandler;
+import com.github.iunius118.tolaserblade.client.model.LaserBladeModelManager;
 import com.github.iunius118.tolaserblade.common.CommonEventHandler;
 import com.github.iunius118.tolaserblade.common.RegistryEventHandler;
 import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
@@ -13,7 +15,6 @@ import com.mojang.logging.LogUtils;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
@@ -27,13 +28,13 @@ public class ToLaserBlade {
 
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    public ToLaserBlade() {
-        final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+    public ToLaserBlade(FMLJavaModLoadingContext context) {
+        final IEventBus modEventBus = context.getModEventBus();
         // Register lifecycle event listeners
 
         // Register config handlers
-        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ToLaserBladeConfig.serverSpec);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ToLaserBladeConfig.clientSpec);
+        context.registerConfig(ModConfig.Type.SERVER, ToLaserBladeConfig.serverSpec);
+        context.registerConfig(ModConfig.Type.CLIENT, ToLaserBladeConfig.clientSpec);
 
         // Register event handlers
         RegistryEventHandler.registerGameObjects(modEventBus);
@@ -47,6 +48,7 @@ public class ToLaserBlade {
         // Register client-side mod event handler
         if (FMLLoader.getDist().isClient()) {
             modEventBus.register(ClientModEventHandler.class);
+            ToLaserBladeAPI.registerModelRegistrationListener(event -> event.register(LaserBladeModelManager.loadModels()));
         }
     }
 
