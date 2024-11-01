@@ -7,7 +7,7 @@ import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.InteractionHand;
-import net.minecraft.world.InteractionResultHolder;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
@@ -21,12 +21,10 @@ import net.neoforged.api.distmarker.OnlyIn;
 import java.util.List;
 
 public class LBBrandNewItem extends Item implements LaserBladeItemBase {
-    public static Properties properties = new Item.Properties();
-
     private final LBBrandNewType type;
 
-    public LBBrandNewItem(LBBrandNewType typeIn, boolean isFireproof) {
-        super(LaserBladeItemBase.setFireproof(properties, isFireproof));
+    public LBBrandNewItem(Properties properties, LBBrandNewType typeIn) {
+        super(properties);
         type = typeIn;
     }
 
@@ -36,15 +34,15 @@ public class LBBrandNewItem extends Item implements LaserBladeItemBase {
     }
 
     @Override
-    public InteractionResultHolder<ItemStack> use(Level level, Player player, InteractionHand hand) {
+    public InteractionResult use(Level level, Player player, InteractionHand hand) {
         var itemStack = player.getItemInHand(hand);
 
         if (!level.isClientSide()) {
             setLaserBladeToPlayer(level, player, hand, itemStack);
-            return InteractionResultHolder.success(itemStack);
+            return InteractionResult.SUCCESS;
         }
 
-        return InteractionResultHolder.success(itemStack);
+        return InteractionResult.SUCCESS;
     }
 
     private void setLaserBladeToPlayer(Level level, Player player, InteractionHand hand, ItemStack itemStack) {

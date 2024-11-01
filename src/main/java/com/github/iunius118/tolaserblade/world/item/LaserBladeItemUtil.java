@@ -11,6 +11,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
+import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.Item;
@@ -27,7 +28,10 @@ import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import java.util.List;
 
 public class LaserBladeItemUtil {
-    private LaserBladeItemUtil() {}
+    public static boolean isFireResistant(ItemStack itemStack) {
+        var damageResistant = itemStack.get(DataComponents.DAMAGE_RESISTANT);
+        return (damageResistant != null) && (damageResistant.types() == DamageTypeTags.IS_FIRE);
+    }
 
     public static void changeDestroySpeed(PlayerEvent.BreakSpeed event) {
         var player = event.getEntity();
@@ -55,9 +59,7 @@ public class LaserBladeItemUtil {
 
     @OnlyIn(Dist.CLIENT)
     public static void addLaserBladeInformation(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag flag, Upgrade.Type upgradeType) {
-        boolean isFireResistant = itemStack.has(DataComponents.FIRE_RESISTANT);
-
-        if (isFireResistant) {
+        if (isFireResistant(itemStack)) {
             tooltip.add(LaserBladeTextKey.KEY_TOOLTIP_FIREPROOF.translate().withStyle(ChatFormatting.GOLD));
         }
 
@@ -110,4 +112,6 @@ public class LaserBladeItemUtil {
         return Component.translatable(key, (value < 0 ? "" : "+") + ItemAttributeModifiers.ATTRIBUTE_MODIFIER_FORMAT.format(value))
                 .withStyle(ChatFormatting.DARK_GREEN);
     }
+
+    private LaserBladeItemUtil() {}
 }

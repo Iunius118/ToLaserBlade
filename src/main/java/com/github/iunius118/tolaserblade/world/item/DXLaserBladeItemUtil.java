@@ -6,7 +6,6 @@ import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
-import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.context.BlockPlaceContext;
 import net.minecraft.world.item.context.UseOnContext;
 import net.minecraft.world.level.Level;
@@ -19,7 +18,7 @@ public class DXLaserBladeItemUtil {
 
     }
 
-    public static InteractionResult useOn(UseOnContext context, Tier tier) {
+    public static InteractionResult useOn(UseOnContext context) {
         var level = context.getLevel();
         var player = context.getPlayer();
         var itemStack = context.getItemInHand();
@@ -27,7 +26,7 @@ public class DXLaserBladeItemUtil {
         var direction = context.getClickedFace();
         var blockState = level.getBlockState(blockPos);
         var block = blockState.getBlock();
-        int costDamage = tier.getUses() / 2 + 1;
+        int costDamage = ModToolMaterials.DX_LASER_BLADE.durability() / 2 + 1;
 
         if ((block == Blocks.REDSTONE_TORCH || block == Blocks.REDSTONE_WALL_TORCH) && player.mayUseItemAt(blockPos, direction, itemStack)) {
             // Redstone Torch -> Repairing/Collecting
