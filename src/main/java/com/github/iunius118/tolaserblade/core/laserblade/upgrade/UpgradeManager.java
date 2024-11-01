@@ -73,10 +73,8 @@ public class UpgradeManager {
 
     public static List<Upgrade> getUpgradeList(ItemStack additionalItem) {
         List<Upgrade> list = new ArrayList<>();
-        upgrades.forEach((key, upgrade)->{
-            var ingredient = upgrade.getIngredient();
-            if (ingredient.test(additionalItem)) list.add(upgrade);
-        });
+        upgrades.forEach((key, upgrade) ->
+                upgrade.getIngredient().ifPresent(i -> { if (i.test(additionalItem)) list.add(upgrade); }));
         return list;
     }
 }

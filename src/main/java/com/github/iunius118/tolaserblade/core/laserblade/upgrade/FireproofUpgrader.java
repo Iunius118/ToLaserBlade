@@ -1,5 +1,6 @@
 package com.github.iunius118.tolaserblade.core.laserblade.upgrade;
 
+import com.github.iunius118.tolaserblade.world.item.LaserBladeItemUtil;
 import com.github.iunius118.tolaserblade.world.item.ModItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.DataComponents;
@@ -10,7 +11,7 @@ public class FireproofUpgrader implements Upgrader {
 
     @Override
     public boolean canApply(ItemStack base, ItemStack addition, HolderLookup.Provider provider) {
-        return !base.has(DataComponents.FIRE_RESISTANT);
+        return !LaserBladeItemUtil.isFireResistant(base);
     }
 
     @Override
