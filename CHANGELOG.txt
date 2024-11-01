@@ -4,16 +4,21 @@
 
 ## [Unreleased]
 
+## [11.0.0 NeoForge]
+### Changed
+- Port to 1.21.3.
+- Require NeoForge 21.3.6-beta+.
+
 ## [10.0.4 NeoForge]
 ### Fixed
 - Fix mining speed of laser blades.
 
 ## [10.0.3 NeoForge]
-### Fixed
-- Fix optional feature of blocking damage with laser blade that was not working.
-
 ### Changed
 - Require NeoForge 21.0.167+.
+
+### Fixed
+- Fix optional feature of blocking damage with laser blade that was not working.
 
 ## [10.0.2 NeoForge]
 ### Fixed
