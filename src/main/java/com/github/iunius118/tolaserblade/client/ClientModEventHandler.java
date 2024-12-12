@@ -1,16 +1,14 @@
 package com.github.iunius118.tolaserblade.client;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
-import com.github.iunius118.tolaserblade.client.color.item.LBCasingItemColor;
-import com.github.iunius118.tolaserblade.client.color.item.LBEmitterItemColor;
-import com.github.iunius118.tolaserblade.client.color.item.LBMediumItemColor;
-import com.github.iunius118.tolaserblade.client.color.item.LBSwordItemColor;
+import com.github.iunius118.tolaserblade.client.color.item.LaserBladeTintSource;
 import com.github.iunius118.tolaserblade.client.model.LaserBladeModelManager;
 import com.github.iunius118.tolaserblade.client.particle.LaserTrapParticle;
 import com.github.iunius118.tolaserblade.client.renderer.item.LBBrandNewItemRenderer;
 import com.github.iunius118.tolaserblade.client.renderer.item.LBBrokenItemRenderer;
 import com.github.iunius118.tolaserblade.client.renderer.item.LBSwordItemRenderer;
 import com.github.iunius118.tolaserblade.client.renderer.item.model.LBSwordItemModel;
+import com.github.iunius118.tolaserblade.client.renderer.item.properties.UsingOriginalModel;
 import com.github.iunius118.tolaserblade.core.particle.ModParticleTypes;
 import com.github.iunius118.tolaserblade.world.item.ModItems;
 import net.minecraft.ChatFormatting;
@@ -29,24 +27,19 @@ import net.neoforged.fml.VersionChecker;
 import net.neoforged.fml.VersionChecker.Status;
 import net.neoforged.neoforge.client.event.ModelEvent;
 import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
+import net.neoforged.neoforge.client.event.RegisterConditionalItemModelPropertyEvent;
 import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 
 public class ClientModEventHandler {
     @SubscribeEvent
-    public static void onItemColorHandlerEvent(RegisterColorHandlersEvent.Item event) {
-        event.register(new LBSwordItemColor(), ModItems.LASER_BLADE);
-        event.register(new LBSwordItemColor(), ModItems.LASER_BLADE_FP);
-        event.register(new LBSwordItemColor(), ModItems.LB_BRAND_NEW);
-        event.register(new LBSwordItemColor(), ModItems.LB_BRAND_NEW_1);
-        event.register(new LBSwordItemColor(), ModItems.LB_BRAND_NEW_2);
-        event.register(new LBSwordItemColor(), ModItems.LB_BRAND_NEW_FP);
-        event.register(new LBSwordItemColor(), ModItems.LB_BROKEN);
-        event.register(new LBSwordItemColor(), ModItems.LB_BROKEN_FP);
-        event.register(new LBEmitterItemColor(), ModItems.LB_EMITTER);
-        event.register(new LBMediumItemColor(), ModItems.LB_MEDIUM);
-        event.register(new LBCasingItemColor(), ModItems.LB_CASING);
-        event.register(new LBCasingItemColor(), ModItems.LB_CASING_FP);
+    public static void onRegisterItemTintSourceEvent(RegisterColorHandlersEvent.ItemTintSources event) {
+        event.register(ToLaserBlade.makeId("laser_blade"), LaserBladeTintSource.MAP_CODEC);
+    }
+
+    @SubscribeEvent
+    public static void onRegisterConditionalItemModelPropertyEvent(RegisterConditionalItemModelPropertyEvent event) {
+        event.register(ToLaserBlade.makeId("using_original_model"), UsingOriginalModel.MAP_CODEC);
     }
 
     @SubscribeEvent
