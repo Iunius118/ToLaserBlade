@@ -15,7 +15,7 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 import java.util.Set;
 
 public class TLBDataGenerator {
-    public static void gatherData(final GatherDataEvent event) {
+    public static void gatherData(final GatherDataEvent.Client event) {
         var dataGenerator = event.getGenerator();
         var packOutput = dataGenerator.getPackOutput();
         var builtinEntriesProvider = new DatapackBuiltinEntriesProvider(packOutput, event.getLookupProvider(), getEntriesBuilder(), Set.of(ToLaserBlade.MOD_ID));
@@ -23,22 +23,20 @@ public class TLBDataGenerator {
         var existingFileHelper = event.getExistingFileHelper();
         var blockTagsProvider = new TLBBlockTagsProvider(packOutput, lookupProvider, existingFileHelper);
 
-        // Server
-        final boolean includesServer = event.includeServer();
-        dataGenerator.addProvider(includesServer, builtinEntriesProvider);
-        dataGenerator.addProvider(includesServer, new TLBRecipeProvider.Runner(packOutput, lookupProvider));
-        dataGenerator.addProvider(includesServer, blockTagsProvider);
-        dataGenerator.addProvider(includesServer, new TLBItemTagsProvider(packOutput, lookupProvider, blockTagsProvider.contentsGetter(), existingFileHelper));
-        dataGenerator.addProvider(includesServer, new TLBEntityTypeTagsProvider(packOutput, lookupProvider, existingFileHelper));
-        dataGenerator.addProvider(includesServer, new TLBEnchantmentTagsProvider(packOutput, lookupProvider, existingFileHelper));
-        dataGenerator.addProvider(includesServer, new TLBAdvancementProvider(packOutput, lookupProvider, existingFileHelper));
+        // Data
+        event.addProvider(builtinEntriesProvider);
+        event.addProvider(new TLBRecipeProvider.Runner(packOutput, lookupProvider));
+        event.addProvider(blockTagsProvider);
+        event.addProvider(new TLBItemTagsProvider(packOutput, lookupProvider, blockTagsProvider.contentsGetter(), existingFileHelper));
+        event.addProvider(new TLBEntityTypeTagsProvider(packOutput, lookupProvider, existingFileHelper));
+        event.addProvider(new TLBEnchantmentTagsProvider(packOutput, lookupProvider, existingFileHelper));
+        event.addProvider(new TLBAdvancementProvider(packOutput, lookupProvider, existingFileHelper));
         TLBOldRecipeProvider6.addProviders(event);
 
-        // Client
-        final boolean includesClient = event.includeClient();
-        dataGenerator.addProvider(includesClient, new TLBItemModelProvider(packOutput, existingFileHelper));
-        TLBLanguageProvider.addProviders(includesClient, dataGenerator, packOutput);
-        dataGenerator.addProvider(includesClient, new TLBSoundDefinitionsProvider(packOutput, existingFileHelper));
+        // Assets
+        event.addProvider(new TLBItemModelProvider(packOutput, existingFileHelper));
+        TLBLanguageProvider.addProviders(event);
+        event.addProvider(new TLBSoundDefinitionsProvider(packOutput, existingFileHelper));
     }
 
     private static RegistrySetBuilder getEntriesBuilder() {
