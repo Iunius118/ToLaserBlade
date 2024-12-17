@@ -54,13 +54,13 @@ public class LaserBladeModelV1 extends SimpleLaserBladeModel {
             matrices.scale(size, size, size);
         }
 
-        var laserBladeItemColor = new LaserBladeItemColor(itemStack);
+        var laserBladeItemColor = LaserBladeItemColor.of(itemStack);
         var renderingContext = new ModelObject.RenderingContext(itemStack, mode, matrices);
         int pushCount = 0;
 
         // Process each object
         for (ModelObject modelObject : modelObjects) {
-            if (!modelObject.isAvailable(laserBladeItemColor.isBroken))
+            if (!modelObject.isAvailable(laserBladeItemColor.isBroken()))
                 continue;
 
             if (modelObject.isFunction) {

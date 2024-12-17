@@ -22,11 +22,10 @@ public record LaserBladeTintSource(LaserBladeColorPart part) implements ItemTint
         LaserBladeItemColor color = LaserBladeItemColor.of(stack);
 
         return switch (part) {
-            case INNER_BLADE -> color.simpleInnerColor;
-            case OUTER_BLADE -> color.simpleOuterColor;
-            case GRIP -> color.gripColor;
-            default -> 0xFFFFFF;
-        } | 0xFF000000;
+            case INNER_BLADE -> color.simpleInnerColor();
+            case OUTER_BLADE -> color.simpleOuterColor();
+            case GRIP -> color.simpleGripColor();
+        };
     }
 
     @Override
