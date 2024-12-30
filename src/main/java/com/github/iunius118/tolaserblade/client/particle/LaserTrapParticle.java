@@ -1,13 +1,14 @@
 package com.github.iunius118.tolaserblade.client.particle;
 
-import com.mojang.blaze3d.systems.RenderSystem;
-import com.mojang.blaze3d.vertex.*;
+import com.mojang.blaze3d.vertex.PoseStack;
+import com.mojang.blaze3d.vertex.VertexConsumer;
 import net.minecraft.client.Camera;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.ParticleRenderType;
-import net.minecraft.client.renderer.CoreShaders;
+import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.Mth;
@@ -44,24 +45,17 @@ public class LaserTrapParticle extends Particle {
     };
 
     @Override
-    public void render(VertexConsumer vertexConsumer, Camera camera, float f) {
-        RenderSystem.setShader(CoreShaders.POSITION_COLOR);
+    public void render(VertexConsumer vertexConsumer, Camera camera, float f) {}
 
-        var tesselator = Tesselator.getInstance();
-        BufferBuilder builder = tesselator.begin(VertexFormat.Mode.QUADS, DefaultVertexFormat.POSITION_COLOR);
-
-        renderQuad(builder, camera, vertices[1], vertices[3], vertices[2], vertices[0]);
-        renderQuad(builder, camera, vertices[3], vertices[5], vertices[4], vertices[2]);
-        renderQuad(builder, camera, vertices[5], vertices[7], vertices[6], vertices[4]);
-        renderQuad(builder, camera, vertices[7], vertices[1], vertices[0], vertices[6]);
-        renderQuad(builder, camera, vertices[0], vertices[2], vertices[4], vertices[6]);
-        renderQuad(builder, camera, vertices[7], vertices[5], vertices[3], vertices[1]);
-
-        MeshData meshData = builder.build();
-
-        if (meshData != null) {
-            BufferUploader.drawWithShader(meshData);
-        }
+    @Override
+    public void renderCustom(PoseStack poseStack, MultiBufferSource multiBufferSource, Camera camera, float f) {
+        VertexConsumer buffer = multiBufferSource.getBuffer(RenderType.debugQuads());
+        renderQuad(buffer, camera, vertices[1], vertices[3], vertices[2], vertices[0]);
+        renderQuad(buffer, camera, vertices[3], vertices[5], vertices[4], vertices[2]);
+        renderQuad(buffer, camera, vertices[5], vertices[7], vertices[6], vertices[4]);
+        renderQuad(buffer, camera, vertices[7], vertices[1], vertices[0], vertices[6]);
+        renderQuad(buffer, camera, vertices[0], vertices[2], vertices[4], vertices[6]);
+        renderQuad(buffer, camera, vertices[7], vertices[5], vertices[3], vertices[1]);
     }
 
     private void renderQuad(VertexConsumer vertexConsumer,  Camera camera, Vector3f... v) {
