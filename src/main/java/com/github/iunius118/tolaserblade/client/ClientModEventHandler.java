@@ -6,6 +6,7 @@ import com.github.iunius118.tolaserblade.client.extensions.LBSwordItemExtensions
 import com.github.iunius118.tolaserblade.client.model.LaserBladeModelManager;
 import com.github.iunius118.tolaserblade.client.particle.LaserTrapParticle;
 import com.github.iunius118.tolaserblade.client.renderer.item.LBSwordSpecialRenderer;
+import com.github.iunius118.tolaserblade.client.renderer.item.properties.Blocking;
 import com.github.iunius118.tolaserblade.client.renderer.item.properties.UsingOriginalModel;
 import com.github.iunius118.tolaserblade.core.particle.ModParticleTypes;
 import com.github.iunius118.tolaserblade.world.item.ModItems;
@@ -34,6 +35,7 @@ public class ClientModEventHandler {
     @SubscribeEvent
     public static void onRegisterConditionalItemModelPropertyEvent(RegisterConditionalItemModelPropertyEvent event) {
         event.register(ToLaserBlade.makeId("using_original_model"), UsingOriginalModel.MAP_CODEC);
+        event.register(ToLaserBlade.makeId("blocking"), Blocking.MAP_CODEC);
     }
 
     @SubscribeEvent
