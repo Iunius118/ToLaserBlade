@@ -20,23 +20,22 @@ public class TLBDataGenerator {
         var packOutput = dataGenerator.getPackOutput();
         var builtinEntriesProvider = new DatapackBuiltinEntriesProvider(packOutput, event.getLookupProvider(), getEntriesBuilder(), Set.of(ToLaserBlade.MOD_ID));
         var lookupProvider = builtinEntriesProvider.getRegistryProvider();
-        var existingFileHelper = event.getExistingFileHelper();
-        var blockTagsProvider = new TLBBlockTagsProvider(packOutput, lookupProvider, existingFileHelper);
+        var blockTagsProvider = new TLBBlockTagsProvider(packOutput, lookupProvider);
 
         // Data
         event.addProvider(builtinEntriesProvider);
         event.addProvider(new TLBRecipeProvider.Runner(packOutput, lookupProvider));
         event.addProvider(blockTagsProvider);
-        event.addProvider(new TLBItemTagsProvider(packOutput, lookupProvider, blockTagsProvider.contentsGetter(), existingFileHelper));
-        event.addProvider(new TLBEntityTypeTagsProvider(packOutput, lookupProvider, existingFileHelper));
-        event.addProvider(new TLBEnchantmentTagsProvider(packOutput, lookupProvider, existingFileHelper));
-        event.addProvider(new TLBAdvancementProvider(packOutput, lookupProvider, existingFileHelper));
+        event.addProvider(new TLBItemTagsProvider(packOutput, lookupProvider, blockTagsProvider.contentsGetter()));
+        event.addProvider(new TLBEntityTypeTagsProvider(packOutput, lookupProvider));
+        event.addProvider(new TLBEnchantmentTagsProvider(packOutput, lookupProvider));
+        event.addProvider(new TLBAdvancementProvider(packOutput, lookupProvider));
         TLBOldRecipeProvider6.addProviders(event);
 
         // Assets
         event.addProvider(new TLBModelProvider(packOutput));
         TLBLanguageProvider.addProviders(event);
-        event.addProvider(new TLBSoundDefinitionsProvider(packOutput, existingFileHelper));
+        event.addProvider(new TLBSoundDefinitionsProvider(packOutput));
     }
 
     private static RegistrySetBuilder getEntriesBuilder() {

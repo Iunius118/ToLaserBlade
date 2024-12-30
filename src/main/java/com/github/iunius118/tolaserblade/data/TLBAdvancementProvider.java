@@ -12,6 +12,8 @@ import net.minecraft.core.component.DataComponentPredicate;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
+import net.minecraft.data.advancements.AdvancementProvider;
+import net.minecraft.data.advancements.AdvancementSubProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.resources.ResourceLocation;
@@ -19,8 +21,6 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.Enchantments;
-import net.neoforged.neoforge.common.data.AdvancementProvider;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 
 import java.util.List;
 import java.util.Optional;
@@ -28,18 +28,18 @@ import java.util.concurrent.CompletableFuture;
 import java.util.function.Consumer;
 
 public class TLBAdvancementProvider extends AdvancementProvider {
-    public TLBAdvancementProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
-        super(packOutput, lookupProvider, existingFileHelper, List.of(new TLBAdvancementGenerator()));
+    public TLBAdvancementProvider(PackOutput output, CompletableFuture<HolderLookup.Provider> registries) {
+        super(output, registries, List.of(new TLBAdvancementGenerator()));
     }
 
-    private static class TLBAdvancementGenerator implements AdvancementProvider.AdvancementGenerator {
+    private static class TLBAdvancementGenerator implements AdvancementSubProvider {
         @Override
-        public void generate(HolderLookup.Provider lookupProvider, Consumer<AdvancementHolder> consumer, ExistingFileHelper existingFileHelper) {
-            HolderLookup.RegistryLookup<Item> itemRegistryLookup = lookupProvider.lookupOrThrow(Registries.ITEM);
+        public void generate(HolderLookup.Provider registries, Consumer<AdvancementHolder> writer) {
+            HolderLookup.RegistryLookup<Item> itemRegistryLookup = registries.lookupOrThrow(Registries.ITEM);
 
             // Main root
             AdvancementHolder root = Advancement.Builder.recipeAdvancement()
-                    .display(LaserBladeItemStack.ICON.getCopy(lookupProvider),
+                    .display(LaserBladeItemStack.ICON.getCopy(registries),
                             Component.translatable("advancements.tolaserblade.main.root.title"),
                             Component.translatable("advancements.tolaserblade.main.root.description"),
                             ResourceLocation.withDefaultNamespace("textures/block/polished_andesite.png"),
@@ -49,35 +49,35 @@ public class TLBAdvancementProvider extends AdvancementProvider {
                     .addCriterion("has_laser_blade", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.LASER_BLADE))
                     .addCriterion("has_laser_blade_fp", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.LASER_BLADE_FP))
                     .requirements(AdvancementRequirements.Strategy.OR)
-                    .save(consumer, "tolaserblade:main/root");
+                    .save(writer, "tolaserblade:main/root");
 
             // 1. Laser Blade?
             AdvancementHolder dxLaserBlade = registerItemAdvancement(root, ModItems.DX_LASER_BLADE, AdvancementType.TASK,
-                    new Item[]{ModItems.DX_LASER_BLADE}, consumer);
+                    new Item[]{ModItems.DX_LASER_BLADE}, writer);
 
             // 1-1. Ancient Technology
             AdvancementHolder laserBlade = registerItemAdvancement(dxLaserBlade, ModItems.LASER_BLADE, AdvancementType.TASK,
-                    new Item[]{ModItems.LASER_BLADE, ModItems.LASER_BLADE_FP}, consumer);
+                    new Item[]{ModItems.LASER_BLADE, ModItems.LASER_BLADE_FP}, writer);
 
             // 1-1-1. Power of Light
             AdvancementHolder lightElement5 = registerEnchantmentAdvancement(laserBlade, Items.GLOWSTONE, AdvancementType.TASK,
-                    new Item[]{ModItems.LASER_BLADE, ModItems.LASER_BLADE_FP}, ModEnchantments.LIGHT_ELEMENT, 5, lookupProvider, consumer);
+                    new Item[]{ModItems.LASER_BLADE, ModItems.LASER_BLADE_FP}, ModEnchantments.LIGHT_ELEMENT, 5, registries, writer);
 
             // 1-1-1-1. Unlimited Power
             AdvancementHolder lightElement10 = registerEnchantmentAdvancement(lightElement5, Items.GLOWSTONE, AdvancementType.TASK,
-                    new Item[]{ModItems.LASER_BLADE, ModItems.LASER_BLADE_FP}, ModEnchantments.LIGHT_ELEMENT, 10, lookupProvider, consumer);
+                    new Item[]{ModItems.LASER_BLADE, ModItems.LASER_BLADE_FP}, ModEnchantments.LIGHT_ELEMENT, 10, registries, writer);
 
             // 1-1-2. It's Over 9
             AdvancementHolder attack10 = registerAttackUpgradeAdvancement(laserBlade, Items.DIAMOND, AdvancementType.TASK,
-                    new Item[]{ModItems.LASER_BLADE, ModItems.LASER_BLADE_FP}, 10, lookupProvider, consumer);
+                    new Item[]{ModItems.LASER_BLADE, ModItems.LASER_BLADE_FP}, 10, registries, writer);
 
             // 1-1-2-1. Beyond the Limit
             AdvancementHolder attack15 = registerAttackUpgradeAdvancement(attack10, Items.DIAMOND, AdvancementType.TASK,
-                    new Item[]{ModItems.LASER_BLADE, ModItems.LASER_BLADE_FP}, 15, lookupProvider, consumer);
+                    new Item[]{ModItems.LASER_BLADE, ModItems.LASER_BLADE_FP}, 15, registries, writer);
 
             // 1-1-3. Give Me Three
             AdvancementHolder looting3 = registerEnchantmentAdvancement(laserBlade, Items.NAUTILUS_SHELL, AdvancementType.TASK,
-                    new Item[]{ModItems.LASER_BLADE, ModItems.LASER_BLADE_FP}, Enchantments.LOOTING, 3, lookupProvider, consumer);
+                    new Item[]{ModItems.LASER_BLADE, ModItems.LASER_BLADE_FP}, Enchantments.LOOTING, 3, registries, writer);
 
             // 1-1-4. Returns and Exchanges
             AdvancementHolder breakLaserBlade = Advancement.Builder.recipeAdvancement()
@@ -97,15 +97,15 @@ public class TLBAdvancementProvider extends AdvancementProvider {
                             ItemDurabilityTrigger.TriggerInstance.changedDurability(
                                     Optional.of(ItemPredicate.Builder.item().of(itemRegistryLookup, ModItems.LASER_BLADE_FP).build()),
                                     MinMaxBounds.Ints.atMost(0)))
-                    .save(consumer, "tolaserblade:main/break_laser_blade");
+                    .save(writer, "tolaserblade:main/break_laser_blade");
 
             // 1-1-5. Life-time Support
             AdvancementHolder mending = registerEnchantmentAdvancement(laserBlade, Items.NETHER_STAR, AdvancementType.GOAL,
-                    new Item[]{ModItems.LASER_BLADE, ModItems.LASER_BLADE_FP}, Enchantments.MENDING, 1, lookupProvider, consumer);
+                    new Item[]{ModItems.LASER_BLADE, ModItems.LASER_BLADE_FP}, Enchantments.MENDING, 1, registries, writer);
 
             // 1-1-6. Into The Core
             AdvancementHolder laserBladeFP = registerItemAdvancement(laserBlade, Items.NETHERITE_INGOT, AdvancementType.TASK,
-                    new Item[]{ModItems.LASER_BLADE_FP}, consumer);
+                    new Item[]{ModItems.LASER_BLADE_FP}, writer);
         }
 
         private AdvancementHolder registerItemAdvancement(AdvancementHolder parent, Item icon, AdvancementType advancementType,

@@ -27,7 +27,6 @@ import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.common.Tags;
-import net.neoforged.neoforge.common.data.ExistingFileHelper;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.event.AddPackFindersEvent;
 
@@ -47,14 +46,13 @@ public class TLBOldRecipeProvider6 {
         var dataGenerator = event.getGenerator();
         var packOutput = new PackOutput(dataGenerator.getPackOutput().getOutputFolder().resolve(PACK_PATH));
         var lookupProvider = event.getLookupProvider();
-        var existingFileHelper = event.getExistingFileHelper();
-        var blockTagsProvider = new TLBBlockTagsProvider(packOutput, lookupProvider, existingFileHelper);
+        var blockTagsProvider = new TLBBlockTagsProvider(packOutput, lookupProvider);
         var packGenerator = dataGenerator.getBuiltinDatapack(true, PACK_PATH);
 
         packGenerator.addProvider(o -> PackMetadataGenerator.forFeaturePack(packOutput, Component.literal("ToLaserBlade - revert laser blade recipes to version 6")));
         packGenerator.addProvider(o -> new OldRecipeProvider.Runner(packOutput, lookupProvider));
         packGenerator.addProvider(o -> blockTagsProvider);
-        packGenerator.addProvider(o -> new OldItemTagsProvider(packOutput, lookupProvider, blockTagsProvider.contentsGetter(), existingFileHelper));
+        packGenerator.addProvider(o -> new OldItemTagsProvider(packOutput, lookupProvider, blockTagsProvider.contentsGetter()));
     }
 
     public static void addPackFinders(final AddPackFindersEvent event) {
@@ -130,8 +128,8 @@ public class TLBOldRecipeProvider6 {
     public static class OldItemTagsProvider extends ItemTagsProvider {
         private Set<ResourceLocation> filter = null;
 
-        public OldItemTagsProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blockTagProvider, ExistingFileHelper existingFileHelper) {
-            super(packOutput, lookupProvider, blockTagProvider, ToLaserBlade.MOD_ID, existingFileHelper);
+        public OldItemTagsProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blockTagProvider) {
+            super(packOutput, lookupProvider, blockTagProvider, ToLaserBlade.MOD_ID);
         }
 
         @SuppressWarnings("unchecked")
