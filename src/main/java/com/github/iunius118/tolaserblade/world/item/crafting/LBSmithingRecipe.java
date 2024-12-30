@@ -1,6 +1,7 @@
 package com.github.iunius118.tolaserblade.world.item.crafting;
 
 import net.minecraft.core.Holder;
+import net.minecraft.core.HolderSet;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Items;
@@ -32,9 +33,11 @@ public abstract class LBSmithingRecipe implements SmithingRecipe {
 
     private static ItemStack getResultItemStack(Optional<Ingredient> base) {
         if (base.isPresent()) {
-            List<Holder<Item>> items = base.get().items();
-            if (!items.isEmpty() && items.getFirst() != null) {
-                return items.getFirst().value().getDefaultInstance();
+            HolderSet<Item> items = base.get().getValues();
+            Optional<Holder<Item>> item = items.stream().findFirst();
+
+            if (item.isPresent()) {
+                return item.get().value().getDefaultInstance();
             }
         }
 
