@@ -81,7 +81,7 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
         ItemStack itemstack = player.getItemInHand(hand);
         LaserBladeBlocking.start(player, hand);
 
-        if (LaserBladeBlocking.isShield()) {
+        if (LaserBladeBlocking.isShield() && player.isUsingItem()) {
             return InteractionResult.CONSUME;
         } else {
             return InteractionResult.PASS;
