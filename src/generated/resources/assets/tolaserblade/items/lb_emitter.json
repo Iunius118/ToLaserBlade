@@ -1,0 +1,16 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "tolaserblade:item/lb_emitter",
+    "tints": [
+      {
+        "type": "minecraft:constant",
+        "value": -1
+      },
+      {
+        "type": "tolaserblade:laser_blade",
+        "part": "inner_blade"
+      }
+    ]
+  }
+}

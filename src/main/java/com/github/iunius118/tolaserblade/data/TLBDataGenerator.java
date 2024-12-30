@@ -34,7 +34,7 @@ public class TLBDataGenerator {
         TLBOldRecipeProvider6.addProviders(event);
 
         // Assets
-        event.addProvider(new TLBItemModelProvider(packOutput, existingFileHelper));
+        event.addProvider(new TLBModelProvider(packOutput));
         TLBLanguageProvider.addProviders(event);
         event.addProvider(new TLBSoundDefinitionsProvider(packOutput, existingFileHelper));
     }

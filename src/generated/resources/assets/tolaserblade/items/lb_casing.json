@@ -1,0 +1,12 @@
+{
+  "model": {
+    "type": "minecraft:model",
+    "model": "tolaserblade:item/lb_casing",
+    "tints": [
+      {
+        "type": "tolaserblade:laser_blade",
+        "part": "grip"
+      }
+    ]
+  }
+}
