@@ -2,6 +2,7 @@ package com.github.iunius118.tolaserblade.client;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.client.color.item.LaserBladeTintSource;
+import com.github.iunius118.tolaserblade.client.extensions.LBSwordItemExtensions;
 import com.github.iunius118.tolaserblade.client.model.LaserBladeModelManager;
 import com.github.iunius118.tolaserblade.client.particle.LaserTrapParticle;
 import com.github.iunius118.tolaserblade.client.renderer.item.LBBrandNewItemRenderer;
@@ -25,10 +26,7 @@ import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.VersionChecker;
 import net.neoforged.fml.VersionChecker.Status;
-import net.neoforged.neoforge.client.event.ModelEvent;
-import net.neoforged.neoforge.client.event.RegisterColorHandlersEvent;
-import net.neoforged.neoforge.client.event.RegisterConditionalItemModelPropertyEvent;
-import net.neoforged.neoforge.client.event.RegisterParticleProvidersEvent;
+import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
 
 public class ClientModEventHandler {
@@ -81,9 +79,7 @@ public class ClientModEventHandler {
 
     @SubscribeEvent
     public static void onRegisterClientExtensionsEvent(RegisterClientExtensionsEvent event) {
-        event.registerItem(LBSwordItemRenderer.CLIENT_ITEM_EXTENSIONS, ModItems.LASER_BLADE, ModItems.LASER_BLADE_FP);
-        event.registerItem(LBBrandNewItemRenderer.CLIENT_ITEM_EXTENSIONS, ModItems.LB_BRAND_NEW, ModItems.LB_BRAND_NEW_1, ModItems.LB_BRAND_NEW_2, ModItems.LB_BRAND_NEW_FP);
-        event.registerItem(LBBrokenItemRenderer.CLIENT_ITEM_EXTENSIONS, ModItems.LB_BROKEN, ModItems.LB_BROKEN_FP);
+        event.registerItem(new LBSwordItemExtensions(), ModItems.LASER_BLADE, ModItems.LASER_BLADE_FP);
     }
 
     @SubscribeEvent
