@@ -9,6 +9,7 @@ import com.github.iunius118.tolaserblade.client.renderer.item.LBBrandNewItemRend
 import com.github.iunius118.tolaserblade.client.renderer.item.LBBrokenItemRenderer;
 import com.github.iunius118.tolaserblade.client.renderer.item.LBSwordItemRenderer;
 import com.github.iunius118.tolaserblade.client.renderer.item.model.LBSwordItemModel;
+import com.github.iunius118.tolaserblade.client.renderer.item.LBSwordSpecialRenderer;
 import com.github.iunius118.tolaserblade.client.renderer.item.properties.UsingOriginalModel;
 import com.github.iunius118.tolaserblade.core.particle.ModParticleTypes;
 import com.github.iunius118.tolaserblade.world.item.ModItems;
@@ -75,6 +76,11 @@ public class ClientModEventHandler {
     @SubscribeEvent
     public static void onBakingCompletedEvent(ModelEvent.BakingCompleted event) {
         LaserBladeModelManager.getInstance().logLoadedModelCount();
+    }
+
+    @SubscribeEvent
+    public static void onRegisterSpecialModelRendererEvent(RegisterSpecialModelRendererEvent event) {
+        event.register(ToLaserBlade.makeId("laser_blade"), LBSwordSpecialRenderer.Unbaked.MAP_CODEC);
     }
 
     @SubscribeEvent
