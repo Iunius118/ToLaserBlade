@@ -5,17 +5,12 @@ import com.github.iunius118.tolaserblade.client.color.item.LaserBladeTintSource;
 import com.github.iunius118.tolaserblade.client.extensions.LBSwordItemExtensions;
 import com.github.iunius118.tolaserblade.client.model.LaserBladeModelManager;
 import com.github.iunius118.tolaserblade.client.particle.LaserTrapParticle;
-import com.github.iunius118.tolaserblade.client.renderer.item.LBBrandNewItemRenderer;
-import com.github.iunius118.tolaserblade.client.renderer.item.LBBrokenItemRenderer;
-import com.github.iunius118.tolaserblade.client.renderer.item.LBSwordItemRenderer;
-import com.github.iunius118.tolaserblade.client.renderer.item.model.LBSwordItemModel;
 import com.github.iunius118.tolaserblade.client.renderer.item.LBSwordSpecialRenderer;
 import com.github.iunius118.tolaserblade.client.renderer.item.properties.UsingOriginalModel;
 import com.github.iunius118.tolaserblade.core.particle.ModParticleTypes;
 import com.github.iunius118.tolaserblade.world.item.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.model.ModelResourceLocation;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.ClickEvent;
@@ -44,33 +39,7 @@ public class ClientModEventHandler {
     @SubscribeEvent
     public static void onModifyBakingResultEvent(ModelEvent.ModifyBakingResult event) {
         // Reset internal model manager
-        var modelManager = LaserBladeModelManager.getInstance();
-        modelManager.reload();
-
-        if (!modelManager.canUseOriginalModelType()) {
-            // Use vanilla-like model
-            return;
-        }
-
-        ModelResourceLocation laserBladeItemID = ModelResourceLocation.inventory(getItemId(ModItems.LASER_BLADE));
-        ModelResourceLocation laserBladeFPItemID = ModelResourceLocation.inventory(getItemId(ModItems.LASER_BLADE_FP));
-        ModelResourceLocation lBBrandNewItemID = ModelResourceLocation.inventory(getItemId(ModItems.LB_BRAND_NEW));
-        ModelResourceLocation lBBrandNew1ItemID = ModelResourceLocation.inventory(getItemId(ModItems.LB_BRAND_NEW_1));
-        ModelResourceLocation lBBrandNew2ItemID = ModelResourceLocation.inventory(getItemId(ModItems.LB_BRAND_NEW_2));
-        ModelResourceLocation lBBrandNewFPItemID = ModelResourceLocation.inventory(getItemId(ModItems.LB_BRAND_NEW_FP));
-        ModelResourceLocation lBBrokenItemID = ModelResourceLocation.inventory(getItemId(ModItems.LB_BROKEN));
-        ModelResourceLocation lBBrokenFPItemID = ModelResourceLocation.inventory(getItemId(ModItems.LB_BROKEN_FP));
-        LBSwordItemModel bakedModel = new LBSwordItemModel();
-
-        var models = event.getModels();
-        models.put(laserBladeItemID, bakedModel);
-        models.put(laserBladeFPItemID, bakedModel);
-        models.put(lBBrandNewItemID, bakedModel);
-        models.put(lBBrandNew1ItemID, bakedModel);
-        models.put(lBBrandNew2ItemID, bakedModel);
-        models.put(lBBrandNewFPItemID, bakedModel);
-        models.put(lBBrokenItemID, bakedModel);
-        models.put(lBBrokenFPItemID, bakedModel);
+        LaserBladeModelManager.getInstance().reload();
     }
 
     @SubscribeEvent
