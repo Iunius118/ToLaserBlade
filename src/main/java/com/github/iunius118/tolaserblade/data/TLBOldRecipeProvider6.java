@@ -49,8 +49,7 @@ public class TLBOldRecipeProvider6 {
         var lookupProvider = event.getLookupProvider();
         var existingFileHelper = event.getExistingFileHelper();
         var blockTagsProvider = new TLBBlockTagsProvider(packOutput, lookupProvider, existingFileHelper);
-        final boolean includesServer = event.includeServer();
-        var packGenerator = dataGenerator.getBuiltinDatapack(includesServer, PACK_PATH);
+        var packGenerator = dataGenerator.getBuiltinDatapack(true, PACK_PATH);
 
         packGenerator.addProvider(o -> PackMetadataGenerator.forFeaturePack(packOutput, Component.literal("ToLaserBlade - revert laser blade recipes to version 6")));
         packGenerator.addProvider(o -> new OldRecipeProvider.Runner(packOutput, lookupProvider));
