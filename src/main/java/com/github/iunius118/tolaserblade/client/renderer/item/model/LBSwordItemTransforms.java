@@ -18,25 +18,25 @@ public enum LBSwordItemTransforms {
             ImmutableMap.of()
     )),
     BLOCKING_RIGHT_ITEM_TRANSFORMS(new ItemTransforms(
-            ITEM_TRANSFORMS.get().thirdPersonLeftHand,
-            ITEM_TRANSFORMS.get().thirdPersonRightHand,
+            ITEM_TRANSFORMS.get().thirdPersonLeftHand(),
+            ITEM_TRANSFORMS.get().thirdPersonRightHand(),
             new ItemTransform(new Vector3f(0F, 0F, 60F), new Vector3f(-0.4F, -0.15F, 0.6F), new Vector3f(0.68F, 0.85F, 0.68F)),
             new ItemTransform(new Vector3f(0F, 0F, 60F), new Vector3f(-0.05F, 0.4F, 0.5F), new Vector3f(0.68F, 0.85F, 0.68F)),
-            ITEM_TRANSFORMS.get().head,
-            ITEM_TRANSFORMS.get().gui,
-            ITEM_TRANSFORMS.get().ground,
-            ITEM_TRANSFORMS.get().fixed,
+            ITEM_TRANSFORMS.get().head(),
+            ITEM_TRANSFORMS.get().gui(),
+            ITEM_TRANSFORMS.get().ground(),
+            ITEM_TRANSFORMS.get().fixed(),
             ImmutableMap.of()
     )),
     BLOCKING_LEFT_ITEM_TRANSFORMS(new ItemTransforms(
-            ITEM_TRANSFORMS.get().thirdPersonLeftHand,
-            ITEM_TRANSFORMS.get().thirdPersonRightHand,
+            ITEM_TRANSFORMS.get().thirdPersonLeftHand(),
+            ITEM_TRANSFORMS.get().thirdPersonRightHand(),
             new ItemTransform(new Vector3f(0F, 0F, 60F), new Vector3f(-0.4F, -0.185F, 0.5F), new Vector3f(0.68F, 0.85F, 0.68F)),
             new ItemTransform(new Vector3f(0F, 0F, 60F), new Vector3f(-0.05F, 0.43F, 0.6F), new Vector3f(0.68F, 0.85F, 0.68F)),
-            ITEM_TRANSFORMS.get().head,
-            ITEM_TRANSFORMS.get().gui,
-            ITEM_TRANSFORMS.get().ground,
-            ITEM_TRANSFORMS.get().fixed,
+            ITEM_TRANSFORMS.get().head(),
+            ITEM_TRANSFORMS.get().gui(),
+            ITEM_TRANSFORMS.get().ground(),
+            ITEM_TRANSFORMS.get().fixed(),
             ImmutableMap.of()
     )),
     ;
