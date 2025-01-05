@@ -32,9 +32,10 @@ public abstract class LBSmithingRecipe implements SmithingRecipe {
 
     private static ItemStack getResultItemStack(Optional<Ingredient> base) {
         if (base.isPresent()) {
-            List<Holder<Item>> items = base.get().items();
-            if (!items.isEmpty() && items.getFirst() != null) {
-                return items.getFirst().value().getDefaultInstance();
+            Optional<Holder<Item>> item = base.get().items().findFirst();
+
+            if (item.isPresent()) {
+                return item.get().value().getDefaultInstance();
             }
         }
 
