@@ -6,8 +6,10 @@ import com.github.iunius118.tolaserblade.client.model.LaserBladeModelManager;
 import com.github.iunius118.tolaserblade.client.particle.LaserTrapParticle;
 import com.github.iunius118.tolaserblade.client.renderer.item.model.LBSwordItemModel;
 import com.github.iunius118.tolaserblade.client.renderer.item.LBSwordSpecialRenderer;
+import com.github.iunius118.tolaserblade.client.renderer.item.properties.Blocking;
+import com.github.iunius118.tolaserblade.client.renderer.item.properties.UsingOriginalModel;
 import com.github.iunius118.tolaserblade.core.particle.ModParticleTypes;
-import com.github.iunius118.tolaserblade.world.item.ModItems;
+import com.github.iunius118.tolaserblade.mixin.ConditionalItemModelPropertiesAccessor;
 import com.github.iunius118.tolaserblade.mixin.SpecialModelRenderersAccessor;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
@@ -29,6 +31,11 @@ import net.minecraftforge.registries.ForgeRegistries;
 
 public class ClientModEventHandler {
     public static void initClient() {
+        // Register item model properties
+        final var booleanPropertyMapper = ConditionalItemModelPropertiesAccessor.getIdMapper();
+        booleanPropertyMapper.put(ToLaserBlade.makeId("using_original_model"), UsingOriginalModel.MAP_CODEC);
+        booleanPropertyMapper.put(ToLaserBlade.makeId("blocking"), Blocking.MAP_CODEC);
+
         // Register tint sources
         ItemTintSources.ID_MAPPER.put(ToLaserBlade.makeId("laser_blade"), LaserBladeTintSource.MAP_CODEC);
 

@@ -8,6 +8,7 @@
     "MixinSmithingMenu"
   ],
   "client": [
+    "ConditionalItemModelPropertiesAccessor",
     "SpecialModelRenderersAccessor"
   ],
   "refmap": "mixins.tolaserblade.refmap.json",
