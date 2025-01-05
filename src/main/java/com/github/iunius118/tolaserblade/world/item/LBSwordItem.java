@@ -1,6 +1,6 @@
 package com.github.iunius118.tolaserblade.world.item;
 
-import com.github.iunius118.tolaserblade.client.renderer.item.LBSwordItemRenderer;
+import com.github.iunius118.tolaserblade.client.extensions.LBSwordItemExtensions;
 import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
 import com.github.iunius118.tolaserblade.core.dispenser.DispenseLaserBladeBehavior;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBlade;
@@ -8,7 +8,6 @@ import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeAppearance;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeBlocking;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.Upgrade;
 import com.github.iunius118.tolaserblade.mixin.ItemAccessor;
-import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponents;
@@ -86,7 +85,7 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
         LaserBladeBlocking.start(player, hand);
 
-        if (LaserBladeBlocking.isShield()) {
+        if (LaserBladeBlocking.isShield() && player.isUsingItem()) {
             return InteractionResult.CONSUME;
         } else {
             return InteractionResult.PASS;
@@ -189,13 +188,8 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
 
     @Override
     public void initializeClient(Consumer<IClientItemExtensions> consumer) {
-        var itemRenderProperties = new IClientItemExtensions() {
-            @Override public BlockEntityWithoutLevelRenderer getCustomRenderer() {
-                return LBSwordItemRenderer.INSTANCE;
-            }
-        };
-
-        consumer.accept(itemRenderProperties);
+        // Item extension for item model transform when player is using laser blade
+        consumer.accept(new LBSwordItemExtensions());
     }
 
     @Override

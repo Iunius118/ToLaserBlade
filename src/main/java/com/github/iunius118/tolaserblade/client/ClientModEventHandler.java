@@ -5,8 +5,10 @@ import com.github.iunius118.tolaserblade.client.color.item.LaserBladeTintSource;
 import com.github.iunius118.tolaserblade.client.model.LaserBladeModelManager;
 import com.github.iunius118.tolaserblade.client.particle.LaserTrapParticle;
 import com.github.iunius118.tolaserblade.client.renderer.item.model.LBSwordItemModel;
+import com.github.iunius118.tolaserblade.client.renderer.item.LBSwordSpecialRenderer;
 import com.github.iunius118.tolaserblade.core.particle.ModParticleTypes;
 import com.github.iunius118.tolaserblade.world.item.ModItems;
+import com.github.iunius118.tolaserblade.mixin.SpecialModelRenderersAccessor;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemTintSources;
@@ -29,6 +31,9 @@ public class ClientModEventHandler {
     public static void initClient() {
         // Register tint sources
         ItemTintSources.ID_MAPPER.put(ToLaserBlade.makeId("laser_blade"), LaserBladeTintSource.MAP_CODEC);
+
+        // Register special model renderers
+        SpecialModelRenderersAccessor.getIdMapper().put(ToLaserBlade.makeId("laser_blade"), LBSwordSpecialRenderer.Unbaked.MAP_CODEC);
     }
 
     @SubscribeEvent

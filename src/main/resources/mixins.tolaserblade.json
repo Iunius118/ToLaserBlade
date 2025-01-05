@@ -7,6 +7,9 @@
     "MixinLivingEntity",
     "MixinSmithingMenu"
   ],
+  "client": [
+    "SpecialModelRenderersAccessor"
+  ],
   "refmap": "mixins.tolaserblade.refmap.json",
   "compatibilityLevel": "JAVA_17",
   "minVersion": "0.8"
