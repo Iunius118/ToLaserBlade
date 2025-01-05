@@ -37,7 +37,7 @@ public class TLBDataGenerator {
 
         // Client
         final boolean includesClient = event.includeClient();
-        dataGenerator.addProvider(includesClient, new TLBItemModelProvider(packOutput, existingFileHelper));
+        // dataGenerator.addProvider(includesClient, new TLBModelProvider(packOutput)); // TODO: Implement TLBModelProvider
         TLBLanguageProvider.addProviders(includesClient, dataGenerator, packOutput);
         dataGenerator.addProvider(includesClient, new TLBSoundDefinitionsProvider(packOutput, existingFileHelper));
     }
