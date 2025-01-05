@@ -1,10 +1,7 @@
 package com.github.iunius118.tolaserblade.client;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
-import com.github.iunius118.tolaserblade.client.color.item.LBCasingItemColor;
-import com.github.iunius118.tolaserblade.client.color.item.LBEmitterItemColor;
-import com.github.iunius118.tolaserblade.client.color.item.LBMediumItemColor;
-import com.github.iunius118.tolaserblade.client.color.item.LBSwordItemColor;
+import com.github.iunius118.tolaserblade.client.color.item.LaserBladeTintSource;
 import com.github.iunius118.tolaserblade.client.model.LaserBladeModelManager;
 import com.github.iunius118.tolaserblade.client.particle.LaserTrapParticle;
 import com.github.iunius118.tolaserblade.client.renderer.item.model.LBSwordItemModel;
@@ -12,7 +9,7 @@ import com.github.iunius118.tolaserblade.core.particle.ModParticleTypes;
 import com.github.iunius118.tolaserblade.world.item.ModItems;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.resources.model.ModelResourceLocation;
+import net.minecraft.client.color.item.ItemTintSources;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
@@ -20,7 +17,6 @@ import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.client.event.ModelEvent;
-import net.minecraftforge.client.event.RegisterColorHandlersEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
@@ -30,20 +26,9 @@ import net.minecraftforge.fml.VersionChecker.Status;
 import net.minecraftforge.registries.ForgeRegistries;
 
 public class ClientModEventHandler {
-    @SubscribeEvent
-    public static void onItemColorHandlerEvent(RegisterColorHandlersEvent.Item event) {
-        event.register(new LBSwordItemColor(), ModItems.LASER_BLADE);
-        event.register(new LBSwordItemColor(), ModItems.LASER_BLADE_FP);
-        event.register(new LBSwordItemColor(), ModItems.LB_BRAND_NEW);
-        event.register(new LBSwordItemColor(), ModItems.LB_BRAND_NEW_1);
-        event.register(new LBSwordItemColor(), ModItems.LB_BRAND_NEW_2);
-        event.register(new LBSwordItemColor(), ModItems.LB_BRAND_NEW_FP);
-        event.register(new LBSwordItemColor(), ModItems.LB_BROKEN);
-        event.register(new LBSwordItemColor(), ModItems.LB_BROKEN_FP);
-        event.register(new LBEmitterItemColor(), ModItems.LB_EMITTER);
-        event.register(new LBMediumItemColor(), ModItems.LB_MEDIUM);
-        event.register(new LBCasingItemColor(), ModItems.LB_CASING);
-        event.register(new LBCasingItemColor(), ModItems.LB_CASING_FP);
+    public static void initClient() {
+        // Register tint sources
+        ItemTintSources.ID_MAPPER.put(ToLaserBlade.makeId("laser_blade"), LaserBladeTintSource.MAP_CODEC);
     }
 
     @SubscribeEvent

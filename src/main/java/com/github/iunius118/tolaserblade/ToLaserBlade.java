@@ -47,6 +47,7 @@ public class ToLaserBlade {
 
         // Register client-side mod event handler
         if (FMLLoader.getDist().isClient()) {
+            ClientModEventHandler.initClient();
             modEventBus.register(ClientModEventHandler.class);
             ToLaserBladeAPI.registerModelRegistrationListener(event -> event.register(LaserBladeModelManager.loadModels()));
         }
