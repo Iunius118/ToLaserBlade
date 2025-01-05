@@ -27,6 +27,7 @@ public enum LaserBladeColor {
     TEMP_SNOWY_TAIGA(0xFF0030FF, 0xFFF9FFFE, "temp_snowy_taiga"),
     BIOME_DEEP_DARK(0xFF00FFFF, 0xFFFADCD7, 0xFF052328, false, true, "biome_deep_dark"),
     BIOME_CHERRY_GROVE(0xFFFF004C, 0xFFFADCF0, 0xFF4B2D3C, "biome_cherry_grove"),
+    BIOME_PALE_GARDEN(0xFFEC7214, 0xFFEFA337, 0xFF686462, "biome_pale_garden"),
     BIOME_NETHER_A(0xFFFFFFFF, 0xFFF9FFFE, false, true, "biome_nether_a"),
     BIOME_NETHER_B(0xFFFFFFFF, 0xFFF9FFFE, true, false, "biome_nether_b"),
     BIOME_END(0xFFFFFFFF, 0xFFF9FFFE, true, true, "biome_end"),

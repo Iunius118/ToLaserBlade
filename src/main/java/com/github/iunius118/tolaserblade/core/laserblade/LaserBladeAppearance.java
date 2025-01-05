@@ -205,6 +205,9 @@ public class LaserBladeAppearance {
         } else if (compareBiomes(biomeHolder, Biomes.CHERRY_GROVE)) {
             // Cherry grove biome
             setColor(LaserBladeColor.BIOME_CHERRY_GROVE);
+        } else if (compareBiomes(biomeHolder, Biomes.PALE_GARDEN)) {
+            // Pale garden biome
+            setColor(LaserBladeColor.BIOME_PALE_GARDEN);
         } else {
             float temp = biomeHolder.value().getBaseTemperature();
             setOuterColor(LaserBladeColor.getColorByTemperature(temp).getOuterColor());
