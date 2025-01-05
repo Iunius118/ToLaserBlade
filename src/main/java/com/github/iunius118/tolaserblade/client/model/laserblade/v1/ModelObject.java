@@ -80,8 +80,8 @@ class ModelObject {
         RenderType get(SimpleLaserBladeModel model, LaserBladeItemColor itemColor);
     }
 
-    private static final ObjectRenderType ADD_INNER_TYPE = (model, itemColor) -> model.getInnerBladeAddRenderType(itemColor.isInnerSubColor);
-    private static final ObjectRenderType ADD_OUTER_TYPE = (model, itemColor) -> model.getOuterBladeAddRenderType(itemColor.isOuterSubColor);
+    private static final ObjectRenderType ADD_INNER_TYPE = (model, itemColor) -> model.getInnerBladeAddRenderType(itemColor.isInnerSubColor());
+    private static final ObjectRenderType ADD_OUTER_TYPE = (model, itemColor) -> model.getOuterBladeAddRenderType(itemColor.isOuterSubColor());
     private static final ObjectRenderType UNLIT_TYPE = (model, itemColor) -> model.getUnlitRenderType();
     private static final ObjectRenderType HILT_TYPE = (model, itemColor) -> model.getHiltRenderType();
 
@@ -99,11 +99,11 @@ class ModelObject {
         int get(LaserBladeItemColor itemColor);
     }
 
-    private static final ObjectPartColor GRIP_COLOR = itemColor -> itemColor.gripColor;
-    private static final ObjectPartColor INNER_COLOR = itemColor -> itemColor.innerColor;
-    private static final ObjectPartColor SIMPLE_INNER_COLOR = itemColor -> itemColor.simpleInnerColor;
-    private static final ObjectPartColor OUTER_COLOR = itemColor -> itemColor.outerColor;
-    private static final ObjectPartColor SIMPLE_OUTER_COLOR = itemColor -> itemColor.simpleOuterColor;
+    private static final ObjectPartColor GRIP_COLOR = LaserBladeItemColor::gripColor;
+    private static final ObjectPartColor INNER_COLOR = LaserBladeItemColor::innerColor;
+    private static final ObjectPartColor SIMPLE_INNER_COLOR = LaserBladeItemColor::simpleInnerColor;
+    private static final ObjectPartColor OUTER_COLOR = LaserBladeItemColor::outerColor;
+    private static final ObjectPartColor SIMPLE_OUTER_COLOR = LaserBladeItemColor::simpleOuterColor;
     private static final ObjectPartColor DEFAULT_COLOR = itemColor -> WHITE_ARGB;
     private static final ObjectPartColor OFF_COLOR = itemColor -> GRAY_ARGB;
 

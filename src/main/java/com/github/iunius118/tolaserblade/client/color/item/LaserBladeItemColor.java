@@ -8,63 +8,56 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
-public class LaserBladeItemColor {
-    public final boolean isBroken;
-    public final int rawOuterColor;
-    public final int outerColor;
-    public final boolean isOuterSubColor;
-    public final int simpleOuterColor;
-    public final int rawInnerColor;
-    public final int innerColor;
-    public final boolean isInnerSubColor;
-    public final int simpleInnerColor;
-    public final int rawGripColor;
-    public final int gripColor;
+public record LaserBladeItemColor(
+        boolean isBroken, int type,
+        int outerColor, boolean isOuterSubColor,
+        int innerColor, boolean isInnerSubColor,
+        int gripColor) {
+    public static final LaserBladeItemColor DEFAULT = new LaserBladeItemColor(false, 0, -1, false, -1, false, -1);
 
-    public LaserBladeItemColor(ItemStack itemStack) {
+    public static LaserBladeItemColor of(ItemStack itemStack) {
         if (itemStack == null || itemStack.isEmpty()) {
-            isBroken = false;
-
-            rawOuterColor = -1;
-            outerColor = -1;
-            isOuterSubColor = false;
-            simpleOuterColor = -1;
-
-            rawInnerColor = -1;
-            innerColor = -1;
-            isInnerSubColor = false;
-            simpleInnerColor = -1;
-
-            gripColor = -1;
-            rawGripColor = -1;
-
-            return;
+            return DEFAULT;
         }
 
         Item item = itemStack.getItem();
-        isBroken = (item instanceof LBBrokenItem || item instanceof LBBrandNewItem);
+        boolean isBroken = (item instanceof LBBrokenItem || item instanceof LBBrandNewItem);
 
         var appearance = LaserBladeAppearance.of(itemStack);
+        int type = appearance.getType();
 
-        rawOuterColor = appearance.getOuterColor();
-        outerColor = checkGamingColor(rawOuterColor);
-        isOuterSubColor = appearance.isOuterSubColor();
-        simpleOuterColor = (isOuterSubColor ? ~outerColor : outerColor) | 0xFF000000;
+        int rawOuterColor = appearance.getOuterColor();
+        int outerColor = checkGamingColor(rawOuterColor);
+        boolean isOuterSubColor = appearance.isOuterSubColor();
 
-        rawInnerColor = appearance.getInnerColor();
-        innerColor = checkGamingColor(rawInnerColor);
-        isInnerSubColor = appearance.isInnerSubColor();
-        simpleInnerColor = (isInnerSubColor ? ~innerColor : innerColor) | 0xFF000000;
+        int rawInnerColor = appearance.getInnerColor();
+        int innerColor = checkGamingColor(rawInnerColor);
+        boolean isInnerSubColor = appearance.isInnerSubColor();
 
-        rawGripColor = appearance.getGripColor();
-        gripColor = checkGamingColor(rawGripColor);
+        int rawGripColor = appearance.getGripColor();
+        int gripColor = checkGamingColor(rawGripColor);
+
+        return new LaserBladeItemColor(
+                isBroken, type,
+                outerColor, isOuterSubColor,
+                innerColor, isInnerSubColor,
+                gripColor
+        );
     }
 
-    public static LaserBladeItemColor of(ItemStack stack) {
-        return new LaserBladeItemColor(stack);
+    public int simpleOuterColor() {
+        return (isOuterSubColor ? ~outerColor : outerColor) | 0xFF000000;
     }
 
-    public int checkGamingColor(int color) {
+    public int simpleInnerColor() {
+        return (isInnerSubColor ? ~innerColor : innerColor) | 0xFF000000;
+    }
+
+    public int simpleGripColor() {
+        return gripColor | 0xFF000000;
+    }
+
+    private static int checkGamingColor(int color) {
         if (color == LaserBladeColor.SPECIAL_GAMING.getOuterColor()) {
             return getGamingColor();
         }
@@ -72,7 +65,7 @@ public class LaserBladeItemColor {
         return color;
     }
 
-    private int getGamingColor() {
+    private static int getGamingColor() {
         var minecraft = Minecraft.getInstance();
         var player = minecraft.player;
 
