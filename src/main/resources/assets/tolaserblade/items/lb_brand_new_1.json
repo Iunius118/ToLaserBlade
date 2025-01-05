@@ -1,0 +1,23 @@
+{
+  "model": {
+    "type": "minecraft:condition",
+    "on_false": {
+      "type": "minecraft:model",
+      "model": "tolaserblade:item/lb_casing",
+      "tints": [
+        {
+          "type": "tolaserblade:laser_blade",
+          "part": "grip"
+        }
+      ]
+    },
+    "on_true": {
+      "type": "minecraft:special",
+      "base": "tolaserblade:item/lb_casing_3d",
+      "model": {
+        "type": "tolaserblade:laser_blade"
+      }
+    },
+    "property": "tolaserblade:using_original_model"
+  }
+}
