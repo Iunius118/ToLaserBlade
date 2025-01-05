@@ -4,6 +4,18 @@
 
 ## [Unreleased]
 
+## [12.0.0 Forge]
+### Added
+- Add special model type `tolaserblade:laser_blade` to render laser blade items.
+- Add tint source type `tolaserblade:laser_blade` to tint laser blade part items.
+- Add boolean property `tolaserblade:using_original_model` to represent condition of laser blades.
+- Add boolean property `tolaserblade:blocking` to represent condition of laser blades.
+- New color of brand-new laser blade for pale garden biome.
+
+### Changed
+- Port to Minecraft 1.21.4.
+- Require Forge 1.21.4-54.0.16+.
+
 ## [11.0.0 Forge]
 ### Changed
 - Port to Minecraft 1.21.3.
