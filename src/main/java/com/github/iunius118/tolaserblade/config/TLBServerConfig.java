@@ -7,6 +7,8 @@ public class TLBServerConfig {
     private static final ForgeConfigSpec.Builder BUILDER;
     private static final ForgeConfigSpec.BooleanValue IS_ENABLED_BLOCKING_WITH_LASER_BLADE;
     private static final ForgeConfigSpec.IntValue LASER_BLADE_EFFICIENCY;
+    private static final ForgeConfigSpec.DoubleValue LASER_BLADE_BASE_DAMAGE;
+    private static final ForgeConfigSpec.DoubleValue LASER_BLADE_BASE_SPEED;
     private static final ForgeConfigSpec.IntValue MAX_ATTACK_DAMAGE_UPGRADE_COUNT;
     private static final ForgeConfigSpec.BooleanValue IS_ENABLED_LASER_TRAP;
     private static final ForgeConfigSpec.BooleanValue CAN_LASER_TRAP_ATTACK_PLAYER;
@@ -28,6 +30,16 @@ public class TLBServerConfig {
                         "Default: 12")
                 .translation("tolaserblade.configgui.server.laserBladeEfficiency")
                 .defineInRange("laserBladeEfficiency", 12, 0, 128);
+        LASER_BLADE_BASE_DAMAGE = BUILDER
+                .comment("A real value (0.0-254.0) that is the base attack damage of Laser Blade.\n" +
+                        "Default: 6.0")
+                .translation("tolaserblade.configgui.server.laserBladeBaseDamage")
+                .defineInRange("laserBladeBaseDamage", 6.0, 0.0, 254.0);
+        LASER_BLADE_BASE_SPEED = BUILDER
+                .comment("A real value (0.8-2.8) that is the base attack speed of Laser Blade.\n" +
+                        "Default: 2.8")
+                .translation("tolaserblade.configgui.server.laserBladeBaseSpeed")
+                .defineInRange("laserBladeBaseSpeed", 2.8, 0.8, 2.8);
         MAX_ATTACK_DAMAGE_UPGRADE_COUNT = BUILDER
                 .comment("An integer value (0-39) that is maximum count of attack damage upgrade of Laser Blade.\n" +
                         "Note:\n" +
@@ -54,9 +66,11 @@ public class TLBServerConfig {
 
         SPEC = BUILDER.pop().build();
     }
-    
+
     public static boolean isEnabledBlockingWithLaserBlade = IS_ENABLED_BLOCKING_WITH_LASER_BLADE.getDefault();
     public static int laserBladeEfficiency = LASER_BLADE_EFFICIENCY.getDefault();
+    public static float laserBladeBaseDamage = calcAttackDamage(LASER_BLADE_BASE_DAMAGE.getDefault());
+    public static float laserBladeBaseSpeed = calcAttackSpeed(LASER_BLADE_BASE_SPEED.getDefault());
     public static int maxAttackDamageUpgradeCount = MAX_ATTACK_DAMAGE_UPGRADE_COUNT.getDefault();
     public static boolean isEnabledLaserTrap = IS_ENABLED_LASER_TRAP.getDefault();
     public static boolean canLaserTrapAttackPlayer = CAN_LASER_TRAP_ATTACK_PLAYER.getDefault();
@@ -69,9 +83,21 @@ public class TLBServerConfig {
 
         isEnabledBlockingWithLaserBlade = IS_ENABLED_BLOCKING_WITH_LASER_BLADE.get();
         laserBladeEfficiency = LASER_BLADE_EFFICIENCY.get();
+        laserBladeBaseDamage = calcAttackDamage(LASER_BLADE_BASE_DAMAGE.get());
+        laserBladeBaseSpeed = calcAttackSpeed(LASER_BLADE_BASE_SPEED.get());
         maxAttackDamageUpgradeCount = MAX_ATTACK_DAMAGE_UPGRADE_COUNT.get();
         isEnabledLaserTrap = IS_ENABLED_LASER_TRAP.get();
         canLaserTrapAttackPlayer = CAN_LASER_TRAP_ATTACK_PLAYER.get();
         canLaserTrapHeatUpFurnace = CAN_LASER_TRAP_HEAT_UP_FURNACE.get();
+    }
+
+    private static float calcAttackDamage(double d) {
+        // ((Entity) 1 + (Sword) 3 + (Laser Blade) 3 + (Netherite) [0, 1]) + ((config) d[0, 254] - 6) = [1, 256]
+        return (float) d - 6.0F;
+    }
+
+    private static float calcAttackSpeed(double d) {
+        // ((Entity) 4 + (Laser Blade) -1.2) + ((config) d[0.8, 2.8] - 2.8) = [0.8, 2.8]
+        return (float) d - 2.8F;
     }
 }

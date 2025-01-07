@@ -50,6 +50,8 @@
   "tolaserblade.configgui.server.canLaserTrapHeatUpFurnace": "Can Laser Trap Heat Up Furnace",
   "tolaserblade.configgui.server.enableBlockingWithLaserBlade": "Enable Blocking with Laser Blade",
   "tolaserblade.configgui.server.enableLaserTrap": "Enable Laser Trap",
+  "tolaserblade.configgui.server.laserBladeBaseDamage": "Laser Blade Base Attack Damage (0.0–254.0)",
+  "tolaserblade.configgui.server.laserBladeBaseSpeed": "Laser Blade Base Attack Speed (0.8–2.8)",
   "tolaserblade.configgui.server.laserBladeEfficiency": "Laser Blade Mining Speed (0–128)",
   "tolaserblade.configgui.server.maxAttackDamageUpgradeCount": "Max Count of Attack Damage Upgrade (0–39)",
   "tolaserblade.update.newVersion": "A new %s version is available",

@@ -50,6 +50,8 @@
   "tolaserblade.configgui.server.canLaserTrapHeatUpFurnace": "レーザートラップがかまどを加熱可能か",
   "tolaserblade.configgui.server.enableBlockingWithLaserBlade": "レーザーブレイドによる防御を有効にする",
   "tolaserblade.configgui.server.enableLaserTrap": "レーザートラップを有効にする",
+  "tolaserblade.configgui.server.laserBladeBaseDamage": "レーザーブレイドの基礎攻撃力 (0.0–254.0)",
+  "tolaserblade.configgui.server.laserBladeBaseSpeed": "レーザーブレイドの基礎攻撃速度 (0.8–2.8)",
   "tolaserblade.configgui.server.laserBladeEfficiency": "レーザーブレイドの採掘速度 (0–128)",
   "tolaserblade.configgui.server.maxAttackDamageUpgradeCount": "攻撃力の最大強化回数 (0–39)",
   "tolaserblade.update.newVersion": "%s の新しいバージョンが利用可能です",

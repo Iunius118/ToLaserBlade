@@ -1,6 +1,7 @@
 package com.github.iunius118.tolaserblade.world.item;
 
 import com.github.iunius118.tolaserblade.client.renderer.item.LBSwordItemRenderer;
+import com.github.iunius118.tolaserblade.config.TLBServerConfig;
 import com.github.iunius118.tolaserblade.core.dispenser.DispenseLaserBladeBehavior;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBlade;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeBlocking;
@@ -189,10 +190,12 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
 
             multimap.put(Attributes.ATTACK_DAMAGE,
                     new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier",
-                            this.attackDamage + laserBlade.getDamage(), AttributeModifier.Operation.ADDITION));
+                            this.attackDamage + laserBlade.getDamage() + TLBServerConfig.laserBladeBaseDamage,
+                            AttributeModifier.Operation.ADDITION));
             multimap.put(Attributes.ATTACK_SPEED,
                     new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier",
-                            this.attackSpeed + laserBlade.getSpeed(), AttributeModifier.Operation.ADDITION));
+                            this.attackSpeed + laserBlade.getSpeed() + TLBServerConfig.laserBladeBaseSpeed,
+                            AttributeModifier.Operation.ADDITION));
         }
 
         return multimap;
