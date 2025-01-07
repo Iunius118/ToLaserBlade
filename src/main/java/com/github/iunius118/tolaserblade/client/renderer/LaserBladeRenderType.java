@@ -1,13 +1,13 @@
 package com.github.iunius118.tolaserblade.client.renderer;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
+import com.github.iunius118.tolaserblade.mixin.RenderBuffersAccessor;
 import com.mojang.blaze3d.platform.GlStateManager;
 import com.mojang.blaze3d.systems.RenderSystem;
 import com.mojang.blaze3d.vertex.BufferBuilder;
 import com.mojang.blaze3d.vertex.DefaultVertexFormat;
 import com.mojang.blaze3d.vertex.VertexFormat;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.RenderBuffers;
 import net.minecraft.client.renderer.RenderStateShard;
 import net.minecraft.client.renderer.RenderStateShard.TextureStateShard;
 import net.minecraft.client.renderer.RenderType;
@@ -52,9 +52,8 @@ public class LaserBladeRenderType {
 
     static {
         if (ToLaserBlade.canUseFixedVertexBuffer()) {
-            RenderBuffers renderBuffers = Minecraft.getInstance().renderBuffers();
-            Map<RenderType, BufferBuilder> fixedBuffers = renderBuffers.fixedBuffers;
-            registerRenderTypes(fixedBuffers);
+            var renderBuffersAccessor = (RenderBuffersAccessor) Minecraft.getInstance().renderBuffers();
+            registerRenderTypes(renderBuffersAccessor.getFixedBuffers());
         }
     }
 
