@@ -1,7 +1,7 @@
 package com.github.iunius118.tolaserblade.core.laserblade;
 
 import com.github.iunius118.tolaserblade.api.core.laserblade.LaserBladeState;
-import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
+import com.github.iunius118.tolaserblade.config.TLBServerConfig;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
@@ -35,7 +35,7 @@ public class LaserBlade {
     }
 
     private static float getMaxUpgradeCount() {
-        return (float) ToLaserBladeConfig.SERVER.maxAttackDamageUpgradeCount.get();
+        return (float) TLBServerConfig.maxAttackDamageUpgradeCount;
     }
 
     public static boolean canUpgradeSpeed(float speed) {

@@ -3,7 +3,8 @@ package com.github.iunius118.tolaserblade;
 import com.github.iunius118.tolaserblade.client.ClientModEventHandler;
 import com.github.iunius118.tolaserblade.common.CommonEventHandler;
 import com.github.iunius118.tolaserblade.common.RegistryEventHandler;
-import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
+import com.github.iunius118.tolaserblade.config.TLBClientConfig;
+import com.github.iunius118.tolaserblade.config.TLBServerConfig;
 import com.github.iunius118.tolaserblade.data.*;
 import com.github.iunius118.tolaserblade.world.item.ItemEventHandler;
 import com.github.iunius118.tolaserblade.world.item.ModCreativeModeTabs;
@@ -30,11 +31,12 @@ public class ToLaserBlade {
         // Register lifecycle event listeners
         final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
         modEventBus.addListener(this::initClient);
-        modEventBus.register(ToLaserBladeConfig.class);
 
         // Register config handlers
-        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, ToLaserBladeConfig.serverSpec);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, ToLaserBladeConfig.clientSpec);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, TLBServerConfig.SPEC);
+        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, TLBClientConfig.SPEC);
+        modEventBus.addListener(TLBServerConfig::onLoad);
+        modEventBus.addListener(TLBClientConfig::onLoad);
 
         // Register event handlers
         RegistryEventHandler.registerGameObjects(modEventBus);
@@ -54,7 +56,7 @@ public class ToLaserBlade {
 
     private void initClient(final FMLClientSetupEvent event) {
         // Get useFixedVertexBuffer only once at startup
-        canUseFixedVertexBuffer = ToLaserBladeConfig.CLIENT.useFixedVertexBuffer.get();
+        canUseFixedVertexBuffer = TLBClientConfig.useFixedVertexBuffer;
     }
 
     public static boolean canUseFixedVertexBuffer() {

@@ -1,6 +1,6 @@
 package com.github.iunius118.tolaserblade.world.item;
 
-import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
+import com.github.iunius118.tolaserblade.config.TLBServerConfig;
 import com.github.iunius118.tolaserblade.tags.ModItemTags;
 import net.minecraft.world.item.Tier;
 import net.minecraft.world.item.crafting.Ingredient;
@@ -13,7 +13,7 @@ public class ModItemTiers {
     private final static int LB_HARVEST_LEVEL = 3;
     private final static int LB_FP_HARVEST_LEVEL = 4;
     private static final int LB_MAX_USES = 32000;
-    private static final Supplier<Float> LB_SPEED = () -> (float) ToLaserBladeConfig.SERVER.laserBladeEfficiency.get();
+    private static final Supplier<Float> LB_SPEED = () -> (float) TLBServerConfig.laserBladeEfficiency;
     private final static float LB_DAMAGE_BONUS = 3.0F;
     private final static float LB_FP_DAMAGE_BONUS = 4.0F;
     private final static int LB_ENCHANTMENT_VALUE = 15;
