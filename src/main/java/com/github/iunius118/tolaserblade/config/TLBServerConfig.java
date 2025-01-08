@@ -10,6 +10,7 @@ public class TLBServerConfig {
     private static final ForgeConfigSpec.DoubleValue LASER_BLADE_BASE_DAMAGE;
     private static final ForgeConfigSpec.DoubleValue LASER_BLADE_BASE_SPEED;
     private static final ForgeConfigSpec.IntValue MAX_ATTACK_DAMAGE_UPGRADE_COUNT;
+    private static final ForgeConfigSpec.IntValue ATTACK_DAMAGE_UPGRADE_MULTIPLIER;
     private static final ForgeConfigSpec.BooleanValue IS_ENABLED_LASER_TRAP;
     private static final ForgeConfigSpec.BooleanValue CAN_LASER_TRAP_ATTACK_PLAYER;
     private static final ForgeConfigSpec.BooleanValue CAN_LASER_TRAP_HEAT_UP_FURNACE;
@@ -48,6 +49,11 @@ public class TLBServerConfig {
                         "Default: 8")
                 .translation("tolaserblade.configgui.server.maxAttackDamageUpgradeCount")
                 .defineInRange("maxAttackDamageUpgradeCount", 8, 0, 39);
+        ATTACK_DAMAGE_UPGRADE_MULTIPLIER = BUILDER
+                .comment("An integer value (1-2048) that is the damage multiplier for attack damage upgrade of Laser Blade.\n" +
+                        "Default: 1")
+                .translation("tolaserblade.configgui.server.attackDamageUpgradeMultiplier")
+                .defineInRange("attackDamageUpgradeMultiplier", 1, 1, 2048);
         IS_ENABLED_LASER_TRAP = BUILDER
                 .comment("Enable to attack with Laser Blade in Dispenser when the dispenser is activated.\n" +
                         "Default: true")
@@ -72,6 +78,7 @@ public class TLBServerConfig {
     public static float laserBladeBaseDamage = calcAttackDamage(LASER_BLADE_BASE_DAMAGE.getDefault());
     public static float laserBladeBaseSpeed = calcAttackSpeed(LASER_BLADE_BASE_SPEED.getDefault());
     public static int maxAttackDamageUpgradeCount = MAX_ATTACK_DAMAGE_UPGRADE_COUNT.getDefault();
+    public static float attackDamageUpgradeMultiplier = ATTACK_DAMAGE_UPGRADE_MULTIPLIER.getDefault().floatValue();
     public static boolean isEnabledLaserTrap = IS_ENABLED_LASER_TRAP.getDefault();
     public static boolean canLaserTrapAttackPlayer = CAN_LASER_TRAP_ATTACK_PLAYER.getDefault();
     public static boolean canLaserTrapHeatUpFurnace = CAN_LASER_TRAP_HEAT_UP_FURNACE.getDefault();
@@ -86,6 +93,7 @@ public class TLBServerConfig {
         laserBladeBaseDamage = calcAttackDamage(LASER_BLADE_BASE_DAMAGE.get());
         laserBladeBaseSpeed = calcAttackSpeed(LASER_BLADE_BASE_SPEED.get());
         maxAttackDamageUpgradeCount = MAX_ATTACK_DAMAGE_UPGRADE_COUNT.get();
+        attackDamageUpgradeMultiplier = ATTACK_DAMAGE_UPGRADE_MULTIPLIER.get().floatValue();
         isEnabledLaserTrap = IS_ENABLED_LASER_TRAP.get();
         canLaserTrapAttackPlayer = CAN_LASER_TRAP_ATTACK_PLAYER.get();
         canLaserTrapHeatUpFurnace = CAN_LASER_TRAP_HEAT_UP_FURNACE.get();

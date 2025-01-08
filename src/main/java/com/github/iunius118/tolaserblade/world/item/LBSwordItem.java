@@ -190,7 +190,7 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
 
             multimap.put(Attributes.ATTACK_DAMAGE,
                     new AttributeModifier(BASE_ATTACK_DAMAGE_UUID, "Weapon modifier",
-                            this.attackDamage + laserBlade.getDamage() + TLBServerConfig.laserBladeBaseDamage,
+                            this.attackDamage + laserBlade.getDamage(TLBServerConfig.attackDamageUpgradeMultiplier) + TLBServerConfig.laserBladeBaseDamage,
                             AttributeModifier.Operation.ADDITION));
             multimap.put(Attributes.ATTACK_SPEED,
                     new AttributeModifier(BASE_ATTACK_SPEED_UUID, "Weapon modifier",

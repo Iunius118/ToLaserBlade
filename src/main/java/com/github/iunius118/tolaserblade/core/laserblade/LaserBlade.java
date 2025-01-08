@@ -8,7 +8,7 @@ import net.minecraft.world.item.ItemStack;
 
 public class LaserBlade {
     public static final float MOD_ATK_MIN = 0.0F;
-    public static final float MOD_ATK_MAX = 2040.0F;
+    public static final float MOD_ATK_MAX = 4194304.0F;
     public static final float MOD_ATK_GIFT = 3.0F;
     public static final float MOD_ATK_CRITICAL_BONUS = 8.0F;
     public static final float MOD_CRITICAL_BONUS_VS_WITHER = 0.5F;
@@ -45,6 +45,14 @@ public class LaserBlade {
     public float getDamage() {
         if (tag != null) {
             return Mth.clamp(tag.getFloat(KEY_ATK), MOD_ATK_MIN, MOD_ATK_MAX);
+        }
+
+        return MOD_ATK_MIN;
+    }
+
+    public float getDamage(float multiplier) {
+        if (tag != null) {
+            return Mth.clamp(tag.getFloat(KEY_ATK) * multiplier, MOD_ATK_MIN, MOD_ATK_MAX);
         }
 
         return MOD_ATK_MIN;
