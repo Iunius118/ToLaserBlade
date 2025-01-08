@@ -32,23 +32,23 @@ public class TLBServerConfig {
                 .translation("tolaserblade.configgui.server.laserBladeEfficiency")
                 .defineInRange("laserBladeEfficiency", 12, 0, 128);
         LASER_BLADE_BASE_DAMAGE = BUILDER
-                .comment("A real value (0.0-254.0) that is the base attack damage of Laser Blade.\n" +
+                .comment("A real number value (0.0-2046.0) that is the base attack damage of Laser Blade.\n" +
                         "Default: 6.0")
                 .translation("tolaserblade.configgui.server.laserBladeBaseDamage")
-                .defineInRange("laserBladeBaseDamage", 6.0, 0.0, 254.0);
+                .defineInRange("laserBladeBaseDamage", 6.0, 0.0, 2046.0);
         LASER_BLADE_BASE_SPEED = BUILDER
-                .comment("A real value (0.8-2.8) that is the base attack speed of Laser Blade.\n" +
+                .comment("A real number value (0.8-2.8) that is the base attack speed of Laser Blade.\n" +
                         "Default: 2.8")
                 .translation("tolaserblade.configgui.server.laserBladeBaseSpeed")
                 .defineInRange("laserBladeBaseSpeed", 2.8, 0.8, 2.8);
         MAX_ATTACK_DAMAGE_UPGRADE_COUNT = BUILDER
-                .comment("An integer value (0-39) that is maximum count of attack damage upgrade of Laser Blade.\n" +
+                .comment("An integer value (0-2047) that is maximum count of attack damage upgrade of Laser Blade.\n" +
                         "Note:\n" +
                         "  Making the advancement [It's Over 9] requires 3 or more.\n" +
                         "  Similarly, [Beyond the Limit] requires 8 or more.\n" +
                         "Default: 8")
                 .translation("tolaserblade.configgui.server.maxAttackDamageUpgradeCount")
-                .defineInRange("maxAttackDamageUpgradeCount", 8, 0, 39);
+                .defineInRange("maxAttackDamageUpgradeCount", 8, 0, 2047);
         ATTACK_DAMAGE_UPGRADE_MULTIPLIER = BUILDER
                 .comment("An integer value (1-2048) that is the damage multiplier for attack damage upgrade of Laser Blade.\n" +
                         "Default: 1")
@@ -100,7 +100,7 @@ public class TLBServerConfig {
     }
 
     private static float calcAttackDamage(double d) {
-        // ((Entity) 1 + (Sword) 3 + (Laser Blade) 3 + (Netherite) [0, 1]) + ((config) d[0, 254] - 6) = [1, 256]
+        // ((Entity) 1 + (Sword) 3 + (Laser Blade) 3 + (Netherite) [0, 1]) + ((config) d[0, 2046] - 6) = [1, 2048]
         return (float) d - 6.0F;
     }
 

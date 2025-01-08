@@ -84,9 +84,9 @@ public class En_usLanguageProvider extends LanguageProvider {
         // Configs
         add("tolaserblade.configgui.server.enableBlockingWithLaserBlade", "Enable Blocking with Laser Blade");
         add("tolaserblade.configgui.server.laserBladeEfficiency", "Laser Blade Mining Speed (0–128)");
-        add("tolaserblade.configgui.server.laserBladeBaseDamage", "Laser Blade Base Attack Damage (0.0–254.0)");
+        add("tolaserblade.configgui.server.laserBladeBaseDamage", "Laser Blade Base Attack Damage (0.0–2046.0)");
         add("tolaserblade.configgui.server.laserBladeBaseSpeed", "Laser Blade Base Attack Speed (0.8–2.8)");
-        add("tolaserblade.configgui.server.maxAttackDamageUpgradeCount", "Max Count of Attack Damage Upgrade (0–39)");
+        add("tolaserblade.configgui.server.maxAttackDamageUpgradeCount", "Max Count of Attack Damage Upgrade (0–2047)");
         add("tolaserblade.configgui.server.attackDamageUpgradeMultiplier", "Damage Multiplier for Attack Damage Upgrade (1–2048)");
         add("tolaserblade.configgui.server.enableLaserTrap", "Enable Laser Trap");
         add("tolaserblade.configgui.server.canLaserTrapAttackPlayer", "Can Laser Trap Attack Player");

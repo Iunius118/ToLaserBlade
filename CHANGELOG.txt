@@ -3,8 +3,15 @@
 [Source](https://github.com/Iunius118/ToLaserBlade).
 
 ## [Unreleased]
+### Added
+- Add `laserBladeBaseDamage`, `laserBladeBaseSpeed`, and `attackDamageUpgradeMultiplier` to server-side config.
+
 ### Changed
 - Require Forge 1.20.1-47.3.0+.
+- Make base attack damage and base attack speed of laser blades configurable.
+- Make damage multiplier for attack damage upgrade configurable.
+- Increase upper limits of some config values.
+  Note that these limits are intended to avoid errors in damage calculations and not to guarantee a better combat experience.
 
 ## [1.20.1-7.0.1.1]
 ### Removed
