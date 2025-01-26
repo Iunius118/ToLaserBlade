@@ -22,51 +22,47 @@ public class TLBServerConfig {
                 .comment("ToLaserBlade's game server side settings.").push("server");
 
         IS_ENABLED_BLOCKING_WITH_LASER_BLADE = BUILDER
-                .comment("Enable blocking with Laser Blade.\n" +
-                        "Default: false")
+                .comment("Enable blocking with Laser Blade.")
                 .translation("tolaserblade.configgui.server.enableBlockingWithLaserBlade")
                 .define("enableBlockingWithLaserBlade", false);
         LASER_BLADE_EFFICIENCY = BUILDER
-                .comment("An integer value (0-128) that is a factor of mining speed of Laser Blade.\n" +
-                        "Default: 12")
+                .comment("An integer value (0-128) that is a factor of mining speed of Laser Blade.")
                 .translation("tolaserblade.configgui.server.laserBladeEfficiency")
                 .defineInRange("laserBladeEfficiency", 12, 0, 128);
         LASER_BLADE_BASE_DAMAGE = BUILDER
-                .comment("A real number value (0.0-2046.0) that is the base attack damage of Laser Blade.\n" +
-                        "Default: 6.0")
+                .comment("A real number value (0.0-2046.0) that is the base attack damage of Laser Blade.")
                 .translation("tolaserblade.configgui.server.laserBladeBaseDamage")
                 .defineInRange("laserBladeBaseDamage", 6.0, 0.0, 2046.0);
         LASER_BLADE_BASE_SPEED = BUILDER
-                .comment("A real number value (0.8-2.8) that is the base attack speed of Laser Blade.\n" +
-                        "Default: 2.8")
+                .comment("A real number value (0.8-2.8) that is the base attack speed of Laser Blade.")
                 .translation("tolaserblade.configgui.server.laserBladeBaseSpeed")
                 .defineInRange("laserBladeBaseSpeed", 2.8, 0.8, 2.8);
         MAX_ATTACK_DAMAGE_UPGRADE_COUNT = BUILDER
-                .comment("An integer value (0-2047) that is maximum count of attack damage upgrade of Laser Blade.\n" +
-                        "Note:\n" +
-                        "  Making the advancement [It's Over 9] requires 3 or more.\n" +
-                        "  Similarly, [Beyond the Limit] requires 8 or more.\n" +
-                        "Default: 8")
+                .comment("""
+                        An integer value (0-2047) that is maximum count of attack damage upgrade of Laser Blade.
+                        Note:
+                          Making the advancement [It's Over 9] requires 3 or more.
+                          Similarly, [Beyond the Limit] requires 8 or more.""")
                 .translation("tolaserblade.configgui.server.maxAttackDamageUpgradeCount")
                 .defineInRange("maxAttackDamageUpgradeCount", 8, 0, 2047);
         ATTACK_DAMAGE_UPGRADE_MULTIPLIER = BUILDER
-                .comment("An integer value (1-2048) that is the damage multiplier for attack damage upgrade of Laser Blade.\n" +
-                        "Default: 1")
+                .comment("An integer value (1-2048) that is the damage multiplier for attack damage upgrade of Laser Blade.")
                 .translation("tolaserblade.configgui.server.attackDamageUpgradeMultiplier")
                 .defineInRange("attackDamageUpgradeMultiplier", 1, 1, 2048);
         IS_ENABLED_LASER_TRAP = BUILDER
-                .comment("Enable to attack with Laser Blade in Dispenser when the dispenser is activated.\n" +
-                        "Default: true")
+                .comment("Enable to attack with Laser Blade in Dispenser when the dispenser is activated.")
                 .translation("tolaserblade.configgui.server.enableLaserTrap")
                 .define("enableLaserTrap", true);
         CAN_LASER_TRAP_ATTACK_PLAYER = BUILDER
-                .comment("A boolean value represents whether laser trap can attack player or not. This setting is valid when enableLaserTrap is true.\n" +
-                        "Default: true")
+                .comment("""
+                        A boolean value represents whether laser trap can attack player or not.
+                        This setting is valid when enableLaserTrap is true.""")
                 .translation("tolaserblade.configgui.server.canLaserTrapAttackPlayer")
                 .define("canLaserTrapAttackPlayer", true);
         CAN_LASER_TRAP_HEAT_UP_FURNACE = BUILDER
-                .comment("A boolean value represents whether laser trap with fireproof Laser Blade can heat up furnace or not. This setting is valid when enableLaserTrap is true.\n" +
-                        "Default: true")
+                .comment("""
+                        A boolean value represents whether laser trap with fireproof Laser Blade can heat up furnace or not.
+                        This setting is valid when enableLaserTrap is true.""")
                 .translation("tolaserblade.configgui.server.canLaserTrapHeatUpFurnace")
                 .define("canLaserTrapHeatUpFurnace", true);
 

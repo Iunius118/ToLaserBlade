@@ -17,27 +17,28 @@ public class TLBClientConfig {
                 .comment("ToLaserBlade's client side settings.").push("client");
 
         SHOW_UPDATE_MESSAGE = BUILDER
-                .comment("Enable to show update message.\n" +
-                        "Default: true")
+                .comment("Enable to show update message.")
                 .translation("tolaserblade.configgui.client.showUpdateMessage")
                 .define("showUpdateMessage", true);
         USE_ORIGINAL_MODEL_TYPE = BUILDER
-                .comment("Using mod model loader to load Laser Blade models. Set to false to use the model that loaded by vanilla model loader.\n" +
-                        "Need to reload resource packs after changing this.\n" +
-                        "Default: true")
+                .comment("""
+                        Using mod model loader to load Laser Blade models.
+                        Set to false to use the model that loaded by vanilla model loader.
+                        Need to reload resource packs after changing this.""")
                 .translation("tolaserblade.configgui.client.useOriginalModelType")
                 .define("useOriginalModelType", true);
         RENDER_MULTIPLE_MODELS = BUILDER
-                .comment("Enable to render Laser Blades using multiple models. This setting is valid when useOriginalModelLoader is true.\n" +
-                        "Set to false to use the model of defaultModelType.\n" +
-                        "Need to reload resource packs after changing this.\n" +
-                        "Default: true")
+                .comment("""
+                        Enable to render Laser Blades using multiple models. Set to false to use the model of defaultModelType.
+                        This setting is valid when useOriginalModelLoader is true.
+                        Need to reload resource packs after changing this.""")
                 .translation("tolaserblade.configgui.client.renderMultipleModels")
                 .define("renderMultipleModels", true);
         DEFAULT_MODEL = BUILDER
-                .comment("Select model number of laser blade to use when renderMultipleModels is false. This setting is valid when useOriginalModelType is true.\n" +
-                        "Need to reload resource packs after changing this.\n" +
-                        "Default: 0")
+                .comment("""
+                        A non-negative integer representing the model number of laser blades to use when renderMultipleModels is false.
+                        This setting is valid when useOriginalModelType is true.
+                        Need to reload resource packs after changing this.""")
                 .translation("tolaserblade.configgui.client.defaultModel")
                 .defineInRange("defaultModel", 0, 0, Integer.MAX_VALUE);
 
