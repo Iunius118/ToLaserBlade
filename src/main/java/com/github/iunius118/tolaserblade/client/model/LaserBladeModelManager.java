@@ -5,7 +5,7 @@ import com.github.iunius118.tolaserblade.api.client.event.LaserBladeModelRegistr
 import com.github.iunius118.tolaserblade.api.client.model.LaserBladeModel;
 import com.github.iunius118.tolaserblade.client.model.laserblade.LaserBladeJsonModelLoader;
 import com.github.iunius118.tolaserblade.client.model.laserblade.v1.LaserBladeModelV1;
-import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
+import com.github.iunius118.tolaserblade.config.TLBClientConfig;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeAppearance;
 import net.minecraft.client.Minecraft;
 import net.minecraft.resources.ResourceLocation;
@@ -41,8 +41,8 @@ public class LaserBladeModelManager {
     }
 
     public void reload() {
-        canUseOriginalModelType = ToLaserBladeConfig.CLIENT.useOriginalModelType.get();
-        canUseMultipleModels = ToLaserBladeConfig.CLIENT.renderMultipleModels.get();
+        canUseOriginalModelType = TLBClientConfig.useOriginalModelType;
+        canUseMultipleModels = TLBClientConfig.renderMultipleModels;
 
         if (!canUseOriginalModelType) {
             // Don't use original 3D models
@@ -58,7 +58,7 @@ public class LaserBladeModelManager {
         EVENT_BUS.post(new LaserBladeModelRegistrationEvent(models -> models.forEach(this::addModel)));
 
         // Set default model
-        int defaultModelNumber = ToLaserBladeConfig.CLIENT.defaultModel.get();
+        int defaultModelNumber = TLBClientConfig.defaultModel;
 
         if (models.containsKey(defaultModelNumber)) {
             defaultModel = models.get(defaultModelNumber);

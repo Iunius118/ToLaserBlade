@@ -1,7 +1,7 @@
 package com.github.iunius118.tolaserblade.core.laserblade;
 
 import com.github.iunius118.tolaserblade.api.core.laserblade.LaserBladeState;
-import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
+import com.github.iunius118.tolaserblade.config.TLBServerConfig;
 import com.github.iunius118.tolaserblade.core.component.ModDataComponents;
 import com.github.iunius118.tolaserblade.world.item.LaserBladeItemUtil;
 import com.github.iunius118.tolaserblade.world.item.ModToolMaterials;
@@ -20,7 +20,7 @@ public class LaserBlade {
     public static final float BASE_ATTACK = 3F;
     public static final float BASE_SPEED  = -1.2F;
     public static final float MOD_ATK_MIN = 0.0F;
-    public static final float MOD_ATK_MAX = 2040.0F;
+    public static final float MOD_ATK_MAX = 4194304.0F;
     public static final float MOD_ATK_GIFT = 3.0F;
     public static final float MOD_ATK_CRITICAL_BONUS = 8.0F;
     public static final float MOD_CRITICAL_BONUS_VS_WITHER = 0.5F;
@@ -34,6 +34,12 @@ public class LaserBlade {
         float attack = Objects.requireNonNullElseGet(itemStack.get(ModDataComponents.LASER_BLADE_ATTACK),
                 () -> LaserBladeDataMigrator.getAttack(itemStack)); // Attempt to get and migrate data from CUSTOM_DATA
         return Mth.clamp(attack, MOD_ATK_MIN, MOD_ATK_MAX);
+    }
+
+    public static float getAttack(ItemStack itemStack, float multiplier) {
+        float attack = Objects.requireNonNullElseGet(itemStack.get(ModDataComponents.LASER_BLADE_ATTACK),
+                () -> LaserBladeDataMigrator.getAttack(itemStack)); // Attempt to get and migrate data from CUSTOM_DATA
+        return Mth.clamp(attack * multiplier, MOD_ATK_MIN, MOD_ATK_MAX);
     }
 
     public static void setAttack(ItemStack itemStack, float damage) {
@@ -55,7 +61,7 @@ public class LaserBlade {
     }
 
     private static float getMaxAttackUpgradeCount() {
-        return (float) ToLaserBladeConfig.SERVER.maxAttackDamageUpgradeCount.get();
+        return (float) TLBServerConfig.maxAttackDamageUpgradeCount;
     }
 
     public static boolean canUpgradeSpeed(float speed) {
@@ -63,9 +69,12 @@ public class LaserBlade {
     }
 
     public static void updateItemAttributeModifiers(ItemStack itemStack) {
-        // Attack damage and speed from item compounds and base value
-        float attackDamage = LaserBlade.getAttack(itemStack) + BASE_ATTACK;
-        float attackSpeed  = LaserBlade.getSpeed(itemStack) + BASE_SPEED;
+        float damageUpgradeMultiplier = TLBServerConfig.attackDamageUpgradeMultiplier;
+        float baseDamage = TLBServerConfig.laserBladeBaseDamage;
+
+        // Attack damage and speed from item compounds, config values, and base values
+        float attackDamage = LaserBlade.getAttack(itemStack, damageUpgradeMultiplier) + baseDamage + BASE_ATTACK;
+        float attackSpeed  = LaserBlade.getSpeed(itemStack) + TLBServerConfig.laserBladeBaseSpeed + BASE_SPEED;
         Item item = itemStack.getItem();
 
         // Add attack damage bonus to attack damage

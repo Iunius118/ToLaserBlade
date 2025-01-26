@@ -5,7 +5,8 @@ import com.github.iunius118.tolaserblade.client.ClientModEventHandler;
 import com.github.iunius118.tolaserblade.client.model.LaserBladeModelManager;
 import com.github.iunius118.tolaserblade.common.CommonEventHandler;
 import com.github.iunius118.tolaserblade.common.RegistryEventHandler;
-import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
+import com.github.iunius118.tolaserblade.config.TLBClientConfig;
+import com.github.iunius118.tolaserblade.config.TLBServerConfig;
 import com.github.iunius118.tolaserblade.data.TLBDataGenerator;
 import com.github.iunius118.tolaserblade.data.TLBOldRecipeProvider6;
 import com.github.iunius118.tolaserblade.world.item.ItemEventHandler;
@@ -31,8 +32,10 @@ public class ToLaserBlade {
         // Register lifecycle event listeners
 
         // Register config handlers
-        modContainer.registerConfig(ModConfig.Type.SERVER, ToLaserBladeConfig.serverSpec);
-        modContainer.registerConfig(ModConfig.Type.CLIENT, ToLaserBladeConfig.clientSpec);
+        modContainer.registerConfig(ModConfig.Type.SERVER, TLBServerConfig.SPEC);
+        modContainer.registerConfig(ModConfig.Type.CLIENT, TLBClientConfig.SPEC);
+        modEventBus.addListener(TLBServerConfig::onLoad);
+        modEventBus.addListener(TLBClientConfig::onLoad);
 
         // Register event handlers
         RegistryEventHandler.registerGameObjects(modEventBus);

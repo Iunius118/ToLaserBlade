@@ -1,7 +1,7 @@
 package com.github.iunius118.tolaserblade.common;
 
 import com.github.iunius118.tolaserblade.client.ClientModEventHandler;
-import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
+import com.github.iunius118.tolaserblade.config.TLBClientConfig;
 import net.minecraft.world.entity.player.Player;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.entity.EntityJoinLevelEvent;
@@ -18,7 +18,7 @@ public class CommonEventHandler {
     public static void onEntityJoiningInWorld(final EntityJoinLevelEvent event) {
         if (event.getLevel().isClientSide && event.getEntity() instanceof Player) {
             // In client
-            if (ToLaserBladeConfig.CLIENT.showUpdateMessage.get() && !hasShownUpdate) {
+            if (TLBClientConfig.showUpdateMessage && !hasShownUpdate) {
                 ClientModEventHandler.checkUpdate();
                 hasShownUpdate = true;
             }

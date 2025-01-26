@@ -1,7 +1,7 @@
 package com.github.iunius118.tolaserblade.core.dispenser;
 
 import com.github.iunius118.tolaserblade.common.util.LaserTrapPlayer;
-import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
+import com.github.iunius118.tolaserblade.config.TLBServerConfig;
 import com.github.iunius118.tolaserblade.mixin.AbstractFurnaceBlockEntityAccessor;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.dispenser.BlockSource;
@@ -21,7 +21,7 @@ public class DispenseLaserBladeBehavior implements DispenseItemBehavior {
 
     @Override
     public ItemStack dispense(BlockSource blockSource, ItemStack itemStack) {
-        if (!ToLaserBladeConfig.SERVER.isEnabledLaserTrap.get()) {
+        if (!TLBServerConfig.isEnabledLaserTrap) {
             return DEFAULT_ITEM_BEHAVIOR.dispense(blockSource, itemStack);
         }
 
@@ -30,7 +30,7 @@ public class DispenseLaserBladeBehavior implements DispenseItemBehavior {
         var dir = blockSource.state().getValue(DispenserBlock.FACING);
         var targetBlockEntity = serverLevel.getBlockEntity(pos.relative(dir));
 
-        if (ToLaserBladeConfig.SERVER.canLaserTrapHeatUpFurnace.get()
+        if (TLBServerConfig.canLaserTrapHeatUpFurnace
                 && targetBlockEntity instanceof AbstractFurnaceBlockEntity furnace) {
             // Laser furnace mode
             litFurnace(furnace, itemStack);

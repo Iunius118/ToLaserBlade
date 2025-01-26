@@ -1,6 +1,6 @@
 package com.github.iunius118.tolaserblade.world.item;
 
-import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
+import com.github.iunius118.tolaserblade.config.TLBServerConfig;
 import com.github.iunius118.tolaserblade.core.dispenser.DispenseLaserBladeBehavior;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBlade;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeAppearance;
@@ -171,7 +171,7 @@ public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
     public float getDestroySpeed(ItemStack stack, BlockState state) {
         // Normally the config value is used, but it can be overwritten by Tool component
         if (!stack.has(DataComponents.TOOL)) {
-            return (float) ToLaserBladeConfig.SERVER.laserBladeEfficiency.get();
+            return (float) TLBServerConfig.laserBladeEfficiency;
         } else {
             return super.getDestroySpeed(stack, state);
         }
