@@ -1,13 +1,13 @@
 package com.github.iunius118.tolaserblade.core.laserblade;
 
-import com.github.iunius118.tolaserblade.config.ToLaserBladeConfig;
+import com.github.iunius118.tolaserblade.config.TLBServerConfig;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemUseAnimation;
 
 public class LaserBladeBlocking {
     public static boolean isShield() {
-        return ToLaserBladeConfig.SERVER.isEnabledBlockingWithLaserBlade.get();
+        return TLBServerConfig.isEnabledBlockingWithLaserBlade;
     }
 
     public static ItemUseAnimation getUseAction() {

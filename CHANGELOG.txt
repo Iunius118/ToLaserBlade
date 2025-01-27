@@ -4,6 +4,14 @@
 
 ## [Unreleased]
 
+### Added
+- Add `laserBladeBaseDamage`, `laserBladeBaseSpeed`, and `attackDamageUpgradeMultiplier` to server-side config.
+
+### Changed
+- Make base attack damage and base attack speed of laser blades configurable.
+- Make damage multiplier of attack damage upgrade configurable.
+- Change limits of `maxAttackDamageUpgradeCount` in server-side config.
+
 ## [12.0.0 Forge]
 ### Added
 - Add special model type `tolaserblade:laser_blade` to render laser blade items.
