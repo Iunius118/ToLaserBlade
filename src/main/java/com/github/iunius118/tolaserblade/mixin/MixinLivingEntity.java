@@ -26,7 +26,7 @@ public abstract class MixinLivingEntity extends Entity implements Attackable, IF
     private void onIsDamageSourceBlocked(DamageSource damageSource, CallbackInfoReturnable<Boolean> cir) {
         // Provide blocking function to laser blades
         var livingEntity = LivingEntity.class.cast(this);
-        var useItem = livingEntity.getUseItem().getItem() ;
+        var useItem = livingEntity.getUseItem().getItem();
 
         if (!(useItem instanceof LBSwordItem)) {
             return;
