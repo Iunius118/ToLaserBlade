@@ -84,7 +84,7 @@ public class TLBServerConfig {
     public static boolean canLaserTrapHeatUpFurnace = CAN_LASER_TRAP_HEAT_UP_FURNACE.getDefault();
 
     public static void onLoad(final ModConfigEvent event) {
-        if (event.getConfig().getSpec() != SPEC) {
+        if (event.getConfig().getSpec() != SPEC || !SPEC.isLoaded()) {
             return;
         }
 
