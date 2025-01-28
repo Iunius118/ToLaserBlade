@@ -3,6 +3,8 @@
 [Source](https://github.com/Iunius118/ToLaserBlade).
 
 ## [Unreleased]
+
+## [12.1.1 NeoForge]
 ### Fixed
 - Fix exception thrown by TLBServerConfig when world is unloaded.
 
