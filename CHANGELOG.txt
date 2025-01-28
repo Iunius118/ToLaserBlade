@@ -4,6 +4,11 @@
 
 ## [Unreleased]
 
+## [1.20.1-7.0.2.1]
+### Fixed
+- Fix exception thrown by TLBServerConfig when world is unloaded.
+- Descriptions of config values.
+
 ## [1.20.1-7.0.2.0]
 ### Added
 - Add `laserBladeBaseDamage`, `laserBladeBaseSpeed`, and `attackDamageUpgradeMultiplier` to server-side config.
