@@ -4,6 +4,7 @@
 
 ## [Unreleased]
 
+## [12.1.0 Forge]
 ### Added
 - Add `laserBladeBaseDamage`, `laserBladeBaseSpeed`, and `attackDamageUpgradeMultiplier` to server-side config.
 

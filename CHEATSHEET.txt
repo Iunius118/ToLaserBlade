@@ -1,5 +1,5 @@
 # Cheatsheet
-ToLaserBlade v12.0.0 (Forge)
+ToLaserBlade v12.1.0 (Forge)
 
 ## How to Get Started
 ### 1. Craft a Brand-new Laser Blade I or II, and Use It
@@ -15,8 +15,8 @@ Using smithing table, you can upgrade your laser blade.
 - ID: `tolaserblade:dx_laser_blade`
 - Tool type: Sword
 - Durability: 255
-- Basic attack damage: 5
-- Basic attack speed: 2.8
+- Base attack damage: 5
+- Base attack speed: 2.8
 - Enchanting: Available on Enchanting Table or Anvil
 - Sneak-right-clicking a block: place a redstone torch and consume the durability
 - Right-clicking a redstone torch: consume the redstone torch and recover the durability
@@ -107,13 +107,14 @@ Using smithing table, you can upgrade your laser blade.
 - ID (fireproof): `tolaserblade:laser_blade_fp`
 - Tool type: Sword
 - Durability: 32000
-- Basic attack damage: 7
-- Basic attack speed: 2.8
+- Base attack damage: 7 or 8 (fireproof)
+- Base attack speed: 2.8
 - Enchanting: See Upgrading Laser Blades
 - Mining level: 3 or 4 (fireproof)
 - Mining speed: Affected by Efficiency level
 - Repairing: See Repairing Laser Blades
 - When the durability of the laser blade reaches 0, the laser blade will break, and you will obtain a broken laser blade
+- Base attack damage, base attack speed, and mining speed are configurable in server-side config file
 
 ### Broken Laser Blade
 - ID: `tolaserblade:lb_broken`
