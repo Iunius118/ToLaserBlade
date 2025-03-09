@@ -18,6 +18,14 @@ public class TLBSoundDefinitionsProvider extends SoundDefinitionsProvider {
         addSingleFileSound(ModSoundEvents.ITEM_DX_LASER_BLADE_SWING);
         addSingleFileSound(ModSoundEvents.ITEM_LASER_BLADE_SWING);
         addSingleFileSound(ModSoundEvents.ITEM_LASER_BLADE_FP_SWING);
+        addSingleFileSound(ModSoundEvents.ITEM_DX_LASER_BLADE_HIT);
+        addSingleFileSound(ModSoundEvents.ITEM_LASER_BLADE_HIT);
+        addSingleFileSound(ModSoundEvents.ITEM_LASER_BLADE_FP_HIT);
+        addSingleFileSound(ModSoundEvents.ITEM_LASER_BLADE_BLOCK);
+        addSingleFileSound(ModSoundEvents.ITEM_LASER_BLADE_FP_BLOCK);
+        addSingleFileSound(ModSoundEvents.ITEM_LASER_TRAP_ACTIVATE);
+        addSingleFileSound(ModSoundEvents.ITEM_LB_BRAND_NEW_USE);
+        addSingleFileSound(ModSoundEvents.ITEM_LB_BRAND_NEW_FP_USE);
     }
 
     private void addSingleFileSound(SoundEvent soundEvent) {

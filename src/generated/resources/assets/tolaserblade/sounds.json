@@ -1,7 +1,22 @@
 {
+  "item.dx_laser_blade.hit": {
+    "sounds": [
+      "tolaserblade:item/dx_laser_blade/hit"
+    ]
+  },
   "item.dx_laser_blade.swing": {
     "sounds": [
       "tolaserblade:item/dx_laser_blade/swing"
+    ]
+  },
+  "item.laser_blade.block": {
+    "sounds": [
+      "tolaserblade:item/laser_blade/block"
+    ]
+  },
+  "item.laser_blade.hit": {
+    "sounds": [
+      "tolaserblade:item/laser_blade/hit"
     ]
   },
   "item.laser_blade.swing": {
@@ -9,9 +24,34 @@
       "tolaserblade:item/laser_blade/swing"
     ]
   },
+  "item.laser_blade_fp.block": {
+    "sounds": [
+      "tolaserblade:item/laser_blade_fp/block"
+    ]
+  },
+  "item.laser_blade_fp.hit": {
+    "sounds": [
+      "tolaserblade:item/laser_blade_fp/hit"
+    ]
+  },
   "item.laser_blade_fp.swing": {
     "sounds": [
       "tolaserblade:item/laser_blade_fp/swing"
+    ]
+  },
+  "item.laser_trap.activate": {
+    "sounds": [
+      "tolaserblade:item/laser_trap/activate"
+    ]
+  },
+  "item.lb_brand_new.use": {
+    "sounds": [
+      "tolaserblade:item/lb_brand_new/use"
+    ]
+  },
+  "item.lb_brand_new_fp.use": {
+    "sounds": [
+      "tolaserblade:item/lb_brand_new_fp/use"
     ]
   }
 }
