@@ -7,6 +7,7 @@ import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeTextKey;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.Upgrade;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundSource;
@@ -23,6 +24,7 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.api.distmarker.OnlyIn;
+import net.neoforged.neoforge.event.PlayLevelSoundEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 
 import java.util.List;
@@ -61,6 +63,13 @@ public class LaserBladeItemUtil {
         var soundEvent = isFireResistant(itemStack) ? ModSoundEvents.ITEM_LASER_BLADE_FP_HIT : ModSoundEvents.ITEM_LASER_BLADE_HIT;
         Vec3 pos = target.position().add(0, target.getEyeHeight(), 0);
         level.playSound(null, pos.x, pos.y, pos.z, soundEvent, SoundSource.AMBIENT, 1.0F, 1.0F);
+    }
+
+    public static void playBlockSound(PlayLevelSoundEvent.AtEntity event, ItemStack itemStack) {
+        var soundEvent = isFireResistant(itemStack) ? ModSoundEvents.ITEM_LASER_BLADE_FP_BLOCK : ModSoundEvents.ITEM_LASER_BLADE_BLOCK;
+        event.setSound(BuiltInRegistries.SOUND_EVENT.wrapAsHolder(soundEvent));
+        event.setNewVolume(1.0F);
+        event.setNewPitch(1.0F);
     }
 
     @OnlyIn(Dist.CLIENT)
