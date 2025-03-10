@@ -3,6 +3,7 @@ package com.github.iunius118.tolaserblade.world.item;
 import com.github.iunius118.tolaserblade.common.util.ModSoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
@@ -14,10 +15,6 @@ import net.minecraft.world.phys.BlockHitResult;
 import net.minecraft.world.phys.Vec3;
 
 public class DXLaserBladeItemUtil {
-    private DXLaserBladeItemUtil() {
-
-    }
-
     public static InteractionResult useOn(UseOnContext context) {
         var level = context.getLevel();
         var player = context.getPlayer();
@@ -96,4 +93,11 @@ public class DXLaserBladeItemUtil {
         Vec3 pos = entity.position().add(0, entity.getEyeHeight(), 0).add(entity.getLookAngle());
         level.playSound(null, pos.x, pos.y, pos.z, ModSoundEvents.ITEM_DX_LASER_BLADE_SWING, SoundSource.PLAYERS, 0.5F, 1.0F);
     }
+
+    public static void playHitSound(Level level, Entity target, ItemStack itemStack) {
+        Vec3 pos = target.position().add(0, target.getEyeHeight(), 0);
+        level.playSound(null, pos.x, pos.y, pos.z, ModSoundEvents.ITEM_DX_LASER_BLADE_HIT, SoundSource.AMBIENT, 1.0F, 1.0F);
+    }
+
+    private DXLaserBladeItemUtil() {}
 }

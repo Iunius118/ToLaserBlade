@@ -1,9 +1,11 @@
 package com.github.iunius118.tolaserblade.world.item;
 
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
 import net.neoforged.bus.api.SubscribeEvent;
+import net.neoforged.neoforge.event.entity.player.AttackEntityEvent;
 import net.neoforged.neoforge.event.entity.player.CriticalHitEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerInteractEvent;
@@ -44,5 +46,28 @@ public class ItemEventHandler {
     @SubscribeEvent
     public static void onMineBlock(PlayerEvent.BreakSpeed event) {
         LaserBladeItemUtil.changeDestroySpeed(event);
+    }
+
+    @SubscribeEvent
+    public static void onAttackEntity(AttackEntityEvent event) {
+        var player = event.getEntity();
+        var level = player.level();
+
+        if (level.isClientSide() || player.isSpectator()) {
+            return;
+        }
+
+        Entity target = event.getTarget();
+        var itemStack = player.getMainHandItem();
+        var item = itemStack.getItem();
+
+        // Play sound effect when a player attacks an entity with laser blade
+        if (item instanceof LBSwordItem) {
+            // Laser Blade (normal/FP)
+            LaserBladeItemUtil.playHitSound(level, target, itemStack);
+        } else if (item instanceof DXLaserBladeItem) {
+            // DX Laser B1ade
+            DXLaserBladeItemUtil.playHitSound(level, target, itemStack);
+        }
     }
 }
