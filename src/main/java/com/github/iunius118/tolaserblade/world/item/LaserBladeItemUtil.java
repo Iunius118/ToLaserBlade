@@ -55,14 +55,14 @@ public class LaserBladeItemUtil {
 
     public static void playSwingSound(Level level, LivingEntity entity, boolean isFireResistant) {
         var soundEvent = isFireResistant ? ModSoundEvents.ITEM_LASER_BLADE_FP_SWING : ModSoundEvents.ITEM_LASER_BLADE_SWING;
-        Vec3 pos = entity.position().add(0, entity.getEyeHeight(), 0).add(entity.getLookAngle());
-        level.playSound(null, pos.x, pos.y, pos.z, soundEvent, SoundSource.PLAYERS, 0.5F, 1.0F);
+        Vec3 pos = entity.position();
+        level.playSound(null, pos.x, pos.y, pos.z, soundEvent, SoundSource.PLAYERS, 1.0F, 1.0F);
     }
 
     public static void playHitSound(Level level, Entity target, ItemStack itemStack) {
         var soundEvent = isFireResistant(itemStack) ? ModSoundEvents.ITEM_LASER_BLADE_FP_HIT : ModSoundEvents.ITEM_LASER_BLADE_HIT;
         Vec3 pos = target.position().add(0, target.getEyeHeight(), 0);
-        level.playSound(null, pos.x, pos.y, pos.z, soundEvent, SoundSource.AMBIENT, 1.0F, 1.0F);
+        level.playSound(null, pos.x, pos.y, pos.z, soundEvent, target.getSoundSource(), 1.0F, 1.0F);
     }
 
     public static void playBlockSound(PlayLevelSoundEvent.AtEntity event, ItemStack itemStack) {
