@@ -36,6 +36,7 @@ public class TLBDataGenerator {
         event.addProvider(new TLBModelProvider(packOutput));
         TLBLanguageProvider.addProviders(event);
         event.addProvider(new TLBSoundDefinitionsProvider(packOutput));
+        TLBSampleSoundPackProvider.addProviders(event);
     }
 
     private static RegistrySetBuilder getEntriesBuilder() {
