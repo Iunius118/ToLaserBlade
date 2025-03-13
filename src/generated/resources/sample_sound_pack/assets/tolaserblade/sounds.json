@@ -25,19 +25,19 @@
       "tolaserblade:item/dx_laser_blade/swing",
       {
         "name": "tolaserblade:item/dx_laser_blade/swing",
+        "pitch": 1.025
+      },
+      {
+        "name": "tolaserblade:item/dx_laser_blade/swing",
         "pitch": 1.05
       },
       {
         "name": "tolaserblade:item/dx_laser_blade/swing",
+        "pitch": 1.075
+      },
+      {
+        "name": "tolaserblade:item/dx_laser_blade/swing",
         "pitch": 1.1
-      },
-      {
-        "name": "tolaserblade:item/dx_laser_blade/swing",
-        "pitch": 1.15
-      },
-      {
-        "name": "tolaserblade:item/dx_laser_blade/swing",
-        "pitch": 1.2
       }
     ]
   },
@@ -46,19 +46,19 @@
       "tolaserblade:item/laser_blade/block",
       {
         "name": "tolaserblade:item/laser_blade/block",
+        "pitch": 1.025
+      },
+      {
+        "name": "tolaserblade:item/laser_blade/block",
         "pitch": 1.05
       },
       {
         "name": "tolaserblade:item/laser_blade/block",
+        "pitch": 1.075
+      },
+      {
+        "name": "tolaserblade:item/laser_blade/block",
         "pitch": 1.1
-      },
-      {
-        "name": "tolaserblade:item/laser_blade/block",
-        "pitch": 1.15
-      },
-      {
-        "name": "tolaserblade:item/laser_blade/block",
-        "pitch": 1.2
       }
     ]
   },
@@ -88,19 +88,19 @@
       "tolaserblade:item/laser_blade/swing",
       {
         "name": "tolaserblade:item/laser_blade/swing",
+        "pitch": 1.025
+      },
+      {
+        "name": "tolaserblade:item/laser_blade/swing",
         "pitch": 1.05
       },
       {
         "name": "tolaserblade:item/laser_blade/swing",
+        "pitch": 1.075
+      },
+      {
+        "name": "tolaserblade:item/laser_blade/swing",
         "pitch": 1.1
-      },
-      {
-        "name": "tolaserblade:item/laser_blade/swing",
-        "pitch": 1.15
-      },
-      {
-        "name": "tolaserblade:item/laser_blade/swing",
-        "pitch": 1.2
       }
     ]
   },
@@ -109,19 +109,19 @@
       "tolaserblade:item/laser_blade_fp/block",
       {
         "name": "tolaserblade:item/laser_blade_fp/block",
+        "pitch": 1.025
+      },
+      {
+        "name": "tolaserblade:item/laser_blade_fp/block",
         "pitch": 1.05
       },
       {
         "name": "tolaserblade:item/laser_blade_fp/block",
+        "pitch": 1.075
+      },
+      {
+        "name": "tolaserblade:item/laser_blade_fp/block",
         "pitch": 1.1
-      },
-      {
-        "name": "tolaserblade:item/laser_blade_fp/block",
-        "pitch": 1.15
-      },
-      {
-        "name": "tolaserblade:item/laser_blade_fp/block",
-        "pitch": 1.2
       }
     ]
   },
@@ -151,19 +151,19 @@
       "tolaserblade:item/laser_blade_fp/swing",
       {
         "name": "tolaserblade:item/laser_blade_fp/swing",
+        "pitch": 1.025
+      },
+      {
+        "name": "tolaserblade:item/laser_blade_fp/swing",
         "pitch": 1.05
       },
       {
         "name": "tolaserblade:item/laser_blade_fp/swing",
+        "pitch": 1.075
+      },
+      {
+        "name": "tolaserblade:item/laser_blade_fp/swing",
         "pitch": 1.1
-      },
-      {
-        "name": "tolaserblade:item/laser_blade_fp/swing",
-        "pitch": 1.15
-      },
-      {
-        "name": "tolaserblade:item/laser_blade_fp/swing",
-        "pitch": 1.2
       }
     ]
   },

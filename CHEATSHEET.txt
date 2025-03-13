@@ -266,6 +266,12 @@ This data pack reverts the laser blade recipes to version 6.
   - R, I, g;
 - Attack Damage Upgrade (smithing): Laser Blade Blueprint + Laser Blade + Diamond
 
+## Resource pack
+Built-in optional resource pack
+
+### TLB Sample Sound Pack
+This resource pack adds some audio files to the game for testing mod sound events.
+
 ## Related Mod
 ### ToLaserBlade-ExtraModels
 A ToLaserBlade add-on to add more laser blade shapes.

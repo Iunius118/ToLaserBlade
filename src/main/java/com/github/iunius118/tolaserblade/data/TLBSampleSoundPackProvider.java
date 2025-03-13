@@ -63,7 +63,7 @@ public class TLBSampleSoundPackProvider {
 
         @Override
         public void registerSounds() {
-            final float[] pitch1 = new float[]{1.0F, 1.05F, 1.1F, 1.15F, 1.2F};
+            final float[] pitch1 = new float[]{1.0F, 1.025F, 1.05F, 1.075F, 1.1F};
             final float[] pitch2 = new float[]{1.0F, 1.1F, 1.2F, 1.3F, 1.4F};
 
             addSingleFileSound(ModSoundEvents.ITEM_DX_LASER_BLADE_SWING, pitch1);
