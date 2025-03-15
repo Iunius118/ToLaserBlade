@@ -45,6 +45,7 @@ public class ToLaserBlade {
         modEventBus.addListener(this::gatherData);
         modEventBus.addListener(ModCreativeModeTabs::onCreativeModeTabBuildContents);
         modEventBus.addListener(TLBOldRecipeProvider6::addPackFinders);
+        modEventBus.addListener(TLBSampleSoundPackProvider::addPackFinders);
         MinecraftForge.EVENT_BUS.register(CommonEventHandler.class);
         MinecraftForge.EVENT_BUS.register(ItemEventHandler.class);
 
@@ -91,5 +92,6 @@ public class ToLaserBlade {
         dataGenerator.addProvider(includesClient, new TLBItemModelProvider(packOutput, existingFileHelper));
         TLBLanguageProvider.addProviders(includesClient, dataGenerator, packOutput);
         dataGenerator.addProvider(includesClient, new TLBSoundDefinitionsProvider(packOutput, existingFileHelper));
+        TLBSampleSoundPackProvider.addProviders(event);
     }
 }
