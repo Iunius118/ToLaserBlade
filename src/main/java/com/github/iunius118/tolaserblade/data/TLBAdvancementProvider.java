@@ -42,7 +42,7 @@ public class TLBAdvancementProvider extends ForgeAdvancementProvider {
                     .display(LaserBladeItemStack.ICON.getCopy(),
                             Component.translatable("advancements.tolaserblade.main.root.title"),
                             Component.translatable("advancements.tolaserblade.main.root.description"),
-                            new ResourceLocation("textures/block/polished_andesite.png"),
+                            ResourceLocation.withDefaultNamespace("textures/block/polished_andesite.png"),
                             FrameType.TASK, false, false, false)
                     .addCriterion("has_redstone", InventoryChangeTrigger.TriggerInstance.hasItems(Items.REDSTONE))
                     .addCriterion("has_dx_laser_blade", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.DX_LASER_BLADE))

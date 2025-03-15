@@ -28,13 +28,13 @@ public class CommonEventHandler {
 
         final Map<ResourceLocation, Item> remappingItemMap = new HashMap<>();
         // Replace item ID "tolaserblade:tolaserblade.laser_blade" (-1.11.2) with "tolaserblade:laser_blade" (1.12-)
-        remappingItemMap.put(new ResourceLocation(ToLaserBlade.MOD_ID, "tolaserblade.laser_blade"), ModItems.LASER_BLADE);
+        remappingItemMap.put(ToLaserBlade.makeId("tolaserblade.laser_blade"), ModItems.LASER_BLADE);
 
         // Replace item ID "tolaserblade:lasar_blade" (-1.14.4) with "tolaserblade:dx_laser_blade" (1.15-)
-        remappingItemMap.put(new ResourceLocation(ToLaserBlade.MOD_ID, "lasar_blade"), ModItems.DX_LASER_BLADE);
+        remappingItemMap.put(ToLaserBlade.makeId("lasar_blade"), ModItems.DX_LASER_BLADE);
 
         // Replace item ID "tolaserblade:laser_blade_core" (-1.14.4) with "tolaserblade:lb_broken" (1.15-)
-        remappingItemMap.put(new ResourceLocation(ToLaserBlade.MOD_ID, "laser_blade_core"), ModItems.LB_BROKEN);
+        remappingItemMap.put(ToLaserBlade.makeId("laser_blade_core"), ModItems.LB_BROKEN);
 
         // Replace item IDs
         event.getAllMappings(ForgeRegistries.Keys.ITEMS).stream()

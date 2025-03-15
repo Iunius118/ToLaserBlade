@@ -44,7 +44,7 @@ public class LBColorRecipeBuilder {
     }
 
     public void build(Consumer<FinishedRecipe> consumer, String id) {
-        build(consumer, new ResourceLocation(id));
+        build(consumer, ResourceLocation.parse(id));
     }
 
     public void build(Consumer<FinishedRecipe> consumer, ResourceLocation id) {
@@ -53,11 +53,11 @@ public class LBColorRecipeBuilder {
         }
 
         advancementBuilder
-                .parent(new ResourceLocation("recipes/root"))
+                .parent(ResourceLocation.withDefaultNamespace("recipes/root"))
                 .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))
                 .rewards(AdvancementRewards.Builder.recipe(id))
                 .requirements(RequirementsStrategy.OR);
-        consumer.accept(new LBColorRecipeBuilder.Result(id, serializer, template, base, addition, part, color, advancementBuilder, new ResourceLocation(id.getNamespace(), "recipes/" + id.getPath())));
+        consumer.accept(new LBColorRecipeBuilder.Result(id, serializer, template, base, addition, part, color, advancementBuilder, ResourceLocation.fromNamespaceAndPath(id.getNamespace(), "recipes/" + id.getPath())));
     }
 
     public static class Result implements FinishedRecipe {

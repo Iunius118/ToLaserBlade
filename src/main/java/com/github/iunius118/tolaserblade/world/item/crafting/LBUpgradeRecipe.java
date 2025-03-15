@@ -123,7 +123,7 @@ public class LBUpgradeRecipe extends SmithingTransformRecipe {
             Ingredient template = Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "template"));
             Ingredient base = Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "base"));
             Ingredient addition = Ingredient.fromJson(GsonHelper.getAsJsonObject(json, "addition"));
-            ResourceLocation upgradeId = new ResourceLocation(GsonHelper.getAsJsonObject(json, "result").get("type").getAsString());
+            ResourceLocation upgradeId = ResourceLocation.parse(GsonHelper.getAsJsonObject(json, "result").get("type").getAsString());
             return new LBUpgradeRecipe(recipeId, template, base, addition, upgradeId);
         }
 

@@ -36,7 +36,7 @@ import java.util.function.Consumer;
 
 public class TLBOldRecipeProvider6 {
     private final static String PACK_PATH = "old_lb_recipes_6";
-    private final static ResourceLocation PACK_ID = new ResourceLocation(ToLaserBlade.MOD_ID, PACK_PATH);
+    private final static ResourceLocation PACK_ID = ToLaserBlade.makeId(PACK_PATH);
 
     private TLBOldRecipeProvider6() {}
 

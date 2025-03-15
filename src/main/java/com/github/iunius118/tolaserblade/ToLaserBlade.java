@@ -1,5 +1,6 @@
 package com.github.iunius118.tolaserblade;
 
+import com.github.iunius118.tolaserblade.api.ToLaserBladeAPI;
 import com.github.iunius118.tolaserblade.client.ClientModEventHandler;
 import com.github.iunius118.tolaserblade.common.CommonEventHandler;
 import com.github.iunius118.tolaserblade.common.RegistryEventHandler;
@@ -9,10 +10,10 @@ import com.github.iunius118.tolaserblade.data.*;
 import com.github.iunius118.tolaserblade.world.item.ItemEventHandler;
 import com.github.iunius118.tolaserblade.world.item.ModCreativeModeTabs;
 import com.mojang.logging.LogUtils;
+import net.minecraft.resources.ResourceLocation;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.data.event.GatherDataEvent;
 import net.minecraftforge.eventbus.api.IEventBus;
-import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
 import net.minecraftforge.fml.event.lifecycle.FMLClientSetupEvent;
@@ -27,14 +28,14 @@ public class ToLaserBlade {
 
     public static final Logger LOGGER = LogUtils.getLogger();
 
-    public ToLaserBlade() {
+    public ToLaserBlade(FMLJavaModLoadingContext context) {
         // Register lifecycle event listeners
-        final IEventBus modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
+        final IEventBus modEventBus = context.getModEventBus();
         modEventBus.addListener(this::initClient);
 
         // Register config handlers
-        ModLoadingContext.get().registerConfig(ModConfig.Type.SERVER, TLBServerConfig.SPEC);
-        ModLoadingContext.get().registerConfig(ModConfig.Type.CLIENT, TLBClientConfig.SPEC);
+        context.registerConfig(ModConfig.Type.SERVER, TLBServerConfig.SPEC);
+        context.registerConfig(ModConfig.Type.CLIENT, TLBClientConfig.SPEC);
         modEventBus.addListener(TLBServerConfig::onLoad);
         modEventBus.addListener(TLBClientConfig::onLoad);
 
@@ -57,6 +58,10 @@ public class ToLaserBlade {
     private void initClient(final FMLClientSetupEvent event) {
         // Get useFixedVertexBuffer only once at startup
         canUseFixedVertexBuffer = TLBClientConfig.useFixedVertexBuffer;
+    }
+
+    public static ResourceLocation makeId(String name) {
+        return ResourceLocation.fromNamespaceAndPath(MOD_ID, name);
     }
 
     public static boolean canUseFixedVertexBuffer() {

@@ -29,7 +29,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 public class LaserBladeModelV1 extends SimpleLaserBladeModel {
-    private static final ResourceLocation TEXTURE = new ResourceLocation(ToLaserBlade.MOD_ID, "textures/item/laser_blade_3d.png");
+    private static final ResourceLocation TEXTURE = ToLaserBlade.makeId("textures/item/laser_blade_3d.png");
     private static final Logger LOGGER = ToLaserBlade.LOGGER;
     private static final String MODEL_TYPE = "tolaserblade:model_v1";
 
