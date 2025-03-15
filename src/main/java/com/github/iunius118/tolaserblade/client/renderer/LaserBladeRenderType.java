@@ -128,7 +128,7 @@ public class LaserBladeRenderType {
 
     @OnlyIn(Dist.CLIENT)
     private static class LaserBladeTextureState extends TextureStateShard {
-        private static final ResourceLocation TEXTURE = new ResourceLocation("forge", "textures/white.png");
+        private static final ResourceLocation TEXTURE = ResourceLocation.fromNamespaceAndPath("forge", "textures/white.png");
 
         public LaserBladeTextureState() {
             super(TEXTURE, false, false);

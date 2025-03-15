@@ -1,7 +1,6 @@
 package com.github.iunius118.tolaserblade.client;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
-import com.github.iunius118.tolaserblade.api.client.event.LaserBladeModelRegistrationEvent;
 import com.github.iunius118.tolaserblade.client.color.item.LBCasingItemColor;
 import com.github.iunius118.tolaserblade.client.color.item.LBEmitterItemColor;
 import com.github.iunius118.tolaserblade.client.color.item.LBMediumItemColor;
@@ -77,11 +76,6 @@ public class ClientModEventHandler {
         models.put(lBBrandNewFPItemID, bakedModel);
         models.put(lBBrokenItemID, bakedModel);
         models.put(lBBrokenFPItemID, bakedModel);
-    }
-
-    @SubscribeEvent
-    public static void onLaserBladeModelRegistrationEvent(LaserBladeModelRegistrationEvent event) {
-        event.register(LaserBladeModelManager.loadModels());
     }
 
     private static ResourceLocation getItemId(Item item) {
