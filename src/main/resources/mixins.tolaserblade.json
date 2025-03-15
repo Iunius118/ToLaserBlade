@@ -2,7 +2,8 @@
   "package": "com.github.iunius118.tolaserblade.mixin",
   "mixins": [
     "AbstractFurnaceBlockEntityAccessor",
-    "MixinSmithingMenu"
+    "MixinSmithingMenu",
+    "MixinSoundDefinitionsProvider"
   ],
   "client": [
     "RenderBuffersAccessor"
