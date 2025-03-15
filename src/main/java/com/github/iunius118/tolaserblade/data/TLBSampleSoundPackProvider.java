@@ -46,7 +46,7 @@ public class TLBSampleSoundPackProvider {
             return;
         }
 
-        var packInfo = new PackLocationInfo(PACK_ID.toString(), Component.literal(PACK_TITLE), PackSource.DEFAULT, Optional.empty());
+        var packInfo = new PackLocationInfo(PACK_ID.toString(), Component.literal(PACK_TITLE), PackSource.BUILT_IN, Optional.empty());
         var resourcePath = ModList.get().getModFileById(ToLaserBlade.MOD_ID).getFile().findResource(PACK_PATH);
         var packConfig = new PackSelectionConfig(false, Pack.Position.TOP, false);
         var pack = Pack.readMetaAndCreate(packInfo, new PathPackResources.PathResourcesSupplier(resourcePath), PackType.CLIENT_RESOURCES, packConfig);
