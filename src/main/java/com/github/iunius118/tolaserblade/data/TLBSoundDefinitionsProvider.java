@@ -15,21 +15,31 @@ public class TLBSoundDefinitionsProvider extends SoundDefinitionsProvider {
 
     @Override
     public void registerSounds() {
-        addSingleFileSound(ModSoundEvents.ITEM_DX_LASER_BLADE_SWING);
-        addSingleFileSound(ModSoundEvents.ITEM_LASER_BLADE_SWING);
-        addSingleFileSound(ModSoundEvents.ITEM_LASER_BLADE_FP_SWING);
-        addSingleFileSound(ModSoundEvents.ITEM_DX_LASER_BLADE_HIT);
-        addSingleFileSound(ModSoundEvents.ITEM_LASER_BLADE_HIT);
-        addSingleFileSound(ModSoundEvents.ITEM_LASER_BLADE_FP_HIT);
-        addSingleFileSound(ModSoundEvents.ITEM_LASER_BLADE_BLOCK);
-        addSingleFileSound(ModSoundEvents.ITEM_LASER_BLADE_FP_BLOCK);
-        addSingleFileSound(ModSoundEvents.ITEM_LASER_TRAP_ACTIVATE);
-        addSingleFileSound(ModSoundEvents.ITEM_LB_BRAND_NEW_USE);
-        addSingleFileSound(ModSoundEvents.ITEM_LB_BRAND_NEW_FP_USE);
+        addSingleFileSound(ModSoundEvents.ITEM_DX_LASER_BLADE_SWING, true);
+        addSingleFileSound(ModSoundEvents.ITEM_LASER_BLADE_SWING, true);
+        addSingleFileSound(ModSoundEvents.ITEM_LASER_BLADE_FP_SWING, true);
+        addSingleFileSound(ModSoundEvents.ITEM_DX_LASER_BLADE_HIT, true);
+        addSingleFileSound(ModSoundEvents.ITEM_LASER_BLADE_HIT, true);
+        addSingleFileSound(ModSoundEvents.ITEM_LASER_BLADE_FP_HIT, true);
+        addSingleFileSound(ModSoundEvents.ITEM_LASER_BLADE_BLOCK, true);
+        addSingleFileSound(ModSoundEvents.ITEM_LASER_BLADE_FP_BLOCK, true);
+        addSingleFileSound(ModSoundEvents.ITEM_LASER_TRAP_ACTIVATE, true);
+        addSingleFileSound(ModSoundEvents.ITEM_LB_BRAND_NEW_USE, true);
+        addSingleFileSound(ModSoundEvents.ITEM_LB_BRAND_NEW_FP_USE, true);
     }
 
     private void addSingleFileSound(SoundEvent soundEvent) {
         var soundDefinition = definition().with(getSound(soundEvent.location()));
+        add(soundEvent, soundDefinition);
+    }
+
+    private void addSingleFileSound(SoundEvent soundEvent, boolean replace) {
+        var soundDefinition = definition().with(getSound(soundEvent.location()));
+
+        if (replace) {
+            soundDefinition.replace(true);
+        }
+
         add(soundEvent, soundDefinition);
     }
 

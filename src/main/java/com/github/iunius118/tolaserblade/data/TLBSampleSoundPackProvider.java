@@ -66,17 +66,17 @@ public class TLBSampleSoundPackProvider {
             final float[] pitch1 = new float[]{1.0F, 1.025F, 1.05F, 1.075F, 1.1F};
             final float[] pitch2 = new float[]{1.0F, 1.1F, 1.2F, 1.3F, 1.4F};
 
-            addSingleFileSound(ModSoundEvents.ITEM_DX_LASER_BLADE_SWING, pitch1);
-            addSingleFileSound(ModSoundEvents.ITEM_LASER_BLADE_SWING, pitch1);
-            addSingleFileSound(ModSoundEvents.ITEM_LASER_BLADE_FP_SWING, pitch1);
-            addSingleFileSound(ModSoundEvents.ITEM_DX_LASER_BLADE_HIT, pitch2);
-            addSingleFileSound(ModSoundEvents.ITEM_LASER_BLADE_HIT, pitch2);
-            addSingleFileSound(ModSoundEvents.ITEM_LASER_BLADE_FP_HIT, pitch2);
-            addSingleFileSound(ModSoundEvents.ITEM_LASER_BLADE_BLOCK, pitch1);
-            addSingleFileSound(ModSoundEvents.ITEM_LASER_BLADE_FP_BLOCK, pitch1);
-            addSingleFileSound(ModSoundEvents.ITEM_LASER_TRAP_ACTIVATE, pitch2);
-            addSingleFileSound(ModSoundEvents.ITEM_LB_BRAND_NEW_USE, pitch2);
-            addSingleFileSound(ModSoundEvents.ITEM_LB_BRAND_NEW_FP_USE, pitch2);
+            addSingleFileSound(ModSoundEvents.ITEM_DX_LASER_BLADE_SWING, true, pitch1);
+            addSingleFileSound(ModSoundEvents.ITEM_LASER_BLADE_SWING, true, pitch1);
+            addSingleFileSound(ModSoundEvents.ITEM_LASER_BLADE_FP_SWING, true, pitch1);
+            addSingleFileSound(ModSoundEvents.ITEM_DX_LASER_BLADE_HIT, true, pitch2);
+            addSingleFileSound(ModSoundEvents.ITEM_LASER_BLADE_HIT, true, pitch2);
+            addSingleFileSound(ModSoundEvents.ITEM_LASER_BLADE_FP_HIT, true, pitch2);
+            addSingleFileSound(ModSoundEvents.ITEM_LASER_BLADE_BLOCK, true, pitch1);
+            addSingleFileSound(ModSoundEvents.ITEM_LASER_BLADE_FP_BLOCK, true, pitch1);
+            addSingleFileSound(ModSoundEvents.ITEM_LASER_TRAP_ACTIVATE, true, pitch2);
+            addSingleFileSound(ModSoundEvents.ITEM_LB_BRAND_NEW_USE, true, pitch2);
+            addSingleFileSound(ModSoundEvents.ITEM_LB_BRAND_NEW_FP_USE, true, pitch2);
         }
 
         private void addSingleFileSound(SoundEvent soundEvent) {
@@ -84,9 +84,27 @@ public class TLBSampleSoundPackProvider {
             add(soundEvent, soundDefinition);
         }
 
-        private void addSingleFileSound(SoundEvent soundEvent, float[] pitchArray) {
+        private void addSingleFileSound(SoundEvent soundEvent, boolean replace) {
+            var soundDefinition = definition().with(getSound(soundEvent.location()));
+
+            if (replace) {
+                soundDefinition.replace(true);
+            }
+
+            add(soundEvent, soundDefinition);
+        }
+
+        private void addSingleFileSound(SoundEvent soundEvent, boolean replace, float[] pitchArray) {
             var soundDefinition = definition();
-            for (float pitch : pitchArray) soundDefinition.with(getSound(soundEvent.location()).pitch(pitch));
+
+            for (float pitch : pitchArray) {
+                soundDefinition.with(getSound(soundEvent.location()).pitch(pitch));
+            }
+
+            if (replace) {
+                soundDefinition.replace(true);
+            }
+
             add(soundEvent, soundDefinition);
         }
 

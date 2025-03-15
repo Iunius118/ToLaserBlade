@@ -1,5 +1,6 @@
 {
   "item.dx_laser_blade.hit": {
+    "replace": true,
     "sounds": [
       "tolaserblade:item/dx_laser_blade/hit",
       {
@@ -21,6 +22,7 @@
     ]
   },
   "item.dx_laser_blade.swing": {
+    "replace": true,
     "sounds": [
       "tolaserblade:item/dx_laser_blade/swing",
       {
@@ -42,6 +44,7 @@
     ]
   },
   "item.laser_blade.block": {
+    "replace": true,
     "sounds": [
       "tolaserblade:item/laser_blade/block",
       {
@@ -63,6 +66,7 @@
     ]
   },
   "item.laser_blade.hit": {
+    "replace": true,
     "sounds": [
       "tolaserblade:item/laser_blade/hit",
       {
@@ -84,6 +88,7 @@
     ]
   },
   "item.laser_blade.swing": {
+    "replace": true,
     "sounds": [
       "tolaserblade:item/laser_blade/swing",
       {
@@ -105,6 +110,7 @@
     ]
   },
   "item.laser_blade_fp.block": {
+    "replace": true,
     "sounds": [
       "tolaserblade:item/laser_blade_fp/block",
       {
@@ -126,6 +132,7 @@
     ]
   },
   "item.laser_blade_fp.hit": {
+    "replace": true,
     "sounds": [
       "tolaserblade:item/laser_blade_fp/hit",
       {
@@ -147,6 +154,7 @@
     ]
   },
   "item.laser_blade_fp.swing": {
+    "replace": true,
     "sounds": [
       "tolaserblade:item/laser_blade_fp/swing",
       {
@@ -168,6 +176,7 @@
     ]
   },
   "item.laser_trap.activate": {
+    "replace": true,
     "sounds": [
       "tolaserblade:item/laser_trap/activate",
       {
@@ -189,6 +198,7 @@
     ]
   },
   "item.lb_brand_new.use": {
+    "replace": true,
     "sounds": [
       "tolaserblade:item/lb_brand_new/use",
       {
@@ -210,6 +220,7 @@
     ]
   },
   "item.lb_brand_new_fp.use": {
+    "replace": true,
     "sounds": [
       "tolaserblade:item/lb_brand_new_fp/use",
       {
