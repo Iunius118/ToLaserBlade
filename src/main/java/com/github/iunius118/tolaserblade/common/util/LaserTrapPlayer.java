@@ -7,6 +7,7 @@ import com.mojang.authlib.GameProfile;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.server.level.ServerLevel;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.LivingEntity;
@@ -68,7 +69,7 @@ public class LaserTrapPlayer extends FakePlayer {
             EnchantmentHelper.doPostDamageEffects(this, targetEntity);
         }
 
-        spawnParticle(dir, targetPos, itemStack);
+        addEffect(dir, targetPos, itemStack);
     }
 
     @Override
@@ -97,15 +98,30 @@ public class LaserTrapPlayer extends FakePlayer {
         return fireAspectLevel > 0 && (entity instanceof Mob || entity instanceof Player);
     }
 
-    private void spawnParticle(Direction dir, BlockPos effectPos, ItemStack itemStack) {
+    private void addEffect(Direction dir, BlockPos effectPos, ItemStack itemStack) {
         if (!(level() instanceof ServerLevel serverLevel)) return;
 
+        // Create laser trap particle
         var laserTrapParticleType = ModParticleTypes.getLaserTrapParticleType(dir.getAxis());
         var vecPos = new Vec3(effectPos.getX(), effectPos.getY(), effectPos.getZ()).add(0.5, 0.5, 0.5);
+        var color = getParticleColor(itemStack);
+        // Spawn particle
+        serverLevel.sendParticles(laserTrapParticleType, vecPos.x, vecPos.y, vecPos.z, 0, color.r(), color.g(), color.b(), 1);
+
+        // Play sound effect
+        serverLevel.playSound(null, vecPos.x, vecPos.y, vecPos.z, ModSoundEvents.ITEM_LASER_TRAP_ACTIVATE, SoundSource.BLOCKS, 0.5F, 1.0F);
+    }
+
+    private Color4F getParticleColor(ItemStack itemStack) {
+        // Get laser beam color from laser blade
         var visual = LaserBladeVisual.of(itemStack);
         int outerColor = visual.getOuterColor();
-        var color4F = Color4F.of((visual.isOuterSubColor() ? ~outerColor : outerColor) | 0xFF000000);
-        serverLevel.sendParticles(laserTrapParticleType, vecPos.x, vecPos.y, vecPos.z, 0, color4F.r(), color4F.g(), color4F.b(), 1);
+
+        if (visual.isOuterSubColor()) {
+            outerColor = ~outerColor;
+        }
+
+        return Color4F.of(outerColor | 0xFF000000);
     }
 
     @Override public void onEnterCombat() {}

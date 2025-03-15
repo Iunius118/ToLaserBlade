@@ -1,6 +1,7 @@
 package com.github.iunius118.tolaserblade.world.item;
 
 import com.github.iunius118.tolaserblade.client.renderer.item.LBBrandNewItemRenderer;
+import com.github.iunius118.tolaserblade.common.util.ModSoundEvents;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeVisual;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.Upgrade;
 import net.minecraft.client.renderer.BlockEntityWithoutLevelRenderer;
@@ -8,15 +9,18 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.nbt.CompoundTag;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResultHolder;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
@@ -46,6 +50,7 @@ public class LBBrandNewItem extends Item implements LaserBladeItemBase {
 
         if (!level.isClientSide()) {
             setLaserBladeToPlayer(level, player, hand, itemStack);
+            playUseSound(level, player, type == LBBrandNewType.FP);
             return InteractionResultHolder.success(itemStack);
         }
 
@@ -122,6 +127,12 @@ public class LBBrandNewItem extends Item implements LaserBladeItemBase {
         };
 
         consumer.accept(itemRenderProperties);
+    }
+
+    public static void playUseSound(Level level, LivingEntity entity, boolean isFireResistant) {
+        var soundEvent = isFireResistant ? ModSoundEvents.ITEM_LB_BRAND_NEW_FP_USE : ModSoundEvents.ITEM_LB_BRAND_NEW_USE;
+        Vec3 pos = entity.position();
+        level.playSound(null, pos.x, pos.y, pos.z, soundEvent, SoundSource.PLAYERS, 1.0F, 1.0F);
     }
 
     @Override

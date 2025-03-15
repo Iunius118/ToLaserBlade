@@ -3,10 +3,15 @@ package com.github.iunius118.tolaserblade.common;
 import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.client.ClientModEventHandler;
 import com.github.iunius118.tolaserblade.config.TLBClientConfig;
+import com.github.iunius118.tolaserblade.world.item.LBSwordItem;
+import com.github.iunius118.tolaserblade.world.item.LaserBladeItemUtil;
 import com.github.iunius118.tolaserblade.world.item.ModItems;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.sounds.SoundEvents;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
+import net.minecraftforge.event.PlayLevelSoundEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
@@ -55,6 +60,24 @@ public class CommonEventHandler {
             if (TLBClientConfig.showUpdateMessage && !hasShownUpdate) {
                 ClientModEventHandler.checkUpdate();
                 hasShownUpdate = true;
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onPlayLevelSoundAtEntity(PlayLevelSoundEvent.AtEntity event) {
+        var soundEventHolder = event.getSound();
+        var level = event.getLevel();
+        var entity = event.getEntity();
+
+        if (soundEventHolder != null && soundEventHolder.value() == SoundEvents.SHIELD_BLOCK
+                && level.isClientSide() && entity instanceof LivingEntity livingEntity) {
+            // The local player blocks an attack
+            var itemStack = livingEntity.getItemInHand(livingEntity.getUsedItemHand());
+
+            if (itemStack.getItem() instanceof LBSwordItem laserBlade) {
+                // Play sound effect when the player blocks an attack with laser blade
+                LaserBladeItemUtil.playBlockSound(event, itemStack, laserBlade.isFireResistant());
             }
         }
     }

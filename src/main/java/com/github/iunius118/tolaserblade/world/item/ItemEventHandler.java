@@ -1,9 +1,11 @@
 package com.github.iunius118.tolaserblade.world.item;
 
 import net.minecraft.world.InteractionResult;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.ItemStack;
+import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.CriticalHitEvent;
 import net.minecraftforge.event.entity.player.PlayerDestroyItemEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
@@ -69,6 +71,29 @@ public class ItemEventHandler {
 
         if (stack.getItem() instanceof LBSwordItem lbSwordItem) {
             lbSwordItem.onCriticalHit(event);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onAttackEntity(AttackEntityEvent event) {
+        var player = event.getEntity();
+        var level = player.level();
+
+        if (level.isClientSide() || player.isSpectator()) {
+            return;
+        }
+
+        Entity target = event.getTarget();
+        var itemStack = player.getMainHandItem();
+        var item = itemStack.getItem();
+
+        // Play sound effect when a player attacks an entity with laser blade
+        if (item instanceof LBSwordItem laserBlade) {
+            // Laser Blade (normal/FP)
+            LaserBladeItemUtil.playHitSound(level, target, itemStack, laserBlade.isFireResistant());
+        } else if (item instanceof DXLaserBladeItem) {
+            // DX Laser B1ade
+            DXLaserBladeItemUtil.playHitSound(level, target, itemStack);
         }
     }
 }

@@ -5,10 +5,12 @@ import com.github.iunius118.tolaserblade.core.laserblade.LaserBlade;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeTextKey;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.Upgrade;
 import net.minecraft.ChatFormatting;
+import net.minecraft.core.Holder;
 import net.minecraft.network.chat.Component;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.util.Mth;
+import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.Tier;
@@ -19,24 +21,39 @@ import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
+import net.minecraftforge.event.PlayLevelSoundEvent;
+import net.minecraftforge.registries.ForgeRegistries;
 
 import javax.annotation.Nullable;
 import java.util.List;
+import java.util.Optional;
 
 public class LaserBladeItemUtil {
-    private LaserBladeItemUtil() {
-
-    }
-
     public static float getDestroySpeed(ItemStack itemStack, Tier tier) {
         float rate = (float) EnchantmentHelper.getItemEnchantmentLevel(Enchantments.BLOCK_EFFICIENCY, itemStack) / 5.0F;
         return tier.getSpeed() * Mth.clamp(rate, 0.0F, 1.0F);
     }
 
     public static void playSwingSound(Level level, LivingEntity entity, boolean isFireResistant) {
-        SoundEvent soundEvent = isFireResistant ? ModSoundEvents.ITEM_LASER_BLADE_FP_SWING : ModSoundEvents.ITEM_LASER_BLADE_SWING;
-        Vec3 pos = entity.position().add(0, entity.getEyeHeight(), 0).add(entity.getLookAngle());
-        level.playSound(null, pos.x, pos.y, pos.z, soundEvent, SoundSource.PLAYERS, 0.5F, 1.0F);
+        var soundEvent = isFireResistant ? ModSoundEvents.ITEM_LASER_BLADE_FP_SWING : ModSoundEvents.ITEM_LASER_BLADE_SWING;
+        Vec3 pos = entity.position();
+        level.playSound(null, pos.x, pos.y, pos.z, soundEvent, SoundSource.PLAYERS, 1.0F, 1.0F);
+    }
+
+    public static void playHitSound(Level level, Entity target, ItemStack itemStack, boolean isFireResistant) {
+        var soundEvent = isFireResistant ? ModSoundEvents.ITEM_LASER_BLADE_FP_HIT : ModSoundEvents.ITEM_LASER_BLADE_HIT;
+        Vec3 pos = target.position().add(0, target.getEyeHeight(), 0);
+        level.playSound(null, pos.x, pos.y, pos.z, soundEvent, target.getSoundSource(), 1.0F, 1.0F);
+    }
+
+    public static void playBlockSound(PlayLevelSoundEvent.AtEntity event, ItemStack itemStack, boolean isFireResistant) {
+        var soundEvent = isFireResistant ? ModSoundEvents.ITEM_LASER_BLADE_FP_BLOCK : ModSoundEvents.ITEM_LASER_BLADE_BLOCK;
+        Optional<Holder<SoundEvent>> soundEventHolder = ForgeRegistries.SOUND_EVENTS.getHolder(soundEvent);
+        soundEventHolder.ifPresent(s -> {
+            event.setSound(s);
+            event.setNewVolume(1.0F);
+            event.setNewPitch(1.0F);
+        });
     }
 
     @OnlyIn(Dist.CLIENT)
@@ -96,4 +113,6 @@ public class LaserBladeItemUtil {
     private static Component getUpgradeTextComponent(String key, float value) {
         return Component.translatable(key, (value < 0 ? "" : "+") + ItemStack.ATTRIBUTE_MODIFIER_FORMAT.format(value)).withStyle(ChatFormatting.DARK_GREEN);
     }
+
+    private LaserBladeItemUtil() {}
 }
