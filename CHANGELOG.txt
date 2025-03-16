@@ -3,6 +3,8 @@
 [Source](https://github.com/Iunius118/ToLaserBlade).
 
 ## [Unreleased]
+
+## [12.2.0 NeoForge]
 ### Added
 - Add sound event to DX Laser B1ade: `tolaserblade:item.dx_laser_blade.hit`.
 - Add sound events to Laser Blade: `tolaserblade:item.laser_blade.hit` and `tolaserblade:item.laser_blade.block`.
@@ -10,6 +12,7 @@
 - Add sound event to Brand-new Laser Blade: `tolaserblade:item.lb_brand_new.use`.
 - Add sound event to Brand-new Laser Blade (fireproof): `tolaserblade:item.lb_brand_new_fp.use`.
 - Add sound event to laser trap: `tolaserblade:item.laser_trap.activate`.
+- Add `useShieldSoundForLaserBlade` to client-side config.
 
 ### Changed
 - Adjust sound effects of laser blade.

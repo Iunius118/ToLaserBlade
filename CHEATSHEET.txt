@@ -193,7 +193,8 @@ Sound events fired when a laser blade is hit:
 - `tolaserblade:item.laser_blade.hit` - `assets/tolaserblade/sounds/item/laser_blade/hit.ogg`
 - `tolaserblade:item.laser_blade_fp.hit` - `assets/tolaserblade/sounds/item/laser_blade_fp/hit.ogg`
 
-Sound events fired when a laser blade blocks an attack:
+Sound events fired when a laser blade blocks an attack
+  (`useShieldSoundForLaserBlade` in client-side config needs to be `false`):
 - `tolaserblade:item.laser_blade.block` - `assets/tolaserblade/sounds/item/laser_blade/block.ogg`
 - `tolaserblade:item.laser_blade_fp.block` - `assets/tolaserblade/sounds/item/laser_blade_fp/block.ogg`
 
