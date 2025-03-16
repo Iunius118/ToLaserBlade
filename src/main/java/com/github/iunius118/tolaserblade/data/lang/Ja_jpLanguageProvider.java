@@ -91,6 +91,7 @@ public class Ja_jpLanguageProvider extends En_usLanguageProvider {
         add("tolaserblade.configgui.client.useOriginalModelType", "独自のモデルタイプを使用する");
         add("tolaserblade.configgui.client.renderMultipleModels", "レーザーブレードを複数モデルで描画する");
         add("tolaserblade.configgui.client.defaultModel", "デフォルトのモデル");
+        add("tolaserblade.configgui.client.useShieldSoundForLaserBlade", "レーザーブレイドに盾の効果音を使用する");
 
         // Update message
         add("tolaserblade.update.newVersion", "%s の新しいバージョンが利用可能です");

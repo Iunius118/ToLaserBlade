@@ -46,6 +46,7 @@
   "tolaserblade.configgui.client.showUpdateMessage": "Show Update Message",
   "tolaserblade.configgui.client.useFixedVertexBuffer": "Use Fixed Vertex Buffer",
   "tolaserblade.configgui.client.useOriginalModelType": "Use Original Model Type",
+  "tolaserblade.configgui.client.useShieldSoundForLaserBlade": "Use Shield Sound for Laser Blade",
   "tolaserblade.configgui.server.attackDamageUpgradeMultiplier": "Damage Multiplier for Attack Damage Upgrade (1–2048)",
   "tolaserblade.configgui.server.canLaserTrapAttackPlayer": "Can Laser Trap Attack Player",
   "tolaserblade.configgui.server.canLaserTrapHeatUpFurnace": "Can Laser Trap Heat Up Furnace",
