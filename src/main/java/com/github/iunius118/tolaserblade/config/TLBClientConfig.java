@@ -9,6 +9,7 @@ public class TLBClientConfig {
     private static final ModConfigSpec.BooleanValue USE_ORIGINAL_MODEL_TYPE;
     private static final ModConfigSpec.BooleanValue RENDER_MULTIPLE_MODELS;
     private static final ModConfigSpec.IntValue DEFAULT_MODEL;
+    private static final ModConfigSpec.BooleanValue USE_SHIELD_SOUND_FOR_LASER_BLADE;
 
     public static final ModConfigSpec SPEC;
 
@@ -41,6 +42,13 @@ public class TLBClientConfig {
                         Need to reload resource packs after changing this.""")
                 .translation("tolaserblade.configgui.client.defaultModel")
                 .defineInRange("defaultModel", 0, 0, Integer.MAX_VALUE);
+        USE_SHIELD_SOUND_FOR_LASER_BLADE = BUILDER
+                .comment("""
+                        Play the sound event for shields when a laser blade blocks an attack.
+                        This setting is valid when playing in a world where enableBlockingWithLaserBlade in tolaserblade-server.toml is true.
+                        Set to false to play the blocking sound events of this mod.""")
+                .translation("tolaserblade.configgui.client.useShieldSoundForLaserBlade")
+                .define("useShieldSoundForLaserBlade", true);
 
         SPEC = BUILDER.pop().build();
     }
@@ -49,6 +57,7 @@ public class TLBClientConfig {
     public static boolean useOriginalModelType = USE_ORIGINAL_MODEL_TYPE.getDefault();
     public static boolean renderMultipleModels = RENDER_MULTIPLE_MODELS.getDefault();
     public static int defaultModel = DEFAULT_MODEL.getDefault();
+    public static boolean useShieldSoundForLaserBlade = USE_SHIELD_SOUND_FOR_LASER_BLADE.getDefault();
 
     public static void onLoad(final ModConfigEvent event) {
         if (event.getConfig().getSpec() != SPEC) {
@@ -59,5 +68,6 @@ public class TLBClientConfig {
         useOriginalModelType = USE_ORIGINAL_MODEL_TYPE.get();
         renderMultipleModels = RENDER_MULTIPLE_MODELS.get();
         defaultModel = DEFAULT_MODEL.get();
+        useShieldSoundForLaserBlade = USE_SHIELD_SOUND_FOR_LASER_BLADE.get();
     }
 }

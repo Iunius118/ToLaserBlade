@@ -37,7 +37,8 @@ public class CommonEventHandler {
         var entity = event.getEntity();
 
         if (soundEventHolder != null && soundEventHolder.value() == SoundEvents.SHIELD_BLOCK
-                && level.isClientSide() && entity instanceof LivingEntity livingEntity) {
+                && level.isClientSide() && !TLBClientConfig.useShieldSoundForLaserBlade
+                && entity instanceof LivingEntity livingEntity) {
             // The local player blocks an attack
             var itemStack = livingEntity.getItemInHand(livingEntity.getUsedItemHand());
 

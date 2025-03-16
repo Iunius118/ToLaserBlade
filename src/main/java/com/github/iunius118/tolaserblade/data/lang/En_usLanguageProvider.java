@@ -99,6 +99,7 @@ public class En_usLanguageProvider extends LanguageProvider {
         add("tolaserblade.configgui.client.useOriginalModelType", "Use Original Model Type");
         add("tolaserblade.configgui.client.renderMultipleModels", "Render Multiple Models");
         add("tolaserblade.configgui.client.defaultModel", "Default Model");
+        add("tolaserblade.configgui.client.useShieldSoundForLaserBlade", "Use Shield Sound for Laser Blade");
 
         // Update message
         add("tolaserblade.update.newVersion", "A new %s version is available");

@@ -46,6 +46,7 @@
   "tolaserblade.configgui.client.showUpdateMessage": "アップデートの通知を表示する",
   "tolaserblade.configgui.client.useFixedVertexBuffer": "Fixed Vertex Bufferを使用する",
   "tolaserblade.configgui.client.useOriginalModelType": "独自のモデルタイプを使用する",
+  "tolaserblade.configgui.client.useShieldSoundForLaserBlade": "レーザーブレイドに盾の効果音を使用する",
   "tolaserblade.configgui.server.attackDamageUpgradeMultiplier": "攻撃力強化のダメージ倍率 (1–2048)",
   "tolaserblade.configgui.server.canLaserTrapAttackPlayer": "レーザートラップがプレイヤーへ攻撃可能か",
   "tolaserblade.configgui.server.canLaserTrapHeatUpFurnace": "レーザートラップがかまどを加熱可能か",
