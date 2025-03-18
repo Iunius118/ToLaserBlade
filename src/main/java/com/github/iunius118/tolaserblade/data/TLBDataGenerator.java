@@ -40,6 +40,7 @@ public class TLBDataGenerator {
         dataGenerator.addProvider(includesClient, new TLBModelProvider(packOutput));
         TLBLanguageProvider.addProviders(includesClient, dataGenerator, packOutput);
         dataGenerator.addProvider(includesClient, new TLBSoundDefinitionsProvider(packOutput, existingFileHelper));
+        TLBSampleSoundPackProvider.addProviders(event);
     }
 
     public static RegistrySetBuilder getEntriesBuilder() {

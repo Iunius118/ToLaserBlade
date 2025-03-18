@@ -10,6 +10,7 @@ import com.github.iunius118.tolaserblade.config.TLBServerConfig;
 import com.github.iunius118.tolaserblade.data.TLBDataGenerator;
 import com.github.iunius118.tolaserblade.data.TLBEnchantmentProvider;
 import com.github.iunius118.tolaserblade.data.TLBOldRecipeProvider6;
+import com.github.iunius118.tolaserblade.data.TLBSampleSoundPackProvider;
 import com.github.iunius118.tolaserblade.world.item.ItemEventHandler;
 import com.github.iunius118.tolaserblade.world.item.ModCreativeModeTabs;
 import com.mojang.logging.LogUtils;
@@ -45,6 +46,7 @@ public class ToLaserBlade {
         modEventBus.addListener(ModCreativeModeTabs::onCreativeModeTabBuildContents);
         modEventBus.addListener(TLBEnchantmentProvider::addPackFinders);
         modEventBus.addListener(TLBOldRecipeProvider6::addPackFinders);
+        modEventBus.addListener(TLBSampleSoundPackProvider::addPackFinders);
         MinecraftForge.EVENT_BUS.register(CommonEventHandler.class);
         MinecraftForge.EVENT_BUS.register(ItemEventHandler.class);
 
