@@ -39,8 +39,10 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 public class TLBOldRecipeProvider6 {
-    private final static String PACK_PATH = "old_lb_recipes_6";
-    private final static ResourceLocation PACK_ID = ToLaserBlade.makeId(PACK_PATH);
+    public final static String PACK_PATH = "old_lb_recipes_6";
+    public final static ResourceLocation PACK_ID = ToLaserBlade.makeId(PACK_PATH);
+    public final static String PACK_TITLE = "old_lb_recipes_6";
+    public final static String PACK_DESCRIPTION = "ToLaserBlade - revert laser blade recipes to version 6";
 
     private TLBOldRecipeProvider6() {}
 
@@ -53,7 +55,7 @@ public class TLBOldRecipeProvider6 {
         final boolean includesServer = event.includeServer();
         var packGenerator = dataGenerator.getBuiltinDatapack(includesServer, PACK_PATH);
 
-        packGenerator.addProvider(o -> PackMetadataGenerator.forFeaturePack(packOutput, Component.literal("ToLaserBlade - revert laser blade recipes to version 6")));
+        packGenerator.addProvider(o -> PackMetadataGenerator.forFeaturePack(packOutput, Component.literal(PACK_DESCRIPTION)));
         packGenerator.addProvider(o -> new OldRecipeProvider.Runner(packOutput, lookupProvider));
         packGenerator.addProvider(o -> blockTagsProvider);
         packGenerator.addProvider(o -> new OldItemTagsProvider(packOutput, lookupProvider, blockTagsProvider.contentsGetter(), existingFileHelper));
@@ -65,7 +67,7 @@ public class TLBOldRecipeProvider6 {
         }
 
         var knownPack = new KnownPack(ToLaserBlade.MOD_ID, PACK_PATH, "1.0");
-        var packInfo = new PackLocationInfo(PACK_ID.toString(), Component.literal(PACK_PATH), PackSource.FEATURE, Optional.of(knownPack));
+        var packInfo = new PackLocationInfo(PACK_ID.toString(), Component.literal(PACK_TITLE), PackSource.FEATURE, Optional.of(knownPack));
         var resourcePath = ModList.get().getModFileById(ToLaserBlade.MOD_ID).getFile().findResource(PACK_PATH);
         var packConfig = new PackSelectionConfig(false, Pack.Position.TOP, false);
         var pack = Pack.readMetaAndCreate(packInfo, new PathPackResources.PathResourcesSupplier(resourcePath), PackType.SERVER_DATA, packConfig);
