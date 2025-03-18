@@ -1,5 +1,5 @@
 # Cheatsheet
-ToLaserBlade v12.1.0 (Forge)
+ToLaserBlade v12.2.0 (Forge)
 
 ## How to Get Started
 ### 1. Craft a Brand-new Laser Blade I or II, and Use It
@@ -180,12 +180,30 @@ When you put a laser blade in a dispenser and activate it, you can attack the mo
 ### Laser Furnace
 When a laser trap is fired at a furnace, it will light the furnace.
 
-### Laser Blade Sound Events
-You can add audio files that will be played when laser blades are swung.
+### Sound Events
+The following audio file paths are those defined in the default `assets/tolaserblade/sounds.json`.
 
-- `(resource_pack_root_dir)/assets/tolaserblade/sounds/item/dx_laser_blade/swing.ogg`
-- `(resource_pack_root_dir)/assets/tolaserblade/sounds/item/laser_blade/swing.ogg`
-- `(resource_pack_root_dir)/assets/tolaserblade/sounds/item/laser_blade_fp/swing.ogg`
+Sound events fired when a laser blade is swung:
+- `tolaserblade:item.dx_laser_blade.swing` - `assets/tolaserblade/sounds/item/dx_laser_blade/swing.ogg`
+- `tolaserblade:item.laser_blade.swing` - `assets/tolaserblade/sounds/item/laser_blade/swing.ogg`
+- `tolaserblade:item.laser_blade_fp.swing` - `assets/tolaserblade/sounds/item/laser_blade_fp/swing.ogg`
+
+Sound events fired when a laser blade is hit:
+- `tolaserblade:item.dx_laser_blade.hit` - `assets/tolaserblade/sounds/item/dx_laser_blade/hit.ogg`
+- `tolaserblade:item.laser_blade.hit` - `assets/tolaserblade/sounds/item/laser_blade/hit.ogg`
+- `tolaserblade:item.laser_blade_fp.hit` - `assets/tolaserblade/sounds/item/laser_blade_fp/hit.ogg`
+
+Sound events fired when a laser blade blocks an attack
+  (`useShieldSoundForLaserBlade` in client-side config needs to be `false`):
+- `tolaserblade:item.laser_blade.block` - `assets/tolaserblade/sounds/item/laser_blade/block.ogg`
+- `tolaserblade:item.laser_blade_fp.block` - `assets/tolaserblade/sounds/item/laser_blade_fp/block.ogg`
+
+Sound events fired when a brand-new laser blade is used:
+- `tolaserblade:item.lb_brand_new.use` - `assets/tolaserblade/sounds/item/lb_brand_new/use.ogg`
+- `tolaserblade:item.lb_brand_new_fp.use` - `assets/tolaserblade/sounds/item/lb_brand_new_fp/use.ogg`
+
+Sound event fired when a laser trap is activated:
+- `tolaserblade:item.laser_trap.activate` - `assets/tolaserblade/sounds/item/laser_trap/activate.ogg`
 
 ## Configurations
 - Server-side settings: `<world_path>/serverconfig/tolaserblade-server.toml`
@@ -253,6 +271,12 @@ This is an optional data pack to revert the laser blade recipes to version 6.
   - I, D, I;
   - R, I, g;
 - Attack Damage Upgrade (smithing): Laser Blade Blueprint + Laser Blade + Diamond
+
+## Resource pack
+Built-in optional resource pack
+
+### TLB Sample Sound Pack
+This resource pack adds some audio files to the game for testing mod sound events.
 
 ## Related Mod
 ### ToLaserBlade-ExtraModels

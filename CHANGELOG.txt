@@ -4,6 +4,20 @@
 
 ## [Unreleased]
 
+## [12.2.0 Forge]
+### Added
+- Add sound event to DX Laser B1ade: `tolaserblade:item.dx_laser_blade.hit`.
+- Add sound events to Laser Blade: `tolaserblade:item.laser_blade.hit` and `tolaserblade:item.laser_blade.block`.
+- Add sound events to Laser Blade (fireproof): `tolaserblade:item.laser_blade_fp.hit` and `tolaserblade:item.laser_blade_fp.block`.
+- Add sound event to Brand-new Laser Blade: `tolaserblade:item.lb_brand_new.use`.
+- Add sound event to Brand-new Laser Blade (fireproof): `tolaserblade:item.lb_brand_new_fp.use`.
+- Add sound event to laser trap: `tolaserblade:item.laser_trap.activate`.
+- Add `useShieldSoundForLaserBlade` to client-side config.
+
+### Changed
+- Require Forge 1.21.4-54.1.0+.
+- Adjust sound effects of laser blade.
+
 ## [12.1.0 Forge]
 ### Added
 - Add `laserBladeBaseDamage`, `laserBladeBaseSpeed`, and `attackDamageUpgradeMultiplier` to server-side config.
