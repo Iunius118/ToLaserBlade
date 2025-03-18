@@ -1,20 +1,24 @@
 package com.github.iunius118.tolaserblade.world.item;
 
+import com.github.iunius118.tolaserblade.common.util.ModSoundEvents;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeAppearance;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.Upgrade;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.EquipmentSlot;
+import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
+import net.minecraft.world.phys.Vec3;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 
@@ -39,6 +43,7 @@ public class LBBrandNewItem extends Item implements LaserBladeItemBase {
 
         if (!level.isClientSide()) {
             setLaserBladeToPlayer(level, player, hand, itemStack);
+            playUseSound(level, player, type == LBBrandNewType.FP);
             return InteractionResult.SUCCESS;
         }
 
@@ -106,6 +111,12 @@ public class LBBrandNewItem extends Item implements LaserBladeItemBase {
 
         appearance.setTo(laserBladeStack);
         return laserBladeStack;
+    }
+
+    public static void playUseSound(Level level, LivingEntity entity, boolean isFireResistant) {
+        var soundEvent = isFireResistant ? ModSoundEvents.ITEM_LB_BRAND_NEW_FP_USE : ModSoundEvents.ITEM_LB_BRAND_NEW_USE;
+        Vec3 pos = entity.position();
+        level.playSound(null, pos.x, pos.y, pos.z, soundEvent, SoundSource.PLAYERS, 1.0F, 1.0F);
     }
 
     @Override

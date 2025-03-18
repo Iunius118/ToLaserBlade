@@ -15,6 +15,7 @@ import net.minecraft.server.level.ServerLevel;
 import net.minecraft.server.level.ServerPlayer;
 import net.minecraft.server.network.CommonListenerCookie;
 import net.minecraft.server.network.ServerGamePacketListenerImpl;
+import net.minecraft.sounds.SoundSource;
 import net.minecraft.world.entity.Entity;
 import net.minecraft.world.entity.EquipmentSlot;
 import net.minecraft.world.entity.Mob;
@@ -116,7 +117,7 @@ public class LaserTrapPlayer extends FakePlayer {
             targetEntity.hurtServer(level, damageSources().playerAttack(this), totalDamage);
         }
 
-        spawnParticle(dir, targetPos, itemStack);
+        addEffect(dir, targetPos, itemStack);
     }
 
     private boolean canHitEntity(Entity entity) {
@@ -132,7 +133,7 @@ public class LaserTrapPlayer extends FakePlayer {
         return fireAspectLevel > 0 && (entity instanceof Mob || entity instanceof Player);
     }
 
-    private void spawnParticle(Direction dir, BlockPos effectPos, ItemStack itemStack) {
+    private void addEffect(Direction dir, BlockPos effectPos, ItemStack itemStack) {
         if (!(level() instanceof ServerLevel serverLevel)) return;
 
         // Create laser trap particle
@@ -141,6 +142,9 @@ public class LaserTrapPlayer extends FakePlayer {
         var color = getParticleColor(itemStack);
         // Spawn particle
         serverLevel.sendParticles(laserTrapParticleType, vecPos.x, vecPos.y, vecPos.z, 0, color.r(), color.g(), color.b(), 1);
+
+        // Play sound effect
+        serverLevel.playSound(null, vecPos.x, vecPos.y, vecPos.z, ModSoundEvents.ITEM_LASER_TRAP_ACTIVATE, SoundSource.BLOCKS, 0.5F, 1.0F);
     }
 
     private Color4F getParticleColor(ItemStack itemStack) {
