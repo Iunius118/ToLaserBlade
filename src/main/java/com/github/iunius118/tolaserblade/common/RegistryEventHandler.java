@@ -52,6 +52,14 @@ public class RegistryEventHandler {
         soundEventRegister.register("item_dx_laser_blade_swing", () -> ModSoundEvents.ITEM_DX_LASER_BLADE_SWING);
         soundEventRegister.register("item_laser_blade_swing", () -> ModSoundEvents.ITEM_LASER_BLADE_SWING);
         soundEventRegister.register("item_laser_blade_fp_swing", () -> ModSoundEvents.ITEM_LASER_BLADE_FP_SWING);
+        soundEventRegister.register("item_dx_laser_blade_hit", () -> ModSoundEvents.ITEM_DX_LASER_BLADE_HIT);
+        soundEventRegister.register("item_laser_blade_hit", () -> ModSoundEvents.ITEM_LASER_BLADE_HIT);
+        soundEventRegister.register("item_laser_blade_fp_hit", () -> ModSoundEvents.ITEM_LASER_BLADE_FP_HIT);
+        soundEventRegister.register("item_laser_blade_block", () -> ModSoundEvents.ITEM_LASER_BLADE_BLOCK);
+        soundEventRegister.register("item_laser_blade_fp_block", () -> ModSoundEvents.ITEM_LASER_BLADE_FP_BLOCK);
+        soundEventRegister.register("item_laser_trap_activate", () -> ModSoundEvents.ITEM_LASER_TRAP_ACTIVATE);
+        soundEventRegister.register("item_lb_brand_new_use", () -> ModSoundEvents.ITEM_LB_BRAND_NEW_USE);
+        soundEventRegister.register("item_lb_brand_new_fp_use", () -> ModSoundEvents.ITEM_LB_BRAND_NEW_FP_USE);
 
         soundEventRegister.register(modEventBus);
     }

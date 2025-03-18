@@ -5,7 +5,8 @@
     "AbstractFurnaceBlockEntityAccessor",
     "ItemAccessor",
     "MixinLivingEntity",
-    "MixinSmithingMenu"
+    "MixinSmithingMenu",
+    "MixinSoundDefinitionsProvider"
   ],
   "client": [
     "ConditionalItemModelPropertiesAccessor",
