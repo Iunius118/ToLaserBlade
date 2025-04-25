@@ -4,6 +4,14 @@
 
 ## [Unreleased]
 
+## [13.0.0 Forge]
+### Changed
+- Port to Minecraft 1.21.5.
+- Require Forge 1.21.5-55.0.9+.
+
+### Fixed
+- Icons of some advancements.
+
 ## [12.2.0 Forge]
 ### Added
 - Add sound event to DX Laser B1ade: `tolaserblade:item.dx_laser_blade.hit`.
