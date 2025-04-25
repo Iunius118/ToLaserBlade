@@ -7,6 +7,7 @@ import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.ItemTagsProvider;
 import net.minecraft.resources.ResourceLocation;
+import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
@@ -27,6 +28,9 @@ public class TLBItemTagsProvider extends ItemTagsProvider {
     @Override
     public void addTags(HolderLookup.Provider provider) {
         filter = new HashSet<>(this.builders.keySet());
+
+        tag(ItemTags.SWORDS).add(ModItems.DX_LASER_BLADE, ModItems.LASER_BLADE, ModItems.LASER_BLADE_FP);
+
         tag(ModItemTags.ATTACK_SPEED_UPGRADE).addTag(Tags.Items.INGOTS_GOLD);
         tag(ModItemTags.EFFICIENCY_UPGRADE).addTag(Tags.Items.STORAGE_BLOCKS_REDSTONE);
         tag(ModItemTags.EFFICIENCY_REMOVER).addTag(Tags.Items.DUSTS_REDSTONE);
