@@ -4,6 +4,7 @@ import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.client.ClientModEventHandler;
 import com.github.iunius118.tolaserblade.config.TLBClientConfig;
 import com.github.iunius118.tolaserblade.world.item.LBSwordItem;
+import com.github.iunius118.tolaserblade.world.item.LaserBladeItemBase;
 import com.github.iunius118.tolaserblade.world.item.LaserBladeItemUtil;
 import com.github.iunius118.tolaserblade.world.item.ModItems;
 import net.minecraft.resources.ResourceLocation;
@@ -14,6 +15,7 @@ import net.minecraft.world.item.Item;
 import net.minecraftforge.event.PlayLevelSoundEvent;
 import net.minecraftforge.event.entity.EntityJoinLevelEvent;
 import net.minecraftforge.event.entity.living.LivingDamageEvent;
+import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.registries.ForgeRegistries;
 import net.minecraftforge.registries.MissingMappingsEvent;
@@ -80,6 +82,15 @@ public class CommonEventHandler {
                 // Play sound effect when the player blocks an attack with laser blade
                 LaserBladeItemUtil.playBlockSound(event, itemStack);
             }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onItemTooltipEvent(final ItemTooltipEvent event) {
+        final var itemStack = event.getItemStack();
+
+        if (itemStack.getItem() instanceof LaserBladeItemBase item) {
+            item.appendTooltip(itemStack, null, event.getFlags(), event.getToolTip());
         }
     }
 

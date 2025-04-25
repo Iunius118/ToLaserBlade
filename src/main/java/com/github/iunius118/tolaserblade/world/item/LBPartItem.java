@@ -5,9 +5,8 @@ import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.TooltipFlag;
-import net.minecraftforge.api.distmarker.Dist;
-import net.minecraftforge.api.distmarker.OnlyIn;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LBPartItem extends Item implements LaserBladeItemBase {
@@ -24,9 +23,9 @@ public class LBPartItem extends Item implements LaserBladeItemBase {
     }
 
     @Override
-    @OnlyIn(Dist.CLIENT)
-    public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag flag) {
-        super.appendHoverText(itemStack, tooltipContext, tooltip, flag);
-        LaserBladeItemUtil.addLaserBladeInformation(itemStack, tooltipContext, tooltip, flag, upgradeType);
+    public void appendTooltip(ItemStack itemStack, Item.TooltipContext tooltipContext, TooltipFlag flag, List<Component> tooltip) {
+        ArrayList<Component> myTooltip = new ArrayList<>();
+        LaserBladeItemUtil.addLaserBladeInformation(itemStack, tooltipContext, myTooltip, flag, upgradeType);
+        tooltip.addAll(1, myTooltip);
     }
 }
