@@ -142,6 +142,10 @@ tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }
 
+// IntelliJ no longer downloads javadocs and sources by default.
+// This tells Gradle to force IDEA to do it.
+idea.module { downloadJavadoc = downloadSources = true }
+
 eclipse {
     // Run everytime eclipse builds the code
     //autoBuildTasks genEclipseRuns
