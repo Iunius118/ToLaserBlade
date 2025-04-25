@@ -2,7 +2,6 @@ package com.github.iunius118.tolaserblade.core.laserblade;
 
 import com.github.iunius118.tolaserblade.core.component.ModDataComponents;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.nbt.Tag;
 import net.minecraft.util.Mth;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.component.CustomData;
@@ -32,13 +31,13 @@ public class LaserBladeDataMigrator {
 
         var tag = customData.copyTag();
 
-        if (!tag.contains(OLD_KEY_ATK, Tag.TAG_ANY_NUMERIC)) {
+        if (!tag.contains(OLD_KEY_ATK)) {
             // CompoundTag does not have attack damage
             return LaserBlade.MOD_ATK_MIN;
         }
 
         // Get attack damage from CompoundTag
-        float attack = Mth.clamp(tag.getFloat(OLD_KEY_ATK), LaserBlade.MOD_ATK_MIN, LaserBlade.MOD_ATK_MAX);
+        float attack = Mth.clamp(tag.getFloatOr(OLD_KEY_ATK, LaserBlade.MOD_ATK_MIN), LaserBlade.MOD_ATK_MIN, LaserBlade.MOD_ATK_MAX);
         // Migrate laser blade data
         itemStack.set(ModDataComponents.LASER_BLADE_ATTACK, attack);
         tag.remove(OLD_KEY_ATK);
@@ -63,13 +62,13 @@ public class LaserBladeDataMigrator {
 
         var tag = customData.copyTag();
 
-        if (!tag.contains(OLD_KEY_SPD, Tag.TAG_ANY_NUMERIC)) {
+        if (!tag.contains(OLD_KEY_SPD)) {
             // CompoundTag does not have attack speed
             return LaserBlade.MOD_SPD_MIN;
         }
 
         // Get attack speed from CompoundTag
-        float speed = Mth.clamp(tag.getFloat(OLD_KEY_SPD), LaserBlade.MOD_SPD_MIN, LaserBlade.MOD_SPD_MAX);
+        float speed = Mth.clamp(tag.getFloatOr(OLD_KEY_SPD, LaserBlade.MOD_SPD_MIN), LaserBlade.MOD_SPD_MIN, LaserBlade.MOD_SPD_MAX);
         // Migrate laser blade data
         itemStack.set(ModDataComponents.LASER_BLADE_SPEED, speed);
         tag.remove(OLD_KEY_SPD);
@@ -96,39 +95,39 @@ public class LaserBladeDataMigrator {
         boolean isDataUpdated = false;
         var tag = customData.copyTag();
 
-        if (tag.contains(OLD_KEY_MODEL_TYPE, Tag.TAG_ANY_NUMERIC)) {
+        if (tag.contains(OLD_KEY_MODEL_TYPE)) {
             isDataUpdated = true;
-            appearance.setType(tag.getInt(OLD_KEY_MODEL_TYPE));
+            appearance.setType(tag.getIntOr(OLD_KEY_MODEL_TYPE, LaserBlade.TYPE_DEFAULT));
             tag.remove(OLD_KEY_MODEL_TYPE);
         }
 
-        if (tag.contains(OLD_KEY_OUTER_COLOR, Tag.TAG_ANY_NUMERIC)) {
+        if (tag.contains(OLD_KEY_OUTER_COLOR)) {
             isDataUpdated = true;
-            appearance.setOuterColor(tag.getInt(OLD_KEY_OUTER_COLOR));
+            tag.getInt(OLD_KEY_OUTER_COLOR).ifPresent(appearance::setOuterColor);
             tag.remove(OLD_KEY_OUTER_COLOR);
         }
 
-        if (tag.contains(OLD_KEY_IS_OUTER_SUB_COLOR, Tag.TAG_BYTE)) {
+        if (tag.contains(OLD_KEY_IS_OUTER_SUB_COLOR)) {
             isDataUpdated = true;
-            appearance.setOuterSubColor(tag.getBoolean(OLD_KEY_IS_OUTER_SUB_COLOR));
+            tag.getBoolean(OLD_KEY_IS_OUTER_SUB_COLOR).ifPresent(appearance::setOuterSubColor);
             tag.remove(OLD_KEY_IS_OUTER_SUB_COLOR);
         }
 
-        if (tag.contains(OLD_KEY_INNER_COLOR, Tag.TAG_ANY_NUMERIC)) {
+        if (tag.contains(OLD_KEY_INNER_COLOR)) {
             isDataUpdated = true;
-            appearance.setInnerColor(tag.getInt(OLD_KEY_INNER_COLOR));
+            tag.getInt(OLD_KEY_INNER_COLOR).ifPresent(appearance::setInnerColor);
             tag.remove(OLD_KEY_INNER_COLOR);
         }
 
-        if (tag.contains(OLD_KEY_IS_INNER_SUB_COLOR, Tag.TAG_BYTE)) {
+        if (tag.contains(OLD_KEY_IS_INNER_SUB_COLOR)) {
             isDataUpdated = true;
-            appearance.setInnerSubColor(tag.getBoolean(OLD_KEY_IS_INNER_SUB_COLOR));
+            tag.getBoolean(OLD_KEY_IS_INNER_SUB_COLOR).ifPresent(appearance::setInnerSubColor);
             tag.remove(OLD_KEY_IS_INNER_SUB_COLOR);
         }
 
-        if (tag.contains(OLD_KEY_GRIP_COLOR, Tag.TAG_ANY_NUMERIC)) {
+        if (tag.contains(OLD_KEY_GRIP_COLOR)) {
             isDataUpdated = true;
-            appearance.setGripColor(tag.getInt(OLD_KEY_GRIP_COLOR));
+            tag.getInt(OLD_KEY_GRIP_COLOR).ifPresent(appearance::setGripColor);
             tag.remove(OLD_KEY_GRIP_COLOR);
         }
 

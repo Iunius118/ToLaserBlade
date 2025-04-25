@@ -14,14 +14,14 @@ public class DXLaserBladeItem extends Item {
     }
 
     @Override
-    public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+    public void hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         Level level = attacker.getCommandSenderWorld();
 
         if (!level.isClientSide && attacker instanceof Player) {
             DXLaserBladeItemUtil.playSwingSound(level, attacker);
         }
 
-        return super.hurtEnemy(stack, target, attacker);
+        super.hurtEnemy(stack, target, attacker);
     }
 
     @Override

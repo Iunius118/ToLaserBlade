@@ -28,6 +28,9 @@ import net.minecraftforge.fml.VersionChecker.CheckResult;
 import net.minecraftforge.fml.VersionChecker.Status;
 import net.minecraftforge.registries.ForgeRegistries;
 
+import java.net.URI;
+import java.net.URL;
+
 public class ClientModEventHandler {
     public static void initClient() {
         // Register item model properties
@@ -43,7 +46,7 @@ public class ClientModEventHandler {
     }
 
     @SubscribeEvent
-    public static void onModifyBakingResultEvent(ModelEvent.ModifyBakingResult event) {
+    public static void onModifyBakingResultEvent(final ModelEvent.ModifyBakingResult event) {
         // Reset internal model manager
         LaserBladeModelManager.getInstance().reload();
     }
@@ -53,12 +56,12 @@ public class ClientModEventHandler {
     }
 
     @SubscribeEvent
-    public static void onBakingCompletedEvent(ModelEvent.BakingCompleted event) {
+    public static void onBakingCompletedEvent(final ModelEvent.BakingCompleted event) {
         LaserBladeModelManager.getInstance().logLoadedModelCount();
     }
 
     @SubscribeEvent
-    public static void onParticleFactoryRegisterEvent(RegisterParticleProvidersEvent event) {
+    public static void onParticleFactoryRegisterEvent(final RegisterParticleProvidersEvent event) {
         event.registerSpecial(ModParticleTypes.LASER_TRAP_X, new LaserTrapParticle.Provider(Direction.Axis.X));
         event.registerSpecial(ModParticleTypes.LASER_TRAP_Y, new LaserTrapParticle.Provider(Direction.Axis.Y));
         event.registerSpecial(ModParticleTypes.LASER_TRAP_Z, new LaserTrapParticle.Provider(Direction.Axis.Z));
@@ -66,24 +69,26 @@ public class ClientModEventHandler {
 
     public static void checkUpdate() {
         // Check update and Notify client
-        CheckResult result = VersionChecker.getResult(ModList.get().getModFileById(ToLaserBlade.MOD_ID).getMods().get(0));
-        Status status = result.status();
+        CheckResult result = VersionChecker.getResult(ModList.get().getModFileById(ToLaserBlade.MOD_ID).getMods().getFirst());
 
-        if (status == Status.PENDING || result.target() == null) {
-            // Failed to get update information
-            return;
-        }
+        try {
+            URI uri = new URL(result.url()).toURI();
+            Status status = result.status();
 
-        if (status == Status.OUTDATED || status == Status.BETA_OUTDATED) {
-            MutableComponent modNameHighlighted = Component.literal(ToLaserBlade.MOD_NAME).withStyle(ChatFormatting.YELLOW);
+            if (status == Status.PENDING || result.target() == null) {
+                // Failed to get update information
+                return;
+            }
 
-            MutableComponent newVersionHighlighted = Component.literal(result.target().toString()).withStyle(ChatFormatting.YELLOW);
-
-            MutableComponent message = Component.translatable("tolaserblade.update.newVersion", modNameHighlighted).append(": ")
-                    .append(newVersionHighlighted)
-                    .withStyle(style -> style.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, result.url())));
-
-            Minecraft.getInstance().gui.getChat().addMessage(message);
+            if (status == Status.OUTDATED || status == Status.BETA_OUTDATED) {
+                MutableComponent modNameHighlighted = Component.literal(ToLaserBlade.MOD_NAME).withStyle(ChatFormatting.YELLOW);
+                MutableComponent newVersionHighlighted = Component.literal(result.target().toString()).withStyle(ChatFormatting.YELLOW);
+                MutableComponent message = Component.translatable("tolaserblade.update.newVersion", modNameHighlighted).append(": ")
+                        .append(newVersionHighlighted)
+                        .withStyle(style -> style.withClickEvent(new ClickEvent.OpenUrl(uri)));
+                Minecraft.getInstance().gui.getChat().addMessage(message);
+            }
+        } catch (Exception ignored) {
         }
     }
 }

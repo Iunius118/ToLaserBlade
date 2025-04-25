@@ -27,7 +27,7 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.level.block.Block;
 import net.minecraftforge.registries.ForgeRegistries;
-import org.joml.Vector3f;
+import org.joml.Vector3fc;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -175,17 +175,17 @@ public class TLBModelProvider extends ModelProvider {
 
             private void addTransform(String displayContext, ItemTransform itemTransform) {
                 HashMap<String, float[]> transform = new HashMap<>();
-                if (!ItemTransform.NO_TRANSFORM.scale.equals(itemTransform.scale)) {
-                    Vector3f v = itemTransform.scale;
-                    transform.put("scale", new float[]{v.x, v.y, v.z});
+                if (!ItemTransform.NO_TRANSFORM.scale().equals(itemTransform.scale())) {
+                    Vector3fc v = itemTransform.scale();
+                    transform.put("scale", new float[]{v.x(), v.y(), v.z()});
                 }
-                if (!ItemTransform.NO_TRANSFORM.rotation.equals(itemTransform.rotation)) {
-                    Vector3f v = itemTransform.rotation;
-                    transform.put("rotation", new float[]{v.x, v.y, v.z});
+                if (!ItemTransform.NO_TRANSFORM.rotation().equals(itemTransform.rotation())) {
+                    Vector3fc v = itemTransform.rotation();
+                    transform.put("rotation", new float[]{v.x(), v.y(), v.z()});
                 }
-                if (!ItemTransform.NO_TRANSFORM.translation.equals(itemTransform.translation)) {
-                    Vector3f v = itemTransform.translation;
-                    transform.put("translation", new float[]{v.x * 16F, v.y * 16F, v.z * 16F});
+                if (!ItemTransform.NO_TRANSFORM.translation().equals(itemTransform.translation())) {
+                    Vector3fc v = itemTransform.translation();
+                    transform.put("translation", new float[]{v.x() * 16F, v.y() * 16F, v.z() * 16F});
                 }
                 if (!transform.isEmpty()) {
                     display.put(displayContext, transform);
