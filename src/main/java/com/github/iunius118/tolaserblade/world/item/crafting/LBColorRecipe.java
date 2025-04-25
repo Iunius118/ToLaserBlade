@@ -23,7 +23,7 @@ public class LBColorRecipe extends LBSmithingRecipe {
     final LaserBladeColorPart part;
     final int color;
 
-    public LBColorRecipe(Optional<Ingredient> template, Optional<Ingredient> base, Optional<Ingredient> addition, LaserBladeColorPart part, int color) {
+    public LBColorRecipe(Optional<Ingredient> template, Ingredient base, Optional<Ingredient> addition, LaserBladeColorPart part, int color) {
         super(template, base, addition);
         this.part = part;
         this.color = color;
@@ -103,7 +103,7 @@ public class LBColorRecipe extends LBSmithingRecipe {
         private static final MapCodec<LBColorRecipe> CODEC = RecordCodecBuilder.mapCodec(
                 (instance) -> instance.group(
                         Ingredient.CODEC.optionalFieldOf("template").forGetter(recipe -> recipe.template),
-                        Ingredient.CODEC.optionalFieldOf("base").forGetter(recipe -> recipe.base),
+                        Ingredient.CODEC.fieldOf("base").forGetter(recipe -> recipe.base),
                         Ingredient.CODEC.optionalFieldOf("addition").forGetter(recipe -> recipe.addition),
                         Codec.pair(Codec.STRING.fieldOf("part").codec(), Codec.INT.fieldOf("color").codec())
                                 .fieldOf("result").forGetter(recipe -> new Pair<>(recipe.part.getPartName(), recipe.color))
@@ -125,7 +125,7 @@ public class LBColorRecipe extends LBSmithingRecipe {
 
         private static LBColorRecipe fromNetwork(RegistryFriendlyByteBuf buffer) {
             Optional<Ingredient> template = Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC.decode(buffer);
-            Optional<Ingredient> base = Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC.decode(buffer);
+            Ingredient base = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
             Optional<Ingredient> addition = Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC.decode(buffer);
             var colorPart = LaserBladeColorPart.byIndex(ByteBufCodecs.INT.decode(buffer));
             int color = ByteBufCodecs.INT.decode(buffer);
@@ -134,7 +134,7 @@ public class LBColorRecipe extends LBSmithingRecipe {
 
         private static void toNetwork(RegistryFriendlyByteBuf buffer, LBColorRecipe recipe) {
             Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC.encode(buffer, recipe.template);
-            Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC.encode(buffer, recipe.base);
+            Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.base);
             Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC.encode(buffer, recipe.addition);
             ByteBufCodecs.INT.encode(buffer, recipe.part.getIndex());
             ByteBufCodecs.INT.encode(buffer, recipe.color);

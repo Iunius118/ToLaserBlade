@@ -26,7 +26,7 @@ public class LBUpgradeRecipe extends LBSmithingRecipe {
     private final ResourceLocation upgradeId;
     private Upgrade upgrade;
 
-    public LBUpgradeRecipe(Optional<Ingredient> template, Optional<Ingredient> base, Optional<Ingredient> addition, ResourceLocation upgradeId) {
+    public LBUpgradeRecipe(Optional<Ingredient> template, Ingredient base, Optional<Ingredient> addition, ResourceLocation upgradeId) {
         super(template, base, addition);
         this.upgradeId = upgradeId;
     }
@@ -92,7 +92,7 @@ public class LBUpgradeRecipe extends LBSmithingRecipe {
         private static final MapCodec<LBUpgradeRecipe> CODEC = RecordCodecBuilder.mapCodec(
                 (instance) -> instance.group(
                         Ingredient.CODEC.optionalFieldOf("template").forGetter(recipe -> recipe.template),
-                        Ingredient.CODEC.optionalFieldOf("base").forGetter(recipe -> recipe.base),
+                        Ingredient.CODEC.fieldOf("base").forGetter(recipe -> recipe.base),
                         Ingredient.CODEC.optionalFieldOf("addition").forGetter(recipe -> recipe.addition),
                         ResourceLocation.CODEC.fieldOf("type").codec().fieldOf("result").forGetter(recipe -> recipe.upgradeId)
                 ).apply(instance, LBUpgradeRecipe::new)
@@ -113,7 +113,7 @@ public class LBUpgradeRecipe extends LBSmithingRecipe {
 
         private static LBUpgradeRecipe fromNetwork(RegistryFriendlyByteBuf buffer) {
             Optional<Ingredient> template = Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC.decode(buffer);
-            Optional<Ingredient> base = Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC.decode(buffer);
+            Ingredient base = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
             Optional<Ingredient> addition = Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC.decode(buffer);
             ResourceLocation upgradeId = ResourceLocation.STREAM_CODEC.decode(buffer);
             return new LBUpgradeRecipe(template, base, addition, upgradeId);
@@ -121,7 +121,7 @@ public class LBUpgradeRecipe extends LBSmithingRecipe {
 
         private static void toNetwork(RegistryFriendlyByteBuf buffer, LBUpgradeRecipe recipe) {
             Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC.encode(buffer, recipe.template);
-            Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC.encode(buffer, recipe.base);
+            Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.base);
             Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC.encode(buffer, recipe.addition);
             ResourceLocation.STREAM_CODEC.encode(buffer, recipe.upgradeId);
         }

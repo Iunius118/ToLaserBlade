@@ -55,7 +55,7 @@ public class LBModelChangeRecipeBuilder {
                 .rewards(AdvancementRewards.Builder.recipe(id))
                 .requirements(AdvancementRequirements.Strategy.OR);
         criteria.forEach(advancementBuilder::addCriterion);
-        LBModelChangeRecipe recipe = new LBModelChangeRecipe(Optional.of(template), Optional.of(base), Optional.of(addition), type);
+        LBModelChangeRecipe recipe = new LBModelChangeRecipe(Optional.of(template), base, Optional.of(addition), type);
         output.accept(id, recipe, advancementBuilder.build(location.withPrefix("recipes/" + this.category.getFolderName() + "/")));
     }
 

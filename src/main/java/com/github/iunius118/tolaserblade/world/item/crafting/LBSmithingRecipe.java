@@ -17,22 +17,22 @@ import java.util.Optional;
 
 public abstract class LBSmithingRecipe implements SmithingRecipe {
     protected final Optional<Ingredient> template;
-    protected final Optional<Ingredient> base;
+    protected final Ingredient base;
     protected final Optional<Ingredient> addition;
     protected final ItemStack result;
     @Nullable
     private PlacementInfo placementInfo;
 
-    public LBSmithingRecipe(Optional<Ingredient> template, Optional<Ingredient> base, Optional<Ingredient> addition) {
+    public LBSmithingRecipe(Optional<Ingredient> template, Ingredient base, Optional<Ingredient> addition) {
         this.template = template;
         this.base = base;
         this.addition = addition;
         result = getResultItemStack(base);
     }
 
-    private static ItemStack getResultItemStack(Optional<Ingredient> base) {
-        if (base.isPresent()) {
-            Optional<Holder<Item>> item = base.get().items().findFirst();
+    private static ItemStack getResultItemStack(Ingredient base) {
+        if (!base.isEmpty()) {
+            Optional<Holder<Item>> item = base.items().findFirst();
 
             if (item.isPresent()) {
                 return item.get().value().getDefaultInstance();
@@ -48,7 +48,7 @@ public abstract class LBSmithingRecipe implements SmithingRecipe {
     }
 
     @Override
-    public Optional<Ingredient> baseIngredient() {
+    public Ingredient baseIngredient() {
         return base;
     }
 
@@ -60,7 +60,7 @@ public abstract class LBSmithingRecipe implements SmithingRecipe {
     @Override
     public PlacementInfo placementInfo() {
         if (this.placementInfo == null) {
-            this.placementInfo = PlacementInfo.createFromOptionals(List.of(this.template, this.base, this.addition));
+            this.placementInfo = PlacementInfo.createFromOptionals(List.of(this.template, Optional.of(this.base), this.addition));
         }
 
         return this.placementInfo;
@@ -71,7 +71,7 @@ public abstract class LBSmithingRecipe implements SmithingRecipe {
         return List.of(
                 new SmithingRecipeDisplay(
                         Ingredient.optionalIngredientToDisplay(template),
-                        Ingredient.optionalIngredientToDisplay(base),
+                        base.display(),
                         Ingredient.optionalIngredientToDisplay(addition),
                         new SlotDisplay.ItemStackSlotDisplay(getDisplayResult(result)),
                         new SlotDisplay.ItemSlotDisplay(Items.SMITHING_TABLE)

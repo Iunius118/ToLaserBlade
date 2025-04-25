@@ -19,7 +19,7 @@ import java.util.Optional;
 public class LBModelChangeRecipe extends LBSmithingRecipe {
     private final int type;
 
-    public LBModelChangeRecipe(Optional<Ingredient> template, Optional<Ingredient> base, Optional<Ingredient> addition, int type) {
+    public LBModelChangeRecipe(Optional<Ingredient> template, Ingredient base, Optional<Ingredient> addition, int type) {
         super(template, base, addition);
         this.type = type;
     }
@@ -61,7 +61,7 @@ public class LBModelChangeRecipe extends LBSmithingRecipe {
         private static final MapCodec<LBModelChangeRecipe> CODEC = RecordCodecBuilder.mapCodec(
                 (instance) -> instance.group(
                         Ingredient.CODEC.optionalFieldOf("template").forGetter(recipe -> recipe.template),
-                        Ingredient.CODEC.optionalFieldOf("base").forGetter(recipe -> recipe.base),
+                        Ingredient.CODEC.fieldOf("base").forGetter(recipe -> recipe.base),
                         Ingredient.CODEC.optionalFieldOf("addition").forGetter(recipe -> recipe.addition),
                         Codec.INT.fieldOf("model_type").codec().fieldOf("result").forGetter(recipe -> recipe.type)
                 ).apply(instance, LBModelChangeRecipe::new)
@@ -82,7 +82,7 @@ public class LBModelChangeRecipe extends LBSmithingRecipe {
 
         private static LBModelChangeRecipe fromNetwork(RegistryFriendlyByteBuf buffer) {
             Optional<Ingredient> template = Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC.decode(buffer);
-            Optional<Ingredient> base = Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC.decode(buffer);
+            Ingredient base = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
             Optional<Ingredient> addition = Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC.decode(buffer);
             int type = ByteBufCodecs.INT.decode(buffer);
             return new LBModelChangeRecipe(template, base, addition, type);
@@ -90,7 +90,7 @@ public class LBModelChangeRecipe extends LBSmithingRecipe {
 
         private static void toNetwork(RegistryFriendlyByteBuf buffer, LBModelChangeRecipe recipe) {
             Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC.encode(buffer, recipe.template);
-            Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC.encode(buffer, recipe.base);
+            Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.base);
             Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC.encode(buffer, recipe.addition);
             ByteBufCodecs.INT.encode(buffer, recipe.type);
         }
