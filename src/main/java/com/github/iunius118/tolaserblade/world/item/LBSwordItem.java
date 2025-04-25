@@ -56,6 +56,8 @@ public class LBSwordItem extends Item implements LaserBladeItemBase {
         float speed = ModToolMaterials.getLBSwordMaterial(isFireResistant).speed();
         builder.set(DataComponents.TOOL, new Tool(List.of(), speed, 1, false));
         builder.set(DataComponents.REPAIRABLE, null);
+        // Add ability to block attacks to laser blade
+        builder.set(DataComponents.BLOCKS_ATTACKS, LaserBladeBlocking.getBlocksAttackComponent(isFireResistant));
         itemAccessor.setComponents(builder.build());
     }
 
