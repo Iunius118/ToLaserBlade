@@ -1,6 +1,7 @@
 package com.github.iunius118.tolaserblade.data;
 
-import com.github.iunius118.tolaserblade.core.component.ModDataComponents;
+import com.github.iunius118.tolaserblade.core.component.predicates.LaserBladeAttackPredicate;
+import com.github.iunius118.tolaserblade.core.component.predicates.ModDataComponentPredicates;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBlade;
 import com.github.iunius118.tolaserblade.world.item.*;
 import com.github.iunius118.tolaserblade.world.item.enchantment.ModEnchantments;
@@ -8,7 +9,8 @@ import net.minecraft.advancements.*;
 import net.minecraft.advancements.critereon.*;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
-import net.minecraft.core.component.DataComponentPredicate;
+import net.minecraft.core.component.predicates.DataComponentPredicates;
+import net.minecraft.core.component.predicates.EnchantmentsPredicate;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.network.chat.Component;
@@ -42,7 +44,7 @@ public class TLBAdvancementProvider extends ForgeAdvancementProvider {
                     .display(LaserBladeItemStack.ICON.getCopy(lookupProvider),
                             Component.translatable("advancements.tolaserblade.main.root.title"),
                             Component.translatable("advancements.tolaserblade.main.root.description"),
-                            ResourceLocation.withDefaultNamespace("textures/block/polished_andesite.png"),
+                            ResourceLocation.withDefaultNamespace("block/polished_andesite"),
                             AdvancementType.TASK, false, false, false)
                     .addCriterion("has_redstone", InventoryChangeTrigger.TriggerInstance.hasItems(Items.REDSTONE))
                     .addCriterion("has_dx_laser_blade", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.DX_LASER_BLADE))
@@ -68,11 +70,11 @@ public class TLBAdvancementProvider extends ForgeAdvancementProvider {
                     new Item[]{ModItems.LASER_BLADE, ModItems.LASER_BLADE_FP}, ModEnchantments.LIGHT_ELEMENT, 10, lookupProvider, consumer);
 
             // 1-1-2. It's Over 9
-            AdvancementHolder attack10 = registerAttackUpgradeAdvancement(laserBlade, Items.DIAMOND, AdvancementType.TASK,
+            AdvancementHolder attack10 = registerAttackUpgradeAdvancement(laserBlade, Items.DIAMOND_BLOCK, AdvancementType.TASK,
                     new Item[]{ModItems.LASER_BLADE, ModItems.LASER_BLADE_FP}, 10, lookupProvider, consumer);
 
             // 1-1-2-1. Beyond the Limit
-            AdvancementHolder attack15 = registerAttackUpgradeAdvancement(attack10, Items.DIAMOND, AdvancementType.TASK,
+            AdvancementHolder attack15 = registerAttackUpgradeAdvancement(attack10, Items.DIAMOND_BLOCK, AdvancementType.TASK,
                     new Item[]{ModItems.LASER_BLADE, ModItems.LASER_BLADE_FP}, 15, lookupProvider, consumer);
 
             // 1-1-3. Give Me Three
@@ -149,9 +151,12 @@ public class TLBAdvancementProvider extends ForgeAdvancementProvider {
                 String itemName = getItemId(item).getPath();
                 ItemPredicate itemPredicate = ItemPredicate.Builder.item()
                         .of(itemRegistryLookup, item)
-                        .withSubPredicate(ItemSubPredicates.ENCHANTMENTS,
-                                ItemEnchantmentsPredicate.enchantments(List.of(
-                                        new EnchantmentPredicate(enchantmentHolder, MinMaxBounds.Ints.atLeast(level)))))
+                        .withComponents(DataComponentMatchers.Builder.components()
+                                .partial(DataComponentPredicates.ENCHANTMENTS,
+                                        EnchantmentsPredicate.enchantments(List.of(
+                                                new EnchantmentPredicate(enchantmentHolder, MinMaxBounds.Ints.atLeast(level)))
+                                        ))
+                                .build())
                         .build();
                 builder.addCriterion("has_" + itemName, InventoryChangeTrigger.TriggerInstance.hasItems(itemPredicate));
             }
@@ -188,7 +193,10 @@ public class TLBAdvancementProvider extends ForgeAdvancementProvider {
                 for (int i = attackDamage - baseDamage; i >= 0 && i <= maxAtk; i++) {
                     ItemPredicate itemPredicate = ItemPredicate.Builder.item()
                             .of(itemRegistryLookup, item)
-                            .hasComponents(DataComponentPredicate.builder().expect(ModDataComponents.LASER_BLADE_ATTACK, (float) i).build())
+                            .withComponents(DataComponentMatchers.Builder.components()
+                                    .partial(ModDataComponentPredicates.LASER_BLADE_ATTACK,
+                                            new LaserBladeAttackPredicate((float) i))
+                                    .build())
                             .build();
                     builder.addCriterion(itemName + "_attack_" + (i + baseDamage), InventoryChangeTrigger.TriggerInstance.hasItems(itemPredicate));
                 }

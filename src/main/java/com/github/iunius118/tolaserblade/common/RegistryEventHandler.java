@@ -3,6 +3,7 @@ package com.github.iunius118.tolaserblade.common;
 import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.common.util.ModSoundEventRegistry;
 import com.github.iunius118.tolaserblade.core.component.ModDataComponents;
+import com.github.iunius118.tolaserblade.core.component.predicates.ModDataComponentPredicates;
 import com.github.iunius118.tolaserblade.core.particle.ModParticleTypes;
 import com.github.iunius118.tolaserblade.world.item.ModCreativeModeTabs;
 import com.github.iunius118.tolaserblade.world.item.ModItemRegistry;
@@ -20,6 +21,7 @@ public class RegistryEventHandler {
         registerSoundEvents(modEventBus);
         registerCreativeModeTabs(modEventBus);
         registerDataComponentTypes(modEventBus);
+        registerDataComponentPredicateTypes(modEventBus);
     }
 
     private static void registerRecipeSerializers(IEventBus modEventBus) {
@@ -66,5 +68,14 @@ public class RegistryEventHandler {
         dataComponentTypeRegister.register("lb_mdl", () -> ModDataComponents.LASER_BLADE_MODEL);
 
         dataComponentTypeRegister.register(modEventBus);
+    }
+
+    private static void registerDataComponentPredicateTypes(IEventBus modEventBus) {
+        var dataComponentPredicateTypeRegister = DeferredRegister.create(Registries.DATA_COMPONENT_PREDICATE_TYPE, ToLaserBlade.MOD_ID);
+
+        dataComponentPredicateTypeRegister.register("lb_atk", () -> ModDataComponentPredicates.LASER_BLADE_ATTACK);
+        dataComponentPredicateTypeRegister.register("lb_spd", () -> ModDataComponentPredicates.LASER_BLADE_SPEED);
+
+        dataComponentPredicateTypeRegister.register(modEventBus);
     }
 }

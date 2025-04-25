@@ -43,7 +43,7 @@
   },
   "display": {
     "announce_to_chat": false,
-    "background": "minecraft:textures/block/polished_andesite.png",
+    "background": "minecraft:block/polished_andesite",
     "description": {
       "translate": "advancements.tolaserblade.main.root.description"
     },
