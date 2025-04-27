@@ -5,6 +5,7 @@ import com.github.iunius118.tolaserblade.client.color.item.LaserBladeTintSource;
 import com.github.iunius118.tolaserblade.client.extensions.LBSwordItemExtensions;
 import com.github.iunius118.tolaserblade.client.model.LaserBladeModelManager;
 import com.github.iunius118.tolaserblade.client.particle.LaserTrapParticle;
+import com.github.iunius118.tolaserblade.client.renderer.LaserBladePipelines;
 import com.github.iunius118.tolaserblade.client.renderer.item.LBSwordSpecialRenderer;
 import com.github.iunius118.tolaserblade.client.renderer.item.properties.Blocking;
 import com.github.iunius118.tolaserblade.client.renderer.item.properties.UsingOriginalModel;
@@ -64,6 +65,11 @@ public class ClientModEventHandler {
         event.registerSpecial(ModParticleTypes.LASER_TRAP_X, new LaserTrapParticle.Provider(Direction.Axis.X));
         event.registerSpecial(ModParticleTypes.LASER_TRAP_Y, new LaserTrapParticle.Provider(Direction.Axis.Y));
         event.registerSpecial(ModParticleTypes.LASER_TRAP_Z, new LaserTrapParticle.Provider(Direction.Axis.Z));
+    }
+
+    @SubscribeEvent
+    public static void onRegisterRenderPipelinesEvent(RegisterRenderPipelinesEvent event) {
+        LaserBladePipelines.onRegisterRenderPipelinesEvent(event);
     }
 
     public static void checkUpdate() {
