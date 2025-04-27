@@ -4,6 +4,10 @@
 
 ## [Unreleased]
 
+## [13.0.1 Forge]
+### Fixed
+- Laser blade can now use the `minecraft:blocks_attacks` data component to block attacks.
+
 ## [13.0.0 Forge]
 ### Changed
 - Port to Minecraft 1.21.5.
