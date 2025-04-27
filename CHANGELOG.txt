@@ -4,6 +4,15 @@
 
 ## [Unreleased]
 
+## [13.0.0 NeoForge]
+### Changed
+- Port to Minecraft 1.21.5.
+- Require NeoForge 21.5.62-beta+.
+
+### Fixed
+- Laser blade can now use the `minecraft:blocks_attacks` data component to block attacks.
+- Icons of some advancements.
+
 ## [12.2.0 NeoForge]
 ### Added
 - Add sound event to DX Laser B1ade: `tolaserblade:item.dx_laser_blade.hit`.
