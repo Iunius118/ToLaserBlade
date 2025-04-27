@@ -5,10 +5,12 @@
       "conditions": {
         "items": [
           {
-            "components": {
-              "tolaserblade:lb_atk": 8.0
-            },
-            "items": "tolaserblade:laser_blade"
+            "items": "tolaserblade:laser_blade",
+            "predicates": {
+              "tolaserblade:lb_atk": {
+                "attack_damage": 8.0
+              }
+            }
           }
         ]
       },
@@ -18,10 +20,12 @@
       "conditions": {
         "items": [
           {
-            "components": {
-              "tolaserblade:lb_atk": 7.0
-            },
-            "items": "tolaserblade:laser_blade_fp"
+            "items": "tolaserblade:laser_blade_fp",
+            "predicates": {
+              "tolaserblade:lb_atk": {
+                "attack_damage": 7.0
+              }
+            }
           }
         ]
       },
@@ -31,10 +35,12 @@
       "conditions": {
         "items": [
           {
-            "components": {
-              "tolaserblade:lb_atk": 8.0
-            },
-            "items": "tolaserblade:laser_blade_fp"
+            "items": "tolaserblade:laser_blade_fp",
+            "predicates": {
+              "tolaserblade:lb_atk": {
+                "attack_damage": 8.0
+              }
+            }
           }
         ]
       },
@@ -47,7 +53,7 @@
     },
     "icon": {
       "count": 1,
-      "id": "minecraft:diamond"
+      "id": "minecraft:diamond_block"
     },
     "title": {
       "translate": "advancements.tolaserblade.main.laser_blade_attack_15.title"
