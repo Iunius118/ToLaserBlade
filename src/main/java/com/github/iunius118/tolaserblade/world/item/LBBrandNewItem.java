@@ -19,9 +19,8 @@ import net.minecraft.world.item.TooltipFlag;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.biome.Biome;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class LBBrandNewItem extends Item implements LaserBladeItemBase {
@@ -120,11 +119,11 @@ public class LBBrandNewItem extends Item implements LaserBladeItemBase {
     }
 
     @Override
-    @OnlyIn(Dist.CLIENT)
-    public void appendHoverText(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag flag) {
-        super.appendHoverText(itemStack, tooltipContext, tooltip, flag);
-        LaserBladeItemUtil.addBrandNewText(tooltip);
-        LaserBladeItemUtil.addLaserBladeInformation(itemStack, tooltipContext, tooltip, flag, Upgrade.Type.REPAIR);
+    public void appendTooltip(ItemStack itemStack, Item.TooltipContext tooltipContext, TooltipFlag flag, List<Component> tooltip) {
+        ArrayList<Component> myTooltip = new ArrayList<>();
+        LaserBladeItemUtil.addBrandNewText(myTooltip);
+        LaserBladeItemUtil.addLaserBladeInformation(itemStack, tooltipContext, myTooltip, flag, Upgrade.Type.REPAIR);
+        tooltip.addAll(1, myTooltip);
     }
 
 }
