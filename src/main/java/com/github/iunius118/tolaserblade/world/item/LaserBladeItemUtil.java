@@ -1,15 +1,16 @@
 package com.github.iunius118.tolaserblade.world.item;
 
 import com.github.iunius118.tolaserblade.common.util.ModSoundEvents;
+import com.github.iunius118.tolaserblade.config.TLBClientConfig;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBlade;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeAppearance;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeTextKey;
 import com.github.iunius118.tolaserblade.core.laserblade.upgrade.Upgrade;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.component.DataComponents;
-import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
+import net.minecraft.sounds.SoundEvents;
 import net.minecraft.sounds.SoundSource;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.util.Mth;
@@ -65,11 +66,15 @@ public class LaserBladeItemUtil {
         level.playSound(null, pos.x, pos.y, pos.z, soundEvent, target.getSoundSource(), 1.0F, 1.0F);
     }
 
-    public static void playBlockSound(PlayLevelSoundEvent.AtEntity event, ItemStack itemStack) {
-        var soundEvent = isFireResistant(itemStack) ? ModSoundEvents.ITEM_LASER_BLADE_FP_BLOCK : ModSoundEvents.ITEM_LASER_BLADE_BLOCK;
-        event.setSound(BuiltInRegistries.SOUND_EVENT.wrapAsHolder(soundEvent));
-        event.setNewVolume(1.0F);
-        event.setNewPitch(1.0F);
+    public static void playBlockSound(PlayLevelSoundEvent.AtPosition event) {
+        if (TLBClientConfig.useShieldSoundForLaserBlade) {
+            event.setSound(SoundEvents.SHIELD_BLOCK);
+            event.setNewVolume(1.0F);
+            event.setNewPitch(0.8F + event.getLevel().random.nextFloat() * 0.4F);
+        } else {
+            event.setNewVolume(1.0F);
+            event.setNewPitch(1.0F);
+        }
     }
 
     @OnlyIn(Dist.CLIENT)
