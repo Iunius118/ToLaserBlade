@@ -1,4 +1,4 @@
-// 1.21.4	2024-12-17T19:23:51.8622393	Recipes
+// 1.21.5	2025-04-27T13:45:24.3844625	Recipes
 88d053c553b4510665013438381a3994049ac473 data/tolaserblade/advancement/recipes/combat/dx_laser_blade.json
 dfe81a3ac1efaac52a01684831bc6bad9347c41e data/tolaserblade/advancement/recipes/misc/lb_battery.json
 4226b925e86dc3c66051f335523faa30d755cac6 data/tolaserblade/advancement/recipes/misc/lb_blueprint.json
@@ -256,8 +256,8 @@ aeac68b5709cb1dbaf5325f6da8dc6ff50a5ca52 data/tolaserblade/recipe/model/lbf_0.js
 839bc3bce6afcd892cfabe79605bf045c4357fb2 data/tolaserblade/recipe/model/lb_1.json
 dce543a58bcb2962d338ab98b2547e9da420503f data/tolaserblade/recipe/model/lb_2.json
 cb3c0610f82e33369e609836cc9a6eb87f822ef1 data/tolaserblade/recipe/model/lb_526.json
-68c6d45398172bc95c0d1d205d3ffb841486cc0b data/tolaserblade/recipe/repair_lbbf_smithing.json
-9c826c48bd9d31d7e2773a114ce549de91e3bdf6 data/tolaserblade/recipe/repair_lbb_smithing.json
+4407cc52beaf90576829927b8591c22f7d400c76 data/tolaserblade/recipe/repair_lbbf_smithing.json
+26a209e6270f8ef9a9dc8cbc6cc76cc500ea77b5 data/tolaserblade/recipe/repair_lbb_smithing.json
 0f6da698fde10440d966580344b0e6c0684e06fa data/tolaserblade/recipe/upgrade/lbf_adm.json
 05badb7c957156fd0d8a3c31fcea58dda9621609 data/tolaserblade/recipe/upgrade/lbf_asp.json
 44b43453217b08359c6b9af84416bc714b009e12 data/tolaserblade/recipe/upgrade/lbf_efc.json

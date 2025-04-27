@@ -114,15 +114,13 @@ public class LBSwordItem extends Item implements LaserBladeItemBase {
     }
 
     @Override
-    public boolean hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
+    public void hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         Level level = attacker.getCommandSenderWorld();
 
         if (!level.isClientSide) {
             LaserBladeItemUtil.playSwingSound(level, attacker, LaserBladeItemUtil.isFireResistant(stack));
             hurtAndBreak(stack, 1, attacker);
         }
-
-        return true;
     }
 
     /* Handling Events */

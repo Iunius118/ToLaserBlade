@@ -23,9 +23,13 @@ import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
 import net.neoforged.fml.VersionChecker;
+import net.neoforged.fml.VersionChecker.CheckResult;
 import net.neoforged.fml.VersionChecker.Status;
 import net.neoforged.neoforge.client.event.*;
 import net.neoforged.neoforge.client.extensions.common.RegisterClientExtensionsEvent;
+
+import java.net.URI;
+import java.net.URL;
 
 public class ClientModEventHandler {
     @SubscribeEvent
@@ -74,21 +78,26 @@ public class ClientModEventHandler {
 
     public static void checkUpdate() {
         // Check update and Notify client
-        var result = VersionChecker.getResult(ModList.get().getModFileById(ToLaserBlade.MOD_ID).getMods().get(0));
-        var status = result.status();
+        CheckResult result = VersionChecker.getResult(ModList.get().getModFileById(ToLaserBlade.MOD_ID).getMods().getFirst());
 
-        if (status == Status.PENDING || result.target() == null) {
-            // Failed to get update information
-            return;
-        }
+        try {
+            URI uri = new URL(result.url()).toURI();
+            Status status = result.status();
 
-        if (status == Status.OUTDATED || status == Status.BETA_OUTDATED) {
-            MutableComponent modNameHighlighted = Component.literal(ToLaserBlade.MOD_NAME).withStyle(ChatFormatting.YELLOW);
-            MutableComponent newVersionHighlighted = Component.literal(result.target().toString()).withStyle(ChatFormatting.YELLOW);
-            MutableComponent message = Component.translatable("tolaserblade.update.newVersion", modNameHighlighted).append(": ")
-                    .append(newVersionHighlighted)
-                    .withStyle(style -> style.withClickEvent(new ClickEvent(ClickEvent.Action.OPEN_URL, result.url())));
-            Minecraft.getInstance().gui.getChat().addMessage(message);
+            if (status == Status.PENDING || result.target() == null) {
+                // Failed to get update information
+                return;
+            }
+
+            if (status == Status.OUTDATED || status == Status.BETA_OUTDATED) {
+                MutableComponent modNameHighlighted = Component.literal(ToLaserBlade.MOD_NAME).withStyle(ChatFormatting.YELLOW);
+                MutableComponent newVersionHighlighted = Component.literal(result.target().toString()).withStyle(ChatFormatting.YELLOW);
+                MutableComponent message = Component.translatable("tolaserblade.update.newVersion", modNameHighlighted).append(": ")
+                        .append(newVersionHighlighted)
+                        .withStyle(style -> style.withClickEvent(new ClickEvent.OpenUrl(uri)));
+                Minecraft.getInstance().gui.getChat().addMessage(message);
+            }
+        } catch (Exception ignored) {
         }
     }
 

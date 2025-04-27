@@ -51,7 +51,7 @@ public class LaserTrapPlayer extends FakePlayer {
         inventory.clearContent();
 
         // Set given item stack in main hand
-        inventory.selected = 0;
+        inventory.setSelectedSlot(0);
         inventory.setItem(0, currentStack);
 
         // Apply attack damage from main hand item
