@@ -19,7 +19,11 @@ import net.minecraft.world.entity.LivingEntity;
 import net.minecraft.world.entity.boss.wither.WitherBoss;
 import net.minecraft.world.entity.item.ItemEntity;
 import net.minecraft.world.entity.player.Player;
-import net.minecraft.world.item.*;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.ItemUseAnimation;
+import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.Tool;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.state.BlockState;
@@ -30,19 +34,22 @@ import net.neoforged.neoforge.event.entity.player.CriticalHitEvent;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LBSwordItem extends SwordItem implements LaserBladeItemBase {
+public class LBSwordItem extends Item implements LaserBladeItemBase {
     public LBSwordItem(Properties properties, boolean isFireResistant) {
-        super(ModToolMaterials.getLBSwordMaterial(isFireResistant), LaserBlade.BASE_ATTACK, LaserBlade.BASE_SPEED, properties);
-        overwriteToolComponent(ModToolMaterials.getLBSwordMaterial(isFireResistant));
+        // Apply sword properties
+        super(ModToolMaterials.getLBSwordMaterial(isFireResistant).applySwordProperties(properties, LaserBlade.BASE_ATTACK, LaserBlade.BASE_SPEED));
+        // ... and overwrite the tool component
+        overwriteToolComponent(isFireResistant);
 
         // Register dispense behavior
         DispenserBlock.registerBehavior(this, new DispenseLaserBladeBehavior());
     }
 
-    private void overwriteToolComponent(ToolMaterial toolMaterial) {
+    private void overwriteToolComponent(boolean isFireResistant) {
         DataComponentMap.Builder builder = DataComponentMap.builder().addAll(this.components());
         // Remove some components to handle mining speed and repairability on the mod side
-        builder.set(DataComponents.TOOL, null);
+        float speed = ModToolMaterials.getLBSwordMaterial(isFireResistant).speed();
+        builder.set(DataComponents.TOOL, new Tool(List.of(), speed, 1, false));
         builder.set(DataComponents.REPAIRABLE, null);
         ((ItemAccessor) this).setComponents(builder.build());
     }
