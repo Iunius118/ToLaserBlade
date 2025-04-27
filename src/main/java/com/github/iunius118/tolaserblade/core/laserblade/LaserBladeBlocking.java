@@ -4,11 +4,14 @@ import com.github.iunius118.tolaserblade.common.util.ModSoundEventRegistry;
 import com.github.iunius118.tolaserblade.common.util.ModSoundEvents;
 import com.github.iunius118.tolaserblade.config.TLBServerConfig;
 import net.minecraft.core.Holder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.world.InteractionHand;
+import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.player.Player;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUseAnimation;
 import net.minecraft.world.item.component.BlocksAttacks;
 
@@ -41,30 +44,38 @@ public class LaserBladeBlocking {
         );
     }
 
-    public static ItemUseAnimation getUseAction() {
-        if (isShield()) {
+    public static ItemUseAnimation getUseAnimation(ItemStack stack) {
+        if (LaserBladeBlocking.isShield()) {
+            // Return BLOCK only when blocking is allowed in config...
+            return ItemUseAnimation.BLOCK;
+        }
+
+        Optional<? extends BlocksAttacks> patched = stack.getComponentsPatch().get(DataComponents.BLOCKS_ATTACKS);
+
+        if (patched != null && patched.isPresent()) {
+            // ... or BLOCKS_ATTACKS was given in command
             return ItemUseAnimation.BLOCK;
         } else {
             return ItemUseAnimation.NONE;
         }
     }
 
-    public static int getUseDuration() {
-        if (isShield()) {
-            // 1 hour
-            return 72000;
-        } else {
-            return 0;
+    public static InteractionResult use(Player player, InteractionHand hand) {
+        if (LaserBladeBlocking.isShield()) {
+            // Start using item only when blocking is allowed in config...
+            player.startUsingItem(hand);
+            return InteractionResult.CONSUME;
         }
-    }
 
-    public static void start(Player player, InteractionHand hand) {
-        if (isShield()) {
-            ItemUseAnimation offhandItemAction = player.getOffhandItem().getUseAnimation();
+        ItemStack stack = player.getItemInHand(hand);
+        Optional<? extends BlocksAttacks> patched = stack.getComponentsPatch().get(DataComponents.BLOCKS_ATTACKS);
 
-            if (offhandItemAction != ItemUseAnimation.BOW && offhandItemAction != ItemUseAnimation.SPEAR) {
-                player.startUsingItem(hand);
-            }
+        if (patched != null && patched.isPresent()) {
+            // ... or BLOCKS_ATTACKS was given in command
+            player.startUsingItem(hand);
+            return InteractionResult.CONSUME;
+        } else {
+            return InteractionResult.PASS;
         }
     }
 }

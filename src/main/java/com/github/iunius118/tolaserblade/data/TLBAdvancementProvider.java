@@ -111,8 +111,7 @@ public class TLBAdvancementProvider extends ForgeAdvancementProvider {
         }
 
         private AdvancementHolder registerItemAdvancement(AdvancementHolder parent, Item icon, AdvancementType advancementType,
-                                                          Item[] requirements, Consumer<AdvancementHolder> consumer)
-        {
+                                                          Item[] requirements, Consumer<AdvancementHolder> consumer) {
             String name = getItemId(requirements[0]).getPath();
             Advancement.Builder builder = Advancement.Builder.recipeAdvancement()
                     .parent(parent)
@@ -133,8 +132,7 @@ public class TLBAdvancementProvider extends ForgeAdvancementProvider {
 
         private AdvancementHolder registerEnchantmentAdvancement(AdvancementHolder parent, Item icon, AdvancementType advancementType,
                                                                  Item[] requirements, ResourceKey<Enchantment> enchantment, int level,
-                                                                 HolderLookup.Provider lookupProvider, Consumer<AdvancementHolder> consumer)
-        {
+                                                                 HolderLookup.Provider lookupProvider, Consumer<AdvancementHolder> consumer) {
             var enchantmentHolder = lookupProvider.lookupOrThrow(Registries.ENCHANTMENT).getOrThrow(enchantment);
             String name = getItemId(requirements[0]).getPath() + "_" + getEnchantmentId(enchantmentHolder).getPath() + "_" + level;
             var itemRegistryLookup = lookupProvider.lookupOrThrow(Registries.ITEM);
@@ -166,8 +164,7 @@ public class TLBAdvancementProvider extends ForgeAdvancementProvider {
 
         private AdvancementHolder registerAttackUpgradeAdvancement(AdvancementHolder parent, Item icon, AdvancementType advancementType,
                                                                    Item[] requirements, int attackDamage, HolderLookup.Provider lookupProvider,
-                                                                   Consumer<AdvancementHolder> consumer)
-        {
+                                                                   Consumer<AdvancementHolder> consumer) {
             String name = getItemId(requirements[0]).getPath() + "_attack_" + attackDamage;
             Advancement.Builder builder = Advancement.Builder.recipeAdvancement()
                     .parent(parent)

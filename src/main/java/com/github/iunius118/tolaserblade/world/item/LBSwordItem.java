@@ -24,13 +24,13 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemUseAnimation;
 import net.minecraft.world.item.TooltipFlag;
+import net.minecraft.world.item.component.Consumable;
 import net.minecraft.world.item.component.Tool;
+import net.minecraft.world.item.equipment.Equippable;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.minecraftforge.client.extensions.common.IClientItemExtensions;
-import net.minecraftforge.common.ToolAction;
-import net.minecraftforge.common.ToolActions;
 import net.minecraftforge.event.entity.player.CriticalHitEvent;
 
 import java.util.ArrayList;
@@ -75,28 +75,31 @@ public class LBSwordItem extends Item implements LaserBladeItemBase {
     /* Shield Functions */
 
     @Override
-    public boolean canPerformAction(ItemStack stack, ToolAction toolAction) {
-        return super.canPerformAction(stack, toolAction) || (LaserBladeBlocking.isShield() && ToolActions.DEFAULT_SHIELD_ACTIONS.contains(toolAction));
-    }
-
-    @Override
     public ItemUseAnimation getUseAnimation(ItemStack stack) {
-        return LaserBladeBlocking.getUseAction();
-    }
+        var consumable = stack.get(DataComponents.CONSUMABLE);
 
-    @Override
-    public int getUseDuration(ItemStack stack, LivingEntity entity) {
-        return LaserBladeBlocking.getUseDuration();
+        if (consumable != null) {
+            return consumable.animation();
+        } else {
+            return LaserBladeBlocking.getUseAnimation(stack);
+        }
     }
 
     @Override
     public InteractionResult use(Level level, Player player, InteractionHand hand) {
-        LaserBladeBlocking.start(player, hand);
+        ItemStack itemstack = player.getItemInHand(hand);
+        Consumable consumable = itemstack.get(DataComponents.CONSUMABLE);
 
-        if (LaserBladeBlocking.isShield() && player.isUsingItem()) {
-            return InteractionResult.CONSUME;
+        if (consumable != null) {
+            return consumable.startConsuming(player, itemstack, hand);
         } else {
-            return InteractionResult.PASS;
+            Equippable equippable = itemstack.get(DataComponents.EQUIPPABLE);
+
+            if (equippable != null && equippable.swappable()) {
+                return equippable.swapWithEquipmentSlot(itemstack, player);
+            } else {
+                return LaserBladeBlocking.use(player, hand);
+            }
         }
     }
 

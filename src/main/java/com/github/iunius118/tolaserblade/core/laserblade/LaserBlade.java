@@ -75,7 +75,6 @@ public class LaserBlade {
         // Attack damage and speed from item compounds, config values, and base values
         float attackDamage = LaserBlade.getAttack(itemStack, damageUpgradeMultiplier) + baseDamage + BASE_ATTACK;
         float attackSpeed  = LaserBlade.getSpeed(itemStack) + TLBServerConfig.laserBladeBaseSpeed + BASE_SPEED;
-        Item item = itemStack.getItem();
 
         // Add attack damage bonus to attack damage
         boolean isFireResistant = LaserBladeItemUtil.isFireResistant(itemStack);
