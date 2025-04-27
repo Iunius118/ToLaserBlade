@@ -58,7 +58,7 @@ public class LBColorRecipeBuilder {
                 .rewards(AdvancementRewards.Builder.recipe(id))
                 .requirements(AdvancementRequirements.Strategy.OR);
         criteria.forEach(advancementBuilder::addCriterion);
-        LBColorRecipe recipe = new LBColorRecipe(Optional.of(template), Optional.of(base), Optional.of(addition), part, color);
+        LBColorRecipe recipe = new LBColorRecipe(Optional.of(template), base, Optional.of(addition), part, color);
         output.accept(id, recipe, advancementBuilder.build(location.withPrefix("recipes/" + this.category.getFolderName() + "/")));
     }
 

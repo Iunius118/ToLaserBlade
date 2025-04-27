@@ -55,7 +55,7 @@ public class LBUpgradeRecipeBuilder {
                 .rewards(AdvancementRewards.Builder.recipe(id))
                 .requirements(AdvancementRequirements.Strategy.OR);
         criteria.forEach(advancementBuilder::addCriterion);
-        LBUpgradeRecipe recipe = new LBUpgradeRecipe(Optional.of(template), Optional.of(base), Optional.of(addition), upgradeId);
+        LBUpgradeRecipe recipe = new LBUpgradeRecipe(Optional.of(template), base, Optional.of(addition), upgradeId);
         output.accept(id, recipe, advancementBuilder.build(location.withPrefix("recipes/" + this.category.getFolderName() + "/")));
     }
 
