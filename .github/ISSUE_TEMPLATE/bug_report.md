@@ -10,10 +10,10 @@ assignees: ''
 <!-- Thank you for reporting -->
 
 - Minecraft version: 
-- Mod loader version:
+- Mod loader version: 
 - ToLaserBlade version: 
 
-<!-- Add list of the other mods you were using at the time -->
+<!-- Add the other mods you were using at the time -->
 
 **Steps to Reproduce:**
 
