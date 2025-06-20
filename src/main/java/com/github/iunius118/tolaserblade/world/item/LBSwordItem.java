@@ -102,7 +102,7 @@ public class LBSwordItem extends Item implements LaserBladeItemBase {
 
     @Override
     public boolean onEntitySwing(ItemStack stack, LivingEntity entity, InteractionHand hand) {
-        Level level = entity.getCommandSenderWorld();
+        var level = entity.level();
 
         if (!level.isClientSide && entity instanceof Player player) {
             if (!player.swinging) {
@@ -115,7 +115,7 @@ public class LBSwordItem extends Item implements LaserBladeItemBase {
 
     @Override
     public void hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        Level level = attacker.getCommandSenderWorld();
+        var level = attacker.level();
 
         if (!level.isClientSide) {
             LaserBladeItemUtil.playSwingSound(level, attacker, LaserBladeItemUtil.isFireResistant(stack));

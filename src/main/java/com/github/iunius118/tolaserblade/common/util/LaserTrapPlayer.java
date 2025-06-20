@@ -70,7 +70,7 @@ public class LaserTrapPlayer extends FakePlayer {
         BlockPos trapPos = blockPosition();
         BlockPos targetPos = trapPos.relative(dir);
         AABB aabb = new AABB(targetPos).inflate(0.5D);
-        ServerLevel level = this.serverLevel();
+        ServerLevel level = this.level();
         List<Entity> targetEntities = level.getEntities((Entity) null, aabb, this::canHitEntity);
 
         float attackDamage = (float) getAttributeValue(Attributes.ATTACK_DAMAGE);

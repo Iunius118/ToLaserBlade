@@ -7,7 +7,6 @@ import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.context.UseOnContext;
-import net.minecraft.world.level.Level;
 
 public class DXLaserBladeItem extends Item {
     public DXLaserBladeItem(Properties properties) {
@@ -16,7 +15,7 @@ public class DXLaserBladeItem extends Item {
 
     @Override
     public void hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
-        Level level = attacker.getCommandSenderWorld();
+        var level = attacker.level();
 
         if (!level.isClientSide && attacker instanceof Player) {
             DXLaserBladeItemUtil.playSwingSound(level, attacker);
@@ -27,7 +26,7 @@ public class DXLaserBladeItem extends Item {
 
     @Override
     public boolean onEntitySwing(ItemStack stack, LivingEntity entity, InteractionHand hand) {
-        Level level = entity.getCommandSenderWorld();
+        var level = entity.level();
 
         if (!level.isClientSide && entity instanceof Player player) {
             if (!player.swinging) {
