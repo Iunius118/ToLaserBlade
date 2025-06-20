@@ -54,5 +54,6 @@
       "property": "tolaserblade:blocking"
     },
     "property": "tolaserblade:using_original_model"
-  }
+  },
+  "oversized_in_gui": true
 }

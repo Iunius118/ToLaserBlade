@@ -17,6 +17,7 @@ import net.minecraft.client.data.models.ModelProvider;
 import net.minecraft.client.data.models.model.*;
 import net.minecraft.client.renderer.block.model.ItemTransform;
 import net.minecraft.client.renderer.block.model.ItemTransforms;
+import net.minecraft.client.renderer.item.ClientItem;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.renderer.item.properties.select.MainHand;
 import net.minecraft.data.PackOutput;
@@ -50,8 +51,8 @@ public class TLBModelProvider extends ModelProvider {
 
         // Laser Blades
         ItemModel.Unbaked lbSwordModel = generateLBSwordModel(ModItems.LASER_BLADE, modelOutput);
-        itemModelOutput.accept(ModItems.LASER_BLADE, lbSwordModel);
-        itemModelOutput.accept(ModItems.LASER_BLADE_FP, lbSwordModel);
+        itemModelOutput.register(ModItems.LASER_BLADE, new ClientItem(lbSwordModel, new ClientItem.Properties(true, true)));
+        itemModelOutput.register(ModItems.LASER_BLADE_FP, new ClientItem(lbSwordModel, new ClientItem.Properties(true, true)));
 
         // Laser Blade Parts
         itemModelOutput.accept(ModItems.LB_BLUEPRINT,
