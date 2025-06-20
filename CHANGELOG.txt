@@ -7,7 +7,7 @@
 ## [14.0.0 NeoForge]
 ### Changed
 - Port to Minecraft 1.21.6.
-- Require NeoForge 21.6.0-beta+.
+- Require NeoForge 21.6.5-beta+.
 - Change rendering of laser blades in GUI.
 
 ## [13.0.0 NeoForge]
