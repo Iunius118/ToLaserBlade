@@ -1,5 +1,6 @@
 package com.github.iunius118.tolaserblade.client.model;
 
+import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.api.client.model.LaserBladeModel;
 import com.github.iunius118.tolaserblade.client.renderer.LaserBladeRenderType;
 import net.minecraft.client.renderer.RenderType;
@@ -13,11 +14,11 @@ public abstract class SimpleLaserBladeModel extends SimpleModel implements Laser
     private static RenderType typeSub;
 
     public static void resetRenderTypes(ResourceLocation texture) {
-        typeHilt = LaserBladeRenderType.getHiltRenderType("tlb_hilt", texture);
-        typeUnlit = LaserBladeRenderType.getUnlitRenderType("tlb_unlit", texture);
-        typeSubInner = LaserBladeRenderType.getSubRenderType("tlb_sub_in", texture);
-        typeAdd = LaserBladeRenderType.getAddRenderType("tlb_add", texture);
-        typeSub = LaserBladeRenderType.getSubRenderType("tlb_sub", texture);
+        typeHilt = LaserBladeRenderType.getHiltRenderType(ToLaserBlade.MOD_ID + ":lb_hilt", texture);
+        typeUnlit = LaserBladeRenderType.getUnlitRenderType(ToLaserBlade.MOD_ID + ":lb_unlit", texture);
+        typeSubInner = LaserBladeRenderType.getSubRenderType(ToLaserBlade.MOD_ID + ":lb_sub_in", texture);
+        typeAdd = LaserBladeRenderType.getAddRenderType(ToLaserBlade.MOD_ID + ":lb_add", texture);
+        typeSub = LaserBladeRenderType.getSubRenderType(ToLaserBlade.MOD_ID + ":lb_sub", texture);
     }
 
     public RenderType getHiltRenderType() {
