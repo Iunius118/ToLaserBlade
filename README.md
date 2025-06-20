@@ -6,7 +6,7 @@ ToLaserBlade (T. o. Laser Blade) is a Minecraft mod adds a simple sword with a l
 
 |Status|Version|  Mod  Loader  |
 |:----:|:------|:-------------:|
-|Active|1.21.5 |Forge, NeoForge|
+|Active|1.21.6 |**NeoForge**, Forge|
 | LTS  |1.20.1 |     Forge     |
 
 
@@ -27,8 +27,8 @@ Mod解説 (Mod descriptions in Japanese):
 
 ## Mod Description and Download
 
-- [CurseForge](https://www.curseforge.com/minecraft/mc-mods/tolaserblade)
 - [Modrinth](https://modrinth.com/mod/tolaserblade)
+- [CurseForge](https://www.curseforge.com/minecraft/mc-mods/tolaserblade)
 
 ## License
 
