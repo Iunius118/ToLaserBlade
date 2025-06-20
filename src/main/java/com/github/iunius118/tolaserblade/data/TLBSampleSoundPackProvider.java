@@ -36,7 +36,7 @@ public class TLBSampleSoundPackProvider {
         var packOutput = new PackOutput(dataGenerator.getPackOutput().getOutputFolder().resolve(PACK_PATH));
         var packGenerator = dataGenerator.getBuiltinDatapack(true, PACK_PATH);
 
-        var packMetadataSection = new PackMetadataSection(Component.literal(PACK_DESCRIPTION), DetectedVersion.BUILT_IN.getPackVersion(PackType.CLIENT_RESOURCES), Optional.empty());
+        var packMetadataSection = new PackMetadataSection(Component.literal(PACK_DESCRIPTION), DetectedVersion.BUILT_IN.packVersion(PackType.CLIENT_RESOURCES), Optional.empty());
         packGenerator.addProvider(o -> new PackMetadataGenerator(packOutput).add(PackMetadataSection.TYPE, packMetadataSection));
         packGenerator.addProvider(o -> new TLBSampleSoundPackProvider.SampleSoundDefinitionsProvider(packOutput));
     }
