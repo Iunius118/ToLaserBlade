@@ -1,5 +1,5 @@
 # Cheatsheet
-ToLaserBlade v13.0.0 (Forge)
+ToLaserBlade v14.0.0 (Forge)
 
 ## How to Get Started
 ### 1. Craft a Brand-new Laser Blade I or II, and Use It

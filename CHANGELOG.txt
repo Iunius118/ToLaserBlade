@@ -4,6 +4,12 @@
 
 ## [Unreleased]
 
+## [14.0.0 Forge]
+### Changed
+- Port to Minecraft 1.21.6.
+- Require NeoForge 1.21.6-56.0.2+.
+- Change rendering of laser blades in GUI.
+
 ## [13.0.1 Forge]
 ### Fixed
 - Laser blade can now use the `minecraft:blocks_attacks` data component to block attacks.
