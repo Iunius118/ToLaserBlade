@@ -46,7 +46,9 @@ public class LaserBladeModelV1 extends SimpleLaserBladeModel {
 
     @Override
     public void render(ItemStack itemStack, ItemDisplayContext mode, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
-        if (guiResize != null && (mode == ItemDisplayContext.GUI || mode == ItemDisplayContext.FIXED)) {
+        boolean isGUI = (mode == ItemDisplayContext.GUI);
+
+        if (guiResize != null && (isGUI || mode == ItemDisplayContext.FIXED)) {
             // Adjust model size and position in GUI or item frame
             // scale(guiResize.x), and then translate(guiResize.y, guiResize.z)
             matrices.translate(0, guiResize.y(), guiResize.z());
@@ -68,8 +70,8 @@ public class LaserBladeModelV1 extends SimpleLaserBladeModel {
                 pushCount = modelObject.function.invoke(renderingContext, pushCount);
             } else {
                 // Render quads
-                var vertexConsumer = vertexConsumers.getBuffer(modelObject.renderType.get(this, laserBladeItemColor));
-                int color = modelObject.color.get(laserBladeItemColor);
+                var vertexConsumer = vertexConsumers.getBuffer(modelObject.renderType.get(this, laserBladeItemColor, isGUI));
+                int color = modelObject.color.get(laserBladeItemColor, isGUI);
                 int lightColorCoordinate = modelObject.getLightColor(light);
                 renderQuads(matrices, vertexConsumer, modelObject.quads, color, lightColorCoordinate, overlay);
             }

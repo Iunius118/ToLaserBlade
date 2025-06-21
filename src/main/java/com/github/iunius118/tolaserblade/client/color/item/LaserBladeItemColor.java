@@ -45,6 +45,40 @@ public record LaserBladeItemColor(
         );
     }
 
+    public int outerColor(boolean isGUI) {
+        return isGUI ? guiOuterColor() : outerColor();
+    }
+
+    public int innerColor(boolean isGUI) {
+        return isGUI ? guiInnerColor() : innerColor();
+    }
+
+    public int gripColor(boolean isGUI) {
+        return gripColor();
+    }
+
+    public int guiOuterColor() {
+        // When sub-color compositing, only colors are inverted while keeping alpha
+        return !isOuterSubColor ? outerColor : ~(outerColor & 0x00FFFFFF) | (outerColor & 0xFF000000);
+    }
+
+    public int guiInnerColor() {
+        // When sub-color compositing, only colors are inverted while keeping alpha
+        return !isInnerSubColor ? innerColor : ~(innerColor & 0x00FFFFFF) | (innerColor & 0xFF000000);
+    }
+
+    public int simpleOuterColor(boolean isGUI) {
+        return simpleOuterColor();
+    }
+
+    public int simpleInnerColor(boolean isGUI) {
+        return simpleInnerColor();
+    }
+
+    public int simpleGripColor(boolean isGUI) {
+        return simpleGripColor();
+    }
+
     public int simpleOuterColor() {
         return (isOuterSubColor ? ~outerColor : outerColor) | 0xFF000000;
     }

@@ -1,5 +1,6 @@
 package com.github.iunius118.tolaserblade.client.model;
 
+import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.api.client.model.LaserBladeModel;
 import com.github.iunius118.tolaserblade.client.renderer.LaserBladeRenderType;
 import net.minecraft.client.renderer.RenderType;
@@ -40,11 +41,13 @@ public abstract class SimpleLaserBladeModel extends SimpleModel implements Laser
         return typeSub;
     }
 
-    public RenderType getInnerBladeAddRenderType(boolean isSubColor) {
-        return isSubColor ? getSubInnerRenderType() : getAddRenderType();
+    public RenderType getInnerBladeAddRenderType(boolean isSubColor, boolean isGUI) {
+        // When rendering to GUI, always return AddRenderType
+        return (isSubColor && !isGUI) ? getSubInnerRenderType() : getAddRenderType();
     }
 
-    public RenderType getOuterBladeAddRenderType(boolean isSubColor) {
-        return isSubColor ? getSubRenderType() : getAddRenderType();
+    public RenderType getOuterBladeAddRenderType(boolean isSubColor, boolean isGUI) {
+        // When rendering to GUI, always return AddRenderType
+        return (isSubColor && !isGUI) ? getSubRenderType() : getAddRenderType();
     }
 }

@@ -77,13 +77,15 @@ class ModelObject {
 
     @FunctionalInterface
     public interface ObjectRenderType {
-        RenderType get(SimpleLaserBladeModel model, LaserBladeItemColor itemColor);
+        RenderType get(SimpleLaserBladeModel model, LaserBladeItemColor itemColor, boolean isGUI);
     }
 
-    private static final ObjectRenderType ADD_INNER_TYPE = (model, itemColor) -> model.getInnerBladeAddRenderType(itemColor.isInnerSubColor());
-    private static final ObjectRenderType ADD_OUTER_TYPE = (model, itemColor) -> model.getOuterBladeAddRenderType(itemColor.isOuterSubColor());
-    private static final ObjectRenderType UNLIT_TYPE = (model, itemColor) -> model.getUnlitRenderType();
-    private static final ObjectRenderType HILT_TYPE = (model, itemColor) -> model.getHiltRenderType();
+    private static final ObjectRenderType ADD_INNER_TYPE = (model, itemColor, isGUI) ->
+            model.getInnerBladeAddRenderType(itemColor.isInnerSubColor(), isGUI);
+    private static final ObjectRenderType ADD_OUTER_TYPE = (model, itemColor, isGUI) ->
+            model.getOuterBladeAddRenderType(itemColor.isOuterSubColor(), isGUI);
+    private static final ObjectRenderType UNLIT_TYPE = (model, itemColor, isGUI) -> model.getUnlitRenderType();
+    private static final ObjectRenderType HILT_TYPE = (model, itemColor, isGUI) -> model.getHiltRenderType();
 
     private ObjectRenderType getRenderType(JsonModelV1.JsonModelObject.Type type, JsonModelV1.JsonModelObject.Part part) {
         return switch (type) {
@@ -96,7 +98,7 @@ class ModelObject {
 
     @FunctionalInterface
     public interface ObjectPartColor {
-        int get(LaserBladeItemColor itemColor);
+        int get(LaserBladeItemColor itemColor, boolean isGUI);
     }
 
     private static final ObjectPartColor GRIP_COLOR = LaserBladeItemColor::gripColor;
@@ -104,8 +106,8 @@ class ModelObject {
     private static final ObjectPartColor SIMPLE_INNER_COLOR = LaserBladeItemColor::simpleInnerColor;
     private static final ObjectPartColor OUTER_COLOR = LaserBladeItemColor::outerColor;
     private static final ObjectPartColor SIMPLE_OUTER_COLOR = LaserBladeItemColor::simpleOuterColor;
-    private static final ObjectPartColor DEFAULT_COLOR = itemColor -> WHITE_ARGB;
-    private static final ObjectPartColor OFF_COLOR = itemColor -> GRAY_ARGB;
+    private static final ObjectPartColor DEFAULT_COLOR = (itemColor, isGUI) -> WHITE_ARGB;
+    private static final ObjectPartColor OFF_COLOR = (itemColor, isGUI) -> GRAY_ARGB;
 
     public ObjectPartColor getPartColor(JsonModelV1.JsonModelObject.Type type, JsonModelV1.JsonModelObject.Part part) {
         return switch (part) {
