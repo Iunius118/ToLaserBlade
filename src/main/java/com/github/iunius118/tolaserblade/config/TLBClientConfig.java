@@ -1,8 +1,12 @@
 package com.github.iunius118.tolaserblade.config;
 
+import com.github.iunius118.tolaserblade.ToLaserBlade;
 import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 
+@Mod.EventBusSubscriber(modid = ToLaserBlade.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class TLBClientConfig {
     private static final ForgeConfigSpec.Builder BUILDER;
     private static final ForgeConfigSpec.BooleanValue SHOW_UPDATE_MESSAGE;
@@ -60,6 +64,7 @@ public class TLBClientConfig {
     public static int defaultModel = DEFAULT_MODEL.getDefault();
     public static boolean useShieldSoundForLaserBlade = USE_SHIELD_SOUND_FOR_LASER_BLADE.getDefault();
 
+    @SubscribeEvent
     public static void onLoad(final ModConfigEvent event) {
         if (event.getConfig().getSpec() != SPEC) {
             return;

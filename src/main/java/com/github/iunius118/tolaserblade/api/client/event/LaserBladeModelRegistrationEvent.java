@@ -2,8 +2,7 @@ package com.github.iunius118.tolaserblade.api.client.event;
 
 import com.github.iunius118.tolaserblade.api.ToLaserBladeAPI;
 import com.github.iunius118.tolaserblade.api.client.model.LaserBladeModel;
-import net.minecraftforge.eventbus.api.Event;
-import net.minecraftforge.fml.event.IModBusEvent;
+import net.minecraftforge.eventbus.api.event.MutableEvent;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -13,7 +12,7 @@ import java.util.function.Consumer;
  * Event that is fired to register laser blade models at the appropriate time.
  * Use {@link ToLaserBladeAPI#registerModelRegistrationListener} to register instances.
  */
-public class LaserBladeModelRegistrationEvent extends Event implements IModBusEvent {
+public class LaserBladeModelRegistrationEvent extends MutableEvent {
     private final Consumer<List<LaserBladeModel>> register;
 
     public LaserBladeModelRegistrationEvent(@Nonnull Consumer<List<LaserBladeModel>> register) {

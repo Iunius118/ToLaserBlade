@@ -12,14 +12,13 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.item.ItemStack;
-import net.minecraftforge.eventbus.api.BusBuilder;
-import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.bus.EventBus;
 import org.slf4j.Logger;
 
 import java.util.*;
 
 public class LaserBladeModelManager {
-    public static final IEventBus EVENT_BUS = BusBuilder.builder().build();
+    public static final EventBus<LaserBladeModelRegistrationEvent> EVENT_BUS = EventBus.create(LaserBladeModelRegistrationEvent.class);
 
     private static final Logger LOGGER = ToLaserBlade.LOGGER;
     private static final String MODEL_DIR = "models/item/laser_blade";

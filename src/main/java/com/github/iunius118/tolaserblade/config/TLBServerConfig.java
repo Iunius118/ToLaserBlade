@@ -1,8 +1,12 @@
 package com.github.iunius118.tolaserblade.config;
 
+import com.github.iunius118.tolaserblade.ToLaserBlade;
 import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.event.config.ModConfigEvent;
 
+@Mod.EventBusSubscriber(modid = ToLaserBlade.MOD_ID, bus = Mod.EventBusSubscriber.Bus.MOD)
 public class TLBServerConfig {
     private static final ForgeConfigSpec.Builder BUILDER;
     private static final ForgeConfigSpec.BooleanValue IS_ENABLED_BLOCKING_WITH_LASER_BLADE;
@@ -88,6 +92,7 @@ public class TLBServerConfig {
     public static boolean canLaserTrapAttackPlayer = CAN_LASER_TRAP_ATTACK_PLAYER.getDefault();
     public static boolean canLaserTrapHeatUpFurnace = CAN_LASER_TRAP_HEAT_UP_FURNACE.getDefault();
 
+    @SubscribeEvent
     public static void onLoad(final ModConfigEvent event) {
         if (event.getConfig().getSpec() != SPEC || !SPEC.isLoaded()) {
             return;

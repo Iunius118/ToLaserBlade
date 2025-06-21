@@ -8,17 +8,16 @@ import net.minecraftforge.event.entity.player.AttackEntityEvent;
 import net.minecraftforge.event.entity.player.CriticalHitEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
 
 public class ItemEventHandler {
     @SubscribeEvent
-    public static void onEntityInteract(PlayerInteractEvent.EntityInteract event) {
+    public static boolean onEntityInteract(PlayerInteractEvent.EntityInteract event) {
         ItemStack itemStack = event.getItemStack();
 
         // Redundant Null Check for Forge
         if (itemStack != null && (itemStack.getItem() == ModItems.LASER_BLADE || itemStack.getItem() == ModItems.LASER_BLADE_FP)) {
             // Avoid duplication of Laser Blade when player interact with Item Frame
-            event.setCanceled(true);
             Player player = event.getEntity();
             ItemStack itemStack1 = itemStack.isEmpty() ? ItemStack.EMPTY : itemStack.copy();
 
@@ -28,11 +27,16 @@ public class ItemEventHandler {
                 }
 
                 event.setCancellationResult(InteractionResult.SUCCESS);
-                return;
+                // Canceled
+                return true;
             }
 
             event.setCancellationResult(InteractionResult.PASS);
+            // Canceled
+            return true;
         }
+
+        return false;
     }
 
     @SubscribeEvent
