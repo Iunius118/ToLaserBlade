@@ -52,6 +52,8 @@ class ModelObjectFunctions {
     private static final Matrix4f TP_LEFT_HAND_TRANSFORMATION = new Matrix4f(-1, 0, 0, 0, 0, -1, 0, 0, 0, 0, 1, 0, 0, 0.3125F, 0, 1);
     // GUI_TRANSFORMATION: matrices.translate(0.15625D, 0.75D, -0.15D); matrices.mulPose(GUI_TRANSFORMATION); matrices.scale(0.95F, 0.95F, 0.95F);
     private static final Matrix4f GUI_TRANSFORMATION = new Matrix4f(-0.95F, 0, 0, 0, 0, 0, 0.95F, 0, 0, 0.95F, 0, 0, 0.15625F, 0.75F, -0.15F, 1);
+    // GROUND_TRANSFORMATION: matrices.translate(0, 0.25D, -0.25D);
+    private static final Matrix4f GROUND_TRANSFORMATION = new Matrix4f(1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0F, 0.275F, -0.275F, 1);
 
     private static void transformShield(ItemDisplayContext mode, PoseStack matrices) {
         switch (mode) {
@@ -59,6 +61,7 @@ class ModelObjectFunctions {
             case FIRST_PERSON_LEFT_HAND -> matrices.mulPose(FP_LEFT_HAND_TRANSFORMATION);
             case THIRD_PERSON_LEFT_HAND -> matrices.mulPose(TP_LEFT_HAND_TRANSFORMATION);
             case GUI, FIXED -> matrices.mulPose(GUI_TRANSFORMATION);
+            case GROUND -> matrices.mulPose(GROUND_TRANSFORMATION);
         }
     }
 }
