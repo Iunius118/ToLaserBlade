@@ -8,11 +8,11 @@ import com.github.iunius118.tolaserblade.client.renderer.item.LBSwordSpecialRend
 import com.github.iunius118.tolaserblade.client.renderer.item.properties.Blocking;
 import com.github.iunius118.tolaserblade.client.renderer.item.properties.UsingOriginalModel;
 import com.github.iunius118.tolaserblade.core.particle.ModParticleTypes;
-import com.github.iunius118.tolaserblade.mixin.ConditionalItemModelPropertiesAccessor;
-import com.github.iunius118.tolaserblade.mixin.SpecialModelRenderersAccessor;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemTintSources;
+import net.minecraft.client.renderer.item.properties.conditional.ConditionalItemModelProperties;
+import net.minecraft.client.renderer.special.SpecialModelRenderers;
 import net.minecraft.core.Direction;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
@@ -21,7 +21,7 @@ import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
-import net.minecraftforge.eventbus.api.SubscribeEvent;
+import net.minecraftforge.eventbus.api.listener.SubscribeEvent;
 import net.minecraftforge.fml.ModList;
 import net.minecraftforge.fml.VersionChecker;
 import net.minecraftforge.fml.VersionChecker.CheckResult;
@@ -34,15 +34,14 @@ import java.net.URL;
 public class ClientModEventHandler {
     public static void initClient() {
         // Register item model properties
-        final var booleanPropertyMapper = ConditionalItemModelPropertiesAccessor.getIdMapper();
-        booleanPropertyMapper.put(ToLaserBlade.makeId("using_original_model"), UsingOriginalModel.MAP_CODEC);
-        booleanPropertyMapper.put(ToLaserBlade.makeId("blocking"), Blocking.MAP_CODEC);
+        ConditionalItemModelProperties.ID_MAPPER.put(ToLaserBlade.makeId("using_original_model"), UsingOriginalModel.MAP_CODEC);
+        ConditionalItemModelProperties.ID_MAPPER.put(ToLaserBlade.makeId("blocking"), Blocking.MAP_CODEC);
 
         // Register tint sources
         ItemTintSources.ID_MAPPER.put(ToLaserBlade.makeId("laser_blade"), LaserBladeTintSource.MAP_CODEC);
 
         // Register special model renderers
-        SpecialModelRenderersAccessor.getIdMapper().put(ToLaserBlade.makeId("laser_blade"), LBSwordSpecialRenderer.Unbaked.MAP_CODEC);
+        SpecialModelRenderers.ID_MAPPER.put(ToLaserBlade.makeId("laser_blade"), LBSwordSpecialRenderer.Unbaked.MAP_CODEC);
     }
 
     @SubscribeEvent

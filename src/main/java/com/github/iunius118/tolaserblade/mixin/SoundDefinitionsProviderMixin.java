@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
 
 @Mixin(value = SoundDefinitionsProvider.class, remap = false)
-public abstract class MixinSoundDefinitionsProvider {
+public abstract class SoundDefinitionsProviderMixin {
     @Shadow @Final private String modId;
 
     @Inject(method = "validateSound(Ljava/lang/String;Lnet/minecraft/resources/ResourceLocation;)Z", at = @At("HEAD"), cancellable = true)

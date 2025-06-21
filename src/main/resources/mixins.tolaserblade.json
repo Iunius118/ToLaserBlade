@@ -4,12 +4,10 @@
   "mixins": [
     "AbstractFurnaceBlockEntityAccessor",
     "ItemAccessor",
-    "MixinSmithingMenu",
-    "MixinSoundDefinitionsProvider"
+    "SmithingMenuMixin",
+    "SoundDefinitionsProviderMixin"
   ],
   "client": [
-    "ConditionalItemModelPropertiesAccessor",
-    "SpecialModelRenderersAccessor"
   ],
   "refmap": "mixins.tolaserblade.refmap.json",
   "compatibilityLevel": "JAVA_17",
