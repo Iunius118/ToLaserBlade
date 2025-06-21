@@ -4,11 +4,10 @@ import com.github.iunius118.tolaserblade.config.TLBServerConfig;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeAppearance;
 import com.github.iunius118.tolaserblade.core.particle.ModParticleTypes;
 import com.mojang.authlib.GameProfile;
+import io.netty.channel.ChannelFutureListener;
 import net.minecraft.core.BlockPos;
 import net.minecraft.core.Direction;
 import net.minecraft.core.registries.Registries;
-import net.minecraft.network.Connection;
-import net.minecraft.network.PacketSendListener;
 import net.minecraft.network.protocol.Packet;
 import net.minecraft.network.protocol.PacketFlow;
 import net.minecraft.server.level.ServerLevel;
@@ -28,8 +27,8 @@ import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.phys.AABB;
 import net.minecraft.world.phys.Vec3;
-import org.jetbrains.annotations.Nullable;
 
+import javax.annotation.Nullable;
 import java.util.List;
 import java.util.UUID;
 
@@ -50,7 +49,7 @@ public class LaserTrapPlayer extends FakePlayer {
     public static LaserTrapPlayer get(ServerLevel serverLevel, BlockPos trapPos, ItemStack itemStackHeld) {
         // Temporary fake player generation due to dummy connection bug in Forge
         var laserTrapPlayer = new LaserTrapPlayer(serverLevel, PROFILE);
-        new LaserTrapPlayer.NetHandler(laserTrapPlayer);
+        new LaserTrapPlayer.NetHandler(serverLevel, laserTrapPlayer);
 
         laserTrapPlayer.setPos(trapPos.getX() + 0.5D, trapPos.getY(), trapPos.getZ() + 0.5D);
         laserTrapPlayer.initInventory(itemStackHeld.copy());
@@ -59,16 +58,16 @@ public class LaserTrapPlayer extends FakePlayer {
 
     // Temporary network handler due to dummy connection bug in Forge
     private static class NetHandler extends ServerGamePacketListenerImpl {
-        private static final Connection DUMMY_CONNECTION = new DummyConnection();
+        private static final net.minecraft.network.Connection DUMMY_CONNECTION = new DummyConnection();
 
-        public NetHandler(ServerPlayer player) {
-            super(player.server, DUMMY_CONNECTION, player, CommonListenerCookie.createInitial(player.getGameProfile(), false));
+        public NetHandler(ServerLevel serverLevel, ServerPlayer player) {
+            super(serverLevel.getServer(), DUMMY_CONNECTION, player, CommonListenerCookie.createInitial(player.getGameProfile(), false));
         }
 
         @Override
-        public void send(Packet<?> packet, @Nullable PacketSendListener listener) { }
+        public void send(Packet<?> p_300325_, @Nullable ChannelFutureListener listener) { }
 
-        private static class DummyConnection extends Connection {
+        private static class DummyConnection extends net.minecraft.network.Connection {
             public DummyConnection() {
                 super(PacketFlow.CLIENTBOUND);
             }
@@ -99,7 +98,7 @@ public class LaserTrapPlayer extends FakePlayer {
         BlockPos trapPos = blockPosition();
         BlockPos targetPos = trapPos.relative(dir);
         AABB aabb = new AABB(targetPos).inflate(0.5D);
-        ServerLevel level = this.serverLevel();
+        ServerLevel level = this.level();
         List<Entity> targetEntities = level.getEntities((Entity) null, aabb, this::canHitEntity);
 
         float attackDamage = (float) getAttributeValue(Attributes.ATTACK_DAMAGE);
