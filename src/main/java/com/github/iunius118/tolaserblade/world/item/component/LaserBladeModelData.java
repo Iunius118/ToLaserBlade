@@ -10,7 +10,6 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 
 import java.util.Map;
-import java.util.Objects;
 
 public record LaserBladeModelData(int modelType, Map<String, PartData> parts) {
     public static final LaserBladeModelData DEFAULT = new LaserBladeModelData(LaserBlade.TYPE_DEFAULT, Map.of());
@@ -25,11 +24,6 @@ public record LaserBladeModelData(int modelType, Map<String, PartData> parts) {
             ByteBufCodecs.map(Object2ObjectOpenHashMap::new, ByteBufCodecs.STRING_UTF8, PartData.STREAM_CODEC), LaserBladeModelData::parts,
             LaserBladeModelData::new
     );
-
-    public LaserBladeModelData(int modelType, Map<String, PartData> parts) {
-        this.modelType = modelType;
-        this.parts = Objects.requireNonNullElse(parts, Map.of());
-    }
 
     public record PartData(boolean exists, int color, boolean isSubtractiveColor) implements LaserBladeState.Part {
         public static final PartData ABSENT = new PartData(false, -1, false);
