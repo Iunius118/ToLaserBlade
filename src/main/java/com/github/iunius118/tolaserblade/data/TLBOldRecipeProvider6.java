@@ -12,7 +12,7 @@ import net.minecraft.data.recipes.RecipeOutput;
 import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.packs.VanillaRecipeProvider;
-import net.minecraft.data.tags.ItemTagsProvider;
+import net.minecraft.data.tags.VanillaItemTagsProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.server.packs.PackLocationInfo;
@@ -24,7 +24,6 @@ import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
-import net.minecraft.world.level.block.Block;
 import net.minecraftforge.common.Tags;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.data.event.GatherDataEvent;
@@ -51,14 +50,12 @@ public class TLBOldRecipeProvider6 {
         var packOutput = new PackOutput(dataGenerator.getPackOutput().getOutputFolder().resolve(PACK_PATH));
         var lookupProvider = event.getLookupProvider();
         var existingFileHelper = event.getExistingFileHelper();
-        var blockTagsProvider = new TLBBlockTagsProvider(packOutput, lookupProvider, existingFileHelper);
         final boolean includesServer = event.includeServer();
         var packGenerator = dataGenerator.getBuiltinDatapack(includesServer, PACK_PATH);
 
         packGenerator.addProvider(o -> PackMetadataGenerator.forFeaturePack(packOutput, Component.literal(PACK_DESCRIPTION)));
         packGenerator.addProvider(o -> new OldRecipeProvider.Runner(packOutput, lookupProvider));
-        packGenerator.addProvider(o -> blockTagsProvider);
-        packGenerator.addProvider(o -> new OldItemTagsProvider(packOutput, lookupProvider, blockTagsProvider.contentsGetter(), existingFileHelper));
+        packGenerator.addProvider(o -> new OldItemTagsProvider(packOutput, lookupProvider, existingFileHelper));
     }
 
     public static void addPackFinders(final AddPackFindersEvent event) {
@@ -132,11 +129,11 @@ public class TLBOldRecipeProvider6 {
         }
     }
 
-    public static class OldItemTagsProvider extends ItemTagsProvider {
+    public static class OldItemTagsProvider extends VanillaItemTagsProvider {
         private Set<ResourceLocation> filter = null;
 
-        public OldItemTagsProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blockTagProvider, ExistingFileHelper existingFileHelper) {
-            super(packOutput, lookupProvider, blockTagProvider, ToLaserBlade.MOD_ID, existingFileHelper);
+        public OldItemTagsProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
+            super(packOutput, lookupProvider, ToLaserBlade.MOD_ID, existingFileHelper);
         }
 
         @SuppressWarnings("unchecked")
