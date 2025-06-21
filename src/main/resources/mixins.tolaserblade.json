@@ -3,7 +3,7 @@
   "mixins": [
     "AbstractFurnaceBlockEntityAccessor",
     "ItemAccessor",
-    "MixinSmithingMenu"
+    "SmithingMenuMixin"
   ],
   "refmap": "mixins.tolaserblade.refmap.json",
   "required": true,

@@ -10,8 +10,8 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
 @Mixin(SmithingMenu.class)
-public abstract class MixinSmithingMenu extends ItemCombinerMenu {
-    private MixinSmithingMenu(int i, Inventory inventory, ContainerLevelAccess containerLevelAccess, Level level) {
+public abstract class SmithingMenuMixin extends ItemCombinerMenu {
+    private SmithingMenuMixin(int i, Inventory inventory, ContainerLevelAccess containerLevelAccess, Level level) {
         // This constructor will not be called
         super(MenuType.SMITHING, i, inventory, containerLevelAccess,
                 ItemCombinerMenuSlotDefinition.create().withSlot(0, 0, 0, s -> false).withResultSlot(0, 0, 0).build());
