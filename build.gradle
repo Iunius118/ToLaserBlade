@@ -2,9 +2,9 @@ plugins {
     id 'eclipse'
     id 'idea'
     id 'maven-publish'
-    id 'net.minecraftforge.gradle' version '[6.0.24,6.2)'
+    id 'net.minecraftforge.gradle' version '[6.0.36,6.2)'
     // MixinGradle:
-    id 'org.spongepowered.mixin' version '0.7.+'
+        id 'org.spongepowered.mixin' version '0.7.+'
 }
 
 version = minecraft_version + '-' + mod_version
@@ -37,6 +37,12 @@ minecraft {
 
             // property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
+
+            // Recommended for development - enables more descriptive errors at the cost of slower startup and registration.
+            property 'eventbus.api.strictRuntimeChecks', 'true'
+
+            // Mixin
+            arg "-mixin.config=mixins.${mod_id}.json"
         }
 
         client {
@@ -65,16 +71,28 @@ minecraft {
 
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
-mixin {
-    // Mixin Gradle settings
-    add sourceSets.main, 'mixins.tolaserblade.refmap.json'
-    config 'mixins.tolaserblade.json'
-
-    disableTargetExport
-    disableTargetValidator
-}
-
 repositories {
+    mavenCentral()
+    maven {
+        name = 'Forge'
+        url = 'https://maven.minecraftforge.net'
+    }
+    maven {
+        name = 'Minecraft libraries'
+        url = 'https://libraries.minecraft.net'
+    }
+    exclusiveContent {
+        forRepository {
+            maven {
+                name = 'Sponge'
+                url = 'https://repo.spongepowered.org/repository/maven-public'
+            }
+        }
+        filter {
+            includeGroupAndSubgroups('org.spongepowered')
+        }
+    }
+
     // If you have mod jar dependencies in ./libs, you can declare them as a repository like so.
     // See https://docs.gradle.org/current/userguide/declaring_repositories.html#sub:flat_dir_resolver
     // flatDir {
@@ -82,9 +100,21 @@ repositories {
     // }
 }
 
+mixin {
+    // Mixin Gradle settings
+    add sourceSets.main, "mixins.${mod_id}.refmap.json"
+    config "mixins.${mod_id}.json"
+
+    disableTargetExport
+    disableTargetValidator
+}
+
 dependencies {
     // Specify the version of Minecraft to use.
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
+
+    // Forge 1.21.6+ uses EventBus 7
+    annotationProcessor 'net.minecraftforge:eventbus-validator:7.0-beta.8'
 
     // Apply Mixin AP
     annotationProcessor 'org.spongepowered:mixin:0.8.7:processor'
@@ -117,8 +147,10 @@ tasks.named('jar', Jar).configure {
                 "Implementation-Title"    : project.name,
                 "Implementation-Version"  : project.jar.archiveVersion,
                 "Implementation-Vendor"   : mod_authors
-                ,"MixinConfigs"           : "mixins.tolaserblade.json"  // Temporary fix for Mixin
         ])
+
+        // Mixin
+        attributes['MixinConfigs'] = "mixins.${mod_id}.json"
     }
 
     from("LICENSE", "CHANGELOG.txt", "CHEATSHEET.txt", "CREDITS.txt")
@@ -142,8 +174,7 @@ tasks.withType(JavaCompile).configureEach {
     options.encoding = 'UTF-8'
 }
 
-// IntelliJ no longer downloads javadocs and sources by default.
-// This tells Gradle to force IDEA to do it.
+// IntelliJ no longer downloads javadocs and sources by default, this tells Gradle to force IntelliJ to do it.
 idea.module { downloadJavadoc = downloadSources = true }
 
 eclipse {
@@ -153,7 +184,7 @@ eclipse {
     synchronizationTasks 'genEclipseRuns'
 }
 
-// Merge the resources and classes into the same directory. 
+// Merge the resources and classes into the same directory, because Java expects modules to be in a single directory.
 sourceSets.each {
     def dir = layout.buildDirectory.dir("sourcesSets/$it.name")
     it.output.resourcesDir = dir
