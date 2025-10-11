@@ -3,6 +3,8 @@
 [Source](https://github.com/Iunius118/ToLaserBlade).
 
 ## [Unreleased]
+### Changed
+- Require NeoForge 21.10.10-beta+.
 
 ## [14.0.0 NeoForge]
 ### Changed

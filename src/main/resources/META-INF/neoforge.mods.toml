@@ -1,6 +1,3 @@
-
-modLoader="javafml"
-loaderVersion="${loader_version_range}"
 license="${mod_license}"
 issueTrackerURL="${mod_issue_url}"
 
@@ -24,7 +21,7 @@ file="META-INF/accesstransformer.cfg"
 [[dependencies.${mod_id}]]
     modId="neoforge"
     type="required"
-    versionRange="${neo_version_range}"
+    versionRange="[${neo_version},)"
     ordering="NONE"
     side="${side}"
 [[dependencies.${mod_id}]]
