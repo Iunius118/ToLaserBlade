@@ -92,6 +92,23 @@
         8.0
       ]
     },
+    "on_shelf": {
+      "rotation": [
+        90.0,
+        45.0,
+        -90.0
+      ],
+      "scale": [
+        0.95,
+        0.95,
+        0.95
+      ],
+      "translation": [
+        2.8,
+        -7.76,
+        -8.0
+      ]
+    },
     "thirdperson_lefthand": {
       "rotation": [
         -8.0,

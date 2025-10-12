@@ -1,4 +1,4 @@
-// 1.21.6	2025-06-20T20:38:09.3486108	Model Definitions - tolaserblade
+// 1.21.10	2025-10-12T19:44:53.4682977	Model Definitions - tolaserblade
 7754d0a9fb6cb60193d12a80c5a3fd63841eb77c assets/tolaserblade/items/dx_laser_blade.json
 0d24432962095f17f6b2ea5b24a7d25b35b3e5ce assets/tolaserblade/items/laser_blade.json
 0d24432962095f17f6b2ea5b24a7d25b35b3e5ce assets/tolaserblade/items/laser_blade_fp.json
@@ -17,14 +17,14 @@ f6bfe846974ad0ae34b86a75a5e8ccae83c1c112 assets/tolaserblade/items/lb_broken_fp.
 252ab86788a219a504dd6ecd20752c9cd87e8664 assets/tolaserblade/items/lb_emitter.json
 7f7d8f1441f6b427ab0ad14e64542586a342c2dc assets/tolaserblade/items/lb_medium.json
 88c0f0e02529a1f5bac40d0ee10ccee30fac3a7c assets/tolaserblade/models/item/dx_laser_blade.json
-e0e0d0b1f26035b61b8e0ef5f2eaac0fc6183995 assets/tolaserblade/models/item/laser_blade.json
+4596bf72c418daddf9e67e030efda9e087ce02cc assets/tolaserblade/models/item/laser_blade.json
 578eaa08a14889839a50aa93c50cf31989abe405 assets/tolaserblade/models/item/laser_blade_2d.json
-97808c1761007f9725f8d2b110a6d6b347ee89a3 assets/tolaserblade/models/item/laser_blade_blocking_left.json
-7b0f8d89a3a605ff29076c369f90c007b5bdf259 assets/tolaserblade/models/item/laser_blade_blocking_right.json
+3d589fd33a5563cc0e6b616535111450afc6f6cb assets/tolaserblade/models/item/laser_blade_blocking_left.json
+7d19aea76204b35353edc6adffd36f285fca1cca assets/tolaserblade/models/item/laser_blade_blocking_right.json
 59c0f1f7f41423a80b7f1adc16b0ceeb1b289260 assets/tolaserblade/models/item/lb_battery.json
 a0fda11626892b1d7480ede3d275adf0db159471 assets/tolaserblade/models/item/lb_blueprint.json
 642a9d626f9021860b74e5ce4df6ee7949eb9715 assets/tolaserblade/models/item/lb_casing.json
-e0e0d0b1f26035b61b8e0ef5f2eaac0fc6183995 assets/tolaserblade/models/item/lb_casing_3d.json
+4596bf72c418daddf9e67e030efda9e087ce02cc assets/tolaserblade/models/item/lb_casing_3d.json
 0ab75426bbcd00da2b182fd149b7fd78a1bce60c assets/tolaserblade/models/item/lb_disassembled.json
 68041838f9ecb5377dc2f492b0bb83e8e26588cd assets/tolaserblade/models/item/lb_emitter.json
 574dcdb968c381f139e8ddd4772573ab73dbbf7e assets/tolaserblade/models/item/lb_medium.json

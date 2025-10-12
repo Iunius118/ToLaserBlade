@@ -60,7 +60,7 @@ class ModelObjectFunctions {
             case FIRST_PERSON_RIGHT_HAND -> matrices.mulPose(FP_RIGHT_HAND_TRANSFORMATION);
             case FIRST_PERSON_LEFT_HAND -> matrices.mulPose(FP_LEFT_HAND_TRANSFORMATION);
             case THIRD_PERSON_LEFT_HAND -> matrices.mulPose(TP_LEFT_HAND_TRANSFORMATION);
-            case GUI, FIXED -> matrices.mulPose(GUI_TRANSFORMATION);
+            case GUI, FIXED, ON_SHELF -> matrices.mulPose(GUI_TRANSFORMATION);
             case GROUND -> matrices.mulPose(GROUND_TRANSFORMATION);
         }
     }

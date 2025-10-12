@@ -1,25 +1,15 @@
 package com.github.iunius118.tolaserblade.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
+import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 
 import java.util.List;
 
 public class SimpleModel {
-    public static class SimpleVertex {
-        public final Vector3f pos;
-        public final Vector4f color;
-        public final Vector2f uv;
-        public final Vector3f normal;
-
-        public SimpleVertex(Vector3f posXYZ, Vector4f colorRGBA, Vector2f texUV, Vector3f normalXYZ) {
-            pos = posXYZ;
-            color = colorRGBA;
-            uv = texUV;
-            normal = normalXYZ;
-        }
+    public record SimpleVertex(Vector3f pos, Vector4f color, Vector2f uv, Vector3f normal) {
     }
 
     public static class SimpleQuad {
@@ -78,37 +68,39 @@ public class SimpleModel {
         }
     }
 
-    protected void renderQuads(PoseStack matrices, VertexConsumer buffer, List<SimpleQuad> quads, int color, int lightmapCoord, int overlayColor) {
+    protected void renderQuads(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int order, RenderType renderType,
+                               List<SimpleQuad> quads, int color, int lightmapCoord, int overlayColor) {
         float alpha = (float)(color >>> 24 & 255) / 255.0F;
         float red   = (float)(color >>> 16 & 255) / 255.0F;
         float green = (float)(color >>> 8 & 255) / 255.0F;
         float blue  = (float)(color & 255) / 255.0F;
-        renderQuads(matrices, buffer, quads, lightmapCoord, overlayColor, red, green, blue, alpha);
+        renderQuads(poseStack, submitNodeCollector, order, renderType, quads, lightmapCoord, overlayColor, red, green, blue, alpha);
     }
 
-    protected void renderQuads(PoseStack matrices, VertexConsumer buffer, List<SimpleQuad> quads, int lightmapCoord, int overlayColor, float red, float green, float blue, float alpha) {
-        PoseStack.Pose pose = matrices.last();
+    protected void renderQuads(PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int order, RenderType renderType,
+                               List<SimpleQuad> quads, int lightmapCoord, int overlayColor, float red, float green, float blue, float alpha) {
+        submitNodeCollector.order(order).submitCustomGeometry(poseStack, renderType, (pose, vertexConsumer) -> {
+            for (SimpleQuad face : quads) {
+                for (int i = 0; i < 4; i++) {
+                    SimpleVertex vertex = face.vertices[i];
 
-        for (SimpleQuad face : quads) {
-            for (int i = 0; i < 4; i++) {
-                SimpleVertex vertex = face.vertices[i];
+                    Vector4f pos = new Vector4f(vertex.pos, 1.0F);
+                    pose.pose().transform(pos);
 
-                Vector4f pos = new Vector4f(vertex.pos, 1.0F);
-                pose.pose().transform(pos);
+                    Vector4f vColor = vertex.color;
+                    Vector2f uv = vertex.uv;
 
-                Vector4f vColor = vertex.color;
-                Vector2f uv = vertex.uv;
+                    Vector3f normal = new Vector3f(vertex.normal);
+                    pose.normal().transform(normal);
 
-                Vector3f normal = new Vector3f(vertex.normal);
-                pose.normal().transform(normal);
-
-                buffer.addVertex(pos.x(), pos.y(), pos.z())
-                        .setColor(red * vColor.x(), green * vColor.y(), blue * vColor.z(), alpha * vColor.w())
-                        .setUv(uv.x(), uv.y())
-                        .setOverlay(overlayColor)
-                        .setLight(lightmapCoord)
-                        .setNormal(normal.x(), normal.y(), normal.z());
+                    vertexConsumer.addVertex(pos.x(), pos.y(), pos.z())
+                            .setColor(red * vColor.x(), green * vColor.y(), blue * vColor.z(), alpha * vColor.w())
+                            .setUv(uv.x(), uv.y())
+                            .setOverlay(overlayColor)
+                            .setLight(lightmapCoord)
+                            .setNormal(normal.x(), normal.y(), normal.z());
+                }
             }
-        }
+        });
     }
 }

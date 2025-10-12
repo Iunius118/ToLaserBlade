@@ -5,7 +5,7 @@ import com.github.iunius118.tolaserblade.api.client.model.LaserBladeModel;
 import com.github.iunius118.tolaserblade.client.color.item.LaserBladeItemColor;
 import com.github.iunius118.tolaserblade.client.model.SimpleLaserBladeModel;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
@@ -45,19 +45,28 @@ public class LaserBladeModelV1 extends SimpleLaserBladeModel {
     }
 
     @Override
-    public void render(ItemStack itemStack, ItemDisplayContext mode, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay) {
+    public void submit(ItemStack itemStack, ItemDisplayContext mode, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int light, int overlay) {
         boolean isGUI = (mode == ItemDisplayContext.GUI);
 
-        if (guiResize != null && (isGUI || mode == ItemDisplayContext.FIXED)) {
-            // Adjust model size and position in GUI or item frame
+        if (guiResize != null && (isGUI || mode == ItemDisplayContext.FIXED || mode == ItemDisplayContext.ON_SHELF)) {
+            // Adjust model size and position on GUI, item frame, shelf
             // scale(guiResize.x), and then translate(guiResize.y, guiResize.z)
-            matrices.translate(0, guiResize.y(), guiResize.z());
-            float size = guiResize.x();
-            matrices.scale(size, size, size);
+            poseStack.translate(0, guiResize.y(), guiResize.z());
+
+            if (mode != ItemDisplayContext.ON_SHELF) {
+                float size = guiResize.x();
+                poseStack.scale(size, size, size);
+            }
+        }
+
+        if (mode == ItemDisplayContext.ON_SHELF) {
+            // Adjust model positions on shelf to center
+            poseStack.translate(0, 0.375f, -0.375f);
         }
 
         var laserBladeItemColor = LaserBladeItemColor.of(itemStack);
-        var renderingContext = new ModelObject.RenderingContext(itemStack, mode, matrices);
+        var renderingContext = new ModelObject.RenderingContext(itemStack, mode, poseStack);
+        int order = 0;
         int pushCount = 0;
 
         // Process each object
@@ -70,16 +79,17 @@ public class LaserBladeModelV1 extends SimpleLaserBladeModel {
                 pushCount = modelObject.function.invoke(renderingContext, pushCount);
             } else {
                 // Render quads
-                var vertexConsumer = vertexConsumers.getBuffer(modelObject.renderType.get(this, laserBladeItemColor, isGUI));
+                var renderType = modelObject.renderType.get(this, laserBladeItemColor, isGUI);
                 int color = modelObject.color.get(laserBladeItemColor, isGUI);
                 int lightColorCoordinate = modelObject.getLightColor(light);
-                renderQuads(matrices, vertexConsumer, modelObject.quads, color, lightColorCoordinate, overlay);
+                renderQuads(poseStack, submitNodeCollector, order, renderType, modelObject.quads, color, lightColorCoordinate, overlay);
+                order++;
             }
         }
 
         // Restore the stack pointer of the pose stack
         for (int i = pushCount; i > 0; i--) {
-            matrices.popPose();
+            poseStack.popPose();
         }
     }
 }
