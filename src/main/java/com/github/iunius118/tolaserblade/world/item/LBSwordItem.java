@@ -11,6 +11,7 @@ import net.minecraft.core.BlockPos;
 import net.minecraft.core.component.DataComponentMap;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.chat.Component;
+import net.minecraft.server.level.ServerLevel;
 import net.minecraft.world.InteractionHand;
 import net.minecraft.world.InteractionResult;
 import net.minecraft.world.entity.Entity;
@@ -31,6 +32,7 @@ import net.minecraft.world.level.block.DispenserBlock;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.neoforge.event.entity.player.CriticalHitEvent;
 
+import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -57,14 +59,23 @@ public class LBSwordItem extends Item implements LaserBladeItemBase {
     }
 
     @Override
-    public void verifyComponentsAfterLoad(ItemStack stack) {
-        LaserBlade.updateItemAttributeModifiers(stack);
-        LaserBladeAppearance.of(stack);
+    public boolean canUpgrade(Upgrade.Type type) {
+        return true;
     }
 
     @Override
-    public boolean canUpgrade(Upgrade.Type type) {
-        return true;
+    public void inventoryTick(ItemStack itemStack, ServerLevel serverLevel, Entity entity, @Nullable EquipmentSlot equipmentSlot) {
+        if (!itemStack.has(DataComponents.ATTRIBUTE_MODIFIERS)) {
+            LBSwordItem.updateItemAttributeModifiers(itemStack);
+        }
+    }
+
+    public static void updateItemAttributeModifiers(ItemStack itemStack) {
+        if (itemStack.getItem() instanceof LBSwordItem) {
+            // Update attribute modifiers if not present
+            LaserBlade.updateItemAttributeModifiers(itemStack);
+            LaserBladeAppearance.of(itemStack);
+        }
     }
 
     /* Shield Functions */

@@ -3,6 +3,7 @@
   "mixins": [
     "AbstractFurnaceBlockEntityAccessor",
     "ItemAccessor",
+    "ItemStackMixin",
     "SmithingMenuMixin"
   ],
   "client": [
