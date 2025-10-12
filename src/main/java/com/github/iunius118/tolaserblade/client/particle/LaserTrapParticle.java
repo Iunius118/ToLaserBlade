@@ -1,31 +1,46 @@
 package com.github.iunius118.tolaserblade.client.particle;
 
-import com.mojang.blaze3d.vertex.PoseStack;
-import com.mojang.blaze3d.vertex.VertexConsumer;
-import net.minecraft.client.Camera;
+import com.github.iunius118.tolaserblade.ToLaserBlade;
 import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.ParticleRenderType;
-import net.minecraft.client.renderer.MultiBufferSource;
 import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.Mth;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
-import org.joml.Quaternionf;
-import org.joml.Vector3f;
+import net.minecraft.util.RandomSource;
+import net.minecraft.world.phys.Vec3;
 
-@OnlyIn(Dist.CLIENT)
 public class LaserTrapParticle extends Particle {
-    private final Direction.Axis axis;
+    public static final RenderType RENDER_TYPE = RenderType.beaconBeam(LaserTrapParticleModel.TEXTURE_LOCATION, true);
+    public static final ParticleRenderType PARTICLE_RENDER_TYPE = new ParticleRenderType(ToLaserBlade.makeId("laser_trap").toString());
+    public static final LaserTrapParticleModel MODEL_X = new LaserTrapParticleModel(Direction.Axis.X);
+    public static final LaserTrapParticleModel MODEL_Y = new LaserTrapParticleModel(Direction.Axis.Y);
+    public static final LaserTrapParticleModel MODEL_Z = new LaserTrapParticleModel(Direction.Axis.Z);
+
+    public final LaserTrapParticleModel model;
+    public final float rCol;
+    public final float gCol;
+    public final float bCol;
 
     protected LaserTrapParticle(ClientLevel clientLevel, double x, double y, double z, float r, float g, float b, Direction.Axis trapAxis) {
         super(clientLevel, x, y, z);
-        axis = trapAxis;
-        setColor(r, g, b);
-        setLifetime(3);
+        this.setSize(1F, 1F);
+        this.setLifetime(3);
+
+        this.model = switch (trapAxis) {
+            case Y -> MODEL_Y;
+            case Z -> MODEL_Z;
+            default -> MODEL_X;
+        };
+        this.rCol = r;
+        this.gCol = g;
+        this.bCol = b;
+    }
+
+    public Vec3 getPosition() {
+        return new Vec3(this.x, this.y, this.z);
     }
 
     @Override
@@ -33,70 +48,14 @@ public class LaserTrapParticle extends Particle {
         if (this.age++ >= this.lifetime) remove();
     }
 
-    private static final Vector3f[] vertices = {
-            new Vector3f(-0.5F, 0.0625F, 0.0625F),
-            new Vector3f(-0.5F, -0.0625F, 0.0625F),
-            new Vector3f(0.5F, 0.0625F, 0.0625F),
-            new Vector3f(0.5F, -0.0625F, 0.0625F),
-            new Vector3f(0.5F, 0.0625F, -0.0625F),
-            new Vector3f(0.5F, -0.0625F, -0.0625F),
-            new Vector3f(-0.5F, 0.0625F, -0.0625F),
-            new Vector3f(-0.5F, -0.0625F, -0.0625F)
-    };
-
     @Override
-    public void render(VertexConsumer vertexConsumer, Camera camera, float f) {}
-
-    @Override
-    public void renderCustom(PoseStack poseStack, MultiBufferSource multiBufferSource, Camera camera, float f) {
-        VertexConsumer buffer = multiBufferSource.getBuffer(RenderType.debugQuads());
-        renderQuad(buffer, camera, vertices[1], vertices[3], vertices[2], vertices[0]);
-        renderQuad(buffer, camera, vertices[3], vertices[5], vertices[4], vertices[2]);
-        renderQuad(buffer, camera, vertices[5], vertices[7], vertices[6], vertices[4]);
-        renderQuad(buffer, camera, vertices[7], vertices[1], vertices[0], vertices[6]);
-        renderQuad(buffer, camera, vertices[0], vertices[2], vertices[4], vertices[6]);
-        renderQuad(buffer, camera, vertices[7], vertices[5], vertices[3], vertices[1]);
+    public ParticleRenderType getGroup() {
+        return PARTICLE_RENDER_TYPE;
     }
 
-    private void renderQuad(VertexConsumer vertexConsumer,  Camera camera, Vector3f... v) {
-        if (v.length < 4) return;
-        var cameraPos = camera.getPosition();
-
-        for (int i = 0; i < 4; i++) {
-            Vector3f vertex = new Vector3f(v[i]);
-            getRotation().transform(vertex);
-            vertex.add((float) (x - cameraPos.x), (float) (y - cameraPos.y), (float) (z - cameraPos.z));
-            vertexConsumer.addVertex(vertex.x(), vertex.y(), vertex.z()).setColor(rCol, gCol, bCol, alpha);
-        }
-    }
-
-    private final static Quaternionf Q_X = new Quaternionf();
-    private final static Quaternionf Q_Y = new Quaternionf(0, 0, Math.sin(Math.toRadians(45f)), Math.cos(Math.toRadians(45f)));
-    private final static Quaternionf Q_Z = new Quaternionf(0, Math.sin(Math.toRadians(45f)), 0, Math.cos(Math.toRadians(45f)));
-
-    private Quaternionf getRotation() {
-        return switch (axis) {
-            case Y -> Q_Y;
-            case Z -> Q_Z;
-            default -> Q_X;
-        };
-    }
-
-
-    @Override
-    public ParticleRenderType getRenderType() {
-        return ParticleRenderType.CUSTOM;
-    }
-
-    @OnlyIn(Dist.CLIENT)
-    public static class Provider implements ParticleProvider<SimpleParticleType> {
-        private final Direction.Axis axis;
-
-        public Provider(Direction.Axis trapAxis) {
-            axis = trapAxis;
-        }
-
-        public Particle createParticle(SimpleParticleType simpleParticleType, ClientLevel clientLevel, double dx, double dy, double dz, double dr, double dg, double db) {
+    public record Provider(Direction.Axis axis) implements ParticleProvider<SimpleParticleType> {
+        @Override
+        public Particle createParticle(SimpleParticleType simpleParticleType, ClientLevel clientLevel, double dx, double dy, double dz, double dr, double dg, double db, RandomSource randomSource) {
             float r = Mth.clamp((float) dr, 0F, 1F);
             float g = Mth.clamp((float) dg, 0F, 1F);
             float b = Mth.clamp((float) db, 0F, 1F);
