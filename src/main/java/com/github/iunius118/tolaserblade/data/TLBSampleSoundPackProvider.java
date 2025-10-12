@@ -7,21 +7,15 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.metadata.PackMetadataGenerator;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.PackLocationInfo;
-import net.minecraft.server.packs.PackSelectionConfig;
 import net.minecraft.server.packs.PackType;
-import net.minecraft.server.packs.PathPackResources;
 import net.minecraft.server.packs.metadata.pack.PackMetadataSection;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackSource;
 import net.minecraft.sounds.SoundEvent;
-import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.common.data.SoundDefinition;
 import net.neoforged.neoforge.common.data.SoundDefinitionsProvider;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
 import net.neoforged.neoforge.event.AddPackFindersEvent;
-
-import java.util.Optional;
 
 public class TLBSampleSoundPackProvider {
     public final static String PACK_PATH = "sample_sound_pack";
@@ -36,24 +30,13 @@ public class TLBSampleSoundPackProvider {
         var packOutput = new PackOutput(dataGenerator.getPackOutput().getOutputFolder().resolve(PACK_PATH));
         var packGenerator = dataGenerator.getBuiltinDatapack(true, PACK_PATH);
 
-        var packMetadataSection = new PackMetadataSection(Component.literal(PACK_DESCRIPTION), DetectedVersion.BUILT_IN.packVersion(PackType.CLIENT_RESOURCES), Optional.empty());
-        packGenerator.addProvider(o -> new PackMetadataGenerator(packOutput).add(PackMetadataSection.TYPE, packMetadataSection));
+        var packMetadataSection = new PackMetadataSection(Component.literal(PACK_DESCRIPTION), DetectedVersion.BUILT_IN.packVersion(PackType.CLIENT_RESOURCES).minorRange());
+        packGenerator.addProvider(o -> new PackMetadataGenerator(packOutput).add(PackMetadataSection.CLIENT_TYPE, packMetadataSection));
         packGenerator.addProvider(o -> new TLBSampleSoundPackProvider.SampleSoundDefinitionsProvider(packOutput));
     }
 
     public static void addPackFinders(final AddPackFindersEvent event) {
-        if (event.getPackType() != PackType.CLIENT_RESOURCES) {
-            return;
-        }
-
-        var packInfo = new PackLocationInfo(PACK_ID.toString(), Component.literal(PACK_TITLE), PackSource.BUILT_IN, Optional.empty());
-        var resourcePath = ModList.get().getModFileById(ToLaserBlade.MOD_ID).getFile().findResource(PACK_PATH);
-        var packConfig = new PackSelectionConfig(false, Pack.Position.TOP, false);
-        var pack = Pack.readMetaAndCreate(packInfo, new PathPackResources.PathResourcesSupplier(resourcePath), PackType.CLIENT_RESOURCES, packConfig);
-
-        if (pack != null) {
-            event.addRepositorySource((packConsumer) -> packConsumer.accept(pack));
-        }
+        event.addPackFinders(PACK_ID, PackType.CLIENT_RESOURCES, Component.literal(PACK_TITLE), PackSource.BUILT_IN, false, Pack.Position.TOP);
     }
 
     private static class SampleSoundDefinitionsProvider extends SoundDefinitionsProvider {

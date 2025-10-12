@@ -17,7 +17,7 @@ public class DXLaserBladeItem extends Item {
     public void hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         var level = attacker.level();
 
-        if (!level.isClientSide && attacker instanceof Player) {
+        if (!level.isClientSide() && attacker instanceof Player) {
             DXLaserBladeItemUtil.playSwingSound(level, attacker);
         }
 
@@ -28,7 +28,7 @@ public class DXLaserBladeItem extends Item {
     public boolean onEntitySwing(ItemStack stack, LivingEntity entity, InteractionHand hand) {
         var level = entity.level();
 
-        if (!level.isClientSide && entity instanceof Player player) {
+        if (!level.isClientSide() && entity instanceof Player player) {
             if (!player.swinging) {
                 DXLaserBladeItemUtil.playSwingSound(level, entity);
             }

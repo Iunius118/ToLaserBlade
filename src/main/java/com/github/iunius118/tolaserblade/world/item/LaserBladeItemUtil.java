@@ -23,8 +23,6 @@ import net.minecraft.world.item.component.ItemAttributeModifiers;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 import net.minecraft.world.phys.Vec3;
-import net.neoforged.api.distmarker.Dist;
-import net.neoforged.api.distmarker.OnlyIn;
 import net.neoforged.neoforge.event.PlayLevelSoundEvent;
 import net.neoforged.neoforge.event.entity.player.PlayerEvent;
 
@@ -77,7 +75,6 @@ public class LaserBladeItemUtil {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static void addLaserBladeInformation(ItemStack itemStack, Item.TooltipContext tooltipContext, List<Component> tooltip, TooltipFlag flag, Upgrade.Type upgradeType) {
         if (isFireResistant(itemStack)) {
             tooltip.add(LaserBladeTextKey.KEY_TOOLTIP_FIREPROOF.translate().withStyle(ChatFormatting.GOLD));
@@ -97,14 +94,12 @@ public class LaserBladeItemUtil {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
     public static void addBrandNewText(List<Component> tooltip) {
         tooltip.add(Component.translatable("tooltip.tolaserblade.brandNew1").withStyle(ChatFormatting.YELLOW));
         tooltip.add(Component.translatable("tooltip.tolaserblade.brandNew2").withStyle(ChatFormatting.YELLOW));
         tooltip.add(Component.translatable("tooltip.tolaserblade.brandNew3").withStyle(ChatFormatting.YELLOW));
     }
 
-    @OnlyIn(Dist.CLIENT)
     private static void addModelType(List<Component> tooltip, ItemStack itemStack) {
         int modelType = LaserBladeAppearance.of(itemStack).getType();
 
@@ -113,21 +108,18 @@ public class LaserBladeItemUtil {
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
     private static void addAttackDamage(List<Component> tooltip, float atk) {
         if (atk <= -0.005F || atk >= 0.005) {
             tooltip.add(getUpgradeTextComponent(LaserBladeTextKey.KEY_TOOLTIP_ATTACK_DAMAGE.getKey(), atk));
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
     private static void addAttackSpeed(List<Component> tooltip, float spd) {
         if (spd <= -0.005F || spd >= 0.005) {
             tooltip.add(getUpgradeTextComponent(LaserBladeTextKey.KEY_TOOLTIP_ATTACK_SPEED.getKey(), spd));
         }
     }
 
-    @OnlyIn(Dist.CLIENT)
     private static Component getUpgradeTextComponent(String key, float value) {
         return Component.translatable(key, (value < 0 ? "" : "+") + ItemAttributeModifiers.ATTRIBUTE_MODIFIER_FORMAT.format(value))
                 .withStyle(ChatFormatting.DARK_GREEN);

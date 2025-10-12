@@ -15,16 +15,12 @@ import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.packs.VanillaRecipeProvider;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.ResourceLocation;
-import net.minecraft.server.packs.PackLocationInfo;
-import net.minecraft.server.packs.PackSelectionConfig;
 import net.minecraft.server.packs.PackType;
-import net.minecraft.server.packs.PathPackResources;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackSource;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
-import net.neoforged.fml.ModList;
 import net.neoforged.neoforge.common.Tags;
 import net.neoforged.neoforge.common.data.BlockTagCopyingItemTagProvider;
 import net.neoforged.neoforge.data.event.GatherDataEvent;
@@ -32,7 +28,6 @@ import net.neoforged.neoforge.event.AddPackFindersEvent;
 
 import java.nio.file.Path;
 import java.util.HashSet;
-import java.util.Optional;
 import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
@@ -58,18 +53,7 @@ public class TLBOldRecipeProvider6 {
     }
 
     public static void addPackFinders(final AddPackFindersEvent event) {
-        if (event.getPackType() != PackType.SERVER_DATA) {
-            return;
-        }
-
-        var packInfo = new PackLocationInfo(PACK_ID.toString(), Component.literal(PACK_TITLE), PackSource.FEATURE, Optional.empty());
-        var resourcePath = ModList.get().getModFileById(ToLaserBlade.MOD_ID).getFile().findResource(PACK_PATH);
-        var packConfig = new PackSelectionConfig(false, Pack.Position.TOP, false);
-        var pack = Pack.readMetaAndCreate(packInfo, new PathPackResources.PathResourcesSupplier(resourcePath), PackType.SERVER_DATA, packConfig);
-
-        if (pack != null) {
-            event.addRepositorySource((packConsumer) -> packConsumer.accept(pack));
-        }
+        event.addPackFinders(PACK_ID, PackType.SERVER_DATA, Component.literal(PACK_TITLE), PackSource.FEATURE, false, Pack.Position.TOP);
     }
 
     private static class OldRecipeProvider extends VanillaRecipeProvider {
