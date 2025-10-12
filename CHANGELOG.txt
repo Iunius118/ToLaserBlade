@@ -5,6 +5,7 @@
 ## [Unreleased]
 ### Changed
 - Require NeoForge 21.10.10-beta+.
+- Update laser blade model API.
 
 ## [14.0.0 NeoForge]
 ### Changed
