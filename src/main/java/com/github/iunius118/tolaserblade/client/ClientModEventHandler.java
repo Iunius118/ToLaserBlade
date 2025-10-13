@@ -5,6 +5,7 @@ import com.github.iunius118.tolaserblade.client.color.item.LaserBladeTintSource;
 import com.github.iunius118.tolaserblade.client.extensions.LBSwordItemExtensions;
 import com.github.iunius118.tolaserblade.client.model.LaserBladeModelManager;
 import com.github.iunius118.tolaserblade.client.particle.LaserTrapParticle;
+import com.github.iunius118.tolaserblade.client.particle.LaserTrapParticleGroup;
 import com.github.iunius118.tolaserblade.client.renderer.LaserBladePipelines;
 import com.github.iunius118.tolaserblade.client.renderer.item.LBSwordSpecialRenderer;
 import com.github.iunius118.tolaserblade.client.renderer.item.properties.Blocking;
@@ -69,6 +70,11 @@ public class ClientModEventHandler {
         event.registerSpecial(ModParticleTypes.LASER_TRAP_X, new LaserTrapParticle.Provider(Direction.Axis.X));
         event.registerSpecial(ModParticleTypes.LASER_TRAP_Y, new LaserTrapParticle.Provider(Direction.Axis.Y));
         event.registerSpecial(ModParticleTypes.LASER_TRAP_Z, new LaserTrapParticle.Provider(Direction.Axis.Z));
+    }
+
+    @SubscribeEvent
+    public static void onRegisterParticleGroupsEvent(RegisterParticleGroupsEvent event) {
+        event.register(LaserTrapParticle.PARTICLE_RENDER_TYPE, LaserTrapParticleGroup::new);
     }
 
     @SubscribeEvent

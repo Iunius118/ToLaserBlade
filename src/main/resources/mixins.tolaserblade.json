@@ -6,9 +6,6 @@
     "ItemStackMixin",
     "SmithingMenuMixin"
   ],
-  "client": [
-    "client.ParticleEngineMixin"
-  ],
   "refmap": "mixins.tolaserblade.refmap.json",
   "required": true,
   "minVersion": "0.8",
