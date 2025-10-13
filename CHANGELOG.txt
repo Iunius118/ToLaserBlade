@@ -5,7 +5,7 @@
 ## [Unreleased]
 ### Changed
 - Port to Minecraft 1.21.10.
-- Require NeoForge 21.10.10-beta+.
+- Require NeoForge 21.10.15-beta+.
 - Update laser blade model API.
 
 ## [14.0.0 NeoForge]
