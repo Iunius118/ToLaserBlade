@@ -2,7 +2,7 @@ package com.github.iunius118.tolaserblade.api.client.model;
 
 import com.github.iunius118.tolaserblade.api.ToLaserBladeAPI;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 
@@ -21,14 +21,14 @@ public interface LaserBladeModel {
     }
 
     /**
-     * Render this model into world or GUI.
+     * Submit geometry to render this model into world or GUI.
      * This method will be called from the laser blade item renderer. The method of rendering the model is left to the implementer.
-     * @param itemStack       Item stack of the laser blade to be rendered.
-     * @param mode            Transformation type of the rendering.
-     * @param matrices        Transformation matrices set at the rendering position of the laser blade.
-     * @param vertexConsumers Get the VertexConsumer you want to use from this object.
-     * @param light           Brightness.
-     * @param overlay         Overlaid color.
+     * @param itemStack           Item stack of the laser blade to be rendered.
+     * @param mode                Transformation type of the rendering.
+     * @param poseStack           Transformation matrices set at the rendering position of the laser blade.
+     * @param submitNodeCollector SubmitNodeCollector to render objects.
+     * @param light               Brightness.
+     * @param overlay             Overlaid color.
      */
-    void render(ItemStack itemStack, ItemDisplayContext mode, PoseStack matrices, MultiBufferSource vertexConsumers, int light, int overlay);
+    void submit(ItemStack itemStack, ItemDisplayContext mode, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int light, int overlay);
 }
