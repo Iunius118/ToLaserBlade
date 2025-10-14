@@ -4,7 +4,7 @@ plugins {
     id 'maven-publish'
     id 'net.minecraftforge.gradle' version '[6.0.36,6.2)'
     // MixinGradle:
-        id 'org.spongepowered.mixin' version '0.7.+'
+    id 'org.spongepowered.mixin' version '0.7.+'
 }
 
 version = minecraft_version + '-' + mod_version
@@ -27,6 +27,9 @@ minecraft {
     // This property allows configuring Gradle's ProcessResources task(s) to run on IDE output locations before launching the game.
     copyIdeResources = true
 
+    // When true, this property will add the folder name of all declared run configurations to generated IDE run configurations.
+    // generateRunFolders = true
+
     // This property enables access transformers for use in development.
     accessTransformer = file('src/main/resources/META-INF/accesstransformer.cfg')
 
@@ -35,7 +38,7 @@ minecraft {
         configureEach {
             workingDirectory project.file('run')
 
-            // property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
 
             // Recommended for development - enables more descriptive errors at the cost of slower startup and registration.
@@ -114,7 +117,7 @@ dependencies {
     minecraft "net.minecraftforge:forge:${minecraft_version}-${forge_version}"
 
     // Forge 1.21.6+ uses EventBus 7
-    annotationProcessor 'net.minecraftforge:eventbus-validator:7.0-beta.8'
+    annotationProcessor 'net.minecraftforge:eventbus-validator:7.0-beta.12'
 
     // Apply Mixin AP
     annotationProcessor 'org.spongepowered:mixin:0.8.7:processor'
