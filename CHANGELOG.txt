@@ -4,7 +4,7 @@
 
 ## [Unreleased]
 ### Changed
-- Require Forge 1.21.10-60.0.5+.
+- Require Forge 1.21.10-60.0.9+.
 - Update laser blade model API.
 
 ## [14.0.0 Forge]
