@@ -38,7 +38,7 @@ public class LaserTrapParticleGroup extends ParticleGroup<LaserTrapParticle> {
             Vec3 pos = particle.getPosition().subtract(camera.getPosition());
             poseStack.translate(pos.x, pos.y, pos.z);
             int color = ARGB.colorFromFloat(1F, particle.rCol, particle.gCol, particle.bCol);
-            return new LaserTrapParticleGroup.LaserTrapParticleRenderState(particle.model, poseStack, LaserTrapParticle.RENDER_TYPE, color);
+            return new LaserTrapParticleGroup.LaserTrapParticleRenderState(particle.model, poseStack, particle.model.renderType(), color);
         }
     }
 
