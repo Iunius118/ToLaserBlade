@@ -45,17 +45,17 @@ public class ToLaserBlade {
         // Register event handlers
         RegistryEventHandler.registerGameObjects(modBusGroup);
         GatherDataEvent.getBus(modBusGroup).addListener(TLBDataGenerator::gatherData);
-        BuildCreativeModeTabContentsEvent.getBus(modBusGroup).addListener(ModCreativeModeTabs::onCreativeModeTabBuildContents);
-        AddPackFindersEvent.getBus(modBusGroup).addListener(TLBEnchantmentProvider::addPackFinders);
-        AddPackFindersEvent.getBus(modBusGroup).addListener(TLBOldRecipeProvider6::addPackFinders);
-        AddPackFindersEvent.getBus(modBusGroup).addListener(TLBSampleSoundPackProvider::addPackFinders);
+        BuildCreativeModeTabContentsEvent.BUS.addListener(ModCreativeModeTabs::onCreativeModeTabBuildContents);
+        AddPackFindersEvent.BUS.addListener(TLBEnchantmentProvider::addPackFinders);
+        AddPackFindersEvent.BUS.addListener(TLBOldRecipeProvider6::addPackFinders);
+        AddPackFindersEvent.BUS.addListener(TLBSampleSoundPackProvider::addPackFinders);
         BusGroup.DEFAULT.register(MethodHandles.lookup(), CommonEventHandler.class);
         BusGroup.DEFAULT.register(MethodHandles.lookup(), ItemEventHandler.class);
 
         // Register client-side mod event handler
         if (FMLLoader.getDist().isClient()) {
             ClientModEventHandler.initClient();
-            modBusGroup.register(MethodHandles.lookup(), ClientModEventHandler.class);
+            BusGroup.DEFAULT.register(MethodHandles.lookup(), ClientModEventHandler.class);
             ToLaserBladeAPI.registerModelRegistrationListener(event -> event.register(LaserBladeModelManager.loadModels()));
         }
     }
