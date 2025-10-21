@@ -55,7 +55,7 @@ public class CommonEventHandler {
 
     @SubscribeEvent
     public static void onEntityJoiningInWorld(final EntityJoinLevelEvent event) {
-        if (event.getLevel().isClientSide && event.getEntity() instanceof Player) {
+        if (event.getLevel().isClientSide() && event.getEntity() instanceof Player) {
             // In client
             if (TLBClientConfig.showUpdateMessage && !hasShownUpdate) {
                 ClientModEventHandler.checkUpdate();

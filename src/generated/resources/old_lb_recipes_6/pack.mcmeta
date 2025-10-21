@@ -1,6 +1,7 @@
 {
   "pack": {
     "description": "ToLaserBlade - revert laser blade recipes to version 6",
-    "pack_format": 80
+    "max_format": 88,
+    "min_format": 88
   }
 }

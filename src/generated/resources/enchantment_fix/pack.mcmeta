@@ -1,6 +1,7 @@
 {
   "pack": {
     "description": "ToLB - temporary enchantment correction (mandatory)",
-    "pack_format": 80
+    "max_format": 88,
+    "min_format": 88
   }
 }

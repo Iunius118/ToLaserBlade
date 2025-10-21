@@ -4,6 +4,7 @@
 
 ## [Unreleased]
 ### Changed
+- Port to Minecraft 1.21.10.
 - Require Forge 1.21.10-60.0.9+.
 - Update laser blade model API.
 

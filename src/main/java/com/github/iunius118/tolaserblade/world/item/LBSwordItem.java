@@ -120,7 +120,7 @@ public class LBSwordItem extends Item implements LaserBladeItemBase {
     public boolean onEntitySwing(ItemStack stack, LivingEntity entity) {
         Level level = entity.level();
 
-        if (!level.isClientSide && entity instanceof Player player) {
+        if (!level.isClientSide() && entity instanceof Player player) {
             if (!player.swinging) {
                 LaserBladeItemUtil.playSwingSound(level, entity, LaserBladeItemUtil.isFireResistant(stack));
             }
@@ -133,7 +133,7 @@ public class LBSwordItem extends Item implements LaserBladeItemBase {
     public void hurtEnemy(ItemStack stack, LivingEntity target, LivingEntity attacker) {
         Level level = attacker.level();
 
-        if (!level.isClientSide) {
+        if (!level.isClientSide()) {
             LaserBladeItemUtil.playSwingSound(level, attacker, LaserBladeItemUtil.isFireResistant(stack));
             hurtAndBreak(stack, 1, attacker);
         }
@@ -155,7 +155,7 @@ public class LBSwordItem extends Item implements LaserBladeItemBase {
 
     @Override
     public boolean mineBlock(ItemStack stack, Level level, BlockState state, BlockPos pos, LivingEntity entityLiving) {
-        if (!level.isClientSide && state.getDestroySpeed(level, pos) != 0.0F) {
+        if (!level.isClientSide() && state.getDestroySpeed(level, pos) != 0.0F) {
             hurtAndBreak(stack, 1, entityLiving);
         }
 

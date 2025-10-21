@@ -27,7 +27,7 @@ public class FakePlayer extends ServerPlayer {
     @Override public void die(DamageSource source) {}
     @Override public void tick() {}
     @Override public void updateOptions(ClientInformation information) { }
-    @Override public boolean startRiding(Entity entity, boolean b) { return false; }
+    @Override public boolean startRiding(Entity entity, boolean b0, boolean b1) { return false; }
     @Override public void startSleeping(BlockPos pos) { }
     @Override public OptionalInt openMenu(@Nullable MenuProvider p_9033_) { return OptionalInt.empty(); }
 }
