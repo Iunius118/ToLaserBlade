@@ -4,6 +4,7 @@ import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.client.color.item.LaserBladeTintSource;
 import com.github.iunius118.tolaserblade.client.model.LaserBladeModelManager;
 import com.github.iunius118.tolaserblade.client.particle.LaserTrapParticle;
+import com.github.iunius118.tolaserblade.client.particle.LaserTrapParticleGroup;
 import com.github.iunius118.tolaserblade.client.renderer.item.LBSwordSpecialRenderer;
 import com.github.iunius118.tolaserblade.client.renderer.item.properties.Blocking;
 import com.github.iunius118.tolaserblade.client.renderer.item.properties.UsingOriginalModel;
@@ -11,6 +12,7 @@ import com.github.iunius118.tolaserblade.core.particle.ModParticleTypes;
 import net.minecraft.ChatFormatting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.color.item.ItemTintSources;
+import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.client.renderer.item.properties.conditional.ConditionalItemModelProperties;
 import net.minecraft.client.renderer.special.SpecialModelRenderers;
 import net.minecraft.core.Direction;
@@ -64,6 +66,8 @@ public class ClientModEventHandler {
         event.registerSpecial(ModParticleTypes.LASER_TRAP_X, new LaserTrapParticle.Provider(Direction.Axis.X));
         event.registerSpecial(ModParticleTypes.LASER_TRAP_Y, new LaserTrapParticle.Provider(Direction.Axis.Y));
         event.registerSpecial(ModParticleTypes.LASER_TRAP_Z, new LaserTrapParticle.Provider(Direction.Axis.Z));
+        // Register particle group to render mod particles
+        ParticleEngine.registerParticleGroup(LaserTrapParticle.PARTICLE_RENDER_TYPE, LaserTrapParticleGroup::new);
     }
 
     public static void checkUpdate() {
