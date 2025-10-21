@@ -5,7 +5,6 @@ import net.minecraft.client.multiplayer.ClientLevel;
 import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleProvider;
 import net.minecraft.client.particle.ParticleRenderType;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.core.Direction;
 import net.minecraft.core.particles.SimpleParticleType;
 import net.minecraft.util.Mth;
@@ -13,8 +12,7 @@ import net.minecraft.util.RandomSource;
 import net.minecraft.world.phys.Vec3;
 
 public class LaserTrapParticle extends Particle {
-    public static final RenderType RENDER_TYPE = RenderType.beaconBeam(LaserTrapParticleModel.TEXTURE_LOCATION, true);
-    public static final ParticleRenderType PARTICLE_RENDER_TYPE = new ParticleRenderType(ToLaserBlade.makeId("laser_trap").toString());
+    public static final ParticleRenderType PARTICLE_RENDER_TYPE = new ParticleRenderType(ToLaserBlade.MOD_ID + ":laser_trap");
     public static final LaserTrapParticleModel MODEL_X = new LaserTrapParticleModel(Direction.Axis.X);
     public static final LaserTrapParticleModel MODEL_Y = new LaserTrapParticleModel(Direction.Axis.Y);
     public static final LaserTrapParticleModel MODEL_Z = new LaserTrapParticleModel(Direction.Axis.Z);
