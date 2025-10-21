@@ -4,8 +4,7 @@ import com.github.iunius118.tolaserblade.api.client.model.LaserBladeModel;
 import com.github.iunius118.tolaserblade.client.model.LaserBladeModelManager;
 import com.mojang.blaze3d.vertex.PoseStack;
 import com.mojang.serialization.MapCodec;
-import net.minecraft.client.model.geom.EntityModelSet;
-import net.minecraft.client.renderer.MultiBufferSource;
+import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.special.SpecialModelRenderer;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
@@ -16,7 +15,7 @@ import java.util.Set;
 
 public class LBSwordSpecialRenderer implements SpecialModelRenderer<ItemStack> {
     @Override
-    public void render(@Nullable ItemStack stack, ItemDisplayContext displayContext, PoseStack pose, MultiBufferSource bufferSource, int light, int overlay, boolean hasFoil) {
+    public void submit(@Nullable ItemStack stack, ItemDisplayContext itemDisplayContext, PoseStack poseStack, SubmitNodeCollector submitNodeCollector, int light, int overlay, boolean hasFoil, int k) {
         if (stack == null) {
             return;
         }
@@ -25,9 +24,9 @@ public class LBSwordSpecialRenderer implements SpecialModelRenderer<ItemStack> {
         LaserBladeModel model = modelManager.getModel(stack);
 
         if (model != null) {
-            pose.pushPose();
-            model.render(stack, displayContext, pose, bufferSource, light, overlay);
-            pose.popPose();
+            poseStack.pushPose();
+            model.submit(stack, itemDisplayContext, poseStack, submitNodeCollector, light, overlay);
+            poseStack.popPose();
         }
     }
 
@@ -49,7 +48,7 @@ public class LBSwordSpecialRenderer implements SpecialModelRenderer<ItemStack> {
         public static final MapCodec<LBSwordSpecialRenderer.Unbaked> MAP_CODEC = MapCodec.unit(new LBSwordSpecialRenderer.Unbaked());
 
         @Override
-        public @Nullable SpecialModelRenderer<?> bake(EntityModelSet p_388631_) {
+        public @Nullable SpecialModelRenderer<?> bake(BakingContext bakingContext) {
             return new LBSwordSpecialRenderer();
         }
 
