@@ -13,10 +13,10 @@ authors="${mod_authors}"
 description='''${mod_description}'''
 
 [[mixins]]
-config="mixins.tolaserblade.json"
+config="${mod_id}.mixins.json"
 
-[[accessTransformers]]
-file="META-INF/accesstransformer.cfg"
+#[[accessTransformers]]
+#file="META-INF/accesstransformer.cfg"
 
 [[dependencies.${mod_id}]]
     modId="neoforge"
@@ -30,3 +30,6 @@ file="META-INF/accesstransformer.cfg"
     versionRange="${minecraft_version_range}"
     ordering="NONE"
     side="${side}"
+
+#[features.${mod_id}]
+#openGLVersion="[3.2,)"
