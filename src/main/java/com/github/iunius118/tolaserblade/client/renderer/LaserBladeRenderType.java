@@ -56,7 +56,7 @@ public class LaserBladeRenderType {
     );
     private static final BiFunction<String, Identifier, RenderType> SUB = Util.memoize(
             (name, identifier) -> {
-                RenderSetup renderSetup = RenderSetup.builder(LaserBladePipelines.ADD)
+                RenderSetup renderSetup = RenderSetup.builder(LaserBladePipelines.SUB)
                         .withTexture("Sampler0", identifier)
                         .useLightmap()
                         .useOverlay()

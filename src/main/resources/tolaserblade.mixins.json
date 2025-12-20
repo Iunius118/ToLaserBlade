@@ -1,0 +1,16 @@
+{
+  "package": "com.github.iunius118.tolaserblade.mixin",
+  "mixins": [
+    "AbstractFurnaceBlockEntityAccessor",
+    "ItemAccessor",
+    "ItemStackMixin",
+    "SmithingMenuMixin"
+  ],
+  "client": [
+    "client.BufferSourceMixin"
+  ],
+  "refmap": "tolaserblade.mixins.refmap.json",
+  "required": true,
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_21"
+}
