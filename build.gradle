@@ -46,12 +46,21 @@ neoForge {
         client {
             client()
 
+            // Changes the working directory used for this run.
+            // The default is the 'run' subdirectory of your project
+            gameDirectory = project.file('runs/client')
+
             // Comma-separated list of namespaces to load gametests from. Empty = all namespaces.
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         }
 
         server {
             server()
+
+            // Changes the working directory used for this run.
+            // The default is the 'run' subdirectory of your project
+            gameDirectory = project.file('runs/server')
+
             programArgument '--nogui'
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         }
@@ -61,14 +70,20 @@ neoForge {
         // The gametest system is also enabled by default for other run configs under the /test command.
         gameTestServer {
             type = "gameTestServer"
+
+            // Changes the working directory used for this run.
+            // The default is the 'run' subdirectory of your project
+            gameDirectory = project.file('runs/gameTestServer')
+
             systemProperty 'neoforge.enabledGameTestNamespaces', project.mod_id
         }
 
         data {
             clientData()
 
-            // example of overriding the workingDirectory set in configureEach above, uncomment if you want to use it
-            // gameDirectory = project.file('run-data')
+            // Changes the working directory used for this run.
+            // The default is the 'run' subdirectory of your project
+            gameDirectory = project.file('runs/clientData')
 
             // Specify the modid for data generation, where to output the resulting resource, and where to look for existing resources.
             programArguments.addAll '--mod', project.mod_id, '--all', '--output', file('src/generated/resources/').getAbsolutePath(), '--existing', file('src/main/resources/').getAbsolutePath()
