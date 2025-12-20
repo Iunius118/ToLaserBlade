@@ -14,7 +14,7 @@ import net.minecraft.data.recipes.RecipeProvider;
 import net.minecraft.data.recipes.ShapedRecipeBuilder;
 import net.minecraft.data.recipes.packs.VanillaRecipeProvider;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.repository.Pack;
 import net.minecraft.server.packs.repository.PackSource;
@@ -33,7 +33,7 @@ import java.util.concurrent.CompletableFuture;
 
 public class TLBOldRecipeProvider6 {
     public final static String PACK_PATH = "old_lb_recipes_6";
-    public final static ResourceLocation PACK_ID = ToLaserBlade.makeId(PACK_PATH);
+    public final static Identifier PACK_ID = ToLaserBlade.makeId(PACK_PATH);
     public final static String PACK_TITLE = "old_lb_recipes_6";
     public final static String PACK_DESCRIPTION = "ToLaserBlade - revert laser blade recipes to version 6";
 
@@ -90,7 +90,7 @@ public class TLBOldRecipeProvider6 {
                     .save(output, getItemId(ModItems.LB_BRAND_NEW_2) + "_v_6");
         }
 
-        private ResourceLocation getItemId(Item item) {
+        private Identifier getItemId(Item item) {
             return BuiltInRegistries.ITEM.getKey(item);
         }
 
@@ -112,7 +112,7 @@ public class TLBOldRecipeProvider6 {
     }
 
     public static class OldItemTagsProvider extends BlockTagCopyingItemTagProvider {
-        private Set<ResourceLocation> filter = null;
+        private Set<Identifier> filter = null;
 
         public OldItemTagsProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blockTagProvider) {
             super(packOutput, lookupProvider, blockTagProvider, ToLaserBlade.MOD_ID);
@@ -126,7 +126,7 @@ public class TLBOldRecipeProvider6 {
         }
 
         @Override
-        protected Path getPath(ResourceLocation id) {
+        protected Path getPath(Identifier id) {
             return (filter != null && filter.contains(id)) ? null : super.getPath(id);
         }
     }

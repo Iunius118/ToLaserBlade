@@ -8,7 +8,7 @@ import com.github.iunius118.tolaserblade.client.model.laserblade.v1.LaserBladeMo
 import com.github.iunius118.tolaserblade.config.TLBClientConfig;
 import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeAppearance;
 import net.minecraft.client.Minecraft;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.resources.Resource;
 import net.minecraft.server.packs.resources.ResourceManager;
 import net.minecraft.world.item.ItemStack;
@@ -81,7 +81,7 @@ public class LaserBladeModelManager {
     }
 
     private static List<LaserBladeModel> parseJsonModels() {
-        Map<ResourceLocation, Resource> resourceMap = findJsonFiles();
+        Map<Identifier, Resource> resourceMap = findJsonFiles();
         List<LaserBladeModel> jsonModels = new LinkedList<>();
 
         resourceMap.forEach((location, resource) -> {
@@ -94,7 +94,7 @@ public class LaserBladeModelManager {
         return jsonModels;
     }
 
-    private static Map<ResourceLocation, Resource> findJsonFiles() {
+    private static Map<Identifier, Resource> findJsonFiles() {
         ResourceManager resourceManager = Minecraft.getInstance().getResourceManager();
 
         // Search resource packs for .json files

@@ -13,7 +13,7 @@ import com.github.iunius118.tolaserblade.data.TLBSampleSoundPackProvider;
 import com.github.iunius118.tolaserblade.world.item.ItemEventHandler;
 import com.github.iunius118.tolaserblade.world.item.ModCreativeModeTabs;
 import com.mojang.logging.LogUtils;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
@@ -54,7 +54,7 @@ public class ToLaserBlade {
         }
     }
 
-    public static ResourceLocation makeId(String name) {
-        return ResourceLocation.fromNamespaceAndPath(MOD_ID, name);
+    public static Identifier makeId(String name) {
+        return Identifier.fromNamespaceAndPath(MOD_ID, name);
     }
 }

@@ -19,7 +19,7 @@ import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.fml.ModList;
@@ -107,7 +107,7 @@ public class ClientModEventHandler {
         }
     }
 
-    private static ResourceLocation getItemId(Item item) {
+    private static Identifier getItemId(Item item) {
         return BuiltInRegistries.ITEM.getKey(item);
     }
 }

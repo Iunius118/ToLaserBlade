@@ -5,7 +5,7 @@ import com.github.iunius118.tolaserblade.tags.ModItemTags;
 import com.github.iunius118.tolaserblade.world.item.ModItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.level.block.Block;
@@ -18,7 +18,7 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 public class TLBItemTagsProvider extends BlockTagCopyingItemTagProvider {
-    private Set<ResourceLocation> filter = null;
+    private Set<Identifier> filter = null;
 
     public TLBItemTagsProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, CompletableFuture<TagLookup<Block>> blockTagProvider) {
         super(packOutput, lookupProvider, blockTagProvider, ToLaserBlade.MOD_ID);
@@ -45,7 +45,7 @@ public class TLBItemTagsProvider extends BlockTagCopyingItemTagProvider {
     }
 
     @Override
-    protected Path getPath(ResourceLocation id) {
+    protected Path getPath(Identifier id) {
         return (filter != null && filter.contains(id)) ? null : super.getPath(id);
     }
 }

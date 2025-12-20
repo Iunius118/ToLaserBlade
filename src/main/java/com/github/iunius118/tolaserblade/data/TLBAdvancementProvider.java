@@ -6,7 +6,7 @@ import com.github.iunius118.tolaserblade.core.laserblade.LaserBlade;
 import com.github.iunius118.tolaserblade.world.item.*;
 import com.github.iunius118.tolaserblade.world.item.enchantment.ModEnchantments;
 import net.minecraft.advancements.*;
-import net.minecraft.advancements.critereon.*;
+import net.minecraft.advancements.criterion.*;
 import net.minecraft.core.Holder;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.component.predicates.DataComponentPredicates;
@@ -17,8 +17,8 @@ import net.minecraft.data.PackOutput;
 import net.minecraft.data.advancements.AdvancementProvider;
 import net.minecraft.data.advancements.AdvancementSubProvider;
 import net.minecraft.network.chat.Component;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
 import net.minecraft.world.item.enchantment.Enchantment;
@@ -44,7 +44,7 @@ public class TLBAdvancementProvider extends AdvancementProvider {
                     .display(LaserBladeItemStack.ICON.getCopy(registries),
                             Component.translatable("advancements.tolaserblade.main.root.title"),
                             Component.translatable("advancements.tolaserblade.main.root.description"),
-                            ResourceLocation.withDefaultNamespace("block/polished_andesite"),
+                            Identifier.withDefaultNamespace("block/polished_andesite"),
                             AdvancementType.TASK, false, false, false)
                     .addCriterion("has_redstone", InventoryChangeTrigger.TriggerInstance.hasItems(Items.REDSTONE))
                     .addCriterion("has_dx_laser_blade", InventoryChangeTrigger.TriggerInstance.hasItems(ModItems.DX_LASER_BLADE))
@@ -202,12 +202,12 @@ public class TLBAdvancementProvider extends AdvancementProvider {
             return builder.save(consumer, "tolaserblade:main/" + name);
         }
 
-        private ResourceLocation getItemId(Item item) {
+        private Identifier getItemId(Item item) {
             return BuiltInRegistries.ITEM.getKey(item);
         }
 
-        private ResourceLocation getEnchantmentId(Holder<Enchantment> enchantment) {
-            return enchantment.unwrapKey().orElseThrow().location();
+        private Identifier getEnchantmentId(Holder<Enchantment> enchantment) {
+            return enchantment.unwrapKey().orElseThrow().identifier();
         }
     }
 }

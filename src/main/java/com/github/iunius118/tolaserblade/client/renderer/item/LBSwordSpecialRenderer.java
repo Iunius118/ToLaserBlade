@@ -8,10 +8,11 @@ import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.special.SpecialModelRenderer;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
-import org.jetbrains.annotations.Nullable;
 import org.joml.Vector3f;
+import org.joml.Vector3fc;
+import org.jspecify.annotations.Nullable;
 
-import java.util.Set;
+import java.util.function.Consumer;
 
 public class LBSwordSpecialRenderer implements SpecialModelRenderer<ItemStack> {
     @Override
@@ -31,11 +32,11 @@ public class LBSwordSpecialRenderer implements SpecialModelRenderer<ItemStack> {
     }
 
     @Override
-    public void getExtents(Set<Vector3f> set) {
+    public void getExtents(Consumer<Vector3fc> consumer) {
         // Tentative extents of laser blades for drop item and GUI rendering
         PoseStack poseStack = new PoseStack();
-        set.add(poseStack.last().pose().transformPosition(-1F, -1F, -1F, new Vector3f()));
-        set.add(poseStack.last().pose().transformPosition(0F, 3F, 0F, new Vector3f()));
+        consumer.accept(poseStack.last().pose().transformPosition(-1F, -1F, -1F, new Vector3f()));
+        consumer.accept(poseStack.last().pose().transformPosition(0F, 3F, 0F, new Vector3f()));
     }
 
     @Override

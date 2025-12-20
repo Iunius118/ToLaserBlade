@@ -1,7 +1,7 @@
 package com.github.iunius118.tolaserblade.core.laserblade.upgrade;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 public enum UpgradeID {
     EFFICIENCY_UPGRADE("upgrade/efficiency", "efc"),
@@ -21,7 +21,7 @@ public enum UpgradeID {
     FIREPROOF_UPGRADE("upgrade/fireproof", "frp"),
     ;
 
-    private final ResourceLocation id;
+    private final Identifier id;
     private final String shortName;
 
     UpgradeID(String key, String shortName) {
@@ -29,7 +29,7 @@ public enum UpgradeID {
         this.shortName = shortName;
     }
 
-    public ResourceLocation getID() {
+    public Identifier getID() {
         return id;
     }
 

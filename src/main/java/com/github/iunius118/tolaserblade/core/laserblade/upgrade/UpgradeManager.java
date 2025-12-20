@@ -3,8 +3,8 @@ package com.github.iunius118.tolaserblade.core.laserblade.upgrade;
 import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.tags.ModItemTags;
 import com.github.iunius118.tolaserblade.world.item.enchantment.ModEnchantments;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
@@ -18,7 +18,7 @@ import java.util.List;
 import java.util.Map;
 
 public class UpgradeManager {
-    private static final Map<ResourceLocation, Upgrade> upgrades = new HashMap<>();
+    private static final Map<Identifier, Upgrade> upgrades = new HashMap<>();
     static {
         // Add new upgrade:
         // 1. Add upgrade-ID to UpgradeID
@@ -52,11 +52,11 @@ public class UpgradeManager {
         upgrades.put(id.getID(), upgrade);
     }
 
-    public static Map<ResourceLocation, Upgrade> getUpgrades() {
+    public static Map<Identifier, Upgrade> getUpgrades() {
         return upgrades;
     }
 
-    public static Upgrade getUpgrade(ResourceLocation key) {
+    public static Upgrade getUpgrade(Identifier key) {
         var upgrade = upgrades.get(key);
 
         if (upgrade == null) {

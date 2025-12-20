@@ -17,7 +17,7 @@ import net.minecraft.core.registries.Registries;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.recipes.*;
 import net.minecraft.data.recipes.packs.VanillaRecipeProvider;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.Items;
@@ -156,7 +156,7 @@ public class TLBRecipeProvider extends VanillaRecipeProvider {
     }
 
     private void addUpgradeRecipes(Ingredient template) {
-        Map<ResourceLocation, Upgrade> upgrades = UpgradeManager.getUpgrades();
+        Map<Identifier, Upgrade> upgrades = UpgradeManager.getUpgrades();
         upgrades.forEach((id, upgrade) -> {
             TagKey<Item> tag = upgrade.ingredientItemTag();
             var ingredient = Ingredient.of(registries.lookupOrThrow(Registries.ITEM).getOrThrow(tag));
@@ -273,7 +273,7 @@ public class TLBRecipeProvider extends VanillaRecipeProvider {
                 .save(output, "tolaserblade:model/lbf_" + modelType + suffix);
     }
 
-    private ResourceLocation getItemId(Item item) {
+    private Identifier getItemId(Item item) {
         return BuiltInRegistries.ITEM.getKey(item);
     }
 

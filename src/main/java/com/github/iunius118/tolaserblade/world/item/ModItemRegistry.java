@@ -55,7 +55,7 @@ public class ModItemRegistry {
     }
 
     private static DeferredItem<Item> registerItem(String name, Function<Item.Properties, Item> func, Item.Properties properties) {
-        return itemRegister.registerItem(name, func, properties);
+        return itemRegister.registerItem(name, func, () -> properties);
     }
 
     private static DeferredItem<Item> registerItem(String name, Function<Item.Properties, Item> func) {

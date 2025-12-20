@@ -4,6 +4,7 @@
 
 ## [Unreleased]
 ### Changed
+- Port to Minecraft 1.21.11.
 - Require NeoForge 21.11.11-beta+.
 
 ## [15.0.0 NeoForge]

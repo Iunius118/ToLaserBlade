@@ -116,7 +116,7 @@ public class LBDisassembledItem extends Item implements LaserBladeItemBase {
     }
 
     private static boolean equals(ResourceKey<?> e1, ResourceKey<?> e2) {
-        return e1.location().equals(e2.location());
+        return e1.identifier().equals(e2.identifier());
     }
 
     @Override

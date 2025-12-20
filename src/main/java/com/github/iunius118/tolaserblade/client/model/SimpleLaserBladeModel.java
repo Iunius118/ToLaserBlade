@@ -3,8 +3,8 @@ package com.github.iunius118.tolaserblade.client.model;
 import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.api.client.model.LaserBladeModel;
 import com.github.iunius118.tolaserblade.client.renderer.LaserBladeRenderType;
-import net.minecraft.client.renderer.RenderType;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.client.renderer.rendertype.RenderType;
+import net.minecraft.resources.Identifier;
 
 public abstract class SimpleLaserBladeModel extends SimpleModel implements LaserBladeModel {
     private static RenderType typeHilt;
@@ -13,7 +13,7 @@ public abstract class SimpleLaserBladeModel extends SimpleModel implements Laser
     private static RenderType typeAdd;
     private static RenderType typeSub;
 
-    public static void resetRenderTypes(ResourceLocation texture) {
+    public static void resetRenderTypes(Identifier texture) {
         typeHilt = LaserBladeRenderType.getHiltRenderType(ToLaserBlade.MOD_ID + ":lb_hilt", texture);
         typeUnlit = LaserBladeRenderType.getUnlitRenderType(ToLaserBlade.MOD_ID + ":lb_unlit", texture);
         typeSubInner = LaserBladeRenderType.getSubRenderType(ToLaserBlade.MOD_ID + ":lb_sub_in", texture);
