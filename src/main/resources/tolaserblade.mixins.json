@@ -1,5 +1,4 @@
 {
-  "required": true,
   "package": "com.github.iunius118.tolaserblade.mixin",
   "mixins": [
     "AbstractFurnaceBlockEntityAccessor",
@@ -9,8 +8,10 @@
     "SoundDefinitionsProviderMixin"
   ],
   "client": [
+    "client.RenderTypeMixin"
   ],
-  "refmap": "mixins.tolaserblade.refmap.json",
-  "compatibilityLevel": "JAVA_17",
-  "minVersion": "0.8"
+  "refmap": "tolaserblade.mixins.refmap.json",
+  "required": true,
+  "minVersion": "0.8",
+  "compatibilityLevel": "JAVA_21"
 }
