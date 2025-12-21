@@ -3,7 +3,7 @@ package com.github.iunius118.tolaserblade.data;
 import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.github.iunius118.tolaserblade.common.util.ModSoundEvents;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.sounds.SoundEvent;
 import net.minecraftforge.common.data.ExistingFileHelper;
 import net.minecraftforge.common.data.SoundDefinition;
@@ -44,7 +44,7 @@ public class TLBSoundDefinitionsProvider extends SoundDefinitionsProvider {
         add(soundEvent, soundDefinition);
     }
 
-    private SoundDefinition.Sound getSound(ResourceLocation location) {
-        return sound(ResourceLocation.fromNamespaceAndPath(location.getNamespace(), location.getPath().replace(".", "/")));
+    private SoundDefinition.Sound getSound(Identifier location) {
+        return sound(Identifier.fromNamespaceAndPath(location.getNamespace(), location.getPath().replace(".", "/")));
     }
 }

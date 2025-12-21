@@ -13,7 +13,7 @@ import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
 import net.minecraft.network.codec.StreamCodec;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.RecipeSerializer;
@@ -23,10 +23,10 @@ import net.minecraft.world.level.Level;
 import java.util.Optional;
 
 public class LBUpgradeRecipe extends LBSmithingRecipe {
-    private final ResourceLocation upgradeId;
+    private final Identifier upgradeId;
     private Upgrade upgrade;
 
-    public LBUpgradeRecipe(Optional<Ingredient> template, Ingredient base, Optional<Ingredient> addition, ResourceLocation upgradeId) {
+    public LBUpgradeRecipe(Optional<Ingredient> template, Ingredient base, Optional<Ingredient> addition, Identifier upgradeId) {
         super(template, base, addition);
         this.upgradeId = upgradeId;
     }
@@ -68,7 +68,7 @@ public class LBUpgradeRecipe extends LBSmithingRecipe {
 
     @Override
     protected ItemStack getDisplayResult(ItemStack result) {
-        ResourceLocation efficiencyRemover = UpgradeID.EFFICIENCY_REMOVER.getID();
+        Identifier efficiencyRemover = UpgradeID.EFFICIENCY_REMOVER.getID();
         ItemStack copied = result.copy();
 
         if (upgradeId.equals(efficiencyRemover)) {
@@ -94,7 +94,7 @@ public class LBUpgradeRecipe extends LBSmithingRecipe {
                         Ingredient.CODEC.optionalFieldOf("template").forGetter(recipe -> recipe.template),
                         Ingredient.CODEC.fieldOf("base").forGetter(recipe -> recipe.base),
                         Ingredient.CODEC.optionalFieldOf("addition").forGetter(recipe -> recipe.addition),
-                        ResourceLocation.CODEC.fieldOf("type").codec().fieldOf("result").forGetter(recipe -> recipe.upgradeId)
+                        Identifier.CODEC.fieldOf("type").codec().fieldOf("result").forGetter(recipe -> recipe.upgradeId)
                 ).apply(instance, LBUpgradeRecipe::new)
         );
         private static final StreamCodec<RegistryFriendlyByteBuf, LBUpgradeRecipe> STREAM_CODEC = StreamCodec.of(
@@ -115,7 +115,7 @@ public class LBUpgradeRecipe extends LBSmithingRecipe {
             Optional<Ingredient> template = Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC.decode(buffer);
             Ingredient base = Ingredient.CONTENTS_STREAM_CODEC.decode(buffer);
             Optional<Ingredient> addition = Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC.decode(buffer);
-            ResourceLocation upgradeId = ResourceLocation.STREAM_CODEC.decode(buffer);
+            Identifier upgradeId = Identifier.STREAM_CODEC.decode(buffer);
             return new LBUpgradeRecipe(template, base, addition, upgradeId);
         }
 
@@ -123,7 +123,7 @@ public class LBUpgradeRecipe extends LBSmithingRecipe {
             Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC.encode(buffer, recipe.template);
             Ingredient.CONTENTS_STREAM_CODEC.encode(buffer, recipe.base);
             Ingredient.OPTIONAL_CONTENTS_STREAM_CODEC.encode(buffer, recipe.addition);
-            ResourceLocation.STREAM_CODEC.encode(buffer, recipe.upgradeId);
+            Identifier.STREAM_CODEC.encode(buffer, recipe.upgradeId);
         }
     }
 }

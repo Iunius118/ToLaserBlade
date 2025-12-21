@@ -1,8 +1,8 @@
 package com.github.iunius118.tolaserblade.client.model.laserblade.v1;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.Util;
 import net.minecraft.client.Minecraft;
+import net.minecraft.util.Util;
 import net.minecraft.world.item.ItemDisplayContext;
 import org.joml.Matrix4f;
 

@@ -7,7 +7,7 @@ import com.github.iunius118.tolaserblade.core.laserblade.LaserBladeBlocking;
 import com.github.iunius118.tolaserblade.world.item.LaserBladeItemBase;
 import com.github.iunius118.tolaserblade.world.item.LaserBladeItemUtil;
 import com.github.iunius118.tolaserblade.world.item.ModItems;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Player;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.event.PlayLevelSoundEvent;
@@ -30,7 +30,7 @@ public class CommonEventHandler {
         if (event.getKey() != ForgeRegistries.Keys.ITEMS)
             return;
 
-        final Map<ResourceLocation, Item> remappingItemMap = new HashMap<>();
+        final Map<Identifier, Item> remappingItemMap = new HashMap<>();
         // Replace item ID "tolaserblade:tolaserblade.laser_blade" (-1.11.2) with "tolaserblade:laser_blade" (1.12-)
         remappingItemMap.put(ToLaserBlade.makeId("tolaserblade.laser_blade"), ModItems.LASER_BLADE);
 

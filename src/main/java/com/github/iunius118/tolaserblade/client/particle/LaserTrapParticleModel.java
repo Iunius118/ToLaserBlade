@@ -8,21 +8,21 @@ import net.minecraft.client.model.geom.PartPose;
 import net.minecraft.client.model.geom.builders.CubeDeformation;
 import net.minecraft.client.model.geom.builders.CubeListBuilder;
 import net.minecraft.client.model.geom.builders.MeshDefinition;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.core.Direction;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 
 import java.util.function.Function;
 
 public class LaserTrapParticleModel extends Model.Simple {
-    public static final ResourceLocation TEXTURE_LOCATION = ToLaserBlade.makeId("textures/particle/laser_trap.png");
+    public static final Identifier TEXTURE_LOCATION = ToLaserBlade.makeId("textures/particle/laser_trap.png");
     public static final RenderType RENDER_TYPE = LaserBladeRenderType.getUnlitRenderType(ToLaserBlade.MOD_ID + ":laser_trap", TEXTURE_LOCATION);
 
     public LaserTrapParticleModel(Direction.Axis axis) {
         this(createModelPart(axis), texture -> RENDER_TYPE);
     }
 
-    public LaserTrapParticleModel(ModelPart modelPart, Function<ResourceLocation, RenderType> function) {
+    public LaserTrapParticleModel(ModelPart modelPart, Function<Identifier, RenderType> function) {
         super(modelPart, function);
     }
 

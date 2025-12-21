@@ -1,8 +1,8 @@
 package com.github.iunius118.tolaserblade.client.model;
 
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.SubmitNodeCollector;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import org.joml.Vector3f;
 import org.joml.Vector4f;
 

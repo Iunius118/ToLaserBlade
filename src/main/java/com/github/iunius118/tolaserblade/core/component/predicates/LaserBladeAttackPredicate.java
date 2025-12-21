@@ -3,7 +3,7 @@ package com.github.iunius118.tolaserblade.core.component.predicates;
 import com.github.iunius118.tolaserblade.core.component.ModDataComponents;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
-import net.minecraft.advancements.critereon.SingleComponentItemPredicate;
+import net.minecraft.advancements.criterion.SingleComponentItemPredicate;
 import net.minecraft.core.component.DataComponentType;
 
 public record LaserBladeAttackPredicate(Float attackDamage) implements SingleComponentItemPredicate<Float> {

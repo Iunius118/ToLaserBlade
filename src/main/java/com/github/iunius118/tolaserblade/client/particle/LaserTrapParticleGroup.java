@@ -5,9 +5,9 @@ import net.minecraft.client.Camera;
 import net.minecraft.client.model.Model;
 import net.minecraft.client.particle.ParticleEngine;
 import net.minecraft.client.particle.ParticleGroup;
-import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.SubmitNodeCollector;
 import net.minecraft.client.renderer.culling.Frustum;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.client.renderer.state.CameraRenderState;
 import net.minecraft.client.renderer.state.ParticleGroupRenderState;
 import net.minecraft.client.renderer.texture.OverlayTexture;
@@ -35,7 +35,7 @@ public class LaserTrapParticleGroup extends ParticleGroup<LaserTrapParticle> {
     record LaserTrapParticleRenderState(Model<Unit> model, PoseStack poseStack, RenderType renderType, int color) {
         public static LaserTrapParticleGroup.LaserTrapParticleRenderState fromParticle(LaserTrapParticle particle, Camera camera) {
             var poseStack = new PoseStack();
-            Vec3 pos = particle.getPosition().subtract(camera.getPosition());
+            Vec3 pos = particle.getPosition().subtract(camera.position());
             poseStack.translate(pos.x, pos.y, pos.z);
             int color = ARGB.colorFromFloat(1F, particle.rCol, particle.gCol, particle.bCol);
             return new LaserTrapParticleGroup.LaserTrapParticleRenderState(particle.model, poseStack, particle.model.renderType(), color);

@@ -6,7 +6,7 @@ import com.github.iunius118.tolaserblade.client.model.SimpleLaserBladeModel;
 import com.github.iunius118.tolaserblade.client.model.SimpleModel;
 import com.github.iunius118.tolaserblade.client.model.Vector2f;
 import com.mojang.blaze3d.vertex.PoseStack;
-import net.minecraft.client.renderer.RenderType;
+import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import org.joml.Vector3f;

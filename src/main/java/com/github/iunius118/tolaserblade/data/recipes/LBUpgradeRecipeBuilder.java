@@ -5,12 +5,12 @@ import net.minecraft.advancements.Advancement;
 import net.minecraft.advancements.AdvancementRequirements;
 import net.minecraft.advancements.AdvancementRewards;
 import net.minecraft.advancements.Criterion;
-import net.minecraft.advancements.critereon.RecipeUnlockedTrigger;
+import net.minecraft.advancements.criterion.RecipeUnlockedTrigger;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.recipes.RecipeCategory;
 import net.minecraft.data.recipes.RecipeOutput;
+import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
-import net.minecraft.resources.ResourceLocation;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 
@@ -23,10 +23,10 @@ public class LBUpgradeRecipeBuilder {
     private final Ingredient base;
     private final Ingredient addition;
     private final RecipeCategory category;
-    private final ResourceLocation upgradeId;
+    private final Identifier upgradeId;
     private final Map<String, Criterion<?>> criteria = new LinkedHashMap<>();
 
-    public LBUpgradeRecipeBuilder(Ingredient template, Ingredient base, Ingredient addition, RecipeCategory category, ResourceLocation upgradeId) {
+    public LBUpgradeRecipeBuilder(Ingredient template, Ingredient base, Ingredient addition, RecipeCategory category, Identifier upgradeId) {
         this.category = category;
         this.template = template;
         this.base = base;
@@ -34,7 +34,7 @@ public class LBUpgradeRecipeBuilder {
         this.upgradeId = upgradeId;
     }
 
-    public static LBUpgradeRecipeBuilder upgradeRecipe(Ingredient template, Ingredient base, Ingredient addition, RecipeCategory category, ResourceLocation upgradeId) {
+    public static LBUpgradeRecipeBuilder upgradeRecipe(Ingredient template, Ingredient base, Ingredient addition, RecipeCategory category, Identifier upgradeId) {
         return new LBUpgradeRecipeBuilder(template, base, addition, category, upgradeId);
     }
 
@@ -44,22 +44,22 @@ public class LBUpgradeRecipeBuilder {
     }
 
     public void save(RecipeOutput output, String id) {
-        save(output, ResourceKey.create(Registries.RECIPE, ResourceLocation.parse(id)));
+        save(output, ResourceKey.create(Registries.RECIPE, Identifier.parse(id)));
     }
 
     public void save(RecipeOutput output, ResourceKey<Recipe<?>> id) {
-        final ResourceLocation location = id.location();
-        ensureValid(location);
+        final Identifier identifier = id.identifier();
+        ensureValid(identifier);
         Advancement.Builder advancementBuilder = output.advancement()
                 .addCriterion("has_the_recipe", RecipeUnlockedTrigger.unlocked(id))
                 .rewards(AdvancementRewards.Builder.recipe(id))
                 .requirements(AdvancementRequirements.Strategy.OR);
         criteria.forEach(advancementBuilder::addCriterion);
         LBUpgradeRecipe recipe = new LBUpgradeRecipe(Optional.of(template), base, Optional.of(addition), upgradeId);
-        output.accept(id, recipe, advancementBuilder.build(location.withPrefix("recipes/" + this.category.getFolderName() + "/")));
+        output.accept(id, recipe, advancementBuilder.build(identifier.withPrefix("recipes/" + this.category.getFolderName() + "/")));
     }
 
-    private void ensureValid(ResourceLocation id) {
+    private void ensureValid(Identifier id) {
         if (this.criteria.isEmpty()) {
             throw new IllegalStateException("No way of obtaining recipe " + id);
         }

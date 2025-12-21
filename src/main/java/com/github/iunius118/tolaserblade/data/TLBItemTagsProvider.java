@@ -6,7 +6,7 @@ import com.github.iunius118.tolaserblade.world.item.ModItems;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.tags.VanillaItemTagsProvider;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.tags.ItemTags;
 import net.minecraft.world.item.Items;
 import net.minecraftforge.common.Tags;
@@ -18,7 +18,7 @@ import java.util.Set;
 import java.util.concurrent.CompletableFuture;
 
 public class TLBItemTagsProvider extends VanillaItemTagsProvider {
-    private Set<ResourceLocation> filter = null;
+    private Set<Identifier> filter = null;
 
     public TLBItemTagsProvider(PackOutput packOutput, CompletableFuture<HolderLookup.Provider> lookupProvider, ExistingFileHelper existingFileHelper) {
         super(packOutput, lookupProvider, ToLaserBlade.MOD_ID, existingFileHelper);
@@ -45,7 +45,7 @@ public class TLBItemTagsProvider extends VanillaItemTagsProvider {
     }
 
     @Override
-    protected Path getPath(ResourceLocation id) {
+    protected Path getPath(Identifier id) {
         return (filter != null && filter.contains(id)) ? null : super.getPath(id);
     }
 }

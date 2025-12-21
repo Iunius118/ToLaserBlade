@@ -22,7 +22,7 @@ import net.minecraft.client.renderer.item.ClientItem;
 import net.minecraft.client.renderer.item.ItemModel;
 import net.minecraft.client.renderer.item.properties.select.MainHand;
 import net.minecraft.data.PackOutput;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.HumanoidArm;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemDisplayContext;
@@ -51,7 +51,7 @@ public class TLBModelProvider extends ModelProvider {
     protected Stream<Item> getKnownItems() {
         // Return stream of all mod items
         return ForgeRegistries.ITEMS.getValues().stream().filter(item -> {
-            ResourceLocation id = ForgeRegistries.ITEMS.getKey(item);
+            Identifier id = ForgeRegistries.ITEMS.getKey(item);
 
             if (id != null) {
                 return ToLaserBlade.MOD_ID.equals(id.getNamespace());
@@ -73,7 +73,7 @@ public class TLBModelProvider extends ModelProvider {
     }
 
     private static class TLBItemModelGenerators extends ItemModelGenerators {
-        public TLBItemModelGenerators(ItemModelOutput items, BiConsumer<ResourceLocation, ModelInstance> models) {
+        public TLBItemModelGenerators(ItemModelOutput items, BiConsumer<Identifier, ModelInstance> models) {
             super(items, models);
         }
 
@@ -85,8 +85,8 @@ public class TLBModelProvider extends ModelProvider {
             // Laser Blades
             final var itemInfoCollector = (ItemInfoCollector) itemModelOutput;
             ItemModel.Unbaked lbSwordModel = generateLBSwordModel(ModItems.LASER_BLADE, modelOutput);
-            itemInfoCollector.register(ModItems.LASER_BLADE, new ClientItem(lbSwordModel, new ClientItem.Properties(true, true)));
-            itemInfoCollector.register(ModItems.LASER_BLADE_FP, new ClientItem(lbSwordModel, new ClientItem.Properties(true, true)));
+            itemInfoCollector.accept(ModItems.LASER_BLADE, lbSwordModel, new ClientItem.Properties(true, true, 1.0F));
+            itemInfoCollector.accept(ModItems.LASER_BLADE_FP, lbSwordModel, new ClientItem.Properties(true, true, 1.0F));
 
             // Laser Blade Parts
             itemModelOutput.accept(ModItems.LB_BLUEPRINT,
@@ -133,7 +133,7 @@ public class TLBModelProvider extends ModelProvider {
             itemModelOutput.accept(ModItems.LB_DISASSEMBLED_FP, DisassembledLBModel);
         }
 
-        private ItemModel.Unbaked generateLBSwordModel(Item item, BiConsumer<ResourceLocation, ModelInstance> modelOutput) {
+        private ItemModel.Unbaked generateLBSwordModel(Item item, BiConsumer<Identifier, ModelInstance> modelOutput) {
             ItemModel.Unbaked blockingLeft = ItemModelUtils.specialModel(createLBSwordModel(ModelLocationUtils.getModelLocation(item, "_blocking_left"),
                     LBSwordItemTransforms.BLOCKING_LEFT_ITEM_TRANSFORMS, modelOutput), new LBSwordSpecialRenderer.Unbaked());
             ItemModel.Unbaked blockingRight = ItemModelUtils.specialModel(createLBSwordModel(ModelLocationUtils.getModelLocation(item, "_blocking_right"),
@@ -144,7 +144,7 @@ public class TLBModelProvider extends ModelProvider {
                     LBSwordItemTransforms.ITEM_TRANSFORMS, modelOutput), new LBSwordSpecialRenderer.Unbaked());
 
             ItemModel.Unbaked specialModel = ItemModelUtils.conditional(new Blocking(), blockingModel, defaultModel);
-            ModelTemplate threeLayeredHandheldItem = new ModelTemplate(Optional.of(ResourceLocation.withDefaultNamespace("item/handheld")), Optional.empty(),
+            ModelTemplate threeLayeredHandheldItem = new ModelTemplate(Optional.of(Identifier.withDefaultNamespace("item/handheld")), Optional.empty(),
                     TextureSlot.LAYER0, TextureSlot.LAYER1, TextureSlot.LAYER2);
             ItemModel.Unbaked vanillaModel = ItemModelUtils.tintedModel(threeLayeredHandheldItem.create(ModelLocationUtils.getModelLocation(item, "_2d"),
                             TextureMapping.layered(
@@ -158,8 +158,8 @@ public class TLBModelProvider extends ModelProvider {
             return ItemModelUtils.conditional(new UsingOriginalModel(), specialModel, vanillaModel);
         }
 
-        private ResourceLocation createLBSwordModel(ResourceLocation location, LBSwordItemTransforms transforms, BiConsumer<ResourceLocation, ModelInstance> modelOutput) {
-            modelOutput.accept(location, () -> (new Gson()).toJsonTree(new LBSwordModel(ResourceLocation.withDefaultNamespace("item/iron_ingot"), transforms.get())));
+        private Identifier createLBSwordModel(Identifier location, LBSwordItemTransforms transforms, BiConsumer<Identifier, ModelInstance> modelOutput) {
+            modelOutput.accept(location, () -> (new Gson()).toJsonTree(new LBSwordModel(Identifier.withDefaultNamespace("item/iron_ingot"), transforms.get())));
             return location;
         }
 
@@ -169,7 +169,7 @@ public class TLBModelProvider extends ModelProvider {
             public Map<String, String> textures = new HashMap<>();
             public Map<String, Map<String, float[]>> display = new HashMap<>();
 
-            public LBSwordModel(ResourceLocation particle, ItemTransforms itemTransforms) {
+            public LBSwordModel(Identifier particle, ItemTransforms itemTransforms) {
                 textures.put("particle", particle.toString());
                 Arrays.stream(ItemDisplayContext.values())
                         .forEach(c -> addTransform(c.getSerializedName(), itemTransforms.getTransform(c)));

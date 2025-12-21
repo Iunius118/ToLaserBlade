@@ -19,7 +19,7 @@ import net.minecraft.core.Direction;
 import net.minecraft.network.chat.ClickEvent;
 import net.minecraft.network.chat.Component;
 import net.minecraft.network.chat.MutableComponent;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.Item;
 import net.minecraftforge.client.event.ModelEvent;
 import net.minecraftforge.client.event.RegisterParticleProvidersEvent;
@@ -52,7 +52,7 @@ public class ClientModEventHandler {
         LaserBladeModelManager.getInstance().reload();
     }
 
-    private static ResourceLocation getItemId(Item item) {
+    private static Identifier getItemId(Item item) {
         return ForgeRegistries.ITEMS.getKey(item);
     }
 

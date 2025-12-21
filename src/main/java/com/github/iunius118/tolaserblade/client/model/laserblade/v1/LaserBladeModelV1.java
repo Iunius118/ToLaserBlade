@@ -6,7 +6,7 @@ import com.github.iunius118.tolaserblade.client.color.item.LaserBladeItemColor;
 import com.github.iunius118.tolaserblade.client.model.SimpleLaserBladeModel;
 import com.mojang.blaze3d.vertex.PoseStack;
 import net.minecraft.client.renderer.SubmitNodeCollector;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.world.item.ItemDisplayContext;
 import net.minecraft.world.item.ItemStack;
 import org.joml.Vector3f;
@@ -17,7 +17,7 @@ import java.util.List;
 public class LaserBladeModelV1 extends SimpleLaserBladeModel {
     public static final String MODEL_TYPE = "tolaserblade:model_v1";
 
-    private static final ResourceLocation TEXTURE = ToLaserBlade.makeId("textures/item/laser_blade_3d.png");
+    private static final Identifier TEXTURE = ToLaserBlade.makeId("textures/item/laser_blade_3d.png");
 
     private final List<ModelObject> modelObjects;
     private final String name;

@@ -3,8 +3,8 @@ package com.github.iunius118.tolaserblade.api.client.event;
 import com.github.iunius118.tolaserblade.api.ToLaserBladeAPI;
 import com.github.iunius118.tolaserblade.api.client.model.LaserBladeModel;
 import net.minecraftforge.eventbus.api.event.MutableEvent;
+import org.jspecify.annotations.NonNull;
 
-import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -15,7 +15,7 @@ import java.util.function.Consumer;
 public class LaserBladeModelRegistrationEvent extends MutableEvent {
     private final Consumer<List<LaserBladeModel>> register;
 
-    public LaserBladeModelRegistrationEvent(@Nonnull Consumer<List<LaserBladeModel>> register) {
+    public LaserBladeModelRegistrationEvent(@NonNull Consumer<List<LaserBladeModel>> register) {
         this.register = register;
     }
 

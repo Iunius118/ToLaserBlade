@@ -4,7 +4,7 @@ import com.github.iunius118.tolaserblade.ToLaserBlade;
 import net.minecraft.data.PackOutput;
 import net.minecraft.data.metadata.PackMetadataGenerator;
 import net.minecraft.network.chat.Component;
-import net.minecraft.resources.ResourceLocation;
+import net.minecraft.resources.Identifier;
 import net.minecraft.server.packs.PackLocationInfo;
 import net.minecraft.server.packs.PackSelectionConfig;
 import net.minecraft.server.packs.PackType;
@@ -22,7 +22,7 @@ import java.util.Set;
 
 public class TLBEnchantmentProvider {
     private final static String PACK_PATH = "enchantment_fix";
-    private final static ResourceLocation PACK_ID = ToLaserBlade.makeId(PACK_PATH);
+    private final static Identifier PACK_ID = ToLaserBlade.makeId(PACK_PATH);
 
     private TLBEnchantmentProvider() {}
 

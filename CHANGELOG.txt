@@ -4,6 +4,7 @@
 
 ## [Unreleased]
 ### Changed
+- Port to Minecraft 1.21.11.
 - Require Forge 1.21.11-61.0.3+.
 
 ## [15.0.0 Forge]
