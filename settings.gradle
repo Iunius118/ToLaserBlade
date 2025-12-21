@@ -5,14 +5,6 @@ pluginManagement {
             name = 'MinecraftForge'
             url = 'https://maven.minecraftforge.net/'
         }
-        maven { url = 'https://spongepowered.org/maven/'}
-    }
-    resolutionStrategy {
-        eachPlugin {
-            if (requested.id.id == 'org.spongepowered.mixin') {
-                useModule('org.spongepowered:mixingradle:0.7.+')
-            }
-        }
     }
 }
 

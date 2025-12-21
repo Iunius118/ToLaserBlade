@@ -1,6 +1,6 @@
 # ToLaserBlade
 
-ToLaserBlade for Minecraft 1.21.10 with Forge.
+ToLaserBlade for Minecraft 1.21.11 with Forge.
 
 Licensed under the MIT license.
 

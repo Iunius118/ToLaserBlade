@@ -3,6 +3,8 @@
 [Source](https://github.com/Iunius118/ToLaserBlade).
 
 ## [Unreleased]
+### Changed
+- Require Forge 1.21.11-61.0.3+.
 
 ## [15.0.0 Forge]
 ### Changed
