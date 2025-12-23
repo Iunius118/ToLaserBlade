@@ -7,7 +7,7 @@
     "SmithingMenuMixin"
   ],
   "client": [
-    "client.BufferSourceMixin"
+    "client.RenderTypeMixin"
   ],
   "refmap": "tolaserblade.mixins.refmap.json",
   "required": true,
