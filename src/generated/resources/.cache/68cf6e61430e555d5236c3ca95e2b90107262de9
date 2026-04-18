@@ -1,0 +1,11 @@
+// 26.1.2	2026-04-18T23:55:17.2502296	Model Definitions - tolaserblade
+3a1da39fc85f0712b0aa05d6025f70cd471ecbb5 assets/tolaserblade/items/laser_blade.json
+b33d2fbd27896435722d97c6403bb7a54942c838 assets/tolaserblade/items/lb_battery.json
+1263d616b38808bb4626f26ffd52cfd8f1ed35ee assets/tolaserblade/items/lb_casing.json
+338cba7c6213cfc3f939f1c7a36ad40a50d32d10 assets/tolaserblade/items/lb_emitter.json
+e3d12e637fe36e006a3197ee05b58776efacc910 assets/tolaserblade/items/lb_medium.json
+5a8c95ae53066ac86f1a4aaf1cc858d972d06295 assets/tolaserblade/models/item/laser_blade.json
+9475adb0340602e4e542b671954f67ec73902c10 assets/tolaserblade/models/item/lb_battery.json
+586c98eb2d5d39e320c088850db3c1330477f7a0 assets/tolaserblade/models/item/lb_casing.json
+cbc56be0fcc1b84e27a1ff8063c934ac564551a3 assets/tolaserblade/models/item/lb_emitter.json
+2e6be930d95417a7d4b74ebc31fa0d7d63bd9fa5 assets/tolaserblade/models/item/lb_medium.json
