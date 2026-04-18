@@ -3,6 +3,9 @@
 [Source](https://github.com/Iunius118/ToLaserBlade).
 
 ## [Unreleased]
+### Changed
+- Port to Minecraft 26.1.1.
+- Require NeoForge 26.1.1.15-beta+.
 
 ## [16.0.0 NeoForge]
 ### Changed

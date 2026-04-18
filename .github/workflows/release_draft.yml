@@ -1,3 +1,5 @@
+# Workflows require read and write permissions in the repository
+
 name: release_draft
 on:
   push:
@@ -6,29 +8,22 @@ on:
 
 jobs:
   release_draft:
-    strategy:
-      matrix:
-        # Use these Java versions
-        java: [
-          21,    # Current Java LTS
-        ]
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-latest
     steps:
       - name: checkout repository
         uses: actions/checkout@v4
-      - name: setup jdk ${{ matrix.java }}
+      - name: setup jdk
         uses: actions/setup-java@v4
         with:
+          java-version: '25'
           distribution: 'microsoft'   # When using Java 8, set 'temurin'
-          java-version: ${{ matrix.java }}
-      - name: Setup Gradle
+      - name: setup gradle
         uses: gradle/actions/setup-gradle@v4
       - name: make gradle wrapper executable
         run: chmod +x ./gradlew
       - name: build
         run: ./gradlew build
       - name: create release
-        if: ${{ matrix.java == '21' }} # Only upload artifacts built from latest java
         uses: softprops/action-gh-release@v2
         with:
           draft: true
