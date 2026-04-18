@@ -1,9 +1,0 @@
-{
-  "type": "tolaserblade:upgrade",
-  "addition": "#tolaserblade:upgrade/efficiency_remover",
-  "base": "tolaserblade:laser_blade_fp",
-  "result": {
-    "type": "tolaserblade:upgrade/efficiency_remover"
-  },
-  "template": "tolaserblade:lb_blueprint"
-}

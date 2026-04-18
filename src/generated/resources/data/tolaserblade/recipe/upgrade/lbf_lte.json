@@ -1,9 +1,0 @@
-{
-  "type": "tolaserblade:upgrade",
-  "addition": "#tolaserblade:upgrade/light_element",
-  "base": "tolaserblade:laser_blade_fp",
-  "result": {
-    "type": "tolaserblade:upgrade/light_element"
-  },
-  "template": "tolaserblade:lb_blueprint"
-}

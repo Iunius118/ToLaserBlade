@@ -1,9 +1,0 @@
-{
-  "type": "tolaserblade:upgrade",
-  "addition": "#tolaserblade:upgrade/attack",
-  "base": "tolaserblade:laser_blade",
-  "result": {
-    "type": "tolaserblade:upgrade/attack"
-  },
-  "template": "tolaserblade:lb_blueprint"
-}

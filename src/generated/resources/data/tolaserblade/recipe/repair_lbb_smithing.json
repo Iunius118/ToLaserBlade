@@ -1,9 +1,0 @@
-{
-  "type": "minecraft:smithing_transform",
-  "addition": "#tolaserblade:casing_repair",
-  "base": "tolaserblade:lb_broken",
-  "result": {
-    "id": "tolaserblade:lb_brand_new"
-  },
-  "template": "tolaserblade:lb_blueprint"
-}

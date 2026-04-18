@@ -1,13 +1,8 @@
 {
   "package": "com.github.iunius118.tolaserblade.mixin",
   "mixins": [
-    "AbstractFurnaceBlockEntityAccessor",
-    "ItemAccessor",
-    "ItemStackMixin",
-    "SmithingMenuMixin"
   ],
   "client": [
-    "client.RenderTypeMixin"
   ],
   "refmap": "tolaserblade.mixins.refmap.json",
   "required": true,

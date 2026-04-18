@@ -1,8 +1,0 @@
-{
-  "parent": "minecraft:item/handheld",
-  "textures": {
-    "layer0": "tolaserblade:item/laser_blade_2d_0",
-    "layer1": "tolaserblade:item/laser_blade_2d_1",
-    "layer2": "tolaserblade:item/laser_blade_2d_2"
-  }
-}

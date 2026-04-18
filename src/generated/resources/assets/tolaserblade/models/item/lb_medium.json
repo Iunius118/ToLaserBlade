@@ -1,7 +1,0 @@
-{
-  "parent": "minecraft:item/generated",
-  "textures": {
-    "layer0": "tolaserblade:item/parts/lb_medium_0",
-    "layer1": "tolaserblade:item/parts/lb_medium_1"
-  }
-}

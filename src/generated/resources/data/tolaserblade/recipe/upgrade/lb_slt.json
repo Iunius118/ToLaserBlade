@@ -1,9 +1,0 @@
-{
-  "type": "tolaserblade:upgrade",
-  "addition": "#tolaserblade:upgrade/silk_touch",
-  "base": "tolaserblade:laser_blade",
-  "result": {
-    "type": "tolaserblade:upgrade/silk_touch"
-  },
-  "template": "tolaserblade:lb_blueprint"
-}

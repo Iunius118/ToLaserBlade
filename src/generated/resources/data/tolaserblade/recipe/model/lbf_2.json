@@ -1,9 +1,0 @@
-{
-  "type": "tolaserblade:model_change",
-  "addition": "minecraft:sandstone",
-  "base": "tolaserblade:laser_blade_fp",
-  "result": {
-    "model_type": 2
-  },
-  "template": "tolaserblade:lb_blueprint"
-}

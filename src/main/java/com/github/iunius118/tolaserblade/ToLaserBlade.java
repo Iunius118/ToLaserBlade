@@ -1,25 +1,13 @@
 package com.github.iunius118.tolaserblade;
 
-import com.github.iunius118.tolaserblade.api.ToLaserBladeAPI;
-import com.github.iunius118.tolaserblade.client.ClientModEventHandler;
-import com.github.iunius118.tolaserblade.client.model.LaserBladeModelManager;
-import com.github.iunius118.tolaserblade.common.CommonEventHandler;
-import com.github.iunius118.tolaserblade.common.RegistryEventHandler;
-import com.github.iunius118.tolaserblade.config.TLBClientConfig;
-import com.github.iunius118.tolaserblade.config.TLBServerConfig;
-import com.github.iunius118.tolaserblade.data.TLBDataGenerator;
-import com.github.iunius118.tolaserblade.data.TLBOldRecipeProvider6;
-import com.github.iunius118.tolaserblade.data.TLBSampleSoundPackProvider;
-import com.github.iunius118.tolaserblade.world.item.ItemEventHandler;
-import com.github.iunius118.tolaserblade.world.item.ModCreativeModeTabs;
+import com.github.iunius118.tolaserblade.data.ModDataGenerator;
+import com.github.iunius118.tolaserblade.registry.ModCreativeModeTabs;
+import com.github.iunius118.tolaserblade.registry.ModItems;
 import com.mojang.logging.LogUtils;
 import net.minecraft.resources.Identifier;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.fml.ModContainer;
 import net.neoforged.fml.common.Mod;
-import net.neoforged.fml.config.ModConfig;
-import net.neoforged.fml.loading.FMLEnvironment;
-import net.neoforged.neoforge.common.NeoForge;
 import org.slf4j.Logger;
 
 @Mod(ToLaserBlade.MOD_ID)
@@ -33,28 +21,16 @@ public class ToLaserBlade {
         // Register lifecycle event listeners
 
         // Register config handlers
-        modContainer.registerConfig(ModConfig.Type.SERVER, TLBServerConfig.SPEC);
-        modContainer.registerConfig(ModConfig.Type.CLIENT, TLBClientConfig.SPEC);
-        modEventBus.addListener(TLBServerConfig::onLoad);
-        modEventBus.addListener(TLBClientConfig::onLoad);
+
+        // Register game objects
+        ModItems.ITEMS.register(modEventBus);
+        ModCreativeModeTabs.CREATIVE_MODE_TABS.register(modEventBus);
 
         // Register event handlers
-        RegistryEventHandler.registerGameObjects(modEventBus);
-        modEventBus.addListener(TLBDataGenerator::gatherData);
-        modEventBus.addListener(ModCreativeModeTabs::onCreativeModeTabBuildContents);
-        modEventBus.addListener(TLBOldRecipeProvider6::addPackFinders);
-        modEventBus.addListener(TLBSampleSoundPackProvider::addPackFinders);
-        NeoForge.EVENT_BUS.register(CommonEventHandler.class);
-        NeoForge.EVENT_BUS.register(ItemEventHandler.class);
-
-        // Register client-side mod event handler
-        if (FMLEnvironment.getDist().isClient()) {
-            modEventBus.register(ClientModEventHandler.class);
-            ToLaserBladeAPI.registerModelRegistrationListener(event -> event.register(LaserBladeModelManager.loadModels()));
-        }
+        modEventBus.addListener(ModDataGenerator::gatherData);
     }
 
-    public static Identifier makeId(String name) {
-        return Identifier.fromNamespaceAndPath(MOD_ID, name);
+    public static final Identifier id(String path) {
+        return Identifier.fromNamespaceAndPath(MOD_ID, path);
     }
 }
