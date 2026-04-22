@@ -1,6 +1,7 @@
 {
-  "parent": "minecraft:item/generated",
+  "parent": "item/generated",
+  "gui_light": "front",
   "textures": {
-    "layer0": "tolaserblade:item/laser_blade"
+    "particle": "minecraft:item/iron_ingot"
   }
 }
