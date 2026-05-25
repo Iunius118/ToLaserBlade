@@ -20,5 +20,6 @@ public final class ModDataGenerator {
 
         // - Assets //
         event.createProvider(ModModelProvider::new);
+        ModLanguageProvider.addProviders(event);
     }
 }
