@@ -1,6 +1,7 @@
 package com.github.iunius118.tolaserblade;
 
 import com.github.iunius118.tolaserblade.data.ModDataGenerator;
+import com.github.iunius118.tolaserblade.data.pack.RepulsiveForceProvider;
 import com.github.iunius118.tolaserblade.registry.ModCreativeModeTabs;
 import com.github.iunius118.tolaserblade.registry.ModItems;
 import com.mojang.logging.LogUtils;
@@ -28,6 +29,7 @@ public class ToLaserBlade {
 
         // Register event handlers
         modEventBus.addListener(ModDataGenerator::gatherData);
+        modEventBus.addListener(RepulsiveForceProvider::addPackFinders);
     }
 
     public static final Identifier id(String path) {
