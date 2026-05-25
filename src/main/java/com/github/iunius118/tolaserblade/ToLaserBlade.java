@@ -25,9 +25,9 @@ public class ToLaserBlade {
         // Register config handlers
 
         // Register game objects
-        ModItems.ITEMS.register(modEventBus);
-        ModCreativeModeTabs.CREATIVE_MODE_TABS.register(modEventBus);
         ModDataComponents.register(modEventBus);
+        ModItems.register(modEventBus);
+        ModCreativeModeTabs.register(modEventBus);
 
         // Register event handlers
         modEventBus.addListener(ModDataGenerator::gatherData);

@@ -14,6 +14,7 @@ public final class ModDataGenerator {
                 .add(Registries.ENCHANTMENT, ModEnchantments::bootstrap);
         event.createDatapackRegistryObjects(builder);
         RepulsiveForceProvider.addProviders(event);
+        event.createProvider(ModItemTagsProvider::new);
         event.createProvider(ModEntityTypeTagsProvider::new);
         event.createProvider(ModEnchantmentTagsProvider::new);
 
