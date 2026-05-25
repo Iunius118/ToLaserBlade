@@ -6,6 +6,7 @@ import com.github.iunius118.tolaserblade.client.extensions.LBSwordItemExtensions
 import com.github.iunius118.tolaserblade.client.model.LaserBladeModelManager;
 import com.github.iunius118.tolaserblade.client.renderer.Blocking;
 import com.github.iunius118.tolaserblade.client.renderer.LBSwordSpecialRenderer;
+import com.github.iunius118.tolaserblade.client.renderer.ModPipelines;
 import com.github.iunius118.tolaserblade.registry.ModItems;
 import net.neoforged.api.distmarker.Dist;
 import net.neoforged.bus.api.IEventBus;
@@ -24,6 +25,7 @@ public class ToLaserBladeClient {
         // Register client-side lifecycle event listeners
 
         // Register client-side event handlers
+        modEventBus.addListener(ModPipelines::onRegisterRenderPipelinesEvent);
         modEventBus.addListener(this::onRegisterSpecialModelRenderer);
         // Also transform the off-hand pose while blocking (it will not be transformed if these are commented out)
         //modEventBus.addListener(this::onRegisterConditionalItemModelPropertyEvent);

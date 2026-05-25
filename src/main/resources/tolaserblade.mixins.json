@@ -3,6 +3,7 @@
   "mixins": [
   ],
   "client": [
+    "client.RenderTypeMixin",
     "client.SpecialModelWrapperMixin"
   ],
   "refmap": "tolaserblade.mixins.refmap.json",

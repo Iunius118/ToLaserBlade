@@ -7,10 +7,10 @@ import net.minecraft.world.item.ItemStack;
  * Render context for {@link LBSwordSpecialRenderer}, used when rendering laser blade.
  */
 public class LBSwordRenderContext {
-	public final ItemStack stack;
-	public ItemDisplayContext displayContext = ItemDisplayContext.NONE;
+    public final ItemStack itemStack;
+    public ItemDisplayContext displayContext = ItemDisplayContext.NONE;
 
-	public LBSwordRenderContext(ItemStack itemStack) {
-		this.stack = itemStack;
-	}
+    public LBSwordRenderContext(ItemStack itemStack) {
+        this.itemStack = itemStack;
+    }
 }

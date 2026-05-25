@@ -17,20 +17,17 @@ import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
 @Mixin(SpecialModelWrapper.class)
 public abstract class SpecialModelWrapperMixin<T> implements ItemModel {
-	@Inject(method = "update(Lnet/minecraft/client/renderer/item/ItemStackRenderState;" +
-			"Lnet/minecraft/world/item/ItemStack;Lnet/minecraft/client/renderer/item/ItemModelResolver;" +
-			"Lnet/minecraft/world/item/ItemDisplayContext;Lnet/minecraft/client/multiplayer/ClientLevel;" +
-			"Lnet/minecraft/world/entity/ItemOwner;I)V",
-			at = @At(value = "INVOKE",
-					target = "Lnet/minecraft/client/renderer/item/ItemStackRenderState$LayerRenderState;" +
-							"setExtents(Ljava/util/function/Supplier;)V"),
-			locals = LocalCapture.CAPTURE_FAILSOFT)
-	private void onUpdate(ItemStackRenderState output, ItemStack item, ItemModelResolver resolver,
-						  ItemDisplayContext displayContext, ClientLevel level, ItemOwner owner, int seed,
-						  CallbackInfo ci, ItemStackRenderState.LayerRenderState layer, T argument) {
-		// Set the ItemDisplayContext in the RenderContext for use in laser blade rendering.
-		if (argument instanceof LBSwordRenderContext context) {
-			context.displayContext = displayContext;
-		}
-	}
+    @Inject(method = "update",
+            at = @At(value = "INVOKE",
+                    target = "Lnet/minecraft/client/renderer/item/ItemStackRenderState$LayerRenderState;" +
+                            "setExtents(Ljava/util/function/Supplier;)V"),
+            locals = LocalCapture.CAPTURE_FAILSOFT)
+    private void onUpdate(ItemStackRenderState output, ItemStack item, ItemModelResolver resolver,
+                          ItemDisplayContext displayContext, ClientLevel level, ItemOwner owner, int seed,
+                          CallbackInfo ci, ItemStackRenderState.LayerRenderState layer, T argument) {
+        // Set the ItemDisplayContext in the RenderContext for use in laser blade rendering.
+        if (argument instanceof LBSwordRenderContext context) {
+            context.displayContext = displayContext;
+        }
+    }
 }
