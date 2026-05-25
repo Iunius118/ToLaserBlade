@@ -1,11 +1,13 @@
-// 26.1.2	2026-04-22T21:48:27.2625067	Model Definitions - tolaserblade
-eb1c17472423bdb910b91a9c33126b3a741e9346 assets/tolaserblade/items/laser_blade.json
+// 26.1.2	2026-05-25T22:19:57.5874157	Model Definitions - tolaserblade
+ddaac52d2c38b76209e3d67b085c8e33706ea4f5 assets/tolaserblade/items/laser_blade.json
+ddaac52d2c38b76209e3d67b085c8e33706ea4f5 assets/tolaserblade/items/laser_blade_fp.json
 b33d2fbd27896435722d97c6403bb7a54942c838 assets/tolaserblade/items/lb_battery.json
 1263d616b38808bb4626f26ffd52cfd8f1ed35ee assets/tolaserblade/items/lb_casing.json
+41daf604e4cb291dd729d9f24c66593ec500fdf7 assets/tolaserblade/items/lb_casing_fp.json
 338cba7c6213cfc3f939f1c7a36ad40a50d32d10 assets/tolaserblade/items/lb_emitter.json
 e3d12e637fe36e006a3197ee05b58776efacc910 assets/tolaserblade/items/lb_medium.json
-31d079f0baffea3ee4d5acb7d735ef67b734a60a assets/tolaserblade/models/item/laser_blade.json
 9475adb0340602e4e542b671954f67ec73902c10 assets/tolaserblade/models/item/lb_battery.json
 586c98eb2d5d39e320c088850db3c1330477f7a0 assets/tolaserblade/models/item/lb_casing.json
+e13dbb6748ce62e62798ee0c50024248cc71986a assets/tolaserblade/models/item/lb_casing_fp.json
 cbc56be0fcc1b84e27a1ff8063c934ac564551a3 assets/tolaserblade/models/item/lb_emitter.json
 2e6be930d95417a7d4b74ebc31fa0d7d63bd9fa5 assets/tolaserblade/models/item/lb_medium.json

@@ -1,0 +1,9 @@
+// 26.1.2	2026-05-25T22:19:57.5834186	Tags for minecraft:item mod id tolaserblade
+b13fcdd5db286c42cad81da19b2ce908e8991665 data/c/tags/item/tools/melee_weapon.json
+b13fcdd5db286c42cad81da19b2ce908e8991665 data/c/tags/item/tools/mining_tool.json
+b13fcdd5db286c42cad81da19b2ce908e8991665 data/minecraft/tags/item/enchantable/durability.json
+b13fcdd5db286c42cad81da19b2ce908e8991665 data/minecraft/tags/item/enchantable/fire_aspect.json
+b13fcdd5db286c42cad81da19b2ce908e8991665 data/minecraft/tags/item/enchantable/mining.json
+b13fcdd5db286c42cad81da19b2ce908e8991665 data/minecraft/tags/item/enchantable/mining_loot.json
+b13fcdd5db286c42cad81da19b2ce908e8991665 data/tolaserblade/tags/item/enchantable/laser_blade.json
+adb83dde69cf9dffe80a91ed8690a014e1d4f086 data/tolaserblade/tags/item/laser_blades.json

@@ -3,6 +3,30 @@
   "description": {
     "translate": "enchantment.tolaserblade.laser_blade"
   },
+  "effects": {
+    "minecraft:attributes": [
+      {
+        "amount": {
+          "type": "minecraft:linear",
+          "base": 2.4,
+          "per_level_above_first": 2.4
+        },
+        "attribute": "minecraft:attack_damage",
+        "id": "tolaserblade:laser_blade/attack_damage",
+        "operation": "add_value"
+      },
+      {
+        "amount": {
+          "type": "minecraft:linear",
+          "base": 0.2,
+          "per_level_above_first": 0.2
+        },
+        "attribute": "minecraft:attack_speed",
+        "id": "tolaserblade:laser_blade/attack_speed",
+        "operation": "add_value"
+      }
+    ]
+  },
   "max_cost": {
     "base": 21,
     "per_level_above_first": 11
@@ -12,10 +36,9 @@
     "base": 1,
     "per_level_above_first": 11
   },
-  "primary_items": "#minecraft:enchantable/melee_weapon",
   "slots": [
     "mainhand"
   ],
-  "supported_items": "#minecraft:enchantable/weapon",
+  "supported_items": "#tolaserblade:enchantable/laser_blade",
   "weight": 10
 }

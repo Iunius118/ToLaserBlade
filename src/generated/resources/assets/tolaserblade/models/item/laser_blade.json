@@ -1,7 +1,0 @@
-{
-  "parent": "item/generated",
-  "gui_light": "front",
-  "textures": {
-    "particle": "minecraft:item/iron_ingot"
-  }
-}

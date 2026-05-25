@@ -1,0 +1,42 @@
+{
+  "anvil_cost": 2,
+  "description": {
+    "translate": "enchantment.tolaserblade.light_element"
+  },
+  "effects": {
+    "minecraft:damage": [
+      {
+        "effect": {
+          "type": "minecraft:add",
+          "value": {
+            "type": "minecraft:linear",
+            "base": 4.0,
+            "per_level_above_first": 4.0
+          }
+        },
+        "requirements": {
+          "condition": "minecraft:entity_properties",
+          "entity": "this",
+          "predicate": {
+            "type": "#tolaserblade:sensitive_to_laser_blade"
+          }
+        }
+      }
+    ]
+  },
+  "exclusive_set": "#minecraft:exclusive_set/damage",
+  "max_cost": {
+    "base": 25,
+    "per_level_above_first": 8
+  },
+  "max_level": 5,
+  "min_cost": {
+    "base": 5,
+    "per_level_above_first": 8
+  },
+  "slots": [
+    "mainhand"
+  ],
+  "supported_items": "#tolaserblade:enchantable/laser_blade",
+  "weight": 5
+}
