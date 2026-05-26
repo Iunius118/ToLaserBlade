@@ -34,5 +34,8 @@ public class ModItemTagsProvider extends ItemTagsProvider {
         tag(ItemTags.DURABILITY_ENCHANTABLE).addTag(ModItemTags.LASER_BLADES);
         tag(ItemTags.FIRE_ASPECT_ENCHANTABLE).addTag(ModItemTags.LASER_BLADES);
         tag(ModItemTags.LASER_BLADE_ENCHANTABLE).addTag(ModItemTags.LASER_BLADES);
+
+        // LaserBlade-Tools tags
+        tag(ModItemTags.COLORIZER_CAN_CHANGE_COLOR).addTag(ModItemTags.LASER_BLADES);
     }
 }
