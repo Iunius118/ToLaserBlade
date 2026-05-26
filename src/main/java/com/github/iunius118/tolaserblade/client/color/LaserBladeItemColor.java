@@ -51,7 +51,7 @@ public record LaserBladeItemColor(
 
     public static int getColor(CustomModelData customModelData, int index, int defaultColor) {
         if (Objects.requireNonNullElse(customModelData.getBoolean(index), false)) {
-            return Objects.requireNonNullElse(customModelData.getColor(index), defaultColor);
+            return Objects.requireNonNullElse(customModelData.getColor(index), defaultColor) | 0xFF000000;
         }
 
         return defaultColor;
