@@ -1,0 +1,9 @@
+{
+  "type": "minecraft:smithing_transform",
+  "addition": "#minecraft:netherite_tool_materials",
+  "base": "tolaserblade:laser_blade",
+  "result": {
+    "id": "tolaserblade:laser_blade_fp"
+  },
+  "template": "minecraft:netherite_upgrade_smithing_template"
+}

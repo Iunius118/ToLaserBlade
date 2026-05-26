@@ -13,6 +13,17 @@
   - Light Element enchantment, increases damage against undead mobs and illagers.
   - Repulsive Force enchantment, allows Laser Blades to block attacks and increases knockback strength at higher levels.
 - Repulsive Force is provided by an independent built-in data pack and can therefore be disabled separately.
+- Add temporary recipes for crafting laser blades.
+
+    Laser Blade Recipe
+    Crafting Table (# = Iron Ingot, D = Diamond, G = Glowstone Dust, R = Redstone Dust)
+    G # D
+    # D #
+    R # G
+
+    Laser Blade (fireproof) Recipe
+    Smithing Table
+    Netherite Upgrade + Laser Blade + Netherite Ingot
 
 ### Changed
 - Port to Minecraft 26.1.2.

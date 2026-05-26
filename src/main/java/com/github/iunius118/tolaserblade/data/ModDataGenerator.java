@@ -17,6 +17,7 @@ public final class ModDataGenerator {
         event.createProvider(ModItemTagsProvider::new);
         event.createProvider(ModEntityTypeTagsProvider::new);
         event.createProvider(ModEnchantmentTagsProvider::new);
+        event.createProvider(ModRecipeProvider.Runner::new);
 
         // - Assets //
         event.createProvider(ModModelProvider::new);

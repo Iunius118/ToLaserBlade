@@ -1,0 +1,5 @@
+// 26.1.2	2026-05-26T19:48:58.0673794	Recipes
+6a9599efd45c9263e1a48675acb39335d5fa667e data/minecraft/advancement/recipes/tools/laser_blade_fp_smithing.json
+bd5c1ec036c385f1006b97937205cd600f920c39 data/minecraft/recipe/laser_blade_fp_smithing.json
+86a93cf19ed29963020ac83f421bfce3034ada4a data/tolaserblade/advancement/recipes/tools/laser_blade.json
+cf55601ece3ca8bf0131b68851f535b16199d58b data/tolaserblade/recipe/laser_blade.json
