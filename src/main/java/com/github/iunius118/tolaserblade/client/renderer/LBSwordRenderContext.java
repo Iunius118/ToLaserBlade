@@ -11,6 +11,7 @@ public class LBSwordRenderContext {
     public ItemDisplayContext displayContext = ItemDisplayContext.NONE;
 
     public LBSwordRenderContext(ItemStack itemStack) {
-        this.itemStack = itemStack;
+        // Copy item stack to prevent modification between item entity and pickup particle
+        this.itemStack = itemStack.copy();
     }
 }

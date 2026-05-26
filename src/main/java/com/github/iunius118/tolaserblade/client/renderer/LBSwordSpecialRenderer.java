@@ -42,8 +42,8 @@ public class LBSwordSpecialRenderer implements SpecialModelRenderer<LBSwordRende
     }
 
     @Override
-    public @Nullable LBSwordRenderContext extractArgument(ItemStack stack) {
-        return new LBSwordRenderContext(stack);
+    public @Nullable LBSwordRenderContext extractArgument(ItemStack itemStack) {
+        return new LBSwordRenderContext(itemStack);
     }
 
     public static class Unbaked implements SpecialModelRenderer.Unbaked<LBSwordRenderContext> {

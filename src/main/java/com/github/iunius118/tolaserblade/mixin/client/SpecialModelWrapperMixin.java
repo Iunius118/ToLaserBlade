@@ -25,7 +25,7 @@ public abstract class SpecialModelWrapperMixin<T> implements ItemModel {
     private void onUpdate(ItemStackRenderState output, ItemStack item, ItemModelResolver resolver,
                           ItemDisplayContext displayContext, ClientLevel level, ItemOwner owner, int seed,
                           CallbackInfo ci, ItemStackRenderState.LayerRenderState layer, T argument) {
-        // Set the ItemDisplayContext in the RenderContext for use in laser blade rendering.
+        // Set the ItemDisplayContext in the RenderContext for use in laser blade rendering
         if (argument instanceof LBSwordRenderContext context) {
             context.displayContext = displayContext;
         }
