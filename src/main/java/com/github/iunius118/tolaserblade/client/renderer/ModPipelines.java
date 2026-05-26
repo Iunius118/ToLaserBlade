@@ -1,5 +1,6 @@
 package com.github.iunius118.tolaserblade.client.renderer;
 
+import com.github.iunius118.tolaserblade.ToLaserBlade;
 import com.mojang.blaze3d.pipeline.BlendFunction;
 import com.mojang.blaze3d.pipeline.ColorTargetState;
 import com.mojang.blaze3d.pipeline.RenderPipeline;
@@ -15,31 +16,35 @@ public class ModPipelines {
     public static final RenderPipeline TRANSLUCENT = register(
             // Use the entity snippet
             RenderPipeline.builder(RenderPipelines.ENTITY_SNIPPET)
-                    .withLocation("pipeline/tlb_translucent")
+                    .withLocation(ToLaserBlade.id("pipeline/tlb_translucent"))
                     .withShaderDefine("ALPHA_CUTOUT", 0.1F)
+                    .withShaderDefine("PER_FACE_LIGHTING")
                     .withSampler("Sampler1")
                     .withColorTargetState(new ColorTargetState(BlendFunction.TRANSLUCENT))
                     .build()
     );
     // Unlit item render pipeline
     public static final RenderPipeline UNLIT_TRANSLUCENT = register(
-            RenderPipeline.builder(RenderPipelines.ENTITY_SNIPPET)
-                    .withLocation("pipeline/tlb_unlit_translucent")
+            RenderPipeline.builder(RenderPipelines.ENTITY_EMISSIVE_SNIPPET)
+                    .withLocation(ToLaserBlade.id("pipeline/tlb_unlit_translucent"))
+                    .withShaderDefine("NO_OVERLAY")
                     .withShaderDefine("NO_CARDINAL_LIGHTING")
                     .withColorTargetState(new ColorTargetState(BlendFunction.TRANSLUCENT))
                     .build()
     );
     public static final RenderPipeline ADD = register(
-            RenderPipeline.builder(RenderPipelines.ENTITY_SNIPPET)
-                    .withLocation("pipeline/tlb_add")
+            RenderPipeline.builder(RenderPipelines.ENTITY_EMISSIVE_SNIPPET)
+                    .withLocation(ToLaserBlade.id("pipeline/tlb_add"))
+                    .withShaderDefine("NO_OVERLAY")
                     .withShaderDefine("NO_CARDINAL_LIGHTING")
                     // Use the lightning blend function (additive and alpha)
                     .withColorTargetState(new ColorTargetState(BlendFunction.LIGHTNING))
                     .build()
     );
     public static final RenderPipeline SUB = register(
-            RenderPipeline.builder(RenderPipelines.ENTITY_SNIPPET)
-                    .withLocation("pipeline/tlb_sub")
+            RenderPipeline.builder(RenderPipelines.ENTITY_EMISSIVE_SNIPPET)
+                    .withLocation(ToLaserBlade.id("pipeline/tlb_sub"))
+                    .withShaderDefine("NO_OVERLAY")
                     .withShaderDefine("NO_CARDINAL_LIGHTING")
                     // Use the lightning blend function (additive and alpha)
                     .withColorTargetState(new ColorTargetState(BlendFunction.LIGHTNING))

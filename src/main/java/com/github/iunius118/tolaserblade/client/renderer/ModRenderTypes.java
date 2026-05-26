@@ -1,6 +1,7 @@
 package com.github.iunius118.tolaserblade.client.renderer;
 
 import com.github.iunius118.tolaserblade.ToLaserBlade;
+import net.minecraft.client.renderer.rendertype.OutputTarget;
 import net.minecraft.client.renderer.rendertype.RenderSetup;
 import net.minecraft.client.renderer.rendertype.RenderType;
 import net.minecraft.resources.Identifier;
@@ -29,8 +30,11 @@ public class ModRenderTypes {
             (name, identifier) -> {
                 RenderSetup renderSetup = RenderSetup.builder(ModPipelines.TRANSLUCENT)
                         .withTexture("Sampler0", identifier)
+                        .setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
                         .useLightmap()
                         .useOverlay()
+                        .sortOnUpload()
+                        .setOutline(RenderSetup.OutlineProperty.AFFECTS_OUTLINE)
                         .createRenderSetup();
                 return RenderType.create(name, renderSetup);
             }
@@ -39,8 +43,9 @@ public class ModRenderTypes {
             (name, identifier) -> {
                 RenderSetup renderSetup = RenderSetup.builder(ModPipelines.UNLIT_TRANSLUCENT)
                         .withTexture("Sampler0", identifier)
-                        .useLightmap()
-                        .useOverlay()
+                        .setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
+                        .sortOnUpload()
+                        .setOutline(RenderSetup.OutlineProperty.AFFECTS_OUTLINE)
                         .createRenderSetup();
                 return RenderType.create(name, renderSetup);
             }
@@ -49,8 +54,9 @@ public class ModRenderTypes {
             (name, identifier) -> {
                 RenderSetup renderSetup = RenderSetup.builder(ModPipelines.ADD)
                         .withTexture("Sampler0", identifier)
-                        .useLightmap()
-                        .useOverlay()
+                        .setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
+                        .sortOnUpload()
+                        .setOutline(RenderSetup.OutlineProperty.AFFECTS_OUTLINE)
                         .createRenderSetup();
                 return RenderType.create(name, renderSetup);
             }
@@ -59,8 +65,9 @@ public class ModRenderTypes {
             (name, identifier) -> {
                 RenderSetup renderSetup = RenderSetup.builder(ModPipelines.SUB)
                         .withTexture("Sampler0", identifier)
-                        .useLightmap()
-                        .useOverlay()
+                        .setOutputTarget(OutputTarget.ITEM_ENTITY_TARGET)
+                        .sortOnUpload()
+                        .setOutline(RenderSetup.OutlineProperty.AFFECTS_OUTLINE)
                         .createRenderSetup();
                 return RenderType.create(name, renderSetup);
             }
