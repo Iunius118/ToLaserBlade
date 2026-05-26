@@ -1,281 +1,29 @@
 # Cheatsheet
+
 ToLaserBlade v17.0.0 (NeoForge)
 
-## How to Get Started
-### 1. Craft a Brand-new Laser Blade I or II, and Use It
-Holding a brand-new laser blade in your hand and right-clicking, you will obtain a laser blade.
-
-When you name your brand-new laser blade I or II GIFT by using an anvil and use it...
-
-### 2. Craft a Smithing Table and Upgrade the Laser Blade
-Using smithing table, you can upgrade your laser blade.
-
 ## Items
-### DX Laser B1ade
-- ID: `tolaserblade:dx_laser_blade`
-- Tool type: Sword
-- Durability: 255
-- Base attack damage: 5
-- Base attack speed: 2.8
-- Enchanting: Available on Enchanting Table or Anvil
-- Sneak-right-clicking a block: place a redstone torch and consume the durability
-- Right-clicking a redstone torch: consume the redstone torch and recover the durability
-- Crafting on Crafting Table: R = Redstone Torch; S = Stick
-  - R;
-  - S;
-  - S;
-
-### Laser Blade Blueprint
- - ID: `tolaserblade:lb_blueprint`
- - This item will remain on the crafting grid and the template slot
- - Crafting on Crafting Table (shapeless):
-   - DX Laser B1ade
-   - Blue Dye
-   - Paper
-
-### LB Energy Cell
- - ID: `tolaserblade:lb_battery`
- - Crafting on Crafting Table: B = Laser Blade Blueprint; I = Iron Ingot; R = Redstone
-   - B;
-   - I;
-   - R;
-
-### Laser Blade Emitter
- - ID: `tolaserblade:lb_emitter`
- - Crafting on Crafting Table: B = Laser Blade Blueprint; D = Diamond; I = Iron Ingot
-   - B;
-   - D;
-   - I;
-
-### Laser Blade Casing
- - ID: `tolaserblade:lb_casing`
- - Crafting on Crafting Table: B = Laser Blade Blueprint; I = Iron Ingot
-   - B;
-   - I;
-   - I;
-
-### Brand-new Laser Blade I
-- ID: `tolaserblade:lb_brand_new_1`
-- Holding this item in your hand and right-clicking, you will obtain a laser blade enchanted with Efficiency I and Light Element I
-- Crafting on Crafting Table (shapeless):
-  - Laser Blade Blueprint
-  - LB Energy Cell
-  - Diamond
-  - Glass
-  - Laser Blade Emitter
-  - Laser Blade Casing
-- The color of the laser blade obtained may change depending on the biome where the player obtained it
-  - Nether Wastes, Crimson Forest, or Basalt Deltas: white blades and subtractive inner blade color
-  - Warped Forest or Soul Sand Valley: white blades and subtractive outer blade color
-  - All biomes in the End: white blades and subtractive blade colors
-  - Deep Dark: ???
-  - Cherry Grove: ???
-  - Pale Garden: ???
-  - Temperature > 1.5: violet outer blade
-  - 1.5 >= Temperature >= 1.0: magenta outer blade
-  - 1.0 > Temperature > 0.8: gold outer blade
-  - 0.8 >= Temperature >= 0.5: red outer blade
-  - 0.5 > Temperature >= 0.2:  lime outer blade
-  - 0.2 > Temperature >= -0.3: azure outer blade
-  - -0.3 > Temperature: blue outer blade
-
-### Laser Medium
- - ID: `tolaserblade:lb_medium`
- - Crafting on Crafting Table: B = Laser Blade Blueprint; g = Glowstone Dust; D = Diamond
-   - _, B, _;
-   - g, D, g;
-
-### Brand-new Laser Blade II
-- ID: `tolaserblade:lb_brand_new_2`
-- Holding this item in your hand and right-clicking, you will obtain a laser blade enchanted with Efficiency I and Light Element II
-- Crafting on Crafting Table (shapeless):
-  - Laser Blade Blueprint
-  - LB Energy Cell
-  - Laser Medium
-  - Laser Blade Emitter
-  - Laser Blade Casing
-- The color of the laser blade obtained may change depending on the biome where the player obtained it. See Brand-new Laser Blade I
-
-### Brand-new Laser Blade
-- ID: `tolaserblade:lb_brand_new`
-- ID (fireproof): `tolaserblade:lb_brand_new_fp`
-- This item can be obtained by repairing or fireproofing the laser blade
-- Holding this item in your hand and right-clicking, you can return it to the laser blade
 
 ### Laser Blade
-- ID: `tolaserblade:laser_blade`
-- ID (fireproof): `tolaserblade:laser_blade_fp`
-- Tool type: Sword
-- Durability: 32000
-- Base attack damage: 7 or 8 (fireproof)
-- Base attack speed: 2.8
-- Enchanting: See Upgrading Laser Blades
-- Mining level: 3 or 4 (fireproof)
-- Mining speed: Affected by Efficiency level
-- Repairing: See Repairing Laser Blades
-- When the durability of the laser blade reaches 0, the laser blade will break, and you will obtain a broken laser blade
-- Base attack damage, base attack speed, and mining speed are configurable in server-side config file
 
-### Broken Laser Blade
-- ID: `tolaserblade:lb_broken`
-- ID (fireproof): `tolaserblade:lb_broken_fp`
-- This item can be obtained by breaking the laser blade.
-- Repairing: See Repairing Laser Blades
+    Laser Blade Recipe
+    Crafting Table (# = Iron Ingot, D = Diamond, G = Glowstone Dust, R = Redstone Dust)
+    G # D
+    # D #
+    R # G
 
-### Not Used Items
-The following items are not used and have no recipes:
+### Laser Blade (Fire-Resistant)
 
-- Disassembled Laser Blade
-- Disassembled Laser Blade (fireproof)
+    Laser Blade (Fire-Resistant) Recipe
+    Smithing Table
+    Netherite Upgrade + Laser Blade + Netherite Ingot
 
-## Features
-### Changing Laser Blade Colors
-Smithing Table:
+## Enchantments
 
-- Outer Blade: Laser Blade Blueprint + Laser Blade + Stained Glass
-- Inner blade: Laser Blade Blueprint + Laser Blade + Stained Glass Pane
-- Grip: Laser Blade Blueprint + Laser Blade + Carpet
-- Switching Blend Mode of Outer Blade: Laser Blade Blueprint + Laser Blade + Tinted Glass
-- Switching Blend Mode of Inner Blade: Laser Blade Blueprint + Laser Blade + Block of Amethyst
+Add 3 enchantments that can be applied to laser blades using enchanting table.
 
-### Changing Laser Blade Shape
-Smithing Table:
+- Laser Blade - Increases attack damage and attack speed of the weapon.
+- Light Element - Increases damage against undead mobs and illagers.
+- Repulsive Force - Allows Laser Blades to block attacks and increases knockback strength at higher levels.
 
-- Type 0 (Standard): Laser Blade Blueprint + Laser Blade + Glass
-- Type 1: Laser Blade Blueprint + Laser Blade + Sand
-- Type 2: Laser Blade Blueprint + Laser Blade + Sandstone
-- Type 526: Laser Blade Blueprint + Laser Blade + Dirt
-
-### Upgrading Laser Blades
-Smithing Table:
-
-- Attack Speed (up to 4.0): Laser Blade Blueprint + Laser Blade + Gold Ingot
-- Efficiency: Laser Blade Blueprint + Laser Blade + Block of Redstone
-- Removing Efficiency: Laser Blade Blueprint + Laser Blade + Redstone
-- Attack Damage: Laser Blade Blueprint + Laser Blade + Block of Diamond
-- Light Element: Laser Blade Blueprint + Laser Blade + Glowstone
-- Fire Aspect: Laser Blade Blueprint + Laser Blade + Blaze Rod
-- Sweeping Edge: Laser Blade Blueprint + Laser Blade + Eye of Ender
-- Silk Touch: Laser Blade Blueprint + Laser Blade + Prismarine Crystals / Amethyst Shard / Echo Shard
-- Looting: Laser Blade Blueprint + Laser Blade + Nautilus Shell / Block of Emerald
-- Mending: Laser Blade Blueprint + Laser Blade + Nether Star / Dragon Head / Totem of Undying
-- Fireproof: Laser Blade Blueprint + Laser Blade + Netherite Ingot
-
-### Repairing Laser Blades
-Smithing Table:
-
-- Brand-new Laser Blade: Laser Blade Blueprint + Laser Blade (damaged) + Iron Ingot
-- Brand-new Laser Blade: Laser Blade Blueprint + Broken Laser Blade + Iron Ingot
-
-### Enchantment: Light Element
-- ID: `tolaserblade:light_element`
-- Enchanting: See Upgrading Laser Blades
-- Max level: 10
-- Incompatible with Sharpness, Smite, and Bane of Arthropods
-- Effects: Increases damage from Laser Blade, and deals additional damage to undead mobs and illagers
-
-### Laser Trap
-When you put a laser blade in a dispenser and activate it, you can attack the mobs (of course, players included) in front of the dispenser with the laser blade.
-
-### Laser Furnace
-When a laser trap is fired at a furnace, it will light the furnace.
-
-### Sound Events
-The following audio file paths are those defined in the default `assets/tolaserblade/sounds.json`.
-
-Sound events fired when a laser blade is swung:
-- `tolaserblade:item.dx_laser_blade.swing` - `assets/tolaserblade/sounds/item/dx_laser_blade/swing.ogg`
-- `tolaserblade:item.laser_blade.swing` - `assets/tolaserblade/sounds/item/laser_blade/swing.ogg`
-- `tolaserblade:item.laser_blade_fp.swing` - `assets/tolaserblade/sounds/item/laser_blade_fp/swing.ogg`
-
-Sound events fired when a laser blade is hit:
-- `tolaserblade:item.dx_laser_blade.hit` - `assets/tolaserblade/sounds/item/dx_laser_blade/hit.ogg`
-- `tolaserblade:item.laser_blade.hit` - `assets/tolaserblade/sounds/item/laser_blade/hit.ogg`
-- `tolaserblade:item.laser_blade_fp.hit` - `assets/tolaserblade/sounds/item/laser_blade_fp/hit.ogg`
-
-Sound events fired when a laser blade blocks an attack
-  (`useShieldSoundForLaserBlade` in client-side config needs to be `false`):
-- `tolaserblade:item.laser_blade.block` - `assets/tolaserblade/sounds/item/laser_blade/block.ogg`
-- `tolaserblade:item.laser_blade_fp.block` - `assets/tolaserblade/sounds/item/laser_blade_fp/block.ogg`
-
-Sound events fired when a brand-new laser blade is used:
-- `tolaserblade:item.lb_brand_new.use` - `assets/tolaserblade/sounds/item/lb_brand_new/use.ogg`
-- `tolaserblade:item.lb_brand_new_fp.use` - `assets/tolaserblade/sounds/item/lb_brand_new_fp/use.ogg`
-
-Sound event fired when a laser trap is activated:
-- `tolaserblade:item.laser_trap.activate` - `assets/tolaserblade/sounds/item/laser_trap/activate.ogg`
-
-## Configurations
-- Server-side settings: `<instance_path>/config/tolaserblade-server.toml`
-- Client-side settings: `<instance_path>/config/tolaserblade-client.toml`
-
-### Data Components
-Item components for laser blade items
-
-Example:
-```
-/give @p tolaserblade:laser_blade[tolaserblade:lb_atk=8.0f,tolaserblade:lb_spd=1.2f,tolaserblade:lb_mdl={type:2,parts:{grip:{color:-12103854,is_sub:false},in:{color:-1,is_sub:true},out:{color:-1,is_sub:false}}}]
-```
-
-### Attack Damage
-- Key: `tolaserblade:lb_atk`
-- Value: A float value between 0 and 8
-
-### Attack Speed
-- Key: `tolaserblade:lb_spd`
-- Value: A float value between 0 and 1.2
-
-### Model and Color
-- Key: `tolaserblade:lb_mdl`
-- Value: The following data compound
-
-```
-{
-  type: <integer model_type>,
-  parts: {
-    grip: {
-      color: <integer grip_color_in_argb_32>,
-      is_sub: false
-    },
-    in: {
-      color: <integer inner_blade_layer_color_in_argb_32>,
-      is_sub: <boolean is_inner_blade_layer_subtractive_color>
-    },
-    out: {
-      color: <integer outer_blade_layer_color_in_argb_32>,
-      is_sub: <boolean is_outer_blade_layer_subtractive_color>
-    }
-  }
-}
-```
-
-## Data pack
-Built-in optional data pack
-
-### Old Laser Blade Recipes (v6)
-ID: `tolaserblade:old_lb_recipes_6`
-
-This data pack reverts the laser blade recipes to version 6.
-
-- Brand-new Laser Blade I (crafting): G = Glass; I = Iron Ingot; D = Diamond; R = Redstone
-  - G, I, D;
-  - I, D, I;
-  - R, I, G;
-- Brand-new Laser Blade II (crafting): g = Glowstone Dust; I = Iron Ingot; D = Diamond; R = Redstone
-  - g, I, D;
-  - I, D, I;
-  - R, I, g;
-- Attack Damage Upgrade (smithing): Laser Blade Blueprint + Laser Blade + Diamond
-
-## Resource pack
-Built-in optional resource pack
-
-### TLB Sample Sound Pack
-This resource pack adds some audio files to the game for testing mod sound events.
-
-## Related Mod
-### ToLaserBlade-ExtraModels
-A ToLaserBlade add-on to add more laser blade shapes.
-
-https://www.curseforge.com/minecraft/mc-mods/tolaserblade-extramodels
-
+Repulsive Force is provided by an independent built-in data pack and can therefore be disabled separately.
