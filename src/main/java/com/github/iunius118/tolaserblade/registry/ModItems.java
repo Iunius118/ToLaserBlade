@@ -12,11 +12,11 @@ public class ModItems {
     private static final DeferredRegister.Items ITEMS = DeferredRegister.createItems(ToLaserBlade.MOD_ID);
 
     public static final DeferredItem<Item> LASER_BLADE =
-            ITEMS.registerItem("laser_blade", LBSwordItem::new, () ->
+            ITEMS.registerItem("laser_blade", p -> new LBSwordItem(p, false), () ->
                     ModToolMaterials.applyLaserBladeProperties(new Item.Properties(), false, 3F, -2.4F, 0F)
             );
     public static final DeferredItem<Item> LASER_BLADE_FP =
-            ITEMS.registerItem("laser_blade_fp", LBSwordItem::new, () ->
+            ITEMS.registerItem("laser_blade_fp", p -> new LBSwordItem(p, true), () ->
                     ModToolMaterials.applyLaserBladeProperties(new Item.Properties(), true, 3F, -2.4F, 0F)
             );
     public static final DeferredItem<Item> LB_BATTERY = 

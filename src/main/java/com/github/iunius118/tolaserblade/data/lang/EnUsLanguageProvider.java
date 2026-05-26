@@ -15,6 +15,9 @@ public class EnUsLanguageProvider extends LanguageProviderBase {
 		lLaserBladeCasing = "Laser Blade Casing";
 		lLaserBladeCasingFp = "Laser Blade Casing";
 
+        // Item tooltips
+        tooltipFireResistant = "HEAT RESISTANT 8000";
+
 		// Enchantments
 		laserBladeEnchantment = "Laser Blade";
 		laserBladeEnchantmentDesc = "Increases attack damage and attack speed of the weapon.";

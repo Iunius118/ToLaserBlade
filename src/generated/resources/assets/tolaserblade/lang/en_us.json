@@ -12,5 +12,6 @@
   "item.tolaserblade.lb_casing_fp": "Laser Blade Casing",
   "item.tolaserblade.lb_emitter": "Laser Blade Emitter",
   "item.tolaserblade.lb_medium": "Laser Medium",
-  "itemGroup.tolaserblade.main": "ToLaserBlade"
+  "itemGroup.tolaserblade.main": "ToLaserBlade",
+  "tooltip.tolaserblade.fire_resistant": "HEAT RESISTANT 8000"
 }

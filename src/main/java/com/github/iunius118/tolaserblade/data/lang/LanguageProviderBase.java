@@ -20,6 +20,8 @@ public abstract class LanguageProviderBase extends LanguageProvider {
 	public String laserBladeEmitter;
 	public String lLaserBladeCasing;
 	public String lLaserBladeCasingFp;
+    // Item tooltips
+    public String tooltipFireResistant;
 	// Enchantments
 	public String laserBladeEnchantment;
 	public String laserBladeEnchantmentDesc;
@@ -46,6 +48,9 @@ public abstract class LanguageProviderBase extends LanguageProvider {
 		add(ModItems.LB_EMITTER.get(), laserBladeEmitter);
 		add(ModItems.LB_CASING.get(), lLaserBladeCasing);
 		add(ModItems.LB_CASING_FP.get(), lLaserBladeCasingFp);
+
+        // Item tooltips
+        add("tooltip.tolaserblade.fire_resistant", tooltipFireResistant);
 
 		// Enchantments
 		addEnchantment(ModEnchantments.LASER_BLADE, laserBladeEnchantment, laserBladeEnchantmentDesc);
