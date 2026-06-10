@@ -1,0 +1,45 @@
+# Workflows require read and write permissions in the repository
+
+name: release_draft
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  release_draft:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v4
+      - name: setup jdk
+        uses: actions/setup-java@v4
+        with:
+          java-version: '25'
+          distribution: 'microsoft'   # When using Java 8, set 'temurin'
+      - name: setup gradle
+        uses: gradle/actions/setup-gradle@v4
+      - name: cache
+        uses: actions/cache@v4
+        with:
+          path: |
+            ~/.gradle/caches
+            ~/.gradle/wrapper
+          key: Linux-gradle-${{ hashFiles('**/*.gradle*', '**/gradle-wrapper.properties') }}
+          restore-keys: |
+            Linux-gradle-
+      - name: make gradle wrapper executable
+        run: chmod +x ./gradlew
+      - name: build
+        run: ./gradlew build
+      - name: create release
+        uses: softprops/action-gh-release@v2
+        with:
+          draft: true
+          files: |
+            fabric/build/libs/*.jar
+            forge/build/libs/*.jar
+            neoforge/build/libs/*.jar
+            datagen/build/libs/*.jar
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

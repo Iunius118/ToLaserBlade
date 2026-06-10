@@ -1,0 +1,35 @@
+# Change Log
+[ToLaserBlade (NeoForge)](https://github.com/Iunius118/ToLaserBlade#readme).
+[Source](https://github.com/Iunius118/ToLaserBlade).
+
+## [Unreleased]
+
+## [17.0.0-beta.1]
+- This version is not compatible with item data from 1.21.11 or earlier.
+- Many features are still unimplemented in this version.
+
+### Added
+- Laser Blade items.
+- Add 3 enchantments that can be applied to laser blades using enchanting table.
+  - Laser Blade enchantment, increases attack damage and attack speed of the weapon.
+  - Light Element enchantment, increases damage against undead mobs and illagers.
+  - Repulsive Force enchantment, allows Laser Blades to block attacks and increases knockback strength at higher levels.
+- Repulsive Force is provided by an independent built-in data pack and can therefore be disabled separately.
+- Add temporary recipes for laser blades.
+
+Laser Blade Recipe
+
+    Crafting Table (# = Iron Ingot, D = Diamond, G = Glowstone Dust, R = Redstone Dust)
+    G # D
+    # D #
+    R # G
+
+Laser Blade (Fire-Resistant) Recipe
+
+    Smithing Table
+    Netherite Upgrade + Laser Blade + Netherite Ingot
+
+### Changed
+- Port to Minecraft 26.1.2.
+- Require NeoForge 26.1.2.64-beta+.
+- Use `minecraft:custom_model_data` component to store laser blade colors.

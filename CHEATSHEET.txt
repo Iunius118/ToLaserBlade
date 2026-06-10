@@ -1,0 +1,29 @@
+# Cheatsheet
+
+ToLaserBlade v17.0.0 (NeoForge)
+
+## Items
+
+### Laser Blade
+
+    Laser Blade Recipe
+    Crafting Table (# = Iron Ingot, D = Diamond, G = Glowstone Dust, R = Redstone Dust)
+    G # D
+    # D #
+    R # G
+
+### Laser Blade (Fire-Resistant)
+
+    Laser Blade (Fire-Resistant) Recipe
+    Smithing Table
+    Netherite Upgrade + Laser Blade + Netherite Ingot
+
+## Enchantments
+
+Add 3 enchantments that can be applied to laser blades using enchanting table.
+
+- Laser Blade - Increases attack damage and attack speed of the weapon.
+- Light Element - Increases damage against undead mobs and illagers.
+- Repulsive Force - Allows Laser Blades to block attacks and increases knockback strength at higher levels.
+
+Repulsive Force is provided by an independent built-in data pack and can therefore be disabled separately.
