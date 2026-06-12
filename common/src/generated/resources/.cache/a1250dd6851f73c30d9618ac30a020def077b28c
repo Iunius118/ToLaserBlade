@@ -1,0 +1,4 @@
+// 26.1.2	2026-06-12T08:22:12.2287356	Tags for minecraft:enchantment mod id tolaserblade
+c0324619c541306da24183f62d0c771515479fef data/minecraft/tags/enchantment/exclusive_set/damage.json
+92b4fef5c9bdf14a8544258a7b75cdbd2ad618cc data/minecraft/tags/enchantment/in_enchanting_table.json
+92b4fef5c9bdf14a8544258a7b75cdbd2ad618cc data/minecraft/tags/enchantment/tooltip_order.json
