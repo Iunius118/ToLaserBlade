@@ -6,9 +6,15 @@ import net.minecraft.resources.Identifier;
 import net.minecraft.tags.TagKey;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.item.Item;
+import net.minecraft.world.level.block.Block;
 
 public class ModTags {
+
     public static class Blocks {
+
+        private static TagKey<Block> modTag(String id) {
+            return TagKey.create(Registries.BLOCK, CommonClass.modLocation(id));
+        }
     }
 
     public static class Items {

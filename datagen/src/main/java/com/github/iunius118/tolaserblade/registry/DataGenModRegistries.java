@@ -2,6 +2,8 @@ package com.github.iunius118.tolaserblade.registry;
 
 import com.github.iunius118.tolaserblade.Constants;
 import com.github.iunius118.tolaserblade.item.ModItems;
+import com.github.iunius118.tolaserblade.item.component.ModDataComponents;
+import net.minecraft.core.registries.Registries;
 import net.neoforged.bus.api.IEventBus;
 import net.neoforged.neoforge.registries.DeferredRegister;
 
@@ -10,6 +12,7 @@ public class DataGenModRegistries {
     public static void registerGameObjects(IEventBus modEventBus) {
         registerBlocks(modEventBus);
         registerItems(modEventBus);
+        registerDataComponentTypes(modEventBus);
     }
 
     private static void registerBlocks(IEventBus modEventBus) {
@@ -32,5 +35,15 @@ public class DataGenModRegistries {
         items.register(Constants.Items.LB_CASING_FP.getPath(), () -> ModItems.LB_CASING_FP);
 
         items.register(modEventBus);
+    }
+
+    private static void registerDataComponentTypes(IEventBus modEventBus) {
+        var dataComponentTypes = DeferredRegister.create(Registries.DATA_COMPONENT_TYPE, Constants.MOD_ID);
+
+        dataComponentTypes.register(Constants.DataComponents.MODEL.getPath(), () -> ModDataComponents.MODEL);
+        dataComponentTypes.register(Constants.DataComponents.BLEND_MODES.getPath(),
+                () -> ModDataComponents.BLEND_MODES);
+
+        dataComponentTypes.register(modEventBus);
     }
 }

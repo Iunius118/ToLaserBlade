@@ -4,7 +4,10 @@
   "package": "com.github.iunius118.tolaserblade.mixin",
   "compatibilityLevel": "JAVA_18",
   "mixins": [],
-  "client": [],
+  "client": [
+    "client.RenderTypeMixin",
+    "client.SpecialModelWrapperMixin"
+  ],
   "server": [],
   "injectors": {
     "defaultRequire": 1

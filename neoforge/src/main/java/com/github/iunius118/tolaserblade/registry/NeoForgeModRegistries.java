@@ -2,6 +2,7 @@ package com.github.iunius118.tolaserblade.registry;
 
 import com.github.iunius118.tolaserblade.Constants;
 import com.github.iunius118.tolaserblade.item.ModItems;
+import com.github.iunius118.tolaserblade.item.component.ModDataComponents;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -16,6 +17,7 @@ public class NeoForgeModRegistries {
     public static void registerGameObjects(IEventBus modEventBus) {
         registerBlocks(modEventBus);
         registerItems(modEventBus);
+        registerDataComponentTypes(modEventBus);
         registerMenuTypes(modEventBus);
         registerCreativeModeTabs(modEventBus);
     }
@@ -41,6 +43,16 @@ public class NeoForgeModRegistries {
         items.register(Constants.Items.LB_CASING_FP.getPath(), () -> ModItems.LB_CASING_FP);
 
         items.register(modEventBus);
+    }
+
+    private static void registerDataComponentTypes(IEventBus modEventBus) {
+        var dataComponentTypes = DeferredRegister.create(Registries.DATA_COMPONENT_TYPE, Constants.MOD_ID);
+
+        dataComponentTypes.register(Constants.DataComponents.MODEL.getPath(), () -> ModDataComponents.MODEL);
+        dataComponentTypes.register(Constants.DataComponents.BLEND_MODES.getPath(),
+                () -> ModDataComponents.BLEND_MODES);
+
+        dataComponentTypes.register(modEventBus);
     }
 
     private static void registerMenuTypes(IEventBus modEventBus) {

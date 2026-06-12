@@ -1,0 +1,22 @@
+{
+  "dataPack.tolaserblade.repulsive_force.description": "[ToLaserBlade] Add Repulsive Force enchantment",
+  "dataPack.tolaserblade.repulsive_force.name": "TLB Repulsive Force Pack",
+  "enchantment.tolaserblade.laser_blade": "Laser Blade",
+  "enchantment.tolaserblade.laser_blade.desc": "Increases attack damage and attack speed of the weapon.",
+  "enchantment.tolaserblade.light_element": "Light Element",
+  "enchantment.tolaserblade.light_element.desc": "Increases damage against undead mobs and illagers.",
+  "enchantment.tolaserblade.repulsive_force": "Repulsive Force",
+  "enchantment.tolaserblade.repulsive_force.desc": "Allows Laser Blades to block attacks and increases knockback strength at higher levels.",
+  "item.tolaserblade.laser_blade": "Laser Blade",
+  "item.tolaserblade.laser_blade_fp": "Laser Blade",
+  "item.tolaserblade.lb_battery": "LB Energy Cell",
+  "item.tolaserblade.lb_casing": "Laser Blade Casing",
+  "item.tolaserblade.lb_casing_fp": "Laser Blade Casing",
+  "item.tolaserblade.lb_emitter": "Laser Blade Emitter",
+  "item.tolaserblade.lb_medium": "Laser Medium",
+  "itemGroup.tolaserblade.main": "ToLaserBlade",
+  "tag.entity_type.tolaserblade.sensitive_to_laser_blade": "Sensitive to Laser Blade",
+  "tag.item.tolaserblade.enchantable.laser_blade": "Laser Blade Enchantable",
+  "tag.item.tolaserblade.laser_blades": "Laser Blades",
+  "tooltip.tolaserblade.fire_resistant": "HEAT RESISTANT 8000"
+}

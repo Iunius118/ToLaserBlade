@@ -1,6 +1,6 @@
 package com.github.iunius118.tolaserblade.item.enchantment;
 
-import com.github.iunius118.tolaserblade.CommonClass;
+import com.github.iunius118.tolaserblade.Constants;
 import com.github.iunius118.tolaserblade.tag.ModTags;
 import net.minecraft.advancements.criterion.EntityPredicate;
 import net.minecraft.advancements.criterion.EntityTypePredicate;
@@ -24,11 +24,11 @@ import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyC
 
 public class ModEnchantments {
     public static final ResourceKey<Enchantment> LASER_BLADE =
-            ResourceKey.create(Registries.ENCHANTMENT, CommonClass.modLocation("laser_blade"));
+            ResourceKey.create(Registries.ENCHANTMENT, Constants.Enchantments.LASER_BLADE);
     public static final ResourceKey<Enchantment> LIGHT_ELEMENT =
-            ResourceKey.create(Registries.ENCHANTMENT, CommonClass.modLocation("light_element"));
+            ResourceKey.create(Registries.ENCHANTMENT, Constants.Enchantments.LIGHT_ELEMENT);
     public static final ResourceKey<Enchantment> REPULSIVE_FORCE =
-            ResourceKey.create(Registries.ENCHANTMENT, CommonClass.modLocation("repulsive_force"));
+            ResourceKey.create(Registries.ENCHANTMENT, Constants.Enchantments.REPULSIVE_FORCE);
 
 
     public static void bootstrap(BootstrapContext<Enchantment> ctx) {
@@ -52,7 +52,7 @@ public class ModEnchantments {
                         )
                         .withEffect(EnchantmentEffectComponents.ATTRIBUTES,
                                 new EnchantmentAttributeEffect(
-                                        CommonClass.modLocation("laser_blade").withSuffix("/attack_damage"),
+                                        Constants.Attributes.LASER_BLADE_ATTACK_DAMAGE,
                                         Attributes.ATTACK_DAMAGE,
                                         LevelBasedValue.perLevel(2.4F),
                                         AttributeModifier.Operation.ADD_VALUE
@@ -60,7 +60,7 @@ public class ModEnchantments {
                         )
                         .withEffect(EnchantmentEffectComponents.ATTRIBUTES,
                                 new EnchantmentAttributeEffect(
-                                        CommonClass.modLocation("laser_blade").withSuffix("/attack_speed"),
+                                        Constants.Attributes.LASER_BLADE_ATTACK_SPEED,
                                         Attributes.ATTACK_SPEED,
                                         LevelBasedValue.perLevel(0.2F),
                                         AttributeModifier.Operation.ADD_VALUE

@@ -2,6 +2,7 @@ package com.github.iunius118.tolaserblade.registry;
 
 import com.github.iunius118.tolaserblade.Constants;
 import com.github.iunius118.tolaserblade.item.ModItems;
+import com.github.iunius118.tolaserblade.item.component.ModDataComponents;
 import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
 import net.minecraft.core.Registry;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -16,6 +17,7 @@ public class FabricModRegistries {
     public static void registerGameObjects() {
         registerBlocks();
         registerItems();
+        registerDataComponentTypes();
         registerMenuTypes();
         registerCreativeModeTabs();
     }
@@ -35,6 +37,13 @@ public class FabricModRegistries {
         items.register(Constants.Items.LB_EMITTER.getPath(), ModItems.LB_EMITTER);
         items.register(Constants.Items.LB_CASING.getPath(), ModItems.LB_CASING);
         items.register(Constants.Items.LB_CASING_FP.getPath(), ModItems.LB_CASING_FP);
+    }
+
+    private static void registerDataComponentTypes() {
+        var dataComponentTypes = ModObjectRegistry.create(BuiltInRegistries.DATA_COMPONENT_TYPE, Constants.MOD_ID);
+
+        dataComponentTypes.register(Constants.DataComponents.MODEL.getPath(), ModDataComponents.MODEL);
+        dataComponentTypes.register(Constants.DataComponents.BLEND_MODES.getPath(), ModDataComponents.BLEND_MODES);
     }
 
     private static void registerMenuTypes() {
@@ -65,8 +74,8 @@ public class FabricModRegistries {
             return new ModObjectRegistry<>(registry, modId);
         }
 
-        public void register(String id, T object) {
-            Registry.register(registry, Identifier.fromNamespaceAndPath(modId, id), object);
+        public T register(String id, T object) {
+            return Registry.register(registry, Identifier.fromNamespaceAndPath(modId, id), object);
         }
     }
 }

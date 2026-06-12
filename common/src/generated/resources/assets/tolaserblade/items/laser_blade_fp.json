@@ -1,0 +1,11 @@
+{
+  "hand_animation_on_swap": false,
+  "model": {
+    "type": "minecraft:special",
+    "base": "tolaserblade:item/lb_sword",
+    "model": {
+      "type": "tolaserblade:laser_blade"
+    }
+  },
+  "oversized_in_gui": true
+}

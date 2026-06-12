@@ -1,0 +1,157 @@
+package com.github.iunius118.tolaserblade.client.color;
+
+import com.github.iunius118.tolaserblade.item.LaserBladeColor;
+import com.github.iunius118.tolaserblade.item.component.BlendModes;
+import com.github.iunius118.tolaserblade.item.component.ModDataComponents;
+import net.minecraft.client.Minecraft;
+import net.minecraft.core.component.DataComponents;
+import net.minecraft.world.item.Item;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.item.component.CustomModelData;
+
+import java.util.Objects;
+
+public record LaserBladeItemColor(
+        boolean isBroken, int type, int gripColor,
+        int outerColor, boolean isOuterSubColor,
+        int innerColor, boolean isInnerSubColor) {
+    public static final LaserBladeItemColor DEFAULT = new LaserBladeItemColor(false, 0, -1, -1, false, -1, false);
+
+    public static LaserBladeItemColor of(ItemStack itemStack) {
+        if (itemStack == null || itemStack.isEmpty()) {
+            return DEFAULT;
+        }
+
+        Item item = itemStack.getItem();
+        boolean isBroken = false;
+
+        int type = itemStack.getOrDefault(ModDataComponents.MODEL, 0);
+
+        var customModelData = itemStack.getOrDefault(DataComponents.CUSTOM_MODEL_DATA, CustomModelData.EMPTY);
+        var blendModes = itemStack.getOrDefault(ModDataComponents.BLEND_MODES, BlendModes.DEFAULT);
+
+        int rawGripColor = getColor(customModelData, 0, getDefaultColor(0));
+        int gripColor = checkGamingColor(rawGripColor);
+
+
+        int rawOuterColor = getColor(customModelData, 1, getDefaultColor(1));
+        int outerColor = checkGamingColor(rawOuterColor);
+        boolean isOuterSubColor = blendModes.getMode(0);
+
+        int rawInnerColor = getColor(customModelData, 2, getDefaultColor(2));
+        int innerColor = checkGamingColor(rawInnerColor);
+        boolean isInnerSubColor = blendModes.getMode(1);
+
+        return new LaserBladeItemColor(
+                isBroken, type, gripColor,
+                outerColor, isOuterSubColor,
+                innerColor, isInnerSubColor
+        );
+    }
+
+    public static int getColor(CustomModelData customModelData, int index, int defaultColor) {
+        if (Objects.requireNonNullElse(customModelData.getBoolean(index), false)) {
+            return Objects.requireNonNullElse(customModelData.getColor(index), defaultColor);
+        }
+
+        return defaultColor;
+    }
+
+    private static int getDefaultColor(int index) {
+        return switch (index) {
+            case 0 -> LaserBladeColor.WHITE.gripColor();
+            case 1 -> LaserBladeColor.RED.outerBladeColor();
+            case 2 -> LaserBladeColor.WHITE.innerBladeColor();
+            default -> -1;
+        };
+    }
+
+    public int outerColor(boolean isGUI) {
+        return isGUI ? guiOuterColor() : outerColor();
+    }
+
+    public int innerColor(boolean isGUI) {
+        return isGUI ? guiInnerColor() : innerColor();
+    }
+
+    public int gripColor(boolean isGUI) {
+        return gripColor();
+    }
+
+    public int guiOuterColor() {
+        // When sub-color compositing, only colors are inverted while keeping alpha
+        return !isOuterSubColor ? outerColor : ~(outerColor & 0x00FFFFFF) | (outerColor & 0xFF000000);
+    }
+
+    public int guiInnerColor() {
+        // When sub-color compositing, only colors are inverted while keeping alpha
+        return !isInnerSubColor ? innerColor : ~(innerColor & 0x00FFFFFF) | (innerColor & 0xFF000000);
+    }
+
+    public int simpleOuterColor(boolean isGUI) {
+        return simpleOuterColor();
+    }
+
+    public int simpleInnerColor(boolean isGUI) {
+        return simpleInnerColor();
+    }
+
+    public int simpleGripColor(boolean isGUI) {
+        return simpleGripColor();
+    }
+
+    public int simpleOuterColor() {
+        return (isOuterSubColor ? ~outerColor : outerColor) | 0xFF000000;
+    }
+
+    public int simpleInnerColor() {
+        return (isInnerSubColor ? ~innerColor : innerColor) | 0xFF000000;
+    }
+
+    public int simpleGripColor() {
+        return gripColor | 0xFF000000;
+    }
+
+    private static int checkGamingColor(int color) {
+        if (color == LaserBladeColor.SPECIAL_GAMING.bladeColor()) {
+            return getGamingColor();
+        }
+
+        return color;
+    }
+
+    private static int getGamingColor() {
+        var minecraft = Minecraft.getInstance();
+        var player = minecraft.player;
+
+        if (player != null) {
+            float partialTick = minecraft.getDeltaTracker().getGameTimeDeltaPartialTick(true);
+            var level = player.level();
+            int tick1 = (int) (level.getGameTime() % 30);
+            int tick2 = tick1 % 10;
+            int colorElement;
+
+            if (tick2 % 10 < 5) {
+                colorElement = (int) (((float) tick2 + partialTick) * (float) 0x33) & 0xFF;
+
+                return switch (tick1 / 10) {
+                    case 0 -> 0xFFFF0000 | (colorElement << 8);
+                    case 1 -> 0xFF00FF00 | colorElement;
+                    default -> 0xFF0000FF | (colorElement << 16);
+                };
+            } else {
+                colorElement = (int) (((float) (10 - tick2) - partialTick) * (float) 0x33) & 0xFF;
+
+                return switch (tick1 / 10) {
+                    case 0 -> 0xFF00FF00 | (colorElement << 16);
+                    case 1 -> 0xFF0000FF | (colorElement << 8);
+                    default -> 0xFFFF0000 | colorElement;
+                };
+            }
+
+
+        }
+
+        return 0xFF010101;
+    }
+}

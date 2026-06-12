@@ -23,6 +23,24 @@ public class Constants {
         public static final Identifier LB_CASING_FP = CommonClass.modLocation("lb_casing_fp");
     }
 
+    public static class Enchantments {
+        public static final Identifier LASER_BLADE = CommonClass.modLocation("laser_blade");
+        public static final Identifier LIGHT_ELEMENT = CommonClass.modLocation("light_element");
+        public static final Identifier REPULSIVE_FORCE = CommonClass.modLocation("repulsive_force");
+    }
+
+    public static class Attributes {
+        public static final Identifier LASER_BLADE_ATTACK_DAMAGE =
+                CommonClass.modLocation("laser_blade").withSuffix("/attack_damage");
+        public static final Identifier LASER_BLADE_ATTACK_SPEED =
+                CommonClass.modLocation("laser_blade").withSuffix("/attack_speed");
+    }
+
+    public static class DataComponents {
+        public static final Identifier MODEL = CommonClass.modLocation("model");
+        public static final Identifier BLEND_MODES = CommonClass.modLocation("blend_modes");
+    }
+
     public static class MenuTypes {
         //public static final Identifier COLORIZER = CommonClass.modLocation("colorizer");
     }
@@ -32,5 +50,14 @@ public class Constants {
 
         // Translation key
         public static final String TITLE_MOD_MAIN = "itemGroup.%s.main".formatted(Constants.MOD_ID);
+    }
+
+    public record DataPacks(Identifier id, String nameKey, String descriptionKey) {
+        public static final DataPacks REPULSIVE_FORCE = new DataPacks(CommonClass.modLocation("repulsive_force"));
+
+        private DataPacks (Identifier id) {
+            this(id, "dataPack.%s.name".formatted(id.toLanguageKey()),
+                    "dataPack.%s.description".formatted(id.toLanguageKey()));
+        }
     }
 }
