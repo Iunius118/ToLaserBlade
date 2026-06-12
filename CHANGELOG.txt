@@ -4,7 +4,7 @@
 
 ## [Unreleased]
 
-## [17.0.0-beta.1]
+## [17.0.0-beta.2]
 - This version is not compatible with item data from 1.21.11 or earlier.
 - Many features are still unimplemented in this version.
 
@@ -20,16 +20,17 @@
 Laser Blade Recipe
 
     Crafting Table (# = Iron Ingot, D = Diamond, G = Glowstone Dust, R = Redstone Dust)
-    G # D
-    # D #
-    R # G
+        G # D
+        # D #
+        R # G
 
 Laser Blade (Fire-Resistant) Recipe
 
     Smithing Table
-    Netherite Upgrade + Laser Blade + Netherite Ingot
+        Netherite Upgrade + Laser Blade + Netherite Ingot
 
 ### Changed
 - Port to Minecraft 26.1.2.
-- Require NeoForge 26.1.2.64-beta+.
+- NeoForge version - Require NeoForge 26.1.2.75.
+- Fabric version - Require Fabric Loader 0.19.3 and Fabric API 0.151.0+26.1.2.
 - Use `minecraft:custom_model_data` component to store laser blade colors.

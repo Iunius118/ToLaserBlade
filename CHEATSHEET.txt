@@ -1,6 +1,6 @@
 # Cheatsheet
 
-ToLaserBlade v17.0.0 (NeoForge)
+ToLaserBlade v17.0.0
 
 ## Items
 
@@ -8,15 +8,15 @@ ToLaserBlade v17.0.0 (NeoForge)
 
     Laser Blade Recipe
     Crafting Table (# = Iron Ingot, D = Diamond, G = Glowstone Dust, R = Redstone Dust)
-    G # D
-    # D #
-    R # G
+        G # D
+        # D #
+        R # G
 
 ### Laser Blade (Fire-Resistant)
 
     Laser Blade (Fire-Resistant) Recipe
     Smithing Table
-    Netherite Upgrade + Laser Blade + Netherite Ingot
+        Netherite Upgrade + Laser Blade + Netherite Ingot
 
 ## Enchantments
 
