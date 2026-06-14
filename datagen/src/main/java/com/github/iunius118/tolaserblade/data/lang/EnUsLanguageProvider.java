@@ -7,6 +7,9 @@ public class EnUsLanguageProvider extends LanguageProviderBase {
 	public EnUsLanguageProvider(PackOutput output) {
 		super(output, "en_us");
 
+        // Block names
+        laserBladeBlueprint = "Laser Blade Blueprint";
+
 		// Item names
 		laserBlade = "Laser Blade";
 		laserBladeFp = "Laser Blade";

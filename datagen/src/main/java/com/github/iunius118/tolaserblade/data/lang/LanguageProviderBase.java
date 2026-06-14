@@ -1,6 +1,7 @@
 package com.github.iunius118.tolaserblade.data.lang;
 
 import com.github.iunius118.tolaserblade.Constants;
+import com.github.iunius118.tolaserblade.block.ModBlocks;
 import com.github.iunius118.tolaserblade.item.ModItems;
 import com.github.iunius118.tolaserblade.item.enchantment.ModEnchantments;
 import com.github.iunius118.tolaserblade.tag.ModTags;
@@ -13,6 +14,8 @@ import net.neoforged.neoforge.common.data.LanguageProvider;
 public abstract class LanguageProviderBase extends LanguageProvider {
 	// Creative mode tab title
 	public String mainItemGroup = Constants.MOD_NAME;
+    // Block names
+    public String laserBladeBlueprint;
 	// Item names
 	public String laserBlade;
 	public String laserBladeFp;
@@ -47,6 +50,9 @@ public abstract class LanguageProviderBase extends LanguageProvider {
 	protected void addTranslations() {
 		// Creative mode tab title
 		add("itemGroup.tolaserblade.main", mainItemGroup);
+
+        // Block names
+        add(ModBlocks.BL_BLUEPRINT, laserBladeBlueprint);
 
 		// Item names
 		add(ModItems.LASER_BLADE, laserBlade);

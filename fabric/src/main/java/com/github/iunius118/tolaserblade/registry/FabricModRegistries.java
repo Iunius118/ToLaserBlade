@@ -1,6 +1,8 @@
 package com.github.iunius118.tolaserblade.registry;
 
 import com.github.iunius118.tolaserblade.Constants;
+import com.github.iunius118.tolaserblade.block.LBBlueprintBlock;
+import com.github.iunius118.tolaserblade.block.ModBlocks;
 import com.github.iunius118.tolaserblade.item.ModItems;
 import com.github.iunius118.tolaserblade.item.component.ModDataComponents;
 import net.fabricmc.fabric.api.creativetab.v1.FabricCreativeModeTab;
@@ -16,6 +18,7 @@ public class FabricModRegistries {
 
     public static void registerGameObjects() {
         registerBlocks();
+        registerBlockTypes();
         registerItems();
         registerDataComponentTypes();
         registerMenuTypes();
@@ -24,10 +27,20 @@ public class FabricModRegistries {
 
     private static void registerBlocks() {
         var blocks = ModObjectRegistry.create(BuiltInRegistries.BLOCK, Constants.MOD_ID);
+
+        blocks.register(Constants.Blocks.BL_BLUEPRINT.getPath(), ModBlocks.BL_BLUEPRINT);
+    }
+
+    private static void registerBlockTypes() {
+        var blockTypes = ModObjectRegistry.create(BuiltInRegistries.BLOCK_TYPE, Constants.MOD_ID);
+
+        blockTypes.register(Constants.Blocks.BL_BLUEPRINT.getPath(), LBBlueprintBlock.CODEC);
     }
 
     private static void registerItems() {
         var items = ModObjectRegistry.create(BuiltInRegistries.ITEM, Constants.MOD_ID);
+
+        items.register(Constants.Blocks.BL_BLUEPRINT.getPath(), ModItems.BL_BLUEPRINT);
 
         items.register(Constants.Items.LASER_BLADE.getPath(), ModItems.LASER_BLADE);
         items.register(Constants.Items.LASER_BLADE_FP.getPath(), ModItems.LASER_BLADE_FP);

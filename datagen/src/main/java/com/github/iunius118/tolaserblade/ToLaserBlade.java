@@ -31,9 +31,10 @@ public class ToLaserBlade {
                 .add(Registries.ENCHANTMENT, ModEnchantments::bootstrap);
         event.createDatapackRegistryObjects(builder);
         RepulsiveForceProvider.addProviders(event);
-        event.createProvider(ModItemTagsProvider::new);
+        event.createBlockAndItemTags(ModBlockTagsProvider::new, ModItemTagsProvider::new);
         event.createProvider(ModEntityTypeTagsProvider::new);
         event.createProvider(ModEnchantmentTagsProvider::new);
+        event.createProvider(ModLootTableProvider::new);
         event.createProvider(ModRecipeProvider.Runner::new);
 
         // Assets

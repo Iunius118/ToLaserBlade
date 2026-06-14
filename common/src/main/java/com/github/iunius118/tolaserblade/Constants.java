@@ -10,7 +10,7 @@ public class Constants {
     public static final Logger LOG = LoggerFactory.getLogger(MOD_NAME);
 
     public static class Blocks {
-        //public static final Identifier COLORIZER = CommonClass.modLocation("colorizer");
+        public static final Identifier BL_BLUEPRINT = CommonClass.modLocation("lb_blueprint");
     }
 
     public static class Items {

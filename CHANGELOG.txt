@@ -4,7 +4,7 @@
 
 ## [Unreleased]
 
-## [17.0.0-beta.2]
+## [17.0.0-beta.3]
 - This version is not compatible with item data from 1.21.11 or earlier.
 - Many features are still unimplemented in this version.
 
@@ -15,7 +15,8 @@
   - Light Element enchantment, increases damage against undead mobs and illagers.
   - Repulsive Force enchantment, allows Laser Blades to block attacks and increases knockback strength at higher levels.
 - Repulsive Force is provided by an independent built-in data pack and can therefore be disabled separately.
-- Add temporary recipes for laser blades.
+- Laser Blade Blueprint block.
+- Add temporary recipes.
 
 Laser Blade Recipe
 

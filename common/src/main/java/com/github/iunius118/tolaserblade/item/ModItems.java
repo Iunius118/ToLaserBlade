@@ -1,6 +1,7 @@
 package com.github.iunius118.tolaserblade.item;
 
 import com.github.iunius118.tolaserblade.Constants;
+import com.github.iunius118.tolaserblade.block.ModBlocks;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
@@ -13,6 +14,11 @@ import java.util.List;
 public class ModItems {
     public static final List<Item> ITEMS = new ArrayList<>();
     public static final List<BlockItem> BLOCK_ITEMS = new ArrayList<>();
+
+    // Blueprint
+    public static final Item BL_BLUEPRINT =
+            addBlock(new BlockItem(ModBlocks.BL_BLUEPRINT,
+                    createProperties(Constants.Blocks.BL_BLUEPRINT).useBlockDescriptionPrefix()));
 
     // Laser Blades
     public static final Item LASER_BLADE =

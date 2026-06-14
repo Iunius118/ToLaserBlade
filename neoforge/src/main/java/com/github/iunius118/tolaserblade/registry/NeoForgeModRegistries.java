@@ -1,8 +1,11 @@
 package com.github.iunius118.tolaserblade.registry;
 
 import com.github.iunius118.tolaserblade.Constants;
+import com.github.iunius118.tolaserblade.block.LBBlueprintBlock;
+import com.github.iunius118.tolaserblade.block.ModBlocks;
 import com.github.iunius118.tolaserblade.item.ModItems;
 import com.github.iunius118.tolaserblade.item.component.ModDataComponents;
+import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -16,6 +19,7 @@ public class NeoForgeModRegistries {
 
     public static void registerGameObjects(IEventBus modEventBus) {
         registerBlocks(modEventBus);
+        registerBlockTypes(modEventBus);
         registerItems(modEventBus);
         registerDataComponentTypes(modEventBus);
         registerMenuTypes(modEventBus);
@@ -25,13 +29,25 @@ public class NeoForgeModRegistries {
     private static void registerBlocks(IEventBus modEventBus) {
         var blocks = DeferredRegister.createBlocks(Constants.MOD_ID);
 
+        blocks.register(Constants.Blocks.BL_BLUEPRINT.getPath(), () -> ModBlocks.BL_BLUEPRINT);
+
         blocks.register(modEventBus);
+    }
+
+    private static void registerBlockTypes(IEventBus modEventBus) {
+        var blockTypes = DeferredRegister.create(BuiltInRegistries.BLOCK_TYPE, Constants.MOD_ID);
+
+        blockTypes.register(Constants.Blocks.BL_BLUEPRINT.getPath(), () -> LBBlueprintBlock.CODEC);
+
+        blockTypes.register(modEventBus);
     }
 
     private static DeferredItem<Item> LASER_BLADE;
 
     private static void registerItems(IEventBus modEventBus) {
         var items = DeferredRegister.createItems(Constants.MOD_ID);
+
+        items.register(Constants.Blocks.BL_BLUEPRINT.getPath(), () -> ModItems.BL_BLUEPRINT);
 
         LASER_BLADE = items.register(Constants.Items.LASER_BLADE.getPath(), () -> ModItems.LASER_BLADE);
         items.register(Constants.Items.LASER_BLADE_FP.getPath(), () -> ModItems.LASER_BLADE_FP);
