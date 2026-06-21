@@ -5,47 +5,47 @@ import com.github.iunius118.tolaserblade.block.LBBlueprintBlock;
 import com.github.iunius118.tolaserblade.block.ModBlocks;
 import com.github.iunius118.tolaserblade.item.ModItems;
 import com.github.iunius118.tolaserblade.item.component.ModDataComponents;
+import com.github.iunius118.tolaserblade.platform.Services;
+import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.core.registries.Registries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
 import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.neoforge.registries.DeferredItem;
-import net.neoforged.neoforge.registries.DeferredRegister;
 
-public class NeoForgeModRegistries {
+public class ModRegistries {
 
-    public static void registerGameObjects(IEventBus modEventBus) {
-        registerBlocks(modEventBus);
-        registerBlockTypes(modEventBus);
-        registerItems(modEventBus);
-        registerDataComponentTypes(modEventBus);
-        registerMenuTypes(modEventBus);
-        registerCreativeModeTabs(modEventBus);
+    private ModRegistries() {}
+
+    public static void registerGameObjects() {
+        registerBlocks();
+        registerBlockTypes();
+        registerItems();
+        registerDataComponentTypes();
+        registerMenuTypes();
+        registerCreativeModeTabs();
     }
 
-    private static void registerBlocks(IEventBus modEventBus) {
-        var blocks = DeferredRegister.createBlocks(Constants.MOD_ID);
+    private static void registerBlocks() {
+        var blocks = Services.PLATFORM.createModObjectRegistry(BuiltInRegistries.BLOCK, Constants.MOD_ID);
 
         blocks.register(Constants.Blocks.BL_BLUEPRINT.getPath(), () -> ModBlocks.BL_BLUEPRINT);
 
-        blocks.register(modEventBus);
+        blocks.register();
     }
 
-    private static void registerBlockTypes(IEventBus modEventBus) {
-        var blockTypes = DeferredRegister.create(BuiltInRegistries.BLOCK_TYPE, Constants.MOD_ID);
+    private static void registerBlockTypes() {
+        var blockTypes = Services.PLATFORM.createModObjectRegistry(BuiltInRegistries.BLOCK_TYPE, Constants.MOD_ID);
 
         blockTypes.register(Constants.Blocks.BL_BLUEPRINT.getPath(), () -> LBBlueprintBlock.CODEC);
 
-        blockTypes.register(modEventBus);
+        blockTypes.register();
     }
 
-    private static DeferredItem<Item> LASER_BLADE;
+    private static Holder<Item> LASER_BLADE;
 
-    private static void registerItems(IEventBus modEventBus) {
-        var items = DeferredRegister.createItems(Constants.MOD_ID);
+    private static void registerItems() {
+        var items = Services.PLATFORM.createModObjectRegistry(BuiltInRegistries.ITEM, Constants.MOD_ID);
 
         items.register(Constants.Blocks.BL_BLUEPRINT.getPath(), () -> ModItems.BL_BLUEPRINT);
 
@@ -58,39 +58,40 @@ public class NeoForgeModRegistries {
         items.register(Constants.Items.LB_CASING.getPath(), () -> ModItems.LB_CASING);
         items.register(Constants.Items.LB_CASING_FP.getPath(), () -> ModItems.LB_CASING_FP);
 
-        items.register(modEventBus);
+        items.register();
     }
 
-    private static void registerDataComponentTypes(IEventBus modEventBus) {
-        var dataComponentTypes = DeferredRegister.create(Registries.DATA_COMPONENT_TYPE, Constants.MOD_ID);
+    private static void registerDataComponentTypes() {
+        var dataComponentTypes =
+                Services.PLATFORM.createModObjectRegistry(BuiltInRegistries.DATA_COMPONENT_TYPE, Constants.MOD_ID);
 
         dataComponentTypes.register(Constants.DataComponents.MODEL.getPath(), () -> ModDataComponents.MODEL);
         dataComponentTypes.register(Constants.DataComponents.BLEND_MODES.getPath(),
                 () -> ModDataComponents.BLEND_MODES);
 
-        dataComponentTypes.register(modEventBus);
+        dataComponentTypes.register();
     }
 
-    private static void registerMenuTypes(IEventBus modEventBus) {
-        var menuTypes = DeferredRegister.create(Registries.MENU, Constants.MOD_ID);
+    private static void registerMenuTypes() {
+        var menuTypes = Services.PLATFORM.createModObjectRegistry(BuiltInRegistries.MENU, Constants.MOD_ID);
 
-        menuTypes.register(modEventBus);
+        menuTypes.register();
     }
 
-    private static void registerCreativeModeTabs(IEventBus modEventBus) {
-        var creativeModeTabs = DeferredRegister.create(Registries.CREATIVE_MODE_TAB, Constants.MOD_ID);
+    private static void registerCreativeModeTabs() {
+        var creativeModeTabs =
+                Services.PLATFORM.createModObjectRegistry(BuiltInRegistries.CREATIVE_MODE_TAB, Constants.MOD_ID);
 
-        creativeModeTabs.register(Constants.CreativeModeTabs.MAIN.getPath(),
-                NeoForgeModRegistries::getMainCreativeModeTab);
+        creativeModeTabs.register(Constants.CreativeModeTabs.MAIN.getPath(), ModRegistries::getMainCreativeModeTab);
 
-        creativeModeTabs.register(modEventBus);
+        creativeModeTabs.register();
     }
 
     private static CreativeModeTab getMainCreativeModeTab() {
-        return CreativeModeTab.builder()
+        return Services.PLATFORM.createCreativeModeTabBuilder()
                 .title(Component.translatable(Constants.CreativeModeTabs.TITLE_MOD_MAIN))
                 // Check whether the mod items exist
-                .icon(() -> LASER_BLADE.isBound() ? new ItemStack(LASER_BLADE.get()) : ItemStack.EMPTY)
+                .icon(() -> LASER_BLADE.isBound() ? new ItemStack(LASER_BLADE.value()) : ItemStack.EMPTY)
                 .displayItems((params, output) -> {
                     // Check whether the mod items exist
                     if (!LASER_BLADE.isBound()) return;

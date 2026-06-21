@@ -1,6 +1,5 @@
 package com.github.iunius118.tolaserblade;
 
-import com.github.iunius118.tolaserblade.registry.FabricModRegistries;
 import net.fabricmc.api.ModInitializer;
 import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
 import net.fabricmc.fabric.api.resource.v1.pack.PackActivationType;
@@ -18,8 +17,7 @@ public class ToLaserBlade implements ModInitializer {
         //Constants.LOG.info("Hello Fabric world!");
         CommonClass.init();
 
-        // Register mod game objects
-        FabricModRegistries.registerGameObjects();
+        // Register mod event listeners
         addResourcePack();
     }
 
