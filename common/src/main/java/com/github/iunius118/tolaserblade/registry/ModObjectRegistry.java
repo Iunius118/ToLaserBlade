@@ -2,6 +2,8 @@ package com.github.iunius118.tolaserblade.registry;
 
 import net.minecraft.core.Holder;
 
+import java.util.function.BiFunction;
+import java.util.function.Consumer;
 import java.util.function.Supplier;
 
 /**
@@ -17,6 +19,14 @@ public interface ModObjectRegistry<V, T extends V> {
      * @return A holder for this entry.
      */
     Holder<V> register(String name, Supplier<T> object);
+
+    /**
+     * Registers entries using the given method for bulk registration.
+     *
+     * @param registry Consumer for invoking the entry registration method.
+     * @return This instance.
+     */
+    ModObjectRegistry<V, T> registerObjects(Consumer<BiFunction<String, Supplier<T>, Holder<V>>> registry);
 
     /**
      * Registers the entries registered on Forge-based platforms to the event.
