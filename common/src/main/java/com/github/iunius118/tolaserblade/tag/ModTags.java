@@ -20,6 +20,13 @@ public class ModTags {
     public static class Items {
         public static final TagKey<Item> LASER_BLADES = modTag("laser_blades");
         public static final TagKey<Item> LASER_BLADE_ENCHANTABLE = modTag("enchantable/laser_blade");
+        public static final TagKey<Item> BLUEPRINT_CAN_CHANGE_COLOR = modTag("blueprint_can_change_color");
+
+        public static final TagKey<Item> LASER_BLADE_UPGRADE = modTag("upgrade/laser_blade");
+        public static final TagKey<Item> LIGHT_ELEMENT_UPGRADE = modTag("upgrade/light_element");
+        public static final TagKey<Item> REPULSIVE_FORCE_UPGRADE = modTag("upgrade/repulsive_force");
+        public static final TagKey<Item> LOOTING_UPGRADE = modTag("upgrade/looting");
+
         // LaserBlade-Tools tag
         public static final TagKey<Item> COLORIZER_CAN_CHANGE_COLOR =
                 modTag("laserbladetools", "colorizer_can_change_color");
