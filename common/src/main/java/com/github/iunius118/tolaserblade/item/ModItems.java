@@ -34,7 +34,7 @@ public class ModItems {
     public static final Item LB_EMITTER = add(new Item(createProperties(Constants.Items.LB_EMITTER)));
     public static final Item LB_CASING = add(new Item(createProperties(Constants.Items.LB_CASING)));
     public static final Item LB_CASING_FP =
-            add(new Item(createProperties(Constants.Items.LB_CASING_FP).fireResistant()));
+            add(new LBPartItem(createProperties(Constants.Items.LB_CASING_FP).fireResistant(), true));
 
     private static Item add(Item item) {
         ITEMS.add(item);
