@@ -1,0 +1,10 @@
+{
+  "type": "tolaserblade:crafting",
+  "ingredients": [
+    "#c:ingots/iron",
+    "#c:dusts/redstone"
+  ],
+  "result": {
+    "id": "tolaserblade:lb_battery"
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "type": "tolaserblade:enchantment",
+  "enchantmant": "tolaserblade:laser_blade",
+  "ingredients": [
+    "#tolaserblade:laser_blades",
+    "#tolaserblade:upgrade/laser_blade"
+  ]
+}

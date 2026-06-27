@@ -1,0 +1,11 @@
+{
+  "type": "tolaserblade:crafting",
+  "ingredients": [
+    "#c:dusts/glowstone",
+    "#c:gems/diamond",
+    "#c:dusts/glowstone"
+  ],
+  "result": {
+    "id": "tolaserblade:lb_medium"
+  }
+}

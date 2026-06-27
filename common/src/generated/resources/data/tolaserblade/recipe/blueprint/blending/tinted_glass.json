@@ -1,0 +1,5 @@
+{
+  "type": "tolaserblade:blending",
+  "base": "#tolaserblade:laser_blades",
+  "ingredient": "minecraft:tinted_glass"
+}

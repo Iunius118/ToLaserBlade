@@ -1,4 +1,4 @@
-// 26.1.2	2026-06-14T23:11:27.2618479	Tags for minecraft:item mod id tolaserblade
+// 26.1.2	2026-06-27T22:22:29.9725174	Tags for minecraft:item mod id tolaserblade
 b13fcdd5db286c42cad81da19b2ce908e8991665 data/c/tags/item/tools/melee_weapon.json
 b13fcdd5db286c42cad81da19b2ce908e8991665 data/c/tags/item/tools/mining_tool.json
 b13fcdd5db286c42cad81da19b2ce908e8991665 data/laserbladetools/tags/item/colorizer_can_change_color.json
@@ -6,5 +6,9 @@ b13fcdd5db286c42cad81da19b2ce908e8991665 data/minecraft/tags/item/enchantable/du
 b13fcdd5db286c42cad81da19b2ce908e8991665 data/minecraft/tags/item/enchantable/fire_aspect.json
 b13fcdd5db286c42cad81da19b2ce908e8991665 data/minecraft/tags/item/enchantable/mining.json
 b13fcdd5db286c42cad81da19b2ce908e8991665 data/minecraft/tags/item/enchantable/mining_loot.json
+bcae2f16187fd3be69bc6ef515ce43c43175a295 data/tolaserblade/tags/item/blueprint_can_change_color.json
 b13fcdd5db286c42cad81da19b2ce908e8991665 data/tolaserblade/tags/item/enchantable/laser_blade.json
 adb83dde69cf9dffe80a91ed8690a014e1d4f086 data/tolaserblade/tags/item/laser_blades.json
+2291131634915cea137d268d5ce2a1b908c5e6ae data/tolaserblade/tags/item/upgrade/laser_blade.json
+2e32a7b83e54ddce24aaeff94c215bb46e0c6628 data/tolaserblade/tags/item/upgrade/light_element.json
+7788f17e418c89717fcc8d4234e93c78a0c8a8de data/tolaserblade/tags/item/upgrade/looting.json

@@ -1,0 +1,16 @@
+{
+  "type": "tolaserblade:coloring",
+  "base": "#tolaserblade:blueprint_can_change_color",
+  "colors": [
+    {
+      "color": -816214
+    },
+    {
+      "color": -16181
+    },
+    {
+      "color": -16181
+    }
+  ],
+  "ingredient": "#c:dyes/pink"
+}

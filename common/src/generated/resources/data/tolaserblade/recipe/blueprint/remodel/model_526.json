@@ -1,0 +1,8 @@
+{
+  "type": "tolaserblade:remodel",
+  "ingredients": [
+    "#tolaserblade:laser_blades",
+    "minecraft:dirt"
+  ],
+  "model": 526
+}

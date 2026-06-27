@@ -1,0 +1,16 @@
+{
+  "type": "tolaserblade:coloring",
+  "base": "#tolaserblade:blueprint_can_change_color",
+  "colors": [
+    {
+      "color": -8337633
+    },
+    {
+      "color": -16711936
+    },
+    {
+      "color": -16711936
+    }
+  ],
+  "ingredient": "#c:dyes/lime"
+}

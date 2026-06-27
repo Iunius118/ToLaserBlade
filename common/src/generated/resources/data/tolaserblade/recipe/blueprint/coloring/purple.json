@@ -1,0 +1,16 @@
+{
+  "type": "tolaserblade:coloring",
+  "base": "#tolaserblade:blueprint_can_change_color",
+  "colors": [
+    {
+      "color": -7785800
+    },
+    {
+      "color": -6487809
+    },
+    {
+      "color": -6487809
+    }
+  ],
+  "ingredient": "#c:dyes/purple"
+}

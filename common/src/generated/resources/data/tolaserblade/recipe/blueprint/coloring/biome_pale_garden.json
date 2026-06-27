@@ -1,0 +1,16 @@
+{
+  "type": "tolaserblade:coloring",
+  "base": "#tolaserblade:blueprint_can_change_color",
+  "colors": [
+    {
+      "color": -9935774
+    },
+    {
+      "color": -1281516
+    },
+    {
+      "color": -1072329
+    }
+  ],
+  "ingredient": "minecraft:pale_oak_log"
+}

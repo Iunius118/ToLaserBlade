@@ -1,0 +1,10 @@
+{
+  "type": "tolaserblade:crafting",
+  "ingredients": [
+    "#c:ingots/iron",
+    "#c:ingots/iron"
+  ],
+  "result": {
+    "id": "tolaserblade:lb_casing"
+  }
+}

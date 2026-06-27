@@ -1,0 +1,16 @@
+{
+  "type": "tolaserblade:coloring",
+  "base": "#tolaserblade:blueprint_can_change_color",
+  "colors": [
+    {
+      "color": -425955
+    },
+    {
+      "color": -23296
+    },
+    {
+      "color": -23296
+    }
+  ],
+  "ingredient": "#c:dyes/orange"
+}

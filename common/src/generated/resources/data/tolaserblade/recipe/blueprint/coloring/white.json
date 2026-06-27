@@ -1,0 +1,16 @@
+{
+  "type": "tolaserblade:coloring",
+  "base": "#tolaserblade:blueprint_can_change_color",
+  "colors": [
+    {
+      "color": -393218
+    },
+    {
+      "color": -1
+    },
+    {
+      "color": -1
+    }
+  ],
+  "ingredient": "#c:dyes/white"
+}

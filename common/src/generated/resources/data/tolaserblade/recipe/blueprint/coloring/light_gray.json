@@ -1,0 +1,16 @@
+{
+  "type": "tolaserblade:coloring",
+  "base": "#tolaserblade:blueprint_can_change_color",
+  "colors": [
+    {
+      "color": -6447721
+    },
+    {
+      "color": -2894893
+    },
+    {
+      "color": -2894893
+    }
+  ],
+  "ingredient": "#c:dyes/light_gray"
+}
