@@ -17,15 +17,11 @@ public class ModEnchantmentTagsProvider extends EnchantmentTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider registries) {
-        tag(EnchantmentTags.TOOLTIP_ORDER)
+        this.tag(EnchantmentTags.TOOLTIP_ORDER)
                 .addOptional(ModEnchantments.LASER_BLADE)
                 .addOptional(ModEnchantments.LIGHT_ELEMENT)
                 .addOptional(ModEnchantments.REPULSIVE_FORCE);
-        tag(EnchantmentTags.IN_ENCHANTING_TABLE)
-                .addOptional(ModEnchantments.LASER_BLADE)
-                .addOptional(ModEnchantments.LIGHT_ELEMENT)
-                .addOptional(ModEnchantments.REPULSIVE_FORCE);
-        tag(EnchantmentTags.DAMAGE_EXCLUSIVE)
+        this.tag(EnchantmentTags.DAMAGE_EXCLUSIVE)
                 .addOptional(ModEnchantments.LIGHT_ELEMENT);
     }
 }
