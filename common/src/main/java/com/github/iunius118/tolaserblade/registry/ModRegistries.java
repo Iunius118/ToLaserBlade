@@ -76,6 +76,7 @@ public class ModRegistries {
         // Menus
         Services.PLATFORM.createModObjectRegistry(BuiltInRegistries.MENU, Constants.MOD_ID)
                 .registerObjects(r -> {
+                    r.register(Constants.Menus.BLUEPRINT.getPath(), () -> ModMenuTypes.BLUEPRINT);
                 });
         // Creative mode tabs
         Services.PLATFORM.createModObjectRegistry(BuiltInRegistries.CREATIVE_MODE_TAB, Constants.MOD_ID)
