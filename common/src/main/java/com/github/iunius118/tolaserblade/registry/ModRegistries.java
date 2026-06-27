@@ -5,6 +5,8 @@ import com.github.iunius118.tolaserblade.block.LBBlueprintBlock;
 import com.github.iunius118.tolaserblade.block.ModBlocks;
 import com.github.iunius118.tolaserblade.item.ModItems;
 import com.github.iunius118.tolaserblade.item.component.ModDataComponents;
+import com.github.iunius118.tolaserblade.item.crafting.*;
+import com.github.iunius118.tolaserblade.menu.ModMenuTypes;
 import com.github.iunius118.tolaserblade.platform.Services;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -46,6 +48,30 @@ public class ModRegistries {
                 .registerObjects(r -> {
                     r.register(Constants.DataComponents.MODEL.getPath(), () -> ModDataComponents.MODEL);
                     r.register(Constants.DataComponents.BLEND_MODES.getPath(), () -> ModDataComponents.BLEND_MODES);
+                });
+        // Recipe types
+        Services.PLATFORM.createModObjectRegistry(BuiltInRegistries.RECIPE_TYPE, Constants.MOD_ID)
+                .registerObjects(r -> {
+                    r.register(Constants.RecipeTypes.BLENDING.getPath(), () -> ModRecipeTypes.BLENDING);
+                    r.register(Constants.RecipeTypes.COLORING.getPath(), () -> ModRecipeTypes.COLORING);
+                    r.register(Constants.RecipeTypes.CRAFTING.getPath(), () -> ModRecipeTypes.CRAFTING);
+                    r.register(Constants.RecipeTypes.ENCHANTMENT.getPath(), () -> ModRecipeTypes.ENCHANTMENT);
+                    r.register(Constants.RecipeTypes.REMODEL.getPath(), () -> ModRecipeTypes.REMODEL);
+                });
+        // Recipe Serializers
+        Services.PLATFORM.createModObjectRegistry(BuiltInRegistries.RECIPE_SERIALIZER, Constants.MOD_ID)
+                .registerObjects(r -> {
+                    r.register(Constants.RecipeTypes.BLENDING.getPath(), () -> BlendingRecipe.SERIALIZER);
+                    r.register(Constants.RecipeTypes.COLORING.getPath(), () -> ColoringRecipe.SERIALIZER);
+                    r.register(Constants.RecipeTypes.CRAFTING.getPath(), () -> CraftingRecipe.SERIALIZER);
+                    r.register(Constants.RecipeTypes.ENCHANTMENT.getPath(), () -> EnchantmentRecipe.SERIALIZER);
+                    r.register(Constants.RecipeTypes.REMODEL.getPath(), () -> RemodelRecipe.SERIALIZER);
+                });
+        // Recipe book categories
+        Services.PLATFORM.createModObjectRegistry(BuiltInRegistries.RECIPE_BOOK_CATEGORY, Constants.MOD_ID)
+                .registerObjects(r -> {
+                    r.register(Constants.RecipeBookCategories.LB_BLUEPRINT.getPath(),
+                            () -> ModRecipeBookCategories.LB_BLUEPRINT);
                 });
         // Menus
         Services.PLATFORM.createModObjectRegistry(BuiltInRegistries.MENU, Constants.MOD_ID)

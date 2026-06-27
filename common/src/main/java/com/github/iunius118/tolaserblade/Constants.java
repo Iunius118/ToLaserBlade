@@ -23,12 +23,6 @@ public class Constants {
         public static final Identifier LB_CASING_FP = CommonClass.modLocation("lb_casing_fp");
     }
 
-    public static class Enchantments {
-        public static final Identifier LASER_BLADE = CommonClass.modLocation("laser_blade");
-        public static final Identifier LIGHT_ELEMENT = CommonClass.modLocation("light_element");
-        public static final Identifier REPULSIVE_FORCE = CommonClass.modLocation("repulsive_force");
-    }
-
     public static class Attributes {
         public static final Identifier LASER_BLADE_ATTACK_DAMAGE =
                 CommonClass.modLocation("laser_blade").withSuffix("/attack_damage");
@@ -41,8 +35,29 @@ public class Constants {
         public static final Identifier BLEND_MODES = CommonClass.modLocation("blend_modes");
     }
 
-    public static class MenuTypes {
-        //public static final Identifier COLORIZER = CommonClass.modLocation("colorizer");
+    public static class RecipeTypes {
+        public static final Identifier BLENDING = CommonClass.modLocation("blending");
+        public static final Identifier COLORING = CommonClass.modLocation("coloring");
+        public static final Identifier CRAFTING = CommonClass.modLocation("crafting");
+        public static final Identifier ENCHANTMENT = CommonClass.modLocation("enchantment");
+        public static final Identifier REMODEL = CommonClass.modLocation("remodel");
+    }
+
+    public static class RecipeBookCategories {
+        public static final Identifier LB_BLUEPRINT = CommonClass.modLocation("lb_blueprint");
+    }
+
+    public static class Enchantments {
+        public static final Identifier LASER_BLADE = CommonClass.modLocation("laser_blade");
+        public static final Identifier LIGHT_ELEMENT = CommonClass.modLocation("light_element");
+        public static final Identifier REPULSIVE_FORCE = CommonClass.modLocation("repulsive_force");
+    }
+
+    public static class Menus {
+        public static final Identifier BLUEPRINT = CommonClass.modLocation("blueprint");
+
+        // Translation key
+        public static final String BLUEPRINT_TITLE = "container.%s.blueprint".formatted(Constants.MOD_ID);
     }
 
     public static class CreativeModeTabs {
