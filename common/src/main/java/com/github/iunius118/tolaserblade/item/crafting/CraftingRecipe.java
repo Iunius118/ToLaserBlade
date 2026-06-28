@@ -2,6 +2,7 @@ package com.github.iunius118.tolaserblade.item.crafting;
 
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
+import net.minecraft.core.component.DataComponents;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
@@ -30,8 +31,7 @@ public class CraftingRecipe extends BlueprintRecipe {
                     ItemStackTemplate.STREAM_CODEC, o -> o.result,
                     CraftingRecipe::new
             );
-    public static final RecipeSerializer<CraftingRecipe> SERIALIZER
-            = new RecipeSerializer<>(MAP_CODEC, STREAM_CODEC);
+    public static final RecipeSerializer<CraftingRecipe> SERIALIZER = new RecipeSerializer<>(MAP_CODEC, STREAM_CODEC);
 
     private final ItemStackTemplate result;
 
@@ -41,8 +41,17 @@ public class CraftingRecipe extends BlueprintRecipe {
     }
 
     @Override
-    public ItemStack assemble(BlurprintRecipeInput input) {
-        return result.create();
+    public ItemStack assemble(BlueprintRecipeInput input) {
+        // Copy and merge components of base item stack
+        var componentsPatch = input.base().getComponentsPatch();
+        var resultStack = result.apply(componentsPatch);
+
+        if (resultStack.has(DataComponents.DAMAGE)) {
+            // Repair damage
+            resultStack.set(DataComponents.DAMAGE, 0);
+        }
+
+        return resultStack;
     }
 
     @Override
@@ -51,7 +60,7 @@ public class CraftingRecipe extends BlueprintRecipe {
     }
 
     @Override
-    public RecipeType<? extends Recipe<BlurprintRecipeInput>> getType() {
+    public RecipeType<? extends Recipe<BlueprintRecipeInput>> getType() {
         return ModRecipeTypes.CRAFTING;
     }
 }
