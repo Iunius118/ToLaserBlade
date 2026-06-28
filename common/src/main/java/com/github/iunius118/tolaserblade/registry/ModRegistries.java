@@ -37,11 +37,11 @@ public class ModRegistries {
                     LASER_BLADE = r.register(Constants.Items.LASER_BLADE.getPath(), () -> ModItems.LASER_BLADE);
                     r.register(Constants.Items.LASER_BLADE_FP.getPath(), () -> ModItems.LASER_BLADE_FP);
 
+                    r.register(Constants.Items.LB_CASING.getPath(), () -> ModItems.LB_CASING);
+                    r.register(Constants.Items.LB_CASING_FP.getPath(), () -> ModItems.LB_CASING_FP);
                     r.register(Constants.Items.LB_BATTERY.getPath(), () -> ModItems.LB_BATTERY);
                     r.register(Constants.Items.LB_MEDIUM.getPath(), () -> ModItems.LB_MEDIUM);
                     r.register(Constants.Items.LB_EMITTER.getPath(), () -> ModItems.LB_EMITTER);
-                    r.register(Constants.Items.LB_CASING.getPath(), () -> ModItems.LB_CASING);
-                    r.register(Constants.Items.LB_CASING_FP.getPath(), () -> ModItems.LB_CASING_FP);
                 });
         // Data component types
         Services.PLATFORM.createModObjectRegistry(BuiltInRegistries.DATA_COMPONENT_TYPE, Constants.MOD_ID)

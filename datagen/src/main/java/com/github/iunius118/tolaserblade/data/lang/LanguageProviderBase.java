@@ -67,11 +67,11 @@ public abstract class LanguageProviderBase extends LanguageProvider {
         // Item names
         add(ModItems.LASER_BLADE, laserBlade);
         add(ModItems.LASER_BLADE_FP, laserBladeFp);
+        add(ModItems.LB_CASING, laserBladeCasing);
+        add(ModItems.LB_CASING_FP, laserBladeCasingFp);
         add(ModItems.LB_BATTERY, lbEnergyCell);
         add(ModItems.LB_MEDIUM, laserMedium);
         add(ModItems.LB_EMITTER, laserBladeEmitter);
-        add(ModItems.LB_CASING, laserBladeCasing);
-        add(ModItems.LB_CASING_FP, laserBladeCasingFp);
 
         // Item tooltips
         add("tooltip.tolaserblade.fire_resistant", tooltipFireResistant);

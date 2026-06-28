@@ -29,12 +29,12 @@ public class ModItems {
                     createProperties(Constants.Items.LASER_BLADE_FP), true, 3F, -2.4F, 0F), true));
 
     // Laser blade parts
-    public static final Item LB_BATTERY = add(new Item(createProperties(Constants.Items.LB_BATTERY)));
-    public static final Item LB_MEDIUM = add(new Item(createProperties(Constants.Items.LB_MEDIUM)));
-    public static final Item LB_EMITTER = add(new Item(createProperties(Constants.Items.LB_EMITTER)));
     public static final Item LB_CASING = add(new Item(createProperties(Constants.Items.LB_CASING)));
     public static final Item LB_CASING_FP =
             add(new LBPartItem(createProperties(Constants.Items.LB_CASING_FP).fireResistant(), true));
+    public static final Item LB_BATTERY = add(new Item(createProperties(Constants.Items.LB_BATTERY)));
+    public static final Item LB_MEDIUM = add(new Item(createProperties(Constants.Items.LB_MEDIUM)));
+    public static final Item LB_EMITTER = add(new Item(createProperties(Constants.Items.LB_EMITTER)));
 
     private static Item add(Item item) {
         ITEMS.add(item);
