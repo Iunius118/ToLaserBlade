@@ -88,11 +88,11 @@ public class ModModelProvider extends ModelProvider {
                 new ClientItem(lbSwordModel, new ClientItem.Properties(false, true, 1.0F)));
 
         // Laser blade parts
+        itemModels.generateFlatItem(ModItems.LB_CASING, ModelTemplates.FLAT_ITEM);
+        itemModels.generateFlatItem(ModItems.LB_CASING_FP, ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.LB_BATTERY, ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.LB_MEDIUM, ModelTemplates.FLAT_ITEM);
         itemModels.generateFlatItem(ModItems.LB_EMITTER, ModelTemplates.FLAT_ITEM);
-        itemModels.generateFlatItem(ModItems.LB_CASING, ModelTemplates.FLAT_ITEM);
-        itemModels.generateFlatItem(ModItems.LB_CASING_FP, ModItems.LB_CASING, ModelTemplates.FLAT_ITEM);
     }
 
     private void generateBlueprintItem(ItemModelGenerators itemModels, Item item) {
