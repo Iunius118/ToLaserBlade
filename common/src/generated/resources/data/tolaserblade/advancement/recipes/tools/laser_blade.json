@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_laser_blade": {
+    "has_redstone": {
       "conditions": {
         "items": [
           {
-            "items": "tolaserblade:laser_blade"
+            "items": "#c:dusts/redstone"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "tolaserblade:lb_blueprint"
+        "recipe": "tolaserblade:laser_blade"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_laser_blade"
+      "has_redstone"
     ]
   ],
   "rewards": {
     "recipes": [
-      "tolaserblade:lb_blueprint"
+      "tolaserblade:laser_blade"
     ]
   }
 }

@@ -1,18 +1,10 @@
 {
-  "type": "minecraft:crafting_shaped",
+  "type": "minecraft:crafting_shapeless",
   "category": "misc",
-  "key": {
-    "#": "#c:ingots/iron",
-    "B": "#c:dyes/blue",
-    "D": "#c:gems/diamond",
-    "G": "#c:dusts/glowstone",
-    "P": "minecraft:paper",
-    "R": "#c:dusts/redstone"
-  },
-  "pattern": [
-    "B#D",
-    "#G#",
-    "R#P"
+  "ingredients": [
+    "#tolaserblade:laser_blades",
+    "#c:dyes/blue",
+    "minecraft:paper"
   ],
   "result": {
     "id": "tolaserblade:lb_blueprint"

@@ -1,6 +1,6 @@
 {
   "parent": "minecraft:item/generated",
   "textures": {
-    "layer0": "tolaserblade:item/lb_casing"
+    "layer0": "tolaserblade:item/lb_casing_fp"
   }
 }

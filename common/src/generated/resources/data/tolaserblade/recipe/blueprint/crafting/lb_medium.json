@@ -1,9 +1,9 @@
 {
   "type": "tolaserblade:crafting",
   "ingredients": [
-    "#c:dusts/glowstone",
+    "#c:glass_blocks/colorless",
     "#c:gems/diamond",
-    "#c:dusts/glowstone"
+    "#c:glass_blocks/colorless"
   ],
   "result": {
     "id": "tolaserblade:lb_medium"

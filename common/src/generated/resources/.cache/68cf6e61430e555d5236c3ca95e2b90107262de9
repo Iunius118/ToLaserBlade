@@ -1,4 +1,4 @@
-// 26.1.2	2026-06-14T23:11:27.2638471	Model Definitions - tolaserblade
+// 26.1.2	2026-06-28T21:01:32.118158	Model Definitions - tolaserblade
 4c300e7d0202f81905a859013bdcda4996930714 assets/tolaserblade/blockstates/lb_blueprint.json
 ddaac52d2c38b76209e3d67b085c8e33706ea4f5 assets/tolaserblade/items/laser_blade.json
 ddaac52d2c38b76209e3d67b085c8e33706ea4f5 assets/tolaserblade/items/laser_blade_fp.json
@@ -13,6 +13,6 @@ ecaf7741b15d13a87d29294a7851233376db52e0 assets/tolaserblade/models/block/lb_blu
 8c07cf6a11aa2d583d0935c35b886709ce863824 assets/tolaserblade/models/item/lb_blueprint.json
 614dcdf92e2898f6291c526ec5932f58e91d2d1e assets/tolaserblade/models/item/lb_blueprint_fixed.json
 586c98eb2d5d39e320c088850db3c1330477f7a0 assets/tolaserblade/models/item/lb_casing.json
-586c98eb2d5d39e320c088850db3c1330477f7a0 assets/tolaserblade/models/item/lb_casing_fp.json
+e13dbb6748ce62e62798ee0c50024248cc71986a assets/tolaserblade/models/item/lb_casing_fp.json
 cbc56be0fcc1b84e27a1ff8063c934ac564551a3 assets/tolaserblade/models/item/lb_emitter.json
 2e6be930d95417a7d4b74ebc31fa0d7d63bd9fa5 assets/tolaserblade/models/item/lb_medium.json

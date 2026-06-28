@@ -1,0 +1,18 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "equipment",
+  "key": {
+    "#": "#c:ingots/iron",
+    "D": "#c:gems/diamond",
+    "G": "#c:glass_blocks/colorless",
+    "R": "#c:dusts/redstone"
+  },
+  "pattern": [
+    "G#D",
+    "#D#",
+    "R#G"
+  ],
+  "result": {
+    "id": "tolaserblade:laser_blade"
+  }
+}
