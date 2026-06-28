@@ -142,6 +142,19 @@ public class ColoringRecipe extends BlueprintRecipe {
         }
 
         ItemStack result = base.copy();
+
+        if (result.is(ModTags.Items.LASER_BLADES)) {
+            result.set(ModDataComponents.BLEND_MODES, new BlendModes(newBlendModes));
+        } else {
+            // When result item is not compatible with blend modes component
+            for (int i = 1; i < PARTS_MAX; i++) {
+                if (newBlendModes.get(i - 1) && newFlags.get(i)) {
+                    int newColor = newColors.get(i);
+                    newColors.set(i, (~(newColor & 0xFFFFFF)) | (newColor & 0xFF000000));
+                }
+            }
+        }
+
         result.set(DataComponents.CUSTOM_MODEL_DATA,
                 new CustomModelData(oldData.floats(), newFlags, oldData.strings(), newColors));
         return result;
