@@ -1,7 +1,7 @@
 package com.github.iunius118.tolaserblade.menu;
 
 import com.github.iunius118.tolaserblade.item.crafting.BlueprintRecipe;
-import com.github.iunius118.tolaserblade.item.crafting.BlurprintRecipeInput;
+import com.github.iunius118.tolaserblade.item.crafting.BlueprintRecipeInput;
 import com.github.iunius118.tolaserblade.item.crafting.CraftingRecipe;
 import com.github.iunius118.tolaserblade.item.crafting.ModRecipeTypes;
 import com.github.iunius118.tolaserblade.mixin.ResultSlotAccessor;
@@ -154,7 +154,7 @@ public class BlueprintMenu extends AbstractContainerMenu {
     }
 
     private void updateResult() {
-        BlurprintRecipeInput input = BlurprintRecipeInput.of(inputContainer);
+        BlueprintRecipeInput input = BlueprintRecipeInput.of(inputContainer);
         var recipe = findRecipe(input);
 
         if (recipe.isPresent()) {
@@ -170,7 +170,7 @@ public class BlueprintMenu extends AbstractContainerMenu {
     }
 
     private Optional<? extends RecipeHolder<? extends BlueprintRecipe>> findRecipe(
-            BlurprintRecipeInput input) {
+            BlueprintRecipeInput input) {
         if (level instanceof ServerLevel serverLevel) {
             RecipeManager recipeManager = serverLevel.recipeAccess();
 

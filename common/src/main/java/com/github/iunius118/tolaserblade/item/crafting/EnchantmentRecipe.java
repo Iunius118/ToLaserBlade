@@ -34,8 +34,8 @@ public class EnchantmentRecipe extends BlueprintRecipe {
                     Enchantment.STREAM_CODEC, o -> o.enchantment,
                     EnchantmentRecipe::new
             );
-    public static final RecipeSerializer<EnchantmentRecipe> SERIALIZER
-            = new RecipeSerializer<>(MAP_CODEC, STREAM_CODEC);
+    public static final RecipeSerializer<EnchantmentRecipe> SERIALIZER =
+            new RecipeSerializer<>(MAP_CODEC, STREAM_CODEC);
 
     private final Holder<Enchantment> enchantment;
 
@@ -45,7 +45,7 @@ public class EnchantmentRecipe extends BlueprintRecipe {
     }
 
     @Override
-    public boolean matches(BlurprintRecipeInput input, Level level) {
+    public boolean matches(BlueprintRecipeInput input, Level level) {
         if (super.matches(input, level) && enchantment.isBound()) {
             return input.base().getEnchantments().getLevel(enchantment) < enchantment.value().getMaxLevel();
         }
@@ -54,7 +54,7 @@ public class EnchantmentRecipe extends BlueprintRecipe {
     }
 
     @Override
-    public ItemStack assemble(BlurprintRecipeInput input) {
+    public ItemStack assemble(BlueprintRecipeInput input) {
         ItemStack result = input.base().copy();
         // Upgrade the item stack's enchantments with the upgrade's enchantments
         EnchantmentHelper.updateEnchantments(result, mutableEnchantments -> {
@@ -82,7 +82,7 @@ public class EnchantmentRecipe extends BlueprintRecipe {
     }
 
     @Override
-    public RecipeType<? extends Recipe<BlurprintRecipeInput>> getType() {
+    public RecipeType<? extends Recipe<BlueprintRecipeInput>> getType() {
         return ModRecipeTypes.ENCHANTMENT;
     }
 }

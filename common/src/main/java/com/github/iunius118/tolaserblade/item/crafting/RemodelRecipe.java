@@ -32,8 +32,7 @@ public class RemodelRecipe extends BlueprintRecipe {
                     ByteBufCodecs.INT, o -> o.modelType,
                     RemodelRecipe::new
             );
-    public static final RecipeSerializer<RemodelRecipe> SERIALIZER
-            = new RecipeSerializer<>(MAP_CODEC, STREAM_CODEC);
+    public static final RecipeSerializer<RemodelRecipe> SERIALIZER = new RecipeSerializer<>(MAP_CODEC, STREAM_CODEC);
 
     private final int modelType;
 
@@ -48,7 +47,7 @@ public class RemodelRecipe extends BlueprintRecipe {
     }
 
     @Override
-    public boolean matches(BlurprintRecipeInput input, Level level) {
+    public boolean matches(BlueprintRecipeInput input, Level level) {
         if (super.matches(input, level)) {
             return input.base().getOrDefault(ModDataComponents.MODEL, -1) != modelType;
         }
@@ -57,7 +56,7 @@ public class RemodelRecipe extends BlueprintRecipe {
     }
 
     @Override
-    public ItemStack assemble(BlurprintRecipeInput input) {
+    public ItemStack assemble(BlueprintRecipeInput input) {
         ItemStack result = input.base().copy();
         result.set(ModDataComponents.MODEL, modelType);
         return result;
@@ -69,7 +68,7 @@ public class RemodelRecipe extends BlueprintRecipe {
     }
 
     @Override
-    public RecipeType<? extends Recipe<BlurprintRecipeInput>> getType() {
+    public RecipeType<? extends Recipe<BlueprintRecipeInput>> getType() {
         return ModRecipeTypes.REMODEL;
     }
 }

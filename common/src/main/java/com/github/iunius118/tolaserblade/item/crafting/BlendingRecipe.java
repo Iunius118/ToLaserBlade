@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class BlendingRecipe extends BlueprintRecipe {
-    public static final int PARTS_MAX = BlurprintRecipeInput.SIZE - 1;
+    public static final int PARTS_MAX = BlueprintRecipeInput.SIZE - 1;
     public static final MapCodec<BlendingRecipe> MAP_CODEC =
             RecordCodecBuilder.mapCodec(
                     i -> i.group(
@@ -33,8 +33,7 @@ public class BlendingRecipe extends BlueprintRecipe {
                     Ingredient.CONTENTS_STREAM_CODEC, o -> o.ingredients.get(1),
                     BlendingRecipe::new
             );
-    public static final RecipeSerializer<BlendingRecipe> SERIALIZER
-            = new RecipeSerializer<>(MAP_CODEC, STREAM_CODEC);
+    public static final RecipeSerializer<BlendingRecipe> SERIALIZER = new RecipeSerializer<>(MAP_CODEC, STREAM_CODEC);
 
     public BlendingRecipe(CommonInfo commonInfo, Ingredient base, Ingredient ingredient) {
         super(commonInfo, List.of(base, ingredient));
@@ -46,7 +45,7 @@ public class BlendingRecipe extends BlueprintRecipe {
     }
 
     @Override
-    public boolean matches(BlurprintRecipeInput input, Level level) {
+    public boolean matches(BlueprintRecipeInput input, Level level) {
         Ingredient base = ingredients.get(0);
         Ingredient ingredient = ingredients.get(1);
 
@@ -80,7 +79,7 @@ public class BlendingRecipe extends BlueprintRecipe {
     }
 
     @Override
-    public ItemStack assemble(BlurprintRecipeInput input) {
+    public ItemStack assemble(BlueprintRecipeInput input) {
         ItemStack base = input.base();
 
         for (int i = 2; i < PARTS_MAX + 1; i++) {
@@ -113,7 +112,7 @@ public class BlendingRecipe extends BlueprintRecipe {
     }
 
     @Override
-    public RecipeType<? extends Recipe<BlurprintRecipeInput>> getType() {
+    public RecipeType<? extends Recipe<BlueprintRecipeInput>> getType() {
         return ModRecipeTypes.BLENDING;
     }
 }

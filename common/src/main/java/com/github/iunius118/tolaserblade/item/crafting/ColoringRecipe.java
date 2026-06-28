@@ -2,6 +2,7 @@ package com.github.iunius118.tolaserblade.item.crafting;
 
 import com.github.iunius118.tolaserblade.item.component.BlendModes;
 import com.github.iunius118.tolaserblade.item.component.ModDataComponents;
+import com.github.iunius118.tolaserblade.tag.ModTags;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -23,7 +24,7 @@ import java.util.List;
 import java.util.Objects;
 
 public class ColoringRecipe extends BlueprintRecipe {
-    public static final int PARTS_MAX = BlurprintRecipeInput.SIZE - 1;
+    public static final int PARTS_MAX = BlueprintRecipeInput.SIZE - 1;
     public static final MapCodec<ColoringRecipe> MAP_CODEC =
             RecordCodecBuilder.mapCodec(
                     i -> i.group(
@@ -41,8 +42,7 @@ public class ColoringRecipe extends BlueprintRecipe {
                     PartColor.STREAM_CODEC.apply(ByteBufCodecs.list()), o -> o.colors,
                     ColoringRecipe::new
             );
-    public static final RecipeSerializer<ColoringRecipe> SERIALIZER
-            = new RecipeSerializer<>(MAP_CODEC, STREAM_CODEC);
+    public static final RecipeSerializer<ColoringRecipe> SERIALIZER = new RecipeSerializer<>(MAP_CODEC, STREAM_CODEC);
 
     private final List<PartColor> colors;
 
@@ -58,7 +58,7 @@ public class ColoringRecipe extends BlueprintRecipe {
     }
 
     @Override
-    public boolean matches(BlurprintRecipeInput input, Level level) {
+    public boolean matches(BlueprintRecipeInput input, Level level) {
         Ingredient base = ingredients.get(0);
         Ingredient ingredient = ingredients.get(1);
 
@@ -108,7 +108,7 @@ public class ColoringRecipe extends BlueprintRecipe {
     }
 
     @Override
-    public ItemStack assemble(BlurprintRecipeInput input) {
+    public ItemStack assemble(BlueprintRecipeInput input) {
         ItemStack base = input.base();
 
         for (int i = 0; i < PARTS_MAX; i++) {
@@ -144,7 +144,6 @@ public class ColoringRecipe extends BlueprintRecipe {
         ItemStack result = base.copy();
         result.set(DataComponents.CUSTOM_MODEL_DATA,
                 new CustomModelData(oldData.floats(), newFlags, oldData.strings(), newColors));
-        result.set(ModDataComponents.BLEND_MODES, new BlendModes(newBlendModes));
         return result;
     }
 
@@ -154,7 +153,7 @@ public class ColoringRecipe extends BlueprintRecipe {
     }
 
     @Override
-    public RecipeType<? extends Recipe<BlurprintRecipeInput>> getType() {
+    public RecipeType<? extends Recipe<BlueprintRecipeInput>> getType() {
         return ModRecipeTypes.COLORING;
     }
 

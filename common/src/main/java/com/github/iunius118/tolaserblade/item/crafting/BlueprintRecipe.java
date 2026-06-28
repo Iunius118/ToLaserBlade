@@ -5,7 +5,7 @@ import net.minecraft.world.level.Level;
 
 import java.util.List;
 
-public abstract class BlueprintRecipe implements Recipe<BlurprintRecipeInput> {
+public abstract class BlueprintRecipe implements Recipe<BlueprintRecipeInput> {
     protected final CommonInfo commonInfo;
     protected final List<Ingredient> ingredients;
 
@@ -19,8 +19,8 @@ public abstract class BlueprintRecipe implements Recipe<BlurprintRecipeInput> {
     }
 
     @Override
-    public boolean matches(BlurprintRecipeInput input, Level level) {
-        if (ingredients.size() > BlurprintRecipeInput.SIZE) {
+    public boolean matches(BlueprintRecipeInput input, Level level) {
+        if (ingredients.size() > BlueprintRecipeInput.SIZE) {
             return false;
         }
 
@@ -32,7 +32,7 @@ public abstract class BlueprintRecipe implements Recipe<BlurprintRecipeInput> {
         }
 
         // Remaining slots must be empty
-        for (int i = ingredients.size(); i < BlurprintRecipeInput.SIZE; i++) {
+        for (int i = ingredients.size(); i < BlueprintRecipeInput.SIZE; i++) {
             if (!input.getItem(i).isEmpty()) {
                 return false;
             }
