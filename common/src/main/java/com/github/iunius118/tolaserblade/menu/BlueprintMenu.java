@@ -160,6 +160,11 @@ public class BlueprintMenu extends AbstractContainerMenu {
         if (recipe.isPresent()) {
             selectedRecipe = recipe.get();
             ItemStack result = selectedRecipe.value().assemble(input);
+
+            if (isCraftingRecipe()) {
+                CraftingRecipe.applyGiftCode(input, result, level);
+            }
+
             resultContainer.setItem(0, result);
         } else {
             selectedRecipe = null;
