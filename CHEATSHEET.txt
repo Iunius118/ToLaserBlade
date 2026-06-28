@@ -6,24 +6,105 @@ ToLaserBlade v17.0.0
 
 ### Laser Blade
 
-    Laser Blade Recipe
+Recipes
+
     Crafting Table (# = Iron Ingot, D = Diamond, G = Glowstone Dust, R = Redstone Dust)
         G # D
         # D #
         R # G
 
+    Laser Blade Blueprint
+        Laser Blade Casing + LB Energy Cell + Laser Medium + Laser Blade Emitter
+        Laser Blade Casing (named GIFT) + LB Energy Cell + Laser Medium + Laser Blade Emitter
+
 ### Laser Blade (Fire-Resistant)
 
-    Laser Blade (Fire-Resistant) Recipe
+Recipes
+
     Smithing Table
         Netherite Upgrade + Laser Blade + Netherite Ingot
+
+    Laser Blade Blueprint
+        Laser Blade Casing (fire-resistant) + LB Energy Cell + Laser Medium + Laser Blade Emitter
+        Laser Blade + Laser Blade Casing (fire-resistant) + (empty) + (empty)
+
+### Laser Blade Blueprint
+
+This item can be placed by holding it in tne hand and right-clicking on the ground.
+Right-clicking on the placed blueprint will open the GUI for upgrading laser blades.
+
+Recipes
+
+    Crafting Table (Shapeless)
+        Laser Blade, Blue Dye, and Paper
+
+    Laser Blade Blueprint
+        Paper + Blue Dye + (empty) + (empty)
+
+### Laser Blade Casing
+
+Recipe
+
+    Laser Blade Blueprint
+        Iron Ingot + Iron Ingot + (empty) + (empty)
+
+### Laser Blade Casing (fire-resistant)
+
+Recipe
+
+    Laser Blade Blueprint
+        Netherite Ingot + Netherite Ingot + (empty) + (empty)
+
+### LB Energy Cell
+
+Recipe
+
+    Laser Blade Blueprint
+        Iron Ingot + Redstone Dust + (empty) + (empty)
+
+### Laser Medium
+
+Recipe
+
+    Laser Blade Blueprint
+        Glass + Diamond + Glass + (empty)
+
+### Laser Blade Emitter
+
+Recipe
+
+    Laser Blade Blueprint
+        Iron Ingot + Diamond + (empty) + (empty)
+
 
 ## Enchantments
 
 Add 3 enchantments that can be applied to laser blades using enchanting table.
 
-- Laser Blade - Increases attack damage and attack speed of the weapon.
-- Light Element - Increases damage against undead mobs and illagers.
-- Repulsive Force - Allows Laser Blades to block attacks and increases knockback strength at higher levels.
+### Laser Blade
 
+Increases attack damage and attack speed of the weapon.
+
+Recipe
+
+    Laser Blade Blueprint
+        Any laser blade + Glowstone Dust + Block of Diamond + Glowstone Dust
+
+### Light Element
+
+Increases damage against undead mobs and illagers.
+
+Recipe
+
+    Laser Blade Blueprint
+        Any laser blade + Glowstone + Diamond + Glowstone
+
+### Repulsive Force
+
+Allows Laser Blades to block attacks and increases knockback strength at higher levels.
 Repulsive Force is provided by an independent built-in data pack and can therefore be disabled separately.
+
+Recipe
+
+    Laser Blade Blueprint
+        Any laser blade + Iron Ingot + Diamond + Block of Gold

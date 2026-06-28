@@ -10,25 +10,85 @@
 
 ### Added
 - Laser Blade items.
-- Add 3 enchantments that can be applied to laser blades using enchanting table.
+- Laser blade part items.
+- Laser Blade Blueprint block and its GUI for upgrading laser blades.
+  - Place a Laser Blade Blueprint and right-click on it to open the GUI.
+- Add 3 enchantments that can be applied to laser blades using laser blade blueprint GUI.
   - Laser Blade enchantment, increases attack damage and attack speed of the weapon.
   - Light Element enchantment, increases damage against undead mobs and illagers.
   - Repulsive Force enchantment, allows Laser Blades to block attacks and increases knockback strength at higher levels.
 - Repulsive Force is provided by an independent built-in data pack and can therefore be disabled separately.
-- Laser Blade Blueprint block.
+- Increase the cost to upgrade and the power of each mod enchantment while reducing its maximum level.
 - Add temporary recipes.
 
-Laser Blade Recipe
-
-    Crafting Table (# = Iron Ingot, D = Diamond, G = Glowstone Dust, R = Redstone Dust)
+#### Shaped Crafting Table Recipe
+    Laser Blade (# = Iron Ingot, D = Diamond, G = Glass, R = Redstone Dust)
         G # D
         # D #
         R # G
 
-Laser Blade (Fire-Resistant) Recipe
+#### Shapeless Crafting Table Recipe
+    Laser Blade Blueprint
+        Laser Blade, Blue Dye, and Paper
 
-    Smithing Table
-        Netherite Upgrade + Laser Blade + Netherite Ingot
+#### Smithing Table Recipe
+    Laser Blade (fire-resistant)
+        [Netherite Upgrade] [Laser Blade] [Netherite Ingot]
+
+#### Laser Blade Blueprint Recipes
+    Laser Blade Blueprint
+        [Paper] [Blue Dye] [ ] [ ]
+
+    Laser Blade Casing
+        [Iron Ingot] [Iron Ingot] [ ] [ ]
+
+    Laser Blade Casing (fire-resistant)
+        [Netherite Ingot] [Netherite Ingot] [ ] [ ]
+
+    LB Energy Cell
+        [Iron Ingot] [Redstone Dust] [ ] [ ]
+
+    Laser Medium
+        [Glass] [Diamond] [Glass] [ ]
+
+    Laser Blade Emitter
+        [Iron Ingot] [Diamond] [ ] [ ]
+
+    Laser Blade
+        [Laser Blade Casing] [LB Energy Cell] [Laser Medium] [Laser Blade Emitter]
+        [Laser Blade Casing (named GIFT)] [LB Energy Cell] [Laser Medium] [Laser Blade Emitter]
+
+    Laser Blade (fire-resistant)
+        [Laser Blade Casing (fire-resistant)] [LB Energy Cell] [Laser Medium] [Laser Blade Emitter]
+        [Laser Blade] [Laser Blade Casing (fire-resistant)] [ ] [ ]
+
+    Applying Laser Blade Enchantment
+        [Any laser blade] [Glowstone Dust] [Block of Diamond] [Glowstone Dust]
+
+    Applying Light Element Enchantment
+        [Any laser blade] [Glowstone] [Diamond] [Glowstone]
+
+    Applying Repulsive Force Enchantment
+        [Any laser blade] [Iron Ingot] [Diamond] [Block of Gold]
+
+    Applying Looting Enchantment
+        [Any laser blade] [Nautilus Shell] [ ] [ ]
+        [Any laser blade] [Block of Emerald] [ ] [ ]
+
+    Changing Laser Blade Color
+        [Any laser blade] [Any dye] [ ] [ ] -> Changing grip color
+        [Any laser blade] [ ] [Any dye] [ ] -> Changing outer blade color
+        [Any laser blade] [ ] [ ] [Any dye] -> Changing inner blade color
+
+    Switching Blend Mode of Laser Blade
+        [Any laser blade] [ ] [Tinted Glass] [ ] -> Switching blend mode of outer blade
+        [Any laser blade] [ ] [ ] [Tinted Glass] -> Switching blend mode of inner blade
+
+    Remodeling Laser Blade Shape
+        [Any laser blade] [Glass] [ ] [ ] -> Model #0
+        [Any laser blade] [Sand] [ ] [ ] -> Model #1
+        [Any laser blade] [Sandstone] [ ] [ ] -> Model #2
+        [Any laser blade] [Dirt] [ ] [ ] -> Model #526
 
 ### Changed
 - Port to Minecraft 26.1.2.
