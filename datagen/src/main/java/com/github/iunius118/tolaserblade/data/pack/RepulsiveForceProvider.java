@@ -75,6 +75,8 @@ public class RepulsiveForceProvider {
             BlueprintRecipeBuilder.enchantment(this.items, enchantments, RecipeCategory.MISC,
                             ModEnchantments.REPULSIVE_FORCE)
                     .requires(ModTags.Items.LASER_BLADES)
+                    .requires(Tags.Items.INGOTS_IRON)
+                    .requires(Tags.Items.GEMS_DIAMOND)
                     .requires(ModTags.Items.REPULSIVE_FORCE_UPGRADE)
                     .unlockedBy("has_laser_blade", this.has(ModItems.LASER_BLADE))
                     .save(output, CommonClass.modLocation("blueprint/enchantment/repulsive_force"));

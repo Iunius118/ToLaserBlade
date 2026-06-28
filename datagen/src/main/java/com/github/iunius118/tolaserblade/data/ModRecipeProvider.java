@@ -29,7 +29,6 @@ import net.neoforged.neoforge.common.Tags;
 
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
-import java.util.function.Function;
 
 public class ModRecipeProvider extends VanillaRecipeProvider {
 
@@ -39,18 +38,23 @@ public class ModRecipeProvider extends VanillaRecipeProvider {
 
     @Override
     protected void buildRecipes() {
-        // Laser Blade Blueprint
-        this.shaped(RecipeCategory.MISC, ModItems.BL_BLUEPRINT)
+        // Laser Blade
+        this.shaped(RecipeCategory.TOOLS, ModItems.LASER_BLADE)
                 .define('#', Tags.Items.INGOTS_IRON)
                 .define('D', Tags.Items.GEMS_DIAMOND)
-                .define('G', Tags.Items.DUSTS_GLOWSTONE)
+                .define('G', Tags.Items.GLASS_BLOCKS_COLORLESS)
                 .define('R', Tags.Items.DUSTS_REDSTONE)
-                .define('B', Tags.Items.DYES_BLUE)
-                .define('P', Items.PAPER)
-                .pattern("B#D")
-                .pattern("#G#")
-                .pattern("R#P")
+                .pattern("G#D")
+                .pattern("#D#")
+                .pattern("R#G")
                 .unlockedBy("has_redstone", has(Tags.Items.DUSTS_REDSTONE))
+                .save(output);
+        // Laser Blade Blueprint
+        this.shapeless(RecipeCategory.MISC, ModItems.BL_BLUEPRINT)
+                .requires(ModTags.Items.LASER_BLADES)
+                .requires(Tags.Items.DYES_BLUE)
+                .requires(Items.PAPER)
+                .unlockedBy("has_laser_blade", this.has(ModItems.LASER_BLADE))
                 .save(output);
         // Laser Blade (Fire-Resistant)
         SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
@@ -73,7 +77,7 @@ public class ModRecipeProvider extends VanillaRecipeProvider {
                 .unlockedBy("has_lb_blueprint", has(ModItems.BL_BLUEPRINT))
                 .save(output, CommonClass.modLocation("blueprint/crafting/lb_casing"));
         blueprintCrafting(RecipeCategory.MISC, new ItemStackTemplate(ModItems.LB_CASING_FP))
-                .requires(Tags.Items.INGOTS_IRON)
+                .requires(Tags.Items.INGOTS_NETHERITE)
                 .requires(Tags.Items.INGOTS_NETHERITE)
                 .unlockedBy("has_lb_blueprint", has(ModItems.BL_BLUEPRINT))
                 .save(output, CommonClass.modLocation("blueprint/crafting/lb_casing_fp"));
@@ -83,9 +87,9 @@ public class ModRecipeProvider extends VanillaRecipeProvider {
                 .unlockedBy("has_lb_blueprint", has(ModItems.BL_BLUEPRINT))
                 .save(output, CommonClass.modLocation("blueprint/crafting/lb_battery"));
         blueprintCrafting(RecipeCategory.MISC, new ItemStackTemplate(ModItems.LB_MEDIUM))
-                .requires(Tags.Items.DUSTS_GLOWSTONE)
+                .requires(Tags.Items.GLASS_BLOCKS_COLORLESS)
                 .requires(Tags.Items.GEMS_DIAMOND)
-                .requires(Tags.Items.DUSTS_GLOWSTONE)
+                .requires(Tags.Items.GLASS_BLOCKS_COLORLESS)
                 .unlockedBy("has_lb_blueprint", has(ModItems.BL_BLUEPRINT))
                 .save(output, CommonClass.modLocation("blueprint/crafting/lb_medium"));
         blueprintCrafting(RecipeCategory.MISC, new ItemStackTemplate(ModItems.LB_EMITTER))
@@ -107,6 +111,21 @@ public class ModRecipeProvider extends VanillaRecipeProvider {
                 .requires(ModItems.LB_EMITTER)
                 .unlockedBy("has_lb_blueprint", has(ModItems.BL_BLUEPRINT))
                 .save(output, CommonClass.modLocation("blueprint/crafting/laser_blade_fp"));
+        blueprintCrafting(RecipeCategory.TOOLS, new ItemStackTemplate(ModItems.LASER_BLADE_FP))
+                .requires(ModItems.LASER_BLADE)
+                .requires(ModItems.LB_CASING_FP)
+                .unlockedBy("has_lb_blueprint", has(ModItems.BL_BLUEPRINT))
+                .save(output, CommonClass.modLocation("blueprint/crafting/upgrade_fp"));
+        blueprintCrafting(RecipeCategory.TOOLS, new ItemStackTemplate(ModItems.LASER_BLADE))
+                .requires(ModItems.LASER_BLADE)
+                .requires(ModItems.LB_CASING)
+                .unlockedBy("has_lb_blueprint", has(ModItems.BL_BLUEPRINT))
+                .save(output, CommonClass.modLocation("blueprint/crafting/repair"));
+        blueprintCrafting(RecipeCategory.TOOLS, new ItemStackTemplate(ModItems.LASER_BLADE_FP))
+                .requires(ModItems.LASER_BLADE_FP)
+                .requires(ModItems.LB_CASING_FP)
+                .unlockedBy("has_lb_blueprint", has(ModItems.BL_BLUEPRINT))
+                .save(output, CommonClass.modLocation("blueprint/crafting/repair_fp"));
 
         // Blending
         blueprintBlending(RecipeCategory.MISC)
@@ -121,11 +140,15 @@ public class ModRecipeProvider extends VanillaRecipeProvider {
         // Enchantments
         blueprintEnchantment(RecipeCategory.MISC, ModEnchantments.LASER_BLADE)
                 .requires(ModTags.Items.LASER_BLADES)
+                .requires(Tags.Items.DUSTS_GLOWSTONE)
                 .requires(ModTags.Items.LASER_BLADE_UPGRADE)
+                .requires(Tags.Items.DUSTS_GLOWSTONE)
                 .unlockedBy("has_laser_blade", this.has(ModItems.LASER_BLADE))
                 .save(output, CommonClass.modLocation("blueprint/enchantment/laser_blade"));
         blueprintEnchantment(RecipeCategory.MISC, ModEnchantments.LIGHT_ELEMENT)
                 .requires(ModTags.Items.LASER_BLADES)
+                .requires(ModTags.Items.LIGHT_ELEMENT_UPGRADE)
+                .requires(Tags.Items.GEMS_DIAMOND)
                 .requires(ModTags.Items.LIGHT_ELEMENT_UPGRADE)
                 .unlockedBy("has_laser_blade", this.has(ModItems.LASER_BLADE))
                 .save(output, CommonClass.modLocation("blueprint/enchantment/light_element"));
@@ -140,25 +163,23 @@ public class ModRecipeProvider extends VanillaRecipeProvider {
     }
 
     private void buildColoringRecipes() {
-        Function<TagKey<Item>, Ingredient> tagToIngredient = tag -> Ingredient.of(items.getOrThrow(tag));
-
         // Dyes
-        buildColoringRecipe(tagToIngredient.apply(Tags.Items.DYES_WHITE), LaserBladeColor.WHITE);
-        buildColoringRecipe(tagToIngredient.apply(Tags.Items.DYES_ORANGE), LaserBladeColor.ORANGE);
-        buildColoringRecipe(tagToIngredient.apply(Tags.Items.DYES_MAGENTA), LaserBladeColor.MAGENTA);
-        buildColoringRecipe(tagToIngredient.apply(Tags.Items.DYES_LIGHT_BLUE), LaserBladeColor.LIGHT_BLUE);
-        buildColoringRecipe(tagToIngredient.apply(Tags.Items.DYES_YELLOW), LaserBladeColor.YELLOW);
-        buildColoringRecipe(tagToIngredient.apply(Tags.Items.DYES_LIME), LaserBladeColor.LIME);
-        buildColoringRecipe(tagToIngredient.apply(Tags.Items.DYES_PINK), LaserBladeColor.PINK);
-        buildColoringRecipe(tagToIngredient.apply(Tags.Items.DYES_GRAY), LaserBladeColor.GRAY);
-        buildColoringRecipe(tagToIngredient.apply(Tags.Items.DYES_LIGHT_GRAY), LaserBladeColor.LIGHT_GRAY);
-        buildColoringRecipe(tagToIngredient.apply(Tags.Items.DYES_CYAN), LaserBladeColor.CYAN);
-        buildColoringRecipe(tagToIngredient.apply(Tags.Items.DYES_PURPLE), LaserBladeColor.PURPLE);
-        buildColoringRecipe(tagToIngredient.apply(Tags.Items.DYES_BLUE), LaserBladeColor.BLUE);
-        buildColoringRecipe(tagToIngredient.apply(Tags.Items.DYES_BROWN), LaserBladeColor.BROWN);
-        buildColoringRecipe(tagToIngredient.apply(Tags.Items.DYES_GREEN), LaserBladeColor.GREEN);
-        buildColoringRecipe(tagToIngredient.apply(Tags.Items.DYES_RED), LaserBladeColor.RED);
-        buildColoringRecipe(tagToIngredient.apply(Tags.Items.DYES_BLACK), LaserBladeColor.BLACK);
+        buildColoringRecipe(Tags.Items.DYES_WHITE, LaserBladeColor.WHITE);
+        buildColoringRecipe(Tags.Items.DYES_ORANGE, LaserBladeColor.ORANGE);
+        buildColoringRecipe(Tags.Items.DYES_MAGENTA, LaserBladeColor.MAGENTA);
+        buildColoringRecipe(Tags.Items.DYES_LIGHT_BLUE, LaserBladeColor.LIGHT_BLUE);
+        buildColoringRecipe(Tags.Items.DYES_YELLOW, LaserBladeColor.YELLOW);
+        buildColoringRecipe(Tags.Items.DYES_LIME, LaserBladeColor.LIME);
+        buildColoringRecipe(Tags.Items.DYES_PINK, LaserBladeColor.PINK);
+        buildColoringRecipe(Tags.Items.DYES_GRAY, LaserBladeColor.GRAY);
+        buildColoringRecipe(Tags.Items.DYES_LIGHT_GRAY, LaserBladeColor.LIGHT_GRAY);
+        buildColoringRecipe(Tags.Items.DYES_CYAN, LaserBladeColor.CYAN);
+        buildColoringRecipe(Tags.Items.DYES_PURPLE, LaserBladeColor.PURPLE);
+        buildColoringRecipe(Tags.Items.DYES_BLUE, LaserBladeColor.BLUE);
+        buildColoringRecipe(Tags.Items.DYES_BROWN, LaserBladeColor.BROWN);
+        buildColoringRecipe(Tags.Items.DYES_GREEN, LaserBladeColor.GREEN);
+        buildColoringRecipe(Tags.Items.DYES_RED, LaserBladeColor.RED);
+        buildColoringRecipe(Tags.Items.DYES_BLACK, LaserBladeColor.BLACK);
 
         // Biomes
         buildColoringRecipe(Ingredient.of(Items.SCULK), LaserBladeColor.BIOME_DEEP_DARK);
@@ -172,6 +193,10 @@ public class ModRecipeProvider extends VanillaRecipeProvider {
                 .requires(ingredient)
                 .unlockedBy("has_laser_blade", this.has(ModTags.Items.LASER_BLADES))
                 .save(output, CommonClass.modLocation("blueprint/coloring/" + color.colorName()));
+    }
+
+    private void buildColoringRecipe(TagKey<Item> ingredient, LaserBladeColor color) {
+        buildColoringRecipe(Ingredient.of(items.getOrThrow(ingredient)), color);
     }
 
     private void buildRemodelRecipes() {
