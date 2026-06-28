@@ -4,7 +4,7 @@
   "key": {
     "#": "#c:ingots/iron",
     "D": "#c:gems/diamond",
-    "G": "#c:dusts/glowstone",
+    "G": "#c:glass_blocks/colorless",
     "R": "#c:dusts/redstone"
   },
   "pattern": [

@@ -1,0 +1,10 @@
+{
+  "type": "tolaserblade:crafting",
+  "ingredients": [
+    "#c:ingots/netherite",
+    "#c:ingots/netherite"
+  ],
+  "result": {
+    "id": "tolaserblade:lb_casing_fp"
+  }
+}

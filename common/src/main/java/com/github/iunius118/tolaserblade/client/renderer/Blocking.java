@@ -9,16 +9,16 @@ import net.minecraft.world.item.ItemStack;
 import org.jspecify.annotations.Nullable;
 
 public record Blocking() implements ConditionalItemModelProperty {
-	public static final MapCodec<Blocking> MAP_CODEC = MapCodec.unit(new Blocking());
+    public static final MapCodec<Blocking> MAP_CODEC = MapCodec.unit(new Blocking());
 
-	@Override
-	public boolean get(ItemStack itemStack, @Nullable ClientLevel level, @Nullable LivingEntity owner, int seed,
-					   ItemDisplayContext displayContext) {
-		return owner != null && owner.isBlocking();
-	}
+    @Override
+    public boolean get(ItemStack itemStack, @Nullable ClientLevel level, @Nullable LivingEntity owner, int seed,
+                       ItemDisplayContext displayContext) {
+        return owner != null && owner.isBlocking();
+    }
 
-	@Override
-	public MapCodec<? extends ConditionalItemModelProperty> type() {
-		return MAP_CODEC;
-	}
+    @Override
+    public MapCodec<? extends ConditionalItemModelProperty> type() {
+        return MAP_CODEC;
+    }
 }

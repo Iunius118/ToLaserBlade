@@ -1,0 +1,10 @@
+{
+  "type": "tolaserblade:crafting",
+  "ingredients": [
+    "minecraft:paper",
+    "#c:dyes/blue"
+  ],
+  "result": {
+    "id": "tolaserblade:lb_blueprint"
+  }
+}

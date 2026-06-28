@@ -1,0 +1,17 @@
+{
+  "type": "tolaserblade:coloring",
+  "base": "#tolaserblade:blueprint_can_change_color",
+  "colors": [
+    {
+      "color": -16440536
+    },
+    {
+      "color": -16711681
+    },
+    {
+      "blend_mode": "subtractive",
+      "color": -336681
+    }
+  ],
+  "ingredient": "minecraft:sculk"
+}

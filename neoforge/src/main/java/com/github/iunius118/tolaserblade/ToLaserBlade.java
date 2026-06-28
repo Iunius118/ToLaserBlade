@@ -1,6 +1,5 @@
 package com.github.iunius118.tolaserblade;
 
-import com.github.iunius118.tolaserblade.registry.NeoForgeModRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.server.packs.PackType;
 import net.minecraft.server.packs.repository.Pack;
@@ -12,14 +11,14 @@ import net.neoforged.neoforge.event.AddPackFindersEvent;
 
 @Mod(Constants.MOD_ID)
 public class ToLaserBlade {
+    public static IEventBus modEventBus;
 
     public ToLaserBlade(IEventBus modEventBus, ModContainer modContainer) {
+        ToLaserBlade.modEventBus = modEventBus;
+
         // Use NeoForge to bootstrap the Common mod.
         //Constants.LOG.info("Hello NeoForge world!");
         CommonClass.init();
-
-        // Register mod game objects
-        NeoForgeModRegistries.registerGameObjects(modEventBus);
 
         // Register mod event listeners
         modEventBus.addListener(this::addPackFinders);

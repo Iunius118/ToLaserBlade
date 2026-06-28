@@ -1,0 +1,6 @@
+{
+  "parent": "minecraft:item/generated",
+  "textures": {
+    "layer0": "tolaserblade:block/lb_blueprint_top"
+  }
+}

@@ -1,0 +1,19 @@
+{
+  "variants": {
+    "facing=east": {
+      "model": "tolaserblade:block/lb_blueprint",
+      "y": 90
+    },
+    "facing=north": {
+      "model": "tolaserblade:block/lb_blueprint"
+    },
+    "facing=south": {
+      "model": "tolaserblade:block/lb_blueprint",
+      "y": 180
+    },
+    "facing=west": {
+      "model": "tolaserblade:block/lb_blueprint",
+      "y": 270
+    }
+  }
+}

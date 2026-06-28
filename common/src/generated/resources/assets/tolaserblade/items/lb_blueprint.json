@@ -1,0 +1,19 @@
+{
+  "model": {
+    "type": "minecraft:select",
+    "cases": [
+      {
+        "model": {
+          "type": "minecraft:model",
+          "model": "tolaserblade:item/lb_blueprint_fixed"
+        },
+        "when": "fixed"
+      }
+    ],
+    "fallback": {
+      "type": "minecraft:model",
+      "model": "tolaserblade:item/lb_blueprint"
+    },
+    "property": "minecraft:display_context"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "type": "tolaserblade:crafting",
+  "ingredients": [
+    "#c:glass_blocks/colorless",
+    "#c:gems/diamond",
+    "#c:glass_blocks/colorless"
+  ],
+  "result": {
+    "id": "tolaserblade:lb_medium"
+  }
+}

@@ -5,9 +5,9 @@ import net.neoforged.neoforge.data.event.GatherDataEvent;
 
 public class ModLanguageProvider {
 
-	public static void addProviders(GatherDataEvent.Client event) {
-		event.createProvider(EnUsLanguageProvider::new);
-	}
+    public static void addProviders(GatherDataEvent.Client event) {
+        event.createProvider(EnUsLanguageProvider::new);
+    }
 
-	private ModLanguageProvider() {}
+    private ModLanguageProvider() {}
 }

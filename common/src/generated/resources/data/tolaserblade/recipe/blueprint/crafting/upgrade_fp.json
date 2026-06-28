@@ -1,0 +1,10 @@
+{
+  "type": "tolaserblade:crafting",
+  "ingredients": [
+    "tolaserblade:laser_blade",
+    "tolaserblade:lb_casing_fp"
+  ],
+  "result": {
+    "id": "tolaserblade:laser_blade_fp"
+  }
+}

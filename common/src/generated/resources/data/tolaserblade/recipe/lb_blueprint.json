@@ -1,0 +1,12 @@
+{
+  "type": "minecraft:crafting_shapeless",
+  "category": "misc",
+  "ingredients": [
+    "#tolaserblade:laser_blades",
+    "#c:dyes/blue",
+    "minecraft:paper"
+  ],
+  "result": {
+    "id": "tolaserblade:lb_blueprint"
+  }
+}

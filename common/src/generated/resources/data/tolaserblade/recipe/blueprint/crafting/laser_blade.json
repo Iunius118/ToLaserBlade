@@ -1,0 +1,12 @@
+{
+  "type": "tolaserblade:crafting",
+  "ingredients": [
+    "tolaserblade:lb_casing",
+    "tolaserblade:lb_battery",
+    "tolaserblade:lb_medium",
+    "tolaserblade:lb_emitter"
+  ],
+  "result": {
+    "id": "tolaserblade:laser_blade"
+  }
+}

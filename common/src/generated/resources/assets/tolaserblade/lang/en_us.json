@@ -1,4 +1,6 @@
 {
+  "block.tolaserblade.lb_blueprint": "Laser Blade Blueprint",
+  "container.tolaserblade.blueprint": "Laser Blade Blueprint",
   "dataPack.tolaserblade.repulsive_force.description": "[ToLaserBlade] Add Repulsive Force enchantment",
   "dataPack.tolaserblade.repulsive_force.name": "TLB Repulsive Force Pack",
   "enchantment.tolaserblade.laser_blade": "Laser Blade",
@@ -16,7 +18,12 @@
   "item.tolaserblade.lb_medium": "Laser Medium",
   "itemGroup.tolaserblade.main": "ToLaserBlade",
   "tag.entity_type.tolaserblade.sensitive_to_laser_blade": "Sensitive to Laser Blade",
+  "tag.item.tolaserblade.blueprint_can_change_color": "Blueprint Can Change Color",
   "tag.item.tolaserblade.enchantable.laser_blade": "Laser Blade Enchantable",
   "tag.item.tolaserblade.laser_blades": "Laser Blades",
+  "tag.item.tolaserblade.upgrade.laser_blade": "Laser Blade Upgrade",
+  "tag.item.tolaserblade.upgrade.light_element": "Light Element Upgrade",
+  "tag.item.tolaserblade.upgrade.looting": "Looting Upgrade",
+  "tag.item.tolaserblade.upgrade.repulsive_force": "Repulsive Force Upgrade",
   "tooltip.tolaserblade.fire_resistant": "HEAT RESISTANT 8000"
 }

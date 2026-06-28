@@ -1,0 +1,10 @@
+{
+  "type": "tolaserblade:crafting",
+  "ingredients": [
+    "#c:ingots/iron",
+    "#c:gems/diamond"
+  ],
+  "result": {
+    "id": "tolaserblade:lb_emitter"
+  }
+}

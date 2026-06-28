@@ -17,6 +17,7 @@ public class ModEntityTypeTagsProvider extends EntityTypeTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider registries) {
-        tag(ModTags.EntityTypes.SENSITIVE_TO_LASER_BLADE).addTag(EntityTypeTags.UNDEAD).addTag(EntityTypeTags.ILLAGER);
+        this.tag(ModTags.EntityTypes.SENSITIVE_TO_LASER_BLADE)
+                .addTag(EntityTypeTags.UNDEAD).addTag(EntityTypeTags.ILLAGER);
     }
 }

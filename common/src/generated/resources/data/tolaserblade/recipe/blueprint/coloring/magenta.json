@@ -1,0 +1,16 @@
+{
+  "type": "tolaserblade:coloring",
+  "base": "#tolaserblade:blueprint_can_change_color",
+  "colors": [
+    {
+      "color": -3715395
+    },
+    {
+      "color": -65281
+    },
+    {
+      "color": -65281
+    }
+  ],
+  "ingredient": "#c:dyes/magenta"
+}

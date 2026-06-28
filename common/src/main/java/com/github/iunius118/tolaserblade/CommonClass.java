@@ -1,5 +1,6 @@
 package com.github.iunius118.tolaserblade;
 
+import com.github.iunius118.tolaserblade.registry.ModRegistries;
 import net.minecraft.resources.Identifier;
 
 // This class is part of the common project meaning it is shared between all supported loaders. Code written here can only
@@ -23,6 +24,9 @@ public class CommonClass {
         //if (Services.PLATFORM.isModLoaded("tolaserblade")) {
         //    Constants.LOG.info("Hello to ToLaserBlade");
         //}
+
+        // Register mod game objects
+        ModRegistries.registerGameObjects();
     }
 
     public static Identifier modLocation(String name) {
