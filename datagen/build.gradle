@@ -36,6 +36,12 @@ neoForge {
     }
 }
 
+dependencies {
+    // JEI
+    compileOnly "mezz.jei:jei-${minecraft_version}-neoforge-api:${jei_version}"
+    runtimeOnly "mezz.jei:jei-${minecraft_version}-neoforge:${jei_version}"
+}
+
 // Implement mcgradleconventions loader attribute
 def loaderAttribute = Attribute.of('io.github.mcgradleconventions.loader', String)
 ['apiElements', 'runtimeElements', 'sourcesElements'/*, 'javadocElements'*/].each { variant ->
