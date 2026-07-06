@@ -54,7 +54,7 @@ public class ModRecipeProvider extends VanillaRecipeProvider {
                 .requires(ModTags.Items.LASER_BLADES)
                 .requires(Tags.Items.DYES_BLUE)
                 .requires(Items.PAPER)
-                .unlockedBy("has_laser_blade", this.has(ModItems.LASER_BLADE))
+                .unlockedBy("has_laser_blade", this.has(ModTags.Items.LASER_BLADES))
                 .save(output);
         // Laser Blade (Fire-Resistant)
         SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),

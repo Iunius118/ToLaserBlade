@@ -1,4 +1,4 @@
-// 26.1.2	2026-06-28T23:11:44.5709722	Recipes
+// 26.1.2	2026-07-06T21:12:23.6429705	Recipes
 887226b606b1b3038786dfdfe2876fa5b17ba16b data/tolaserblade/advancement/recipes/misc/blueprint/blending/tinted_glass.json
 10086d57266fe05071cfa624e34c20a870cb73b0 data/tolaserblade/advancement/recipes/misc/blueprint/coloring/biome_cherry_grove.json
 8152bcbf14b8f9554e9a716e591b4653eaa8b581 data/tolaserblade/advancement/recipes/misc/blueprint/coloring/biome_deep_dark.json
@@ -32,7 +32,7 @@ d3f4530f9abfbe0634013792dc6e3c941147dd57 data/tolaserblade/advancement/recipes/m
 d8beba458bf0d88cff19eddf94c4fd183e09e4ef data/tolaserblade/advancement/recipes/misc/blueprint/remodel/model_1.json
 72d9e468ffac55d1dc909e4be91dee3fe172f415 data/tolaserblade/advancement/recipes/misc/blueprint/remodel/model_2.json
 4fff1131366b27242e385d81b98d5a91eec29446 data/tolaserblade/advancement/recipes/misc/blueprint/remodel/model_526.json
-a4f45ca03fccad056c2c36824ebfaab02c60e681 data/tolaserblade/advancement/recipes/misc/lb_blueprint.json
+6b94560e0faa52530ed9fd5713937fec97858ef2 data/tolaserblade/advancement/recipes/misc/lb_blueprint.json
 3c58f1b8a1d390fec43a29976485553c556a2a99 data/tolaserblade/advancement/recipes/tools/blueprint/crafting/laser_blade.json
 4c96b018208e8b58d0b13aba9030a36c65228c2b data/tolaserblade/advancement/recipes/tools/blueprint/crafting/laser_blade_fp.json
 f2ac9727d434f9cc1ec2230295304785e9b6842a data/tolaserblade/advancement/recipes/tools/blueprint/crafting/repair.json
