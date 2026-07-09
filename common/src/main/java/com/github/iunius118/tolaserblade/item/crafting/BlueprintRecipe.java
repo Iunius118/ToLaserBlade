@@ -66,7 +66,7 @@ public abstract class BlueprintRecipe implements Recipe<BlueprintRecipeInput> {
 
     @Override
     public RecipeBookCategory recipeBookCategory() {
-        return ModRecipeBookCategories.LB_BLUEPRINT;
+        return ModRecipeBookCategories.BLUEPRINT;
     }
 
     @Override

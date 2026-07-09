@@ -66,8 +66,8 @@ public class ModRegistries {
         // Recipe book categories
         Services.PLATFORM.createModObjectRegistry(BuiltInRegistries.RECIPE_BOOK_CATEGORY, Constants.MOD_ID)
                 .registerObjects(r -> {
-                    r.register(Constants.RecipeBookCategories.LB_BLUEPRINT.getPath(),
-                            () -> ModRecipeBookCategories.LB_BLUEPRINT);
+                    r.register(Constants.RecipeBookCategories.BLUEPRINT.getPath(),
+                            () -> ModRecipeBookCategories.BLUEPRINT);
                 });
         // Menus
         Services.PLATFORM.createModObjectRegistry(BuiltInRegistries.MENU, Constants.MOD_ID)

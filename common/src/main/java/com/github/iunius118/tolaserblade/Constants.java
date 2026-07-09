@@ -48,7 +48,7 @@ public class Constants {
     }
 
     public static class RecipeBookCategories {
-        public static final Identifier LB_BLUEPRINT = CommonClass.modLocation("lb_blueprint");
+        public static final Identifier BLUEPRINT = CommonClass.modLocation("blueprint");
     }
 
     public static class Enchantments {
