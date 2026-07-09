@@ -11,10 +11,11 @@ import net.neoforged.neoforge.client.event.RegisterSpecialModelRendererEvent;
 public class ToLaserBladeClient {
 
     public ToLaserBladeClient(IEventBus modEventBus, ModContainer modContainer) {
-        modEventBus.addListener(this::onRegisterSpecialModelRenderer);
+        // Register mod event listeners
+        modEventBus.addListener(this::registerSpecialModelRenderer);
     }
 
-    private void onRegisterSpecialModelRenderer(RegisterSpecialModelRendererEvent event) {
+    private void registerSpecialModelRenderer(RegisterSpecialModelRendererEvent event) {
         event.register(CommonClass.modLocation("laser_blade"), LBSwordSpecialRenderer.Unbaked.MAP_CODEC);
     }
 }

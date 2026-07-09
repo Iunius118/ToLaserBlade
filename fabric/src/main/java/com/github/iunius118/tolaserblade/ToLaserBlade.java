@@ -1,6 +1,8 @@
 package com.github.iunius118.tolaserblade;
 
+import com.github.iunius118.tolaserblade.item.crafting.*;
 import net.fabricmc.api.ModInitializer;
+import net.fabricmc.fabric.api.recipe.v1.sync.RecipeSynchronization;
 import net.fabricmc.fabric.api.resource.v1.ResourceLoader;
 import net.fabricmc.fabric.api.resource.v1.pack.PackActivationType;
 import net.fabricmc.loader.api.FabricLoader;
@@ -19,13 +21,25 @@ public class ToLaserBlade implements ModInitializer {
 
         // Register mod event listeners
         addResourcePack();
+
+        // Synchronize recipes to client
+        synchronizeRecipeSerializer();
     }
 
-    public static void addResourcePack() {
+    private void addResourcePack() {
         Optional<ModContainer> container = FabricLoader.getInstance().getModContainer(Constants.MOD_ID);
         container.ifPresent(modContainer ->
                 ResourceLoader.registerBuiltinPack(Constants.DataPacks.REPULSIVE_FORCE.id(),
                         modContainer, Component.translatable(Constants.DataPacks.REPULSIVE_FORCE.nameKey()),
                         PackActivationType.DEFAULT_ENABLED));
+    }
+
+    private void synchronizeRecipeSerializer() {
+        RecipeSynchronization.synchronizeRecipeSerializer(BlendingRecipe.SERIALIZER);
+        RecipeSynchronization.synchronizeRecipeSerializer(ColoringRecipe.SERIALIZER);
+        RecipeSynchronization.synchronizeRecipeSerializer(CraftingRecipe.SERIALIZER);
+        RecipeSynchronization.synchronizeRecipeSerializer(EnchantmentRecipe.SERIALIZER);
+        RecipeSynchronization.synchronizeRecipeSerializer(RemodelRecipe.SERIALIZER);
+        RecipeSynchronization.synchronizeRecipeSerializer(RepairRecipe.SERIALIZER);
     }
 }
