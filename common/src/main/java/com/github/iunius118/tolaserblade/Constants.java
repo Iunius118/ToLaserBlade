@@ -36,6 +36,10 @@ public class Constants {
     }
 
     public static class RecipeTypes {
+        public static final Identifier BLUEPRINT = CommonClass.modLocation("blueprint");
+    }
+
+    public static class RecipeSerializers {
         public static final Identifier BLENDING = CommonClass.modLocation("blending");
         public static final Identifier COLORING = CommonClass.modLocation("coloring");
         public static final Identifier CRAFTING = CommonClass.modLocation("crafting");

@@ -14,7 +14,6 @@ import net.minecraft.world.inventory.*;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.RecipeHolder;
 import net.minecraft.world.item.crafting.RecipeManager;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
@@ -39,14 +38,6 @@ public class BlueprintMenu extends AbstractContainerMenu {
     private static final int INPUT_SLOT_Y  = 35;
     private static final int RESULT_SLOT_X = 134;
     private static final int RESULT_SLOT_Y = 35;
-
-    private static final List<RecipeType<? extends BlueprintRecipe>> RECIPE_SEARCH_ORDER = List.of(
-            ModRecipeTypes.CRAFTING,
-            ModRecipeTypes.ENCHANTMENT,
-            ModRecipeTypes.COLORING,
-            ModRecipeTypes.BLENDING,
-            ModRecipeTypes.REMODEL
-    );
 
     private final SimpleContainer inputContainer;
     private final ResultContainer resultContainer;
@@ -178,14 +169,7 @@ public class BlueprintMenu extends AbstractContainerMenu {
             BlueprintRecipeInput input) {
         if (level instanceof ServerLevel serverLevel) {
             RecipeManager recipeManager = serverLevel.recipeAccess();
-
-            for (var type : RECIPE_SEARCH_ORDER) {
-                var recipe = recipeManager.getRecipeFor(type, input, serverLevel);
-
-                if (recipe.isPresent()) {
-                    return recipe;
-                }
-            }
+            return recipeManager.getRecipeFor(ModRecipeTypes.BLUEPRINT, input, serverLevel);
         }
 
         return Optional.empty();
