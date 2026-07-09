@@ -62,6 +62,7 @@ public class ModRegistries {
                     r.register(Constants.RecipeSerializers.CRAFTING.getPath(), () -> CraftingRecipe.SERIALIZER);
                     r.register(Constants.RecipeSerializers.ENCHANTMENT.getPath(), () -> EnchantmentRecipe.SERIALIZER);
                     r.register(Constants.RecipeSerializers.REMODEL.getPath(), () -> RemodelRecipe.SERIALIZER);
+                    r.register(Constants.RecipeSerializers.REPAIR.getPath(), () -> RepairRecipe.SERIALIZER);
                 });
         // Recipe book categories
         Services.PLATFORM.createModObjectRegistry(BuiltInRegistries.RECIPE_BOOK_CATEGORY, Constants.MOD_ID)

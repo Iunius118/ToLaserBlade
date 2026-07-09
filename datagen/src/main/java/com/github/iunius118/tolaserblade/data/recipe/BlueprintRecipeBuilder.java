@@ -123,6 +123,24 @@ public abstract class BlueprintRecipeBuilder {
         };
     }
 
+    public static BlueprintRecipeBuilder repair(HolderGetter<Item> items, RecipeCategory category,
+                                                 float rate) {
+        return new BlueprintRecipeBuilder(items, category) {
+
+            @Override
+            protected void save(RecipeOutput output, ResourceKey<Recipe<?>> id, AdvancementHolder advancements) {
+                List<Ingredient> ingredients = ingredients();
+
+                if (ingredients.size() >= 2) {
+                    var recipe = new RepairRecipe(commonInfo(), ingredients, rate);
+                    output.accept(id, recipe, advancements);
+                } else {
+                    throw new IllegalStateException("At least 2 ingredients are required.");
+                }
+            }
+        };
+    }
+
     public BlueprintRecipeBuilder requires(Ingredient ingredient) {
         ingredients.add(ingredient);
         return this;

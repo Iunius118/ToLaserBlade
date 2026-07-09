@@ -45,6 +45,7 @@ public class Constants {
         public static final Identifier CRAFTING = CommonClass.modLocation("crafting");
         public static final Identifier ENCHANTMENT = CommonClass.modLocation("enchantment");
         public static final Identifier REMODEL = CommonClass.modLocation("remodel");
+        public static final Identifier REPAIR = CommonClass.modLocation("repair");
     }
 
     public static class RecipeBookCategories {
