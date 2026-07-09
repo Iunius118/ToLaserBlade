@@ -2,6 +2,7 @@ package com.github.iunius118.tolaserblade.item.crafting;
 
 import com.github.iunius118.tolaserblade.item.LaserBladeColor;
 import com.github.iunius118.tolaserblade.item.ModItems;
+import com.github.iunius118.tolaserblade.item.crafting.display.BlueprintRecipeDisplay;
 import com.github.iunius118.tolaserblade.item.enchantment.ModEnchantments;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
@@ -14,9 +15,8 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.ItemStackTemplate;
 import net.minecraft.world.item.component.CustomModelData;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.display.SlotDisplay;
 import net.minecraft.world.item.enchantment.Enchantments;
 import net.minecraft.world.level.Level;
 
@@ -67,8 +67,10 @@ public class CraftingRecipe extends BlueprintRecipe {
     }
 
     @Override
-    public RecipeType<? extends Recipe<BlueprintRecipeInput>> getType() {
-        return ModRecipeTypes.CRAFTING;
+    public List<BlueprintRecipeDisplay> getRecipeDisplay() {
+        return List.of(
+                BlueprintRecipeDisplay.fromIngredients(this.ingredients, new SlotDisplay.ItemStackSlotDisplay(result))
+        );
     }
 
     public static void applyGiftCode(BlueprintRecipeInput input, ItemStack result, Level level) {
