@@ -1,5 +1,7 @@
 package com.github.iunius118.tolaserblade.item.crafting;
 
+import com.github.iunius118.tolaserblade.item.crafting.display.BlueprintRecipeDisplay;
+import com.github.iunius118.tolaserblade.item.crafting.display.ModSlotDisplay;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.Holder;
@@ -8,9 +10,7 @@ import net.minecraft.network.codec.ByteBufCodecs;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.item.enchantment.EnchantmentHelper;
 import net.minecraft.world.item.enchantment.Enchantments;
@@ -82,7 +82,10 @@ public class EnchantmentRecipe extends BlueprintRecipe {
     }
 
     @Override
-    public RecipeType<? extends Recipe<BlueprintRecipeInput>> getType() {
-        return ModRecipeTypes.ENCHANTMENT;
+    public List<BlueprintRecipeDisplay> getRecipeDisplay() {
+        return List.of(
+                BlueprintRecipeDisplay.fromIngredients(ingredients,
+                        new ModSlotDisplay.EnchantmentSlotDemo(ingredients.getFirst().display(), enchantment))
+        );
     }
 }

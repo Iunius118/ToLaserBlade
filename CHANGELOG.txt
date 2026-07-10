@@ -4,7 +4,7 @@
 
 ## [Unreleased]
 
-## [17.0.0-beta.3]
+## [17.0.0-beta.4]
 - This version is not compatible with item data from 1.21.11 or earlier.
 - Many features are still unimplemented in this version.
 
@@ -19,6 +19,8 @@
   - Repulsive Force enchantment, allows Laser Blades to block attacks and increases knockback strength at higher levels.
 - Repulsive Force is provided by an independent built-in data pack and can therefore be disabled separately.
 - Add temporary recipes.
+- [Beta.4] Add JEI plugin to display mod recipes in JEI.
+- [Beta.4] Compatible with Just Enough Items (JEI) v29.12.0.40+.
 
 #### Shaped Crafting Table Recipe
     Laser Blade (# = Iron Ingot, D = Diamond, G = Glass, R = Redstone Dust)
@@ -60,6 +62,10 @@
     Laser Blade (fire-resistant)
         [Laser Blade Casing (fire-resistant)] [LB Energy Cell] [Laser Medium] [Laser Blade Emitter]
         [Laser Blade] [Laser Blade Casing (fire-resistant)] [ ] [ ]
+
+    [Beta.4] Repairing Laser Blade
+        [Laser Blade (damaged)] [Laser Blade Casing] [ ] [ ]
+        [Laser Blade (fire-resistant and damaged)] [Laser Blade Casing (fire-resistant)] [ ] [ ]
 
     Applying Laser Blade Enchantment
         [Any laser blade] [Glowstone Dust] [Block of Diamond] [Glowstone Dust]

@@ -54,7 +54,7 @@ public class ModRecipeProvider extends VanillaRecipeProvider {
                 .requires(ModTags.Items.LASER_BLADES)
                 .requires(Tags.Items.DYES_BLUE)
                 .requires(Items.PAPER)
-                .unlockedBy("has_laser_blade", this.has(ModItems.LASER_BLADE))
+                .unlockedBy("has_laser_blade", this.has(ModTags.Items.LASER_BLADES))
                 .save(output);
         // Laser Blade (Fire-Resistant)
         SmithingTransformRecipeBuilder.smithing(Ingredient.of(Items.NETHERITE_UPGRADE_SMITHING_TEMPLATE),
@@ -65,12 +65,13 @@ public class ModRecipeProvider extends VanillaRecipeProvider {
 
         /* Blueprint Recipes */
 
-        // Crafting
+        // Crafting: Blueprint
         blueprintCrafting(RecipeCategory.MISC, new ItemStackTemplate(ModItems.BL_BLUEPRINT))
                 .requires(Items.PAPER)
                 .requires(Tags.Items.DYES_BLUE)
                 .unlockedBy("has_lb_blueprint", has(ModItems.BL_BLUEPRINT))
                 .save(output, CommonClass.modLocation("blueprint/crafting/lb_blueprint"));
+        // Crafting: Parts
         blueprintCrafting(RecipeCategory.MISC, new ItemStackTemplate(ModItems.LB_CASING))
                 .requires(Tags.Items.INGOTS_IRON)
                 .requires(Tags.Items.INGOTS_IRON)
@@ -97,6 +98,7 @@ public class ModRecipeProvider extends VanillaRecipeProvider {
                 .requires(Tags.Items.GEMS_DIAMOND)
                 .unlockedBy("has_lb_blueprint", has(ModItems.BL_BLUEPRINT))
                 .save(output, CommonClass.modLocation("blueprint/crafting/lb_emitter"));
+        // Crafting: Laser Blades
         blueprintCrafting(RecipeCategory.TOOLS, new ItemStackTemplate(ModItems.LASER_BLADE))
                 .requires(ModItems.LB_CASING)
                 .requires(ModItems.LB_BATTERY)
@@ -111,27 +113,18 @@ public class ModRecipeProvider extends VanillaRecipeProvider {
                 .requires(ModItems.LB_EMITTER)
                 .unlockedBy("has_lb_blueprint", has(ModItems.BL_BLUEPRINT))
                 .save(output, CommonClass.modLocation("blueprint/crafting/laser_blade_fp"));
+        // Crafting: Upgrading
         blueprintCrafting(RecipeCategory.TOOLS, new ItemStackTemplate(ModItems.LASER_BLADE_FP))
                 .requires(ModItems.LASER_BLADE)
                 .requires(ModItems.LB_CASING_FP)
                 .unlockedBy("has_lb_blueprint", has(ModItems.BL_BLUEPRINT))
                 .save(output, CommonClass.modLocation("blueprint/crafting/upgrade_fp"));
-        blueprintCrafting(RecipeCategory.TOOLS, new ItemStackTemplate(ModItems.LASER_BLADE))
-                .requires(ModItems.LASER_BLADE)
-                .requires(ModItems.LB_CASING)
-                .unlockedBy("has_lb_blueprint", has(ModItems.BL_BLUEPRINT))
-                .save(output, CommonClass.modLocation("blueprint/crafting/repair"));
-        blueprintCrafting(RecipeCategory.TOOLS, new ItemStackTemplate(ModItems.LASER_BLADE_FP))
-                .requires(ModItems.LASER_BLADE_FP)
-                .requires(ModItems.LB_CASING_FP)
-                .unlockedBy("has_lb_blueprint", has(ModItems.BL_BLUEPRINT))
-                .save(output, CommonClass.modLocation("blueprint/crafting/repair_fp"));
 
         // Blending
         blueprintBlending(RecipeCategory.MISC)
                 .requires(ModTags.Items.LASER_BLADES)
                 .requires(Items.TINTED_GLASS)
-                .unlockedBy("has_laser_blade", this.has(ModItems.LASER_BLADE))
+                .unlockedBy("has_laser_blade", this.has(ModTags.Items.LASER_BLADES))
                 .save(output, CommonClass.modLocation("blueprint/blending/tinted_glass"));
 
         // Coloring
@@ -143,23 +136,35 @@ public class ModRecipeProvider extends VanillaRecipeProvider {
                 .requires(Tags.Items.DUSTS_GLOWSTONE)
                 .requires(ModTags.Items.LASER_BLADE_UPGRADE)
                 .requires(Tags.Items.DUSTS_GLOWSTONE)
-                .unlockedBy("has_laser_blade", this.has(ModItems.LASER_BLADE))
+                .unlockedBy("has_laser_blade", this.has(ModTags.Items.LASER_BLADES))
                 .save(output, CommonClass.modLocation("blueprint/enchantment/laser_blade"));
         blueprintEnchantment(RecipeCategory.MISC, ModEnchantments.LIGHT_ELEMENT)
                 .requires(ModTags.Items.LASER_BLADES)
                 .requires(ModTags.Items.LIGHT_ELEMENT_UPGRADE)
                 .requires(Tags.Items.GEMS_DIAMOND)
                 .requires(ModTags.Items.LIGHT_ELEMENT_UPGRADE)
-                .unlockedBy("has_laser_blade", this.has(ModItems.LASER_BLADE))
+                .unlockedBy("has_laser_blade", this.has(ModTags.Items.LASER_BLADES))
                 .save(output, CommonClass.modLocation("blueprint/enchantment/light_element"));
         blueprintEnchantment(RecipeCategory.MISC, Enchantments.LOOTING)
                 .requires(ModTags.Items.LASER_BLADES)
                 .requires(ModTags.Items.LOOTING_UPGRADE)
-                .unlockedBy("has_laser_blade", this.has(ModItems.LASER_BLADE))
+                .unlockedBy("has_laser_blade", this.has(ModTags.Items.LASER_BLADES))
                 .save(output, CommonClass.modLocation("blueprint/enchantment/looting"));
 
         // Remodel
         buildRemodelRecipes();
+
+        // Repair
+        blueprintRepair(RecipeCategory.MISC, 1)
+                .requires(ModItems.LASER_BLADE)
+                .requires(ModItems.LB_CASING)
+                .unlockedBy("has_laser_blade", this.has(ModItems.LASER_BLADE))
+                .save(output, CommonClass.modLocation("blueprint/repair/laser_blade"));
+        blueprintRepair(RecipeCategory.MISC, 1)
+                .requires(ModItems.LASER_BLADE_FP)
+                .requires(ModItems.LB_CASING_FP)
+                .unlockedBy("has_laser_blade_fp", this.has(ModItems.LASER_BLADE_FP))
+                .save(output, CommonClass.modLocation("blueprint/repair/laser_blade_fp"));
     }
 
     private void buildColoringRecipes() {
@@ -246,6 +251,10 @@ public class ModRecipeProvider extends VanillaRecipeProvider {
 
     private BlueprintRecipeBuilder blueprintRemodel(RecipeCategory category, int modelType) {
         return BlueprintRecipeBuilder.remodel(this.items, category, modelType);
+    }
+
+    private BlueprintRecipeBuilder blueprintRepair(RecipeCategory category, float rate) {
+        return BlueprintRecipeBuilder.repair(this.items, category, rate);
     }
 
     public static class Runner extends RecipeProvider.Runner {

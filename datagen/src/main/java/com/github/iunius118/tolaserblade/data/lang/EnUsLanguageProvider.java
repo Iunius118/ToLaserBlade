@@ -21,6 +21,7 @@ public class EnUsLanguageProvider extends LanguageProviderBase {
 
         // Item tooltips
         tooltipFireResistant = "HEAT RESISTANT 8000";
+        tooltipModel = "Model %s";
 
         // Tags
         tagLaserBlades = "Laser Blades";

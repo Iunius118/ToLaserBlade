@@ -1,6 +1,8 @@
 package com.github.iunius118.tolaserblade.item.crafting;
 
 import com.github.iunius118.tolaserblade.item.component.ModDataComponents;
+import com.github.iunius118.tolaserblade.item.crafting.display.BlueprintRecipeDisplay;
+import com.github.iunius118.tolaserblade.item.crafting.display.ModSlotDisplay;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
@@ -11,7 +13,6 @@ import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
@@ -49,7 +50,7 @@ public class RemodelRecipe extends BlueprintRecipe {
     @Override
     public boolean matches(BlueprintRecipeInput input, Level level) {
         if (super.matches(input, level)) {
-            return input.base().getOrDefault(ModDataComponents.MODEL, -1) != modelType;
+            return input.base().getOrDefault(ModDataComponents.MODEL, 0) != modelType;
         }
 
         return false;
@@ -68,7 +69,10 @@ public class RemodelRecipe extends BlueprintRecipe {
     }
 
     @Override
-    public RecipeType<? extends Recipe<BlueprintRecipeInput>> getType() {
-        return ModRecipeTypes.REMODEL;
+    public List<BlueprintRecipeDisplay> getRecipeDisplay() {
+        return List.of(
+                BlueprintRecipeDisplay.fromIngredients(ingredients,
+                        new ModSlotDisplay.RemodelSlotDemo(ingredients.getFirst().display(), modelType))
+        );
     }
 }

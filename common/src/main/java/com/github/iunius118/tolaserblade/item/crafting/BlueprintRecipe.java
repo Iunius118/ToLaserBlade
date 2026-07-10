@@ -1,6 +1,9 @@
 package com.github.iunius118.tolaserblade.item.crafting;
 
+import com.github.iunius118.tolaserblade.item.crafting.display.BlueprintRecipeDisplay;
+import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.*;
+import net.minecraft.world.item.crafting.display.RecipeDisplay;
 import net.minecraft.world.level.Level;
 
 import java.util.List;
@@ -12,6 +15,10 @@ public abstract class BlueprintRecipe implements Recipe<BlueprintRecipeInput> {
     protected BlueprintRecipe(Recipe.CommonInfo commonInfo, List<Ingredient> ingredients) {
         this.commonInfo = commonInfo;
         this.ingredients = ingredients;
+    }
+
+    public List<Ingredient> ingredients() {
+        return ingredients;
     }
 
     public boolean shouldConsumeIngredient() {
@@ -60,12 +67,49 @@ public abstract class BlueprintRecipe implements Recipe<BlueprintRecipeInput> {
     }
 
     @Override
+    public RecipeType<? extends Recipe<BlueprintRecipeInput>> getType() {
+        return ModRecipeTypes.BLUEPRINT;
+    }
+
+    @Override
     public RecipeBookCategory recipeBookCategory() {
-        return ModRecipeBookCategories.LB_BLUEPRINT;
+        return ModRecipeBookCategories.BLUEPRINT;
     }
 
     @Override
     public PlacementInfo placementInfo() {
         return PlacementInfo.NOT_PLACEABLE;
+    }
+
+    @Override
+    public List<RecipeDisplay> display() {
+        return getRecipeDisplay().stream().map(RecipeDisplay.class::cast).toList();
+    }
+
+    public abstract List<BlueprintRecipeDisplay> getRecipeDisplay();
+
+    public static BlueprintRecipe forDisplay(BlueprintRecipeDisplay display) {
+        return new BlueprintRecipe(null, List.of()) {
+
+            @Override
+            public ItemStack assemble(BlueprintRecipeInput input) {
+                return null;
+            }
+
+            @Override
+            public RecipeSerializer<? extends BlueprintRecipe> getSerializer() {
+                return null;
+            }
+
+            @Override
+            public List<RecipeDisplay> display() {
+                return super.display();
+            }
+
+            @Override
+            public List<BlueprintRecipeDisplay> getRecipeDisplay() {
+                return List.of(display);
+            }
+        };
     }
 }

@@ -1,11 +1,11 @@
 {
   "parent": "minecraft:recipes/root",
   "criteria": {
-    "has_lb_blueprint": {
+    "has_laser_blade_fp": {
       "conditions": {
         "items": [
           {
-            "items": "tolaserblade:lb_blueprint"
+            "items": "tolaserblade:laser_blade_fp"
           }
         ]
       },
@@ -13,7 +13,7 @@
     },
     "has_the_recipe": {
       "conditions": {
-        "recipe": "tolaserblade:blueprint/crafting/repair_fp"
+        "recipe": "tolaserblade:blueprint/repair/laser_blade_fp"
       },
       "trigger": "minecraft:recipe_unlocked"
     }
@@ -21,12 +21,12 @@
   "requirements": [
     [
       "has_the_recipe",
-      "has_lb_blueprint"
+      "has_laser_blade_fp"
     ]
   ],
   "rewards": {
     "recipes": [
-      "tolaserblade:blueprint/crafting/repair_fp"
+      "tolaserblade:blueprint/repair/laser_blade_fp"
     ]
   }
 }

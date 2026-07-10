@@ -2,19 +2,21 @@ package com.github.iunius118.tolaserblade.item.crafting;
 
 import com.github.iunius118.tolaserblade.item.component.BlendModes;
 import com.github.iunius118.tolaserblade.item.component.ModDataComponents;
+import com.github.iunius118.tolaserblade.item.crafting.display.BlueprintRecipeDisplay;
+import com.github.iunius118.tolaserblade.item.crafting.display.ModSlotDisplay;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.network.RegistryFriendlyByteBuf;
 import net.minecraft.network.codec.StreamCodec;
 import net.minecraft.world.item.ItemStack;
 import net.minecraft.world.item.crafting.Ingredient;
-import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.display.SlotDisplay;
 import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.IntStream;
 
 public class BlendingRecipe extends BlueprintRecipe {
     public static final int PARTS_MAX = BlueprintRecipeInput.SIZE - 1;
@@ -112,7 +114,26 @@ public class BlendingRecipe extends BlueprintRecipe {
     }
 
     @Override
-    public RecipeType<? extends Recipe<BlueprintRecipeInput>> getType() {
-        return ModRecipeTypes.BLENDING;
+    public List<BlueprintRecipeDisplay> getRecipeDisplay() {
+        return IntStream.range(0, PARTS_MAX - 1)
+                .mapToObj(part -> {
+                    SlotDisplay baseSlot = ingredients.getFirst().display();
+                    List<SlotDisplay> inputSlots = new ArrayList<>();
+
+                    for (int i = 0; i < BlueprintRecipeInput.SIZE; i++) {
+                        if (i == 0) {
+                            inputSlots.add(baseSlot);
+                        } else if (i == part + 2) {
+                            inputSlots.add(ingredients.get(1).display());
+                        } else {
+                            inputSlots.add(SlotDisplay.Empty.INSTANCE);
+                        }
+                    }
+
+                    return BlueprintRecipeDisplay.of(
+                            inputSlots,
+                            new ModSlotDisplay.BlendingSlotDemo(baseSlot, part));
+                })
+                .toList();
     }
 }

@@ -36,15 +36,20 @@ public class Constants {
     }
 
     public static class RecipeTypes {
+        public static final Identifier BLUEPRINT = CommonClass.modLocation("blueprint");
+    }
+
+    public static class RecipeSerializers {
         public static final Identifier BLENDING = CommonClass.modLocation("blending");
         public static final Identifier COLORING = CommonClass.modLocation("coloring");
         public static final Identifier CRAFTING = CommonClass.modLocation("crafting");
         public static final Identifier ENCHANTMENT = CommonClass.modLocation("enchantment");
         public static final Identifier REMODEL = CommonClass.modLocation("remodel");
+        public static final Identifier REPAIR = CommonClass.modLocation("repair");
     }
 
     public static class RecipeBookCategories {
-        public static final Identifier LB_BLUEPRINT = CommonClass.modLocation("lb_blueprint");
+        public static final Identifier BLUEPRINT = CommonClass.modLocation("blueprint");
     }
 
     public static class Enchantments {

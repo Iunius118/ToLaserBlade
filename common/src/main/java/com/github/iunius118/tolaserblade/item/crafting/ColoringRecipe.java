@@ -2,6 +2,8 @@ package com.github.iunius118.tolaserblade.item.crafting;
 
 import com.github.iunius118.tolaserblade.item.component.BlendModes;
 import com.github.iunius118.tolaserblade.item.component.ModDataComponents;
+import com.github.iunius118.tolaserblade.item.crafting.display.BlueprintRecipeDisplay;
+import com.github.iunius118.tolaserblade.item.crafting.display.ModSlotDisplay;
 import com.github.iunius118.tolaserblade.tag.ModTags;
 import com.mojang.serialization.Codec;
 import com.mojang.serialization.MapCodec;
@@ -16,12 +18,13 @@ import net.minecraft.world.item.component.CustomModelData;
 import net.minecraft.world.item.crafting.Ingredient;
 import net.minecraft.world.item.crafting.Recipe;
 import net.minecraft.world.item.crafting.RecipeSerializer;
-import net.minecraft.world.item.crafting.RecipeType;
+import net.minecraft.world.item.crafting.display.SlotDisplay;
 import net.minecraft.world.level.Level;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.IntStream;
 
 public class ColoringRecipe extends BlueprintRecipe {
     public static final int PARTS_MAX = BlueprintRecipeInput.SIZE - 1;
@@ -166,8 +169,27 @@ public class ColoringRecipe extends BlueprintRecipe {
     }
 
     @Override
-    public RecipeType<? extends Recipe<BlueprintRecipeInput>> getType() {
-        return ModRecipeTypes.COLORING;
+    public List<BlueprintRecipeDisplay> getRecipeDisplay() {
+        return IntStream.range(0, PARTS_MAX)
+                .mapToObj(part -> {
+                    SlotDisplay baseSlot = ingredients.getFirst().display();
+                    List<SlotDisplay> inputSlots = new ArrayList<>();
+
+                    for (int i = 0; i < BlueprintRecipeInput.SIZE; i++) {
+                        if (i == 0) {
+                            inputSlots.add(baseSlot);
+                        } else if (i == part + 1) {
+                            inputSlots.add(ingredients.get(1).display());
+                        } else {
+                            inputSlots.add(SlotDisplay.Empty.INSTANCE);
+                        }
+                    }
+
+                    return BlueprintRecipeDisplay.of(
+                            inputSlots,
+                            new ModSlotDisplay.ColoringSlotDemo(baseSlot, colors, part));
+                })
+                .toList();
     }
 
     public record PartColor(int color, BlendMode blendMode) {

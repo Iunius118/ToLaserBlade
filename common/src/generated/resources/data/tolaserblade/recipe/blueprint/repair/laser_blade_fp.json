@@ -1,10 +1,8 @@
 {
-  "type": "tolaserblade:crafting",
+  "type": "tolaserblade:repair",
   "ingredients": [
     "tolaserblade:laser_blade_fp",
     "tolaserblade:lb_casing_fp"
   ],
-  "result": {
-    "id": "tolaserblade:laser_blade_fp"
-  }
+  "rate": 1.0
 }

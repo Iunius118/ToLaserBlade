@@ -29,6 +29,7 @@ public abstract class LanguageProviderBase extends LanguageProvider {
     public String laserBladeCasingFp;
     // Item tooltips
     public String tooltipFireResistant;
+    public String tooltipModel;
     // Tags
     public String tagLaserBlades;
     public String tagLaserBladeEnchantable;
@@ -75,6 +76,7 @@ public abstract class LanguageProviderBase extends LanguageProvider {
 
         // Item tooltips
         add("tooltip.tolaserblade.fire_resistant", tooltipFireResistant);
+        add("tooltip.tolaserblade.model", tooltipModel);
 
         // Tags
         add(ModTags.Items.LASER_BLADES, tagLaserBlades);

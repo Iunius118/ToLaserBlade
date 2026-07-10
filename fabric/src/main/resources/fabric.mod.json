@@ -23,6 +23,9 @@
       "com.github.iunius118.tolaserblade.ToLaserBladeClient"
     ],
     "fabric-datagen": [
+    ],
+    "jei_mod_plugin" : [
+      "com.github.iunius118.tolaserblade.integration.jei.JEIModPlugin"
     ]
   },
   "mixins": [

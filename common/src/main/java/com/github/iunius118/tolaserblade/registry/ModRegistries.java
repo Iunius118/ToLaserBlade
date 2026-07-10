@@ -52,26 +52,23 @@ public class ModRegistries {
         // Recipe types
         Services.PLATFORM.createModObjectRegistry(BuiltInRegistries.RECIPE_TYPE, Constants.MOD_ID)
                 .registerObjects(r -> {
-                    r.register(Constants.RecipeTypes.BLENDING.getPath(), () -> ModRecipeTypes.BLENDING);
-                    r.register(Constants.RecipeTypes.COLORING.getPath(), () -> ModRecipeTypes.COLORING);
-                    r.register(Constants.RecipeTypes.CRAFTING.getPath(), () -> ModRecipeTypes.CRAFTING);
-                    r.register(Constants.RecipeTypes.ENCHANTMENT.getPath(), () -> ModRecipeTypes.ENCHANTMENT);
-                    r.register(Constants.RecipeTypes.REMODEL.getPath(), () -> ModRecipeTypes.REMODEL);
+                    r.register(Constants.RecipeTypes.BLUEPRINT.getPath(), () -> ModRecipeTypes.BLUEPRINT);
                 });
         // Recipe Serializers
         Services.PLATFORM.createModObjectRegistry(BuiltInRegistries.RECIPE_SERIALIZER, Constants.MOD_ID)
                 .registerObjects(r -> {
-                    r.register(Constants.RecipeTypes.BLENDING.getPath(), () -> BlendingRecipe.SERIALIZER);
-                    r.register(Constants.RecipeTypes.COLORING.getPath(), () -> ColoringRecipe.SERIALIZER);
-                    r.register(Constants.RecipeTypes.CRAFTING.getPath(), () -> CraftingRecipe.SERIALIZER);
-                    r.register(Constants.RecipeTypes.ENCHANTMENT.getPath(), () -> EnchantmentRecipe.SERIALIZER);
-                    r.register(Constants.RecipeTypes.REMODEL.getPath(), () -> RemodelRecipe.SERIALIZER);
+                    r.register(Constants.RecipeSerializers.BLENDING.getPath(), () -> BlendingRecipe.SERIALIZER);
+                    r.register(Constants.RecipeSerializers.COLORING.getPath(), () -> ColoringRecipe.SERIALIZER);
+                    r.register(Constants.RecipeSerializers.CRAFTING.getPath(), () -> CraftingRecipe.SERIALIZER);
+                    r.register(Constants.RecipeSerializers.ENCHANTMENT.getPath(), () -> EnchantmentRecipe.SERIALIZER);
+                    r.register(Constants.RecipeSerializers.REMODEL.getPath(), () -> RemodelRecipe.SERIALIZER);
+                    r.register(Constants.RecipeSerializers.REPAIR.getPath(), () -> RepairRecipe.SERIALIZER);
                 });
         // Recipe book categories
         Services.PLATFORM.createModObjectRegistry(BuiltInRegistries.RECIPE_BOOK_CATEGORY, Constants.MOD_ID)
                 .registerObjects(r -> {
-                    r.register(Constants.RecipeBookCategories.LB_BLUEPRINT.getPath(),
-                            () -> ModRecipeBookCategories.LB_BLUEPRINT);
+                    r.register(Constants.RecipeBookCategories.BLUEPRINT.getPath(),
+                            () -> ModRecipeBookCategories.BLUEPRINT);
                 });
         // Menus
         Services.PLATFORM.createModObjectRegistry(BuiltInRegistries.MENU, Constants.MOD_ID)
