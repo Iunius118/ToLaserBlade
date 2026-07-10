@@ -37,6 +37,7 @@ jobs:
         with:
           draft: true
           files: |
+            common/build/libs/*.jar
             fabric/build/libs/*.jar
             forge/build/libs/*.jar
             neoforge/build/libs/*.jar
