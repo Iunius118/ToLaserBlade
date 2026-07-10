@@ -1,5 +1,6 @@
 package com.github.iunius118.tolaserblade.item;
 
+import com.github.iunius118.tolaserblade.item.component.ModDataComponents;
 import com.github.iunius118.tolaserblade.item.enchantment.ModEnchantments;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
@@ -119,6 +120,13 @@ public class LBSwordItem  extends Item {
         if (fireResistant) {
             builder.accept(Component.translatable("tooltip.tolaserblade.fire_resistant")
                     .withStyle(ChatFormatting.GOLD));
+        }
+
+        int modelType = itemStack.getOrDefault(ModDataComponents.MODEL, -1);
+
+        if (modelType >= 0) {
+            builder.accept(Component.translatable("tooltip.tolaserblade.model", modelType)
+                    .withStyle(ChatFormatting.DARK_GRAY));
         }
     }
 }
