@@ -4,7 +4,6 @@ import com.github.iunius118.tolaserblade.api.ToLaserBladeAPI;
 import com.github.iunius118.tolaserblade.client.gui.BlueprintScreen;
 import com.github.iunius118.tolaserblade.client.model.LaserBladeModelManager;
 import com.github.iunius118.tolaserblade.client.renderer.LBSwordSpecialRenderer;
-import com.github.iunius118.tolaserblade.integration.jei.JEIModPlugin;
 import com.github.iunius118.tolaserblade.item.crafting.ModRecipeManager;
 import com.github.iunius118.tolaserblade.menu.ModMenuTypes;
 import net.fabricmc.api.ClientModInitializer;
@@ -55,12 +54,5 @@ public class ToLaserBladeClient implements ClientModInitializer {
 
     private void onRecipeSynchronized(Minecraft client, SynchronizedRecipes recipes) {
         ModRecipeManager.setClientSyncedRecipes(RecipeMap.create(recipes.recipes()));
-        JEIModPlugin.registrationPhase = JEIModPlugin.Phase.BEFORE_REGISTRATION;
-
-        if (JEIModPlugin.recipeRegisters != null) {
-            // If JEIModPlugin.registerRecipes() is called before recipe synchronization, register them again
-            JEIModPlugin.recipeRegisters.run();
-            JEIModPlugin.recipeRegisters = null;
-        }
     }
 }

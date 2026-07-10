@@ -20,10 +20,6 @@ import org.jspecify.annotations.Nullable;
 public class JEIModPlugin implements IModPlugin {
     public static final Identifier UID = CommonClass.modLocation("main");
 
-    public static Phase registrationPhase = Phase.BEFORE_RECIPE_SYNC;
-    @Nullable
-    public static Runnable recipeRegisters;
-
     @Nullable
     private IJeiRuntime jeiRuntime;
     @Nullable
@@ -43,9 +39,9 @@ public class JEIModPlugin implements IModPlugin {
 
     @Override
     public void registerRecipes(IRecipeRegistration registration) {
-        if (registrationPhase == Phase.BEFORE_RECIPE_SYNC) {
+        if (ModRecipeManager.registrationPhase == ModRecipeManager.Phase.BEFORE_RECIPE_SYNC) {
             // Provide re-registration method, as this may have been called before recipe synchronization
-            recipeRegisters = () -> this.registerRecipes(registration);
+            ModRecipeManager.recipeRegister = () -> this.registerRecipes(registration);
             return;
         }
 
@@ -56,7 +52,7 @@ public class JEIModPlugin implements IModPlugin {
 
         var blueprintRecipeHolders = blueprintCategory.getRecipeHolders();
         registration.addRecipes(BlueprintRecipeCategory.RECIPE_HOLDER_TYPE, blueprintRecipeHolders);
-        registrationPhase = Phase.AFTER_REGISTRATION;
+        ModRecipeManager.registrationPhase = ModRecipeManager.Phase.AFTER_REGISTRATION;
     }
 
     @Override
@@ -84,18 +80,12 @@ public class JEIModPlugin implements IModPlugin {
 
     @Override
     public void onRuntimeUnavailable() {
-        registrationPhase = Phase.BEFORE_RECIPE_SYNC;
+        ModRecipeManager.registrationPhase = ModRecipeManager.Phase.BEFORE_RECIPE_SYNC;
     }
 
     public JEIModPlugin() {
         if (Services.PLATFORM.isDevelopmentEnvironment()) {
             Constants.LOG.info("JEI plugin ({}) is loaded on {}", getPluginUid(), Services.PLATFORM.getPlatformName());
         }
-    }
-
-    public enum Phase {
-        BEFORE_RECIPE_SYNC,
-        BEFORE_REGISTRATION,
-        AFTER_REGISTRATION
     }
 }

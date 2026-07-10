@@ -10,10 +10,20 @@ import java.util.Optional;
 public class ModRecipeManager {
     @Nullable
     private static ClientSyncedRecipes clientSyncedRecipes;
+    public static Phase registrationPhase = Phase.BEFORE_RECIPE_SYNC;
+    @Nullable
+    public static Runnable recipeRegister;
 
-    public static void setClientSyncedRecipes(RecipeMap clientSyncedRecipes) {
+    public static void setClientSyncedRecipes(RecipeMap syncedRecipes) {
         var connectionId = getRemoteConnectionId();
-        ModRecipeManager.clientSyncedRecipes = new ClientSyncedRecipes(clientSyncedRecipes, connectionId);
+        clientSyncedRecipes = new ClientSyncedRecipes(syncedRecipes, connectionId);
+        registrationPhase = Phase.BEFORE_REGISTRATION;
+
+        if (recipeRegister != null) {
+            // If JEIModPlugin.registerRecipes() is called before recipe synchronization, register them again
+            recipeRegister.run();
+            recipeRegister = null;
+        }
     }
 
     public static RecipeMap getClientSyncedRecipes() {
@@ -37,5 +47,11 @@ public class ModRecipeManager {
     }
 
     record ClientSyncedRecipes(RecipeMap recipeMap, String connectionId) {
+    }
+
+    public enum Phase {
+        BEFORE_RECIPE_SYNC,
+        BEFORE_REGISTRATION,
+        AFTER_REGISTRATION
     }
 }
