@@ -4,11 +4,13 @@ ToLaserBlade v17.0.0
 
 ## Items
 
+With Just Enough Items (JEI) installed, this mod's recipes can be viewed in JEI.
+
 ### Laser Blade
 
-Recipes
+Crafting Recipes
 
-    Crafting Table (# = Iron Ingot, D = Diamond, G = Glowstone Dust, R = Redstone Dust)
+    Crafting Table (# = Iron Ingot, D = Diamond, G = Glass, R = Redstone Dust)
         G # D
         # D #
         R # G
@@ -17,9 +19,31 @@ Recipes
         Laser Blade Casing + LB Energy Cell + Laser Medium + Laser Blade Emitter
         Laser Blade Casing (named GIFT) + LB Energy Cell + Laser Medium + Laser Blade Emitter
 
+Repair Recipe
+
+    Laser Blade Blueprint
+        Laser Blade (damaged) + Laser Blade Casing + (empty) + (empty)
+
+Coloring Recipes
+
+    Laser Blade Blueprint
+        Laser Blade + Any dye + (empty) + (empty) -> Changing grip color
+        Laser Blade + (empty) + Any dye + (empty) -> Changing outer blade color
+        Laser Blade + (empty) + (empty) + Any dye -> Changing inner blade color
+        Laser Blade + (empty) + Tinted Glass + (empty) -> Switching blend mode of outer blade
+        Laser Blade + (empty) + (empty) + Tinted Glass -> Switching blend mode of inner blade
+
+Remodel Recipes
+
+    Laser Blade Blueprint
+        Laser Blade + Glass + (empty) + (empty) -> Model #0
+        Laser Blade + Sand + (empty) + (empty) -> Model #1
+        Laser Blade + Sandstone + (empty) + (empty) -> Model #2
+        Laser Blade + Dirt + (empty) + (empty) -> Model #526
+
 ### Laser Blade (Fire-Resistant)
 
-Recipes
+Crafting Recipes
 
     Smithing Table
         Netherite Upgrade + Laser Blade + Netherite Ingot
@@ -28,12 +52,34 @@ Recipes
         Laser Blade Casing (fire-resistant) + LB Energy Cell + Laser Medium + Laser Blade Emitter
         Laser Blade + Laser Blade Casing (fire-resistant) + (empty) + (empty)
 
+Repair Recipe
+
+    Laser Blade Blueprint
+        Laser Blade (fire-resistant and damaged) + Laser Blade Casing (fire-resistant) + (empty) + (empty)
+
+Coloring Recipes
+
+    Laser Blade Blueprint
+        Laser Blade (fire-resistant) + Any dye + (empty) + (empty) -> Changing grip color
+        Laser Blade (fire-resistant) + (empty) + Any dye + (empty) -> Changing outer blade color
+        Laser Blade (fire-resistant) + (empty) + (empty) + Any dye -> Changing inner blade color
+        Laser Blade (fire-resistant) + (empty) + Tinted Glass + (empty) -> Switching blend mode of outer blade
+        Laser Blade (fire-resistant) + (empty) + (empty) + Tinted Glass -> Switching blend mode of inner blade
+
+Remodel Recipes
+
+    Laser Blade Blueprint
+        Laser Blade (fire-resistant) + Glass + (empty) + (empty) -> Model #0
+        Laser Blade (fire-resistant) + Sand + (empty) + (empty) -> Model #1
+        Laser Blade (fire-resistant) + Sandstone + (empty) + (empty) -> Model #2
+        Laser Blade (fire-resistant) + Dirt + (empty) + (empty) -> Model #526
+
 ### Laser Blade Blueprint
 
 This item can be placed by holding it in tne hand and right-clicking on the ground.
 Right-clicking on the placed blueprint will open the GUI for upgrading laser blades.
 
-Recipes
+Crafting Recipes
 
     Crafting Table (Shapeless)
         Laser Blade, Blue Dye, and Paper
@@ -43,35 +89,35 @@ Recipes
 
 ### Laser Blade Casing
 
-Recipe
+Crafting Recipe
 
     Laser Blade Blueprint
         Iron Ingot + Iron Ingot + (empty) + (empty)
 
 ### Laser Blade Casing (fire-resistant)
 
-Recipe
+Crafting Recipe
 
     Laser Blade Blueprint
         Netherite Ingot + Netherite Ingot + (empty) + (empty)
 
 ### LB Energy Cell
 
-Recipe
+Crafting Recipe
 
     Laser Blade Blueprint
         Iron Ingot + Redstone Dust + (empty) + (empty)
 
 ### Laser Medium
 
-Recipe
+Crafting Recipe
 
     Laser Blade Blueprint
         Glass + Diamond + Glass + (empty)
 
 ### Laser Blade Emitter
 
-Recipe
+Crafting Recipe
 
     Laser Blade Blueprint
         Iron Ingot + Diamond + (empty) + (empty)
@@ -85,7 +131,7 @@ Add 3 enchantments that can be applied to laser blades using enchanting table.
 
 Increases attack damage and attack speed of the weapon.
 
-Recipe
+Enchantment Recipe
 
     Laser Blade Blueprint
         Any laser blade + Glowstone Dust + Block of Diamond + Glowstone Dust
@@ -94,7 +140,7 @@ Recipe
 
 Increases damage against undead mobs and illagers.
 
-Recipe
+Enchantment Recipe
 
     Laser Blade Blueprint
         Any laser blade + Glowstone + Diamond + Glowstone
@@ -104,7 +150,7 @@ Recipe
 Allows Laser Blades to block attacks and increases knockback strength at higher levels.
 Repulsive Force is provided by an independent built-in data pack and can therefore be disabled separately.
 
-Recipe
+Enchantment Recipe
 
     Laser Blade Blueprint
         Any laser blade + Iron Ingot + Diamond + Block of Gold
