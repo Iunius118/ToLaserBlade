@@ -116,7 +116,6 @@ public class BlueprintMenu extends AbstractContainerMenu {
         }
 
         this.addStandardInventorySlots(inventory, PLAYER_INV_X, PLAYER_INV_Y);
-
     }
 
     private boolean isCraftingRecipe() {
@@ -243,6 +242,6 @@ public class BlueprintMenu extends AbstractContainerMenu {
     @Override
     public void removed(Player player) {
         super.removed(player);
-        clearContainer(player, inputContainer);
+        this.access.execute((level, pos) -> this.clearContainer(player, this.inputContainer));
     }
 }

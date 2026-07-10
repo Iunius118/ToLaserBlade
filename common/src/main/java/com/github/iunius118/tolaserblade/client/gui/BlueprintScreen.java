@@ -8,11 +8,8 @@ import net.minecraft.client.renderer.RenderPipelines;
 import net.minecraft.network.chat.Component;
 import net.minecraft.resources.Identifier;
 import net.minecraft.world.entity.player.Inventory;
-import net.minecraft.world.inventory.AbstractContainerMenu;
-import net.minecraft.world.inventory.ContainerListener;
-import net.minecraft.world.item.ItemStack;
 
-public class BlueprintScreen extends AbstractContainerScreen<BlueprintMenu> implements ContainerListener {
+public class BlueprintScreen extends AbstractContainerScreen<BlueprintMenu> {
     // GUI texture
     private static final Identifier TEXTURE = CommonClass.modLocation("textures/gui/blueprint.png");
 
@@ -23,7 +20,6 @@ public class BlueprintScreen extends AbstractContainerScreen<BlueprintMenu> impl
     @Override
     protected void init() {
         super.init();
-        this.menu.addSlotListener(this);
     }
 
     @Override
@@ -33,15 +29,5 @@ public class BlueprintScreen extends AbstractContainerScreen<BlueprintMenu> impl
         int y = (this.height - this.imageHeight) / 2;
         // Render background texture
         graphics.blit(RenderPipelines.GUI_TEXTURED, TEXTURE, x, y, 0F, 0F, this.imageWidth, this.imageHeight, 256, 256);
-    }
-
-    @Override
-    public void slotChanged(AbstractContainerMenu container, int slotIndex, ItemStack itemStack) {
-
-    }
-
-    @Override
-    public void dataChanged(AbstractContainerMenu container, int id, int value) {
-
     }
 }
