@@ -3,6 +3,7 @@ package com.github.iunius118.tolaserblade.item.crafting.display;
 import com.github.iunius118.tolaserblade.item.component.BlendModes;
 import com.github.iunius118.tolaserblade.item.component.ModDataComponents;
 import com.github.iunius118.tolaserblade.item.crafting.ColoringRecipe;
+import com.github.iunius118.tolaserblade.tag.ModTags;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.util.context.ContextMap;
@@ -31,6 +32,8 @@ public class ModSlotDisplay {
 
             List<Boolean> flags = new ArrayList<>();
             List<Integer> colors = new ArrayList<>();
+            // Colors for items that do not support blend modes component
+            List<Integer> colors2 = new ArrayList<>();
             List<Boolean> modes = new ArrayList<>();
 
             for (int i = 0; i < partColors.size(); i++) {
@@ -38,14 +41,24 @@ public class ModSlotDisplay {
 
                 if (i == part) {
                     flags.add(true);
-                    colors.add(partColor.color());
+                    int newColor = partColor.color();
+                    colors.add(newColor);
 
                     if (i > 0) {
-                        modes.add(partColor.blendMode() == ColoringRecipe.PartColor.BlendMode.SUBTRACTIVE);
+                        if (partColor.blendMode() == ColoringRecipe.PartColor.BlendMode.SUBTRACTIVE) {
+                            modes.add(true);
+                            // Add inverted color
+                            newColor = (~(newColor & 0xFFFFFF)) | (newColor & 0xFF000000);
+                        } else {
+                            modes.add(false);
+                        }
                     }
+
+                    colors2.add(newColor);
                 } else {
                     flags.add(false);
                     colors.add(-1);
+                    colors2.add(-1);
 
                     if (i > 0) {
                         modes.add(false);
@@ -54,14 +67,19 @@ public class ModSlotDisplay {
             }
 
             var customModelData = new CustomModelData(List.of(), flags, List.of(), colors);
+            var customModelData2 = new CustomModelData(List.of(), flags, List.of(), colors2);
             var blendModes = new BlendModes(modes);
             List<ItemStack> targetItems = target.resolveForStacks(context);
             return targetItems.stream()
                     .filter(Predicate.not(ItemStack::isEmpty))
                     .map(ItemStack::copy)
                     .peek(s -> {
-                        s.set(DataComponents.CUSTOM_MODEL_DATA, customModelData);
-                        s.set(ModDataComponents.BLEND_MODES, blendModes);
+                        if (s.is(ModTags.Items.LASER_BLADES)) {
+                            s.set(DataComponents.CUSTOM_MODEL_DATA, customModelData);
+                            s.set(ModDataComponents.BLEND_MODES, blendModes);
+                        } else {
+                            s.set(DataComponents.CUSTOM_MODEL_DATA, customModelData2);
+                        }
                     })
                     .map(stacks::forStack);
         }
