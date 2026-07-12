@@ -12,7 +12,7 @@
 - Laser Blade items.
 - Laser blade part items.
 - Laser Blade Blueprint block and its GUI for upgrading laser blades.
-  - Place a Laser Blade Blueprint and right-click on it to open the GUI.
+  - Place a Laser Blade Blueprint on the ground and right-click on it to open the GUI.
 - Add 3 enchantments that can be applied to laser blades using laser blade blueprint GUI.
   - Laser Blade enchantment, increases attack damage and attack speed of the weapon.
   - Light Element enchantment, increases damage against undead mobs and illagers.
