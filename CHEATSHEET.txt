@@ -154,3 +154,10 @@ Enchantment Recipe
 
     Laser Blade Blueprint
         Any laser blade + Iron Ingot + Diamond + Block of Gold
+
+## Sound Events
+
+- `tolaserblade:item.laser_blade.swing` - Plays when a laser blade is swung.
+- `tolaserblade:item.laser_blade.hit` - Plays when a laser blade hits an entity.
+- `tolaserblade:item.laser_blade.block` - Plays when a laser blade blocks an attack.
+- `tolaserblade:item.laser_blade.break` - Plays when a laser blade guard is broken.

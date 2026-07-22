@@ -4,7 +4,7 @@
 
 ## [Unreleased]
 
-## [17.0.0-beta.4]
+## [17.0.0-beta.5]
 - This version is not compatible with item data from 1.21.11 or earlier.
 - Many features are still unimplemented in this version.
 
@@ -18,6 +18,11 @@
   - Light Element enchantment, increases damage against undead mobs and illagers.
   - Repulsive Force enchantment, allows Laser Blades to block attacks and increases knockback strength at higher levels.
 - Repulsive Force is provided by an independent built-in data pack and can therefore be disabled separately.
+- [Beta.5] Add 4 sound events for laser blades.
+  - `tolaserblade:item.laser_blade.swing` - Plays when a laser blade is swung.
+  - `tolaserblade:item.laser_blade.hit` - Plays when a laser blade hits an entity.
+  - `tolaserblade:item.laser_blade.block` - Plays when a laser blade blocks an attack.
+  - `tolaserblade:item.laser_blade.break` - Plays when a laser blade guard is broken.
 - Add temporary recipes.
 - [Beta.4] Add JEI plugin to display mod recipes in JEI.
 - [Beta.4] Compatible with Just Enough Items (JEI) v29.12.0.40+.
