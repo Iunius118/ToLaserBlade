@@ -41,5 +41,6 @@ public class ToLaserBlade {
         // Assets
         event.createProvider(ModModelProvider::new);
         ModLanguageProvider.addProviders(event);
+        event.createProvider(ModSoundDefinitionsProvider::new);
     }
 }

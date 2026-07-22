@@ -1,0 +1,32 @@
+{
+  "item.laser_blade.block": {
+    "replace": true,
+    "sounds": [
+      {
+        "type": "event",
+        "name": "item.shield.block"
+      }
+    ]
+  },
+  "item.laser_blade.break": {
+    "replace": true,
+    "sounds": [
+      {
+        "type": "event",
+        "name": "item.shield.break"
+      }
+    ]
+  },
+  "item.laser_blade.hit": {
+    "replace": true,
+    "sounds": [
+      "tolaserblade:item/laser_blade/hit"
+    ]
+  },
+  "item.laser_blade.swing": {
+    "replace": true,
+    "sounds": [
+      "tolaserblade:item/laser_blade/swing"
+    ]
+  }
+}

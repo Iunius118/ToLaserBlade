@@ -1,10 +1,10 @@
 package com.github.iunius118.tolaserblade.item;
 
+import com.github.iunius118.tolaserblade.sounds.ModSoundEvents;
 import net.minecraft.core.HolderSet;
 import net.minecraft.core.component.DataComponentInitializers;
 import net.minecraft.core.component.DataComponents;
 import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.sounds.SoundEvents;
 import net.minecraft.tags.BlockTags;
 import net.minecraft.tags.DamageTypeTags;
 import net.minecraft.tags.ItemTags;
@@ -90,8 +90,8 @@ public class ModToolMaterials {
                 List.of(new BlocksAttacks.DamageReduction(90.0F, Optional.empty(), 0.0F, 1.0F)),
                 new BlocksAttacks.ItemDamageFunction(3.0F, 1.0F, 1.0F),
                 Optional.of(context.getOrThrow(DamageTypeTags.BYPASSES_SHIELD)),
-                Optional.of(SoundEvents.SHIELD_BLOCK),
-                Optional.of(SoundEvents.SHIELD_BREAK)
+                Optional.of(ModSoundEvents.ITEM_LASER_BLADE_BLOCK),
+                Optional.of(ModSoundEvents.ITEM_LASER_BLADE_BREAK)
         );
     }
 }
