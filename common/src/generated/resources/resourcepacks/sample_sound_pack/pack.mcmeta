@@ -1,0 +1,9 @@
+{
+  "pack": {
+    "description": {
+      "translate": "dataPack.tolaserblade.sample_sound_pack.description"
+    },
+    "max_format": 84,
+    "min_format": 84
+  }
+}

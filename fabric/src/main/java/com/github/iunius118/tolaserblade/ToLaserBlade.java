@@ -28,10 +28,17 @@ public class ToLaserBlade implements ModInitializer {
 
     private void addResourcePack() {
         Optional<ModContainer> container = FabricLoader.getInstance().getModContainer(Constants.MOD_ID);
-        container.ifPresent(modContainer ->
-                ResourceLoader.registerBuiltinPack(Constants.DataPacks.REPULSIVE_FORCE.id(),
-                        modContainer, Component.translatable(Constants.DataPacks.REPULSIVE_FORCE.nameKey()),
-                        PackActivationType.DEFAULT_ENABLED));
+        // Register built-in data/resource packs
+        container.ifPresent(modContainer -> {
+            // Repulsive Force Pack (Server Data Pack)
+            ResourceLoader.registerBuiltinPack(Constants.DataPacks.REPULSIVE_FORCE.id(),
+                    modContainer, Component.translatable(Constants.DataPacks.REPULSIVE_FORCE.nameKey()),
+                    PackActivationType.DEFAULT_ENABLED);
+            // Sample Sound Pack (Client Resource Pack)
+            ResourceLoader.registerBuiltinPack(Constants.DataPacks.SAMPLE_SOUND_PACK.id(),
+                    modContainer, Component.translatable(Constants.DataPacks.SAMPLE_SOUND_PACK.nameKey()),
+                    PackActivationType.NORMAL);
+        });
     }
 
     private void synchronizeRecipeSerializer() {

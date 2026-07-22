@@ -81,6 +81,7 @@ public class Constants {
 
     public record DataPacks(Identifier id, String nameKey, String descriptionKey) {
         public static final DataPacks REPULSIVE_FORCE = new DataPacks(CommonClass.modLocation("repulsive_force"));
+        public static final DataPacks SAMPLE_SOUND_PACK = new DataPacks(CommonClass.modLocation("sample_sound_pack"));
 
         private DataPacks (Identifier id) {
             this(id, "dataPack.%s.name".formatted(id.toLanguageKey()),
