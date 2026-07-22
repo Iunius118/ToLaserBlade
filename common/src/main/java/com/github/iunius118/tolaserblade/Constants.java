@@ -72,8 +72,16 @@ public class Constants {
         public static final String TITLE_MOD_MAIN = "itemGroup.%s.main".formatted(Constants.MOD_ID);
     }
 
+    public static class SoundEvents {
+        public static final Identifier ITEM_LASER_BLADE_SWING = CommonClass.modLocation("item.laser_blade.swing");
+        public static final Identifier ITEM_LASER_BLADE_HIT = CommonClass.modLocation("item.laser_blade.hit");
+        public static final Identifier ITEM_LASER_BLADE_BLOCK = CommonClass.modLocation("item.laser_blade.block");
+        public static final Identifier ITEM_LASER_BLADE_BREAK = CommonClass.modLocation("item.laser_blade.break");
+    }
+
     public record DataPacks(Identifier id, String nameKey, String descriptionKey) {
         public static final DataPacks REPULSIVE_FORCE = new DataPacks(CommonClass.modLocation("repulsive_force"));
+        public static final DataPacks SAMPLE_SOUND_PACK = new DataPacks(CommonClass.modLocation("sample_sound_pack"));
 
         private DataPacks (Identifier id) {
             this(id, "dataPack.%s.name".formatted(id.toLanguageKey()),

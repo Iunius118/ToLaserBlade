@@ -1,5 +1,6 @@
 package com.github.iunius118.tolaserblade.menu;
 
+import com.github.iunius118.tolaserblade.block.ModBlocks;
 import com.github.iunius118.tolaserblade.item.crafting.BlueprintRecipe;
 import com.github.iunius118.tolaserblade.item.crafting.BlueprintRecipeInput;
 import com.github.iunius118.tolaserblade.item.crafting.CraftingRecipe;
@@ -236,7 +237,7 @@ public class BlueprintMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player player) {
-        return access.evaluate((level, pos) -> player.isWithinBlockInteractionRange(pos, 4.0), true);
+        return stillValid(this.access, player, ModBlocks.BL_BLUEPRINT);
     }
 
     @Override

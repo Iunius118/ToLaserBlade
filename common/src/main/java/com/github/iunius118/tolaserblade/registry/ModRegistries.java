@@ -8,6 +8,7 @@ import com.github.iunius118.tolaserblade.item.component.ModDataComponents;
 import com.github.iunius118.tolaserblade.item.crafting.*;
 import com.github.iunius118.tolaserblade.menu.ModMenuTypes;
 import com.github.iunius118.tolaserblade.platform.Services;
+import com.github.iunius118.tolaserblade.sounds.ModSoundEvents;
 import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
@@ -80,6 +81,8 @@ public class ModRegistries {
                 .registerObjects(r -> {
                     r.register(Constants.CreativeModeTabs.MAIN.getPath(), ModRegistries::createMainCreativeModeTab);
                 });
+        // Sound events
+        ModSoundEvents.register();
     }
 
     private static CreativeModeTab createMainCreativeModeTab() {

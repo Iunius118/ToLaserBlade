@@ -48,5 +48,9 @@ public class EnUsLanguageProvider extends LanguageProviderBase {
         // Data Packs
         packRepulsiveForceName = "TLB Repulsive Force Pack";
         packRepulsiveForceDescription = "[ToLaserBlade] Add Repulsive Force enchantment";
+
+        // Resource Packs
+        packSampleSoundName = "TLB Sample Sound Pack";
+        packSampleSoundDescription = "[ToLaserBlade] Sample sound pack for laser blade";
     }
 }

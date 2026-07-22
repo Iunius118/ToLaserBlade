@@ -1,0 +1,68 @@
+{
+  "item.laser_blade.block": {
+    "replace": true,
+    "sounds": [
+      "tolaserblade:item/laser_blade/block",
+      {
+        "name": "tolaserblade:item/laser_blade/block",
+        "pitch": 1.025
+      },
+      {
+        "name": "tolaserblade:item/laser_blade/block",
+        "pitch": 1.05
+      },
+      {
+        "name": "tolaserblade:item/laser_blade/block",
+        "pitch": 1.075
+      },
+      {
+        "name": "tolaserblade:item/laser_blade/block",
+        "pitch": 1.1
+      }
+    ]
+  },
+  "item.laser_blade.hit": {
+    "replace": true,
+    "sounds": [
+      "tolaserblade:item/laser_blade/hit",
+      {
+        "name": "tolaserblade:item/laser_blade/hit",
+        "pitch": 1.1
+      },
+      {
+        "name": "tolaserblade:item/laser_blade/hit",
+        "pitch": 1.2
+      },
+      {
+        "name": "tolaserblade:item/laser_blade/hit",
+        "pitch": 1.3
+      },
+      {
+        "name": "tolaserblade:item/laser_blade/hit",
+        "pitch": 1.4
+      }
+    ]
+  },
+  "item.laser_blade.swing": {
+    "replace": true,
+    "sounds": [
+      "tolaserblade:item/laser_blade/swing",
+      {
+        "name": "tolaserblade:item/laser_blade/swing",
+        "pitch": 1.025
+      },
+      {
+        "name": "tolaserblade:item/laser_blade/swing",
+        "pitch": 1.05
+      },
+      {
+        "name": "tolaserblade:item/laser_blade/swing",
+        "pitch": 1.075
+      },
+      {
+        "name": "tolaserblade:item/laser_blade/swing",
+        "pitch": 1.1
+      }
+    ]
+  }
+}

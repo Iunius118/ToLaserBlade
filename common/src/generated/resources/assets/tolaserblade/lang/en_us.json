@@ -3,6 +3,8 @@
   "container.tolaserblade.blueprint": "Laser Blade Blueprint",
   "dataPack.tolaserblade.repulsive_force.description": "[ToLaserBlade] Add Repulsive Force enchantment",
   "dataPack.tolaserblade.repulsive_force.name": "TLB Repulsive Force Pack",
+  "dataPack.tolaserblade.sample_sound_pack.description": "[ToLaserBlade] Sample sound pack for laser blade",
+  "dataPack.tolaserblade.sample_sound_pack.name": "TLB Sample Sound Pack",
   "enchantment.tolaserblade.laser_blade": "Laser Blade",
   "enchantment.tolaserblade.laser_blade.desc": "Increases attack damage and attack speed of the weapon.",
   "enchantment.tolaserblade.light_element": "Light Element",

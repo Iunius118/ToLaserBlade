@@ -2,6 +2,7 @@ package com.github.iunius118.tolaserblade;
 
 import com.github.iunius118.tolaserblade.data.*;
 import com.github.iunius118.tolaserblade.data.pack.RepulsiveForceProvider;
+import com.github.iunius118.tolaserblade.data.pack.SampleSoundPackProvider;
 import com.github.iunius118.tolaserblade.item.enchantment.ModEnchantments;
 import net.minecraft.core.RegistrySetBuilder;
 import net.minecraft.core.registries.Registries;
@@ -41,5 +42,7 @@ public class ToLaserBlade {
         // Assets
         event.createProvider(ModModelProvider::new);
         ModLanguageProvider.addProviders(event);
+        event.createProvider(ModSoundDefinitionsProvider::new);
+        SampleSoundPackProvider.addProviders(event);
     }
 }

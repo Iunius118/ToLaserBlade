@@ -36,8 +36,13 @@ public class ToLaserBlade {
     }
 
     private void addPackFinders(final AddPackFindersEvent event) {
+        // Repulsive Force Pack (Server Data Pack)
         event.addPackFinders(Constants.DataPacks.REPULSIVE_FORCE.id().withPrefix("resourcepacks/"),
                 PackType.SERVER_DATA, Component.translatable(Constants.DataPacks.REPULSIVE_FORCE.nameKey()),
+                PackSource.BUILT_IN, false, Pack.Position.TOP);
+        // Sample Sound Pack (Client Resource Pack)
+        event.addPackFinders(Constants.DataPacks.SAMPLE_SOUND_PACK.id().withPrefix("resourcepacks/"),
+                PackType.CLIENT_RESOURCES, Component.translatable(Constants.DataPacks.SAMPLE_SOUND_PACK.nameKey()),
                 PackSource.BUILT_IN, false, Pack.Position.TOP);
     }
 }

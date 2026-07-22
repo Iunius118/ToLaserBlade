@@ -51,7 +51,9 @@ public abstract class LanguageProviderBase extends LanguageProvider {
     // Data Packs
     public String packRepulsiveForceName;
     public String packRepulsiveForceDescription;
-
+    // Resource Packs
+    public String packSampleSoundName;
+    public String packSampleSoundDescription;
 
     public LanguageProviderBase(PackOutput output, String locale) {
         super(output, Constants.MOD_ID, locale);
@@ -99,6 +101,10 @@ public abstract class LanguageProviderBase extends LanguageProvider {
         // Data Packs
         add(Constants.DataPacks.REPULSIVE_FORCE.nameKey(), packRepulsiveForceName);
         add(Constants.DataPacks.REPULSIVE_FORCE.descriptionKey(), packRepulsiveForceDescription);
+
+        // Resource Packs
+        add(Constants.DataPacks.SAMPLE_SOUND_PACK.nameKey(), packSampleSoundName);
+        add(Constants.DataPacks.SAMPLE_SOUND_PACK.descriptionKey(), packSampleSoundDescription);
     }
 
     @Override
