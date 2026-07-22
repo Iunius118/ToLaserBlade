@@ -11,8 +11,7 @@ public record FabricModObjectRegistry<V, T extends V>(Registry<V> registry, Stri
 
     @Override
     public Holder<V> register(String name, Supplier<T> object) {
-        T registered = Registry.register(registry, Identifier.fromNamespaceAndPath(namespace, name), object.get());
-        return Holder.direct(registered);
+        return Registry.registerForHolder(registry, Identifier.fromNamespaceAndPath(namespace, name), object.get());
     }
 
     @Override
