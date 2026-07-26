@@ -1,8 +1,8 @@
 {
   "type": "tolaserblade:repair",
-  "ingredients": [
-    "tolaserblade:laser_blade",
+  "additional": [
     "tolaserblade:lb_casing"
   ],
+  "base": "tolaserblade:laser_blade",
   "rate": 1.0
 }

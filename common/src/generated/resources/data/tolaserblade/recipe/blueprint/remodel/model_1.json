@@ -1,8 +1,8 @@
 {
   "type": "tolaserblade:remodel",
-  "ingredients": [
-    "#tolaserblade:laser_blades",
+  "additional": [
     "minecraft:sand"
   ],
+  "base": "#tolaserblade:laser_blades",
   "model": 1
 }

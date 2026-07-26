@@ -1,4 +1,4 @@
-// 26.1.2	2026-07-09T18:02:45.1175864	Recipes
+// 26.1.2	2026-07-26T15:10:51.1456901	Recipes
 b7eaf95b38df4a46e7d14d8973733391d70d5d38 data/tolaserblade/advancement/recipes/misc/blueprint/blending/tinted_glass.json
 10086d57266fe05071cfa624e34c20a870cb73b0 data/tolaserblade/advancement/recipes/misc/blueprint/coloring/biome_cherry_grove.json
 8152bcbf14b8f9554e9a716e591b4653eaa8b581 data/tolaserblade/advancement/recipes/misc/blueprint/coloring/biome_deep_dark.json
@@ -69,15 +69,15 @@ cf5b643da79c76db79674015513fc4614947ea93 data/tolaserblade/recipe/blueprint/craf
 2f892eb9305730caa8d01b8b9a85fa58751f599a data/tolaserblade/recipe/blueprint/crafting/lb_emitter.json
 51ba9447193ba84d31f87aa57443c622c3fb5ce7 data/tolaserblade/recipe/blueprint/crafting/lb_medium.json
 c658485c448c512a1798b2f7886545fa89c9ffbc data/tolaserblade/recipe/blueprint/crafting/upgrade_fp.json
-788a0340727610e9837fbe18ad65bd1b952c7aca data/tolaserblade/recipe/blueprint/enchantment/laser_blade.json
-35bceb0853dfb6b7753c4cb01c20451c963580e3 data/tolaserblade/recipe/blueprint/enchantment/light_element.json
-6aaacc3df9fc11003ec24472d6c2954ac5a972a4 data/tolaserblade/recipe/blueprint/enchantment/looting.json
-1cd47ac4c3baa05ebb923573650d35dd3695474f data/tolaserblade/recipe/blueprint/remodel/model_0.json
-2595d04c5cc158051932c388dd960ebd900e742b data/tolaserblade/recipe/blueprint/remodel/model_1.json
-b71f4b1b933a6f396768650d3ef3a03a44a86e81 data/tolaserblade/recipe/blueprint/remodel/model_2.json
-bdb4301357c70a0af19b52da15fb11564d211096 data/tolaserblade/recipe/blueprint/remodel/model_526.json
-94cb74205fc1d4dab469579aab315e43323ca9e2 data/tolaserblade/recipe/blueprint/repair/laser_blade.json
-42a221c77ee5644912b046e6fe1d60a5446e9c42 data/tolaserblade/recipe/blueprint/repair/laser_blade_fp.json
+bc0536bd76374994a37e8faf3675ed140997d1af data/tolaserblade/recipe/blueprint/enchantment/laser_blade.json
+f33a8133b516e2a7ad530797dc8cf0534cf712cb data/tolaserblade/recipe/blueprint/enchantment/light_element.json
+5e0312413efdecd284ee2f2ba2f7c7343a3c1075 data/tolaserblade/recipe/blueprint/enchantment/looting.json
+6ed5186c3f28fa6b0d15364fdbfcf14df88ab20d data/tolaserblade/recipe/blueprint/remodel/model_0.json
+52f9260f58e76084a5a2e924161ffa7b01347a23 data/tolaserblade/recipe/blueprint/remodel/model_1.json
+4251c33a66c9f05e5036f68b7449aaa126c0523f data/tolaserblade/recipe/blueprint/remodel/model_2.json
+cf522d36293aa42738e507551de71895f48c4599 data/tolaserblade/recipe/blueprint/remodel/model_526.json
+e77a6eecc92289eaf55c3317d45d22d74da6a5bf data/tolaserblade/recipe/blueprint/repair/laser_blade.json
+ed87e6f3ac2fcde9b75f3e5c812881b0a28c1a66 data/tolaserblade/recipe/blueprint/repair/laser_blade_fp.json
 bba9c56429783d6a026e6664ea8a7bfb277a2448 data/tolaserblade/recipe/laser_blade.json
 bd5c1ec036c385f1006b97937205cd600f920c39 data/tolaserblade/recipe/laser_blade_fp_smithing.json
 329706a714d70ecb468f7bdc1977d567e185f60a data/tolaserblade/recipe/lb_blueprint.json

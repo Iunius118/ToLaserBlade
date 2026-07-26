@@ -24,21 +24,21 @@ public class BlendingRecipe extends BlueprintRecipe {
             RecordCodecBuilder.mapCodec(
                     i -> i.group(
                             CommonInfo.MAP_CODEC.forGetter(o -> o.commonInfo),
-                            Ingredient.CODEC.fieldOf("base").forGetter(o -> o.ingredients.get(0)),
-                            Ingredient.CODEC.fieldOf("ingredient").forGetter(o -> o.ingredients.get(1))
+                            Ingredient.CODEC.fieldOf("base").forGetter(o -> o.base()),
+                            Ingredient.CODEC.fieldOf("ingredient").forGetter(o -> o.additional().getFirst())
                     ).apply(i, BlendingRecipe::new)
             );
     public static final StreamCodec<RegistryFriendlyByteBuf, BlendingRecipe> STREAM_CODEC =
             StreamCodec.composite(
-                    CommonInfo.STREAM_CODEC, o -> o.commonInfo,
-                    Ingredient.CONTENTS_STREAM_CODEC, o -> o.ingredients.get(0),
-                    Ingredient.CONTENTS_STREAM_CODEC, o -> o.ingredients.get(1),
+                    CommonInfo.STREAM_CODEC, o -> o.commonInfo(),
+                    Ingredient.CONTENTS_STREAM_CODEC, o -> o.base(),
+                    Ingredient.CONTENTS_STREAM_CODEC, o -> o.additional().getFirst(),
                     BlendingRecipe::new
             );
     public static final RecipeSerializer<BlendingRecipe> SERIALIZER = new RecipeSerializer<>(MAP_CODEC, STREAM_CODEC);
 
-    public BlendingRecipe(CommonInfo commonInfo, Ingredient base, Ingredient ingredient) {
-        super(commonInfo, List.of(base, ingredient));
+    public BlendingRecipe(CommonInfo commonInfo, Ingredient base, Ingredient additional) {
+        super(commonInfo, base, additional);
     }
 
     @Override

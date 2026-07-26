@@ -1,10 +1,10 @@
 {
   "type": "tolaserblade:enchantment",
-  "enchantmant": "tolaserblade:laser_blade",
-  "ingredients": [
-    "#tolaserblade:laser_blades",
+  "additional": [
     "#c:dusts/glowstone",
     "#tolaserblade:upgrade/laser_blade",
     "#c:dusts/glowstone"
-  ]
+  ],
+  "base": "#tolaserblade:laser_blades",
+  "enchantment": "tolaserblade:laser_blade"
 }

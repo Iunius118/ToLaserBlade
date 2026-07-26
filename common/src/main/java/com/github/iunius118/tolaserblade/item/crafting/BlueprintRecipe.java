@@ -6,6 +6,8 @@ import net.minecraft.world.item.crafting.*;
 import net.minecraft.world.item.crafting.display.RecipeDisplay;
 import net.minecraft.world.level.Level;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public abstract class BlueprintRecipe implements Recipe<BlueprintRecipeInput> {
@@ -17,8 +19,34 @@ public abstract class BlueprintRecipe implements Recipe<BlueprintRecipeInput> {
         this.ingredients = ingredients;
     }
 
+    protected BlueprintRecipe(Recipe.CommonInfo commonInfo, Ingredient base, List<Ingredient> additional) {
+        List<Ingredient> list = new ArrayList<>();
+        list.add(base);
+        list.addAll(additional);
+
+        this.commonInfo = commonInfo;
+        this.ingredients = Collections.unmodifiableList(list);
+    }
+
+    protected BlueprintRecipe(Recipe.CommonInfo commonInfo, Ingredient base, Ingredient additional) {
+        this.commonInfo = commonInfo;
+        this.ingredients = List.of(base, additional);
+    }
+
+    public CommonInfo commonInfo() {
+        return commonInfo;
+    }
+
     public List<Ingredient> ingredients() {
         return ingredients;
+    }
+
+    public Ingredient base() {
+        return ingredients.getFirst();
+    }
+
+    public List<Ingredient> additional() {
+        return ingredients.subList(1, ingredients.size());
     }
 
     public boolean shouldConsumeIngredient() {

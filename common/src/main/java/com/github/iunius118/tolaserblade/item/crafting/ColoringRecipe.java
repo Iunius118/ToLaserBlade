@@ -31,17 +31,17 @@ public class ColoringRecipe extends BlueprintRecipe {
     public static final MapCodec<ColoringRecipe> MAP_CODEC =
             RecordCodecBuilder.mapCodec(
                     i -> i.group(
-                            Recipe.CommonInfo.MAP_CODEC.forGetter(o -> o.commonInfo),
-                            Ingredient.CODEC.fieldOf("base").forGetter(o -> o.ingredients.get(0)),
-                            Ingredient.CODEC.fieldOf("ingredient").forGetter(o -> o.ingredients.get(1)),
+                            Recipe.CommonInfo.MAP_CODEC.forGetter(o -> o.commonInfo()),
+                            Ingredient.CODEC.fieldOf("base").forGetter(o -> o.base()),
+                            Ingredient.CODEC.fieldOf("ingredient").forGetter(o -> o.additional().getFirst()),
                             PartColor.CODEC.listOf(PARTS_MAX, PARTS_MAX).fieldOf("colors").forGetter(o -> o.colors)
                     ).apply(i, ColoringRecipe::new)
             );
     public static final StreamCodec<RegistryFriendlyByteBuf, ColoringRecipe> STREAM_CODEC =
             StreamCodec.composite(
-                    Recipe.CommonInfo.STREAM_CODEC, o -> o.commonInfo,
-                    Ingredient.CONTENTS_STREAM_CODEC, o -> o.ingredients.get(0),
-                    Ingredient.CONTENTS_STREAM_CODEC, o -> o.ingredients.get(1),
+                    Recipe.CommonInfo.STREAM_CODEC, o -> o.commonInfo(),
+                    Ingredient.CONTENTS_STREAM_CODEC, o -> o.base(),
+                    Ingredient.CONTENTS_STREAM_CODEC, o -> o.additional().getFirst(),
                     PartColor.STREAM_CODEC.apply(ByteBufCodecs.list()), o -> o.colors,
                     ColoringRecipe::new
             );
@@ -49,9 +49,9 @@ public class ColoringRecipe extends BlueprintRecipe {
 
     private final List<PartColor> colors;
 
-    public ColoringRecipe(Recipe.CommonInfo commonInfo, Ingredient base, Ingredient ingredient,
+    public ColoringRecipe(Recipe.CommonInfo commonInfo, Ingredient base, Ingredient additional,
                           List<PartColor> colors) {
-        super(commonInfo, List.of(base, ingredient));
+        super(commonInfo, base, additional);
         this.colors = colors;
     }
 

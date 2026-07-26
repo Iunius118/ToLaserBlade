@@ -22,20 +22,27 @@ public class RemodelRecipe extends BlueprintRecipe {
             RecordCodecBuilder.mapCodec(
                     i -> i.group(
                             Recipe.CommonInfo.MAP_CODEC.forGetter(o -> o.commonInfo),
-                            Ingredient.CODEC.listOf(1, 4).fieldOf("ingredients").forGetter(o -> o.ingredients),
+                            Ingredient.CODEC.fieldOf("base").forGetter(o -> o.base()),
+                            Ingredient.CODEC.listOf(1, 3).fieldOf("additional").forGetter(o -> o.additional()),
                             ExtraCodecs.NON_NEGATIVE_INT.fieldOf("model").forGetter(o -> o.modelType)
                     ).apply(i, RemodelRecipe::new)
             );
     public static final StreamCodec<RegistryFriendlyByteBuf, RemodelRecipe> STREAM_CODEC =
             StreamCodec.composite(
-                    Recipe.CommonInfo.STREAM_CODEC, o -> o.commonInfo,
-                    Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()), o -> o.ingredients,
+                    Recipe.CommonInfo.STREAM_CODEC, o -> o.commonInfo(),
+                    Ingredient.CONTENTS_STREAM_CODEC, o -> o.base(),
+                    Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()), o -> o.additional(),
                     ByteBufCodecs.INT, o -> o.modelType,
                     RemodelRecipe::new
             );
     public static final RecipeSerializer<RemodelRecipe> SERIALIZER = new RecipeSerializer<>(MAP_CODEC, STREAM_CODEC);
 
     private final int modelType;
+
+    public RemodelRecipe(Recipe.CommonInfo commonInfo, Ingredient base, List<Ingredient> additional, int modelType) {
+        super(commonInfo, base, additional);
+        this.modelType = modelType;
+    }
 
     public RemodelRecipe(Recipe.CommonInfo commonInfo, List<Ingredient> ingredients, int modelType) {
         super(commonInfo, ingredients);

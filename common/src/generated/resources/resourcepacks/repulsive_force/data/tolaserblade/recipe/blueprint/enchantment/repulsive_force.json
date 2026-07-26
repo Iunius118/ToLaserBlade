@@ -1,10 +1,10 @@
 {
   "type": "tolaserblade:enchantment",
-  "enchantmant": "tolaserblade:repulsive_force",
-  "ingredients": [
-    "#tolaserblade:laser_blades",
+  "additional": [
     "#c:ingots/iron",
     "#c:gems/diamond",
     "#tolaserblade:upgrade/repulsive_force"
-  ]
+  ],
+  "base": "#tolaserblade:laser_blades",
+  "enchantment": "tolaserblade:repulsive_force"
 }
