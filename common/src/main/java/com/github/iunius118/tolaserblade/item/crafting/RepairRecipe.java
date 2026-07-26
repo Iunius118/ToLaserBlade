@@ -23,20 +23,27 @@ public class RepairRecipe extends BlueprintRecipe {
             RecordCodecBuilder.mapCodec(
                     i -> i.group(
                             Recipe.CommonInfo.MAP_CODEC.forGetter(o -> o.commonInfo),
-                            Ingredient.CODEC.listOf(1, 4).fieldOf("ingredients").forGetter(o -> o.ingredients),
+                            Ingredient.CODEC.fieldOf("base").forGetter(o -> o.base()),
+                            Ingredient.CODEC.listOf(1, 3).fieldOf("additional").forGetter(o -> o.additional()),
                             ExtraCodecs.NON_NEGATIVE_FLOAT.optionalFieldOf("rate", 0.25f).forGetter(o -> o.rate)
                     ).apply(i, RepairRecipe::new)
             );
     public static final StreamCodec<RegistryFriendlyByteBuf, RepairRecipe> STREAM_CODEC =
             StreamCodec.composite(
                     Recipe.CommonInfo.STREAM_CODEC, o -> o.commonInfo,
-                    Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()), o -> o.ingredients,
+                    Ingredient.CONTENTS_STREAM_CODEC, o -> o.base(),
+                    Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()), o -> o.additional(),
                     ByteBufCodecs.FLOAT, o -> o.rate,
                     RepairRecipe::new
             );
     public static final RecipeSerializer<RepairRecipe> SERIALIZER = new RecipeSerializer<>(MAP_CODEC, STREAM_CODEC);
 
     private final float rate;
+
+    public RepairRecipe(CommonInfo commonInfo, Ingredient base, List<Ingredient> additional, float rate) {
+        super(commonInfo, base, additional);
+        this.rate = rate;
+    }
 
     public RepairRecipe(CommonInfo commonInfo, List<Ingredient> ingredients, float rate) {
         super(commonInfo, ingredients);

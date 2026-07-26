@@ -1,8 +1,8 @@
 {
   "type": "tolaserblade:enchantment",
-  "enchantmant": "minecraft:looting",
-  "ingredients": [
-    "#tolaserblade:laser_blades",
+  "additional": [
     "#tolaserblade:upgrade/looting"
-  ]
+  ],
+  "base": "#tolaserblade:laser_blades",
+  "enchantment": "minecraft:looting"
 }

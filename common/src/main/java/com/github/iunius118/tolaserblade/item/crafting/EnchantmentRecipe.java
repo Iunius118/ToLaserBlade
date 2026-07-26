@@ -23,14 +23,16 @@ public class EnchantmentRecipe extends BlueprintRecipe {
             RecordCodecBuilder.mapCodec(
                     i -> i.group(
                             CommonInfo.MAP_CODEC.forGetter(o -> o.commonInfo),
-                            Ingredient.CODEC.listOf(1, 4).fieldOf("ingredients").forGetter(o -> o.ingredients),
-                            Enchantment.CODEC.fieldOf("enchantmant").forGetter(o -> o.enchantment)
+                            Ingredient.CODEC.fieldOf("base").forGetter(o -> o.base()),
+                            Ingredient.CODEC.listOf(1, 3).fieldOf("additional").forGetter(o -> o.additional()),
+                            Enchantment.CODEC.fieldOf("enchantment").forGetter(o -> o.enchantment)
                     ).apply(i, EnchantmentRecipe::new)
             );
     public static final StreamCodec<RegistryFriendlyByteBuf, EnchantmentRecipe> STREAM_CODEC =
             StreamCodec.composite(
                     CommonInfo.STREAM_CODEC, o -> o.commonInfo,
-                    Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()), o -> o.ingredients,
+                    Ingredient.CONTENTS_STREAM_CODEC, o -> o.base(),
+                    Ingredient.CONTENTS_STREAM_CODEC.apply(ByteBufCodecs.list()), o -> o.additional(),
                     Enchantment.STREAM_CODEC, o -> o.enchantment,
                     EnchantmentRecipe::new
             );
@@ -38,6 +40,12 @@ public class EnchantmentRecipe extends BlueprintRecipe {
             new RecipeSerializer<>(MAP_CODEC, STREAM_CODEC);
 
     private final Holder<Enchantment> enchantment;
+
+    public EnchantmentRecipe(CommonInfo commonInfo, Ingredient base, List<Ingredient> additional,
+                             Holder<Enchantment> enchantment) {
+        super(commonInfo, base, additional);
+        this.enchantment = enchantment;
+    }
 
     public EnchantmentRecipe(CommonInfo commonInfo, List<Ingredient> ingredients, Holder<Enchantment> enchantment) {
         super(commonInfo, ingredients);

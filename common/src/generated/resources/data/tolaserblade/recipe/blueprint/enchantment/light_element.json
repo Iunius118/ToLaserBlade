@@ -1,10 +1,10 @@
 {
   "type": "tolaserblade:enchantment",
-  "enchantmant": "tolaserblade:light_element",
-  "ingredients": [
-    "#tolaserblade:laser_blades",
+  "additional": [
     "#tolaserblade:upgrade/light_element",
     "#c:gems/diamond",
     "#tolaserblade:upgrade/light_element"
-  ]
+  ],
+  "base": "#tolaserblade:laser_blades",
+  "enchantment": "tolaserblade:light_element"
 }
