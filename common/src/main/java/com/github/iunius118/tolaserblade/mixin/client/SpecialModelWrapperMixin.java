@@ -15,7 +15,7 @@ import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.LocalCapture;
 
-@Mixin(SpecialModelWrapper.class)
+@Mixin(value = SpecialModelWrapper.class, remap = false)
 public abstract class SpecialModelWrapperMixin<T> implements ItemModel {
 
     @Inject(method = "update",
