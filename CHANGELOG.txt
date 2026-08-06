@@ -4,9 +4,10 @@
 
 ## [Unreleased]
 
-## [17.0.0-beta.6]
+## [17.0.0-beta.7]
 - This version is not compatible with item data from 1.21.11 or earlier.
 - Many features are still unimplemented in this version.
+- [Beta.7] Add experimental Forge version.
 
 ### Added
 - Laser Blade items.
@@ -24,7 +25,7 @@
   - `tolaserblade:item.laser_blade.block` - Plays when a laser blade blocks an attack.
   - `tolaserblade:item.laser_blade.break` - Plays when a laser blade guard is broken.
 - Add temporary recipes.
-- [Beta.4] Add JEI plugin to display mod recipes in JEI.
+- [Beta.4] Add JEI plugin to display mod recipes in JEI (only for Fabric and NeoForge versions).
 - [Beta.4] Compatible with Just Enough Items (JEI) v29.12.0.40+.
 
 #### Shaped Crafting Table Recipe
@@ -104,5 +105,7 @@
 - Port to Minecraft 26.1.2.
 - NeoForge version - Require NeoForge 26.1.2.75.
 - Fabric version - Require Fabric Loader 0.19.3 and Fabric API 0.151.0+26.1.2.
+- Forge version - Require Minecraft Forge 64.1.0.
+- Laser blades are now lost when they reach zero durability.
 - Use `minecraft:custom_model_data` component to store laser blade colors.
 - [Beta.6] Change format of mod recipe files.
