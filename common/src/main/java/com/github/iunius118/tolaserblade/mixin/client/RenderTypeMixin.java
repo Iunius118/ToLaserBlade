@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 
-@Mixin(RenderType.class)
+@Mixin(value = RenderType.class, remap = false)
 public abstract class RenderTypeMixin {
 
     @Shadow

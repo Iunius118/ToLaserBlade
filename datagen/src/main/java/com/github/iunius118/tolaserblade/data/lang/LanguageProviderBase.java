@@ -3,7 +3,6 @@ package com.github.iunius118.tolaserblade.data.lang;
 import com.github.iunius118.tolaserblade.Constants;
 import com.github.iunius118.tolaserblade.block.ModBlocks;
 import com.github.iunius118.tolaserblade.item.ModItems;
-import com.github.iunius118.tolaserblade.item.enchantment.ModEnchantments;
 import com.github.iunius118.tolaserblade.tag.ModTags;
 import net.minecraft.data.PackOutput;
 import net.minecraft.resources.ResourceKey;
@@ -91,9 +90,10 @@ public abstract class LanguageProviderBase extends LanguageProvider {
         add(ModTags.EntityTypes.SENSITIVE_TO_LASER_BLADE, tagSensitiveToLaserBlade);
 
         // Enchantments
-        addEnchantment(ModEnchantments.LASER_BLADE, laserBladeEnchantment, laserBladeEnchantmentDesc);
-        addEnchantment(ModEnchantments.LIGHT_ELEMENT, lightElementEnchantment, lightElementEnchantmentDesc);
-        addEnchantment(ModEnchantments.REPULSIVE_FORCE, repulsiveForceEnchantment, repulsiveForceEnchantmentDesc);
+        addEnchantment(Constants.Enchantments.LASER_BLADE, laserBladeEnchantment, laserBladeEnchantmentDesc);
+        addEnchantment(Constants.Enchantments.LIGHT_ELEMENT, lightElementEnchantment, lightElementEnchantmentDesc);
+        addEnchantment(
+                Constants.Enchantments.REPULSIVE_FORCE, repulsiveForceEnchantment, repulsiveForceEnchantmentDesc);
 
         // Menus
         add(Constants.Menus.BLUEPRINT_TITLE, menuBlueprintTitle);

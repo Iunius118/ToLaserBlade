@@ -73,7 +73,7 @@ public class RepulsiveForceProvider {
         protected void buildRecipes() {
             var enchantments = this.registries.lookupOrThrow(Registries.ENCHANTMENT);
             BlueprintRecipeBuilder.enchantment(this.items, enchantments, RecipeCategory.MISC,
-                            ModEnchantments.REPULSIVE_FORCE)
+                            Constants.Enchantments.REPULSIVE_FORCE)
                     .requires(ModTags.Items.LASER_BLADES)
                     .requires(Tags.Items.INGOTS_IRON)
                     .requires(Tags.Items.GEMS_DIAMOND)

@@ -1,7 +1,7 @@
 package com.github.iunius118.tolaserblade.item;
 
+import com.github.iunius118.tolaserblade.Constants;
 import com.github.iunius118.tolaserblade.item.component.ModDataComponents;
-import com.github.iunius118.tolaserblade.item.enchantment.ModEnchantments;
 import net.minecraft.ChatFormatting;
 import net.minecraft.core.Holder;
 import net.minecraft.core.component.DataComponentMap;
@@ -95,10 +95,10 @@ public class LBSwordItem  extends Item {
         // Get Repulsive Force enchantment holder
         if (level != null) {
             var enchantments = level.registryAccess().lookupOrThrow(Registries.ENCHANTMENT);
-            repulsiveForce = enchantments.get(ModEnchantments.REPULSIVE_FORCE);
+            repulsiveForce = enchantments.get(Constants.Enchantments.REPULSIVE_FORCE);
         } else {
             repulsiveForce = itemEnchantments.keySet().stream()
-                    .filter(e -> e.is(ModEnchantments.REPULSIVE_FORCE))
+                    .filter(e -> e.is(Constants.Enchantments.REPULSIVE_FORCE))
                     .findAny();
         }
 

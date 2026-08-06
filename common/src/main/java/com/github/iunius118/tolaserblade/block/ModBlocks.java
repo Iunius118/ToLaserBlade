@@ -1,9 +1,8 @@
 package com.github.iunius118.tolaserblade.block;
 
 import com.github.iunius118.tolaserblade.Constants;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
+import net.minecraft.world.level.block.Block;
 import net.minecraft.world.level.block.SoundType;
 import net.minecraft.world.level.block.state.BlockBehaviour;
 import net.minecraft.world.level.material.MapColor;
@@ -19,7 +18,7 @@ public class ModBlocks {
                     .pushReaction(PushReaction.DESTROY)
     );
 
-    private static BlockBehaviour.Properties createProperties(Identifier id) {
-        return BlockBehaviour.Properties.of().setId(ResourceKey.create(Registries.BLOCK, id));
+    private static BlockBehaviour.Properties createProperties(ResourceKey<Block> key) {
+        return BlockBehaviour.Properties.of().setId(key);
     }
 }

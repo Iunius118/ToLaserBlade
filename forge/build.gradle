@@ -11,7 +11,7 @@ jar {
 }
 
 minecraft {
-    def at = project(':common').file('src/main/resources/META-INF/accesstransformer.cfg')
+    def at = file('src/main/resources/META-INF/accesstransformer.cfg')
     // Automatically enable AccessTransformers if the file exists
     if (at.exists()) {
         accessTransformer = true
@@ -50,6 +50,9 @@ dependencies {
     implementation minecraft.dependency("net.minecraftforge:forge:${minecraft_version}-${forge_version}")
     annotationProcessor 'net.minecraftforge:eventbus-validator:7.0.1'
     annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+
+    // JEI (Temporary Common API)
+    compileOnly "mezz.jei:jei-${minecraft_version}-common-api:${jei_version}"
 }
 
 sourceSets.each {
