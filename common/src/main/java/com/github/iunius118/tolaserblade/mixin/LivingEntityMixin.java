@@ -34,7 +34,7 @@ public abstract class LivingEntityMixin {
         if (!level.isClientSide() && itemStack.getItem() instanceof LBSwordItem && !livingEntity.swinging) {
             Vec3 pos = livingEntity.position();
             level.playSound(null, pos.x, pos.y, pos.z,
-                    ModSoundEvents.ITEM_LASER_BLADE_SWING, SoundSource.PLAYERS, 1.0F, 1.0F);
+                    ModSoundEvents.ITEM_LASER_BLADE_SWING.getHolder(), SoundSource.PLAYERS, 1.0F, 1.0F);
         }
     }
 }

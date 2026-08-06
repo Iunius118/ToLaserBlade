@@ -1,11 +1,11 @@
 package com.github.iunius118.tolaserblade.data;
 
 import com.github.iunius118.tolaserblade.CommonClass;
+import com.github.iunius118.tolaserblade.Constants;
 import com.github.iunius118.tolaserblade.data.recipe.BlueprintRecipeBuilder;
 import com.github.iunius118.tolaserblade.item.LaserBladeColor;
 import com.github.iunius118.tolaserblade.item.ModItems;
 import com.github.iunius118.tolaserblade.item.crafting.ColoringRecipe;
-import com.github.iunius118.tolaserblade.item.enchantment.ModEnchantments;
 import com.github.iunius118.tolaserblade.tag.ModTags;
 import net.minecraft.core.HolderLookup;
 import net.minecraft.core.registries.BuiltInRegistries;
@@ -131,14 +131,14 @@ public class ModRecipeProvider extends VanillaRecipeProvider {
         buildColoringRecipes();
 
         // Enchantments
-        blueprintEnchantment(RecipeCategory.MISC, ModEnchantments.LASER_BLADE)
+        blueprintEnchantment(RecipeCategory.MISC, Constants.Enchantments.LASER_BLADE)
                 .requires(ModTags.Items.LASER_BLADES)
                 .requires(Tags.Items.DUSTS_GLOWSTONE)
                 .requires(ModTags.Items.LASER_BLADE_UPGRADE)
                 .requires(Tags.Items.DUSTS_GLOWSTONE)
                 .unlockedBy("has_laser_blade", this.has(ModTags.Items.LASER_BLADES))
                 .save(output, CommonClass.modLocation("blueprint/enchantment/laser_blade"));
-        blueprintEnchantment(RecipeCategory.MISC, ModEnchantments.LIGHT_ELEMENT)
+        blueprintEnchantment(RecipeCategory.MISC, Constants.Enchantments.LIGHT_ELEMENT)
                 .requires(ModTags.Items.LASER_BLADES)
                 .requires(ModTags.Items.LIGHT_ELEMENT_UPGRADE)
                 .requires(Tags.Items.GEMS_DIAMOND)

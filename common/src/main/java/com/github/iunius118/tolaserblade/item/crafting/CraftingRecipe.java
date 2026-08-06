@@ -1,9 +1,9 @@
 package com.github.iunius118.tolaserblade.item.crafting;
 
+import com.github.iunius118.tolaserblade.Constants;
 import com.github.iunius118.tolaserblade.item.LaserBladeColor;
 import com.github.iunius118.tolaserblade.item.ModItems;
 import com.github.iunius118.tolaserblade.item.crafting.display.BlueprintRecipeDisplay;
-import com.github.iunius118.tolaserblade.item.enchantment.ModEnchantments;
 import com.mojang.serialization.MapCodec;
 import com.mojang.serialization.codecs.RecordCodecBuilder;
 import net.minecraft.core.component.DataComponents;
@@ -92,8 +92,8 @@ public class CraftingRecipe extends BlueprintRecipe {
             return;
         }
 
-        var laserBlade = level.holderLookup(Registries.ENCHANTMENT).get(ModEnchantments.LASER_BLADE);
-        var lightElement = level.holderLookup(Registries.ENCHANTMENT).get(ModEnchantments.LIGHT_ELEMENT);
+        var laserBlade = level.holderLookup(Registries.ENCHANTMENT).get(Constants.Enchantments.LASER_BLADE);
+        var lightElement = level.holderLookup(Registries.ENCHANTMENT).get(Constants.Enchantments.LIGHT_ELEMENT);
         var efficient = level.holderLookup(Registries.ENCHANTMENT).get(Enchantments.EFFICIENCY);
 
         if (laserBlade.isEmpty() || lightElement.isEmpty() || efficient.isEmpty()) {

@@ -7,7 +7,6 @@ import net.minecraft.advancements.criterion.EntityTypePredicate;
 import net.minecraft.core.HolderGetter;
 import net.minecraft.core.registries.Registries;
 import net.minecraft.data.worldgen.BootstrapContext;
-import net.minecraft.resources.ResourceKey;
 import net.minecraft.tags.EnchantmentTags;
 import net.minecraft.world.entity.EntityType;
 import net.minecraft.world.entity.EquipmentSlotGroup;
@@ -23,13 +22,6 @@ import net.minecraft.world.level.storage.loot.LootContext;
 import net.minecraft.world.level.storage.loot.predicates.LootItemEntityPropertyCondition;
 
 public class ModEnchantments {
-    public static final ResourceKey<Enchantment> LASER_BLADE =
-            ResourceKey.create(Registries.ENCHANTMENT, Constants.Enchantments.LASER_BLADE);
-    public static final ResourceKey<Enchantment> LIGHT_ELEMENT =
-            ResourceKey.create(Registries.ENCHANTMENT, Constants.Enchantments.LIGHT_ELEMENT);
-    public static final ResourceKey<Enchantment> REPULSIVE_FORCE =
-            ResourceKey.create(Registries.ENCHANTMENT, Constants.Enchantments.REPULSIVE_FORCE);
-
 
     public static void bootstrap(BootstrapContext<Enchantment> ctx) {
         HolderGetter<Item> items = ctx.lookup(Registries.ITEM);
@@ -37,7 +29,7 @@ public class ModEnchantments {
         HolderGetter<EntityType<?>> entityTypes = ctx.lookup(Registries.ENTITY_TYPE);
 
         // Define and register enchantments
-        ctx.register(LASER_BLADE,
+        ctx.register(Constants.Enchantments.LASER_BLADE,
                 Enchantment
                         .enchantment(
                                 Enchantment.definition(
@@ -66,9 +58,9 @@ public class ModEnchantments {
                                         AttributeModifier.Operation.ADD_VALUE
                                 )
                         )
-                        .build(LASER_BLADE.identifier())
+                        .build(Constants.Enchantments.LASER_BLADE.identifier())
         );
-        ctx.register(LIGHT_ELEMENT,
+        ctx.register(Constants.Enchantments.LIGHT_ELEMENT,
                 Enchantment
                         .enchantment(
                                 Enchantment.definition(
@@ -91,7 +83,7 @@ public class ModEnchantments {
                                 )
                         )
                         .exclusiveWith(enchantments.getOrThrow(EnchantmentTags.DAMAGE_EXCLUSIVE))
-                        .build(LIGHT_ELEMENT.identifier())
+                        .build(Constants.Enchantments.LIGHT_ELEMENT.identifier())
         );
     }
 
@@ -99,7 +91,7 @@ public class ModEnchantments {
         HolderGetter<Item> items = ctx.lookup(Registries.ITEM);
 
         // Define and register optional enchantments
-        ctx.register(REPULSIVE_FORCE,
+        ctx.register(Constants.Enchantments.REPULSIVE_FORCE,
                 Enchantment
                         .enchantment(
                                 Enchantment.definition(
@@ -115,7 +107,7 @@ public class ModEnchantments {
                         .withEffect(EnchantmentEffectComponents.KNOCKBACK,
                                 new AddValue(LevelBasedValue.perLevel(0F, 1F))
                         )
-                        .build(REPULSIVE_FORCE.identifier())
+                        .build(Constants.Enchantments.REPULSIVE_FORCE.identifier())
         );
     }
 }

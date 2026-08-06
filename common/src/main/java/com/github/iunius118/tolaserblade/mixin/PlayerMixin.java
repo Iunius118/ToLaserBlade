@@ -31,7 +31,7 @@ public abstract class PlayerMixin {
             if (itemStack.getItem() instanceof LBSwordItem) {
                 Vec3 pos = entity.position().add(0, entity.getEyeHeight(), 0);
                 level.playSound(null, pos.x, pos.y, pos.z,
-                        ModSoundEvents.ITEM_LASER_BLADE_HIT, entity.getSoundSource(), 1.0F, 1.0F);
+                        ModSoundEvents.ITEM_LASER_BLADE_HIT.getHolder(), entity.getSoundSource(), 1.0F, 1.0F);
             }
         }
     }

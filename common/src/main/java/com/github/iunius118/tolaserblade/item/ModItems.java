@@ -2,8 +2,6 @@ package com.github.iunius118.tolaserblade.item;
 
 import com.github.iunius118.tolaserblade.Constants;
 import com.github.iunius118.tolaserblade.block.ModBlocks;
-import net.minecraft.core.registries.Registries;
-import net.minecraft.resources.Identifier;
 import net.minecraft.resources.ResourceKey;
 import net.minecraft.world.item.BlockItem;
 import net.minecraft.world.item.Item;
@@ -18,7 +16,7 @@ public class ModItems {
     // Blueprint
     public static final Item BL_BLUEPRINT =
             addBlock(new BlockItem(ModBlocks.BL_BLUEPRINT,
-                    createProperties(Constants.Blocks.BL_BLUEPRINT).useBlockDescriptionPrefix()));
+                    createProperties(Constants.Items.BL_BLUEPRINT).useBlockDescriptionPrefix()));
 
     // Laser Blades
     public static final Item LASER_BLADE =
@@ -46,8 +44,8 @@ public class ModItems {
         return add(item);
     }
 
-    private static Item.Properties createProperties(Identifier id) {
-        return new Item.Properties().setId(ResourceKey.create(Registries.ITEM, id));
+    private static Item.Properties createProperties(ResourceKey<Item> key) {
+        return new Item.Properties().setId(key);
     }
 
     static {

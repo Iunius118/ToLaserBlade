@@ -90,8 +90,8 @@ public class ModToolMaterials {
                 List.of(new BlocksAttacks.DamageReduction(90.0F, Optional.empty(), 0.0F, 1.0F)),
                 new BlocksAttacks.ItemDamageFunction(3.0F, 1.0F, 1.0F),
                 Optional.of(context.getOrThrow(DamageTypeTags.BYPASSES_SHIELD)),
-                Optional.of(ModSoundEvents.ITEM_LASER_BLADE_BLOCK),
-                Optional.of(ModSoundEvents.ITEM_LASER_BLADE_BREAK)
+                Optional.of(ModSoundEvents.ITEM_LASER_BLADE_BLOCK.getHolder()),
+                Optional.of(ModSoundEvents.ITEM_LASER_BLADE_BREAK.getHolder())
         );
     }
 }

@@ -9,7 +9,6 @@ import com.github.iunius118.tolaserblade.item.crafting.*;
 import com.github.iunius118.tolaserblade.menu.ModMenuTypes;
 import com.github.iunius118.tolaserblade.platform.Services;
 import com.github.iunius118.tolaserblade.sounds.ModSoundEvents;
-import net.minecraft.core.Holder;
 import net.minecraft.core.registries.BuiltInRegistries;
 import net.minecraft.network.chat.Component;
 import net.minecraft.world.item.CreativeModeTab;
@@ -17,69 +16,68 @@ import net.minecraft.world.item.Item;
 import net.minecraft.world.item.ItemStack;
 
 public class ModRegistries {
-    private static Holder<Item> LASER_BLADE;
+    private static ModRegistryObject<Item> LASER_BLADE;
 
     public static void registerGameObjects() {
         // Blocks
         Services.PLATFORM.createModObjectRegistry(BuiltInRegistries.BLOCK, Constants.MOD_ID)
                 .registerObjects(r -> {
-                    r.register(Constants.Blocks.BL_BLUEPRINT.getPath(), () -> ModBlocks.BL_BLUEPRINT);
+                    r.register(Constants.Blocks.BL_BLUEPRINT, () -> ModBlocks.BL_BLUEPRINT);
                 });
         // Block types
         Services.PLATFORM.createModObjectRegistry(BuiltInRegistries.BLOCK_TYPE, Constants.MOD_ID)
                 .registerObjects(r -> {
-                    r.register(Constants.Blocks.BL_BLUEPRINT.getPath(), () -> LBBlueprintBlock.CODEC);
+                    r.register(Constants.BlockTypes.BL_BLUEPRINT, () -> LBBlueprintBlock.CODEC);
                 });
         // Items
         Services.PLATFORM.createModObjectRegistry(BuiltInRegistries.ITEM, Constants.MOD_ID)
                 .registerObjects(r -> {
-                    r.register(Constants.Blocks.BL_BLUEPRINT.getPath(), () -> ModItems.BL_BLUEPRINT);
+                    r.register(Constants.Items.BL_BLUEPRINT, () -> ModItems.BL_BLUEPRINT);
 
-                    LASER_BLADE = r.register(Constants.Items.LASER_BLADE.getPath(), () -> ModItems.LASER_BLADE);
-                    r.register(Constants.Items.LASER_BLADE_FP.getPath(), () -> ModItems.LASER_BLADE_FP);
+                    LASER_BLADE = r.register(Constants.Items.LASER_BLADE, () -> ModItems.LASER_BLADE);
+                    r.register(Constants.Items.LASER_BLADE_FP, () -> ModItems.LASER_BLADE_FP);
 
-                    r.register(Constants.Items.LB_CASING.getPath(), () -> ModItems.LB_CASING);
-                    r.register(Constants.Items.LB_CASING_FP.getPath(), () -> ModItems.LB_CASING_FP);
-                    r.register(Constants.Items.LB_BATTERY.getPath(), () -> ModItems.LB_BATTERY);
-                    r.register(Constants.Items.LB_MEDIUM.getPath(), () -> ModItems.LB_MEDIUM);
-                    r.register(Constants.Items.LB_EMITTER.getPath(), () -> ModItems.LB_EMITTER);
+                    r.register(Constants.Items.LB_CASING, () -> ModItems.LB_CASING);
+                    r.register(Constants.Items.LB_CASING_FP, () -> ModItems.LB_CASING_FP);
+                    r.register(Constants.Items.LB_BATTERY, () -> ModItems.LB_BATTERY);
+                    r.register(Constants.Items.LB_MEDIUM, () -> ModItems.LB_MEDIUM);
+                    r.register(Constants.Items.LB_EMITTER, () -> ModItems.LB_EMITTER);
                 });
         // Data component types
         Services.PLATFORM.createModObjectRegistry(BuiltInRegistries.DATA_COMPONENT_TYPE, Constants.MOD_ID)
                 .registerObjects(r -> {
-                    r.register(Constants.DataComponents.MODEL.getPath(), () -> ModDataComponents.MODEL);
-                    r.register(Constants.DataComponents.BLEND_MODES.getPath(), () -> ModDataComponents.BLEND_MODES);
+                    r.register(Constants.DataComponents.MODEL, () -> ModDataComponents.MODEL);
+                    r.register(Constants.DataComponents.BLEND_MODES, () -> ModDataComponents.BLEND_MODES);
                 });
         // Recipe types
         Services.PLATFORM.createModObjectRegistry(BuiltInRegistries.RECIPE_TYPE, Constants.MOD_ID)
                 .registerObjects(r -> {
-                    r.register(Constants.RecipeTypes.BLUEPRINT.getPath(), () -> ModRecipeTypes.BLUEPRINT);
+                    r.register(Constants.RecipeTypes.BLUEPRINT, () -> ModRecipeTypes.BLUEPRINT);
                 });
         // Recipe Serializers
         Services.PLATFORM.createModObjectRegistry(BuiltInRegistries.RECIPE_SERIALIZER, Constants.MOD_ID)
                 .registerObjects(r -> {
-                    r.register(Constants.RecipeSerializers.BLENDING.getPath(), () -> BlendingRecipe.SERIALIZER);
-                    r.register(Constants.RecipeSerializers.COLORING.getPath(), () -> ColoringRecipe.SERIALIZER);
-                    r.register(Constants.RecipeSerializers.CRAFTING.getPath(), () -> CraftingRecipe.SERIALIZER);
-                    r.register(Constants.RecipeSerializers.ENCHANTMENT.getPath(), () -> EnchantmentRecipe.SERIALIZER);
-                    r.register(Constants.RecipeSerializers.REMODEL.getPath(), () -> RemodelRecipe.SERIALIZER);
-                    r.register(Constants.RecipeSerializers.REPAIR.getPath(), () -> RepairRecipe.SERIALIZER);
+                    r.register(Constants.RecipeSerializers.BLENDING, () -> BlendingRecipe.SERIALIZER);
+                    r.register(Constants.RecipeSerializers.COLORING, () -> ColoringRecipe.SERIALIZER);
+                    r.register(Constants.RecipeSerializers.CRAFTING, () -> CraftingRecipe.SERIALIZER);
+                    r.register(Constants.RecipeSerializers.ENCHANTMENT, () -> EnchantmentRecipe.SERIALIZER);
+                    r.register(Constants.RecipeSerializers.REMODEL, () -> RemodelRecipe.SERIALIZER);
+                    r.register(Constants.RecipeSerializers.REPAIR, () -> RepairRecipe.SERIALIZER);
                 });
         // Recipe book categories
         Services.PLATFORM.createModObjectRegistry(BuiltInRegistries.RECIPE_BOOK_CATEGORY, Constants.MOD_ID)
                 .registerObjects(r -> {
-                    r.register(Constants.RecipeBookCategories.BLUEPRINT.getPath(),
-                            () -> ModRecipeBookCategories.BLUEPRINT);
+                    r.register(Constants.RecipeBookCategories.BLUEPRINT, () -> ModRecipeBookCategories.BLUEPRINT);
                 });
         // Menus
         Services.PLATFORM.createModObjectRegistry(BuiltInRegistries.MENU, Constants.MOD_ID)
                 .registerObjects(r -> {
-                    r.register(Constants.Menus.BLUEPRINT.getPath(), () -> ModMenuTypes.BLUEPRINT);
+                    r.register(Constants.Menus.BLUEPRINT, () -> ModMenuTypes.BLUEPRINT);
                 });
         // Creative mode tabs
         Services.PLATFORM.createModObjectRegistry(BuiltInRegistries.CREATIVE_MODE_TAB, Constants.MOD_ID)
                 .registerObjects(r -> {
-                    r.register(Constants.CreativeModeTabs.MAIN.getPath(), ModRegistries::createMainCreativeModeTab);
+                    r.register(Constants.CreativeModeTabs.MAIN, ModRegistries::createMainCreativeModeTab);
                 });
         // Sound events
         ModSoundEvents.register();
