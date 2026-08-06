@@ -16,7 +16,7 @@ Sub projects:
 - [ToLaserBlade-1.13.2](https://github.com/Iunius118/ToLaserBlade-1.13.2) (Archived)
 - [ToLaserBlade-1.14.x](https://github.com/Iunius118/ToLaserBlade-1.14.x) (Archived)
 - [ToLaserBlade-Fabric](https://github.com/Iunius118/ToLaserBlade-Fabric) (1.17–1.21.x)
-- [ToLaserBlade-BTA](https://github.com/Iunius118/ToLaserBlade-BTA) (Archived)
+- [ToLaserBlade-BTA](https://github.com/Iunius118/ToLaserBlade-BTA)
 - [ExampleRecipesForToLaserBlade](https://github.com/Iunius118/ExampleRecipesForToLaserBlade) (Archived)
 - [ToLaserBlade-ExtraModels](https://github.com/Iunius118/ToLaserBlade-ExtraModels)
 
