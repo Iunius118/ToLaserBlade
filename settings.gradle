@@ -38,5 +38,5 @@ rootProject.name = 'ToLaserBlade'
 include('common')
 include('datagen')
 include('fabric')
-//include('forge')
+include('forge')
 include('neoforge')
