@@ -1,5 +1,3 @@
-modLoader = "javafml" #mandatory
-loaderVersion = "${neoforge_loader_version_range}" #mandatory
 license = "${license}" # Review your options at https://choosealicense.com/.
 issueTrackerURL="https://github.com/Iunius118/ToLaserBlade/issues" #optional
 [[mods]] #mandatory
