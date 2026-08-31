@@ -39,20 +39,26 @@ public abstract class LanguageProviderBase extends LanguageProvider {
     public String tagLootingUpgrade;
     public String tagSensitiveToLaserBlade;
     // Enchantments
-    public String laserBladeEnchantment;
-    public String laserBladeEnchantmentDesc;
-    public String lightElementEnchantment;
-    public String lightElementEnchantmentDesc;
-    public String repulsiveForceEnchantment;
-    public String repulsiveForceEnchantmentDesc;
+    public NameAndDescription laserBladeEnchantment;
+    public NameAndDescription lightElementEnchantment;
+    public NameAndDescription repulsiveForceEnchantment;
     // Menus
     public String menuBlueprintTitle;
+    // Advancements
+    public NameAndDescription mainRootAdvancement;
+    public NameAndDescription laserBladeAdvancement;
+    public NameAndDescription laserBlade2Advancement;
+    public NameAndDescription laserBlade5Advancement;
+    public NameAndDescription lightElement2Advancement;
+    public NameAndDescription lightElement5Advancement;
+    public NameAndDescription looting3Advancement;
+    public NameAndDescription laserBladeFPAdvancement;
+    public NameAndDescription mendingAdvancement;
+    public NameAndDescription breakLaserBladeAdvancement;
     // Data Packs
-    public String packRepulsiveForceName;
-    public String packRepulsiveForceDescription;
+    public NameAndDescription packRepulsiveForce;
     // Resource Packs
-    public String packSampleSoundName;
-    public String packSampleSoundDescription;
+    public NameAndDescription packSampleSound;
 
     public LanguageProviderBase(PackOutput output, String locale) {
         super(output, Constants.MOD_ID, locale);
@@ -61,10 +67,10 @@ public abstract class LanguageProviderBase extends LanguageProvider {
     @Override
     protected void addTranslations() {
         // Creative mode tab title
-        add("itemGroup.tolaserblade.main", mainItemGroup);
+        add(Constants.CreativeModeTabs.TITLE_MOD_MAIN, mainItemGroup);
 
         // Block names
-        add(ModBlocks.BL_BLUEPRINT, laserBladeBlueprint);
+        add(ModBlocks.LB_BLUEPRINT, laserBladeBlueprint);
 
         // Item names
         add(ModItems.LASER_BLADE, laserBlade);
@@ -90,21 +96,30 @@ public abstract class LanguageProviderBase extends LanguageProvider {
         add(ModTags.EntityTypes.SENSITIVE_TO_LASER_BLADE, tagSensitiveToLaserBlade);
 
         // Enchantments
-        addEnchantment(Constants.Enchantments.LASER_BLADE, laserBladeEnchantment, laserBladeEnchantmentDesc);
-        addEnchantment(Constants.Enchantments.LIGHT_ELEMENT, lightElementEnchantment, lightElementEnchantmentDesc);
-        addEnchantment(
-                Constants.Enchantments.REPULSIVE_FORCE, repulsiveForceEnchantment, repulsiveForceEnchantmentDesc);
+        add(Constants.Enchantments.LASER_BLADE, laserBladeEnchantment);
+        add(Constants.Enchantments.LIGHT_ELEMENT, lightElementEnchantment);
+        add(Constants.Enchantments.REPULSIVE_FORCE, repulsiveForceEnchantment);
 
         // Menus
         add(Constants.Menus.BLUEPRINT_TITLE, menuBlueprintTitle);
 
+        // Advancements
+        add("main", "root", mainRootAdvancement);
+        add("main", "laser_blade", laserBladeAdvancement);
+        add("main", "laser_blade_laser_blade_2", laserBlade2Advancement);
+        add("main", "laser_blade_laser_blade_5", laserBlade5Advancement);
+        add("main", "laser_blade_light_element_2", lightElement2Advancement);
+        add("main", "laser_blade_light_element_5", lightElement5Advancement);
+        add("main", "laser_blade_looting_3", looting3Advancement);
+        add("main", "laser_blade_fp", laserBladeFPAdvancement);
+        add("main", "laser_blade_mending_1", mendingAdvancement);
+        add("main", "break_laser_blade", breakLaserBladeAdvancement);
+
         // Data Packs
-        add(Constants.DataPacks.REPULSIVE_FORCE.nameKey(), packRepulsiveForceName);
-        add(Constants.DataPacks.REPULSIVE_FORCE.descriptionKey(), packRepulsiveForceDescription);
+        add(Constants.DataPacks.REPULSIVE_FORCE, packRepulsiveForce);
 
         // Resource Packs
-        add(Constants.DataPacks.SAMPLE_SOUND_PACK.nameKey(), packSampleSoundName);
-        add(Constants.DataPacks.SAMPLE_SOUND_PACK.descriptionKey(), packSampleSoundDescription);
+        add(Constants.DataPacks.SAMPLE_SOUND_PACK, packSampleSound);
     }
 
     @Override
@@ -127,12 +142,34 @@ public abstract class LanguageProviderBase extends LanguageProvider {
         if (name != null) super.add(tagKey, name);
     }
 
-    public void addEnchantment(ResourceKey<Enchantment> enchantment, String name, String description) {
-        // Register enchantment name
-        String id = Util.makeDescriptionId("enchantment", enchantment.identifier());
-        add(id, name);
+    public void add(ResourceKey<Enchantment> enchantment, NameAndDescription translation) {
+        if (translation != null) {
+            // Register enchantment name
+            String id = Util.makeDescriptionId("enchantment", enchantment.identifier());
+            add(id, translation.name());
+            // Support for Enchantment Descriptions mod
+            add(id + ".desc", translation.description());
+        }
+    }
 
-        // Support for Enchantment Descriptions mod
-        add(id + ".desc", description);
+    public void add(String tab, String name, NameAndDescription translation) {
+        if (translation != null) {
+            add("advancements.%s.%s.%s.title".formatted(Constants.MOD_ID, tab, name), translation.title());
+            add("advancements.%s.%s.%s.description".formatted(Constants.MOD_ID, tab, name), translation.description());
+        }
+    }
+
+    public void add(Constants.DataPacks pack, NameAndDescription translation) {
+        if (translation != null) {
+            add(pack.nameKey(), translation.title());
+            add(pack.descriptionKey(), translation.description());
+        }
+    }
+
+    public record NameAndDescription(String name, String description) {
+
+        public String title() {
+            return name;
+        }
     }
 }

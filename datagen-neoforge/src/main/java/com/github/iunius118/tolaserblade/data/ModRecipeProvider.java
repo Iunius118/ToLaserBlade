@@ -50,7 +50,7 @@ public class ModRecipeProvider extends VanillaRecipeProvider {
                 .unlockedBy("has_redstone", has(Tags.Items.DUSTS_REDSTONE))
                 .save(output);
         // Laser Blade Blueprint
-        this.shapeless(RecipeCategory.MISC, ModItems.BL_BLUEPRINT)
+        this.shapeless(RecipeCategory.MISC, ModItems.LB_BLUEPRINT)
                 .requires(ModTags.Items.LASER_BLADES)
                 .requires(Tags.Items.DYES_BLUE)
                 .requires(Items.PAPER)
@@ -66,37 +66,37 @@ public class ModRecipeProvider extends VanillaRecipeProvider {
         /* Blueprint Recipes */
 
         // Crafting: Blueprint
-        blueprintCrafting(RecipeCategory.MISC, new ItemStackTemplate(ModItems.BL_BLUEPRINT))
+        blueprintCrafting(RecipeCategory.MISC, new ItemStackTemplate(ModItems.LB_BLUEPRINT))
                 .requires(Items.PAPER)
                 .requires(Tags.Items.DYES_BLUE)
-                .unlockedBy("has_lb_blueprint", has(ModItems.BL_BLUEPRINT))
+                .unlockedBy("has_lb_blueprint", has(ModItems.LB_BLUEPRINT))
                 .save(output, CommonClass.modLocation("blueprint/crafting/lb_blueprint"));
         // Crafting: Parts
         blueprintCrafting(RecipeCategory.MISC, new ItemStackTemplate(ModItems.LB_CASING))
                 .requires(Tags.Items.INGOTS_IRON)
                 .requires(Tags.Items.INGOTS_IRON)
-                .unlockedBy("has_lb_blueprint", has(ModItems.BL_BLUEPRINT))
+                .unlockedBy("has_lb_blueprint", has(ModItems.LB_BLUEPRINT))
                 .save(output, CommonClass.modLocation("blueprint/crafting/lb_casing"));
         blueprintCrafting(RecipeCategory.MISC, new ItemStackTemplate(ModItems.LB_CASING_FP))
                 .requires(Tags.Items.INGOTS_NETHERITE)
                 .requires(Tags.Items.INGOTS_NETHERITE)
-                .unlockedBy("has_lb_blueprint", has(ModItems.BL_BLUEPRINT))
+                .unlockedBy("has_lb_blueprint", has(ModItems.LB_BLUEPRINT))
                 .save(output, CommonClass.modLocation("blueprint/crafting/lb_casing_fp"));
         blueprintCrafting(RecipeCategory.MISC, new ItemStackTemplate(ModItems.LB_BATTERY))
                 .requires(Tags.Items.INGOTS_IRON)
                 .requires(Tags.Items.DUSTS_REDSTONE)
-                .unlockedBy("has_lb_blueprint", has(ModItems.BL_BLUEPRINT))
+                .unlockedBy("has_lb_blueprint", has(ModItems.LB_BLUEPRINT))
                 .save(output, CommonClass.modLocation("blueprint/crafting/lb_battery"));
         blueprintCrafting(RecipeCategory.MISC, new ItemStackTemplate(ModItems.LB_MEDIUM))
                 .requires(Tags.Items.GLASS_BLOCKS_COLORLESS)
                 .requires(Tags.Items.GEMS_DIAMOND)
                 .requires(Tags.Items.GLASS_BLOCKS_COLORLESS)
-                .unlockedBy("has_lb_blueprint", has(ModItems.BL_BLUEPRINT))
+                .unlockedBy("has_lb_blueprint", has(ModItems.LB_BLUEPRINT))
                 .save(output, CommonClass.modLocation("blueprint/crafting/lb_medium"));
         blueprintCrafting(RecipeCategory.MISC, new ItemStackTemplate(ModItems.LB_EMITTER))
                 .requires(Tags.Items.INGOTS_IRON)
                 .requires(Tags.Items.GEMS_DIAMOND)
-                .unlockedBy("has_lb_blueprint", has(ModItems.BL_BLUEPRINT))
+                .unlockedBy("has_lb_blueprint", has(ModItems.LB_BLUEPRINT))
                 .save(output, CommonClass.modLocation("blueprint/crafting/lb_emitter"));
         // Crafting: Laser Blades
         blueprintCrafting(RecipeCategory.TOOLS, new ItemStackTemplate(ModItems.LASER_BLADE))
@@ -104,20 +104,20 @@ public class ModRecipeProvider extends VanillaRecipeProvider {
                 .requires(ModItems.LB_BATTERY)
                 .requires(ModItems.LB_MEDIUM)
                 .requires(ModItems.LB_EMITTER)
-                .unlockedBy("has_lb_blueprint", has(ModItems.BL_BLUEPRINT))
+                .unlockedBy("has_lb_blueprint", has(ModItems.LB_BLUEPRINT))
                 .save(output, CommonClass.modLocation("blueprint/crafting/laser_blade"));
         blueprintCrafting(RecipeCategory.TOOLS, new ItemStackTemplate(ModItems.LASER_BLADE_FP))
                 .requires(ModItems.LB_CASING_FP)
                 .requires(ModItems.LB_BATTERY)
                 .requires(ModItems.LB_MEDIUM)
                 .requires(ModItems.LB_EMITTER)
-                .unlockedBy("has_lb_blueprint", has(ModItems.BL_BLUEPRINT))
+                .unlockedBy("has_lb_blueprint", has(ModItems.LB_BLUEPRINT))
                 .save(output, CommonClass.modLocation("blueprint/crafting/laser_blade_fp"));
         // Crafting: Upgrading
         blueprintCrafting(RecipeCategory.TOOLS, new ItemStackTemplate(ModItems.LASER_BLADE_FP))
                 .requires(ModItems.LASER_BLADE)
                 .requires(ModItems.LB_CASING_FP)
-                .unlockedBy("has_lb_blueprint", has(ModItems.BL_BLUEPRINT))
+                .unlockedBy("has_lb_blueprint", has(ModItems.LB_BLUEPRINT))
                 .save(output, CommonClass.modLocation("blueprint/crafting/upgrade_fp"));
 
         // Blending

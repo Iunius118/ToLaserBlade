@@ -14,6 +14,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.storage.loot.LootTable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,7 +24,7 @@ public class Constants {
     public static final Logger LOG = LoggerFactory.getLogger(MOD_NAME);
 
     public static class Blocks {
-        public static final ResourceKey<Block> BL_BLUEPRINT = createKey("lb_blueprint");
+        public static final ResourceKey<Block> LB_BLUEPRINT = createKey("lb_blueprint");
 
         private static ResourceKey<Block> createKey(String path) {
             return ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(MOD_ID, path));
@@ -31,7 +32,7 @@ public class Constants {
     }
 
     public static class BlockTypes {
-        public static final ResourceKey<MapCodec<? extends Block>> BL_BLUEPRINT = createKey("lb_blueprint");
+        public static final ResourceKey<MapCodec<? extends Block>> LB_BLUEPRINT = createKey("lb_blueprint");
 
         private static ResourceKey<MapCodec<? extends Block>> createKey(String path) {
             return ResourceKey.create(Registries.BLOCK_TYPE, Identifier.fromNamespaceAndPath(MOD_ID, path));
@@ -39,7 +40,7 @@ public class Constants {
     }
 
     public static class Items {
-        public static final ResourceKey<Item> BL_BLUEPRINT = createKey("lb_blueprint");
+        public static final ResourceKey<Item> LB_BLUEPRINT = createKey("lb_blueprint");
         public static final ResourceKey<Item> LASER_BLADE = createKey("laser_blade");
         public static final ResourceKey<Item> LASER_BLADE_FP = createKey("laser_blade_fp");
         public static final ResourceKey<Item> LB_CASING = createKey("lb_casing");
@@ -138,6 +139,14 @@ public class Constants {
 
         private static ResourceKey<SoundEvent> createKey(String path) {
             return ResourceKey.create(Registries.SOUND_EVENT, Identifier.fromNamespaceAndPath(MOD_ID, path));
+        }
+    }
+
+    public static class LootTables {
+        public static final ResourceKey<LootTable> REWARD_LB_BLUEPRINT = createKey("advancement_reward/lb_blueprint");
+
+        private static ResourceKey<LootTable> createKey(String path) {
+            return ResourceKey.create(Registries.LOOT_TABLE, Identifier.fromNamespaceAndPath(MOD_ID, path));
         }
     }
 

@@ -237,7 +237,7 @@ public class BlueprintMenu extends AbstractContainerMenu {
 
     @Override
     public boolean stillValid(Player player) {
-        return stillValid(this.access, player, ModBlocks.BL_BLUEPRINT);
+        return stillValid(this.access, player, ModBlocks.LB_BLUEPRINT);
     }
 
     @Override

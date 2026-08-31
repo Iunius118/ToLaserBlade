@@ -40,7 +40,7 @@ public record BlueprintRecipeDisplay(List<SlotDisplay> ingredients, SlotDisplay 
     }
 
     public static BlueprintRecipeDisplay of(List<SlotDisplay> ingredients, SlotDisplay result) {
-        return new BlueprintRecipeDisplay(ingredients, result, new SlotDisplay.ItemSlotDisplay(ModItems.BL_BLUEPRINT));
+        return new BlueprintRecipeDisplay(ingredients, result, new SlotDisplay.ItemSlotDisplay(ModItems.LB_BLUEPRINT));
     }
 
     public static BlueprintRecipeDisplay fromIngredients(List<Ingredient> ingredients, SlotDisplay result) {

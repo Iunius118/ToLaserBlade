@@ -32,7 +32,7 @@ public class BlueprintRecipeCategory extends AbstractRecipeCategory<RecipeHolder
         super(
                 RECIPE_HOLDER_TYPE,
                 Component.translatable(Constants.Menus.BLUEPRINT_TITLE),
-                guiHelper.createDrawableItemLike(ModItems.BL_BLUEPRINT),
+                guiHelper.createDrawableItemLike(ModItems.LB_BLUEPRINT),
                 126,
                 28
         );

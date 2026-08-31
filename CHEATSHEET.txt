@@ -125,7 +125,23 @@ Crafting Recipe
 
 ## Enchantments
 
-Add 3 enchantments that can be applied to laser blades using enchanting table.
+This mod adds three enchantments that can be applied to laser blades using an enchanting table.
+
+- Laser Blade
+- Light Element
+- Repulsive Force
+
+Additionally, the following enchantments can be applied to laser blades using an enchantment table or enchanted books.
+
+- Efficiency
+- Fortune
+- Silk Touch
+- Fire Aspect
+- Unbreaking
+- Mending (enchanted book only)
+- Curse of Vanishing (enchanted book only)
+
+Recipes for the laser blade blueprint are provided for the mod enchantments and some vanilla enchantments.
 
 ### Laser Blade
 
@@ -154,6 +170,14 @@ Enchantment Recipe
 
     Laser Blade Blueprint
         Any laser blade + Iron Ingot + Diamond + Block of Gold
+
+### Vanilla Enchantments
+
+Enchantment Recipes
+
+    Laser Blade Blueprint
+        Any laser blade + Nautilus Shell + (empty) + (empty) -> Applying Looting
+        Any laser blade + Block of Emerald + (empty) + (empty) -> Applying Looting
 
 ## Sound Events
 

@@ -41,6 +41,6 @@ jobs:
             fabric/build/libs/*.jar
             forge/build/libs/*.jar
             neoforge/build/libs/*.jar
-            datagen/build/libs/*.jar
+            datagen*/build/libs/*.jar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

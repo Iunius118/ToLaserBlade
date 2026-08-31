@@ -40,7 +40,7 @@ public class ModModelProvider extends ModelProvider {
     }
 
     private void generateBlockModels(BlockModelGenerators blockModels) {
-        generateBlueprintBlock(blockModels, ModBlocks.BL_BLUEPRINT);
+        generateBlueprintBlock(blockModels, ModBlocks.LB_BLUEPRINT);
     }
 
     private void generateBlueprintBlock(BlockModelGenerators blockModels, Block block) {
@@ -76,7 +76,7 @@ public class ModModelProvider extends ModelProvider {
         final var modelOutput = itemModels.modelOutput;
 
         // Blueprint
-        generateBlueprintItem(itemModels, ModItems.BL_BLUEPRINT);
+        generateBlueprintItem(itemModels, ModItems.LB_BLUEPRINT);
 
         // Laser blades
         Item laserBlade = ModItems.LASER_BLADE;

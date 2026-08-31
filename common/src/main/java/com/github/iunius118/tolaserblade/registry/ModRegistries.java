@@ -22,17 +22,17 @@ public class ModRegistries {
         // Blocks
         Services.PLATFORM.createModObjectRegistry(BuiltInRegistries.BLOCK, Constants.MOD_ID)
                 .registerObjects(r -> {
-                    r.register(Constants.Blocks.BL_BLUEPRINT, () -> ModBlocks.BL_BLUEPRINT);
+                    r.register(Constants.Blocks.LB_BLUEPRINT, () -> ModBlocks.LB_BLUEPRINT);
                 });
         // Block types
         Services.PLATFORM.createModObjectRegistry(BuiltInRegistries.BLOCK_TYPE, Constants.MOD_ID)
                 .registerObjects(r -> {
-                    r.register(Constants.BlockTypes.BL_BLUEPRINT, () -> LBBlueprintBlock.CODEC);
+                    r.register(Constants.BlockTypes.LB_BLUEPRINT, () -> LBBlueprintBlock.CODEC);
                 });
         // Items
         Services.PLATFORM.createModObjectRegistry(BuiltInRegistries.ITEM, Constants.MOD_ID)
                 .registerObjects(r -> {
-                    r.register(Constants.Items.BL_BLUEPRINT, () -> ModItems.BL_BLUEPRINT);
+                    r.register(Constants.Items.LB_BLUEPRINT, () -> ModItems.LB_BLUEPRINT);
 
                     LASER_BLADE = r.register(Constants.Items.LASER_BLADE, () -> ModItems.LASER_BLADE);
                     r.register(Constants.Items.LASER_BLADE_FP, () -> ModItems.LASER_BLADE_FP);

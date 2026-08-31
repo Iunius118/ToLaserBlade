@@ -9,8 +9,8 @@ import net.minecraft.world.level.material.MapColor;
 import net.minecraft.world.level.material.PushReaction;
 
 public class ModBlocks {
-    public static final LBBlueprintBlock BL_BLUEPRINT = new LBBlueprintBlock(
-            createProperties(Constants.Blocks.BL_BLUEPRINT)
+    public static final LBBlueprintBlock LB_BLUEPRINT = new LBBlueprintBlock(
+            createProperties(Constants.Blocks.LB_BLUEPRINT)
                     .mapColor(MapColor.COLOR_BLUE)
                     .strength(0.1F)
                     .sound(SoundType.MOSS_CARPET)
