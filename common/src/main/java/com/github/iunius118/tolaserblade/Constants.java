@@ -23,7 +23,7 @@ public class Constants {
     public static final Logger LOG = LoggerFactory.getLogger(MOD_NAME);
 
     public static class Blocks {
-        public static final ResourceKey<Block> BL_BLUEPRINT = createKey("lb_blueprint");
+        public static final ResourceKey<Block> LB_BLUEPRINT = createKey("lb_blueprint");
 
         private static ResourceKey<Block> createKey(String path) {
             return ResourceKey.create(Registries.BLOCK, Identifier.fromNamespaceAndPath(MOD_ID, path));
@@ -31,7 +31,7 @@ public class Constants {
     }
 
     public static class BlockTypes {
-        public static final ResourceKey<MapCodec<? extends Block>> BL_BLUEPRINT = createKey("lb_blueprint");
+        public static final ResourceKey<MapCodec<? extends Block>> LB_BLUEPRINT = createKey("lb_blueprint");
 
         private static ResourceKey<MapCodec<? extends Block>> createKey(String path) {
             return ResourceKey.create(Registries.BLOCK_TYPE, Identifier.fromNamespaceAndPath(MOD_ID, path));
@@ -39,7 +39,7 @@ public class Constants {
     }
 
     public static class Items {
-        public static final ResourceKey<Item> BL_BLUEPRINT = createKey("lb_blueprint");
+        public static final ResourceKey<Item> LB_BLUEPRINT = createKey("lb_blueprint");
         public static final ResourceKey<Item> LASER_BLADE = createKey("laser_blade");
         public static final ResourceKey<Item> LASER_BLADE_FP = createKey("laser_blade_fp");
         public static final ResourceKey<Item> LB_CASING = createKey("lb_casing");

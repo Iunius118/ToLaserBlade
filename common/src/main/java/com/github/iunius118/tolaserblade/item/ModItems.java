@@ -14,9 +14,9 @@ public class ModItems {
     public static final List<BlockItem> BLOCK_ITEMS = new ArrayList<>();
 
     // Blueprint
-    public static final Item BL_BLUEPRINT =
-            addBlock(new BlockItem(ModBlocks.BL_BLUEPRINT,
-                    createProperties(Constants.Items.BL_BLUEPRINT).useBlockDescriptionPrefix()));
+    public static final Item LB_BLUEPRINT =
+            addBlock(new BlockItem(ModBlocks.LB_BLUEPRINT,
+                    createProperties(Constants.Items.LB_BLUEPRINT).useBlockDescriptionPrefix()));
 
     // Laser Blades
     public static final Item LASER_BLADE =

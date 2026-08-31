@@ -64,7 +64,7 @@ public class JEIModPlugin implements IModPlugin {
 
     @Override
     public void registerRecipeCatalysts(IRecipeCatalystRegistration registration) {
-        registration.addCraftingStation(BlueprintRecipeCategory.RECIPE_HOLDER_TYPE, ModItems.BL_BLUEPRINT);
+        registration.addCraftingStation(BlueprintRecipeCategory.RECIPE_HOLDER_TYPE, ModItems.LB_BLUEPRINT);
     }
 
     @Override

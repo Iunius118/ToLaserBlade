@@ -76,7 +76,7 @@ public class LBSwordItem  extends Item {
         // Follow vanilla behavior while allowing laser blades to block attacks when possible
         if (consumable != null) {
             return consumable.animation();
-        } else  if (canBlockAttacks(null, itemStack)) {
+        } else if (canBlockAttacks(null, itemStack)) {
             return ItemUseAnimation.BLOCK;
         } else if (itemStack.has(DataComponents.KINETIC_WEAPON)) {
             return ItemUseAnimation.SPEAR;

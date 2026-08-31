@@ -17,6 +17,6 @@ public class ModBlockTagsProvider extends BlockTagsProvider {
 
     @Override
     protected void addTags(HolderLookup.Provider provider) {
-        this.tag(BlockTags.COMBINATION_STEP_SOUND_BLOCKS).add(ModBlocks.BL_BLUEPRINT);
+        this.tag(BlockTags.COMBINATION_STEP_SOUND_BLOCKS).add(ModBlocks.LB_BLUEPRINT);
     }
 }

@@ -64,7 +64,7 @@ public abstract class LanguageProviderBase extends LanguageProvider {
         add("itemGroup.tolaserblade.main", mainItemGroup);
 
         // Block names
-        add(ModBlocks.BL_BLUEPRINT, laserBladeBlueprint);
+        add(ModBlocks.LB_BLUEPRINT, laserBladeBlueprint);
 
         // Item names
         add(ModItems.LASER_BLADE, laserBlade);
