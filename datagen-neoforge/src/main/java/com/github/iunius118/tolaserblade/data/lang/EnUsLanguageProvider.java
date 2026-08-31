@@ -34,23 +34,60 @@ public class EnUsLanguageProvider extends LanguageProviderBase {
         tagSensitiveToLaserBlade = "Sensitive to Laser Blade";
 
         // Enchantments
-        laserBladeEnchantment = "Laser Blade";
-        laserBladeEnchantmentDesc = "Increases attack damage and attack speed of the weapon.";
-        lightElementEnchantment = "Light Element";
-        lightElementEnchantmentDesc = "Increases damage against undead mobs and illagers.";
-        repulsiveForceEnchantment = "Repulsive Force";
-        repulsiveForceEnchantmentDesc =
-                "Allows Laser Blades to block attacks and increases knockback strength at higher levels.";
+        laserBladeEnchantment = new NameAndDescription(
+                "Laser Blade",
+                "Increases attack damage and attack speed of the weapon.");
+        lightElementEnchantment = new NameAndDescription(
+                "Light Element",
+                "Increases damage against undead mobs and illagers.");
+        repulsiveForceEnchantment = new NameAndDescription(
+                "Repulsive Force",
+                "Allows Laser Blades to block attacks and increases knockback strength at higher levels.");
 
         // Menus
         menuBlueprintTitle = "Laser Blade Blueprint";
 
+        // Advancements
+        mainRootAdvancement = new NameAndDescription(
+                "ToLaserBlade",
+                "Laser Blade is a tool used to cut through material, " +
+                        "so any damage caused by using as a weapon is not covered by the warranty");
+        laserBladeAdvancement = new NameAndDescription(
+                "Ancient Technology",
+                "Obtain a Laser Blade");
+        laserBlade2Advancement = new NameAndDescription(
+                "It's Over 9",
+                "Add Laser Blade II enchantment to a Laser Blade");
+        laserBlade5Advancement = new NameAndDescription(
+                "Beyond the Limit",
+                "Add Laser Blade V enchantment to a Laser Blade");
+        lightElement2Advancement = new NameAndDescription(
+                "Power of Light",
+                "Add Light Element II enchantment to a Laser Blade");
+        lightElement5Advancement = new NameAndDescription(
+                "Unlimited Power",
+                "Add Light Element V enchantment to a Laser Blade");
+        looting3Advancement = new NameAndDescription(
+                "Give Me Three",
+                "Add Looting III enchantment to a Laser Blade");
+        laserBladeFPAdvancement = new NameAndDescription(
+                "Into the Core",
+                "Upgrade a Laser Blade to a fire-resistant Laser Blade");
+        mendingAdvancement = new NameAndDescription(
+                "Life-time Support",
+                "Add Mending enchantment to a Laser Blade");
+        breakLaserBladeAdvancement = new NameAndDescription(
+                "Returns and Exchanges",
+                "Completely use up a Laser Blade, and then...");
+
         // Data Packs
-        packRepulsiveForceName = "TLB Repulsive Force Pack";
-        packRepulsiveForceDescription = "[ToLaserBlade] Add Repulsive Force enchantment";
+        packRepulsiveForce = new NameAndDescription(
+                "TLB Repulsive Force Pack",
+                "[ToLaserBlade] Add Repulsive Force enchantment");
 
         // Resource Packs
-        packSampleSoundName = "TLB Sample Sound Pack";
-        packSampleSoundDescription = "[ToLaserBlade] Sample sound pack for laser blade";
+        packSampleSound = new NameAndDescription(
+                "TLB Sample Sound Pack",
+                "[ToLaserBlade] Sample sound pack for laser blade");
     }
 }

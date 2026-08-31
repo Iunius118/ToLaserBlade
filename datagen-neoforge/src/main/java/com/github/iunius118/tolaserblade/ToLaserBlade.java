@@ -38,6 +38,7 @@ public class ToLaserBlade {
         event.createProvider(ModEnchantmentTagsProvider::new);
         event.createProvider(ModLootTableProvider::new);
         event.createProvider(ModRecipeProvider.Runner::new);
+        event.createProvider(ModAdvancementProvider::new);
 
         // Assets
         event.createProvider(ModModelProvider::new);

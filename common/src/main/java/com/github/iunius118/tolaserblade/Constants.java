@@ -14,6 +14,7 @@ import net.minecraft.world.item.crafting.RecipeSerializer;
 import net.minecraft.world.item.crafting.RecipeType;
 import net.minecraft.world.item.enchantment.Enchantment;
 import net.minecraft.world.level.block.Block;
+import net.minecraft.world.level.storage.loot.LootTable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -138,6 +139,14 @@ public class Constants {
 
         private static ResourceKey<SoundEvent> createKey(String path) {
             return ResourceKey.create(Registries.SOUND_EVENT, Identifier.fromNamespaceAndPath(MOD_ID, path));
+        }
+    }
+
+    public static class LootTables {
+        public static final ResourceKey<LootTable> REWARD_LB_BLUEPRINT = createKey("advancement_reward/lb_blueprint");
+
+        private static ResourceKey<LootTable> createKey(String path) {
+            return ResourceKey.create(Registries.LOOT_TABLE, Identifier.fromNamespaceAndPath(MOD_ID, path));
         }
     }
 

@@ -1,0 +1,16 @@
+{
+  "type": "minecraft:advancement_reward",
+  "pools": [
+    {
+      "bonus_rolls": 0.0,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "tolaserblade:lb_blueprint"
+        }
+      ],
+      "rolls": 1.0
+    }
+  ],
+  "random_sequence": "tolaserblade:advancement_reward/lb_blueprint"
+}

@@ -1,0 +1,31 @@
+{
+  "parent": "tolaserblade:main/laser_blade",
+  "criteria": {
+    "has_laser_blade_fp": {
+      "conditions": {
+        "items": [
+          {
+            "items": "tolaserblade:laser_blade_fp"
+          }
+        ]
+      },
+      "trigger": "minecraft:inventory_changed"
+    }
+  },
+  "display": {
+    "description": {
+      "translate": "advancements.tolaserblade.main.laser_blade_fp.description"
+    },
+    "icon": {
+      "id": "minecraft:netherite_ingot"
+    },
+    "title": {
+      "translate": "advancements.tolaserblade.main.laser_blade_fp.title"
+    }
+  },
+  "requirements": [
+    [
+      "has_laser_blade_fp"
+    ]
+  ]
+}
