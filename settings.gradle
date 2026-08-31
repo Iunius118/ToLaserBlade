@@ -36,7 +36,7 @@ plugins {
 // This should match the folder name of the project, or else IDEA may complain (see https://youtrack.jetbrains.com/issue/IDEA-317606)
 rootProject.name = 'ToLaserBlade'
 include('common')
-include('datagen')
+include('datagen-neoforge')
 include('fabric')
 include('forge')
 include('neoforge')

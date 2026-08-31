@@ -11,11 +11,11 @@ import net.neoforged.neoforge.registries.DeferredRegister;
 
 import java.util.Objects;
 
-public class DataGenPlatformHelper implements IPlatformHelper {
+public class NeoForgePlatformHelper implements IPlatformHelper {
 
     @Override
     public String getPlatformName() {
-        return "DataGen";
+        return "NeoForge";
     }
 
     @Override
