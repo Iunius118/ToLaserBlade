@@ -20,6 +20,10 @@ public class ModEnchantmentTagsProvider extends EnchantmentTagsProvider {
                 .addOptional(Constants.Enchantments.LASER_BLADE)
                 .addOptional(Constants.Enchantments.LIGHT_ELEMENT)
                 .addOptional(Constants.Enchantments.REPULSIVE_FORCE);
+        this.tag(EnchantmentTags.IN_ENCHANTING_TABLE)
+                .addOptional(Constants.Enchantments.LASER_BLADE)
+                .addOptional(Constants.Enchantments.LIGHT_ELEMENT)
+                .addOptional(Constants.Enchantments.REPULSIVE_FORCE);
         this.tag(EnchantmentTags.DAMAGE_EXCLUSIVE)
                 .addOptional(Constants.Enchantments.LIGHT_ELEMENT);
     }
