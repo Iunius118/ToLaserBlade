@@ -36,8 +36,8 @@ public class ModEnchantments {
                                         items.getOrThrow(ModTags.Items.LASER_BLADE_ENCHANTABLE),
                                         10,
                                         5,
-                                        Enchantment.dynamicCost(1, 11),
-                                        Enchantment.dynamicCost(21, 11),
+                                        Enchantment.dynamicCost(1, 20),
+                                        Enchantment.dynamicCost(21, 20),
                                         1,
                                         EquipmentSlotGroup.MAINHAND
                                 )
@@ -67,8 +67,8 @@ public class ModEnchantments {
                                         items.getOrThrow(ModTags.Items.LASER_BLADE_ENCHANTABLE),
                                         5,
                                         5,
-                                        Enchantment.dynamicCost(5, 8),
-                                        Enchantment.dynamicCost(25, 8),
+                                        Enchantment.dynamicCost(5, 12),
+                                        Enchantment.dynamicCost(25, 12),
                                         2,
                                         EquipmentSlotGroup.MAINHAND
                                 )
@@ -98,8 +98,8 @@ public class ModEnchantments {
                                         items.getOrThrow(ModTags.Items.LASER_BLADE_ENCHANTABLE),
                                         5,
                                         3,
-                                        Enchantment.dynamicCost(5, 20),
-                                        Enchantment.dynamicCost(55, 20),
+                                        Enchantment.dynamicCost(10, 20),
+                                        Enchantment.dynamicCost(50, 20),
                                         2,
                                         EquipmentSlotGroup.MAINHAND
                                 )
